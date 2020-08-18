@@ -33,7 +33,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.net.http.server.hateos.FakeHateosHandler;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -157,7 +156,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         assertNotEquals(Optional.empty(), possible);
         if (possible.isPresent()) {
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
             assertEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
@@ -173,7 +172,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         final HttpRequest request = this.request(method, url);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         if (possible.isPresent()) {
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
             assertEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),

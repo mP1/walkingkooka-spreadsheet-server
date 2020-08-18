@@ -31,7 +31,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting2;
@@ -404,7 +403,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 possible,
                 () -> method + " " + url);
         if (possible.isPresent()) {
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
             assertEquals(HttpStatusCode.NOT_IMPLEMENTED,
                     response.status().map(HttpStatus::value).orElse(null),
@@ -454,7 +453,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
         final HttpRequest request = this.request(method, url);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         if (possible.isPresent()) {
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
             assertEquals(HttpStatusCode.METHOD_NOT_ALLOWED,
                     response.status().map(HttpStatus::value).orElse(null),
