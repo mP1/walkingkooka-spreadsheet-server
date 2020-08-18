@@ -38,7 +38,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -358,7 +357,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
             assertNotEquals(Optional.empty(), mapped, "request " + request.parameters());
 
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             @SuppressWarnings("OptionalGetWithoutIsPresent") final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
             consumer.accept(request, response);
         }
@@ -396,12 +395,12 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
             assertNotEquals(Optional.empty(), mapped, "request " + request.parameters());
 
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             //noinspection OptionalGetWithoutIsPresent
             final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
             consumer.accept(request, response);
 
-            final RecordingHttpResponse expected = HttpResponses.recording();
+            final HttpResponse expected = HttpResponses.recording();
             expected.setStatus(HttpStatusCode.OK.setMessage("GET resource successful"));
 
             expected.addEntity(HttpEntity.with(Maps.of(
