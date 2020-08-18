@@ -48,7 +48,6 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
-import walkingkooka.net.http.server.RecordingHttpResponse;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.reflect.JavaVisibility;
@@ -544,20 +543,20 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                             final String url,
                             final Map<HttpHeaderName<?>, Object> headers,
                             final String body,
-                            final RecordingHttpResponse expected) {
+                            final HttpResponse expected) {
             this.handleAndCheck(request(method, url, headers, body), expected);
         }
 
         void handleAndCheck(final HttpRequest request,
-                            final RecordingHttpResponse expected) {
+                            final HttpResponse expected) {
             assertEquals(expected, this.handle(request), () -> "" + request);
         }
 
-        RecordingHttpResponse handle(final HttpRequest request) {
+        HttpResponse handle(final HttpRequest request) {
             if (!this.started) {
                 Assertions.fail("Server not running");
             }
-            final RecordingHttpResponse response = HttpResponses.recording();
+            final HttpResponse response = HttpResponses.recording();
             this.handler.accept(request, response);
             assertNotEquals(null, response.status(), "status not set");
             return response;
@@ -658,24 +657,24 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         };
     }
 
-    private RecordingHttpResponse response(final HttpStatus status) {
-        final RecordingHttpResponse response = HttpResponses.recording();
+    private HttpResponse response(final HttpStatus status) {
+        final HttpResponse response = HttpResponses.recording();
         response.setStatus(status);
         return response;
     }
 
-    private RecordingHttpResponse response(final HttpStatus status,
+    private HttpResponse response(final HttpStatus status,
                                            final SpreadsheetMetadata body) {
         return this.response(status, toJson(body));
     }
 
-    private RecordingHttpResponse response(final HttpStatus status,
+    private HttpResponse response(final HttpStatus status,
                                            final String body) {
         return this.response(status,
                 binary(body, CONTENT_TYPE_UTF8));
     }
 
-    private RecordingHttpResponse response(final HttpStatus status,
+    private HttpResponse response(final HttpStatus status,
                                            final Binary body) {
         return this.response(status,
                 HttpEntity.EMPTY
@@ -684,9 +683,9 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                         .setBody(body));
     }
 
-    private RecordingHttpResponse response(final HttpStatus status,
+    private HttpResponse response(final HttpStatus status,
                                            final HttpEntity body) {
-        final RecordingHttpResponse response = this.response(status);
+        final HttpResponse response = this.response(status);
         response.addEntity(body);
         return response;
     }
