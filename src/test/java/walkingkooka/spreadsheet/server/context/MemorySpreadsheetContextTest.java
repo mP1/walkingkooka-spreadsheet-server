@@ -403,7 +403,9 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             final HttpResponse expected = HttpResponses.recording();
             expected.setStatus(HttpStatusCode.OK.setMessage("GET resource successful"));
 
-            expected.addEntity(HttpEntity.text(contentType().contentType().setCharset(CharsetName.UTF_8), expectedBody)
+            expected.addEntity(HttpEntity.EMPTY
+                    .addHeader(HttpHeaderName.CONTENT_TYPE, contentType().contentType().setCharset(CharsetName.UTF_8))
+                    .setBodyText(expectedBody)
                     .setContentLength());
 
             assertEquals(expected, response, () -> "consumer: " + consumer + ", request: " + request);
