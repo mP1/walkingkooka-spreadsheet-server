@@ -541,7 +541,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         void handleAndCheck(final HttpMethod method,
                             final String url,
-                            final Map<HttpHeaderName<?>, Object> headers,
+                            final Map<HttpHeaderName<?>, List<?>> headers,
                             final String body,
                             final HttpResponse expected) {
             this.handleAndCheck(request(method, url, headers, body), expected);
@@ -590,16 +590,16 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
     private static HttpRequest request(final HttpMethod method,
                                        final String url,
-                                       final Map<HttpHeaderName<?>, Object> headers,
+                                       final Map<HttpHeaderName<?>, List<?>> headers,
                                        final String body) {
-        final Map<HttpHeaderName<?>, Object> headers2 = Maps.sorted();
-        headers2.put(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse(CHARSET.toHeaderText()));
-        headers2.put(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8);
+        final Map<HttpHeaderName<?>, List<?>> headers2 = Maps.sorted();
+        headers2.put(HttpHeaderName.ACCEPT_CHARSET, list(AcceptCharset.parse(CHARSET.toHeaderText())));
+        headers2.put(HttpHeaderName.CONTENT_TYPE, list(CONTENT_TYPE_UTF8));
         headers2.putAll(headers);
 
         final byte[] bodyBytes = bytes(body, CONTENT_TYPE_UTF8);
         if (null != bodyBytes) {
-            headers2.put(HttpHeaderName.CONTENT_LENGTH, (long) bodyBytes.length);
+            headers2.put(HttpHeaderName.CONTENT_LENGTH, list((long) bodyBytes.length));
         }
         return new HttpRequest() {
             @Override
@@ -623,7 +623,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return headers2;
             }
 
@@ -655,6 +655,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 return method + " " + url + "\n" + headers.entrySet().stream().map(e -> e.getKey() + ": " + e.getValue() + "\n").collect(Collectors.joining()) + "\n" + body;
             }
         };
+    }
+
+    private static <T> List<T> list(final T...values) {
+        return Lists.of(values);
     }
 
     private HttpResponse response(final HttpStatus status) {

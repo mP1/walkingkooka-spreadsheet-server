@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Binary;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
@@ -331,9 +331,9 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 }
 
                 @Override
-                public Map<HttpHeaderName<?>, Object> headers() {
-                    return Maps.of(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, (long) this.body().length,
+                public Map<HttpHeaderName<?>, List<?>> headers() {
+                    return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().length),
                             HttpHeaderName.CONTENT_TYPE, contentType().contentType());
                 }
 
@@ -376,9 +376,9 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 }
 
                 @Override
-                public Map<HttpHeaderName<?>, Object> headers() {
-                    return Maps.of(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, (long) this.body().length,
+                public Map<HttpHeaderName<?>, List<?>> headers() {
+                    return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().length),
                             HttpHeaderName.CONTENT_TYPE, contentType().contentType());
                 }
 
@@ -430,7 +430,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
+            public Map<HttpHeaderName<?>, List<?>> headers() {
                 return HttpRequest.NO_HEADERS;
             }
 
@@ -628,6 +628,19 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
     private JsonNodeMarshallContext marshallContext() {
         return JsonNodeMarshallContexts.basic();
+    }
+
+    static <T1, T2, T3> Map<HttpHeaderName<?>, List<?>> headersMap(final HttpHeaderName<T1> header1,
+                                                                   final T1 value1,
+                                                                   final HttpHeaderName<T2> header2,
+                                                                   final T2 value2,
+                                                                   final HttpHeaderName<T3> header3,
+                                                                   final T3 value3) {
+        return Maps.of(header1, list(value1), header2, list(value2), header3, list(value3));
+    }
+
+    private static <T> List<T> list(final T... values) {
+        return Lists.of(values);
     }
 
     @Override

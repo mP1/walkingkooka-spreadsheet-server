@@ -17,6 +17,7 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
@@ -48,6 +49,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -442,8 +444,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.of(HttpHeaderName.CONTENT_TYPE, HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8));
+            public Map<HttpHeaderName<?>, List<?>> headers() {
+                return Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8)));
             }
         };
     }
