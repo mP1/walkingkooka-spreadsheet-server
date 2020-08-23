@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.context.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
@@ -44,6 +45,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -199,9 +201,9 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             }
 
             @Override
-            public Map<HttpHeaderName<?>, Object> headers() {
-                return Maps.of(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                        HttpHeaderName.CONTENT_TYPE, contentType().contentType());
+            public Map<HttpHeaderName<?>, List<?>> headers() {
+                return Maps.of(HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
+                        HttpHeaderName.CONTENT_TYPE, Lists.of(contentType().contentType()));
             }
 
             @Override
