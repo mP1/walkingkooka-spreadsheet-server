@@ -447,7 +447,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = SpreadsheetServer.idToRepository(SpreadsheetServer.storeRepositorySupplier(this.metadataStore));
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = SpreadsheetServer.idToRepository(Maps.concurrent(),
+            SpreadsheetServer.storeRepositorySupplier(this.metadataStore));
 
     private SpreadsheetMetadata createMetadata() {
         return SpreadsheetMetadata.EMPTY
