@@ -84,12 +84,45 @@ import java.util.stream.Collectors;
 public final class SpreadsheetServer implements HttpServer {
 
     /**
-     * Starts a server listening on http://localhost:8080 serving files from the current directory.
+     * Starts a server on the scheme/host/port passed as arguments, serving files from the current directory.
      */
     public static void main(final String[] args) throws Exception {
-        final UrlScheme scheme = UrlScheme.HTTP;
-        final HostAddress host = HostAddress.with("localhost");
-        final IpPort port = IpPort.with(12345);
+        switch (args.length) {
+            case 0:
+                throw new IllegalArgumentException("Missing scheme, host, port for jetty HttpServer");
+            case 1:
+                throw new IllegalArgumentException("Missing host, port for jetty HttpServer");
+            case 2:
+                throw new IllegalArgumentException("Missing port for jetty HttpServer");
+            default:
+                startJettyHttpServer(args);
+                break;
+        }
+    }
+
+    private static void startJettyHttpServer(final String[] args) throws Exception {
+        final UrlScheme scheme;
+        try {
+            scheme = UrlScheme.with(args[0]);
+        } catch (final IllegalArgumentException cause) {
+            System.err.println("Invalid scheme: " + cause.getMessage());
+            throw cause;
+        }
+
+        final HostAddress host;
+        try {
+            host = HostAddress.with(args[1]);
+        } catch (final IllegalArgumentException cause) {
+            System.err.println("Invalid hostname: " + cause.getMessage());
+            throw cause;
+        }
+        final IpPort port;
+        try {
+            port = IpPort.with(Integer.parseInt(args[2]));
+        } catch (final RuntimeException cause) {
+            System.err.println("Invalid port: " + cause.getMessage());
+            throw cause;
+        }
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
