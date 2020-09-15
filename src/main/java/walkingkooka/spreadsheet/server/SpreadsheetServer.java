@@ -106,11 +106,14 @@ public final class SpreadsheetServer implements HttpServer {
     }
 
     /**
-     * Loads a default {@link SpreadsheetMetadata} and returns a factory {@link Function}.
+     * Creates a {@link Function} that returns a {@link SpreadsheetMetadata} using the json to supply defaults.
      */
-    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final String path,
+    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final String json,
                                                                                   final SpreadsheetMetadataStore store) throws IOException {
-        return createMetadata(loadDefaultMetadata(path), store);
+        SpreadsheetMetadata.EMPTY.id(); // force SpreadsheetMetadata static initializers to register w/ Json marshal
+
+        return createMetadata(JsonNodeUnmarshallContexts.basic().unmarshall(JsonNode.parse(json),
+                        SpreadsheetMetadata.class), store);
     }
 
     /**
@@ -122,17 +125,6 @@ public final class SpreadsheetServer implements HttpServer {
                 store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l))
                         .orElse(metadataWithDefaults));
 
-    }
-
-    /**
-     * Loads a default {@link SpreadsheetMetadata} from the given {@link String path}.
-     */
-    private static SpreadsheetMetadata loadDefaultMetadata(final String json) throws IOException {
-        SpreadsheetMetadata.EMPTY.id(); // force SpreadsheetMetadata static initializers to register w/ Json marshal
-
-        return JsonNodeUnmarshallContexts.basic()
-                .unmarshall(JsonNode.parse(json),
-                        SpreadsheetMetadata.class);
     }
 
     static Function<BigDecimal, Fraction> fractioner() {
