@@ -65,7 +65,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -97,7 +96,7 @@ public final class SpreadsheetServer implements HttpServer {
         final SpreadsheetServer server = SpreadsheetServer.with(scheme,
                 host,
                 port,
-                createMetadata("./src/main/resources/walkingkooka/spreadsheet/server/default-metadata.json", metadataStore),
+                createMetadata(new SpreadsheetServerDefaultSpreadsheetMetadataTextResourceProvider().text(), metadataStore),
                 fractioner(),
                 idToFunctions(),
                 idToRepository(storeRepositorySupplier(metadataStore)),
@@ -128,11 +127,11 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Loads a default {@link SpreadsheetMetadata} from the given {@link String path}.
      */
-    private static SpreadsheetMetadata loadDefaultMetadata(final String path) throws IOException {
+    private static SpreadsheetMetadata loadDefaultMetadata(final String json) throws IOException {
         SpreadsheetMetadata.EMPTY.id(); // force SpreadsheetMetadata static initializers to register w/ Json marshal
 
         return JsonNodeUnmarshallContexts.basic()
-                .unmarshall(JsonNode.parse(new String(Files.readAllBytes(Paths.get(path)), Charset.defaultCharset())),
+                .unmarshall(JsonNode.parse(json),
                         SpreadsheetMetadata.class);
     }
 
