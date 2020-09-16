@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.SpreadsheetId;
 
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 /**
@@ -49,15 +50,23 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
 
     void handle() {
         // verify spreadsheetId is present...
-        HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent + 1)
-                .parameterValue(this.request)
-                .ifPresentOrElse(this::handle0, this::notFound);
+        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent + 1)
+                .parameterValue(this.request);
+        if (path.isPresent()) {
+            this.handle0();
+        } else {
+            this.notFound();
+        }
     }
 
-    private void handle0(final UrlPathName path) {
-        HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent)
-                .parameterValue(this.request)
-                .ifPresentOrElse(this::handleSpreadsheet, this::spreadsheetIdMissing);
+    private void handle0() {
+        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent)
+                .parameterValue(this.request);
+        if (path.isPresent()) {
+            this.handleSpreadsheet(path.get());
+        } else {
+            this.spreadsheetIdMissing();
+        }
     }
 
     private void handleSpreadsheet(final UrlPathName pathName) {
