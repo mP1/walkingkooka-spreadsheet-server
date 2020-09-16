@@ -304,12 +304,12 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteCellGetLoadCell() {
-        this.routeAndCheck(HttpMethod.GET, URL + "/cell/A1");
+        this.routeAndCheck(HttpMethod.GET, URL + "/cell/A1", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     @Test
     public void testRouteCellPostSaveCell() {
-        this.routeAndCheck(HttpMethod.POST, URL + "/cell/A1");
+        this.routeAndCheck(HttpMethod.POST, URL + "/cell/A1", HttpStatusCode.BAD_REQUEST);
     }
 
     @Test
@@ -327,7 +327,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     @Test
     public void testRouteCellGetLoadCellSpreadsheetEngineEvaluation() {
         for (SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
-            this.routeAndCheck(HttpMethod.GET, URL + "/cell/A1/" + evaluation.toLinkRelation().toString());
+            this.routeAndCheck(HttpMethod.GET, URL + "/cell/A1/" + evaluation.toLinkRelation().toString(), HttpStatusCode.NOT_IMPLEMENTED);
         }
     }
 
@@ -340,7 +340,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteColumnsPost() {
-        this.routeAndCheck(HttpMethod.POST, URL + "/column/A");
+        this.routeAndCheck(HttpMethod.POST, URL + "/column/A", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     @Test
@@ -350,7 +350,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteColumnsDelete() {
-        this.routeAndCheck(HttpMethod.DELETE, URL + "/column/A");
+        this.routeAndCheck(HttpMethod.DELETE, URL + "/column/A", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     // row..............................................................................................................
@@ -362,7 +362,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteRowsPost() {
-        this.routeAndCheck(HttpMethod.POST, URL + "/row/1");
+        this.routeAndCheck(HttpMethod.POST, URL + "/row/1", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     @Test
@@ -372,7 +372,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteRowsDelete() {
-        this.routeAndCheck(HttpMethod.DELETE, URL + "/row/1");
+        this.routeAndCheck(HttpMethod.DELETE, URL + "/row/1", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     // fillCells........................................................................................................
@@ -384,7 +384,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteFillCellsPost() {
-        this.routeAndCheck(HttpMethod.POST, URL + "/cell/A1:B2/fill");
+        this.routeAndCheck(HttpMethod.POST, URL + "/cell/A1:B2/fill", HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     @Test
@@ -398,7 +398,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     }
 
     private void routeAndCheck(final HttpMethod method,
-                               final String url) {
+                               final String url,
+                               final HttpStatusCode statusCode) {
         final HttpRequest request = this.request(method, url);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         assertNotEquals(Optional.empty(),
@@ -407,7 +408,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
-            assertEquals(HttpStatusCode.NOT_IMPLEMENTED,
+            assertEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
         }
@@ -446,6 +447,11 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8)));
+            }
+
+            @Override
+            public String bodyText() {
+                return "";
             }
         };
     }
