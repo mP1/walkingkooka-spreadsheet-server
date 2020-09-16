@@ -207,8 +207,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             }
 
             @Override
-            public byte[] body() {
-                return new byte[0];
+            public String bodyText() {
+                return "";
             }
 
             @Override

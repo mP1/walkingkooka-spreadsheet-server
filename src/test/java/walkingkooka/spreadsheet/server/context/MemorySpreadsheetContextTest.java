@@ -333,7 +333,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().length),
+                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
                             HttpHeaderName.CONTENT_TYPE, contentType().contentType());
                 }
 
@@ -342,10 +342,9 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 }
 
                 @Override
-                public byte[] body() {
+                public String bodyText() {
                     return marshallContext().marshall(SpreadsheetDelta.with(Sets.of(cell)))
-                            .toString()
-                            .getBytes(utf8);
+                            .toString();
                 }
 
                 @Override
@@ -378,7 +377,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.body().length),
+                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
                             HttpHeaderName.CONTENT_TYPE, contentType().contentType());
                 }
 
@@ -387,8 +386,8 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                 }
 
                 @Override
-                public byte[] body() {
-                    return new byte[0];
+                public String bodyText() {
+                    return "";
                 }
             };
 
