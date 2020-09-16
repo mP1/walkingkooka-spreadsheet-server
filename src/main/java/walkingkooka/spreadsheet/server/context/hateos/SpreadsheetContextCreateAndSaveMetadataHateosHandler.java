@@ -52,8 +52,12 @@ final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends Spreads
         checkResource(resource);
         checkParameters(parameters);
 
-        return id.map(i -> this.saveMetadata(i, this.checkResourceNotEmpty(resource)))
-                .or(() -> this.createMetadata(resource, parameters));
+        // j2cl does not support Optional.or
+        Optional<SpreadsheetMetadata> metadata = id.map(i -> this.saveMetadata(i, this.checkResourceNotEmpty(resource)));
+        if(!metadata.isPresent()) {
+            metadata = this.createMetadata(resource, parameters);
+        }
+        return metadata;
     }
 
     private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
