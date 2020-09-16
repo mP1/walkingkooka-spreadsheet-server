@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.math.Fraction;
@@ -86,6 +87,7 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Starts a server on the scheme/host/port passed as arguments, serving files from the current directory.
      */
+    @GwtIncompatible
     public static void main(final String[] args) throws Exception {
         switch (args.length) {
             case 0:
@@ -100,6 +102,7 @@ public final class SpreadsheetServer implements HttpServer {
         }
     }
 
+    @GwtIncompatible
     private static void startJettyHttpServer(final String[] args) throws Exception {
         final UrlScheme scheme;
         try {
@@ -132,7 +135,7 @@ public final class SpreadsheetServer implements HttpServer {
                 createMetadata(new SpreadsheetServerDefaultSpreadsheetMetadataTextResourceProvider().text(), metadataStore),
                 fractioner(),
                 idToFunctions(),
-                idToRepository(storeRepositorySupplier(metadataStore)),
+                idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
                 fileServer(Paths.get(".")),
                 jettyHttpServer(host, port));
         server.start();
@@ -180,9 +183,8 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Retrieves from the cache or lazily creates a {@link SpreadsheetStoreRepository} for the given {@link SpreadsheetId}.
      */
-    static Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository(final Supplier<SpreadsheetStoreRepository> repositoryFactory) {
-        final Map<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = Maps.concurrent();
-
+    static Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository(final Map<SpreadsheetId, SpreadsheetStoreRepository> idToRepository,
+                                                                              final Supplier<SpreadsheetStoreRepository> repositoryFactory) {
         return (id) -> {
             SpreadsheetStoreRepository repository = idToRepository.get(id);
             if (null == repository) {
@@ -213,6 +215,7 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Creates a file server which serves files from the given {@link Path path}.
      */
+    @GwtIncompatible
     private static Function<UrlPath, Either<WebFile, HttpStatus>> fileServer(final Path path) {
         return (p) -> {
             final Path file = Paths.get(path.toString(), p.value());
@@ -222,6 +225,7 @@ public final class SpreadsheetServer implements HttpServer {
         };
     }
 
+    @GwtIncompatible
     private static WebFile webFile(final Path file) {
         return WebFiles.file(file,
                 ApacheTikas.fileContentTypeDetector(),
@@ -231,6 +235,7 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Creates a {@link JettyHttpServer} given the given host and port.
      */
+    @GwtIncompatible
     private static Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> jettyHttpServer(final HostAddress host,
                                                                                                final IpPort port) {
         return (handler) -> JettyHttpServer.with(host, port, handler);

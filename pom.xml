@@ -174,6 +174,32 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources</directory>
+                  <filtering>false</filtering>
+                </resource>
+                <resource>
+                  <directory>${project.build.directory}/generated-sources/annotations</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.19.1</version>
@@ -217,8 +243,23 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <includes>
+            <include>**/*.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <includes>
+            <include>**/*.*</include>
+          </includes>
+        </configuration>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -241,6 +282,29 @@
             <scope>compile</scope>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install</goal>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mavenOpts>-Xms2000M -Xmx6000M</mavenOpts>
+          <cloneProjectsTo>${project.build.directory}/it-tests</cloneProjectsTo>
+          <debug>true</debug>
+          <invokerPropertiesFile>src/it/invoker.properties</invokerPropertiesFile>
+          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+          <settingsFile>src/it/settings.xml</settingsFile>
+          <streamLogs>true</streamLogs>
+        </configuration>
       </plugin>
     </plugins>
   </build>
