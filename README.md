@@ -24,13 +24,15 @@ and processing completed.
 Standard browser Fetch makes request to HttpServer Servlet container like Jetty
 
 ```
-main UI thread -> Fetch HttpRequest -> Http Servlet container -> ...
+main UI thread -> Fetch HttpRequest -> Http Servlet container -> promise -> dispatch
 ```
 
 
 
-Fetch that posts Message to Web-worker. In this case the client that calls this version of fetch remains unchanged.
-Requests have URLS, they have headers and a body. These will be serialized and posted to the web-worker.
+Fetch that posts Message to Web-worker.
+
+In this case the client that calls this version of fetch interface remains unchanged. The `HttpRequest` will be converted
+into a String with json and posted across the boundary.
 
 ```
 main UI thread -> Fetch that really posts message (HttpRequest) -> window.postMessage(JSON.stringify(HttpRequest)) ->
@@ -40,22 +42,24 @@ web worker.onMessage -> message -> JSON.parse(HttpRequest) -> fake HttpServer
 
 
 
-Routing the Request based on URLs, and other attributes will perform the same identical logic and result in the same
-handler being matched. Eventually the handler will produce a `HttpResponse` with some JSON body.
+Routing the `HttpRequest` based on URLs, and other attributes will perform the same identical logic and result in the same
+handler being matched, assuming the same routing mappings. Eventually the handler will produce a `HttpResponse` with some JSON body.
 
 ```
-HttpRequest -> router -> handler -> service -> HttpResponse
+HttpRequest -> router -> handler -> HttpResponse
 ```
 
-The return path is different of the `HttpResponse` is different, the standard browser Fetch promise will resolve while
-the Web Worker will post a message back the main UI thread. In both cases the `HttpResponse` status can be tested, headers
-read, ahd the body parsed back into JSON.
+The return path is different of the `HttpResponse` is however different. The standard browser Fetch promise will resolve
+while the Web Worker will post a message back the main UI thread. In both cases the `HttpResponse` status can be tested, headers
+consumed, ahd the body parsed back into JSON.
 
 
 Web worker
 ```
-HttpResponse -> Json -> webworker.postMessage() -> window.onMessage -> JSON.parse(HttpResponse) -> React handles type
+HttpResponse -> webworker.postMessage(JSON.stringify(HttpResponse) -> window.onMessage -> JSON.parse(HttpResponse) -> dispatch
 ```
+
+The Web worker http server emulation layer will live in [walkingkooka-spreadsheet-webworker](https://github.com/mP1/walkingkooka-spreadsheet-webworker).
 
 
 
