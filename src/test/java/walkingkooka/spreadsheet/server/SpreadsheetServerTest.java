@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
+import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
 import walkingkooka.net.RelativeUrl;
@@ -61,10 +62,19 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStores;
+import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
+import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -73,7 +83,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -436,9 +448,9 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         SpreadsheetServer.with(UrlScheme.HTTP,
                 HostAddress.with("example.com"),
                 IpPort.HTTP,
-                SpreadsheetServer.createMetadata(this.createMetadata(), this.metadataStore),
-                SpreadsheetServer.fractioner(),
-                SpreadsheetServer.idToFunctions(),
+                createMetadata(this.createMetadata(), this.metadataStore),
+                fractioner(),
+                idToFunctions(),
                 this.idToRepository,
                 this::fileServer,
                 this::server);
@@ -446,9 +458,15 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         return this.httpServer;
     }
 
-    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = SpreadsheetServer.idToRepository(Maps.concurrent(),
-            SpreadsheetServer.storeRepositorySupplier(this.metadataStore));
+    /**
+     * Creates a function which merges the given {@link Locale} with the given {@link SpreadsheetMetadata} and then saves it to the {@link SpreadsheetMetadataStore}.
+     */
+    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadata metadataWithDefaults,
+                                                                                  final SpreadsheetMetadataStore store) {
+        return (locale) ->
+                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l))
+                        .orElse(metadataWithDefaults));
+    }
 
     private SpreadsheetMetadata createMetadata() {
         return SpreadsheetMetadata.EMPTY
@@ -468,6 +486,58 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @"))
                 .set(SpreadsheetMetadataPropertyName.TIME_FORMAT_PATTERN, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" ss hh"))
                 .set(SpreadsheetMetadataPropertyName.TIME_PARSE_PATTERNS, SpreadsheetPattern.parseTimeParsePatterns("\"Time\" ss hh"));
+    }
+
+    private static Function<BigDecimal, Fraction> fractioner() {
+        return (n) -> {
+            throw new UnsupportedOperationException();
+        };
+    }
+
+    private static Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions() {
+        return (id) -> SpreadsheetServerTest::functions;
+    }
+
+    /**
+     * TODO Implement a real function lookup, that only exposes functions that are enabled for a single spreadsheet.
+     */
+    private static Object functions(final FunctionExpressionName functionName, final List<Object> parameters) {
+        throw new UnsupportedOperationException("Unknown function: " + functionName + "(" + parameters.stream().map(Object::toString).collect(Collectors.joining(",")) + ")");
+    }
+
+    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = idToRepository(Maps.concurrent(),
+            storeRepositorySupplier(this.metadataStore));
+
+    /**
+     * Retrieves from the cache or lazily creates a {@link SpreadsheetStoreRepository} for the given {@link SpreadsheetId}.
+     */
+    static Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository(final Map<SpreadsheetId, SpreadsheetStoreRepository> idToRepository,
+                                                                              final Supplier<SpreadsheetStoreRepository> repositoryFactory) {
+        return (id) -> {
+            SpreadsheetStoreRepository repository = idToRepository.get(id);
+            if (null == repository) {
+                repository = repositoryFactory.get();
+                idToRepository.put(id, repository); // TODO add locks etc.
+            }
+            return repository;
+        };
+    }
+
+    /**
+     * Creates a new {@link SpreadsheetStoreRepository} on demand
+     */
+    private static Supplier<SpreadsheetStoreRepository> storeRepositorySupplier(final SpreadsheetMetadataStore metadataStore) {
+        return () -> SpreadsheetStoreRepositories.basic(
+                SpreadsheetCellStores.treeMap(),
+                SpreadsheetReferenceStores.treeMap(),
+                SpreadsheetGroupStores.treeMap(),
+                SpreadsheetLabelStores.treeMap(),
+                SpreadsheetReferenceStores.treeMap(),
+                metadataStore,
+                SpreadsheetRangeStores.treeMap(),
+                SpreadsheetRangeStores.treeMap(),
+                SpreadsheetUserStores.treeMap());
     }
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
@@ -658,7 +728,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         };
     }
 
-    private static <T> List<T> list(final T...values) {
+    private static <T> List<T> list(final T... values) {
         return Lists.of(values);
     }
 
@@ -669,18 +739,18 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     private HttpResponse response(final HttpStatus status,
-                                           final SpreadsheetMetadata body) {
+                                  final SpreadsheetMetadata body) {
         return this.response(status, toJson(body));
     }
 
     private HttpResponse response(final HttpStatus status,
-                                           final String body) {
+                                  final String body) {
         return this.response(status,
                 binary(body, CONTENT_TYPE_UTF8));
     }
 
     private HttpResponse response(final HttpStatus status,
-                                           final Binary body) {
+                                  final Binary body) {
         return this.response(status,
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8)
@@ -689,7 +759,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     private HttpResponse response(final HttpStatus status,
-                                           final HttpEntity body) {
+                                  final HttpEntity body) {
         final HttpResponse response = this.response(status);
         response.addEntity(body);
         return response;
