@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server;
 
 /**
- * Runs {@link SpreadsheetServer#main} with some defaults.
+ * Runs {@link JettyHttpServerSpreadsheetServer2#main} with some defaults.
  */
-public final class SpreadsheetServerRunner {
+public final class JettyHttpServerSpreadsheetServer2 {
     public static void main(final String[] args) throws Exception {
-        SpreadsheetServer.main(new String[]{"http", "localhost", "12345"});
+        JettyHttpServerSpreadsheetServer.main(new String[]{"http", "localhost", "12345"});
     }
 }
