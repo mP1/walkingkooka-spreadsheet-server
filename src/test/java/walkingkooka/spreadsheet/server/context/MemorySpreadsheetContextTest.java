@@ -319,7 +319,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
         // save a cell
         {
-            final HttpRequest request = new FakeHttpRequest() {
+            final HttpRequest request = new TestHttpRequest() {
                 @Override
                 public HttpMethod method() {
                     return HttpMethod.POST;
@@ -363,7 +363,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
         // load cell back
         {
-            final HttpRequest request = new FakeHttpRequest() {
+            final HttpRequest request = new TestHttpRequest() {
                 @Override
                 public HttpMethod method() {
                     return HttpMethod.GET;
@@ -417,7 +417,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         final SpreadsheetId id = this.spreadsheetId();
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.hateosRouter(id);
 
-        final HttpRequest request = new FakeHttpRequest() {
+        final HttpRequest request = new TestHttpRequest() {
             @Override
             public HttpMethod method() {
                 return HttpMethod.GET;
@@ -640,6 +640,17 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
     private static <T> List<T> list(final T... values) {
         return Lists.of(values);
+    }
+
+    abstract class TestHttpRequest extends FakeHttpRequest {
+        TestHttpRequest() {
+            super();
+        }
+
+        @Override
+        public final long bodyLength() {
+            return this.bodyText().length();
+        }
     }
 
     @Override
