@@ -471,7 +471,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private SpreadsheetMetadata createMetadata() {
         return SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, 'E')
+                .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
