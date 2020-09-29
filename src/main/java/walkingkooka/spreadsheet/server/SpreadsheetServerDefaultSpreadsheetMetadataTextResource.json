@@ -2,7 +2,7 @@
   "date-format-pattern": "\"Date\" yyyy mm dd",
   "date-parse-patterns": "\"Date\" yyyy mm dd",
   "date-time-format-pattern": "\"DateTime\" yyyy hh",
-  "date-time-offset": "0",
+  "date-time-offset": -25569,
   "date-time-parse-patterns": "\"DateTime\" yyyy hh",
   "exponent-symbol": "E",
   "locale": "en",
@@ -14,6 +14,6 @@
   "text-format-pattern": "\"Text\" @",
   "time-format-pattern": "\"Time\" ss hh",
   "time-parse-patterns": "\"Time\" ss hh",
-  "two-digit-year": 1920,
+  "two-digit-year": 20,
   "width": 1
 }
