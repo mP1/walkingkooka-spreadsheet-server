@@ -144,8 +144,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadata metadataWithDefaults,
                                                                                   final SpreadsheetMetadataStore store) {
         return (locale) ->
-                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l))
-                        .orElse(metadataWithDefaults));
+                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale()).orElse(metadataWithDefaults));
 
     }
 
