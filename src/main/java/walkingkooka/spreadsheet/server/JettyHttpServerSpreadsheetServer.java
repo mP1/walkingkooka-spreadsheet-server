@@ -49,10 +49,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -118,7 +115,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
         final SpreadsheetServer server = SpreadsheetServer.with(scheme,
                 host,
                 port,
-                createMetadata(new SpreadsheetServerDefaultSpreadsheetMetadataTextResourceProvider().text(), metadataStore),
+                createMetadata(metadataStore),
                 fractioner(),
                 idToFunctions(),
                 idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
@@ -128,21 +125,12 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
     }
 
     /**
-     * Creates a {@link Function} that returns a {@link SpreadsheetMetadata} using the json to supply defaults.
+     * Creates a function which merges the given {@link Locale} and then saves it to the {@link SpreadsheetMetadataStore}.
      */
-    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final String json,
-                                                                                  final SpreadsheetMetadataStore store) throws IOException {
-        SpreadsheetMetadata.EMPTY.id(); // force SpreadsheetMetadata static initializers to register w/ Json marshal
+    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
+        final SpreadsheetMetadata metadataWithDefaults = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"));
 
-        return createMetadata(JsonNodeUnmarshallContexts.basic().unmarshall(JsonNode.parse(json),
-                SpreadsheetMetadata.class), store);
-    }
-
-    /**
-     * Creates a function which merges the given {@link Locale} with the given {@link SpreadsheetMetadata} and then saves it to the {@link SpreadsheetMetadataStore}.
-     */
-    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadata metadataWithDefaults,
-                                                                                  final SpreadsheetMetadataStore store) {
         return (locale) ->
                 store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale()).orElse(metadataWithDefaults));
 
