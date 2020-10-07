@@ -51,6 +51,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosContentType;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -100,6 +101,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private final static LocalDateTime FILE_LAST_MODIFIED = LocalDateTime.of(2000, 12, 31, 12, 28, 29);
     private final static Binary FILE_BINARY = Binary.with(bytes("abc123", FILE_CONTENT_TYPE));
     private final static HttpStatus FILE_NOT_FOUND = HttpStatusCode.NOT_FOUND.setMessage("File not found custom message");
+
+    private final static String DELTA = "SpreadsheetDeltaNonWindowed";
 
     @Test
     public void testStartServer() {
@@ -210,7 +213,9 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA
+                        ));
     }
 
     @Test
@@ -254,7 +259,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
@@ -289,7 +295,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA));
     }
 
     @Test
@@ -333,7 +340,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
@@ -374,7 +382,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA));
 
         // create another cell in the first spreadsheet
         server.handleAndCheck(HttpMethod.POST,
@@ -410,7 +419,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
                                 "  }]\n" +
-                                "}"));
+                                "}",
+                        DELTA));
     }
 
     // file server......................................................................................................
@@ -740,20 +750,24 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
     private HttpResponse response(final HttpStatus status,
                                   final SpreadsheetMetadata body) {
-        return this.response(status, toJson(body));
+        return this.response(status, toJson(body), body.getClass().getSimpleName());
     }
 
     private HttpResponse response(final HttpStatus status,
-                                  final String body) {
+                                  final String body,
+                                  final String bodyTypeName) {
         return this.response(status,
-                binary(body, CONTENT_TYPE_UTF8));
+                binary(body, CONTENT_TYPE_UTF8),
+                bodyTypeName);
     }
 
     private HttpResponse response(final HttpStatus status,
-                                  final Binary body) {
+                                  final Binary body,
+                                  final String bodyTypeName) {
         return this.response(status,
                 HttpEntity.EMPTY
                         .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8)
+                        .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, bodyTypeName)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.value().length)
                         .setBody(body));
     }
