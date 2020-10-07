@@ -69,13 +69,18 @@ GET methods require no BODY and always return a BODY
 POST, PUT methods require and return a BODY
 DELETE methods require no body and return a BODY
 
+
+
 ### Context
 
 A collection of end points related to spreadsheet metadata.
-All inputs and outputs are SpreadsheetMetadata in JSON form.
+All outputs return a SpreadsheetMetadata in JSON form.
 
 - GET    /api/spreadsheet/$spreadsheet-id
-- POST   /api/spreadsheet/$spreadsheet-id
+- POST   /api/spreadsheet/                expectes no BODY, creates a Spreadsheet with SpreadsheetMetadata with defaults using any provided locale.
+- POST   /api/spreadsheet/$spreadsheet-id requires a BODY to update existing SpreadsheetMetadata.
+
+
 
 ### Engine
 
