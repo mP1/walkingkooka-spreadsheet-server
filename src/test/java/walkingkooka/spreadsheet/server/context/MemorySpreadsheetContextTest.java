@@ -39,6 +39,7 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -404,6 +405,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
             expected.addEntity(HttpEntity.EMPTY
                     .addHeader(HttpHeaderName.CONTENT_TYPE, contentType().contentType().setCharset(CharsetName.UTF_8))
+                    .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, "SpreadsheetDeltaNonWindowed")
                     .setBodyText(expectedBody)
                     .setContentLength());
 
