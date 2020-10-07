@@ -76,8 +76,10 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
 
     @Test
     public void testHandleWithoutIdCreatesMetadataWithLocale() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId(),
-                SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com")));
+        final SpreadsheetMetadata metadata =
+                SpreadsheetMetadata.EMPTY
+                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
+                        .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
 
         final Locale locale = Locale.CANADA_FRENCH;
 
@@ -85,7 +87,7 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
 
                     @Override
                     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                        return metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.orElse(null));
+                        return metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
                     }
                 }),
                 Optional.empty(),
@@ -96,8 +98,9 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
 
     @Test
     public void testHandleWithoutIdCreatesMetadataWithoutLocale() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId(),
-                SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com")));
+        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
 
         this.handleAndCheck(this.createHandler(new FakeSpreadsheetContext() {
 
