@@ -52,21 +52,28 @@ final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends Spreads
         checkResource(resource);
         checkParameters(parameters);
 
-        // j2cl does not support Optional.or
-        Optional<SpreadsheetMetadata> metadata = id.map(i -> this.saveMetadata(i, this.checkResourceNotEmpty(resource)));
-        if(!metadata.isPresent()) {
-            metadata = this.createMetadata(resource, parameters);
-        }
-        return metadata;
+        final SpreadsheetMetadata after = id.isPresent() ?
+                this.saveMetadata(id.get(), resource) :
+                this.createMetadata(resource, parameters);
+        return Optional.of(after);
     }
 
+    /**
+     * The request included an id and should also have a {@link SpreadsheetMetadata} this will update the store.
+     */
     private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
-                                             final SpreadsheetMetadata metadata) {
-        return this.context.storeRepository(id).metadatas().save(metadata);
+                                             final Optional<SpreadsheetMetadata> metadata) {
+        checkResourceNotEmpty(metadata);
+        
+        return this.context.storeRepository(id).metadatas().save(metadata.get());
     }
 
-    private Optional<SpreadsheetMetadata> createMetadata(final Optional<SpreadsheetMetadata> metadata,
-                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+    /**
+     * Fetches the locale from the ACCEPT-LANGUAGE header/parameter and calls the context to create a metadata, apply defaults
+     * and also save the metadata to a store.
+     */
+    private SpreadsheetMetadata createMetadata(final Optional<SpreadsheetMetadata> metadata,
+                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkResourceEmpty(metadata);
 
         final SpreadsheetMetadata saved = this.context.createMetadata(HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
@@ -74,7 +81,7 @@ final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends Spreads
         saved.id()
                 .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
 
-        return Optional.of(saved);
+        return saved;
     }
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {
