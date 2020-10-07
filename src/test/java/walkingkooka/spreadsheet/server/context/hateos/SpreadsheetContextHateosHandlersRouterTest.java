@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -164,7 +163,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
             assertEquals(responseBody,
-                    new String(response.entities().get(0).body().value(), Charset.defaultCharset()));
+                    response.entities().get(0).bodyText());
         }
     }
 
