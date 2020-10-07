@@ -63,6 +63,40 @@ The Web worker http server emulation layer will live in [walkingkooka-spreadshee
 
 
 
+## REST
+
+GET methods require no BODY and always return a BODY
+POST, PUT methods require and return a BODY
+DELETE methods require no body and return a BODY
+
+### Context
+
+A collection of end points related to spreadsheet metadata.
+All inputs and outputs are SpreadsheetMetadata in JSON form.
+
+- GET    /api/spreadsheet/$spreadsheet-id
+- POST   /api/spreadsheet/$spreadsheet-id
+
+### Engine
+
+A collection of end points that support manipulating cells, columns and rows.
+All input and output is always a SpreadsheetDelta in JSON form, where necessary
+
+- GET     /api/cell/A1/clear-value-error-skip-evaluate
+- GET     /api/cell/A1/skip-evaluate
+- GET     /api/cell/A1/force-recompute
+- GET     /api/cell/A1/compute-if-necessary
+- POST    /api/cell/A1
+- GET     /api/column/A
+- PUT     /api/column/A
+- DELETE  /api/column/A
+- GET     /api/row/1
+- PUT     /api/row/1
+- DELETE  /api/row/1
+- POST    /api/cell/A1:B2/fill **input includes region of cells to be the fill content**
+
+
+
 ## Getting the source
 
 You can either download the source using the "ZIP" button at the top
