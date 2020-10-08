@@ -129,11 +129,12 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      */
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
         final SpreadsheetMetadata metadataWithDefaults = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"));
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"))
+                .loadFromLocale();
 
         return (locale) ->
-                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale()).orElse(metadataWithDefaults));
-
+                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale())
+                        .orElse(metadataWithDefaults));
     }
 
     private static Function<BigDecimal, Fraction> fractioner() {
