@@ -36,6 +36,7 @@ import walkingkooka.net.http.server.WebFiles;
 import walkingkooka.net.http.server.jetty.JettyHttpServer;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -130,12 +131,18 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
         final SpreadsheetMetadata metadataWithDefaults = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"))
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, DEFAULT_NAME)
                 .loadFromLocale();
 
         return (locale) ->
                 store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale())
                         .orElse(metadataWithDefaults));
     }
+
+    /**
+     * The default name given to all empty spreadsheets
+     */
+    private final static SpreadsheetName DEFAULT_NAME = SpreadsheetName.with("Untitled");
 
     private static Function<BigDecimal, Fraction> fractioner() {
         return (n) -> {
