@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.BigDecimal;
@@ -114,6 +115,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         final SpreadsheetStoreRepository repository = this.idToStoreRepository.apply(id);
         final SpreadsheetMetadata metadata = repository.metadatas().loadOrFail(id);
 
+        final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DEFAULT; // TODO https://github.com/mP1/walkingkooka-spreadsheet/issues/998
         final SpreadsheetCellStore cellStore = repository.cells();
         final SpreadsheetReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
@@ -129,7 +131,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore);
 
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(this.idToFunctions.apply(id),
+        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(expressionNumberKind,
+                this.idToFunctions.apply(id),
                 engine,
                 labelStore,
                 metadata.converter(),

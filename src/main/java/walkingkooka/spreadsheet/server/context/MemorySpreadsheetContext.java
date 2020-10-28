@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.BigDecimal;
@@ -202,7 +203,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
 
-        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(functions,
+        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(ExpressionNumberKind.DEFAULT,
+                functions,
                 engine,
                 labelStore,
                 converter,

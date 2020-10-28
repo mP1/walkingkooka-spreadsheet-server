@@ -196,15 +196,15 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"1\"\n" +
                                 "        }, {\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"2\"\n" +
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"3\"\n" +
                                 "      }\n" +
                                 "    },\n" +
@@ -242,15 +242,15 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"1\"\n" +
                                 "        }, {\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"2\"\n" +
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"3\"\n" +
                                 "      }\n" +
                                 "    },\n" +
@@ -275,7 +275,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"4\"\n" +
                                 "        }, {\n" +
                                 "          \"type\": \"reference-expression\",\n" +
@@ -286,7 +286,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"7\"\n" +
                                 "      }\n" +
                                 "    },\n" +
@@ -323,15 +323,15 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"1\"\n" +
                                 "        }, {\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"2\"\n" +
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"3\"\n" +
                                 "      }\n" +
                                 "    },\n" +
@@ -365,15 +365,15 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"3\"\n" +
                                 "        }, {\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"4\"\n" +
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"7\"\n" +
                                 "      }\n" +
                                 "    },\n" +
@@ -399,7 +399,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "      \"expression\": {\n" +
                                 "        \"type\": \"add-expression\",\n" +
                                 "        \"value\": [{\n" +
-                                "          \"type\": \"big-decimal-expression\",\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
                                 "          \"value\": \"4\"\n" +
                                 "        }, {\n" +
                                 "          \"type\": \"reference-expression\",\n" +
@@ -410,7 +410,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        }]\n" +
                                 "      },\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"big-decimal\",\n" +
+                                "        \"type\": \"expression-number\",\n" +
                                 "        \"value\": \"7\"\n" +
                                 "      }\n" +
                                 "    },\n" +

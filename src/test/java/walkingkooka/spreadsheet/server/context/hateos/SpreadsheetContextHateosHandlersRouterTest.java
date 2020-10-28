@@ -41,9 +41,12 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
+import java.math.MathContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -54,6 +57,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetContextHateosHandlersRouterTest extends SpreadsheetContextHateosHandlerTestCase<SpreadsheetContextHateosHandlersRouter> {
+
+    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testWithNullBaseFails() {
@@ -235,7 +240,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     }
 
     private HateosContentType contentType() {
-        return HateosContentType.json(JsonNodeUnmarshallContexts.basic(),
+        return HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, MathContext.DECIMAL32)),
                 JsonNodeMarshallContexts.basic());
     }
 

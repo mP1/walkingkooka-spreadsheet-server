@@ -44,11 +44,14 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -106,7 +109,9 @@ public final class SpreadsheetServer implements HttpServer {
                               final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
         super();
 
-        this.contentTypeJson = HateosContentType.json(JsonNodeUnmarshallContexts.basic(), JsonNodeMarshallContexts.basic());
+        this.contentTypeJson = HateosContentType.json(
+                JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32)),
+                JsonNodeMarshallContexts.basic()); // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/42
         this.createMetadata = createMetadata;
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
