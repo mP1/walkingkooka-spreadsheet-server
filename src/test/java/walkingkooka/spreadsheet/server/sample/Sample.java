@@ -1,5 +1,5 @@
 /*
- * Copyright © 2020 Miroslav Pokorny
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,18 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package test;
 
+package walkingkooka.spreadsheet.server.sample;
 
-import com.google.j2cl.junit.apt.J2clTestInput;
-import org.junit.Assert;
-import org.junit.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
@@ -76,13 +73,16 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// copied from Sample
-@J2clTestInput(JunitTest.class)
-public class JunitTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public final class Sample {
+
+    public static void main(final String[] args) {
+        new Sample().testWithCellReference();
+    }
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
-    @Test
     public void testWithCellReference() {
         final SpreadsheetCellStore cellStore = cellStore();
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
@@ -188,7 +188,7 @@ public class JunitTest {
 
             @Override
             public SpreadsheetFormatter defaultSpreadsheetFormatter() {
-                return JunitTest.defaultSpreadsheetFormatter();
+                return Sample.defaultSpreadsheetFormatter();
             }
 
             @Override
@@ -236,6 +236,6 @@ public class JunitTest {
     }
 
     private static void checkEquals(final Object expected, final Object actual, final String message) {
-        Assert.assertEquals(message, expected, actual);
+        assertEquals(expected, actual, message);
     }
 }

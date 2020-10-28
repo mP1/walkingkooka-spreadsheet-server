@@ -62,6 +62,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -69,6 +71,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -87,6 +90,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class MemorySpreadsheetContextTest implements SpreadsheetContextTesting<MemorySpreadsheetContext> {
+
+    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testWithNullBaseFails() {
@@ -203,10 +208,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      \"expression\": {\n" +
                         "        \"type\": \"add-expression\",\n" +
                         "        \"value\": [{\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"1\"\n" +
                         "        }, {\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"2\"\n" +
                         "        }]\n" +
                         "      }\n" +
@@ -226,15 +231,15 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      \"expression\": {\n" +
                         "        \"type\": \"add-expression\",\n" +
                         "        \"value\": [{\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"1\"\n" +
                         "        }, {\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"2\"\n" +
                         "        }]\n" +
                         "      },\n" +
                         "      \"value\": {\n" +
-                        "        \"type\": \"big-decimal\",\n" +
+                        "        \"type\": \"expression-number\",\n" +
                         "        \"value\": \"3\"\n" +
                         "      }\n" +
                         "    },\n" +
@@ -257,15 +262,15 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      \"expression\": {\n" +
                         "        \"type\": \"add-expression\",\n" +
                         "        \"value\": [{\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"1\"\n" +
                         "        }, {\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"2\"\n" +
                         "        }]\n" +
                         "      },\n" +
                         "      \"value\": {\n" +
-                        "        \"type\": \"big-decimal\",\n" +
+                        "        \"type\": \"expression-number\",\n" +
                         "        \"value\": \"3\"\n" +
                         "      }\n" +
                         "    },\n" +
@@ -288,15 +293,15 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      \"expression\": {\n" +
                         "        \"type\": \"add-expression\",\n" +
                         "        \"value\": [{\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"1\"\n" +
                         "        }, {\n" +
-                        "          \"type\": \"big-decimal-expression\",\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
                         "          \"value\": \"2\"\n" +
                         "        }]\n" +
                         "      },\n" +
                         "      \"value\": {\n" +
-                        "        \"type\": \"big-decimal\",\n" +
+                        "        \"type\": \"expression-number\",\n" +
                         "        \"value\": \"3\"\n" +
                         "      }\n" +
                         "    },\n" +
@@ -549,7 +554,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     }
 
     private JsonNodeUnmarshallContext unmarshallContext() {
-        return JsonNodeUnmarshallContexts.basic();
+        return JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32));
     }
 
     final Fraction fractioner(final BigDecimal value) {
