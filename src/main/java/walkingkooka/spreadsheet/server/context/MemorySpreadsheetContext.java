@@ -21,6 +21,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
@@ -111,7 +112,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public Converter converter(final SpreadsheetId id) {
+    public Converter<ConverterContext> converter(final SpreadsheetId id) {
         return this.loadAndGet(id, SpreadsheetMetadata::converter);
     }
 
@@ -195,7 +196,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 rangeToCellStore,
                 rangeToConditionalFormattingRules);
 
-        final Converter converter = this.converter(id);
+        final Converter<ConverterContext> converter = this.converter(id);
         final BiFunction<FunctionExpressionName, List<Object>, Object> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
         final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);

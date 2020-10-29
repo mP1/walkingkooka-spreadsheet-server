@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.context;
 import walkingkooka.Context;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.net.http.server.HttpRequest;
@@ -53,7 +54,7 @@ public interface SpreadsheetContext extends Context {
     /**
      * The {@link Converter} for the given {@link SpreadsheetId}
      */
-    Converter converter(final SpreadsheetId id);
+    Converter<ConverterContext> converter(final SpreadsheetId id);
 
     /**
      * Returns a {@link SpreadsheetMetadata} with necessary defaults allocating a new {@link SpreadsheetId}.
