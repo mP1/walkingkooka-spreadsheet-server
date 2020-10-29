@@ -109,7 +109,7 @@ public final class Sample {
         return SpreadsheetCellStores.treeMap();
     }
 
-    private static Converter converter() {
+    private static Converter<ConverterContext> converter() {
         return Converters.collection(Lists.of(Converters.simple(),
                 ExpressionNumber.toExpressionNumberConverter(),
                 EXPRESSION_NUMBER_KIND.toConverter(Converters.numberNumber())));
