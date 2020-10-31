@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -42,7 +43,7 @@ import java.util.function.Function;
 public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
-    public Converter converter(final SpreadsheetId id) {
+    public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
