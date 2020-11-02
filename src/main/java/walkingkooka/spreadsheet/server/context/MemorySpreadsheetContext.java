@@ -21,7 +21,6 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
@@ -52,6 +51,8 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -112,7 +113,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public Converter<ConverterContext> converter(final SpreadsheetId id) {
+    public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
         return this.loadAndGet(id, SpreadsheetMetadata::converter);
     }
 
@@ -152,7 +153,13 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                              final Function<SpreadsheetMetadata, T> getter) {
         Objects.requireNonNull(id, "id");
 
-        return getter.apply(this.spreadsheetIdToRepository.apply(id).metadatas().loadOrFail(id));
+        return getter.apply(this.load(id));
+    }
+
+    private SpreadsheetMetadata load(final SpreadsheetId id) {
+        return this.spreadsheetIdToRepository.apply(id)
+                .metadatas()
+                .loadOrFail(id);
     }
 
     // hateosRouter.....................................................................................................
@@ -196,7 +203,9 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 rangeToCellStore,
                 rangeToConditionalFormattingRules);
 
-        final Converter<ConverterContext> converter = this.converter(id);
+        final SpreadsheetMetadata metadata = this.load(id);
+
+        final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
         final BiFunction<FunctionExpressionName, List<Object>, Object> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
         final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);
@@ -204,12 +213,14 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
 
-        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(ExpressionNumberKind.DEFAULT,
+        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
+
+        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(expressionNumberKind,
                 functions,
                 engine,
                 labelStore,
                 converter,
-                ConverterContexts.basic(this.dateTimeContext(id), this.decimalNumberContext(id)),
+                ExpressionNumberConverterContexts.basic(ConverterContexts.basic(this.dateTimeContext(id), this.decimalNumberContext(id)), expressionNumberKind),
                 numberToColor,
                 nameToColor,
                 width,

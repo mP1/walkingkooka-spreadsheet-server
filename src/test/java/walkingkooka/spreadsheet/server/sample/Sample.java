@@ -61,6 +61,8 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -109,14 +111,13 @@ public final class Sample {
         return SpreadsheetCellStores.treeMap();
     }
 
-    private static Converter<ConverterContext> converter() {
+    private static Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(Lists.of(Converters.simple(),
-                ExpressionNumber.toExpressionNumberConverter(),
-                EXPRESSION_NUMBER_KIND.toConverter(Converters.numberNumber())));
+                ExpressionNumber.toConverter(Converters.numberNumber())));
     }
 
-    private static ConverterContext converterContext() {
-        return ConverterContexts.basic(dateTimeContext(), decimalNumberContext());
+    private static ExpressionNumberConverterContext converterContext() {
+        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(dateTimeContext(), decimalNumberContext()), EXPRESSION_NUMBER_KIND);
     }
 
     private static DateTimeContext dateTimeContext() {

@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -115,7 +116,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         final SpreadsheetStoreRepository repository = this.idToStoreRepository.apply(id);
         final SpreadsheetMetadata metadata = repository.metadatas().loadOrFail(id);
 
-        final ExpressionNumberKind expressionNumberKind = ExpressionNumberKind.DEFAULT; // TODO https://github.com/mP1/walkingkooka-spreadsheet/issues/998
+        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
         final SpreadsheetCellStore cellStore = repository.cells();
         final SpreadsheetReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
@@ -136,7 +137,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 engine,
                 labelStore,
                 metadata.converter(),
-                ConverterContexts.basic(metadata.dateTimeContext(), metadata.decimalNumberContext()),
+                ExpressionNumberConverterContexts.basic(ConverterContexts.basic(metadata.dateTimeContext(), metadata.decimalNumberContext()), expressionNumberKind),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
                 metadata.get(SpreadsheetMetadataPropertyName.WIDTH).orElseThrow(() -> new IllegalStateException(SpreadsheetMetadataPropertyName.WIDTH + " missing")),
