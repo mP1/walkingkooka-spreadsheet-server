@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
@@ -137,7 +138,11 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 engine,
                 labelStore,
                 metadata.converter(),
-                ExpressionNumberConverterContexts.basic(ConverterContexts.basic(metadata.dateTimeContext(), metadata.decimalNumberContext()), expressionNumberKind),
+                ExpressionNumberConverterContexts.basic(Converters.fake(),
+                        ConverterContexts.basic(Converters.fake(),
+                                metadata.dateTimeContext(),
+                                metadata.decimalNumberContext()),
+                        expressionNumberKind),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
                 metadata.get(SpreadsheetMetadataPropertyName.WIDTH).orElseThrow(() -> new IllegalStateException(SpreadsheetMetadataPropertyName.WIDTH + " missing")),

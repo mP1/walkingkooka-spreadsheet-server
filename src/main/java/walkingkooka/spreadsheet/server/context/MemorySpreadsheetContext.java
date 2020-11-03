@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.Fraction;
@@ -220,7 +221,11 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 engine,
                 labelStore,
                 converter,
-                ExpressionNumberConverterContexts.basic(ConverterContexts.basic(this.dateTimeContext(id), this.decimalNumberContext(id)), expressionNumberKind),
+                ExpressionNumberConverterContexts.basic(Converters.fake(),
+                        ConverterContexts.basic(Converters.fake(),
+                                this.dateTimeContext(id),
+                                this.decimalNumberContext(id)),
+                        expressionNumberKind),
                 numberToColor,
                 nameToColor,
                 width,
