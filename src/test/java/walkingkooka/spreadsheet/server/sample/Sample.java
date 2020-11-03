@@ -22,7 +22,6 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContext;
@@ -117,7 +116,11 @@ public final class Sample {
     }
 
     private static ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(dateTimeContext(), decimalNumberContext()), EXPRESSION_NUMBER_KIND);
+        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(Converters.fake(),
+                        dateTimeContext(),
+                        decimalNumberContext()),
+                EXPRESSION_NUMBER_KIND);
     }
 
     private static DateTimeContext dateTimeContext() {

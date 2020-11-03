@@ -117,7 +117,11 @@ public class JunitTest {
     }
 
     private static ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(dateTimeContext(), decimalNumberContext()), EXPRESSION_NUMBER_KIND);
+        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(Converters.fake(),
+                        dateTimeContext(),
+                        decimalNumberContext()),
+                EXPRESSION_NUMBER_KIND);
     }
 
     private static DateTimeContext dateTimeContext() {
