@@ -117,7 +117,7 @@ public class JunitTest {
     }
 
     private static ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(converter(),
                 ConverterContexts.basic(Converters.fake(),
                         dateTimeContext(),
                         decimalNumberContext()),
@@ -164,7 +164,7 @@ public class JunitTest {
 
             @Override
             public Object evaluate(final Expression node) {
-                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND, functions(), references(), converter(), converterContext()));
+                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND, functions(), references(), converterContext()));
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
@@ -234,7 +234,6 @@ public class JunitTest {
                     throw new UnsupportedOperationException();
                 },
                 80,
-                converter(),
                 defaultSpreadsheetFormatter(),
                 converterContext()
         );
