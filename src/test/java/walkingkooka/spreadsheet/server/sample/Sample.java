@@ -116,7 +116,7 @@ public final class Sample {
     }
 
     private static ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(converter(),
                 ConverterContexts.basic(Converters.fake(),
                         dateTimeContext(),
                         decimalNumberContext()),
@@ -163,7 +163,7 @@ public final class Sample {
 
             @Override
             public Object evaluate(final Expression node) {
-                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND, functions(), references(), converter(), converterContext()));
+                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND, functions(), references(), converterContext()));
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
@@ -233,7 +233,6 @@ public final class Sample {
                     throw new UnsupportedOperationException();
                 },
                 80,
-                converter(),
                 defaultSpreadsheetFormatter(),
                 converterContext()
         );
