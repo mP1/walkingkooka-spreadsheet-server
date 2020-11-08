@@ -62,9 +62,13 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -157,7 +161,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                            final HateosContentType contentType,
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                           final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> spreadsheetIdFunctions,
+                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
         assertThrows(NullPointerException.class, () -> MemorySpreadsheetContext.with(base,
                 contentType,
@@ -201,22 +205,23 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     public void testHateosRouterThenSaveThenLoadClearValueErrorSkipEvaluate() {
         this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE,
                 "{\n" +
-                        "  \"cells\": [{\n" +
-                        "    \"reference\": \"B2\",\n" +
-                        "    \"formula\": {\n" +
-                        "      \"text\": \"1+2\",\n" +
-                        "      \"expression\": {\n" +
-                        "        \"type\": \"add-expression\",\n" +
-                        "        \"value\": [{\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"1\"\n" +
-                        "        }, {\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"2\"\n" +
-                        "        }]\n" +
+                        "  \"cells\": {\n" +
+                        "    \"B2\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"1+2\",\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"add-expression\",\n" +
+                        "          \"value\": [{\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"1\"\n" +
+                        "          }, {\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"2\"\n" +
+                        "          }]\n" +
+                        "        }\n" +
                         "      }\n" +
                         "    }\n" +
-                        "  }]\n" +
+                        "  }\n" +
                         "}");
     }
 
@@ -224,30 +229,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     public void testHateosRouterThenSaveThenLoadComputeIfNecessary() {
         this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 "{\n" +
-                        "  \"cells\": [{\n" +
-                        "    \"reference\": \"B2\",\n" +
-                        "    \"formula\": {\n" +
-                        "      \"text\": \"1+2\",\n" +
-                        "      \"expression\": {\n" +
-                        "        \"type\": \"add-expression\",\n" +
-                        "        \"value\": [{\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"1\"\n" +
-                        "        }, {\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"2\"\n" +
-                        "        }]\n" +
+                        "  \"cells\": {\n" +
+                        "    \"B2\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"1+2\",\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"add-expression\",\n" +
+                        "          \"value\": [{\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"1\"\n" +
+                        "          }, {\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"2\"\n" +
+                        "          }]\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"3\"\n" +
+                        "        }\n" +
                         "      },\n" +
-                        "      \"value\": {\n" +
-                        "        \"type\": \"expression-number\",\n" +
-                        "        \"value\": \"3\"\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
-                        "    },\n" +
-                        "    \"formatted\": {\n" +
-                        "      \"type\": \"text\",\n" +
-                        "      \"value\": \"Number 003.000\"\n" +
                         "    }\n" +
-                        "  }]\n" +
+                        "  }\n" +
                         "}");
     }
 
@@ -255,30 +261,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     public void testHateosRouterThenSaveThenLoadForceRecompute() {
         this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
                 "{\n" +
-                        "  \"cells\": [{\n" +
-                        "    \"reference\": \"B2\",\n" +
-                        "    \"formula\": {\n" +
-                        "      \"text\": \"1+2\",\n" +
-                        "      \"expression\": {\n" +
-                        "        \"type\": \"add-expression\",\n" +
-                        "        \"value\": [{\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"1\"\n" +
-                        "        }, {\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"2\"\n" +
-                        "        }]\n" +
+                        "  \"cells\": {\n" +
+                        "    \"B2\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"1+2\",\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"add-expression\",\n" +
+                        "          \"value\": [{\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"1\"\n" +
+                        "          }, {\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"2\"\n" +
+                        "          }]\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"3\"\n" +
+                        "        }\n" +
                         "      },\n" +
-                        "      \"value\": {\n" +
-                        "        \"type\": \"expression-number\",\n" +
-                        "        \"value\": \"3\"\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
-                        "    },\n" +
-                        "    \"formatted\": {\n" +
-                        "      \"type\": \"text\",\n" +
-                        "      \"value\": \"Number 003.000\"\n" +
                         "    }\n" +
-                        "  }]\n" +
+                        "  }\n" +
                         "}");
     }
 
@@ -286,30 +293,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     public void testHateosRouterThenSaveThenLoadSkipEvaluate() {
         this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 "{\n" +
-                        "  \"cells\": [{\n" +
-                        "    \"reference\": \"B2\",\n" +
-                        "    \"formula\": {\n" +
-                        "      \"text\": \"1+2\",\n" +
-                        "      \"expression\": {\n" +
-                        "        \"type\": \"add-expression\",\n" +
-                        "        \"value\": [{\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"1\"\n" +
-                        "        }, {\n" +
-                        "          \"type\": \"expression-number-expression\",\n" +
-                        "          \"value\": \"2\"\n" +
-                        "        }]\n" +
+                        "  \"cells\": {\n" +
+                        "    \"B2\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"1+2\",\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"add-expression\",\n" +
+                        "          \"value\": [{\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"1\"\n" +
+                        "          }, {\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"2\"\n" +
+                        "          }]\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"3\"\n" +
+                        "        }\n" +
                         "      },\n" +
-                        "      \"value\": {\n" +
-                        "        \"type\": \"expression-number\",\n" +
-                        "        \"value\": \"3\"\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
-                        "    },\n" +
-                        "    \"formatted\": {\n" +
-                        "      \"type\": \"text\",\n" +
-                        "      \"value\": \"Number 003.000\"\n" +
                         "    }\n" +
-                        "  }]\n" +
+                        "  }\n" +
                         "}");
     }
 
@@ -569,14 +577,12 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         return metadata;
     }
 
-    private BiFunction<FunctionExpressionName, List<Object>, Object> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return this::spreadsheetIdFunctions;
-    }
-
-    private Object spreadsheetIdFunctions(final FunctionExpressionName functionName, final List<Object> parameters) {
-        throw new UnsupportedOperationException(functionName + "(" + parameters + ")");
+        return (f) -> {
+            throw new UnknownFunctionException(f);
+        };
     }
 
     private SpreadsheetStoreRepository spreadsheetIdToRepository(final SpreadsheetId id) {

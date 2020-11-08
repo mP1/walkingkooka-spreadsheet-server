@@ -50,6 +50,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -150,15 +153,17 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
         };
     }
 
-    private static Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions() {
-        return (id) -> JettyHttpServerSpreadsheetServer::functions;
+    private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
+        return (id) -> JettyHttpServerSpreadsheetServer.functions(id);
     }
 
     /**
      * TODO Implement a real function lookup, that only exposes functions that are enabled for a single spreadsheet.
      */
-    private static Object functions(final FunctionExpressionName functionName, final List<Object> parameters) {
-        throw new UnsupportedOperationException("Unknown function: " + functionName + "(" + parameters.stream().map(Object::toString).collect(Collectors.joining(",")) + ")");
+    private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
+        return (n) -> {
+            throw new UnknownFunctionException(n);
+        };
     }
 
     /**

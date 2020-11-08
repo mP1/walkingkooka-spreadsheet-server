@@ -26,6 +26,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -35,6 +37,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public final class SpreadsheetServerApiSpreadsheetBiConsumerTest extends SpreadsheetServerTestCase2<SpreadsheetServerApiSpreadsheetBiConsumer> {
 
@@ -64,7 +67,7 @@ public final class SpreadsheetServerApiSpreadsheetBiConsumerTest extends Spreads
         throw new UnsupportedOperationException();
     }
 
-    private BiFunction<FunctionExpressionName, List<Object>, Object> idToFunctions(final SpreadsheetId id) {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> idToFunctions(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

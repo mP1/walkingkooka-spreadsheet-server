@@ -65,6 +65,9 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 
 import java.math.MathContext;
 import java.util.List;
@@ -131,9 +134,9 @@ public final class Sample {
         return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 
-    private static BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
-        return (n, p) -> {
-            throw new UnsupportedOperationException("unsupported function " + n + " params:" + p);
+    private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+        return (n) -> {
+            throw new UnknownFunctionException(n);
         };
     }
 

@@ -52,10 +52,13 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -80,7 +83,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                          final HateosContentType contentType,
                                          final Function<BigDecimal, Fraction> fractioner,
                                          final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                         final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> spreadsheetIdFunctions,
+                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
@@ -101,7 +104,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                      final HateosContentType contentType,
                                      final Function<BigDecimal, Fraction> fractioner,
                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                     final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> spreadsheetIdFunctions,
+                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
         super();
 
@@ -141,11 +144,11 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public BiFunction<FunctionExpressionName, List<Object>, Object> functions(final SpreadsheetId id) {
+    public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
         return this.spreadsheetIdFunctions.apply(id);
     }
 
-    private final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> spreadsheetIdFunctions;
+    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions;
 
     /**
      * Loads the {@link SpreadsheetMetadata} and then executes the given getter to return a particular property.
@@ -207,7 +210,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetMetadata metadata = this.load(id);
 
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
-        final BiFunction<FunctionExpressionName, List<Object>, Object> functions = this.spreadsheetIdFunctions.apply(id);
+        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
         final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);
         final int width = this.width(id);
