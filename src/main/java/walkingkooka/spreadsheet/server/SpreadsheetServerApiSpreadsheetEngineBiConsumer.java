@@ -51,6 +51,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -69,7 +71,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     static SpreadsheetServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
                                                                 final HateosContentType contentTypeJson,
                                                                 final Function<BigDecimal, Fraction> fractioner,
-                                                                final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions,
+                                                                final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                                 final int spreadsheetIdPathComponent) {
         return new SpreadsheetServerApiSpreadsheetEngineBiConsumer(base,
@@ -86,7 +88,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     private SpreadsheetServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
                                                             final HateosContentType contentTypeJson,
                                                             final Function<BigDecimal, Fraction> fractioner,
-                                                            final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions,
+                                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
                                                             final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                             final int spreadsheetIdPathComponent) {
         super();
@@ -194,7 +196,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
     final Function<BigDecimal, Fraction> fractioner;
 
-    final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions;
+    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;
 
     /**
      * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.

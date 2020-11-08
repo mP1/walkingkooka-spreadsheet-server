@@ -73,6 +73,9 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.io.InputStream;
@@ -192,30 +195,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"A1\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"1+2\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"1\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"2\"\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1+2\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"1\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"2\"\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"3\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"3\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA
                         ));
@@ -238,30 +242,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"A1\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"1+2\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"1\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"2\"\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1+2\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"1\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"2\"\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"3\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"3\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA));
 
@@ -271,33 +276,34 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"B2\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"4+A1\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"4\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"reference-expression\",\n" +
-                                "          \"value\": {\n" +
-                                "            \"type\": \"spreadsheet-cell-reference\",\n" +
-                                "            \"value\": \"A1\"\n" +
-                                "          }\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"4+A1\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"4\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"reference-expression\",\n" +
+                                "            \"value\": {\n" +
+                                "              \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "              \"value\": \"A1\"\n" +
+                                "            }\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"7\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"7\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA));
     }
@@ -319,30 +325,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"A1\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"1+2\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"1\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"2\"\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1+2\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"1\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"2\"\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"3\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"3\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 003.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA));
 
@@ -361,30 +368,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("3+4"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"A1\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"3+4\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"3\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"4\"\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"3+4\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"3\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"4\"\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"7\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"7\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA));
 
@@ -395,33 +403,34 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
                 this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
                         "{\n" +
-                                "  \"cells\": [{\n" +
-                                "    \"reference\": \"B2\",\n" +
-                                "    \"formula\": {\n" +
-                                "      \"text\": \"4+A1\",\n" +
-                                "      \"expression\": {\n" +
-                                "        \"type\": \"add-expression\",\n" +
-                                "        \"value\": [{\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"4\"\n" +
-                                "        }, {\n" +
-                                "          \"type\": \"reference-expression\",\n" +
-                                "          \"value\": {\n" +
-                                "            \"type\": \"spreadsheet-cell-reference\",\n" +
-                                "            \"value\": \"A1\"\n" +
-                                "          }\n" +
-                                "        }]\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"4+A1\",\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"4\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"reference-expression\",\n" +
+                                "            \"value\": {\n" +
+                                "              \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "              \"value\": \"A1\"\n" +
+                                "            }\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"7\"\n" +
+                                "        }\n" +
                                 "      },\n" +
-                                "      \"value\": {\n" +
-                                "        \"type\": \"expression-number\",\n" +
-                                "        \"value\": \"7\"\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
-                                "    },\n" +
-                                "    \"formatted\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Number 007.000\"\n" +
                                 "    }\n" +
-                                "  }]\n" +
+                                "  }\n" +
                                 "}",
                         DELTA));
     }
@@ -508,15 +517,17 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         };
     }
 
-    private static Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> idToFunctions() {
-        return (id) -> SpreadsheetServerTest::functions;
+    private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
+        return (id) -> SpreadsheetServerTest.functions(id);
     }
 
     /**
      * TODO Implement a real function lookup, that only exposes functions that are enabled for a single spreadsheet.
      */
-    private static Object functions(final FunctionExpressionName functionName, final List<Object> parameters) {
-        throw new UnsupportedOperationException("Unknown function: " + functionName + "(" + parameters.stream().map(Object::toString).collect(Collectors.joining(",")) + ")");
+    private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
+        return (n) -> {
+            throw new UnknownFunctionException(n);
+        };
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

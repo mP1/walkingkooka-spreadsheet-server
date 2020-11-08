@@ -31,6 +31,8 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.context.hateos.SpreadsheetContextHateosHandlers;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -52,7 +54,7 @@ final class SpreadsheetServerApiSpreadsheetBiConsumer implements BiConsumer<Http
                                                           final HateosContentType contentTypeJson,
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final Function<BigDecimal, Fraction> fractioner,
-                                                          final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> functions,
+                                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
         return new SpreadsheetServerApiSpreadsheetBiConsumer(baseUrl,
                 contentTypeJson,
@@ -69,7 +71,7 @@ final class SpreadsheetServerApiSpreadsheetBiConsumer implements BiConsumer<Http
                                                       final HateosContentType contentTypeJson,
                                                       final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                       final Function<BigDecimal, Fraction> fractioner,
-                                                      final Function<SpreadsheetId, BiFunction<FunctionExpressionName, List<Object>, Object>> functions,
+                                                      final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
         super();
 
