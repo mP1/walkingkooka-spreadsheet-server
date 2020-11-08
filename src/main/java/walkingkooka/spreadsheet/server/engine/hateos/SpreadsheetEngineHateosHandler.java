@@ -18,15 +18,24 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
@@ -129,10 +138,44 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
         }
     }
 
-    static SpreadsheetDelta applyWindow(final SpreadsheetDelta out,
-                                        final Optional<SpreadsheetDelta> in) {
-        return in.map(d -> d.setCells(out.cells()))
+    /**
+     * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#maxColumnWidths()} and
+     * {@link SpreadsheetDelta#maxRowHeights()}
+     */
+    final SpreadsheetDelta applyWindowAddMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
+                                                                      final Optional<SpreadsheetDelta> in) {
+        final SpreadsheetDelta afterWindow = in.map(d -> d.setCells(out.cells()))
                 .orElse(out);
+
+        final SpreadsheetEngine engine = this.engine;
+
+        final Map<SpreadsheetColumnReference, Double> columns = Maps.sorted();
+        final Map<SpreadsheetRowReference, Double> rows = Maps.sorted();
+
+        // collect unique columns/rows and the maxes.
+
+        for(final SpreadsheetCell cell : afterWindow.cells()) {
+            final SpreadsheetCellReference reference = cell.reference();
+
+            final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+            if(false == columns.containsKey(column)) {
+                final double width = engine.maxColumnWidth(column);
+                if(width > 0) {
+                    columns.put(column, width);
+                }
+            }
+
+            final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+            if(false == rows.containsKey(row)) {
+                final double height = engine.maxRowHeight(row);
+                if(height > 0) {
+                    rows.put(row, height);
+                }
+            }
+        }
+
+        return afterWindow.setMaxColumnWidths(columns)
+                .setMaxRowHeights(rows);
     }
 
     // parameters.......................................................................................................
