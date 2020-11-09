@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 
 import java.util.List;
 import java.util.Set;
@@ -87,7 +88,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
         return Sets.of(this.cell());
     }
 
-    final List<SpreadsheetRange> window() {
+    final List<SpreadsheetRectangle> window() {
         final SpreadsheetRange window = SpreadsheetExpressionReference.parseRange("A1:B99");
 
         this.testTrue(window, this.cell().reference());
