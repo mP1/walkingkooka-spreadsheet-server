@@ -24,16 +24,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public final class SpreadsheetContexts implements PublicStaticHelper {
