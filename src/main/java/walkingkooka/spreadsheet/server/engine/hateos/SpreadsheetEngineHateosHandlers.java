@@ -100,6 +100,14 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     }
 
     /**
+     * {@see SpreadsheetEngineDeleteCellHateosHandler}
+     */
+    public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell(final SpreadsheetEngine engine,
+                                                                                                         final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineDeleteCellHateosHandler.with(engine, context);
+    }
+
+    /**
      * Returns a {@link Router} that handles all operations, using the given {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext}.
      */
     public static <N extends Node<N, ?, ?, ?>> Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineRouter(final AbsoluteUrl base,
@@ -133,7 +141,10 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
                                                                                                                                            SpreadsheetDelta> loadCellComputeIfNecessary,
                                                                                                                                    final HateosHandler<SpreadsheetCellReference,
                                                                                                                                            SpreadsheetDelta,
-                                                                                                                                           SpreadsheetDelta> saveCell) {
+                                                                                                                                           SpreadsheetDelta> saveCell,
+                                                                                                                                   final HateosHandler<SpreadsheetCellReference,
+                                                                                                                                           SpreadsheetDelta,
+                                                                                                                                           SpreadsheetDelta> deleteCell) {
         return SpreadsheetEngineHateosHandlersRouter.router(base,
                 contentType,
                 deleteColumns,
@@ -145,7 +156,8 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
                 loadCellSkipEvaluate,
                 loadCellForceRecompute,
                 loadCellComputeIfNecessary,
-                saveCell);
+                saveCell,
+                deleteCell);
     }
 
     /**

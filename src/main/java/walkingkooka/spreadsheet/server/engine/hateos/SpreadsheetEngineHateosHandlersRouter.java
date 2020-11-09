@@ -114,7 +114,10 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                                                                                                                               SpreadsheetDelta> loadCellComputeIfNecessary,
                                                                                                                       final HateosHandler<SpreadsheetCellReference,
                                                                                                                               SpreadsheetDelta,
-                                                                                                                              SpreadsheetDelta> saveCell) {
+                                                                                                                              SpreadsheetDelta> saveCell,
+                                                                                                                      final HateosHandler<SpreadsheetCellReference,
+                                                                                                                              SpreadsheetDelta,
+                                                                                                                              SpreadsheetDelta> deleteCell) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(fillCells, "fillCells");
@@ -127,6 +130,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         Objects.requireNonNull(loadCellForceRecompute, "loadCellForceRecompute");
         Objects.requireNonNull(loadCellComputeIfNecessary, "loadCellComputeIfNecessary");
         Objects.requireNonNull(saveCell, "saveCell");
+        Objects.requireNonNull(deleteCell, "deleteCell");
 
         // cell GET, POST...............................................................................................
 
@@ -139,7 +143,8 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                 RANGE_CELL_REFERENCE,
                 SpreadsheetCell.class)
                 .set(LinkRelation.SELF, HttpMethod.GET, loadCellComputeIfNecessary)
-                .set(LinkRelation.SELF, HttpMethod.POST, saveCell);
+                .set(LinkRelation.SELF, HttpMethod.POST, saveCell)
+                .set(LinkRelation.SELF, HttpMethod.DELETE, deleteCell);
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
 
