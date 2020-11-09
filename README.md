@@ -92,6 +92,7 @@ All input and output is always a SpreadsheetDelta in JSON form, where necessary
 - GET     /api/cell/A1/force-recompute
 - GET     /api/cell/A1/compute-if-necessary
 - POST    /api/cell/A1
+- DELETE  /api/cell/A1
 - GET     /api/column/A
 - PUT     /api/column/A
 - DELETE  /api/column/A
