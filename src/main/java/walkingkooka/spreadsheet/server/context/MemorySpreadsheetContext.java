@@ -52,7 +52,6 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -61,13 +60,11 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -245,7 +242,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, engineContext),
                 SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, engineContext),
                 SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, engineContext),
-                SpreadsheetEngineHateosHandlers.saveCell(engine, engineContext));
+                SpreadsheetEngineHateosHandlers.saveCell(engine, engineContext),
+                SpreadsheetEngineHateosHandlers.deleteCell(engine, engineContext));
     }
 
     /**

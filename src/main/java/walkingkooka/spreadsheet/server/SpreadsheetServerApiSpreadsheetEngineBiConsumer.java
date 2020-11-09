@@ -55,9 +55,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -178,6 +176,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHateosHandlers.saveCell(engine, context);
 
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHateosHandlers.deleteCell(engine, context);
+
         return SpreadsheetEngineHateosHandlers.engineRouter(this.baseUrl.setPath(this.baseUrl.path().append(UrlPathName.with(id.hateosLinkId()))),
                 this.contentTypeJson,
                 deleteColumns,
@@ -189,7 +189,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 loadCellSkipEvaluate,
                 loadCellForceRecompute,
                 loadCellComputeIfNecessary,
-                saveCell);
+                saveCell,
+                deleteCell);
     }
 
     final HateosContentType contentTypeJson;

@@ -80,7 +80,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -96,7 +97,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -112,7 +114,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -128,7 +131,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -144,7 +148,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -160,7 +165,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -176,7 +182,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -192,7 +199,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -208,7 +216,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 null,
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -224,7 +233,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 null,
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -240,7 +250,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 null,
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
     }
 
     @Test
@@ -256,6 +267,24 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
+                null,
+                this.deleteCell());
+    }
+
+    @Test
+    public void testRouterDeleteCellHandlerNullFails() {
+        this.routerFails(this.base(),
+                this.contentType(),
+                this.deleteColumns(),
+                this.deleteRows(),
+                this.fillCells(),
+                this.insertColumns(),
+                this.insertRows(),
+                this.loadCellClearValueErrorSkipEvaluate(),
+                this.loadCellComputeIfNecessary(),
+                this.loadCellForceRecompute(),
+                this.loadCellSkipEvaluate(),
+                this.saveCell(),
                 null);
     }
 
@@ -290,7 +319,10 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                                      SpreadsheetDelta> loadCellComputeIfNecessary,
                              final HateosHandler<SpreadsheetCellReference,
                                      SpreadsheetDelta,
-                                     SpreadsheetDelta> saveCell) {
+                                     SpreadsheetDelta> saveCell,
+                             final HateosHandler<SpreadsheetCellReference,
+                                     SpreadsheetDelta,
+                                     SpreadsheetDelta> deleteCell) {
         assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosHandlersRouter.router(base,
                 contentType,
                 deleteColumns,
@@ -302,7 +334,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 loadCellSkipEvaluate,
                 loadCellForceRecompute,
                 loadCellComputeIfNecessary,
-                saveCell));
+                saveCell,
+                deleteCell));
     }
 
     // cell.............................................................................................................
@@ -324,7 +357,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteCellDelete() {
-        this.routeAndFail(HttpMethod.DELETE, URL + "/cell/A1");
+        this.routeAndCheck(HttpMethod.DELETE, URL + "/cell/A1", HttpStatusCode.BAD_REQUEST); // requires SpreadsheetDelta with 0 cells
     }
 
     // cell/SpreadsheetEngineEvaluation..................................................................................
@@ -431,7 +464,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 this.loadCellComputeIfNecessary(),
                 this.loadCellForceRecompute(),
                 this.loadCellSkipEvaluate(),
-                this.saveCell());
+                this.saveCell(),
+                this.deleteCell());
         return router.route(request.routerParameters());
     }
 
@@ -525,8 +559,12 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
         return SpreadsheetEngineHateosHandlers.loadCell(evaluation, this.engine(), this.engineContext());
     }
 
-    final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell() {
+    private HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell() {
         return SpreadsheetEngineHateosHandlers.saveCell(this.engine(), this.engineContext());
+    }
+
+    private HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell() {
+        return SpreadsheetEngineHateosHandlers.deleteCell(this.engine(), this.engineContext());
     }
 
     private SpreadsheetEngine engine() {
