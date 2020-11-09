@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.List;
@@ -71,7 +72,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
     @Test
     public void testLoadCellAndFilter() {
         final Optional<SpreadsheetCellReference> id = this.id();
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -292,7 +293,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
         final Range<SpreadsheetCellReference> range = this.collection();
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         this.handleCollectionAndCheck(SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
