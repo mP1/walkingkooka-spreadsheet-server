@@ -31,8 +31,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.List;
 import java.util.Map;
@@ -71,6 +73,9 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
         final Optional<SpreadsheetCellReference> id = this.id();
         final List<SpreadsheetRange> window = this.window();
 
+        final double width = 50;
+        final double height = 20;
+
         this.handleAndCheck(SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
@@ -82,12 +87,25 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
 
                         return SpreadsheetDelta.with(cells());
                     }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        return width;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return height;
+                    }
                 },
                 this.engineContext()),
                 id,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow()).setWindow(window)));
+                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())
+                        .setWindow(window)
+                        .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
+                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
     // handleCollection.................................................................................................
@@ -236,6 +254,16 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                     }
 
                     @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return 0;
+                    }
+
+                    @Override
                     public String toString() {
                         return "load: " + cellToDelta.toString();
                     }
@@ -281,6 +309,16 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                                 .orElseThrow(() -> new AssertionError("Unable to find cell " + cell));
 
                         return SpreadsheetDelta.with(Sets.of(loaded, cellOutsideWindow()));
+                    }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return 0;
                     }
                 },
                 this.engineContext()),
@@ -386,6 +424,16 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                 assertNotEquals(null, context, "context");
 
                 return spreadsheetDelta();
+            }
+
+            @Override
+            public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                return 0;
+            }
+
+            @Override
+            public double maxRowHeight(final SpreadsheetRowReference row) {
+                return 0;
             }
         };
     }

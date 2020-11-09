@@ -64,7 +64,8 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetContext() {
+        this.handleAndCheck(this.createHandler(
+                new FakeSpreadsheetContext() {
                     @Override
                     public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
                         assertEquals(id, i, "spreadsheetId");

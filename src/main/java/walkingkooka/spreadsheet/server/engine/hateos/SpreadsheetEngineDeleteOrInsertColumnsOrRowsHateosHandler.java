@@ -75,7 +75,7 @@ abstract class SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<R exten
                                                     final Optional<SpreadsheetDelta> in) {
         checkWithoutCells(in);
 
-        return applyWindow(this.execute(lower, count), in);
+        return applyWindowAddMaxColumnWidthsMaxRowHeights(this.execute(lower, count), in);
     }
 
     /**

@@ -33,8 +33,11 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -63,22 +66,42 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
 
     @Test
     public void testHandleSaveCell() {
+        final double maxColumnWidth = 50;
+        final double maxRowHeight = 20;
+        final SpreadsheetCell cell = this.cell();
+        final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+        final SpreadsheetRowReference row = this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+
         this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
                     @Override
-                    public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
+                    public SpreadsheetDelta saveCell(final SpreadsheetCell c,
                                                      final SpreadsheetEngineContext context) {
                         Objects.requireNonNull(context, "context");
 
-                        assertEquals(SpreadsheetEngineSaveCellHateosHandlerTest.this.cell(), cell, "cell");
+                        assertEquals(cell, c, "cell");
                         assertNotEquals(null, context, "context");
 
                         return saved();
+                    }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference c) {
+                        assertEquals(column, c);
+                        return maxColumnWidth;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference r) {
+                        assertEquals(row, r);
+                        return maxRowHeight;
                     }
                 }),
                 this.id(),
                 this.resource(),
                 this.parameters(),
-                Optional.of(this.saved()));
+                Optional.of(this.saved()
+                        .setMaxColumnWidths(Maps.of(column, maxColumnWidth))
+                        .setMaxRowHeights(Maps.of(row, maxRowHeight))));
     }
 
     @Test
@@ -101,7 +124,11 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
 
         final List<SpreadsheetRange> window = this.window();
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        final double width = 50;
+        final double height = 20;
+
+        this.handleAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
                                                      final SpreadsheetEngineContext context) {
@@ -112,11 +139,30 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
 
                         return SpreadsheetDelta.with(Sets.of(saved1, saved2)).setWindow(window);
                     }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        assertEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
+                        return width;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                        assertEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
+                        return height;
+                    }
+
+                    private SpreadsheetCell cell() {
+                        return SpreadsheetEngineSaveCellHateosHandlerTest.this.cell();
+                    }
                 }),
                 this.id(),
                 Optional.of(SpreadsheetDelta.with(Sets.of(unsaved1)).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(saved1)).setWindow(window)));
+                Optional.of(SpreadsheetDelta.with(Sets.of(saved1))
+                        .setWindow(window)
+                        .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
+                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
     // handleCollection.................................................................................................

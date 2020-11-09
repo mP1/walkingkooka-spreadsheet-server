@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -29,6 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.List;
 import java.util.Map;
@@ -47,7 +49,11 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
 
         final Set<SpreadsheetCell> cells = this.cells();
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        final double width = 50;
+        final double height = 20;
+
+        this.handleAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
 
                     @Override
                     @SuppressWarnings("OptionalGetWithoutIsPresent")
@@ -58,11 +64,23 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                         assertEquals(1, count, "count");
                         return SpreadsheetDelta.with(cells);
                     }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        return width;
+                    }
+
+                    @Override public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return height;
+                    }
                 }),
                 column,
                 resource,
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(cells)));
+                Optional.of(SpreadsheetDelta.with(cells)
+                        .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width,
+                                SpreadsheetColumnReference.parseColumn("Z"), width))
+                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
     @Test
@@ -83,6 +101,24 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                         assertEquals(SpreadsheetColumnOrRowReference.parseColumn("C"), c, "column");
                         assertEquals(3, count, "count"); // C, D & E
                         return delta;
+                    }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        switch(column.toString()) {
+                            case "A":
+                            case "Z":
+                                break;
+                            default:
+                                throw new UnsupportedOperationException("Unexpected column: " + column);
+                        }
+
+                        return 0;
+                    }
+
+                    @Override
+                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return 0;
                     }
                 }),
                 range, // 2 inclusive
@@ -108,6 +144,16 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                         assertEquals(column.get(), c, "column");
                         assertEquals(1, count, "count");
                         return SpreadsheetDelta.with(cells);
+                    }
+
+                    @Override
+                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                        assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
+                        return 0;
+                    }
+
+                    @Override public double maxRowHeight(final SpreadsheetRowReference row) {
+                        return 0;
                     }
                 }),
                 column,
