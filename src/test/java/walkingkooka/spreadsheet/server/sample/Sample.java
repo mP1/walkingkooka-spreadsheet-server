@@ -45,6 +45,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatExpressionParserToken;
 import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParserContexts;
 import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParsers;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
@@ -142,6 +143,7 @@ public final class Sample {
                                             final SpreadsheetLabelStore labelStore) {
         return SpreadsheetEngines.basic(
                 SpreadsheetId.with(123),
+                SpreadsheetMetadata.EMPTY,
                 cellStore,
                 SpreadsheetReferenceStores.treeMap(),
                 labelStore,

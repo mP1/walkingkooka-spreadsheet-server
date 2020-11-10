@@ -189,6 +189,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> createHateosHandler(final SpreadsheetId id) {
         final SpreadsheetStoreRepository storeRepository = this.storeRepository(id);
 
+        final SpreadsheetMetadata metadata = this.load(id);
+
         final SpreadsheetCellStore cellStore = storeRepository.cells();
         final SpreadsheetReferenceStore<SpreadsheetCellReference> cellReferencesStore = storeRepository.cellReferences();
         final SpreadsheetLabelStore labelStore = storeRepository.labels();
@@ -197,14 +199,13 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = storeRepository.rangeToConditionalFormattingRules();
 
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+                metadata,
                 cellStore,
                 cellReferencesStore,
                 labelStore,
                 labelReferencesStore,
                 rangeToCellStore,
                 rangeToConditionalFormattingRules);
-
-        final SpreadsheetMetadata metadata = this.load(id);
 
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
