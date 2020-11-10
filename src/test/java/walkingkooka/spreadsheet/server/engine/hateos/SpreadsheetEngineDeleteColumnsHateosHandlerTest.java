@@ -70,7 +70,8 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                         return width;
                     }
 
-                    @Override public double maxRowHeight(final SpreadsheetRowReference row) {
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         return height;
                     }
                 }),
@@ -117,7 +118,7 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                     }
 
                     @Override
-                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         return 0;
                     }
                 }),
@@ -152,7 +153,8 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                         return 0;
                     }
 
-                    @Override public double maxRowHeight(final SpreadsheetRowReference row) {
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         return 0;
                     }
                 }),
