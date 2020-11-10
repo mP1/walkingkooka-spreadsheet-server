@@ -156,7 +156,7 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
 
             final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if(false == columns.containsKey(column)) {
-                final double width = engine.maxColumnWidth(column);
+                final double width = engine.columnWidth(column);
                 if(width > 0) {
                     columns.put(column, width);
                 }

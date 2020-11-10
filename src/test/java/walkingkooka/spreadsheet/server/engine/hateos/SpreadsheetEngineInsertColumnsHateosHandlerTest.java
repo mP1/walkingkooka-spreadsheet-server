@@ -67,7 +67,7 @@ public final class SpreadsheetEngineInsertColumnsHateosHandlerTest extends Sprea
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
                         return width;
                     }
@@ -107,7 +107,7 @@ public final class SpreadsheetEngineInsertColumnsHateosHandlerTest extends Sprea
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         switch(column.toString()) {
                             case "A":
                             case "Z":
@@ -150,7 +150,7 @@ public final class SpreadsheetEngineInsertColumnsHateosHandlerTest extends Sprea
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
                         return 0;
                     }

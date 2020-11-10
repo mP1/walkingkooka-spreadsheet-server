@@ -67,7 +67,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
 
     @Test
     public void testHandleSaveCell() {
-        final double maxColumnWidth = 50;
+        final double columnWidth = 50;
         final double maxRowHeight = 20;
         final SpreadsheetCell cell = this.cell();
         final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
@@ -86,9 +86,9 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference c) {
+                    public double columnWidth(final SpreadsheetColumnReference c) {
                         assertEquals(column, c);
-                        return maxColumnWidth;
+                        return columnWidth;
                     }
 
                     @Override
@@ -101,7 +101,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                 this.resource(),
                 this.parameters(),
                 Optional.of(this.saved()
-                        .setMaxColumnWidths(Maps.of(column, maxColumnWidth))
+                        .setMaxColumnWidths(Maps.of(column, columnWidth))
                         .setMaxRowHeights(Maps.of(row, maxRowHeight))));
     }
 
@@ -142,7 +142,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         assertEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
                         return width;
                     }
