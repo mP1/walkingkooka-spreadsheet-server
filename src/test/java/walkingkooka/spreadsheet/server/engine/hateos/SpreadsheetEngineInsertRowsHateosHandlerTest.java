@@ -71,7 +71,7 @@ public final class SpreadsheetEngineInsertRowsHateosHandlerTest extends Spreadsh
                     }
 
                     @Override
-                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return height;
                     }
@@ -111,7 +111,7 @@ public final class SpreadsheetEngineInsertRowsHateosHandlerTest extends Spreadsh
                     }
 
                     @Override
-                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return 0;
                     }
@@ -147,7 +147,7 @@ public final class SpreadsheetEngineInsertRowsHateosHandlerTest extends Spreadsh
                     }
 
                     @Override
-                    public double maxRowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return 0;
                     }

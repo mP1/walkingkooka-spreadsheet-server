@@ -164,7 +164,7 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
 
             final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if(false == rows.containsKey(row)) {
-                final double height = engine.maxRowHeight(row);
+                final double height = engine.rowHeight(row);
                 if(height > 0) {
                     rows.put(row, height);
                 }
