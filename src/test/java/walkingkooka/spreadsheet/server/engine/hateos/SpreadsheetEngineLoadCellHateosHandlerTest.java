@@ -90,7 +90,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         return width;
                     }
 
@@ -255,7 +255,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         return 0;
                     }
 
@@ -313,7 +313,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                     }
 
                     @Override
-                    public double maxColumnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column) {
                         return 0;
                     }
 
@@ -428,7 +428,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
             }
 
             @Override
-            public double maxColumnWidth(final SpreadsheetColumnReference column) {
+            public double columnWidth(final SpreadsheetColumnReference column) {
                 return 0;
             }
 
