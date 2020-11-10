@@ -126,6 +126,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
 
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+                metadata,
                 cellStore,
                 cellReferencesStore,
                 labelStore,
