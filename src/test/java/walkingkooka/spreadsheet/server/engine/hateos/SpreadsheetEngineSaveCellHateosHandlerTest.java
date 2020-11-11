@@ -161,7 +161,6 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                 Optional.of(SpreadsheetDelta.with(Sets.of(unsaved1)).setWindow(window)),
                 this.parameters(),
                 Optional.of(SpreadsheetDelta.with(Sets.of(saved1))
-                        .setWindow(window)
                         .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }

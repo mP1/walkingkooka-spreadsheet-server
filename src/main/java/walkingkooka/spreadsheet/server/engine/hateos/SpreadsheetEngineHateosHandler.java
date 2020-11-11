@@ -172,7 +172,8 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
         }
 
         return afterWindow.setMaxColumnWidths(columns)
-                .setMaxRowHeights(rows);
+                .setMaxRowHeights(rows)
+                .setWindow(SpreadsheetDelta.NO_WINDOW);
     }
 
     // parameters.......................................................................................................
