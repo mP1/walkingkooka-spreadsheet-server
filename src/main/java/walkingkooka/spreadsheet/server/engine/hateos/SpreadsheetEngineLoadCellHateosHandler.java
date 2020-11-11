@@ -64,7 +64,7 @@ final class SpreadsheetEngineLoadCellHateosHandler extends SpreadsheetEngineHate
 
         checkWithoutCells(resource);
 
-        return Optional.of(applyWindowAddMaxColumnWidthsMaxRowHeights(this.loadCell(reference), resource));
+        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.loadCell(reference), resource));
     }
 
     SpreadsheetDelta loadCell(final SpreadsheetCellReference reference) {
@@ -85,7 +85,7 @@ final class SpreadsheetEngineLoadCellHateosHandler extends SpreadsheetEngineHate
 
         checkWithoutCells(resource);
 
-        return Optional.ofNullable(applyWindowAddMaxColumnWidthsMaxRowHeights(SpreadsheetEngineLoadCellHateosHandlerBatchLoader.with(this).batchLoad(cells), resource));
+        return Optional.ofNullable(filterWindowAndSetMaxColumnWidthsMaxRowHeights(SpreadsheetEngineLoadCellHateosHandlerBatchLoader.with(this).batchLoad(cells), resource));
     }
 
     @Override
