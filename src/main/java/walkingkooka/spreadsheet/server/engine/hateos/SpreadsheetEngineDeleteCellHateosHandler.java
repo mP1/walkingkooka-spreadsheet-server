@@ -60,7 +60,7 @@ final class SpreadsheetEngineDeleteCellHateosHandler extends SpreadsheetEngineHa
         }
         this.checkParameters(parameters);
 
-        return Optional.of(applyWindowAddMaxColumnWidthsMaxRowHeights(this.engine.deleteCell(cells.iterator().next().reference(), this.context),
+        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.deleteCell(cells.iterator().next().reference(), this.context),
                 resource));
     }
 

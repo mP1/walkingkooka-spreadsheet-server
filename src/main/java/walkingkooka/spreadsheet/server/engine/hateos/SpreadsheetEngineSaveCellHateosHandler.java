@@ -60,7 +60,7 @@ final class SpreadsheetEngineSaveCellHateosHandler extends SpreadsheetEngineHate
         }
         this.checkParameters(parameters);
 
-        return Optional.of(applyWindowAddMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
+        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
                 resource));
     }
 

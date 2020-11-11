@@ -27,9 +27,11 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -139,41 +141,56 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
      * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#maxColumnWidths()} and
      * {@link SpreadsheetDelta#maxRowHeights()}
      */
-    final SpreadsheetDelta applyWindowAddMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
-                                                                      final Optional<SpreadsheetDelta> in) {
-        final SpreadsheetDelta afterWindow = in.map(d -> d.setCells(out.cells()))
-                .orElse(out);
+    final SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
+                                                                          final Optional<SpreadsheetDelta> in) {
+        // if $in is present apply its window to filter the result cells
+        return in.isPresent() ?
+                this.filterWindowAndSetMaxColumnWidthsMaxRowHeights0(in.get().window(), out) :
+                this.setMaxColumnWidthsMaxRowHeights(out);
+    }
+
+    /**
+     * Filter the cells with the window and then gather the column widths and row heights.
+     */
+    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle> window,
+                                                                             final SpreadsheetDelta delta) {
+        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor.transform(window, this.engine);
+        return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(ranges)
+                .setWindow(SpreadsheetDelta.NO_WINDOW));
+    }
+
+    /**
+     * Computes the widths and heights for all the columns and rows covered by the cells.
+     */
+    private SpreadsheetDelta setMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta delta) {
 
         final SpreadsheetEngine engine = this.engine;
 
         final Map<SpreadsheetColumnReference, Double> columns = Maps.sorted();
         final Map<SpreadsheetRowReference, Double> rows = Maps.sorted();
 
-        // collect unique columns/rows and the maxes.
-
-        for(final SpreadsheetCell cell : afterWindow.cells()) {
+        for (final SpreadsheetCell cell : delta.cells()) {
             final SpreadsheetCellReference reference = cell.reference();
 
             final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if(false == columns.containsKey(column)) {
+            if (false == columns.containsKey(column)) {
                 final double width = engine.columnWidth(column);
-                if(width > 0) {
+                if (width > 0) {
                     columns.put(column, width);
                 }
             }
 
             final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if(false == rows.containsKey(row)) {
+            if (false == rows.containsKey(row)) {
                 final double height = engine.rowHeight(row);
-                if(height > 0) {
+                if (height > 0) {
                     rows.put(row, height);
                 }
             }
         }
 
-        return afterWindow.setMaxColumnWidths(columns)
-                .setMaxRowHeights(rows)
-                .setWindow(SpreadsheetDelta.NO_WINDOW);
+        return delta.setMaxColumnWidths(columns)
+                .setMaxRowHeights(rows);
     }
 
     // parameters.......................................................................................................
