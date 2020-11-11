@@ -218,6 +218,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA
@@ -265,6 +271,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -302,6 +314,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"B\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"2\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -348,6 +366,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -391,6 +415,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -429,6 +459,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
                                 "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"B\": 50\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"2\": 20\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -492,6 +528,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private SpreadsheetMetadata createMetadata() {
         return SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+                .set(SpreadsheetMetadataPropertyName.DEFAULT_COLUMN_WIDTH, 50.0)
+                .set(SpreadsheetMetadataPropertyName.DEFAULT_ROW_HEIGHT, 20.0)
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
