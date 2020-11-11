@@ -104,7 +104,6 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
                 Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())
-                        .setWindow(window)
                         .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
@@ -326,7 +325,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                 range,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3, c1, c2, c3)).setWindow(window)));
+                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))));
     }
 
     private SpreadsheetCell b1() {

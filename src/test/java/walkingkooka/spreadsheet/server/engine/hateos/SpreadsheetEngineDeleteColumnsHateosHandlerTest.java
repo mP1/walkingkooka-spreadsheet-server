@@ -161,7 +161,7 @@ public final class SpreadsheetEngineDeleteColumnsHateosHandlerTest extends Sprea
                 column,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow()).setWindow(window)));
+                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())));
     }
 
     @Test
