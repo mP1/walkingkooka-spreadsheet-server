@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -32,7 +31,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#saveCell(SpreadsheetCell, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCell(SpreadsheetCellReference, SpreadsheetEngineEvaluation, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetEngineLoadCellHateosHandler extends SpreadsheetEngineHateosHandler<SpreadsheetCellReference> {
 
