@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
@@ -26,9 +25,6 @@ import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
@@ -36,41 +32,15 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
         I extends Comparable<I>>
-        extends SpreadsheetEngineHateosHandlerTestCase<H>
+        extends SpreadsheetEngineHateosHandlerTestCase2<H, I, SpreadsheetDelta, SpreadsheetDelta>
         implements HateosHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta>,
         PredicateTesting,
         ToStringTesting<H> {
 
     SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase() {
         super();
-    }
-
-    @Test
-    public final void testWithNullEngineFails() {
-        assertThrows(NullPointerException.class, () -> this.createHandler(null, this.engineContext()));
-    }
-
-    @Test
-    public final void testWithNullEngineContextSupplierFails() {
-        assertThrows(NullPointerException.class, () -> this.createHandler(this.engine(), null));
-    }
-
-    @Override
-    public final H createHandler() {
-        return this.createHandler(this.engine(), this.engineContext());
-    }
-
-    abstract H createHandler(final SpreadsheetEngine engine,
-                             final SpreadsheetEngineContext context);
-
-    abstract SpreadsheetEngine engine();
-
-    final SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     final SpreadsheetCell cell() {
