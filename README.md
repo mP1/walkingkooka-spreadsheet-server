@@ -77,7 +77,7 @@ A collection of end points related to spreadsheet metadata.
 All outputs return a SpreadsheetMetadata in JSON form.
 
 - GET    /api/spreadsheet/$spreadsheet-id
-- POST   /api/spreadsheet/                expectes no BODY, creates a Spreadsheet with SpreadsheetMetadata with defaults using any provided locale.
+- POST   /api/spreadsheet/                expects no BODY, creates a Spreadsheet with SpreadsheetMetadata with defaults using any provided locale.
 - POST   /api/spreadsheet/$spreadsheet-id requires a BODY to update existing SpreadsheetMetadata.
 
 
@@ -85,7 +85,7 @@ All outputs return a SpreadsheetMetadata in JSON form.
 ### Engine
 
 A collection of end points that support manipulating cells, columns and rows.
-All input and output is always a SpreadsheetDelta in JSON form, where necessary
+All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 
 - GET     /api/cell/A1/clear-value-error-skip-evaluate
 - GET     /api/cell/A1/skip-evaluate
@@ -99,7 +99,7 @@ All input and output is always a SpreadsheetDelta in JSON form, where necessary
 - GET     /api/row/1
 - PUT     /api/row/1
 - DELETE  /api/row/1
-- POST    /api/cell/A1:B2/fill **input includes region of cells to be the fill content**
+- POST    /api/cell/A1-B2/fill **input includes region of cells to be the fill content**
 
 
 
