@@ -18,13 +18,13 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 
 public abstract class SpreadsheetEngineHateosHandlerTestCase<T> implements ClassTesting<T>,
-        ToStringTesting<T>,
         TypeNameTesting<T> {
 
     SpreadsheetEngineHateosHandlerTestCase() {
@@ -42,6 +42,11 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase<T> implements Class
 
     @Override
     public final String typeNamePrefix() {
-        return SpreadsheetEngine.class.getSimpleName();
+        return SpreadsheetEngine.class.getSimpleName() + HateosHandler.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

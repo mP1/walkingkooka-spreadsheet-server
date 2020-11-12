@@ -26,17 +26,17 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 import java.util.List;
 import java.util.stream.Collectors;
 
-final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor extends SpreadsheetExpressionReferenceVisitor {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor extends SpreadsheetExpressionReferenceVisitor {
 
     static List<SpreadsheetRectangle> transform(final List<SpreadsheetRectangle> rectangles,
                                                 final SpreadsheetEngine engine) {
-        final SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor visitor = new SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor(engine);
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor visitor = new SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(engine);
         return rectangles.stream()
                 .map(visitor::transform0)
                 .collect(Collectors.toList());
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor(final SpreadsheetEngine engine) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(final SpreadsheetEngine engine) {
         super();
         this.engine = engine;
     }

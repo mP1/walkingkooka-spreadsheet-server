@@ -25,11 +25,11 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 
 import java.util.Optional;
 
-public abstract class SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandlerTestCase2<H extends SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<I>,
+public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<I>,
         I extends SpreadsheetColumnOrRowReference<I>>
-        extends SpreadsheetEngineHateosHandlerTestCase2<H, I> {
+        extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H, I> {
 
-    SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandlerTestCase2() {
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertTestCase() {
         super();
     }
 

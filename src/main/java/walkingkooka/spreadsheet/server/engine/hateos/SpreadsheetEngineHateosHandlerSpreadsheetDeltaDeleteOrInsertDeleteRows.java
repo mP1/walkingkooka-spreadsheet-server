@@ -24,18 +24,18 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 /**
- * A {@link HateosHandler} for {@link SpreadsheetEngine#insertRows(SpreadsheetRowReference, int, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} for {@link SpreadsheetEngine#deleteRows(SpreadsheetRowReference, int, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineInsertRowsHateosHandler extends SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<SpreadsheetRowReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<SpreadsheetRowReference> {
 
-    static SpreadsheetEngineInsertRowsHateosHandler with(final SpreadsheetEngine engine,
-                                                         final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows with(final SpreadsheetEngine engine,
+                                                                                       final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineInsertRowsHateosHandler(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(engine, context);
     }
 
-    private SpreadsheetEngineInsertRowsHateosHandler(final SpreadsheetEngine engine,
-                                                     final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(final SpreadsheetEngine engine,
+                                                                                   final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
@@ -46,11 +46,11 @@ final class SpreadsheetEngineInsertRowsHateosHandler extends SpreadsheetEngineDe
 
     @Override
     SpreadsheetDelta execute(final SpreadsheetRowReference row, final int count) {
-        return this.engine.insertRows(row, count, this.context);
+        return this.engine.deleteRows(row, count, this.context);
     }
 
     @Override
     String operation() {
-        return "insertRows";
+        return "deleteRows";
     }
 }

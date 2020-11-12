@@ -18,20 +18,12 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
-import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,8 +31,7 @@ import java.util.Optional;
 /**
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
  */
-abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
-        implements HateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
+abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> implements HateosHandler<I, V, C> {
 
     /**
      * Checks required factory method parameters are not null.
@@ -63,13 +54,6 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
 
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
-
-    @Override
-    public final String toString() {
-        return SpreadsheetEngine.class.getSimpleName() + "." + this.operation();
-    }
-
-    abstract String operation();
 
     // Optional<I>......................................................................................................
 
@@ -135,62 +119,6 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>>
         if (!delta.cells().isEmpty()) {
             throw new IllegalArgumentException("Expected delta without cells: " + delta);
         }
-    }
-
-    /**
-     * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#maxColumnWidths()} and
-     * {@link SpreadsheetDelta#maxRowHeights()}
-     */
-    final SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
-                                                                          final Optional<SpreadsheetDelta> in) {
-        // if $in is present apply its window to filter the result cells
-        return in.isPresent() ?
-                this.filterWindowAndSetMaxColumnWidthsMaxRowHeights0(in.get().window(), out) :
-                this.setMaxColumnWidthsMaxRowHeights(out);
-    }
-
-    /**
-     * Filter the cells with the window and then gather the column widths and row heights.
-     */
-    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle> window,
-                                                                             final SpreadsheetDelta delta) {
-        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceVisitor.transform(window, this.engine);
-        return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(ranges)
-                .setWindow(SpreadsheetDelta.NO_WINDOW));
-    }
-
-    /**
-     * Computes the widths and heights for all the columns and rows covered by the cells.
-     */
-    private SpreadsheetDelta setMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta delta) {
-
-        final SpreadsheetEngine engine = this.engine;
-
-        final Map<SpreadsheetColumnReference, Double> columns = Maps.sorted();
-        final Map<SpreadsheetRowReference, Double> rows = Maps.sorted();
-
-        for (final SpreadsheetCell cell : delta.cells()) {
-            final SpreadsheetCellReference reference = cell.reference();
-
-            final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if (false == columns.containsKey(column)) {
-                final double width = engine.columnWidth(column);
-                if (width > 0) {
-                    columns.put(column, width);
-                }
-            }
-
-            final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if (false == rows.containsKey(row)) {
-                final double height = engine.rowHeight(row);
-                if (height > 0) {
-                    rows.put(row, height);
-                }
-            }
-        }
-
-        return delta.setMaxColumnWidths(columns)
-                .setMaxRowHeights(rows);
     }
 
     // parameters.......................................................................................................

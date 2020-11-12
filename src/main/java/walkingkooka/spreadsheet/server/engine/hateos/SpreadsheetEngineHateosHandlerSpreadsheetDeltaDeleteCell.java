@@ -25,25 +25,25 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#saveCell(SpreadsheetCell, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#deleteCell(SpreadsheetCellReference, SpreadsheetEngineContext)}.
+ * Deleting more than one cell is not supported.
  */
-final class SpreadsheetEngineSaveCellHateosHandler extends SpreadsheetEngineHateosHandler<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
 
-    static SpreadsheetEngineSaveCellHateosHandler with(final SpreadsheetEngine engine,
-                                                       final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell with(final SpreadsheetEngine engine,
+                                                                         final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineSaveCellHateosHandler(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell(engine, context);
     }
 
-    private SpreadsheetEngineSaveCellHateosHandler(final SpreadsheetEngine engine,
-                                                   final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell(final SpreadsheetEngine engine,
+                                                                     final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
@@ -55,12 +55,12 @@ final class SpreadsheetEngineSaveCellHateosHandler extends SpreadsheetEngineHate
 
         final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
         final Set<SpreadsheetCell> cells = delta.cells();
-        if (cells.size() != 1) {
-            throw new IllegalArgumentException("Expected 1 cell got " + cells.size());
+        if (false == cells.isEmpty()) {
+            throw new IllegalArgumentException("Expected no cells got " + cells.size());
         }
         this.checkParameters(parameters);
 
-        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
+        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.deleteCell(cells.iterator().next().reference(), this.context),
                 resource));
     }
 
@@ -68,18 +68,11 @@ final class SpreadsheetEngineSaveCellHateosHandler extends SpreadsheetEngineHate
     public Optional<SpreadsheetDelta> handleCollection(final Range<SpreadsheetCellReference> ids,
                                                        final Optional<SpreadsheetDelta> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetRange range = SpreadsheetRange.with(ids);
-        final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
-        this.checkParameters(parameters);
-
-        return Optional.of(this.engine.fillCells(delta.cells(),
-                range,
-                range,
-                this.context).setWindow(delta.window()));
+        throw new UnsupportedOperationException();
     }
 
     @Override
     String operation() {
-        return "saveCell";
+        return "deleteCell";
     }
 }

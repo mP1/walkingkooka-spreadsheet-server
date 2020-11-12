@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
@@ -37,13 +38,14 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends SpreadsheetEngineHateosHandler<I>,
+public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
         I extends Comparable<I>>
         extends SpreadsheetEngineHateosHandlerTestCase<H>
         implements HateosHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta>,
-        PredicateTesting {
+        PredicateTesting,
+        ToStringTesting<H> {
 
-    SpreadsheetEngineHateosHandlerTestCase2() {
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase() {
         super();
     }
 

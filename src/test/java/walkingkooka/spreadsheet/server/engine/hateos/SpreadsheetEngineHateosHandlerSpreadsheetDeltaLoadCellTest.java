@@ -48,15 +48,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEngineLoadCellHateosHandlerTest
-        extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineLoadCellHateosHandler,
-        SpreadsheetCellReference> {
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
+        extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell,
+                SpreadsheetCellReference> {
 
     private final static SpreadsheetEngineEvaluation EVALUATION = SpreadsheetEngineEvaluation.FORCE_RECOMPUTE;
 
     @Test
     public void testWithNullEvaluationFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineLoadCellHateosHandler.with(null, this.engine(), this.engineContext()));
+        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(null, this.engine(), this.engineContext()));
     }
 
     // handle...........................................................................................................
@@ -77,7 +77,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
         final double width = 50;
         final double height = 20;
 
-        this.handleAndCheck(SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
+        this.handleAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
@@ -239,7 +239,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
 
     private void handleCollectionAndCheck2(final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta,
                                            final Optional<SpreadsheetDelta> result) {
-        final SpreadsheetEngineLoadCellHateosHandler handler = SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
@@ -294,7 +294,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
         final Range<SpreadsheetCellReference> range = this.collection();
         final List<SpreadsheetRectangle> window = this.window();
 
-        this.handleCollectionAndCheck(SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
+        this.handleCollectionAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
@@ -372,9 +372,9 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
     }
 
     @Override
-    SpreadsheetEngineLoadCellHateosHandler createHandler(final SpreadsheetEngine engine,
-                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineLoadCellHateosHandler.with(EVALUATION,
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell createHandler(final SpreadsheetEngine engine,
+                                                                         final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 engine,
                 context);
     }
@@ -419,7 +419,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
                 Objects.requireNonNull(evaluation, "evaluation");
                 Objects.requireNonNull(context, "context");
 
-                assertEquals(SpreadsheetEngineLoadCellHateosHandlerTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");
+                assertEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");
                 assertEquals(EVALUATION, evaluation, "evaluation");
                 assertNotEquals(null, context, "context");
 
@@ -443,7 +443,7 @@ public final class SpreadsheetEngineLoadCellHateosHandlerTest
     }
 
     @Override
-    public Class<SpreadsheetEngineLoadCellHateosHandler> type() {
-        return SpreadsheetEngineLoadCellHateosHandler.class;
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell> type() {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.class;
     }
 }

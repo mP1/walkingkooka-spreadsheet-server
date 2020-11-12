@@ -17,18 +17,10 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
-import walkingkooka.Cast;
-import walkingkooka.net.http.server.hateos.HateosHandler;
-
-public final class SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandlerTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<?>> {
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoaderTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader> {
 
     @Override
-    public Class<SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<?>> type() {
-        return Cast.to(SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler.class);
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return HateosHandler.class.getSimpleName();
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader> type() {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader.class;
     }
 }

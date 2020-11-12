@@ -33,22 +33,22 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCell(SpreadsheetCellReference, SpreadsheetEngineEvaluation, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineLoadCellHateosHandler extends SpreadsheetEngineHateosHandler<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
 
-    static SpreadsheetEngineLoadCellHateosHandler with(final SpreadsheetEngineEvaluation evaluation,
-                                                       final SpreadsheetEngine engine,
-                                                       final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell with(final SpreadsheetEngineEvaluation evaluation,
+                                                                       final SpreadsheetEngine engine,
+                                                                       final SpreadsheetEngineContext context) {
         Objects.requireNonNull(evaluation, "evaluation");
 
         check(engine, context);
-        return new SpreadsheetEngineLoadCellHateosHandler(evaluation,
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell(evaluation,
                 engine,
                 context);
     }
 
-    private SpreadsheetEngineLoadCellHateosHandler(final SpreadsheetEngineEvaluation evaluation,
-                                                   final SpreadsheetEngine engine,
-                                                   final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell(final SpreadsheetEngineEvaluation evaluation,
+                                                                   final SpreadsheetEngine engine,
+                                                                   final SpreadsheetEngineContext context) {
         super(engine, context);
         this.evaluation = evaluation;
     }
@@ -84,7 +84,7 @@ final class SpreadsheetEngineLoadCellHateosHandler extends SpreadsheetEngineHate
 
         checkWithoutCells(resource);
 
-        return Optional.ofNullable(filterWindowAndSetMaxColumnWidthsMaxRowHeights(SpreadsheetEngineLoadCellHateosHandlerBatchLoader.with(this).batchLoad(cells), resource));
+        return Optional.ofNullable(filterWindowAndSetMaxColumnWidthsMaxRowHeights(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader.with(this).batchLoad(cells), resource));
     }
 
     @Override
