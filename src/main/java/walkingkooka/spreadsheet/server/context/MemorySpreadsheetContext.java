@@ -234,6 +234,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         return SpreadsheetEngineHateosHandlers.engineRouter(this.baseWithSpreadsheetId(id),
                 this.contentType,
+                SpreadsheetEngineHateosHandlers.computeRange(engine, engineContext),
                 SpreadsheetEngineHateosHandlers.deleteColumns(engine, engineContext),
                 SpreadsheetEngineHateosHandlers.deleteRows(engine, engineContext),
                 SpreadsheetEngineHateosHandlers.fillCells(engine, engineContext),

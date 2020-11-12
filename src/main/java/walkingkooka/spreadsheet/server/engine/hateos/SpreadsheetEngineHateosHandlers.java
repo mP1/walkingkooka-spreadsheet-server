@@ -30,6 +30,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
+import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.tree.Node;
 
@@ -39,6 +41,14 @@ import java.util.function.BiConsumer;
  * A collection of factory methods to create various {@link HateosHandler}.
  */
 public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper {
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange}
+     */
+    public static HateosHandler<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange> computeRange(final SpreadsheetEngine engine,
+                                                                                                            final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange.with(engine, context);
+    }
 
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
@@ -112,6 +122,9 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
      */
     public static <N extends Node<N, ?, ?, ?>> Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineRouter(final AbsoluteUrl base,
                                                                                                                                    final HateosContentType contentType,
+                                                                                                                                   final HateosHandler<SpreadsheetPixelRectangle,
+                                                                                                                                           SpreadsheetRange,
+                                                                                                                                           SpreadsheetRange> computeRange,
                                                                                                                                    final HateosHandler<SpreadsheetColumnReference,
                                                                                                                                            SpreadsheetDelta,
                                                                                                                                            SpreadsheetDelta> deleteColumns,
@@ -147,6 +160,7 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
                                                                                                                                            SpreadsheetDelta> deleteCell) {
         return SpreadsheetEngineHateosHandlersRouter.router(base,
                 contentType,
+                computeRange,
                 deleteColumns,
                 deleteRows,
                 fillCells,

@@ -37,6 +37,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -45,6 +46,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
+import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -64,6 +67,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTesting2<SpreadsheetEngineHateosHandlersRouter> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+    private final static String URL = "http://example.com/api";
 
     // spreadsheetCellColumnRowRouter...................................................................................
 
@@ -71,6 +75,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterBaseNullFails() {
         this.routerFails(null,
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -87,6 +92,25 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     @Test
     public void testRouterContentTypeNullFails() {
         this.routerFails(this.base(),
+                null,
+                this.computeRange(),
+                this.deleteColumns(),
+                this.deleteRows(),
+                this.fillCells(),
+                this.insertColumns(),
+                this.insertRows(),
+                this.loadCellClearValueErrorSkipEvaluate(),
+                this.loadCellComputeIfNecessary(),
+                this.loadCellForceRecompute(),
+                this.loadCellSkipEvaluate(),
+                this.saveCell(),
+                this.deleteCell());
+    }
+
+    @Test
+    public void testRouterComputeRangeNullFails() {
+        this.routerFails(this.base(),
+                this.contentType(),
                 null,
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -105,6 +129,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteColumnsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 null,
                 this.deleteRows(),
                 this.fillCells(),
@@ -122,6 +147,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteRowsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 null,
                 this.fillCells(),
@@ -139,6 +165,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterFillCellsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 null,
@@ -156,6 +183,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterInsertColumnsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -173,6 +201,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterInsertRowsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -190,6 +219,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsClearValueErrorSkipEvaluateHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -207,6 +237,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsComputeIfNecessaryHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -224,6 +255,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsForceRecomputeHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -241,6 +273,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsSkipEvaluateHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -258,6 +291,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterSaveCellsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -275,6 +309,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteCellHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -290,6 +325,9 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     private void routerFails(final AbsoluteUrl base,
                              final HateosContentType contentType,
+                             final HateosHandler<SpreadsheetPixelRectangle,
+                                     SpreadsheetRange,
+                                     SpreadsheetRange> computeRange,
                              final HateosHandler<SpreadsheetColumnReference,
                                      SpreadsheetDelta,
                                      SpreadsheetDelta> deleteColumns,
@@ -325,6 +363,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                                      SpreadsheetDelta> deleteCell) {
         assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosHandlersRouter.router(base,
                 contentType,
+                computeRange,
                 deleteColumns,
                 deleteRows,
                 fillCells,
@@ -435,6 +474,32 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
         this.routeAndFail(HttpMethod.DELETE, URL + "/cell/A1:B2/fill");
     }
 
+    // computeRange......................................................................................................
+
+    private final static String COMPUTE_RANGE_URL = URL + "/pixel-rectangle/A1:100:200";
+
+    @Test
+    public void testRouteComputeRangeGet() {
+        this.routeAndCheck(HttpMethod.GET, COMPUTE_RANGE_URL, HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteComputeRangePostFails() {
+        this.routeAndFail(HttpMethod.POST, COMPUTE_RANGE_URL);
+    }
+
+    @Test
+    public void testRouteComputeRangePutFails() {
+        this.routeAndFail(HttpMethod.PUT, COMPUTE_RANGE_URL);
+    }
+
+    @Test
+    public void testRouteComputeRangeDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, COMPUTE_RANGE_URL);
+    }
+
+    // helpers..........................................................................................................
+
     private void routeAndCheck(final HttpMethod method,
                                final String url,
                                final HttpStatusCode statusCode) {
@@ -455,6 +520,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     private Optional<BiConsumer<HttpRequest, HttpResponse>> route(final HttpRequest request) {
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = SpreadsheetEngineHateosHandlersRouter.router(this.base(),
                 this.contentType(),
+                this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
                 this.fillCells(),
@@ -508,8 +574,6 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
         }
     }
 
-    private final static String URL = "http://example.com/api";
-
     private AbsoluteUrl base() {
         return Url.parseAbsolute(URL);
     }
@@ -517,6 +581,10 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     private HateosContentType contentType() {
         return HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, MathContext.DECIMAL32)),
                 JsonNodeMarshallContexts.basic());
+    }
+
+    private HateosHandler<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange> computeRange() {
+        return SpreadsheetEngineHateosHandlers.computeRange(this.engine(), this.engineContext());
     }
 
     private HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns() {
@@ -568,7 +636,12 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     }
 
     private SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
+        return new FakeSpreadsheetEngine() {
+            @Override
+            public SpreadsheetRange computeRange(final SpreadsheetPixelRectangle rectangle) {
+                return SpreadsheetRange.parseRange("B2:C3");
+            }
+        };
     }
 
     private SpreadsheetEngineContext engineContext() {
