@@ -51,9 +51,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public final class SpreadsheetEngineSaveCellHateosHandlerTest
-        extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineSaveCellHateosHandler,
-        SpreadsheetCellReference> {
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
+        extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell,
+                SpreadsheetCellReference> {
 
     // handle...........................................................................................................
 
@@ -135,7 +135,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                                                      final SpreadsheetEngineContext context) {
                         Objects.requireNonNull(context, "context");
 
-                        assertEquals(SpreadsheetEngineSaveCellHateosHandlerTest.this.cell(), cell, "cell");
+                        assertEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
                         assertNotEquals(null, context, "context");
 
                         return SpreadsheetDelta.with(Sets.of(saved1, saved2)).setWindow(window);
@@ -154,7 +154,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
                     }
 
                     private SpreadsheetCell cell() {
-                        return SpreadsheetEngineSaveCellHateosHandlerTest.this.cell();
+                        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell();
                     }
                 }),
                 this.id(),
@@ -237,13 +237,13 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
     }
 
     @Override
-    SpreadsheetEngineSaveCellHateosHandler createHandler(final SpreadsheetEngine engine,
-                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineSaveCellHateosHandler.with(engine, context);
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell createHandler(final SpreadsheetEngine engine,
+                                                                         final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell.with(engine, context);
     }
 
-    private SpreadsheetEngineSaveCellHateosHandler createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetEngineSaveCellHateosHandler.with(engine, this.engineContext());
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell.with(engine, this.engineContext());
     }
 
     @Override
@@ -286,7 +286,7 @@ public final class SpreadsheetEngineSaveCellHateosHandlerTest
     }
 
     @Override
-    public Class<SpreadsheetEngineSaveCellHateosHandler> type() {
-        return Cast.to(SpreadsheetEngineSaveCellHateosHandler.class);
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell> type() {
+        return Cast.to(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell.class);
     }
 }

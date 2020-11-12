@@ -30,10 +30,10 @@ import java.util.Optional;
 /**
  * A template that also filters using any requested {@link SpreadsheetDelta#window()}} if present.
  */
-abstract class SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<R extends SpreadsheetColumnOrRowReference<R>> extends SpreadsheetEngineHateosHandler<R> {
+abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R extends SpreadsheetColumnOrRowReference<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<R> {
 
-    SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler(final SpreadsheetEngine engine,
-                                                              final SpreadsheetEngineContext context) {
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert(final SpreadsheetEngine engine,
+                                                                 final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 

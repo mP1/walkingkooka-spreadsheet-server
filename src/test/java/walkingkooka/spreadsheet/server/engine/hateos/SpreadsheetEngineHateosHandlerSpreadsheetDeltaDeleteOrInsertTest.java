@@ -20,10 +20,10 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.Cast;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 
-public final class SpreadsheetEngineHateosHandlerTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandler<?, ?, ?>> {
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<?>> {
 
     @Override
-    public Class<SpreadsheetEngineHateosHandler<?, ?, ?>> type() {
-        return Cast.to(SpreadsheetEngineHateosHandler.class);
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<?>> type() {
+        return Cast.to(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert.class);
     }
 }

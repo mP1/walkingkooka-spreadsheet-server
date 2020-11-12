@@ -36,16 +36,16 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetRange, SpreadsheetRange, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineFillCellsHateosHandler extends SpreadsheetEngineHateosHandler<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
 
-    static SpreadsheetEngineFillCellsHateosHandler with(final SpreadsheetEngine engine,
-                                                        final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells with(final SpreadsheetEngine engine,
+                                                                        final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineFillCellsHateosHandler(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells(engine, context);
     }
 
-    private SpreadsheetEngineFillCellsHateosHandler(final SpreadsheetEngine engine,
-                                                    final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells(final SpreadsheetEngine engine,
+                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
@@ -69,7 +69,7 @@ final class SpreadsheetEngineFillCellsHateosHandler extends SpreadsheetEngineHat
         this.checkParameters(parameters);
 
         final SpreadsheetRange from = FROM.parameterValue(parameters)
-                .map(SpreadsheetEngineFillCellsHateosHandler::mapFirstStringValue)
+                .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)
                 .orElse(toSpreadsheetRange);
 
         return Optional.of(delta.setCells(this.engine.fillCells(delta.cells(),
@@ -81,7 +81,7 @@ final class SpreadsheetEngineFillCellsHateosHandler extends SpreadsheetEngineHat
     private static SpreadsheetRange mapFirstStringValue(final List<String> values) {
         return values.stream()
                 .limit(1)
-                .map(SpreadsheetEngineFillCellsHateosHandler::parseRange)
+                .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::parseRange)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Required parameter " + FROM + " missing"));
     }

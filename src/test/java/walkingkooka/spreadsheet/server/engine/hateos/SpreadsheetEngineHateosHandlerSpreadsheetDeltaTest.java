@@ -17,15 +17,14 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
-public final class SpreadsheetEngineLoadCellHateosHandlerBatchLoaderTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineLoadCellHateosHandlerBatchLoader> {
+import walkingkooka.Cast;
+import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 
     @Override
-    public Class<SpreadsheetEngineLoadCellHateosHandlerBatchLoader> type() {
-        return SpreadsheetEngineLoadCellHateosHandlerBatchLoader.class;
-    }
-
-    @Override
-    public String typeNameSuffix() {
-        return "BatchLoader";
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> type() {
+        return Cast.to(SpreadsheetEngineHateosHandlerSpreadsheetDelta.class);
     }
 }

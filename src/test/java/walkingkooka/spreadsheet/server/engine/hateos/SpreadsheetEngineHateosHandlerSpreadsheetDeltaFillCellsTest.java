@@ -42,7 +42,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetEngineFillCellsHateosHandlerTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineFillCellsHateosHandler,
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells,
         SpreadsheetCellReference> {
 
     @SuppressWarnings("ThrowableNotThrown")
@@ -60,7 +60,7 @@ public final class SpreadsheetEngineFillCellsHateosHandlerTest extends Spreadshe
     public void testFillFromParameterEmptyFails() {
         this.handleCollectionFails(this.toSpreadsheetRange().range(),
                 this.collectionResource(),
-                Maps.of(SpreadsheetEngineFillCellsHateosHandler.FROM, Lists.empty()),
+                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.empty()),
                 IllegalArgumentException.class);
     }
 
@@ -68,24 +68,24 @@ public final class SpreadsheetEngineFillCellsHateosHandlerTest extends Spreadshe
     public void testFillFromParameterInvalidFails() {
         this.handleCollectionFails(this.toSpreadsheetRange().range(),
                 this.collectionResource(),
-                Maps.of(SpreadsheetEngineFillCellsHateosHandler.FROM, Lists.of("!INVALID")),
+                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of("!INVALID")),
                 IllegalArgumentException.class);
     }
 
     @Test
     public void testFillFromParameterPresent() {
-        this.handleCollectionAndCheck2(Maps.of(SpreadsheetEngineFillCellsHateosHandler.FROM, Lists.of(TO)), this.toSpreadsheetRange());
+        this.handleCollectionAndCheck2(Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of(TO)), this.toSpreadsheetRange());
     }
 
     @Test
     public void testFillFromParameterPresent2() {
-        this.handleCollectionAndCheck2(Maps.of(SpreadsheetEngineFillCellsHateosHandler.FROM, Lists.of(TO, FROM)), this.toSpreadsheetRange());
+        this.handleCollectionAndCheck2(Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of(TO, FROM)), this.toSpreadsheetRange());
     }
 
     private void handleCollectionAndCheck2(final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetRange from) {
         this.handleCollectionAndCheck(
-                SpreadsheetEngineFillCellsHateosHandler.with(new FakeSpreadsheetEngine() {
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {
 
                                                                  @Override
                                                                  @SuppressWarnings("OptionalGetWithoutIsPresent")
@@ -119,7 +119,7 @@ public final class SpreadsheetEngineFillCellsHateosHandlerTest extends Spreadshe
         final List<SpreadsheetRectangle> window = this.window();
 
         this.handleCollectionAndCheck(
-                SpreadsheetEngineFillCellsHateosHandler.with(new FakeSpreadsheetEngine() {
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {
 
                                                                  @Override
                                                                  public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
@@ -147,9 +147,9 @@ public final class SpreadsheetEngineFillCellsHateosHandlerTest extends Spreadshe
     }
 
     @Override
-    SpreadsheetEngineFillCellsHateosHandler createHandler(final SpreadsheetEngine engine,
-                                                          final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineFillCellsHateosHandler.with(engine, context);
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells createHandler(final SpreadsheetEngine engine,
+                                                                          final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(engine, context);
     }
 
     @Override
@@ -195,7 +195,7 @@ public final class SpreadsheetEngineFillCellsHateosHandlerTest extends Spreadshe
     }
 
     @Override
-    public Class<SpreadsheetEngineFillCellsHateosHandler> type() {
-        return SpreadsheetEngineFillCellsHateosHandler.class;
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells> type() {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.class;
     }
 }

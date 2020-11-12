@@ -24,18 +24,18 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 
 /**
- * A {@link HateosHandler} for {@link SpreadsheetEngine#insertColumns(SpreadsheetColumnReference, int, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} for {@link SpreadsheetEngine#deleteColumns(SpreadsheetColumnReference, int, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineInsertColumnsHateosHandler extends SpreadsheetEngineDeleteOrInsertColumnsOrRowsHateosHandler<SpreadsheetColumnReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<SpreadsheetColumnReference> {
 
-    static SpreadsheetEngineInsertColumnsHateosHandler with(final SpreadsheetEngine engine,
-                                                            final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns with(final SpreadsheetEngine engine,
+                                                                                          final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineInsertColumnsHateosHandler(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns(engine, context);
     }
 
-    private SpreadsheetEngineInsertColumnsHateosHandler(final SpreadsheetEngine engine,
-                                                        final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns(final SpreadsheetEngine engine,
+                                                                                      final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
@@ -46,11 +46,11 @@ final class SpreadsheetEngineInsertColumnsHateosHandler extends SpreadsheetEngin
 
     @Override
     SpreadsheetDelta execute(final SpreadsheetColumnReference column, final int count) {
-        return this.engine.insertColumns(column, count, this.context);
+        return this.engine.deleteColumns(column, count, this.context);
     }
 
     @Override
     String operation() {
-        return "insertColumns";
+        return "deleteColumns";
     }
 }

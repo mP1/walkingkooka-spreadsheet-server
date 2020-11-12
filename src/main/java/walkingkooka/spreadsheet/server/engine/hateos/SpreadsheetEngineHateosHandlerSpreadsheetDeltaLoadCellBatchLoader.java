@@ -28,14 +28,14 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-final class SpreadsheetEngineLoadCellHateosHandlerBatchLoader {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader {
 
-    static SpreadsheetEngineLoadCellHateosHandlerBatchLoader with(final SpreadsheetEngineLoadCellHateosHandler handler) {
-        return new SpreadsheetEngineLoadCellHateosHandlerBatchLoader(handler);
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader with(final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler) {
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader(handler);
     }
 
 
-    private SpreadsheetEngineLoadCellHateosHandlerBatchLoader(final SpreadsheetEngineLoadCellHateosHandler handler) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader(final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler) {
         super();
         this.handler = handler;
     }
@@ -71,7 +71,7 @@ final class SpreadsheetEngineLoadCellHateosHandlerBatchLoader {
     /**
      * The handler is used to load individual cells
      */
-    final SpreadsheetEngineLoadCellHateosHandler handler;
+    final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler;
 
     @Override
     public String toString() {
