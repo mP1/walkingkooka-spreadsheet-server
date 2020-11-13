@@ -221,10 +221,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    }\n" +
                         "  },\n" +
                         "  \"maxColumnWidths\": {\n" +
-                        "    \"B\": 50\n" +
+                        "    \"B\": 15\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
-                        "    \"2\": 20\n" +
+                        "    \"2\": 60\n" +
                         "  }\n" +
                         "}");
     }
@@ -259,10 +259,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    }\n" +
                         "  },\n" +
                         "  \"maxColumnWidths\": {\n" +
-                        "    \"B\": 50\n" +
+                        "    \"B\": 15\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
-                        "    \"2\": 20\n" +
+                        "    \"2\": 60\n" +
                         "  }\n" +
                         "}");
     }
@@ -297,10 +297,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    }\n" +
                         "  },\n" +
                         "  \"maxColumnWidths\": {\n" +
-                        "    \"B\": 50\n" +
+                        "    \"B\": 15\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
-                        "    \"2\": 20\n" +
+                        "    \"2\": 60\n" +
                         "  }\n" +
                         "}");
     }
@@ -335,10 +335,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    }\n" +
                         "  },\n" +
                         "  \"maxColumnWidths\": {\n" +
-                        "    \"B\": 50\n" +
+                        "    \"B\": 15\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
-                        "    \"2\": 20\n" +
+                        "    \"2\": 60\n" +
                         "  }\n" +
                         "}");
     }
@@ -617,13 +617,12 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             metadataStore.save(SpreadsheetMetadata.EMPTY
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
                     .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                    .set(SpreadsheetMetadataPropertyName.DEFAULT_COLUMN_WIDTH, 50.0)
-                    .set(SpreadsheetMetadataPropertyName.DEFAULT_ROW_HEIGHT, 20.0)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
                     .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+                    .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
                     .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
                     .set(SpreadsheetMetadataPropertyName.WIDTH, 1)
                     .set(SpreadsheetMetadataPropertyName.DATE_FORMAT_PATTERN, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy mm dd"))
