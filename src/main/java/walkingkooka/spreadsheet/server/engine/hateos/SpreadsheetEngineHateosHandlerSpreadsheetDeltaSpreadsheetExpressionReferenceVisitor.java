@@ -19,9 +19,9 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceVisitor;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +47,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionR
     }
 
     @Override
-    protected void visit(final SpreadsheetPixelRectangle rectangle) {
+    protected void visit(final SpreadsheetViewport rectangle) {
         this.range = this.engine.computeRange(rectangle);
     }
 

@@ -43,12 +43,11 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -325,7 +324,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     private void routerFails(final AbsoluteUrl base,
                              final HateosContentType contentType,
-                             final HateosHandler<SpreadsheetPixelRectangle,
+                             final HateosHandler<SpreadsheetViewport,
                                      SpreadsheetRange,
                                      SpreadsheetRange> computeRange,
                              final HateosHandler<SpreadsheetColumnReference,
@@ -476,7 +475,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     // computeRange......................................................................................................
 
-    private final static String COMPUTE_RANGE_URL = URL + "/pixel-rectangle/A1:100:200";
+    private final static String COMPUTE_RANGE_URL = URL + "/viewport/A1:100:200";
 
     @Test
     public void testRouteComputeRangeGet() {
@@ -583,7 +582,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 JsonNodeMarshallContexts.basic());
     }
 
-    private HateosHandler<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange> computeRange() {
+    private HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange() {
         return SpreadsheetEngineHateosHandlers.computeRange(this.engine(), this.engineContext());
     }
 
@@ -638,7 +637,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     private SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine() {
             @Override
-            public SpreadsheetRange computeRange(final SpreadsheetPixelRectangle rectangle) {
+            public SpreadsheetRange computeRange(final SpreadsheetViewport rectangle) {
                 return SpreadsheetRange.parseRange("B2:C3");
             }
         };

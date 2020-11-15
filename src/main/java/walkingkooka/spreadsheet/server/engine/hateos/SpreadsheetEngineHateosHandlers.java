@@ -30,9 +30,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.tree.Node;
 
 import java.util.function.BiConsumer;
@@ -43,11 +43,11 @@ import java.util.function.BiConsumer;
 public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange}
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange}
      */
-    public static HateosHandler<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange> computeRange(final SpreadsheetEngine engine,
-                                                                                                            final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange.with(engine, context);
+    public static HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange(final SpreadsheetEngine engine,
+                                                                                                      final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange.with(engine, context);
     }
 
     /**
@@ -122,7 +122,7 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
      */
     public static <N extends Node<N, ?, ?, ?>> Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineRouter(final AbsoluteUrl base,
                                                                                                                                    final HateosContentType contentType,
-                                                                                                                                   final HateosHandler<SpreadsheetPixelRectangle,
+                                                                                                                                   final HateosHandler<SpreadsheetViewport,
                                                                                                                                            SpreadsheetRange,
                                                                                                                                            SpreadsheetRange> computeRange,
                                                                                                                                    final HateosHandler<SpreadsheetColumnReference,

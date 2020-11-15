@@ -42,10 +42,10 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.tree.Node;
 
 import java.util.Objects;
@@ -77,10 +77,10 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
     private static final HateosResourceName ROW = HateosResourceName.with("row");
 
     /**
-     * A {@link HateosResourceName} with <code>pixel-rectangle</code>.
+     * A {@link HateosResourceName} with <code>viewport</code>.
      */
-    private static final HateosResourceName PIXEL_RECTANGLE = HateosResourceName.with("pixel-rectangle");
-    private static final Class<HateosResource<SpreadsheetPixelRectangle>> PIXEL_RECTANGLE_HATEOS_RESOURCE = Cast.to(HateosResource.class);
+    private static final HateosResourceName VIEWPORT = HateosResourceName.with("viewport");
+    private static final Class<HateosResource<SpreadsheetViewport>> VIEWPORT_HATEOS_RESOURCE = Cast.to(HateosResource.class);
 
     private static final Class<SpreadsheetRange> OPTIONAL_RANGE = Cast.to(SpreadsheetRange.class);
     private static final Class<SpreadsheetRange> RANGE_RANGE = Cast.to(SpreadsheetRange.class);
@@ -97,7 +97,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
      */
     static <N extends Node<N, ?, ?, ?>> Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final AbsoluteUrl baseUrl,
                                                                                                                       final HateosContentType contentType,
-                                                                                                                      final HateosHandler<SpreadsheetPixelRectangle,
+                                                                                                                      final HateosHandler<SpreadsheetViewport,
                                                                                                                               SpreadsheetRange,
                                                                                                                               SpreadsheetRange> computeRange,
                                                                                                                       final HateosHandler<SpreadsheetColumnReference,
@@ -149,13 +149,13 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         Objects.requireNonNull(deleteCell, "deleteCell");
 
         // pixelRectangle GET...........................................................................................
-        final HateosResourceMapping<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetPixelRectangle>>
+        final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>>
                 pixelRectangle = HateosResourceMapping.with(
-                PIXEL_RECTANGLE,
-                SpreadsheetExpressionReference::parsePixelRectangle,
+                VIEWPORT,
+                SpreadsheetExpressionReference::parseViewport,
                 OPTIONAL_RANGE,
                 RANGE_RANGE,
-                PIXEL_RECTANGLE_HATEOS_RESOURCE)
+                VIEWPORT_HATEOS_RESOURCE)
                 .set(LinkRelation.SELF, HttpMethod.GET, computeRange);
 
         // cell GET, POST...............................................................................................
