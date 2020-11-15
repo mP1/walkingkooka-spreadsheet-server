@@ -175,7 +175,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
 
         // viewport GET.................................................................................................
         final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>>
-                pixelRectangle = HateosResourceMapping.with(
+                viewportGet = HateosResourceMapping.with(
                 VIEWPORT,
                 SpreadsheetExpressionReference::parseViewport,
                 OPTIONAL_RANGE,
@@ -259,7 +259,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
 
         return HateosResourceMapping.router(baseUrl,
                 contentType,
-                Sets.of(cell, column, row, pixelRectangle, cellBoxGet));
+                Sets.of(cell, column, row, viewportGet, cellBoxGet));
     }
 
     /**
