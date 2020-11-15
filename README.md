@@ -100,7 +100,7 @@ All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 - PUT     /api/row/1
 - DELETE  /api/row/1
 - POST    /api/cell/A1-B2/fill **input includes region of cells to be the fill content**
-- GET     /api/pixel-rectangle/A1:150:25
+- GET     /api/viewport/A1:150:25
 
 
 

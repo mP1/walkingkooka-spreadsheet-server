@@ -22,33 +22,33 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that computes the {@link SpreadsheetRange} for a given {@link SpreadsheetPixelRectangle}.
+ * A {@link HateosHandler} that computes the {@link SpreadsheetRange} for a given {@link SpreadsheetViewport}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange extends SpreadsheetEngineHateosHandler<SpreadsheetPixelRectangle, SpreadsheetRange, SpreadsheetRange> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extends SpreadsheetEngineHateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
 
-    static SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange with(final SpreadsheetEngine engine,
-                                                                                    final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange with(final SpreadsheetEngine engine,
+                                                                              final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange(engine, context);
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange(final SpreadsheetEngine engine,
-                                                                                final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange(final SpreadsheetEngine engine,
+                                                                          final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
     @Override
-    public Optional<SpreadsheetRange> handle(final Optional<SpreadsheetPixelRectangle> id,
+    public Optional<SpreadsheetRange> handle(final Optional<SpreadsheetViewport> id,
                                              final Optional<SpreadsheetRange> resource,
                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetPixelRectangle rectangle = this.checkIdRequired(id);
+        final SpreadsheetViewport rectangle = this.checkIdRequired(id);
         this.checkResourceEmpty(resource);
         this.checkParameters(parameters);
 
@@ -56,7 +56,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange 
     }
 
     @Override
-    public Optional<SpreadsheetRange> handleCollection(final Range<SpreadsheetPixelRectangle> rectangles,
+    public Optional<SpreadsheetRange> handleCollection(final Range<SpreadsheetViewport> rectangles,
                                                        final Optional<SpreadsheetRange> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
         this.checkRangeNotNull(rectangles);

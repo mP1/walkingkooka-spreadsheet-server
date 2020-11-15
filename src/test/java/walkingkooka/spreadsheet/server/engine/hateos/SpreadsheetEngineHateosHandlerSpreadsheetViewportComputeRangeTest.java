@@ -26,34 +26,34 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetPixelRectangle;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRangeTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange,
-        SpreadsheetPixelRectangle,
+public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRangeTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange,
+        SpreadsheetViewport,
         SpreadsheetRange,
         SpreadsheetRange> {
 
     @Test
     public void testComputeRange() {
-        final SpreadsheetPixelRectangle rectangle = SpreadsheetCellReference.parseCellReference("B99").pixelRectangle(100, 20);
+        final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(100, 20);
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
         this.handleAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public SpreadsheetRange computeRange(final SpreadsheetPixelRectangle r) {
-                        assertEquals(rectangle, r, "rectangle");
+                    public SpreadsheetRange computeRange(final SpreadsheetViewport v) {
+                        assertEquals(viewport, v, "viewport");
                         return range;
                     }
                 },
                 this.engineContext()),
-                Optional.of(rectangle),
+                Optional.of(viewport),
                 Optional.empty(),
                 Maps.empty(),
                 Optional.of(range));
@@ -65,9 +65,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComput
     }
 
     @Override
-    SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange createHandler(final SpreadsheetEngine engine,
-                                                                                      final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange.with(engine, context);
+    SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange createHandler(final SpreadsheetEngine engine,
+                                                                                final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange.with(engine, context);
     }
 
     @Override
@@ -76,12 +76,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComput
     }
 
     @Override
-    public Optional<SpreadsheetPixelRectangle> id() {
-        return Optional.of(SpreadsheetCellReference.parseCellReference("A1").pixelRectangle(100, 20));
+    public Optional<SpreadsheetViewport> id() {
+        return Optional.of(SpreadsheetCellReference.parseCellReference("A1").viewport(100, 20));
     }
 
     @Override
-    public Range<SpreadsheetPixelRectangle> collection() {
+    public Range<SpreadsheetViewport> collection() {
         return Range.all();
     }
 
@@ -101,7 +101,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComput
     }
 
     @Override
-    public Class<SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange> type() {
-        return SpreadsheetEngineHateosHandlerSpreadsheetPixelRectangleComputeRange.class;
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange> type() {
+        return SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange.class;
     }
 }
