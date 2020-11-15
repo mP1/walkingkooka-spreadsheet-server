@@ -87,6 +87,7 @@ All outputs return a SpreadsheetMetadata in JSON form.
 A collection of end points that support manipulating cells, columns and rows.
 All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 
+- GET     /api/cellbox/200,400
 - GET     /api/cell/A1/clear-value-error-skip-evaluate
 - GET     /api/cell/A1/skip-evaluate
 - GET     /api/cell/A1/force-recompute

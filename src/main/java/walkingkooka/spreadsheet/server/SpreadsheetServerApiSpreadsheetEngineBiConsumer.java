@@ -28,6 +28,8 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetCellBox;
+import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -151,6 +153,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 this.fractioner,
                 metadata.formatter());
 
+        final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
+
         final HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange = SpreadsheetEngineHateosHandlers.computeRange(engine, context);
 
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHateosHandlers.deleteColumns(engine, context);
@@ -185,6 +189,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
         return SpreadsheetEngineHateosHandlers.engineRouter(this.baseUrl.setPath(this.baseUrl.path().append(UrlPathName.with(id.hateosLinkId()))),
                 this.contentTypeJson,
+                cellBox,
                 computeRange,
                 deleteColumns,
                 deleteRows,

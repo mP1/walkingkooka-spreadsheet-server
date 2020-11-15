@@ -33,6 +33,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetCellBox;
+import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -77,11 +79,20 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
     private static final HateosResourceName ROW = HateosResourceName.with("row");
 
     /**
+     * A {@link HateosResourceName} with <code>cellbox</code>.
+     */
+    private static final HateosResourceName COORDS = HateosResourceName.with("cellbox");
+    private static final Class<HateosResource<SpreadsheetCoordinates>> COORDS_HATEOS_RESOURCE = Cast.to(HateosResource.class);
+
+    private static final Class<SpreadsheetCellBox> OPTIONAL_CELLBOX = Cast.to(SpreadsheetCellBox.class);
+    private static final Class<SpreadsheetCellBox> RANGE_CELLBOX = Cast.to(SpreadsheetCellBox.class);
+    
+    /**
      * A {@link HateosResourceName} with <code>viewport</code>.
      */
     private static final HateosResourceName VIEWPORT = HateosResourceName.with("viewport");
     private static final Class<HateosResource<SpreadsheetViewport>> VIEWPORT_HATEOS_RESOURCE = Cast.to(HateosResource.class);
-
+    
     private static final Class<SpreadsheetRange> OPTIONAL_RANGE = Cast.to(SpreadsheetRange.class);
     private static final Class<SpreadsheetRange> RANGE_RANGE = Cast.to(SpreadsheetRange.class);
 
@@ -97,6 +108,9 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
      */
     static <N extends Node<N, ?, ?, ?>> Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final AbsoluteUrl baseUrl,
                                                                                                                       final HateosContentType contentType,
+                                                                                                                      final HateosHandler<SpreadsheetCoordinates,
+                                                                                                                              SpreadsheetCellBox,
+                                                                                                                              SpreadsheetCellBox> cellBox,
                                                                                                                       final HateosHandler<SpreadsheetViewport,
                                                                                                                               SpreadsheetRange,
                                                                                                                               SpreadsheetRange> computeRange,
@@ -135,6 +149,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                                                                                                                               SpreadsheetDelta> deleteCell) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
+        Objects.requireNonNull(cellBox, "cellBox");
         Objects.requireNonNull(computeRange, "computeRange");
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(deleteColumns, "deleteColumns");
@@ -148,7 +163,17 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         Objects.requireNonNull(saveCell, "saveCell");
         Objects.requireNonNull(deleteCell, "deleteCell");
 
-        // pixelRectangle GET...........................................................................................
+        // cellBox GET.................................................................................................
+        final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>>
+                cellBoxGet = HateosResourceMapping.with(
+                COORDS,
+                SpreadsheetCoordinates::parse,
+                OPTIONAL_CELLBOX,
+                RANGE_CELLBOX,
+                COORDS_HATEOS_RESOURCE)
+                .set(LinkRelation.SELF, HttpMethod.GET, cellBox);
+
+        // viewport GET.................................................................................................
         final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>>
                 pixelRectangle = HateosResourceMapping.with(
                 VIEWPORT,
@@ -202,7 +227,6 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         }
 
         // cell/copy POST...............................................................................................
-
         cell = cell.set(FILL,
                 HttpMethod.POST,
                 fillCells);
@@ -235,7 +259,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
 
         return HateosResourceMapping.router(baseUrl,
                 contentType,
-                Sets.of(cell, column, row, pixelRectangle));
+                Sets.of(cell, column, row, pixelRectangle, cellBoxGet));
     }
 
     /**

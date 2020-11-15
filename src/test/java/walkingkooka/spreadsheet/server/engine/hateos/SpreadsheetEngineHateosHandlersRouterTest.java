@@ -37,6 +37,8 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetCellBox;
+import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -74,6 +76,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterBaseNullFails() {
         this.routerFails(null,
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -91,6 +94,26 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     @Test
     public void testRouterContentTypeNullFails() {
         this.routerFails(this.base(),
+                null,
+                this.cellBox(),
+                this.computeRange(),
+                this.deleteColumns(),
+                this.deleteRows(),
+                this.fillCells(),
+                this.insertColumns(),
+                this.insertRows(),
+                this.loadCellClearValueErrorSkipEvaluate(),
+                this.loadCellComputeIfNecessary(),
+                this.loadCellForceRecompute(),
+                this.loadCellSkipEvaluate(),
+                this.saveCell(),
+                this.deleteCell());
+    }
+
+    @Test
+    public void testRouterCellBoxNullFails() {
+        this.routerFails(this.base(),
+                this.contentType(),
                 null,
                 this.computeRange(),
                 this.deleteColumns(),
@@ -110,6 +133,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterComputeRangeNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 null,
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -128,6 +152,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteColumnsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 null,
                 this.deleteRows(),
@@ -146,6 +171,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteRowsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 null,
@@ -164,6 +190,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterFillCellsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -182,6 +209,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterInsertColumnsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -200,6 +228,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterInsertRowsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -218,6 +247,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsClearValueErrorSkipEvaluateHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -236,6 +266,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsComputeIfNecessaryHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -254,6 +285,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsForceRecomputeHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -272,6 +304,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterLoadCellsSkipEvaluateHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -290,6 +323,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterSaveCellsHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -308,6 +342,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     public void testRouterDeleteCellHandlerNullFails() {
         this.routerFails(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -324,6 +359,9 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     private void routerFails(final AbsoluteUrl base,
                              final HateosContentType contentType,
+                             final HateosHandler<SpreadsheetCoordinates,
+                                     SpreadsheetCellBox,
+                                     SpreadsheetCellBox> cellBox,
                              final HateosHandler<SpreadsheetViewport,
                                      SpreadsheetRange,
                                      SpreadsheetRange> computeRange,
@@ -362,6 +400,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                                      SpreadsheetDelta> deleteCell) {
         assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosHandlersRouter.router(base,
                 contentType,
+                cellBox,
                 computeRange,
                 deleteColumns,
                 deleteRows,
@@ -475,6 +514,30 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     // computeRange......................................................................................................
 
+    private final static String CELLBOX_URL = URL + "/cellbox/200,400";
+
+    @Test
+    public void testRouteCellBoxGet() {
+        this.routeAndCheck(HttpMethod.GET, CELLBOX_URL, HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteCellBoxPostFails() {
+        this.routeAndFail(HttpMethod.POST, CELLBOX_URL);
+    }
+
+    @Test
+    public void testRouteCellBoxPutFails() {
+        this.routeAndFail(HttpMethod.PUT, CELLBOX_URL);
+    }
+
+    @Test
+    public void testRouteCellBoxDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, CELLBOX_URL);
+    }
+
+    // viewport.........................................................................................................
+
     private final static String COMPUTE_RANGE_URL = URL + "/viewport/A1:100:200";
 
     @Test
@@ -519,6 +582,7 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     private Optional<BiConsumer<HttpRequest, HttpResponse>> route(final HttpRequest request) {
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = SpreadsheetEngineHateosHandlersRouter.router(this.base(),
                 this.contentType(),
+                this.cellBox(),
                 this.computeRange(),
                 this.deleteColumns(),
                 this.deleteRows(),
@@ -582,6 +646,10 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
                 JsonNodeMarshallContexts.basic());
     }
 
+    private HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox() {
+        return SpreadsheetEngineHateosHandlers.cellBox(this.engine(), this.engineContext());
+    }
+
     private HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange() {
         return SpreadsheetEngineHateosHandlers.computeRange(this.engine(), this.engineContext());
     }
@@ -636,6 +704,13 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     private SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine() {
+
+            @Override
+            public SpreadsheetCellBox cellBox(final SpreadsheetCoordinates coords) {
+                return SpreadsheetCellReference.parseCellReference("B2:C3")
+                        .cellBox(1, 2, 3, 4);
+            }
+
             @Override
             public SpreadsheetRange computeRange(final SpreadsheetViewport rectangle) {
                 return SpreadsheetRange.parseRange("B2:C3");
