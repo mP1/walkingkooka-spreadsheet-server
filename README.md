@@ -87,21 +87,21 @@ All outputs return a SpreadsheetMetadata in JSON form.
 A collection of end points that support manipulating cells, columns and rows.
 All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 
-- GET     /api/cellbox/200,400
-- GET     /api/cell/A1/clear-value-error-skip-evaluate
-- GET     /api/cell/A1/skip-evaluate
-- GET     /api/cell/A1/force-recompute
-- GET     /api/cell/A1/compute-if-necessary
-- POST    /api/cell/A1
-- DELETE  /api/cell/A1
-- GET     /api/column/A
-- PUT     /api/column/A
-- DELETE  /api/column/A
-- GET     /api/row/1
-- PUT     /api/row/1
-- DELETE  /api/row/1
-- POST    /api/cell/A1-B2/fill **input includes region of cells to be the fill content**
-- GET     /api/viewport/A1:150:25
+- GET     /api/spreadsheet/$spreadsheet-id/cellbox/200,400
+- GET     /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
+- GET     /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
+- GET     /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
+- GET     /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
+- POST    /api/spreadsheet/$spreadsheet-id/cell/A1
+- DELETE  /api/spreadsheet/$spreadsheet-id/cell/A1
+- GET     /api/spreadsheet/$spreadsheet-id/column/A
+- PUT     /api/spreadsheet/$spreadsheet-id/column/A
+- DELETE  /api/spreadsheet/$spreadsheet-id/column/A
+- GET     /api/spreadsheet/$spreadsheet-id/row/1
+- PUT     /api/spreadsheet/$spreadsheet-id/row/1
+- DELETE  /api/spreadsheet/$spreadsheet-id/row/1
+- POST    /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
+- GET     /api/spreadsheet/$spreadsheet-id/viewport/A1:150:25
 
 
 
