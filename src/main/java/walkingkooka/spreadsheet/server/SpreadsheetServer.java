@@ -116,7 +116,7 @@ public final class SpreadsheetServer implements HttpServer {
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
-        this.server = server.apply(this::handler);
+        this.server = server.apply(HttpRequestHttpResponseBiConsumers.stacktraceDumping(this::handler));
 
         final AbsoluteUrl base = Url.absolute(scheme,
                 AbsoluteUrl.NO_CREDENTIALS,
