@@ -133,7 +133,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
         final Optional<SpreadsheetColumnReference> column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
-        final List<SpreadsheetRectangle> window = this.window();
+        final List<SpreadsheetRectangle<?>> window = this.window();
 
         this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
 

@@ -72,7 +72,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     @Test
     public void testLoadCellAndFilter() {
         final Optional<SpreadsheetCellReference> id = this.id();
-        final List<SpreadsheetRectangle> window = this.window();
+        final List<SpreadsheetRectangle<?>> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -292,7 +292,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
         final Range<SpreadsheetCellReference> range = this.collection();
-        final List<SpreadsheetRectangle> window = this.window();
+        final List<SpreadsheetRectangle<?>> window = this.window();
 
         this.handleCollectionAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {

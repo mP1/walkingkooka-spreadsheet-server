@@ -46,9 +46,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -123,9 +123,9 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
         final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
         final SpreadsheetCellStore cellStore = repository.cells();
-        final SpreadsheetReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
-        final SpreadsheetReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
         final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
 

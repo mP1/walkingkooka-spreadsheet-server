@@ -50,10 +50,10 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.text.cursor.TextCursors;
@@ -145,9 +145,9 @@ public final class Sample {
                 SpreadsheetId.with(123),
                 SpreadsheetMetadata.EMPTY,
                 cellStore,
-                SpreadsheetReferenceStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
                 labelStore,
-                SpreadsheetReferenceStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
                 SpreadsheetRangeStores.treeMap(),
                 SpreadsheetRangeStores.treeMap());
     }
