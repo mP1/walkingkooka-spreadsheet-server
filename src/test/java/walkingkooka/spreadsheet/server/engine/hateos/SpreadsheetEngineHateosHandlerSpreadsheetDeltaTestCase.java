@@ -60,7 +60,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         return Sets.of(this.cell());
     }
 
-    final List<SpreadsheetRectangle> window() {
+    final List<SpreadsheetRectangle<?>> window() {
         final SpreadsheetRange window = SpreadsheetExpressionReference.parseRange("A1:B99");
 
         this.testTrue(window, this.cell().reference());

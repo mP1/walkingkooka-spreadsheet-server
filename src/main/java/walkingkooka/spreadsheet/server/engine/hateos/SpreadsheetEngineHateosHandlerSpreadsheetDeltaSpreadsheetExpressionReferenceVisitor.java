@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor extends SpreadsheetExpressionReferenceVisitor {
 
-    static List<SpreadsheetRectangle> transform(final List<SpreadsheetRectangle> rectangles,
-                                                final SpreadsheetEngine engine) {
+    static List<SpreadsheetRectangle<?>> transform(final List<SpreadsheetRectangle<?>> rectangles,
+                                                   final SpreadsheetEngine engine) {
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor visitor = new SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(engine);
         return rectangles.stream()
                 .map(visitor::transform0)

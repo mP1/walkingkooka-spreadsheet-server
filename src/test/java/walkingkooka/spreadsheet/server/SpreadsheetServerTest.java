@@ -63,9 +63,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
@@ -591,10 +591,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private static Supplier<SpreadsheetStoreRepository> storeRepositorySupplier(final SpreadsheetMetadataStore metadataStore) {
         return () -> SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
-                SpreadsheetReferenceStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
                 SpreadsheetGroupStores.treeMap(),
                 SpreadsheetLabelStores.treeMap(),
-                SpreadsheetReferenceStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
                 metadataStore,
                 SpreadsheetRangeStores.treeMap(),
                 SpreadsheetRangeStores.treeMap(),

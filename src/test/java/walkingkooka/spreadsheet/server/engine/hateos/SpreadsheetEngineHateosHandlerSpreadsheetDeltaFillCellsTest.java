@@ -116,7 +116,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
         final SpreadsheetDelta resource = SpreadsheetDelta.with(Sets.of(unsaved1));
 
-        final List<SpreadsheetRectangle> window = this.window();
+        final List<SpreadsheetRectangle<?>> window = this.window();
 
         this.handleCollectionAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {

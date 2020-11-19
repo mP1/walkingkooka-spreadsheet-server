@@ -46,9 +46,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetReferenceStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -192,9 +192,9 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetCellStore cellStore = storeRepository.cells();
-        final SpreadsheetReferenceStore<SpreadsheetCellReference> cellReferencesStore = storeRepository.cellReferences();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = storeRepository.cellReferences();
         final SpreadsheetLabelStore labelStore = storeRepository.labels();
-        final SpreadsheetReferenceStore<SpreadsheetLabelName> labelReferencesStore = storeRepository.labelReferences();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = storeRepository.labelReferences();
         final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = storeRepository.rangeToCells();
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = storeRepository.rangeToConditionalFormattingRules();
 
