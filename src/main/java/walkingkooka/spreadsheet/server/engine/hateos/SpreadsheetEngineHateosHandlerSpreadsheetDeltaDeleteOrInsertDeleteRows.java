@@ -17,11 +17,15 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#deleteRows(SpreadsheetRowReference, int, SpreadsheetEngineContext)}.
@@ -37,6 +41,13 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRo
     private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(final SpreadsheetEngine engine,
                                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = null;
+    }
+
+    @Override
+    void checkReference(final SpreadsheetRowReference row) {
+        Objects.requireNonNull(row, "row");
     }
 
     @Override
@@ -52,5 +63,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRo
     @Override
     String operation() {
         return "deleteRows";
+    }
+
+    // FIXME https://github.com/mP1/walkingkooka-spreadsheet-server/issues/81
+    private HttpRequestAttribute<?> dummy() {
+        throw new UnsupportedOperationException();
     }
 }

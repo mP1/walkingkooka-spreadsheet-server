@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -42,14 +43,23 @@ final class SpreadsheetContextLoadMetadataHateosHandler extends SpreadsheetConte
     }
 
     @Override
-    public Optional<SpreadsheetMetadata> handle(final Optional<SpreadsheetId> id,
-                                                final Optional<SpreadsheetMetadata> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetId spreadsheetId = this.checkIdRequired(id);
+    public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
+                                                   final Optional<SpreadsheetMetadata> resource,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(id, "id");
         checkResourceEmpty(resource);
         checkParameters(parameters);
 
-        return this.context.storeRepository(spreadsheetId).metadatas().load(spreadsheetId);
+        return this.context.storeRepository(id).metadatas().load(id);
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkResource(resource);
+        checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
     }
 
     @Override

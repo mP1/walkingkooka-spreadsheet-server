@@ -38,27 +38,28 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
     }
 
     @Override
-    public final Optional<SpreadsheetDelta> handle(final Optional<R> id,
-                                                   final Optional<SpreadsheetDelta> resource,
-                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final R columnOrRow = this.checkIdRequired(id);
-        this.checkResource(resource);
-        this.checkParameters(parameters);
+    public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
+                                                      final Optional<SpreadsheetDelta> resource,
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkReference(columnOrRow);
+        checkResource(resource);
+        checkParameters(parameters);
 
         return Optional.of(this.executeAndWindowFilter(columnOrRow,
                 1,
                 resource));
     }
 
+    abstract void checkReference(R columnOrRow);
 
     @Override
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public final Optional<SpreadsheetDelta> handleCollection(final Range<R> columnOrRow,
-                                                             final Optional<SpreadsheetDelta> resource,
-                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkRangeBounded(columnOrRow, this.rangeLabel());
-        this.checkResource(resource);
-        this.checkParameters(parameters);
+    public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
+                                                        final Optional<SpreadsheetDelta> resource,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkRangeBounded(columnOrRow, this.rangeLabel());
+        checkResource(resource);
+        checkParameters(parameters);
 
         final R lower = columnOrRow.lowerBound().value().get();
         final R upper = columnOrRow.upperBound().value().get();

@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -45,17 +46,13 @@ final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends Spreads
     }
 
     @Override
-    public Optional<SpreadsheetMetadata> handle(final Optional<SpreadsheetId> id,
-                                                final Optional<SpreadsheetMetadata> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkIdNotNull(id);
+    public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
+                                                   final Optional<SpreadsheetMetadata> resource,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(id, "id");
         checkResource(resource);
         checkParameters(parameters);
-
-        final SpreadsheetMetadata after = id.isPresent() ?
-                this.saveMetadata(id.get(), resource) :
-                this.createMetadata(resource, parameters);
-        return Optional.of(after);
+        return Optional.of(this.saveMetadata(id, resource));
     }
 
     /**
@@ -64,8 +61,17 @@ final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends Spreads
     private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
                                              final Optional<SpreadsheetMetadata> metadata) {
         checkResourceNotEmpty(metadata);
-        
+
         return this.context.storeRepository(id).metadatas().save(metadata.get());
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkResource(resource);
+        checkParameters(parameters);
+
+        return Optional.of(this.createMetadata(resource, parameters));
     }
 
     /**

@@ -73,4 +73,9 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     final SpreadsheetCell cellOutsideWindow() {
         return this.cell("Z99", "99");
     }
+
+    @Override
+    public List<I> list() {
+        return Lists.of(this.id());
+    }
 }

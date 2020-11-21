@@ -54,16 +54,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handle(final Optional<SpreadsheetCellReference> id,
-                                             final Optional<SpreadsheetDelta> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellReference reference = this.checkIdRequired(id);
-        this.checkResource(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
+                                                final Optional<SpreadsheetDelta> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkCell(cell);
+        checkResource(resource);
+        checkParameters(parameters);
 
         checkWithoutCells(resource);
 
-        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.loadCell(reference), resource));
+        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.loadCell(cell), resource));
     }
 
     SpreadsheetDelta loadCell(final SpreadsheetCellReference reference) {
@@ -75,12 +75,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     private final SpreadsheetEngineEvaluation evaluation;
 
     @Override
-    public Optional<SpreadsheetDelta> handleCollection(final Range<SpreadsheetCellReference> cells,
-                                                       final Optional<SpreadsheetDelta> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkRangeNotNull(cells);
-        this.checkResource(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
+                                                  final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkRange(cells);
+        checkResource(resource);
+        checkParameters(parameters);
 
         checkWithoutCells(resource);
 

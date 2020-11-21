@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -37,8 +38,10 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
+import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -499,7 +502,12 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
     @Test
     public void testRouteFillCellsPost() {
-        this.routeAndCheck(HttpMethod.POST, URL + "/cell/A1:B2/fill", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeAndCheck(HttpMethod.POST,
+                URL + "/cell/A1:B2/fill",
+                JsonNodeMarshallContexts.basic().marshall(
+                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B99"), SpreadsheetFormula.with("1"))))
+                ).toString(),
+                HttpStatusCode.NOT_IMPLEMENTED);
     }
 
     @Test
@@ -565,7 +573,17 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     private void routeAndCheck(final HttpMethod method,
                                final String url,
                                final HttpStatusCode statusCode) {
-        final HttpRequest request = this.request(method, url);
+        this.routeAndCheck(method,
+                url,
+                "",
+                statusCode);
+    }
+
+    private void routeAndCheck(final HttpMethod method,
+                               final String url,
+                               final String bodyText,
+                               final HttpStatusCode statusCode) {
+        final HttpRequest request = this.request(method, url, bodyText);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         assertNotEquals(Optional.empty(),
                 possible,
@@ -599,7 +617,8 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
     }
 
     private HttpRequest request(final HttpMethod method,
-                                final String url) {
+                                final String url,
+                                final String bodyText) {
         return new FakeHttpRequest() {
 
             @Override
@@ -614,19 +633,27 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
-                return Maps.of(HttpHeaderName.CONTENT_TYPE, Lists.of(HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8)));
+                return Maps.of(
+                        HttpHeaderName.CONTENT_TYPE, Lists.of(HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
+                        HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
+                );
             }
 
             @Override
             public String bodyText() {
-                return "";
+                return bodyText;
+            }
+
+            @Override
+            public long bodyLength() {
+                return bodyText.length();
             }
         };
     }
 
     private void routeAndFail(final HttpMethod method,
                               final String url) {
-        final HttpRequest request = this.request(method, url);
+        final HttpRequest request = this.request(method, url, "");
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();

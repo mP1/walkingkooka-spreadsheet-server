@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,21 +37,28 @@ public abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTes
         SpreadsheetMetadata,
         SpreadsheetMetadata> {
 
-    // handle...........................................................................................................
-
-    @Test
-    public final void testHandleNullParametersFails() {
-        this.handleFails(this.id(),
-                Optional.empty(),
-                null,
-                NullPointerException.class);
+    SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTestCase() {
+        super();
     }
 
-    // handleCollection.................................................................................................
+    @Test
+    public final void testHandleAllFails() {
+        this.handleAllFails(this.collectionResource(),
+                this.parameters(),
+                UnsupportedOperationException.class);
+    }
 
     @Test
-    public final void testHandleCollectionIdFails() {
-        this.handleCollectionFails(this.collection(),
+    public final void testHandleListFails() {
+        this.handleListFails(this.list(),
+                this.collectionResource(),
+                this.parameters(),
+                UnsupportedOperationException.class);
+    }
+
+    @Test
+    public final void testHandleRangeFails() {
+        this.handleRangeFails(this.range(),
                 this.collectionResource(),
                 this.parameters(),
                 UnsupportedOperationException.class);
@@ -62,12 +70,17 @@ public abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTes
     abstract H createHandler(final SpreadsheetContext context);
 
     @Override
-    public final Optional<SpreadsheetId> id() {
-        return Optional.of(this.spreadsheetId());
+    public final SpreadsheetId id() {
+        return this.spreadsheetId();
     }
 
     @Override
-    public final Range<SpreadsheetId> collection() {
+    public final List<SpreadsheetId> list() {
+        return List.of(this.spreadsheetId());
+    }
+
+    @Override
+    public final Range<SpreadsheetId> range() {
         return Range.singleton(this.spreadsheetId());
     }
 

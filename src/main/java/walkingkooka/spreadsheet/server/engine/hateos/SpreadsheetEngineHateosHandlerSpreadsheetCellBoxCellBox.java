@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -45,23 +46,23 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox extends Spre
     }
 
     @Override
-    public Optional<SpreadsheetCellBox> handle(final Optional<SpreadsheetCoordinates> id,
-                                               final Optional<SpreadsheetCellBox> resource,
-                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCoordinates coords = this.checkIdRequired(id);
-        this.checkResourceEmpty(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetCellBox> handleOne(final SpreadsheetCoordinates coords,
+                                                  final Optional<SpreadsheetCellBox> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(coords, "coords");
+        checkResourceEmpty(resource);
+        checkParameters(parameters);
 
         return Optional.of(this.engine.cellBox(coords));
     }
 
     @Override
-    public Optional<SpreadsheetCellBox> handleCollection(final Range<SpreadsheetCoordinates> rectangles,
-                                                         final Optional<SpreadsheetCellBox> resource,
-                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkRangeNotNull(rectangles);
-        this.checkResourceEmpty(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetCellBox> handleRange(final Range<SpreadsheetCoordinates> range,
+                                                    final Optional<SpreadsheetCellBox> resource,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(range, "range");
+        checkResource(resource);
+        checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }

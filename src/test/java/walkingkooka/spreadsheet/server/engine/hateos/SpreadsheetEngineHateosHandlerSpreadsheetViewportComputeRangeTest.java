@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -29,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,7 +46,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
         final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(100, 20);
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
-        this.handleAndCheck(this.createHandler(
+        this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetRange computeRange(final SpreadsheetViewport v) {
@@ -53,7 +55,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
                     }
                 },
                 this.engineContext()),
-                Optional.of(viewport),
+                viewport,
                 Optional.empty(),
                 Maps.empty(),
                 Optional.of(range));
@@ -76,12 +78,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
     }
 
     @Override
-    public Optional<SpreadsheetViewport> id() {
-        return Optional.of(SpreadsheetCellReference.parseCellReference("A1").viewport(100, 20));
+    public SpreadsheetViewport id() {
+        return SpreadsheetCellReference.parseCellReference("A1").viewport(100, 20);
     }
 
     @Override
-    public Range<SpreadsheetViewport> collection() {
+    public List<SpreadsheetViewport> list() {
+        return Lists.of(this.id());
+    }
+
+    @Override
+    public Range<SpreadsheetViewport> range() {
         return Range.all();
     }
 

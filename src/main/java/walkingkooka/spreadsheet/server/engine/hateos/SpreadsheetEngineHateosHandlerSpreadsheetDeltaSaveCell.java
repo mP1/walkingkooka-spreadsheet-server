@@ -48,33 +48,33 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handle(final Optional<SpreadsheetCellReference> id,
-                                             final Optional<SpreadsheetDelta> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkIdNotNull(id);
+    public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
+                                                final Optional<SpreadsheetDelta> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkCell(cell);
 
-        final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
+        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
         final Set<SpreadsheetCell> cells = delta.cells();
         if (cells.size() != 1) {
             throw new IllegalArgumentException("Expected 1 cell got " + cells.size());
         }
-        this.checkParameters(parameters);
+        checkParameters(parameters);
 
         return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
                 resource));
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handleCollection(final Range<SpreadsheetCellReference> ids,
-                                                       final Optional<SpreadsheetDelta> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetRange range = SpreadsheetRange.with(ids);
-        final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
+                                                  final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetRange spreadsheetRange = SpreadsheetRange.with(range);
+        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
+        checkParameters(parameters);
 
         return Optional.of(this.engine.fillCells(delta.cells(),
-                range,
-                range,
+                spreadsheetRange,
+                spreadsheetRange,
                 this.context).setWindow(delta.window()));
     }
 

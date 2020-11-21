@@ -17,11 +17,16 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#insertColumns(SpreadsheetColumnReference, int, SpreadsheetEngineContext)}.
@@ -37,6 +42,13 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertCo
     private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns(final SpreadsheetEngine engine,
                                                                                       final SpreadsheetEngineContext context) {
         super(engine, context);
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = null;
+    }
+
+    @Override
+    void checkReference(final SpreadsheetColumnReference column) {
+        Objects.requireNonNull(column, "column");
     }
 
     @Override
@@ -52,5 +64,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertCo
     @Override
     String operation() {
         return "insertColumns";
+    }
+
+    // FIXME https://github.com/mP1/walkingkooka-spreadsheet-server/issues/81
+    private HttpRequestAttribute<?> dummy() {
+        throw new UnsupportedOperationException();
     }
 }

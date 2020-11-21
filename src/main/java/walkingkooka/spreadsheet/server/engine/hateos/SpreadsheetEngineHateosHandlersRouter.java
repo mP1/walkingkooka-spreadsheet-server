@@ -30,6 +30,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
+import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -41,7 +42,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
@@ -167,7 +167,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>>
                 cellBoxGet = HateosResourceMapping.with(
                 COORDS,
-                SpreadsheetCoordinates::parse,
+                SpreadsheetEngineHateosHandlersRouter::parseCoordinates,
                 OPTIONAL_CELLBOX,
                 RANGE_CELLBOX,
                 COORDS_HATEOS_RESOURCE)
@@ -177,7 +177,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
         final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>>
                 viewportGet = HateosResourceMapping.with(
                 VIEWPORT,
-                SpreadsheetExpressionReference::parseViewport,
+                SpreadsheetEngineHateosHandlersRouter::parseViewport,
                 OPTIONAL_RANGE,
                 RANGE_RANGE,
                 VIEWPORT_HATEOS_RESOURCE)
@@ -189,7 +189,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                 SpreadsheetDelta,
                 SpreadsheetDelta,
                 SpreadsheetCell> cell = HateosResourceMapping.with(CELL,
-                SpreadsheetExpressionReference::parseCellReference,
+                SpreadsheetEngineHateosHandlersRouter::parseCellReference,
                 OPTIONAL_CELL_REFERENCE,
                 RANGE_CELL_REFERENCE,
                 SpreadsheetCell.class)
@@ -237,7 +237,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                 SpreadsheetDelta,
                 SpreadsheetDelta,
                 SpreadsheetColumn> column = HateosResourceMapping.with(COLUMN,
-                SpreadsheetColumnOrRowReference::parseColumn,
+                SpreadsheetEngineHateosHandlersRouter::parseColumn,
                 OPTIONAL_COLUMN_REFERENCE,
                 RANGE_COLUMN_REFERENCE,
                 SpreadsheetColumn.class)
@@ -250,7 +250,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                 SpreadsheetDelta,
                 SpreadsheetDelta,
                 SpreadsheetRow> row = HateosResourceMapping.with(ROW,
-                SpreadsheetColumnOrRowReference::parseRow,
+                SpreadsheetEngineHateosHandlersRouter::parseRow,
                 OPTIONAL_ROW_REFERENCE,
                 RANGE_ROW_REFERENCE,
                 SpreadsheetRow.class)
@@ -261,6 +261,55 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
                 contentType,
                 Sets.of(cell, column, row, viewportGet, cellBoxGet));
     }
+
+    private static HateosResourceSelection<SpreadsheetCoordinates> parseCoordinates(final String selection) {
+        return HateosResourceSelection.one(SpreadsheetCoordinates.parse(selection));
+    }
+
+    private static HateosResourceSelection<SpreadsheetCellReference> parseCellReference(final String selection) {
+        HateosResourceSelection<SpreadsheetCellReference> result;
+
+        if (selection.isEmpty()) {
+            result = HateosResourceSelection.none();
+        } else {
+            if (selection.contains(":")) {
+                result = HateosResourceSelection.range(SpreadsheetExpressionReference.parseRange(selection).range());
+            } else {
+                result = HateosResourceSelection.one(SpreadsheetExpressionReference.parseCellReference(selection));
+            }
+        }
+
+        return result;
+    }
+
+    private static HateosResourceSelection<SpreadsheetColumnReference> parseColumn(final String selection) {
+        HateosResourceSelection<SpreadsheetColumnReference> result;
+
+        if (selection.contains(":")) {
+            result = HateosResourceSelection.range(SpreadsheetColumnReference.parseColumnRange(selection));
+        } else {
+            result = HateosResourceSelection.one(SpreadsheetColumnReference.parseColumn(selection));
+        }
+
+        return result;
+    }
+
+    private static HateosResourceSelection<SpreadsheetRowReference> parseRow(final String selection) {
+        HateosResourceSelection<SpreadsheetRowReference> result;
+
+        if (selection.contains(":")) {
+            result = HateosResourceSelection.range(SpreadsheetRowReference.parseRowRange(selection));
+        } else {
+            result = HateosResourceSelection.one(SpreadsheetRowReference.parseRow(selection));
+        }
+
+        return result;
+    }
+
+    private static HateosResourceSelection<SpreadsheetViewport> parseViewport(final String selection) {
+        return HateosResourceSelection.one(SpreadsheetViewport.parseViewport(selection));
+    }
+
 
     /**
      * Stop creation.

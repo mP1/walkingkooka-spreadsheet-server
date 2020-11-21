@@ -247,28 +247,18 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata() {
         return new FakeHateosHandler<>() {
             @Override
-            public Optional<SpreadsheetMetadata> handle(final Optional<SpreadsheetId> id,
-                                                        final Optional<SpreadsheetMetadata> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                if(id.isPresent()) {
-                    checkHandleParameters(id, resource, parameters);
-                    return Optional.of(saveMetadataMetadata());
-                }
-
-                assertEquals(Optional.empty(), id, "id");
-                assertEquals(Optional.empty(), resource, "resource");
-
-                return Optional.of(createMetadataMetadata());
+            public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
+                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("created@example.com"))));
             }
 
-            private SpreadsheetMetadata createMetadataMetadata() {
-                return SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("created@example.com")));
-            }
-
-            private SpreadsheetMetadata saveMetadataMetadata() {
-                return SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("saved@example.com")));
+            @Override
+            public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
+                                                           final Optional<SpreadsheetMetadata> resource,
+                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
+                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("saved@example.com"))));
             }
         };
     }
@@ -276,32 +266,20 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata() {
         return new FakeHateosHandler<>() {
             @Override
-            public Optional<SpreadsheetMetadata> handle(final Optional<SpreadsheetId> id,
-                                                        final Optional<SpreadsheetMetadata> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-                checkHandleParameters(id, resource, parameters);
-                return Optional.of(loadMetadataMetadata());
-            }
-
-            private SpreadsheetMetadata loadMetadataMetadata() {
-                return SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("load@example.com")));
+            public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
+                                                           final Optional<SpreadsheetMetadata> resource,
+                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
+                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("load@example.com"))));
             }
         };
     }
 
-    private void checkHandleParameters(final Optional<SpreadsheetId> id,
-                                       final Optional<SpreadsheetMetadata> resource,
+    private void checkHandleParameters(final Optional<SpreadsheetMetadata> resource,
                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals(id(), id, "id");
         assertEquals(Optional.empty(), resource, "resource");
         assertNotEquals(null, parameters, "parameters");
     }
-
-    private Optional<SpreadsheetId> id() {
-        return Optional.of(this.spreadsheetId());
-    }
-
 
     private SpreadsheetId spreadsheetId() {
         return SpreadsheetId.parse("12ef");

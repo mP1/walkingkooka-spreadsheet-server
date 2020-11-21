@@ -48,20 +48,11 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
     // handle...........................................................................................................
 
     @Test
-    public void testHandleIdWithoutMetadataResourceFails() {
-        final Optional<SpreadsheetId> id = this.id();
-
-        this.handleFails(id,
-                Optional.empty(),
-                this.parameters(),
-                IllegalArgumentException.class);
-    }
-
-    @Test
-    public void testHandleWithoutIdCreatesMetadataWithLocaleWithoutIdFails() {
+    public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com")));
 
-        this.handleFails(this.createHandler(new FakeSpreadsheetContext() {
+        this.handleNoneFails(this.createHandler(
+                new FakeSpreadsheetContext() {
 
                     @Override
                     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
@@ -69,13 +60,12 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
                     }
                 }),
                 Optional.empty(),
-                Optional.empty(),
                 Maps.of(HttpHeaderName.ACCEPT_LANGUAGE, AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")),
                 IllegalStateException.class);
     }
 
     @Test
-    public void testHandleWithoutIdCreatesMetadataWithLocale() {
+    public void testHandleNoneCreatesMetadataWithLocale() {
         final SpreadsheetMetadata metadata =
                 SpreadsheetMetadata.EMPTY
                         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
@@ -83,7 +73,8 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
 
         final Locale locale = Locale.CANADA_FRENCH;
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetContext() {
+        this.handleNoneAndCheck(this.createHandler(
+                new FakeSpreadsheetContext() {
 
                     @Override
                     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
@@ -91,18 +82,18 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
                     }
                 }),
                 Optional.empty(),
-                Optional.empty(),
                 Maps.of(HttpHeaderName.ACCEPT_LANGUAGE, AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")),
                 Optional.of(metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)));
     }
 
     @Test
-    public void testHandleWithoutIdCreatesMetadataWithoutLocale() {
+    public void testHandleNoneCreatesMetadataWithoutLocale() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
                 .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetContext() {
+        this.handleNoneAndCheck(this.createHandler(
+                new FakeSpreadsheetContext() {
 
                     @Override
                     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
@@ -110,10 +101,18 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
                     }
                 }),
                 Optional.empty(),
-                Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(metadata));
     }
+
+    @Test
+    public void testHandleIdWithoutMetadataResourceFails() {
+        this.handleOneFails(this.id(),
+                Optional.empty(),
+                this.parameters(),
+                IllegalArgumentException.class);
+    }
+
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
@@ -132,16 +131,16 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
             }
         }));
 
+        final SpreadsheetId id = this.id();
         final SpreadsheetMetadata metadata = this.metadata();
 
-        final Optional<SpreadsheetId> id = this.id();
-        this.handleAndCheck(handler,
+        this.handleOneAndCheck(handler,
                 id,
                 Optional.of(metadata),
                 this.parameters(),
                 Optional.of(metadata));
 
-        assertEquals(Optional.of(metadata), store.load(id.get()), () -> "store missing id=" + id);
+        assertEquals(Optional.of(metadata), store.load(id), () -> "store missing id=" + id);
     }
 
     // toString.........................................................................................................

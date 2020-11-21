@@ -48,12 +48,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handle(final Optional<SpreadsheetCellReference> id,
-                                             final Optional<SpreadsheetDelta> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkIdNotNull(id);
+    public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
+                                                final Optional<SpreadsheetDelta> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkCell(cell);
 
-        final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
+        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
         final Set<SpreadsheetCell> cells = delta.cells();
         if (false == cells.isEmpty()) {
             throw new IllegalArgumentException("Expected no cells got " + cells.size());
@@ -65,9 +65,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handleCollection(final Range<SpreadsheetCellReference> ids,
-                                                       final Optional<SpreadsheetDelta> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
+                                                  final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
         throw new UnsupportedOperationException();
     }
 
