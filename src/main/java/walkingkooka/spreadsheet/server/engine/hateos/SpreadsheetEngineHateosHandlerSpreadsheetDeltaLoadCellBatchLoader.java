@@ -45,7 +45,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader {
                 .forEach(this::maybeLoadCell);
         //noinspection SimplifyStreamApiCallChains
         return this.referenceToCell.isEmpty() ?
-                null :
+                SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS) :
                 SpreadsheetDelta.with(this.referenceToCell.values()
                         .stream()
                         .collect(Collectors.toSet()));
