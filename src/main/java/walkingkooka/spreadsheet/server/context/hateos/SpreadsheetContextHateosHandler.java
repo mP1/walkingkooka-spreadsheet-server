@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.context.hateos;
 
-import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -56,24 +55,6 @@ abstract class SpreadsheetContextHateosHandler<I extends Comparable<I>, V, C>
     }
 
     abstract String operation();
-
-    // Optional<I>......................................................................................................
-
-    final I checkIdRequired(final Optional<I> id) {
-        checkIdNotNull(id);
-
-        return id.orElseThrow(() -> new IllegalArgumentException("Id missing"));
-    }
-
-    final void checkIdNotNull(final Optional<I> id) {
-        Objects.requireNonNull(id, "id");
-    }
-
-    // Range<I>.........................................................................................................
-
-    final void checkRangeNotNull(final Range<I> ids) {
-        Objects.requireNonNull(ids, "ids");
-    }
 
     // Optional<RESOURCE>...............................................................................................
 

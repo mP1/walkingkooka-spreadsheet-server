@@ -50,23 +50,23 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handle(final Optional<SpreadsheetCellReference> id,
-                                             final Optional<SpreadsheetDelta> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkIdNotNull(id);
-        this.checkResource(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
+                                                final Optional<SpreadsheetDelta> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkCell(cell);
+        checkResource(resource);
+        checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handleCollection(final Range<SpreadsheetCellReference> to,
-                                                       final Optional<SpreadsheetDelta> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> to,
+                                                  final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetRange toSpreadsheetRange = SpreadsheetRange.with(to);
-        final SpreadsheetDelta delta = this.checkResourceNotEmpty(resource);
-        this.checkParameters(parameters);
+        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
+        checkParameters(parameters);
 
         final SpreadsheetRange from = FROM.parameterValue(parameters)
                 .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)
@@ -81,13 +81,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
     private static SpreadsheetRange mapFirstStringValue(final List<String> values) {
         return values.stream()
                 .limit(1)
-                .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::parseRange)
+                .map(SpreadsheetExpressionReference::parseRange)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Required parameter " + FROM + " missing"));
-    }
-
-    private static SpreadsheetRange parseRange(final String value) {
-        return SpreadsheetExpressionReference.parseRange(value);
     }
 
     final static UrlParameterName FROM = UrlParameterName.with("from");

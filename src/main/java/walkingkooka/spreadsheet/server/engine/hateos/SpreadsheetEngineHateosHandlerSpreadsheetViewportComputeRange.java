@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -45,23 +46,23 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
     }
 
     @Override
-    public Optional<SpreadsheetRange> handle(final Optional<SpreadsheetViewport> id,
-                                             final Optional<SpreadsheetRange> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetViewport rectangle = this.checkIdRequired(id);
-        this.checkResourceEmpty(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetRange> handleOne(final SpreadsheetViewport viewport,
+                                                final Optional<SpreadsheetRange> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(viewport, "viewreport");
+        checkResourceEmpty(resource);
+        checkParameters(parameters);
 
-        return Optional.of(this.engine.computeRange(rectangle));
+        return Optional.of(this.engine.computeRange(viewport));
     }
 
     @Override
-    public Optional<SpreadsheetRange> handleCollection(final Range<SpreadsheetViewport> rectangles,
-                                                       final Optional<SpreadsheetRange> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkRangeNotNull(rectangles);
-        this.checkResourceEmpty(resource);
-        this.checkParameters(parameters);
+    public Optional<SpreadsheetRange> handleRange(final Range<SpreadsheetViewport> range,
+                                                  final Optional<SpreadsheetRange> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(range, "range");
+        checkResource(resource);
+        checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }

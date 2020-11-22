@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,51 +53,58 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
         this.context = context;
     }
 
+    @Override
+    public final Optional<C> handleAll(final Optional<C> resource,
+                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkResource(resource);
+        checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final Optional<C> handleList(final List<I> list,
+                                        final Optional<C> resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Objects.requireNonNull(list, "list");
+        checkResource(resource);
+        checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public final Optional<V> handleNone(final Optional<V> resource,
+                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkResource(resource);
+        checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
-
-    // Optional<I>......................................................................................................
-
-    final I checkIdRequired(final Optional<I> id) {
-        checkIdNotNull(id);
-
-        return id.orElseThrow(() -> new IllegalArgumentException("Id missing"));
-    }
-
-    final void checkIdNotNull(final Optional<I> id) {
-        Objects.requireNonNull(id, "id");
-    }
-
-    // Range<I>.........................................................................................................
-
-    /**
-     * Checks that the range bounds are not null and both are inclusive.
-     */
-    final void checkRangeBounded(final Range<?> range, final String label) {
-        Objects.requireNonNull(range, label);
-
-        if (!range.lowerBound().isInclusive() || !range.upperBound().isInclusive()) {
-            throw new IllegalArgumentException("Range with both " + label + " required=" + range);
-        }
-    }
-
-    final void checkRangeNotNull(final Range<I> ids) {
-        Objects.requireNonNull(ids, "ids");
-    }
 
     // Optional<RESOURCE>...............................................................................................
 
     /**
      * Complains if the resource is null.
      */
-    final void checkResource(final Optional<?> resource) {
+    static void checkRange(final Range<?> range) {
+        Objects.requireNonNull(range, "range");
+    }
+
+    /**
+     * Complains if the resource is null.
+     */
+    static void checkResource(final Optional<?> resource) {
         Objects.requireNonNull(resource, "resource");
     }
 
     /**
      * Complains if the resource is null or present.
      */
-    final void checkResourceEmpty(final Optional<?> resource) {
+    static void checkResourceEmpty(final Optional<?> resource) {
         checkResource(resource);
         resource.ifPresent((r) -> {
             throw new IllegalArgumentException("Resource not allowed=" + r);
@@ -106,7 +114,7 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     /**
      * Complains if the resource is absent.
      */
-    final <T> T checkResourceNotEmpty(final Optional<T> resource) {
+    static SpreadsheetDelta checkResourceNotEmpty(final Optional<SpreadsheetDelta> resource) {
         checkResource(resource);
         return resource.orElseThrow(() -> new IllegalArgumentException("Required resource missing"));
     }
@@ -126,7 +134,7 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     /**
      * Checks parameters are present.
      */
-    final void checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    static void checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(parameters, "parameters");
     }
 }

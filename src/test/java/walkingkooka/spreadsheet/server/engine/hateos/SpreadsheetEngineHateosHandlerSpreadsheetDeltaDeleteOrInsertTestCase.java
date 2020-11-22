@@ -35,9 +35,9 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInse
 
     @Test
     public final void testDeleteResourceWithCellsFails() {
-        final Optional<I> id = this.id();
+        final I id = this.id();
         final Optional<SpreadsheetDelta> resource = Optional.of(SpreadsheetDelta.with(Sets.of(this.cell())));
-        this.handleFails(id,
+        this.handleOneFails(id,
                 resource,
                 this.parameters(),
                 IllegalArgumentException.class);
@@ -45,9 +45,9 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInse
 
     @Test
     public final void testDeleteResourceCollectionWithCellsFails() {
-        final Range<I> id = this.collection();
+        final Range<I> id = this.range();
         final Optional<SpreadsheetDelta> resource = Optional.of(SpreadsheetDelta.with(Sets.of(this.cell())));
-        this.handleCollectionFails(id,
+        this.handleRangeFails(id,
                 resource,
                 this.parameters(),
                 IllegalArgumentException.class);

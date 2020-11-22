@@ -17,11 +17,16 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#deleteColumns(SpreadsheetColumnReference, int, SpreadsheetEngineContext)}.
@@ -40,6 +45,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteCo
     }
 
     @Override
+    void checkReference(final SpreadsheetColumnReference column) {
+        Objects.requireNonNull(column, "column");
+    }
+
+    @Override
     String rangeLabel() {
         return "columns";
     }
@@ -52,5 +62,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteCo
     @Override
     String operation() {
         return "deleteColumns";
+    }
+
+    // FIXME https://github.com/mP1/walkingkooka-spreadsheet-server/issues/81
+    private HttpRequestAttribute<?> dummy() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -45,7 +45,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
 
     @Test
     public void testInsertColumn() {
-        final Optional<SpreadsheetColumnReference> column = this.id();
+        final SpreadsheetColumnReference column = this.id();
         final Optional<SpreadsheetDelta> resource = this.resource();
 
         final Set<SpreadsheetCell> cells = Sets.of(this.cell());
@@ -53,7 +53,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
         final double width = 50;
         final double height = 20;
 
-        this.handleAndCheck(this.createHandler(
+        this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -61,7 +61,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference c,
                                                           final int count,
                                                           final SpreadsheetEngineContext context) {
-                        assertEquals(column.get(), c, "column");
+                        assertEquals(column, c, "column");
                         assertEquals(1, count, "count");
                         return SpreadsheetDelta.with(cells);
                     }
@@ -94,7 +94,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
 
         final SpreadsheetDelta delta = SpreadsheetDelta.with(cells);
 
-        this.handleCollectionAndCheck(this.createHandler(
+        this.handleRangeAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -132,19 +132,20 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
 
     @Test
     public void testInsertColumnFiltered() {
-        final Optional<SpreadsheetColumnReference> column = this.id();
+        final SpreadsheetColumnReference column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
         final List<SpreadsheetRectangle<?>> window = this.window();
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
 
                     @Override
                     @SuppressWarnings("OptionalGetWithoutIsPresent")
                     public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference c,
                                                           final int count,
                                                           final SpreadsheetEngineContext context) {
-                        assertEquals(column.get(), c, "column");
+                        assertEquals(column, c, "column");
                         assertEquals(1, count, "count");
                         return SpreadsheetDelta.with(cells);
                     }
@@ -168,22 +169,22 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
 
     @Test
     public void testInsertAllColumnsFails() {
-        this.handleCollectionFails2(Range.all());
+        this.handleRangeFails2(Range.all());
     }
 
     @Test
     public void testInsertOpenRangeBeginFails() {
-        this.handleCollectionFails2(Range.lessThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
+        this.handleRangeFails2(Range.lessThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
     }
 
     @Test
     public void testInsertOpenRangeEndFails() {
-        this.handleCollectionFails2(Range.greaterThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
+        this.handleRangeFails2(Range.greaterThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
     }
 
-    private void handleCollectionFails2(final Range<SpreadsheetColumnReference> columns) {
+    private void handleRangeFails2(final Range<SpreadsheetColumnReference> columns) {
         assertEquals("Range with both columns required=" + columns,
-                this.handleCollectionFails(columns,
+                this.handleRangeFails(columns,
                         this.collectionResource(),
                         HateosHandler.NO_PARAMETERS,
                         IllegalArgumentException.class).getMessage(),
@@ -206,12 +207,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
     }
 
     @Override
-    public Optional<SpreadsheetColumnReference> id() {
-        return Optional.of(SpreadsheetColumnOrRowReference.parseColumn("C"));
+    public SpreadsheetColumnReference id() {
+        return SpreadsheetColumnOrRowReference.parseColumn("C");
     }
 
     @Override
-    public Range<SpreadsheetColumnReference> collection() {
+    public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetColumnOrRowReference.parseColumnRange("C:E");
     }
 

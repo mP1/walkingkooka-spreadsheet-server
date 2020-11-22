@@ -27,14 +27,15 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
+import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -68,17 +69,31 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
 
         // metadata GET, POST...........................................................................................
 
-        final Function<String, SpreadsheetId> stringToSpreadsheetId = SpreadsheetId::parse;
-
         return HateosResourceMapping.router(baseUrl,
                 contentType,
                 Sets.of(HateosResourceMapping.with(SPREADSHEET,
-                        stringToSpreadsheetId,
+                        SpreadsheetContextHateosHandlersRouter::parse,
                         SpreadsheetMetadata.class,
                         SpreadsheetMetadata.class,
                         SpreadsheetMetadata.class)
                         .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
                         .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)));
+    }
+
+    private static HateosResourceSelection<SpreadsheetId> parse(final String text) {
+        try {
+            HateosResourceSelection<SpreadsheetId> selection;
+
+            if (text.isEmpty()) {
+                selection = HateosResourceSelection.none();
+            } else {
+                selection = HateosResourceSelection.one(SpreadsheetId.parse(text));
+            }
+
+            return selection;
+        } catch (final Exception cause) {
+            throw new IllegalArgumentException("Invalid id " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     /**

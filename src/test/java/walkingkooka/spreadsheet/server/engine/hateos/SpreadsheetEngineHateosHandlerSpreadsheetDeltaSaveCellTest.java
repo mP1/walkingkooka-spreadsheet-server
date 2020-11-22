@@ -59,7 +59,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
     @Test
     public void testHandleSaveCellMissingFails() {
-        this.handleFails(this.id(),
+        this.handleOneFails(this.id(),
                 Optional.empty(),
                 this.parameters(),
                 IllegalArgumentException.class);
@@ -73,7 +73,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
         final SpreadsheetRowReference row = this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
 
-        this.handleAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta saveCell(final SpreadsheetCell c,
                                                      final SpreadsheetEngineContext context) {
@@ -110,7 +111,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell cell = this.cell();
         final SpreadsheetCell z99 = SpreadsheetCell.with(SpreadsheetExpressionReference.parseCellReference("Z99"), SpreadsheetFormula.with("99"));
 
-        this.handleFails(this.id(),
+        this.handleOneFails(this.id(),
                 Optional.of(SpreadsheetDelta.with(Sets.of(cell, z99))),
                 this.parameters(),
                 IllegalArgumentException.class);
@@ -128,7 +129,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final double width = 50;
         final double height = 20;
 
-        this.handleAndCheck(this.createHandler(
+        this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
@@ -165,7 +166,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
-    // handleCollection.................................................................................................
+    // handleRange.................................................................................................
 
     @Test
     public void testHandleCollectionBatchSaves() {
@@ -176,7 +177,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell d4 = this.cell("C4", "3");
         final SpreadsheetDelta result = SpreadsheetDelta.with(Sets.of(b2, c3, d4));
 
-        this.handleCollectionAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        this.handleRangeAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
 
                     @Override
                     public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
@@ -209,7 +210,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
         final List<SpreadsheetRectangle<?>> window = this.window();
 
-        this.handleCollectionAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        this.handleRangeAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
 
                     @Override
                     public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
@@ -247,12 +249,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     }
 
     @Override
-    public Optional<SpreadsheetCellReference> id() {
-        return Optional.of(SpreadsheetExpressionReference.parseCellReference("A1"));
+    public SpreadsheetCellReference id() {
+        return SpreadsheetExpressionReference.parseCellReference("A1");
     }
 
     @Override
-    public Range<SpreadsheetCellReference> collection() {
+    public Range<SpreadsheetCellReference> range() {
         return SpreadsheetCellReference.parseCellReferenceRange("B2:D4");
     }
 

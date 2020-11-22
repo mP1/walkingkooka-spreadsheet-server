@@ -63,7 +63,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     @Test
     public void testLoadCell() {
-        this.handleAndCheck(this.id(),
+        this.handleOneAndCheck(this.id(),
                 this.resource(),
                 this.parameters(),
                 Optional.of(this.spreadsheetDelta()));
@@ -71,13 +71,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     @Test
     public void testLoadCellAndFilter() {
-        final Optional<SpreadsheetCellReference> id = this.id();
+        final SpreadsheetCellReference id = this.id();
         final List<SpreadsheetRectangle<?>> window = this.window();
 
         final double width = 50;
         final double height = 20;
 
-        this.handleAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
+        this.handleOneAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
@@ -108,7 +108,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
-    // handleCollection.................................................................................................
+    // handleRange.................................................................................................
 
     @Test
     public void testBatchLoadIndividually() {
@@ -132,7 +132,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(c2.reference(), this.delta(c2));
         cellToDelta.put(c3.reference(), this.delta(c3));
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
     }
 
     @Test
@@ -157,7 +157,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(c2.reference(), this.delta(c2));
         cellToDelta.put(c3.reference(), this.delta(c3));
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
     }
 
     @Test
@@ -176,7 +176,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(c2, this.delta());
         cellToDelta.put(c3, this.delta());
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3));
     }
 
     @Test
@@ -194,7 +194,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(b3.reference(), this.delta(b3));
         cellToDelta.put(c1.reference(), this.delta(c1, c2));
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
     }
 
     @Test
@@ -213,7 +213,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(b1.reference(), this.delta(b1, b2, b3, z99));
         cellToDelta.put(c1.reference(), this.delta(c1, c2, c3));
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3, z99, c1, c2, c3));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, z99, c1, c2, c3));
     }
 
     @Test
@@ -234,11 +234,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         cellToDelta.put(c2, this.delta());
         cellToDelta.put(c3, this.delta());
 
-        this.handleCollectionAndCheck2(cellToDelta, this.result(b1, b2, b3, z99));
+        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, z99));
     }
 
-    private void handleCollectionAndCheck2(final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta,
-                                           final Optional<SpreadsheetDelta> result) {
+    private void handleRangeAndCheck2(final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta,
+                                      final Optional<SpreadsheetDelta> result) {
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
@@ -269,8 +269,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     }
                 },
                 this.engineContext());
-        this.handleCollectionAndCheck(handler,
-                this.collection(),
+        this.handleRangeAndCheck(handler,
+                this.range(),
                 this.collectionResource(),
                 this.parameters(),
                 result);
@@ -291,10 +291,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
-        final Range<SpreadsheetCellReference> range = this.collection();
+        final Range<SpreadsheetCellReference> range = this.range();
         final List<SpreadsheetRectangle<?>> window = this.window();
 
-        this.handleCollectionAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
+        this.handleRangeAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
@@ -380,8 +380,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Override
-    public Optional<SpreadsheetCellReference> id() {
-        return Optional.of(this.spreadsheetCellReference());
+    public SpreadsheetCellReference id() {
+        return this.spreadsheetCellReference();
     }
 
     private SpreadsheetCellReference spreadsheetCellReference() {
@@ -389,7 +389,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Override
-    public Range<SpreadsheetCellReference> collection() {
+    public Range<SpreadsheetCellReference> range() {
         return SpreadsheetRange.parseRange("B1:C3").range();
     }
 

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -31,6 +32,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -38,6 +40,22 @@ import java.util.Optional;
  */
 abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparable<I>>
         extends SpreadsheetEngineHateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
+
+    static void checkCell(final SpreadsheetCellReference cell) {
+        Objects.requireNonNull(cell, "cell");
+    }
+
+    /**
+     * Checks that the range bounds are not null and both are inclusive.
+     * Complains if the resource is null.
+     */
+    static void checkRangeBounded(final Range<?> range, final String label) {
+        Objects.requireNonNull(range, label);
+
+        if (!range.lowerBound().isInclusive() || !range.upperBound().isInclusive()) {
+            throw new IllegalArgumentException("Range with both " + label + " required=" + range);
+        }
+    }
 
     /**
      * Package private to limit sub classing.

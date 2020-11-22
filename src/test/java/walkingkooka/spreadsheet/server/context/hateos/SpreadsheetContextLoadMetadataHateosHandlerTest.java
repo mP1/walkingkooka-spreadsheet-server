@@ -47,9 +47,7 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
 
     @Test
     public void testHandleIdWithMetadataResourceFails() {
-        final Optional<SpreadsheetId> id = this.id();
-
-        this.handleFails(id,
+        this.handleOneFails(this.id(),
                 Optional.of(this.metadataWithDefaults()),
                 this.parameters(),
                 IllegalArgumentException.class);
@@ -64,7 +62,7 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
 
-        this.handleAndCheck(this.createHandler(
+        this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetContext() {
                     @Override
                     public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
@@ -77,7 +75,7 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
                         };
                     }
                 }),
-                Optional.of(id),
+                id,
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(metadata));
