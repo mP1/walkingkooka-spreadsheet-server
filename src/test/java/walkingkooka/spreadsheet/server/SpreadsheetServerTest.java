@@ -220,10 +220,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"A\": 15\n" +
+                                "    \"A\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"1\": 60\n" +
+                                "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA
@@ -273,10 +273,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"A\": 15\n" +
+                                "    \"A\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"1\": 60\n" +
+                                "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -316,10 +316,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"B\": 15\n" +
+                                "    \"B\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"2\": 60\n" +
+                                "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -368,10 +368,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"A\": 15\n" +
+                                "    \"A\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"1\": 60\n" +
+                                "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -417,10 +417,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"A\": 15\n" +
+                                "    \"A\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"1\": 60\n" +
+                                "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
@@ -461,10 +461,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"maxColumnWidths\": {\n" +
-                                "    \"B\": 15\n" +
+                                "    \"B\": 100\n" +
                                 "  },\n" +
                                 "  \"maxRowHeights\": {\n" +
-                                "    \"2\": 60\n" +
+                                "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",
                         DELTA));
