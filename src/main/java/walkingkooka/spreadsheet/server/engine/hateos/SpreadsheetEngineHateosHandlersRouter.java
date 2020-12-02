@@ -58,6 +58,12 @@ import java.util.function.BiConsumer;
  */
 final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
 
+    static {
+        SpreadsheetCellBox.with(SpreadsheetCellReference.parseCellReference("A1"), 1, 1, 1, 1);
+        SpreadsheetDelta.NO_CELLS.isEmpty(); // force static initializers
+        SpreadsheetViewport.COMPARATOR.hashCode();
+    }
+
     /**
      * A {@link HateosResourceName} with <code>cell</code>.
      */
