@@ -42,6 +42,11 @@ import java.util.function.BiConsumer;
  */
 final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
 
+    static {
+        // force static initializers for JsonContext
+        SpreadsheetMetadata.EMPTY.isEmpty();
+    }
+
     /**
      * A {@link HateosResourceName} with <code>metadata</code>.
      */
