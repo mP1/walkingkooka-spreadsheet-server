@@ -72,7 +72,7 @@ final class SpreadsheetEngineHateosHandlersRouter implements StaticHelper {
     /**
      * A {@link LinkRelation} with <code>fill</code>.
      */
-    private static final LinkRelation FILL = LinkRelation.with("fill");
+    private static final LinkRelation<?> FILL = LinkRelation.with("fill");
 
     /**
      * A {@link HateosResourceName} with <code>column</code>.
