@@ -94,6 +94,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<SpreadsheetServer> {
 
@@ -107,7 +108,10 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private final static Binary FILE_BINARY = Binary.with(bytes("abc123", FILE_CONTENT_TYPE));
     private final static HttpStatus FILE_NOT_FOUND = HttpStatusCode.NOT_FOUND.setMessage("File not found custom message");
 
-    private final static String DELTA = "SpreadsheetDeltaNonWindowed";
+    private final static String DELTA = SpreadsheetDelta.class.getSimpleName();
+    private static final String GET_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
+    private static final String POST_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
+    private static final String POST_SPREADSHEET_DELTA_OK = "POST " + SpreadsheetDelta.class.getSimpleName() + " OK";
 
     @Test
     public void testStartServer() {
@@ -133,7 +137,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/99",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.NO_CONTENT.setMessage("GET resource successful")));
+                this.response(HttpStatusCode.NO_CONTENT.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " No content")));
     }
 
     @Test
@@ -144,7 +148,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
         assertNotEquals(null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
@@ -160,7 +164,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
         assertNotEquals(null,
@@ -172,7 +176,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/1",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("GET resource successful"),
+                this.response(HttpStatusCode.OK.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
     }
@@ -185,14 +189,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -238,14 +242,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(GET_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -285,7 +289,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/1/cell/B2",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -333,14 +337,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -380,7 +384,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))));
 
         assertEquals(2, this.metadataStore.count());
@@ -389,7 +393,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/2/cell/A1",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("3+4"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -430,7 +434,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 "/api/spreadsheet/1/cell/B2",
                 HttpRequest.NO_HEADERS,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
-                this.response(HttpStatusCode.OK.setMessage("POST resource successful"),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -681,7 +685,19 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         void handleAndCheck(final HttpRequest request,
                             final HttpResponse expected) {
-            assertEquals(expected, this.handle(request), () -> "" + request);
+            final HttpResponse response = this.handle(request);
+
+            // ignore response body (which will have a stack trace) if bad request
+            if (HttpStatusCode.BAD_REQUEST.equals(response.status().map(s -> s.value()).orElse(null))) {
+                final List<HttpEntity> entities = response.entities();
+                assertEquals(1, entities.size(), () -> "" + request + "\n" + response);
+
+                final HttpEntity only = entities.get(0);
+                final String body = only.bodyText();
+                assertTrue(body.contains("Exception"), () -> "" + request + "\n" + response);
+            } else {
+                assertEquals(expected, response, () -> "" + request);
+            }
         }
 
         HttpResponse handle(final HttpRequest request) {
@@ -801,7 +817,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
     private HttpResponse response(final HttpStatus status,
                                   final SpreadsheetMetadata body) {
-        return this.response(status, toJson(body), body.getClass().getSimpleName());
+        return this.response(status, toJson(body), SpreadsheetMetadata.class.getSimpleName());
     }
 
     private HttpResponse response(final HttpStatus status,

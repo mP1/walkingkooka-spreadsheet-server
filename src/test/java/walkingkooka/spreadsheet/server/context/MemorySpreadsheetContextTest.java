@@ -436,11 +436,11 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             consumer.accept(request, response);
 
             final HttpResponse expected = HttpResponses.recording();
-            expected.setStatus(HttpStatusCode.OK.setMessage("GET resource successful"));
+            expected.setStatus(HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"));
 
             expected.addEntity(HttpEntity.EMPTY
                     .addHeader(HttpHeaderName.CONTENT_TYPE, contentType().contentType().setCharset(CharsetName.UTF_8))
-                    .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, "SpreadsheetDeltaNonWindowed")
+                    .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
                     .setContentLength());
 
