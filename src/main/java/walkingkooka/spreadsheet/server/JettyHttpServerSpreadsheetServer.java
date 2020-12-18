@@ -25,6 +25,7 @@ import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.apache.tika.ApacheTikas;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -58,6 +59,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -129,7 +131,14 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      * Creates a function which merges the given {@link Locale} and then saves it to the {@link SpreadsheetMetadataStore}.
      */
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
+        final EmailAddress user = EmailAddress.parse("user123@example.com");
+        final LocalDateTime now = LocalDateTime.now();
+
         final SpreadsheetMetadata metadataWithDefaults = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                .set(SpreadsheetMetadataPropertyName.CREATOR, user)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"))
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, DEFAULT_NAME)
                 .loadFromLocale();
