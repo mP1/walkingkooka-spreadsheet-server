@@ -32,6 +32,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETag;
@@ -530,7 +531,17 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     private SpreadsheetMetadata createMetadata() {
+        final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
+        final LocalDateTime createDateTime = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+
+        final EmailAddress modified = EmailAddress.parse("user123@exaple.com");
+        final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
+
         return SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modified)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime)
                 .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)

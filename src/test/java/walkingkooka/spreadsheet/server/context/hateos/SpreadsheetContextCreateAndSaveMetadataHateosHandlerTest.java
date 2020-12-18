@@ -163,14 +163,9 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
         return new FakeSpreadsheetContext() {
             @Override
             public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                return SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest.this.createMetadata();
+                return SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest.this.metadata().remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
         };
-    }
-
-    private SpreadsheetMetadata createMetadata() {
-        return SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME,
-                LocalDateTime.of(2000, 12, 31, 12, 58, 59)));
     }
 
     // ClassTesting.....................................................................................................

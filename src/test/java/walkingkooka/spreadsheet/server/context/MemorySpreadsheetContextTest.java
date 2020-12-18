@@ -26,6 +26,7 @@ import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -78,6 +79,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -592,7 +594,16 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     }
 
     private SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999)));
+        final EmailAddress creatorEmail = EmailAddress.parse("creator@example.com");
+        final LocalDateTime createDateTime = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+        final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
+        final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
+
+        SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999),
+                SpreadsheetMetadataPropertyName.CREATOR, creatorEmail,
+                SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime,
+                SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail,
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime));
         if (locale.isPresent()) {
             metadata = metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
         }
@@ -614,8 +625,16 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
         if (null == repository) {
             final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+
+            final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
+            final LocalDateTime now = LocalDateTime.now();
+
             metadataStore.save(SpreadsheetMetadata.EMPTY
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
+                    .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
+                    .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+                    .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
+                    .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
                     .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
