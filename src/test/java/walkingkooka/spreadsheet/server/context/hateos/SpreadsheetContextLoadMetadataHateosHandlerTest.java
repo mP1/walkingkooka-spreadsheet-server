@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,8 +57,18 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
     @Test
     public void testHandleLoad() {
         final SpreadsheetId id = this.spreadsheetId();
+
+        final EmailAddress creatorEmail = EmailAddress.parse("creator@example.com");
+        final LocalDateTime createDateTime = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+        final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
+        final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
+
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id,
-                SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com")));
+                SpreadsheetMetadataPropertyName.CREATOR, creatorEmail,
+                SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime,
+                SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH,
+                SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail,
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime));
 
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
