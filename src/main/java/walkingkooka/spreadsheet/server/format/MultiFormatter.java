@@ -17,8 +17,8 @@
 
 package walkingkooka.spreadsheet.server.format;
 
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.HasSpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -34,15 +34,15 @@ import java.util.stream.Collectors;
  */
 final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatResponse> {
 
-    static MultiFormatter with(final SpreadsheetFormatterContext spreadsheetFormatterContext) {
-        Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext");
+    static MultiFormatter with(final SpreadsheetEngineContext engineContext) {
+        Objects.requireNonNull(engineContext, "engineContext");
 
-        return new MultiFormatter(spreadsheetFormatterContext);
+        return new MultiFormatter(engineContext);
     }
 
-    private MultiFormatter(final SpreadsheetFormatterContext spreadsheetFormatterContext) {
+    private MultiFormatter(final SpreadsheetEngineContext engineContext) {
         super();
-        this.spreadsheetFormatterContext = spreadsheetFormatterContext;
+        this.engineContext = engineContext;
     }
 
     @Override
@@ -83,8 +83,7 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
 
             if (pattern instanceof HasSpreadsheetFormatter) {
                 final HasSpreadsheetFormatter hasSpreadsheetFormatter = (HasSpreadsheetFormatter) pattern;
-                formatted = hasSpreadsheetFormatter.formatter()
-                        .format(value, this.spreadsheetFormatterContext)
+                formatted = this.engineContext.format(value, hasSpreadsheetFormatter.formatter())
                         .orElseThrow(() -> this.formatFail(value, pattern));
                 break;
             }
@@ -102,10 +101,10 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
         return new IllegalArgumentException("Unable to format " + CharSequences.quoteIfChars(value));
     }
 
-    private final SpreadsheetFormatterContext spreadsheetFormatterContext;
+    private final SpreadsheetEngineContext engineContext;
 
     @Override
     public String toString() {
-        return this.spreadsheetFormatterContext.toString();
+        return this.engineContext.toString();
     }
 }
