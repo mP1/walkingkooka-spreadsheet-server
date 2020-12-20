@@ -23,6 +23,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
@@ -36,6 +38,7 @@ import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -153,15 +156,22 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
     @Override
     public MultiFormatter createFunction() {
         return MultiFormatter.with(
-                SpreadsheetFormatterContexts.basic(function(),
-                        function(),
-                        1,
-                        SpreadsheetFormatters.fake(),
-                        ExpressionNumberConverterContexts.basic(Converters.collection(Lists.of(Converters.simple(), Converters.localDateLocalDateTime())),
-                                ConverterContexts.basic(Converters.fake(), DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32)),
-                                ExpressionNumberKind.DOUBLE
-                        )
-                )
+                new FakeSpreadsheetEngineContext() {
+                    @Override
+                    public Optional<SpreadsheetText> format(final Object value,
+                                                            final SpreadsheetFormatter formatter) {
+                        return formatter.format(value,
+                                SpreadsheetFormatterContexts.basic(function(),
+                                        function(),
+                                        1,
+                                        SpreadsheetFormatters.fake(),
+                                        ExpressionNumberConverterContexts.basic(Converters.collection(Lists.of(Converters.simple(), Converters.localDateLocalDateTime())),
+                                                ConverterContexts.basic(Converters.fake(), DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                                                ExpressionNumberKind.DOUBLE
+                                        )
+                                ));
+                    }
+                }
         );
     }
 

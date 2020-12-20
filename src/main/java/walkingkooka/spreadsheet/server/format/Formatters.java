@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.format;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.function.Function;
 
@@ -27,8 +27,8 @@ public final class Formatters implements PublicStaticHelper {
     /**
      * {@see MultiFormatter}
      */
-    public static Function<MultiFormatRequest, MultiFormatResponse> multiFormatters(final SpreadsheetFormatterContext spreadsheetFormatterContext) {
-        return MultiFormatter.with(spreadsheetFormatterContext);
+    public static Function<MultiFormatRequest, MultiFormatResponse> multiFormatters(final SpreadsheetEngineContext engineContext) {
+        return MultiFormatter.with(engineContext);
     }
 
     private Formatters() {
