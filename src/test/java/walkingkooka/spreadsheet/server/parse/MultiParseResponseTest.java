@@ -19,6 +19,9 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -44,6 +47,30 @@ public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResp
         this.toStringAndCheck(this.createObject(), "[hello]");
     }
 
+    // json.............................................................................................................
+
+    @Test
+    public void testJsonRoundtrip() {
+        this.marshallRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Test
+    public void testJsonRoundtrip2() {
+        this.marshallRoundTripTwiceAndCheck(
+                MultiParseResponse.with(
+                        Lists.of(
+                                SpreadsheetFormatPattern.parseDateFormatPattern("dd:mm:yyyy"),
+                                SpreadsheetFormatPattern.parseDateParsePatterns("dd:mm:yyyy;dd:mm:yyyy"),
+                                SpreadsheetFormatPattern.parseDateTimeFormatPattern("dd:mm:yyyy:hh:mm"),
+                                SpreadsheetFormatPattern.parseDateTimeParsePatterns("dd:mm:yyyy:hh:mm;dd:mm:yyyy:hh:mm"),
+                                SpreadsheetFormatPattern.parseTextFormatPattern("@@@"),
+                                SpreadsheetFormatPattern.parseTimeFormatPattern("hh:mm"),
+                                SpreadsheetFormatPattern.parseTimeParsePatterns("hh:mm:hh:mm")
+                        )
+                )
+        );
+    }
+
     @Override
     public MultiParseResponse createObject() {
         return MultiParseResponse.with(Lists.of("hello"));
@@ -53,4 +80,11 @@ public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResp
     public Class<MultiParseResponse> type() {
         return MultiParseResponse.class;
     }
+
+    @Override
+    public MultiParseResponse unmarshall(final JsonNode node,
+                                         final JsonNodeUnmarshallContext context) {
+        return MultiParseResponse.unmarshall(node, context);
+    }
+
 }

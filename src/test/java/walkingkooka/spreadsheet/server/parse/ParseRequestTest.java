@@ -19,13 +19,12 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParseRequestTest extends ParserTestCase2<ParseRequest> implements JsonNodeMarshallingTesting<ParseRequest> {
+public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
 
     private final static String TEXT = "yyyy/mm/ddd";
     private final static String PARSER = MultiParser.SPREADSHEET_DATE_PARSERS;
@@ -90,11 +89,6 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> implem
     @Override
     public Class<ParseRequest> type() {
         return ParseRequest.class;
-    }
-
-    @Override
-    public final ParseRequest createJsonNodeMappingValue() {
-        return this.createObject();
     }
 
     @Override

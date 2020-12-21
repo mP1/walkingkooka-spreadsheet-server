@@ -18,10 +18,17 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
-public abstract class ParserTestCase2<T> extends ParserTestCase<T> implements HashCodeEqualsDefinedTesting2<T> {
+public abstract class ParserTestCase2<T> extends ParserTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
+        JsonNodeMarshallingTesting<T> {
 
     ParserTestCase2() {
         super();
+    }
+
+    @Override
+    public final T createJsonNodeMappingValue() {
+        return this.createObject();
     }
 }
