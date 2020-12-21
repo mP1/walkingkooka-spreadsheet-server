@@ -52,7 +52,7 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
     }
 
     @Test
-    public void testWithNullSpreadsheetFormatContext() {
+    public void testWithNullSpreadsheetEngineContext() {
         assertThrows(NullPointerException.class, () -> MultiFormatter.with(null));
     }
 
