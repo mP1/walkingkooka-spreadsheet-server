@@ -26,11 +26,4 @@ public abstract class FormatterTestCase<T> implements ClassTesting<T>, ToStringT
     FormatterTestCase() {
         super();
     }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 }

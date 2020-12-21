@@ -26,7 +26,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Objects;
 
-final class MultiFormatRequest {
+public final class MultiFormatRequest {
 
     static MultiFormatRequest with(final List<FormatRequest> requests) {
         Objects.requireNonNull(requests, "requests");
