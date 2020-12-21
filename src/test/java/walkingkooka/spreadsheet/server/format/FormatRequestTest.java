@@ -20,13 +20,18 @@ package walkingkooka.spreadsheet.server.format;
 import org.junit.jupiter.api.Test;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetDateFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
+public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> implements JsonNodeMarshallingTesting<FormatRequest> {
 
     private final static LocalDate VALUE = LocalDate.of(1999, 12, 31);
     private final static SpreadsheetDateFormatPattern PATTERN = SpreadsheetFormatPattern.parseDateFormatPattern("dd/mm/yyyy");
@@ -47,6 +52,27 @@ public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
         final FormatRequest request = FormatRequest.with(VALUE, PATTERN);
         assertEquals(VALUE, request.value(), "value");
         assertEquals(PATTERN, request.pattern(), "PATTERN");
+    }
+
+    // Json..............................................................................................................
+
+    @Test
+    public void testJsonRoundtripLocalDateSpreadsheetDateFormatPattern() {
+        this.marshallRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Test
+    public void testJsonRoundtripLocalDateTimeSpreadsheetDateTimeFormatPattern() {
+        this.marshallRoundTripTwiceAndCheck(FormatRequest.with(
+                LocalDateTime.now(),
+                SpreadsheetFormatPattern.parseDateTimeFormatPattern("yyyy-mm-dd hh-mm")));
+    }
+
+    @Test
+    public void testJsonRoundtripLocalTimeSpreadsheetTimeFormatPattern() {
+        this.marshallRoundTripTwiceAndCheck(FormatRequest.with(
+                LocalTime.now(),
+                SpreadsheetFormatPattern.parseTimeFormatPattern("hh-mm:ss")));
     }
 
     // Object............................................................................................................
@@ -72,7 +98,18 @@ public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
     }
 
     @Override
+    public FormatRequest createJsonNodeMappingValue() {
+        return this.createObject();
+    }
+
+    @Override
     public Class<FormatRequest> type() {
         return FormatRequest.class;
+    }
+
+    @Override
+    public FormatRequest unmarshall(final JsonNode node,
+                                    final JsonNodeUnmarshallContext context) {
+        return FormatRequest.unmarshall(node, context);
     }
 }
