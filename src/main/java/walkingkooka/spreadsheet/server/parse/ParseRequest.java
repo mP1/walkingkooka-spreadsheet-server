@@ -27,7 +27,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.Objects;
 
 /**
- * Represents a single request to pattern a text using a compatible pattern. Examples might include a {@link String} and the type name.
+ * Represents a single request to parse text using an identified parser.
  */
 final class ParseRequest {
 
