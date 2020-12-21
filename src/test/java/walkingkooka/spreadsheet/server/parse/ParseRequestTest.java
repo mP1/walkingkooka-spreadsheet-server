@@ -18,11 +18,14 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
+public final class ParseRequestTest extends ParserTestCase2<ParseRequest> implements JsonNodeMarshallingTesting<ParseRequest> {
 
     private final static String TEXT = "yyyy/mm/ddd";
     private final static String PARSER = MultiParser.SPREADSHEET_DATE_PARSERS;
@@ -67,6 +70,18 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
         this.toStringAndCheck(this.createObject(), "\"" + TEXT + "\" \"" + PARSER + "\"");
     }
 
+    // Json..............................................................................................................
+
+    @Test
+    public void testJsonRoundtrip() {
+        this.marshallRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Test
+    public void testJsonRoundtrip2() {
+        this.marshallRoundTripTwiceAndCheck(ParseRequest.with("hh:mm:ss", MultiParser.SPREADSHEET_TIME_PARSERS));
+    }
+
     @Override
     public ParseRequest createObject() {
         return ParseRequest.with(TEXT, PARSER);
@@ -75,5 +90,16 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
     @Override
     public Class<ParseRequest> type() {
         return ParseRequest.class;
+    }
+
+    @Override
+    public final ParseRequest createJsonNodeMappingValue() {
+        return this.createObject();
+    }
+
+    @Override
+    public ParseRequest unmarshall(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
+        return ParseRequest.unmarshall(node, context);
     }
 }

@@ -18,6 +18,11 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Objects;
 
@@ -70,5 +75,57 @@ final class ParseRequest {
     @Override
     public String toString() {
         return CharSequences.quoteAndEscape(this.text()) + " " + CharSequences.quoteAndEscape(this.parser());
+    }
+
+    // Json.............................................................................................................
+
+    private final static String TEXT_STRING = "text";
+    private final static String PARSER_STRING = "parser";
+
+    final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_STRING);
+    final static JsonPropertyName PARSER_PROPERTY = JsonPropertyName.with(PARSER_STRING);
+
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
+        return JsonNode.object()
+                .set(TEXT_PROPERTY, context.marshall(this.text))
+                .set(PARSER_PROPERTY, context.marshall(this.parser));
+    }
+
+    static ParseRequest unmarshall(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
+        Objects.requireNonNull(node, "node");
+
+        String text = null;
+        String parser = null;
+
+        for (final JsonNode child : node.objectOrFail().children()) {
+            final JsonPropertyName name = child.name();
+            switch (name.value()) {
+                case TEXT_STRING:
+                    text = child.stringOrFail();
+                    break;
+                case PARSER_STRING:
+                    parser = child.stringOrFail();
+                    break;
+                default:
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
+                    break;
+            }
+        }
+
+        if (null == text) {
+            JsonNodeUnmarshallContext.requiredPropertyMissing(TEXT_PROPERTY, node);
+        }
+        if (null == parser) {
+            JsonNodeUnmarshallContext.requiredPropertyMissing(PARSER_PROPERTY, node);
+        }
+        return with(text, parser);
+    }
+
+    static {
+        JsonNodeContext.register("spreadsheet-parse-request",
+                ParseRequest::unmarshall,
+                ParseRequest::marshall,
+                ParseRequest.class);
     }
 }
