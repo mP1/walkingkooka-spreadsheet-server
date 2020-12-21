@@ -19,16 +19,45 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public final class MultiParseRequestTest extends ParserTestCase2<MultiParseRequest> {
+public final class MultiParseRequestTest extends ParserTestCase2<MultiParseRequest> implements JsonNodeMarshallingTesting<MultiParseRequest> {
 
     @Test
     public void testWithNullRequests() {
         assertThrows(NullPointerException.class, () -> MultiParseRequest.with(null));
     }
+
+    // json.............................................................................................................
+
+    @Test
+    public void testJsonRoundtrip() {
+        this.marshallRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Test
+    public void testJsonRoundtrip2() {
+        this.marshallRoundTripTwiceAndCheck(
+                MultiParseRequest.with(
+                        Lists.of(
+                                ParseRequest.with("dd:mm:yyyy", MultiParser.SPREADSHEET_DATE_FORMATTER),
+                                ParseRequest.with("dd:mm:yyyy;dd:mm:yyyy", MultiParser.SPREADSHEET_DATE_PARSERS),
+                                ParseRequest.with("dd:mm:yyyy hh:mm", MultiParser.SPREADSHEET_DATE_TIME_FORMATTER),
+                                ParseRequest.with("dd:mm:yyyy hh:mm;dd:mm:yyyy hh:mm", MultiParser.SPREADSHEET_DATE_TIME_PARSERS),
+                                ParseRequest.with("@@", MultiParser.SPREADSHEET_TEXT_FORMATTER),
+                                ParseRequest.with("hh:mm;hh:mm", MultiParser.SPREADSHEET_TIME_FORMATTER),
+                                ParseRequest.with("hh:mm", MultiParser.SPREADSHEET_TIME_PARSERS)
+                        )
+                )
+        );
+    }
+
+    // Object...........................................................................................................
 
     @Test
     public void testDifferentRequests() {
@@ -59,5 +88,18 @@ public final class MultiParseRequestTest extends ParserTestCase2<MultiParseReque
     @Override
     public Class<MultiParseRequest> type() {
         return MultiParseRequest.class;
+    }
+
+    // Json.............................................................................................................
+
+    @Override
+    public final MultiParseRequest createJsonNodeMappingValue() {
+        return this.createObject();
+    }
+
+    @Override
+    public MultiParseRequest unmarshall(final JsonNode node,
+                                        final JsonNodeUnmarshallContext context) {
+        return MultiParseRequest.unmarshall(node, context);
     }
 }
