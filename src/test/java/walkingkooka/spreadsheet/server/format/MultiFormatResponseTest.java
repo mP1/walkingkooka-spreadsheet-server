@@ -19,6 +19,13 @@ package walkingkooka.spreadsheet.server.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,6 +36,25 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
     public void testWithNullRequests() {
         assertThrows(NullPointerException.class, () -> MultiFormatResponse.with(null));
     }
+
+    // Json.............................................................................................................
+
+    @Test
+    public void testJsonRoundtripMixed() {
+        this.marshallRoundTripTwiceAndCheck(
+                MultiFormatResponse.with(
+                        Lists.of(
+                                "formatted-text-123",
+                                BigDecimal.valueOf(1.5),
+                                LocalDate.now(),
+                                LocalDateTime.now(),
+                                LocalTime.now()
+                        )
+                )
+        );
+    }
+
+    // Object...........................................................................................................
 
     @Test
     public void testDifferentRequests() {
@@ -47,6 +73,12 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
     @Override
     public MultiFormatResponse createObject() {
         return MultiFormatResponse.with(Lists.of("hello"));
+    }
+
+    @Override
+    public MultiFormatResponse unmarshall(final JsonNode from,
+                                          final JsonNodeUnmarshallContext context) {
+        return MultiFormatResponse.unmarshall(from, context);
     }
 
     @Override
