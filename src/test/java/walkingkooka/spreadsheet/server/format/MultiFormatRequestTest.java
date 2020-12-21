@@ -41,11 +41,6 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     // Json..............................................................................................................
 
     @Test
-    public void testJsonRoundtrip() {
-        this.marshallRoundTripTwiceAndCheck(this.createObject());
-    }
-
-    @Test
     public void testJsonRoundtrip2() {
         this.marshallRoundTripTwiceAndCheck(
                 MultiFormatRequest.with(
@@ -96,11 +91,6 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     }
 
     // Json.............................................................................................................
-
-    @Override
-    public MultiFormatRequest createJsonNodeMappingValue() {
-        return this.createObject();
-    }
 
     @Override
     public MultiFormatRequest unmarshall(final JsonNode node,

@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetDateFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDate;
@@ -31,7 +30,7 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> implements JsonNodeMarshallingTesting<FormatRequest> {
+public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
 
     private final static LocalDate VALUE = LocalDate.of(1999, 12, 31);
     private final static SpreadsheetDateFormatPattern PATTERN = SpreadsheetFormatPattern.parseDateFormatPattern("dd/mm/yyyy");
@@ -95,11 +94,6 @@ public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> i
     @Override
     public FormatRequest createObject() {
         return FormatRequest.with(VALUE, PATTERN);
-    }
-
-    @Override
-    public FormatRequest createJsonNodeMappingValue() {
-        return this.createObject();
     }
 
     @Override

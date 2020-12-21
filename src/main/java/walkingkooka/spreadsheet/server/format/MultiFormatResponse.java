@@ -18,6 +18,10 @@
 package walkingkooka.spreadsheet.server.format;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.List;
 import java.util.Objects;
@@ -60,5 +64,23 @@ final class MultiFormatResponse {
     @Override
     public String toString() {
         return this.responses().toString();
+    }
+
+    // Json.............................................................................................................
+
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
+        return context.marshallWithTypeList(this.responses);
+    }
+
+    static MultiFormatResponse unmarshall(final JsonNode node,
+                                         final JsonNodeUnmarshallContext context) {
+        return with(context.unmarshallWithTypeList(node));
+    }
+
+    static {
+        JsonNodeContext.register("spreadsheet-multi-format-response",
+                MultiFormatResponse::unmarshall,
+                MultiFormatResponse::marshall,
+                MultiFormatResponse.class);
     }
 }

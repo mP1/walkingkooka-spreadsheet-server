@@ -17,11 +17,24 @@
 
 package walkingkooka.spreadsheet.server.format;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
-public abstract class FormatterTestCase2<T> extends FormatterTestCase<T> implements HashCodeEqualsDefinedTesting2<T> {
+public abstract class FormatterTestCase2<T> extends FormatterTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
+        JsonNodeMarshallingTesting<T> {
 
     FormatterTestCase2() {
         super();
+    }
+
+    @Test
+    public final void testJsonRoundtrip() {
+        this.marshallRoundTripTwiceAndCheck(this.createObject());
+    }
+
+    @Override
+    public final T createJsonNodeMappingValue() {
+        return this.createObject();
     }
 }
