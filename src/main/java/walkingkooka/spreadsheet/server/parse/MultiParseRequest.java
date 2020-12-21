@@ -1,0 +1,64 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.spreadsheet.server.parse;
+
+import walkingkooka.collect.list.Lists;
+
+import java.util.List;
+import java.util.Objects;
+
+final class MultiParseRequest {
+
+    static MultiParseRequest with(final List<ParseRequest> requests) {
+        Objects.requireNonNull(requests, "requests");
+
+        return new MultiParseRequest(Lists.immutable(requests));
+    }
+
+    private MultiParseRequest(final List<ParseRequest> requests) {
+        super();
+        this.requests = requests;
+    }
+
+    List<ParseRequest> requests() {
+        return this.requests;
+    }
+
+    private final List<ParseRequest> requests;
+
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.requests().hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other || other instanceof MultiParseRequest && this.equals0((MultiParseRequest) other);
+    }
+
+    private boolean equals0(final MultiParseRequest other) {
+        return this.requests.equals(other.requests);
+    }
+
+    @Override
+    public String toString() {
+        return this.requests().toString();
+    }
+}
