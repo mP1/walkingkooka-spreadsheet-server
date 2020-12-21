@@ -20,13 +20,12 @@ package walkingkooka.spreadsheet.server.parse;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public final class MultiParseRequestTest extends ParserTestCase2<MultiParseRequest> implements JsonNodeMarshallingTesting<MultiParseRequest> {
+public final class MultiParseRequestTest extends ParserTestCase2<MultiParseRequest> {
 
     @Test
     public void testWithNullRequests() {
@@ -91,11 +90,6 @@ public final class MultiParseRequestTest extends ParserTestCase2<MultiParseReque
     }
 
     // Json.............................................................................................................
-
-    @Override
-    public final MultiParseRequest createJsonNodeMappingValue() {
-        return this.createObject();
-    }
 
     @Override
     public MultiParseRequest unmarshall(final JsonNode node,
