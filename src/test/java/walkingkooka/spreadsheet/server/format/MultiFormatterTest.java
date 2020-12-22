@@ -23,6 +23,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
@@ -181,8 +182,16 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
         };
     }
 
+
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<MultiFormatter> type() {
         return MultiFormatter.class;
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
