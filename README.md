@@ -97,6 +97,8 @@ All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 - GET     /api/spreadsheet/$spreadsheet-id/column/A
 - PUT     /api/spreadsheet/$spreadsheet-id/column/A
 - DELETE  /api/spreadsheet/$spreadsheet-id/column/A
+- GET     /api/spreadsheet/$spreadsheet-id/format
+- GET     /api/spreadsheet/$spreadsheet-id/parse
 - GET     /api/spreadsheet/$spreadsheet-id/row/1
 - PUT     /api/spreadsheet/$spreadsheet-id/row/1
 - DELETE  /api/spreadsheet/$spreadsheet-id/row/1

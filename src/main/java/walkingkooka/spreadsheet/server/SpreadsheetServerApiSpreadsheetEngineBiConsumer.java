@@ -21,12 +21,19 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
@@ -50,6 +57,12 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceSt
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
+import walkingkooka.spreadsheet.server.format.Formatters;
+import walkingkooka.spreadsheet.server.format.MultiFormatRequest;
+import walkingkooka.spreadsheet.server.format.MultiFormatResponse;
+import walkingkooka.spreadsheet.server.parse.MultiParseRequest;
+import walkingkooka.spreadsheet.server.parse.MultiParseResponse;
+import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
@@ -117,9 +130,13 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     /**
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineRouter(final SpreadsheetId id) {
+    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.idToStoreRepository.apply(id);
         final SpreadsheetMetadata metadata = repository.metadatas().loadOrFail(id);
+
+        final AbsoluteUrl baseUrl = this.baseUrl;
+        final UrlPath serverSpreadsheetIdSpreadsheetName = baseUrl.path().
+                append(UrlPathName.with(id.hateosLinkId()));
 
         final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
         final SpreadsheetCellStore cellStore = repository.cells();
@@ -153,6 +170,111 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 this.fractioner,
                 metadata.formatter());
 
+        // insert handling of /format & /parse
+        return formatRouter(serverSpreadsheetIdSpreadsheetName, context, metadata)
+                .then(parseRouter(serverSpreadsheetIdSpreadsheetName, context, metadata))
+                .then(this.engineHateosRouter(id,
+                        repository,
+                        metadata,
+                        baseUrl.setPath(serverSpreadsheetIdSpreadsheetName))
+                );
+    }
+
+    // format...........................................................................................................
+
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetIdSpreadsheetName,
+                                                                                                       final SpreadsheetEngineContext context,
+                                                                                                       final SpreadsheetMetadata metadata) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(formatRouting(spreadsheetIdSpreadsheetName).build(), formatHandler(context, metadata))
+                .router();
+    }
+
+    private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetIdSpreadsheetName) {
+        return formatOrParseRouting(spreadsheetIdSpreadsheetName,
+                "format");
+    }
+
+    private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
+                                                                       final SpreadsheetMetadata metadata) {
+        return JsonHttpRequestHttpResponseBiConsumers.consumer(Formatters.multiFormatters(context),
+                MultiFormatRequest.class,
+                MultiFormatResponse.class,
+                metadata.jsonNodeMarshallContext(),
+                metadata.jsonNodeUnmarshallContext());
+    }
+
+    // parse............................................................................................................
+
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> parseRouter(final UrlPath spreadsheetIdSpreadsheetName,
+                                                                                                      final SpreadsheetEngineContext context,
+                                                                                                      final SpreadsheetMetadata metadata) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(parseRouting(spreadsheetIdSpreadsheetName).build(), parseHandler(context, metadata))
+                .router();
+    }
+
+    private static HttpRequestAttributeRouting parseRouting(final UrlPath spreadsheetIdSpreadsheetName) {
+        return formatOrParseRouting(spreadsheetIdSpreadsheetName,
+                "parse");
+    }
+
+    private static BiConsumer<HttpRequest, HttpResponse> parseHandler(final SpreadsheetEngineContext context,
+                                                                      final SpreadsheetMetadata metadata) {
+        return JsonHttpRequestHttpResponseBiConsumers.consumer(Parsers.multiParsers(context),
+                MultiParseRequest.class,
+                MultiParseResponse.class,
+                metadata.jsonNodeMarshallContext(),
+                metadata.jsonNodeUnmarshallContext());
+    }
+
+    private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetIdSpreadsheetName,
+                                                                    final String formatOrParse) {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.POST)
+                .path(spreadsheetIdSpreadsheetName.append(UrlPathName.with(formatOrParse)))
+                .header(HttpHeaderName.CONTENT_TYPE, MediaType.APPLICATION_JSON); // TODO should complain with invalid method
+    }
+
+    // engine................................................................................................................
+
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineHateosRouter(final SpreadsheetId id,
+                                                                                                      final SpreadsheetStoreRepository repository,
+                                                                                                      final SpreadsheetMetadata metadata,
+                                                                                                      final AbsoluteUrl serverSpreadsheetIdSpreadsheetName) {
+        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
+        final SpreadsheetCellStore cellStore = repository.cells();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
+        final SpreadsheetLabelStore labelStore = repository.labels();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
+        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
+        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
+
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+                metadata,
+                cellStore,
+                cellReferencesStore,
+                labelStore,
+                labelReferencesStore,
+                rangeToCellStore,
+                rangeToConditionalFormattingRuleStore);
+
+        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(expressionNumberKind,
+                this.idToFunctions.apply(id),
+                engine,
+                labelStore,
+                ExpressionNumberConverterContexts.basic(metadata.converter(),
+                        ConverterContexts.basic(Converters.fake(),
+                                metadata.dateTimeContext(),
+                                metadata.decimalNumberContext()),
+                        expressionNumberKind),
+                metadata.numberToColor(),
+                metadata.nameToColor(),
+                metadata.get(SpreadsheetMetadataPropertyName.WIDTH).orElseThrow(() -> new IllegalStateException(SpreadsheetMetadataPropertyName.WIDTH + " missing")),
+                this.fractioner,
+                metadata.formatter());
+
+        // else default to engine hateos handlers...
         final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
 
         final HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange = SpreadsheetEngineHateosHandlers.computeRange(engine, context);
@@ -187,7 +309,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHateosHandlers.deleteCell(engine, context);
 
-        return SpreadsheetEngineHateosHandlers.engineRouter(this.baseUrl.setPath(this.baseUrl.path().append(UrlPathName.with(id.hateosLinkId()))),
+        return SpreadsheetEngineHateosHandlers.engineRouter(serverSpreadsheetIdSpreadsheetName,
                 this.contentTypeJson,
                 cellBox,
                 computeRange,
