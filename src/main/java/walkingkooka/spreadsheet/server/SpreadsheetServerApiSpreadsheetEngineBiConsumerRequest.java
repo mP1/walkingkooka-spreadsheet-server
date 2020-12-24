@@ -90,7 +90,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
      * Uses the {@link SpreadsheetId} to locate the handle0 router and dispatches.
      */
     private void handleSpreadsheetId0(final SpreadsheetId id) {
-        this.engine.engineRouter(id)
+        this.engine.router(id)
                 .route(this.request.routerParameters())
                 .orElse(notFound())
                 .accept(this.request, this.response);
