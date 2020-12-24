@@ -204,17 +204,18 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 deleteCell);
     }
 
-    final HateosContentType contentTypeJson;
+    private final HateosContentType contentTypeJson;
 
-    final Function<BigDecimal, Fraction> fractioner;
+    private final Function<BigDecimal, Fraction> fractioner;
 
-    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;
+    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;
 
     /**
      * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.
      */
-    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
 
+    // shared with SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest
     final int spreadsheetIdPathComponent;
 
     // toString.........................................................................................................
@@ -224,5 +225,5 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         return this.baseUrl.toString();
     }
 
-    final AbsoluteUrl baseUrl;
+    private final AbsoluteUrl baseUrl;
 }
