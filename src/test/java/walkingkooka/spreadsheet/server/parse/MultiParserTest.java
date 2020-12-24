@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
 import walkingkooka.util.FunctionTesting;
@@ -163,8 +164,16 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
         };
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<MultiParser> type() {
         return MultiParser.class;
+    }
+
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

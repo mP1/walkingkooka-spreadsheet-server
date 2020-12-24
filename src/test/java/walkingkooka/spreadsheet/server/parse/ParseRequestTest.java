@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -89,6 +90,11 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
     @Override
     public Class<ParseRequest> type() {
         return ParseRequest.class;
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

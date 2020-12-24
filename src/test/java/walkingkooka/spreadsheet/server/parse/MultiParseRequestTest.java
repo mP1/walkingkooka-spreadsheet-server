@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -84,9 +85,16 @@ public final class MultiParseRequestTest extends ParserTestCase2<MultiParseReque
         );
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<MultiParseRequest> type() {
         return MultiParseRequest.class;
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 
     // Json.............................................................................................................
