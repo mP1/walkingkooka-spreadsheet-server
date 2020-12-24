@@ -106,7 +106,7 @@ public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 
     // json.............................................................................................................
