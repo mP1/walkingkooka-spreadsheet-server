@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public final class MultiFormatResponse {
 
-    static MultiFormatResponse with(final List<Object> responses) {
+    public static MultiFormatResponse with(final List<Object> responses) {
         Objects.requireNonNull(responses, "responses");
 
         return new MultiFormatResponse(Lists.immutable(responses));
