@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public final class MultiParseResponse {
 
-    static MultiParseResponse with(final List<Object> responses) {
+    public static MultiParseResponse with(final List<Object> responses) {
         Objects.requireNonNull(responses, "responses");
 
         return new MultiParseResponse(Lists.immutable(responses));
