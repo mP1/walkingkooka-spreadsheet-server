@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public final class MultiFormatRequest {
 
-    static MultiFormatRequest with(final List<FormatRequest> requests) {
+    public static MultiFormatRequest with(final List<FormatRequest> requests) {
         Objects.requireNonNull(requests, "requests");
 
         return new MultiFormatRequest(Lists.immutable(requests));
