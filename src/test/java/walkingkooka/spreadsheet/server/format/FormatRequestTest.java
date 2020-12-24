@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.format;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetDateFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.tree.json.JsonNode;
@@ -96,10 +97,19 @@ public final class FormatRequestTest extends FormatterTestCase2<FormatRequest> {
         return FormatRequest.with(VALUE, PATTERN);
     }
 
+    // ClassTesting.....................................................................................................
+
     @Override
     public Class<FormatRequest> type() {
         return FormatRequest.class;
     }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // json.............................................................................................................
 
     @Override
     public FormatRequest unmarshall(final JsonNode node,

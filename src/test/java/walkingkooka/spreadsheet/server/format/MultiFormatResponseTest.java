@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -81,8 +82,15 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
         return MultiFormatResponse.unmarshall(from, context);
     }
 
+    // ClassTesting......................................................................................................
+
     @Override
     public Class<MultiFormatResponse> type() {
         return MultiFormatResponse.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }
