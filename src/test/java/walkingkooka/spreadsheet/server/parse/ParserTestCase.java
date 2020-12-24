@@ -26,11 +26,4 @@ public abstract class ParserTestCase<T> implements ClassTesting<T>, ToStringTest
     ParserTestCase() {
         super();
     }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
 }

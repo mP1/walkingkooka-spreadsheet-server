@@ -26,7 +26,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Objects;
 
-final class MultiParseResponse {
+public final class MultiParseResponse {
 
     static MultiParseResponse with(final List<Object> responses) {
         Objects.requireNonNull(responses, "responses");

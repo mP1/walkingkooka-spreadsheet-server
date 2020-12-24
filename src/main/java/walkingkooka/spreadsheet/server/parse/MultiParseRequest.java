@@ -26,7 +26,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Objects;
 
-final class MultiParseRequest {
+public final class MultiParseRequest {
 
     static MultiParseRequest with(final List<ParseRequest> requests) {
         Objects.requireNonNull(requests, "requests");
