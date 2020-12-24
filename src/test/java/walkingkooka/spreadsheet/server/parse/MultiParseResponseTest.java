@@ -83,11 +83,6 @@ public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResp
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
-    @Override
     public MultiParseResponse unmarshall(final JsonNode node,
                                          final JsonNodeUnmarshallContext context) {
         return MultiParseResponse.unmarshall(node, context);

@@ -93,11 +93,6 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
-
-    @Override
     public ParseRequest unmarshall(final JsonNode node,
                                    final JsonNodeUnmarshallContext context) {
         return ParseRequest.unmarshall(node, context);

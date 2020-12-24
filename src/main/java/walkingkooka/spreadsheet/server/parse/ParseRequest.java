@@ -29,9 +29,9 @@ import java.util.Objects;
 /**
  * Represents a single request to parse text using an identified parser.
  */
-final class ParseRequest {
+public final class ParseRequest {
 
-    static ParseRequest with(final String text, final String parser) {
+    public static ParseRequest with(final String text, final String parser) {
         Objects.requireNonNull(text, "text");
         CharSequences.failIfNullOrEmpty(parser, "parser");
 

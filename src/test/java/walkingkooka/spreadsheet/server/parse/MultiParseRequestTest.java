@@ -92,11 +92,6 @@ public final class MultiParseRequestTest extends ParserTestCase2<MultiParseReque
         return MultiParseRequest.class;
     }
 
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
-
     // Json.............................................................................................................
 
     @Override

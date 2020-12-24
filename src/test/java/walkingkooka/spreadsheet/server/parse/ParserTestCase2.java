@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
 public abstract class ParserTestCase2<T> extends ParserTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
@@ -30,5 +31,10 @@ public abstract class ParserTestCase2<T> extends ParserTestCase<T> implements Ha
     @Override
     public final T createJsonNodeMappingValue() {
         return this.createObject();
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
     }
 }

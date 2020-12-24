@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public final class MultiParseRequest {
 
-    static MultiParseRequest with(final List<ParseRequest> requests) {
+    public static MultiParseRequest with(final List<ParseRequest> requests) {
         Objects.requireNonNull(requests, "requests");
 
         return new MultiParseRequest(Lists.immutable(requests));
