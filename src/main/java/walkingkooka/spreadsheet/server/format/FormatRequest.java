@@ -29,7 +29,7 @@ import java.util.Objects;
 /**
  * Represents a single request to format a value using a compatible pattern. Examples might include a {@link java.time.LocalDate} and a {@link walkingkooka.spreadsheet.format.pattern.SpreadsheetDateFormatPattern}.
  */
-public final class FormatRequest {
+final class FormatRequest {
 
     static FormatRequest with(final Object value, final Object pattern) {
         Objects.requireNonNull(value, "value");
