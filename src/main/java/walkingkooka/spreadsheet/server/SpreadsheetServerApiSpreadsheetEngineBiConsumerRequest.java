@@ -50,8 +50,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
 
     void handle() {
         // verify spreadsheetId is present...
-        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent + 1)
-                .parameterValue(this.request);
+        final Optional<UrlPathName> path = this.path(this.engine.spreadsheetIdPathComponent + 1);
         if (path.isPresent()) {
             this.handle0();
         } else {
@@ -60,33 +59,37 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
     }
 
     private void handle0() {
-        final Optional<UrlPathName> path = HttpRequestAttributes.pathComponent(this.engine.spreadsheetIdPathComponent)
-                .parameterValue(this.request);
+        final Optional<UrlPathName> path = path(this.engine.spreadsheetIdPathComponent);
         if (path.isPresent()) {
-            this.handleSpreadsheet(path.get());
+            this.handleSpreadsheetId(path.get());
         } else {
             this.spreadsheetIdMissing();
         }
     }
 
-    private void handleSpreadsheet(final UrlPathName pathName) {
+    private Optional<UrlPathName> path(final int index) {
+        return HttpRequestAttributes.pathComponent(index)
+                .parameterValue(this.request);
+    }
+
+    private void handleSpreadsheetId(final UrlPathName pathName) {
         SpreadsheetId id;
-        do {
-            try {
-                id = SpreadsheetId.parse(pathName.value());
-            } catch (final RuntimeException cause) {
-                this.response.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Invalid " + SpreadsheetId.class.getSimpleName()));
-                this.response.addEntity(HttpEntity.EMPTY);
-                break;
-            }
-            this.handleSpreadsheet0(id);
-        } while (false);
+        try {
+            id = SpreadsheetId.parse(pathName.value());
+        } catch (final RuntimeException cause) {
+            id = null;
+            this.setStatus(HttpStatusCode.BAD_REQUEST,
+                    "Invalid " + SpreadsheetId.class.getSimpleName());
+        }
+        if (null != id) {
+            this.handleSpreadsheetId0(id);
+        }
     }
 
     /**
      * Uses the {@link SpreadsheetId} to locate the handle0 router and dispatches.
      */
-    private void handleSpreadsheet0(final SpreadsheetId id) {
+    private void handleSpreadsheetId0(final SpreadsheetId id) {
         this.engine.engineRouter(id)
                 .route(this.request.routerParameters())
                 .orElse(notFound())
@@ -97,8 +100,15 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
      * Updates the response with a bad request that the spreadsheet id is missing.
      */
     private void spreadsheetIdMissing() {
-        this.response.setStatus(HttpStatusCode.BAD_REQUEST.setMessage("Missing " + SpreadsheetId.class.getSimpleName()));
-        this.response.addEntity(HttpEntity.EMPTY);
+        this.setStatus(HttpStatusCode.BAD_REQUEST,
+                "Missing " + SpreadsheetId.class.getSimpleName());
+    }
+
+    private void setStatus(final HttpStatusCode status,
+                           final String message) {
+        final HttpResponse response = this.response;
+        response.setStatus(status.setMessage(message));
+        response.addEntity(HttpEntity.EMPTY);
     }
 
     private BiConsumer<HttpRequest, HttpResponse> notFound() {
