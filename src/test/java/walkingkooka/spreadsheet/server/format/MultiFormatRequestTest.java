@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.format;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -91,11 +90,6 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     @Override
     public Class<MultiFormatRequest> type() {
         return MultiFormatRequest.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // Json.............................................................................................................
