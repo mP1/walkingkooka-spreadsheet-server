@@ -66,7 +66,6 @@ final class MultiParser implements Function<MultiParseRequest, MultiParseRespons
         try {
             result = this.parse(request);
         } catch (final Throwable cause) {
-            cause.printStackTrace();
             result = cause;
         }
         return result;
