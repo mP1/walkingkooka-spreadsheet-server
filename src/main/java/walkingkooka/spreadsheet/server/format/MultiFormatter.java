@@ -65,7 +65,6 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
         try {
             result = this.format(request);
         } catch (final Throwable cause) {
-            cause.printStackTrace();
             result = cause;
         }
         return result;
