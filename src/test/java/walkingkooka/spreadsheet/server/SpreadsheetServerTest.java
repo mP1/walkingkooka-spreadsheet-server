@@ -114,6 +114,12 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private static final String POST_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
     private static final String POST_SPREADSHEET_DELTA_OK = "POST " + SpreadsheetDelta.class.getSimpleName() + " OK";
 
+    private final static String TRANSACTION_ID = "Transaction-123";
+    private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
+    private final static Optional<String> WITH_TRANSACTION_ID = Optional.of(TRANSACTION_ID);
+    private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
+    private final static Map<HttpHeaderName<?>, List<?>> HEADERS_TRANSACTION_ID = Maps.of(SpreadsheetServer.TRANSACTION_ID, Lists.of(TRANSACTION_ID));
+
     @Test
     public void testStartServer() {
         this.startServer();
@@ -125,7 +131,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.GET,
                 "/api/spreadsheet/XYZ",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\"")));
     }
@@ -136,7 +142,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.GET,
                 "/api/spreadsheet/99",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.NO_CONTENT.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " No content")));
     }
@@ -147,7 +153,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
@@ -157,13 +163,28 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     @Test
+    public void testCreateSpreadsheetWithTransactionIdHeader() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
+                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+        assertNotEquals(null,
+                this.metadataStore.load(SpreadsheetId.with(1L)),
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
+    }
+    
+    @Test
     public void testCreateSpreadsheetThenLoadSpreadsheet() {
         final TestHttpServer server = this.startServer();
 
         // create spreadsheet
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata()
@@ -175,7 +196,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         // fetch metadata back again.
         server.handleAndCheck(HttpMethod.GET,
                 "/api/spreadsheet/1",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
                         this.createMetadata()
@@ -188,14 +209,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -241,14 +262,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage(GET_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -288,7 +309,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -336,14 +357,14 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -383,7 +404,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))));
@@ -392,7 +413,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/2/cell/A1",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("3+4"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -433,7 +454,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
         // create another cell in the first spreadsheet
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
-                HttpRequest.NO_HEADERS,
+                NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B2"), SpreadsheetFormula.with("4+A1"))))),
                 this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
                         "{\n" +
@@ -828,22 +849,38 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
     private HttpResponse response(final HttpStatus status,
                                   final SpreadsheetMetadata body) {
-        return this.response(status, toJson(body), SpreadsheetMetadata.class.getSimpleName());
+        return this.response(status,
+                NO_TRANSACTION_ID,
+                toJson(body),
+                SpreadsheetMetadata.class.getSimpleName());
     }
 
     private HttpResponse response(final HttpStatus status,
                                   final String body,
                                   final String bodyTypeName) {
         return this.response(status,
+                NO_TRANSACTION_ID,
                 binary(body, CONTENT_TYPE_UTF8),
                 bodyTypeName);
     }
 
     private HttpResponse response(final HttpStatus status,
+                                  final Optional<String> transactionId,
+                                  final String body,
+                                  final String bodyTypeName) {
+        return this.response(status,
+                transactionId,
+                binary(body, CONTENT_TYPE_UTF8),
+                bodyTypeName);
+    }
+
+    private HttpResponse response(final HttpStatus status,
+                                  final Optional<String> transactionId,
                                   final Binary body,
                                   final String bodyTypeName) {
         return this.response(status,
                 HttpEntity.EMPTY
+                        .setHeader(SpreadsheetServer.TRANSACTION_ID, transactionId.map(Lists::of).orElse(Lists.empty()))
                         .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8)
                         .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, bodyTypeName)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.value().length)
