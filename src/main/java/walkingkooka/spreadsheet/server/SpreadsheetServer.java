@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
@@ -28,6 +29,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -63,6 +65,12 @@ import java.util.function.Function;
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
  */
 public final class SpreadsheetServer implements HttpServer {
+
+    /**
+     * This header contains the client transaction-id and is used to map responses with the original requests.
+     */
+    public final static HttpHeaderName<String> TRANSACTION_ID = HttpHeaderName.with("X-transaction-id")
+            .stringValues();
 
     /**
      * Creates a new {@link SpreadsheetServer} using the config and the functions to create the actual {@link HttpServer}.
@@ -116,7 +124,14 @@ public final class SpreadsheetServer implements HttpServer {
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
-        this.server = server.apply(HttpRequestHttpResponseBiConsumers.stacktraceDumping(this::handler));
+        this.server = server.apply(
+                HttpRequestHttpResponseBiConsumers.stacktraceDumping(
+                        HttpRequestHttpResponseBiConsumers.headerCopy(
+                                Sets.of(TRANSACTION_ID),
+                                this::handler
+                        )
+                )
+        );
 
         final AbsoluteUrl base = Url.absolute(scheme,
                 AbsoluteUrl.NO_CREDENTIALS,
