@@ -44,11 +44,11 @@ import java.util.function.BiConsumer;
 public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox}
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellBox}
      */
     public static HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox(final SpreadsheetEngine engine,
                                                                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox.with(engine, context);
+        return SpreadsheetEngineHateosHandlerSpreadsheetCellBox.with(engine, context);
     }
 
     /**
