@@ -116,9 +116,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
     private final static String TRANSACTION_ID = "Transaction-123";
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
-    private final static Optional<String> WITH_TRANSACTION_ID = Optional.of(TRANSACTION_ID);
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
-    private final static Map<HttpHeaderName<?>, List<?>> HEADERS_TRANSACTION_ID = Maps.of(SpreadsheetServer.TRANSACTION_ID, Lists.of(TRANSACTION_ID));
 
     @Test
     public void testStartServer() {
