@@ -197,11 +197,13 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
     private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
                                                                        final SpreadsheetMetadata metadata) {
-        return JsonHttpRequestHttpResponseBiConsumers.consumer(Formatters.multiFormatters(context),
+        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
+                Formatters.multiFormatters(context),
                 MultiFormatRequest.class,
                 MultiFormatResponse.class,
                 metadata.jsonNodeMarshallContext(),
-                metadata.jsonNodeUnmarshallContext());
+                metadata.jsonNodeUnmarshallContext()
+        );
     }
 
     // parse............................................................................................................
@@ -221,11 +223,13 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
 
     private static BiConsumer<HttpRequest, HttpResponse> parseHandler(final SpreadsheetEngineContext context,
                                                                       final SpreadsheetMetadata metadata) {
-        return JsonHttpRequestHttpResponseBiConsumers.consumer(Parsers.multiParsers(context),
+        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
+                Parsers.multiParsers(context),
                 MultiParseRequest.class,
                 MultiParseResponse.class,
                 metadata.jsonNodeMarshallContext(),
-                metadata.jsonNodeUnmarshallContext());
+                metadata.jsonNodeUnmarshallContext()
+        );
     }
 
     private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetIdSpreadsheetName,
