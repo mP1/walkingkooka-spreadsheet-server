@@ -26,6 +26,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -217,8 +218,13 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
 
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
-                return Maps.of(HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
-                        HttpHeaderName.CONTENT_TYPE, Lists.of(contentType().contentType()));
+                final MediaType contentType = contentType().contentType();
+
+                return Maps.of(
+                        HttpHeaderName.ACCEPT, Lists.of(contentType.accept()),
+                        HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
+                        HttpHeaderName.CONTENT_TYPE, Lists.of(contentType().contentType())
+                );
             }
 
             @Override

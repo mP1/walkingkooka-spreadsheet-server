@@ -25,6 +25,7 @@ import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -633,8 +634,11 @@ public final class SpreadsheetEngineHateosHandlersRouterTest implements ClassTes
 
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
+                final MediaType contentType = HateosContentType.JSON_CONTENT_TYPE;
+
                 return Maps.of(
-                        HttpHeaderName.CONTENT_TYPE, Lists.of(HateosContentType.JSON_CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
+                        HttpHeaderName.ACCEPT, Lists.of(contentType.accept()),
+                        HttpHeaderName.CONTENT_TYPE, Lists.of(contentType.setCharset(CharsetName.UTF_8)),
                         HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
                 );
             }

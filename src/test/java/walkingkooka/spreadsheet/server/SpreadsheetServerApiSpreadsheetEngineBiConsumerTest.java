@@ -173,12 +173,14 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
     private HttpRequest request(final HttpMethod method,
                                 final String urlPathAppend,
                                 final String bodyText) {
+        final MediaType contentType = MediaType.APPLICATION_JSON;
         return HttpRequests.value(method,
                 HttpTransport.UNSECURED,
                 Url.parseAbsolute(BASE_URL + urlPathAppend).relativeUrl(),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, MediaType.APPLICATION_JSON)
+                        .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
+                        .addHeader(HttpHeaderName.ACCEPT, contentType.accept())
                         .setBodyText(bodyText)
                         .setContentLength()
         );
