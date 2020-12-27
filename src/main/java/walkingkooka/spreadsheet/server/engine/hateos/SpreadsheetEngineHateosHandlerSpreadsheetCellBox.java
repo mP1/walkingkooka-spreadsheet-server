@@ -32,16 +32,16 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that returns the {@link SpreadsheetCellBox} for a given {@link `SpreadsheetCoordinates`}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox extends SpreadsheetEngineHateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends SpreadsheetEngineHateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> {
 
-    static SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox with(final SpreadsheetEngine engine,
-                                                                        final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetCellBox with(final SpreadsheetEngine engine,
+                                                                 final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetCellBox(engine, context);
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetCellBoxCellBox(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetCellBox(final SpreadsheetEngine engine,
+                                                             final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
