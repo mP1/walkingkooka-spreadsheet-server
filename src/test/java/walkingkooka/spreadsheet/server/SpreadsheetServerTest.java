@@ -504,7 +504,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
 
         server.handleAndCheck(HttpMethod.POST,
                 FILE.value(),
-                HttpRequest.NO_HEADERS,
+                Maps.of(HttpHeaderName.ACCEPT, Lists.of(MediaType.ALL.accept())),
                 "",
                 this.response(HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY
@@ -773,6 +773,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                        final Map<HttpHeaderName<?>, List<?>> headers,
                                        final String body) {
         final Map<HttpHeaderName<?>, List<?>> headers2 = Maps.sorted();
+        headers2.put(HttpHeaderName.ACCEPT, list(CONTENT_TYPE_UTF8.accept()));
         headers2.put(HttpHeaderName.ACCEPT_CHARSET, list(AcceptCharset.parse(CHARSET.toHeaderText())));
         headers2.put(HttpHeaderName.CONTENT_TYPE, list(CONTENT_TYPE_UTF8));
         headers2.putAll(headers);

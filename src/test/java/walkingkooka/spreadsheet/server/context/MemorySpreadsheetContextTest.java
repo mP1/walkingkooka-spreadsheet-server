@@ -30,6 +30,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
@@ -370,9 +371,13 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
-                    return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                    final MediaType contentType = contentType().contentType();
+                    return headersMap(
+                            HttpHeaderName.ACCEPT, contentType.accept(),
+                            HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
                             HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
-                            HttpHeaderName.CONTENT_TYPE, contentType().contentType());
+                            HttpHeaderName.CONTENT_TYPE, contentType
+                    );
                 }
 
                 public Map<HttpRequestParameterName, List<String>> parameters() {
@@ -392,7 +397,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             };
 
             final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
-            assertNotEquals(Optional.empty(), mapped, "request " + request.parameters());
+            assertNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
 
             final HttpResponse response = HttpResponses.recording();
             @SuppressWarnings("OptionalGetWithoutIsPresent") final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
@@ -414,9 +419,13 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
-                    return headersMap(HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                    final MediaType contentType = contentType().contentType();
+                    return headersMap(
+                            HttpHeaderName.ACCEPT, contentType.accept(),
+                            HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
                             HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
-                            HttpHeaderName.CONTENT_TYPE, contentType().contentType());
+                            HttpHeaderName.CONTENT_TYPE, contentType
+                    );
                 }
 
                 public Map<HttpRequestParameterName, List<String>> parameters() {
@@ -685,13 +694,20 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         return JsonNodeMarshallContexts.basic();
     }
 
-    static <T1, T2, T3> Map<HttpHeaderName<?>, List<?>> headersMap(final HttpHeaderName<T1> header1,
-                                                                   final T1 value1,
-                                                                   final HttpHeaderName<T2> header2,
-                                                                   final T2 value2,
-                                                                   final HttpHeaderName<T3> header3,
-                                                                   final T3 value3) {
-        return Maps.of(header1, list(value1), header2, list(value2), header3, list(value3));
+    static <T1, T2, T3, T4> Map<HttpHeaderName<?>, List<?>> headersMap(final HttpHeaderName<T1> header1,
+                                                                       final T1 value1,
+                                                                       final HttpHeaderName<T2> header2,
+                                                                       final T2 value2,
+                                                                       final HttpHeaderName<T3> header3,
+                                                                       final T3 value3,
+                                                                       final HttpHeaderName<T4> header4,
+                                                                       final T4 value4) {
+        return Maps.of(
+                header1, list(value1),
+                header2, list(value2),
+                header3, list(value3),
+                header4, list(value4)
+        );
     }
 
     private static <T> List<T> list(final T... values) {
