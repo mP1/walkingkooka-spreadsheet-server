@@ -17,13 +17,19 @@
 
 package walkingkooka.spreadsheet.server.format;
 
+import walkingkooka.locale.HasLocale;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Objects;
+
 /**
- * Formats a {@link java.time.LocalDateTime} using the spreadsheet locale using the default format pattern.
+ * Formats a {@link LocalDateTime} using the spreadsheet locale using the default format pattern.
  */
 public final class SpreadsheetLocaleDefaultDateTimeFormat {
 
@@ -36,6 +42,18 @@ public final class SpreadsheetLocaleDefaultDateTimeFormat {
         super();
     }
 
+    String format(final LocalDateTime dateTime,
+                  final HasLocale context) {
+        Objects.requireNonNull(dateTime, "dateTime");
+        Objects.requireNonNull(context, "context");
+
+        return dateTime.format(
+                DateTimeFormatter
+                .ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)
+                .withLocale(context.locale())
+        );
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
@@ -44,7 +62,7 @@ public final class SpreadsheetLocaleDefaultDateTimeFormat {
     // Json.............................................................................................................
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.nullNode();
+        return JsonNode.number(1);
     }
 
     static SpreadsheetLocaleDefaultDateTimeFormat unmarshall(final JsonNode node,

@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.format.FormatRequest;
 import walkingkooka.spreadsheet.server.format.MultiFormatRequest;
 import walkingkooka.spreadsheet.server.format.MultiFormatResponse;
+import walkingkooka.spreadsheet.server.format.SpreadsheetLocaleDefaultDateTimeFormat;
 import walkingkooka.spreadsheet.server.parse.MultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.MultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.ParseRequest;
@@ -89,6 +90,10 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
                         FormatRequest.with(
                                 LocalDate.of(1999, 12, 31),
                                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
+                        ),
+                        FormatRequest.with(
+                                LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                                SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
                         )
                 )
         );
@@ -103,7 +108,8 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
 
         final MultiFormatResponse multiFormatResponse = MultiFormatResponse.with(
                 Lists.of(
-                        SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12")
+                        SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
+                        "31 December 1999, 12:58:59 pm"
                 )
         );
 
@@ -251,7 +257,7 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                 .loadFromLocale();
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

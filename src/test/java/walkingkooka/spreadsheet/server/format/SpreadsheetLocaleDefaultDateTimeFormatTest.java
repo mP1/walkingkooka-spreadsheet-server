@@ -18,10 +18,63 @@
 package walkingkooka.spreadsheet.server.format;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.locale.HasLocale;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.time.LocalDateTime;
+import java.util.Locale;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends FormatterTestCase2<SpreadsheetLocaleDefaultDateTimeFormat> {
+
+    @Test
+    public void testFormatNullDateTimeFails() {
+        assertThrows(NullPointerException.class,
+                () -> this.createObject().format(null,
+                        new HasLocale() {
+                            @Override
+                            public Locale locale() {
+                                throw new UnsupportedOperationException();
+                            }
+                        }));
+    }
+
+    @Test
+    public void testFormatNullHasLocaleFails() {
+        assertThrows(NullPointerException.class,
+                () -> this.createObject().format(LocalDateTime.now(),
+                        null));
+    }
+
+    @Test
+    public void testFormatEnAU() {
+        this.formatAndCheck(LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                Locale.forLanguageTag("EN-AU"),
+                "31 December 1999, 12:58:59 pm");
+    }
+
+    @Test
+    public void testFormatEs() {
+        this.formatAndCheck(LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                Locale.forLanguageTag("ES"),
+                "31 de diciembre de 1999 12:58:59");
+    }
+
+    private void formatAndCheck(final LocalDateTime dateTime,
+                                final Locale locale,
+                                final String formatted) {
+        assertEquals(formatted,
+                this.createObject().format(dateTime, new HasLocale() {
+                    @Override
+                    public Locale locale() {
+                        return locale;
+                    }
+                }),
+                () -> "format " + dateTime + " with locale " + locale);
+    }
 
     // Json..............................................................................................................
 
@@ -37,7 +90,7 @@ public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends FormatterT
 
     @Test
     public void testToJsonNode() {
-        this.marshallAndCheck(SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE, JsonNode.nullNode());
+        this.marshallAndCheck(SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE, JsonNode.number(1));
     }
 
     @Override

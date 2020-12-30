@@ -94,7 +94,7 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
     }
 
     @Test
-    public void testFormatLocalDateAndLocalTime() {
+    public void testFormatLocalDateAndLocalTimeSpreadsheetDateFormatPattern() {
         this.applyAndCheck(MultiFormatRequest.with(
                 Lists.of(
                         FormatRequest.with(
@@ -111,6 +111,24 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
                         Lists.of(
                                 SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
                                 SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/12/58")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testFormatLocalDateAndLocalTimeSpreadsheetLocaleDefaultDateTimeFormat() {
+        this.applyAndCheck(MultiFormatRequest.with(
+                Lists.of(
+                        FormatRequest.with(
+                                LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                                SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
+                        )
+                )
+                ),
+                MultiFormatResponse.with(
+                        Lists.of(
+                                "31 December 1999, 12:58:59 pm"
                         )
                 )
         );
@@ -171,6 +189,11 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
                                                 ExpressionNumberKind.DOUBLE
                                         )
                                 ));
+                    }
+
+                    @Override
+                    public Locale locale() {
+                        return Locale.forLanguageTag("EN-AU");
                     }
                 }
         );
