@@ -21,6 +21,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.HasSpreadsheetFormatter;
 import walkingkooka.text.CharSequences;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -84,6 +85,11 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
                 final HasSpreadsheetFormatter hasSpreadsheetFormatter = (HasSpreadsheetFormatter) pattern;
                 formatted = this.engineContext.format(value, hasSpreadsheetFormatter.formatter())
                         .orElseThrow(() -> this.formatFail(value, pattern));
+                break;
+            }
+            if (pattern instanceof SpreadsheetLocaleDefaultDateTimeFormat) {
+                final SpreadsheetLocaleDefaultDateTimeFormat format = (SpreadsheetLocaleDefaultDateTimeFormat) pattern;
+                formatted = format.format((LocalDateTime) value, this.engineContext);
                 break;
             }
 
