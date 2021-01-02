@@ -112,4 +112,9 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
     public String toString() {
         return this.engineContext.toString();
     }
+
+    static {
+        MultiFormatRequest.init();
+        MultiFormatResponse.init();
+    }
 }

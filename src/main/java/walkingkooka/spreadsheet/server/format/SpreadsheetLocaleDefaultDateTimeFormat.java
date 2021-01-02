@@ -76,4 +76,7 @@ public final class SpreadsheetLocaleDefaultDateTimeFormat {
                 SpreadsheetLocaleDefaultDateTimeFormat::marshall,
                 SpreadsheetLocaleDefaultDateTimeFormat.class);
     }
+
+    static void init() {
+    }
 }

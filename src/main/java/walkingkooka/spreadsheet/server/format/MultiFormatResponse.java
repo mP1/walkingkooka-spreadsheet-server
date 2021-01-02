@@ -83,4 +83,8 @@ public final class MultiFormatResponse {
                 MultiFormatResponse::marshall,
                 MultiFormatResponse.class);
     }
+
+    // for JsonNodeContext.register to happen
+    static void init() {
+    }
 }

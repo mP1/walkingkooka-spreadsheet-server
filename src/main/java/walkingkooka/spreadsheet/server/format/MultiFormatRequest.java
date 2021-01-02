@@ -83,4 +83,10 @@ public final class MultiFormatRequest {
                 MultiFormatRequest::marshall,
                 MultiFormatRequest.class);
     }
+
+    // for JsonNodeContext.register to happen
+    static void init() {
+        FormatRequest.init();
+        SpreadsheetLocaleDefaultDateTimeFormat.init();
+    }
 }
