@@ -83,4 +83,7 @@ public final class MultiParseResponse {
                 MultiParseResponse::marshall,
                 MultiParseResponse.class);
     }
+
+    static void init() {
+    }
 }

@@ -128,4 +128,7 @@ public final class ParseRequest {
                 ParseRequest::marshall,
                 ParseRequest.class);
     }
+
+    static void init() {
+    }
 }

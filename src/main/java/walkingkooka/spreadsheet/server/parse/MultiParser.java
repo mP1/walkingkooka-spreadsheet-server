@@ -136,4 +136,9 @@ final class MultiParser implements Function<MultiParseRequest, MultiParseRespons
     public String toString() {
         return this.engineContext.toString();
     }
+
+    static void init() {
+        MultiParseRequest.init();
+        MultiParseResponse.init();
+    }
 }

@@ -83,4 +83,8 @@ public final class MultiParseRequest {
                 MultiParseRequest::marshall,
                 MultiParseRequest.class);
     }
+
+    static void init() {
+        MultiParser.init();
+    }
 }
