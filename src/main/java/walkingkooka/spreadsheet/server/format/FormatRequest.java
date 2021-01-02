@@ -127,4 +127,8 @@ public final class FormatRequest {
                 FormatRequest::marshall,
                 FormatRequest.class);
     }
+
+    // for JsonNodeContext.register to happen
+    static void init() {
+    }
 }
