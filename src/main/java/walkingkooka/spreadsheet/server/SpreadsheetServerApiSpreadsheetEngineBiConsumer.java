@@ -235,9 +235,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetIdSpreadsheetName,
                                                                     final String formatOrParse) {
         return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.POST)
-                .path(spreadsheetIdSpreadsheetName.append(UrlPathName.with(formatOrParse)))
-                .header(HttpHeaderName.CONTENT_TYPE, MediaType.APPLICATION_JSON); // TODO should complain with invalid method
+                .path(spreadsheetIdSpreadsheetName.append(UrlPathName.with(formatOrParse)));
     }
 
     // engine................................................................................................................
