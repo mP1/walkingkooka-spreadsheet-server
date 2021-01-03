@@ -131,9 +131,10 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      * Creates a function which merges the given {@link Locale} and then saves it to the {@link SpreadsheetMetadataStore}.
      */
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
+        // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/134
+        // JettyHttpServerSpreadsheetServer: retrieve user from context when creating initial SpreadsheetMetadata
         final EmailAddress user = EmailAddress.parse("user123@example.com");
         final Locale defaultLocale = Locale.forLanguageTag("en");
-
 
         // if a Locale is given load a Metadata with those defaults.
         return (userLocale) -> {
