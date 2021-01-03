@@ -132,26 +132,48 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      */
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
         final EmailAddress user = EmailAddress.parse("user123@example.com");
-        final LocalDateTime now = LocalDateTime.now();
+        final Locale defaultLocale = Locale.forLanguageTag("en");
 
-        final SpreadsheetMetadata metadataWithDefaults = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                .set(SpreadsheetMetadataPropertyName.CREATOR, user)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("en"))
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, DEFAULT_NAME)
-                .loadFromLocale();
 
-        return (locale) ->
-                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l).loadFromLocale())
-                        .orElse(metadataWithDefaults));
+        // if a Locale is given load a Metadata with those defaults.
+        return (userLocale) -> {
+            final LocalDateTime now = LocalDateTime.now();
+
+            return store.save(prepareInitialMetadata(
+                    user,
+                    now,
+                    userLocale,
+                    defaultLocale)
+            );
+        };
     }
 
     /**
      * The default name given to all empty spreadsheets
      */
     private final static SpreadsheetName DEFAULT_NAME = SpreadsheetName.with("Untitled");
+
+    /**
+     * Prepares and merges the default and user locale, loading defaults and more.
+     */
+    static SpreadsheetMetadata prepareInitialMetadata(final EmailAddress user,
+                                                      final LocalDateTime now,
+                                                      final Optional<Locale> userLocale,
+                                                      final Locale defaultLocale) {
+        final Locale localeOrDefault = userLocale.orElse(defaultLocale);
+        return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                .set(SpreadsheetMetadataPropertyName.CREATOR, user)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, DEFAULT_NAME)
+                .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
+                .setDefaults(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
+                                .loadFromLocale()
+                );
+    }
 
     private static Function<BigDecimal, Fraction> fractioner() {
         return (n) -> {
