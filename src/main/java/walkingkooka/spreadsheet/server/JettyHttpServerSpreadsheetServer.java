@@ -134,6 +134,9 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
         // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/134
         // JettyHttpServerSpreadsheetServer: retrieve user from context when creating initial SpreadsheetMetadata
         final EmailAddress user = EmailAddress.parse("user123@example.com");
+
+        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/136
+        // JettyHttpServerSpreadsheetServer: Accept default Locale parameter
         final Locale defaultLocale = Locale.forLanguageTag("en");
 
         // if a Locale is given load a Metadata with those defaults.
