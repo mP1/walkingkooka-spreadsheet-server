@@ -137,7 +137,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
 
         // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/136
         // JettyHttpServerSpreadsheetServer: Accept default Locale parameter
-        final Locale defaultLocale = Locale.forLanguageTag("en");
+        final Locale defaultLocale = Locale.forLanguageTag("EN-AU");
 
         // if a Locale is given load a Metadata with those defaults.
         return (userLocale) -> {
