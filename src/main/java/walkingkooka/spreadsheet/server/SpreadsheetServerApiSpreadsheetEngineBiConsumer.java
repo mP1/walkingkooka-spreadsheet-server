@@ -17,15 +17,10 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -65,8 +60,6 @@ import walkingkooka.spreadsheet.server.parse.MultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -138,7 +131,6 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         final UrlPath serverSpreadsheetIdSpreadsheetName = baseUrl.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
-        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
         final SpreadsheetCellStore cellStore = repository.cells();
         final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
@@ -155,18 +147,14 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore);
 
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(expressionNumberKind,
+        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
                 this.idToFunctions.apply(id),
                 engine,
                 labelStore,
-                ExpressionNumberConverterContexts.basic(metadata.converter(),
-                        ConverterContexts.basic(Converters.fake(),
-                                metadata.dateTimeContext(),
-                                metadata.decimalNumberContext()),
-                        expressionNumberKind),
+                metadata.converterContext(),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
-                metadata.get(SpreadsheetMetadataPropertyName.WIDTH).orElseThrow(() -> new IllegalStateException(SpreadsheetMetadataPropertyName.WIDTH + " missing")),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
                 this.fractioner,
                 metadata.formatter());
 
@@ -244,7 +232,6 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                                                                       final SpreadsheetStoreRepository repository,
                                                                                                       final SpreadsheetMetadata metadata,
                                                                                                       final AbsoluteUrl serverSpreadsheetIdSpreadsheetName) {
-        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
         final SpreadsheetCellStore cellStore = repository.cells();
         final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
@@ -261,18 +248,14 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore);
 
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(expressionNumberKind,
+        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
                 this.idToFunctions.apply(id),
                 engine,
                 labelStore,
-                ExpressionNumberConverterContexts.basic(metadata.converter(),
-                        ConverterContexts.basic(Converters.fake(),
-                                metadata.dateTimeContext(),
-                                metadata.decimalNumberContext()),
-                        expressionNumberKind),
+                metadata.converterContext(),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
-                metadata.get(SpreadsheetMetadataPropertyName.WIDTH).orElseThrow(() -> new IllegalStateException(SpreadsheetMetadataPropertyName.WIDTH + " missing")),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
                 this.fractioner,
                 metadata.formatter());
 
