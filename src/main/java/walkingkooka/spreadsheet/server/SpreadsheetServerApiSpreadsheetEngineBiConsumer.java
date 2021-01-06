@@ -147,16 +147,11 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore);
 
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
-                this.idToFunctions.apply(id),
-                engine,
+        final SpreadsheetEngineContext context = this.engineContext(
+                id,
+                metadata,
                 labelStore,
-                metadata.converterContext(),
-                metadata.numberToColor(),
-                metadata.nameToColor(),
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
-                this.fractioner,
-                metadata.formatter());
+                engine);
 
         // insert handling of /format & /parse
         return formatRouter(serverSpreadsheetIdSpreadsheetName, context, metadata)
@@ -248,16 +243,10 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore);
 
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
-                this.idToFunctions.apply(id),
-                engine,
+        final SpreadsheetEngineContext context = this.engineContext(id,
+                metadata,
                 labelStore,
-                metadata.converterContext(),
-                metadata.numberToColor(),
-                metadata.nameToColor(),
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
-                this.fractioner,
-                metadata.formatter());
+                engine);
 
         // else default to engine hateos handlers...
         final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
@@ -309,6 +298,22 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 loadCellComputeIfNecessary,
                 saveCell,
                 deleteCell);
+    }
+
+    private SpreadsheetEngineContext engineContext(final SpreadsheetId id,
+                                                   final SpreadsheetMetadata metadata,
+                                                   final SpreadsheetLabelStore labelStore,
+                                                   final SpreadsheetEngine engine) {
+        return SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
+                this.idToFunctions.apply(id),
+                engine,
+                labelStore,
+                metadata.converterContext(),
+                metadata.numberToColor(),
+                metadata.nameToColor(),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
+                this.fractioner,
+                metadata.formatter());
     }
 
     private final HateosContentType contentTypeJson;
