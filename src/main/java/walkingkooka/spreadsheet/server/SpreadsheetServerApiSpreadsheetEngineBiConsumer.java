@@ -131,27 +131,21 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
         final UrlPath serverSpreadsheetIdSpreadsheetName = baseUrl.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
-        final SpreadsheetCellStore cellStore = repository.cells();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
-        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
-        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+        final SpreadsheetEngine engine = this.engine(
+                id,
                 metadata,
-                cellStore,
-                cellReferencesStore,
-                labelStore,
-                labelReferencesStore,
-                rangeToCellStore,
-                rangeToConditionalFormattingRuleStore);
+                repository,
+                labelStore
+        );
 
         final SpreadsheetEngineContext context = this.engineContext(
                 id,
                 metadata,
                 labelStore,
-                engine);
+                engine
+        );
 
         // insert handling of /format & /parse
         return formatRouter(serverSpreadsheetIdSpreadsheetName, context, metadata)
@@ -227,26 +221,21 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                                                                       final SpreadsheetStoreRepository repository,
                                                                                                       final SpreadsheetMetadata metadata,
                                                                                                       final AbsoluteUrl serverSpreadsheetIdSpreadsheetName) {
-        final SpreadsheetCellStore cellStore = repository.cells();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
         final SpreadsheetLabelStore labelStore = repository.labels();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
-        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
-        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+        final SpreadsheetEngine engine = this.engine(
+                id,
                 metadata,
-                cellStore,
-                cellReferencesStore,
-                labelStore,
-                labelReferencesStore,
-                rangeToCellStore,
-                rangeToConditionalFormattingRuleStore);
+                repository,
+                labelStore
+        );
 
-        final SpreadsheetEngineContext context = this.engineContext(id,
+        final SpreadsheetEngineContext context = this.engineContext(
+                id,
                 metadata,
                 labelStore,
-                engine);
+                engine
+        );
 
         // else default to engine hateos handlers...
         final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
@@ -298,6 +287,28 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                 loadCellComputeIfNecessary,
                 saveCell,
                 deleteCell);
+    }
+
+    private SpreadsheetEngine engine(final SpreadsheetId id,
+                                     final SpreadsheetMetadata metadata,
+                                     final SpreadsheetStoreRepository repository,
+                                     final SpreadsheetLabelStore labelStore) {
+        final SpreadsheetCellStore cellStore = repository.cells();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
+        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
+        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
+        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
+
+        return SpreadsheetEngines.basic(
+                id,
+                metadata,
+                cellStore,
+                cellReferencesStore,
+                labelStore,
+                labelReferencesStore,
+                rangeToCellStore,
+                rangeToConditionalFormattingRuleStore
+        );
     }
 
     private SpreadsheetEngineContext engineContext(final SpreadsheetId id,
