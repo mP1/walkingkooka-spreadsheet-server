@@ -160,6 +160,11 @@ public class JunitTest {
         return new FakeSpreadsheetEngineContext() {
 
             @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return EXPRESSION_NUMBER_KIND;
+            }
+
+            @Override
             public SpreadsheetParserToken parseFormula(final String formula) {
                 return Cast.to(SpreadsheetParsers.expression()
                         .orFailIfCursorNotEmpty(ParserReporters.basic())

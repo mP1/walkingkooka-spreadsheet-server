@@ -210,6 +210,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
                         "        \"text\": \"1+2\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"1\",\n" +
+                        "                \"text\": \"1\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"+\",\n" +
+                        "                \"text\": \"+\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"2\",\n" +
+                        "                \"text\": \"2\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"1+2\"\n" +
+                        "          }\n" +
+                        "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
@@ -240,6 +265,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
                         "        \"text\": \"1+2\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"1\",\n" +
+                        "                \"text\": \"1\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"+\",\n" +
+                        "                \"text\": \"+\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"2\",\n" +
+                        "                \"text\": \"2\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"1+2\"\n" +
+                        "          }\n" +
+                        "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
@@ -278,6 +328,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
                         "        \"text\": \"1+2\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"1\",\n" +
+                        "                \"text\": \"1\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"+\",\n" +
+                        "                \"text\": \"+\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"2\",\n" +
+                        "                \"text\": \"2\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"1+2\"\n" +
+                        "          }\n" +
+                        "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
@@ -316,6 +391,31 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
                         "        \"text\": \"1+2\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"1\",\n" +
+                        "                \"text\": \"1\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"+\",\n" +
+                        "                \"text\": \"+\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"2\",\n" +
+                        "                \"text\": \"2\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"1+2\"\n" +
+                        "          }\n" +
+                        "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
@@ -645,9 +745,11 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
                     .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                    .loadFromLocale()
+                    .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "C")
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
-                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
                     .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                     .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))

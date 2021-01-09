@@ -222,6 +222,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"1+2\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"2\",\n" +
+                                "                \"text\": \"2\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1+2\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -275,6 +300,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"1+2\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"2\",\n" +
+                                "                \"text\": \"2\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1+2\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -315,6 +365,43 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"4+A1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"4\",\n" +
+                                "                \"text\": \"4\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-cell-reference-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-column-reference-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"A\",\n" +
+                                "                    \"text\": \"A\"\n" +
+                                "                  }\n" +
+                                "                }, {\n" +
+                                "                  \"type\": \"spreadsheet-row-reference-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"A1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"4+A1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -370,6 +457,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"1+2\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"2\",\n" +
+                                "                \"text\": \"2\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1+2\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -419,6 +531,31 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"3+4\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"3\",\n" +
+                                "                \"text\": \"3\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"4\",\n" +
+                                "                \"text\": \"4\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"3+4\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -460,6 +597,43 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"4+A1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"4\",\n" +
+                                "                \"text\": \"4\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"+\",\n" +
+                                "                \"text\": \"+\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-cell-reference-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-column-reference-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"A\",\n" +
+                                "                    \"text\": \"A\"\n" +
+                                "                  }\n" +
+                                "                }, {\n" +
+                                "                  \"type\": \"spreadsheet-row-reference-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"A1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"4+A1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
                                 "        \"expression\": {\n" +
                                 "          \"type\": \"add-expression\",\n" +
                                 "          \"value\": [{\n" +
@@ -565,6 +739,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                .loadFromLocale()
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                 .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
