@@ -28,8 +28,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MultiParserTest extends ParserTestCase<MultiParser>
-        implements FunctionTesting<MultiParser, MultiParseRequest, MultiParseResponse> {
+public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<SpreadsheetMultiParser>
+        implements FunctionTesting<SpreadsheetMultiParser, SpreadsheetMultiParseRequest, SpreadsheetMultiParseResponse> {
 
     @Override
     public void testTypeNaming() {
@@ -38,7 +38,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
 
     @Test
     public void testWithNullSpreadsheetEngineContext() {
-        assertThrows(NullPointerException.class, () -> MultiParser.with(null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetMultiParser.with(null));
     }
 
     @Test
@@ -53,7 +53,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseDateFormat() {
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_DATE_FORMATTER,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_FORMATTER,
                 SpreadsheetParsePatterns.parseDateFormatPattern(pattern));
     }
 
@@ -61,7 +61,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseDateParser() {
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_DATE_PARSERS,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
                 SpreadsheetParsePatterns.parseDateParsePatterns(pattern));
     }
 
@@ -70,7 +70,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseDateTimeFormat() {
         final String pattern = "yyyy/mm/dd hh:mm";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_DATE_TIME_FORMATTER,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_FORMATTER,
                 SpreadsheetParsePatterns.parseDateTimeFormatPattern(pattern));
     }
 
@@ -78,7 +78,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseDateTimeParser() {
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_DATE_TIME_PARSERS,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSERS,
                 SpreadsheetParsePatterns.parseDateTimeParsePatterns(pattern));
     }
 
@@ -86,7 +86,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseTextFormat() {
         final String pattern = "@ \"Hello\"";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_TEXT_FORMATTER,
+                SpreadsheetMultiParser.SPREADSHEET_TEXT_FORMATTER,
                 SpreadsheetParsePatterns.parseTextFormatPattern(pattern));
     }
 
@@ -94,7 +94,7 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseTimeFormat() {
         final String pattern = "hh:mm";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_TIME_FORMATTER,
+                SpreadsheetMultiParser.SPREADSHEET_TIME_FORMATTER,
                 SpreadsheetParsePatterns.parseTimeFormatPattern(pattern));
     }
 
@@ -102,14 +102,14 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     public void testParseTimeParser() {
         final String pattern = "hh:mm";
         this.applyAndCheck2(pattern,
-                MultiParser.SPREADSHEET_TIME_PARSERS,
+                SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS,
                 SpreadsheetParsePatterns.parseTimeParsePatterns(pattern));
     }
 
     @Test
     public void testParseFails() {
         this.applyAndCheck2("hh:mm:ss",
-                MultiParser.SPREADSHEET_DATE_PARSERS,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
                 illegalArgumentException("Unrecognized character 'h' at (1,1) \"hh:mm:ss\" expected ([{ DAY | MONTH_MINUTE | YEAR | DATE_DATETIME_TIME }], [{(SEPARATOR, [{ DAY | MONTH_MINUTE | YEAR | DATE_DATETIME_TIME }])}], [SEPARATOR])")
         );
     }
@@ -117,15 +117,15 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     private void applyAndCheck2(final String pattern,
                                 final String parser,
                                 final Object expected) {
-        this.applyAndCheck(MultiParseRequest.with(
+        this.applyAndCheck(SpreadsheetMultiParseRequest.with(
                 Lists.of(
-                        ParseRequest.with(
+                        SpreadsheetParseRequest.with(
                                 pattern,
                                 parser
                         )
                 )
                 ),
-                MultiParseResponse.with(
+                SpreadsheetMultiParseResponse.with(
                         Lists.of(
                                 expected
                         )
@@ -154,8 +154,8 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     }
 
     @Override
-    public MultiParser createFunction() {
-        return MultiParser.with(SpreadsheetEngineContexts.fake());
+    public SpreadsheetMultiParser createFunction() {
+        return SpreadsheetMultiParser.with(SpreadsheetEngineContexts.fake());
     }
 
     private static <S, D> Function<S, D> function() {
@@ -167,8 +167,8 @@ public final class MultiParserTest extends ParserTestCase<MultiParser>
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<MultiParser> type() {
-        return MultiParser.class;
+    public Class<SpreadsheetMultiParser> type() {
+        return SpreadsheetMultiParser.class;
     }
 
 

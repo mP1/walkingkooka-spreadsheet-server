@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -27,16 +26,16 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResponse> {
+public final class SpreadsheetMultiParseResponseTest extends SpreadsheetParserTestCase2<SpreadsheetMultiParseResponse> {
 
     @Test
     public void testWithNullRequests() {
-        assertThrows(NullPointerException.class, () -> MultiParseResponse.with(null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetMultiParseResponse.with(null));
     }
 
     @Test
     public void testDifferentRequests() {
-        this.checkNotEquals(MultiParseResponse.with(
+        this.checkNotEquals(SpreadsheetMultiParseResponse.with(
                 Lists.of(
                         "different"
                 )
@@ -58,7 +57,7 @@ public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResp
     @Test
     public void testJsonRoundtrip2() {
         this.marshallRoundTripTwiceAndCheck(
-                MultiParseResponse.with(
+                SpreadsheetMultiParseResponse.with(
                         Lists.of(
                                 SpreadsheetFormatPattern.parseDateFormatPattern("dd:mm:yyyy"),
                                 SpreadsheetFormatPattern.parseDateParsePatterns("dd:mm:yyyy;dd:mm:yyyy"),
@@ -73,19 +72,19 @@ public final class MultiParseResponseTest extends ParserTestCase2<MultiParseResp
     }
 
     @Override
-    public MultiParseResponse createObject() {
-        return MultiParseResponse.with(Lists.of("hello"));
+    public SpreadsheetMultiParseResponse createObject() {
+        return SpreadsheetMultiParseResponse.with(Lists.of("hello"));
     }
 
     @Override
-    public Class<MultiParseResponse> type() {
-        return MultiParseResponse.class;
+    public Class<SpreadsheetMultiParseResponse> type() {
+        return SpreadsheetMultiParseResponse.class;
     }
 
     @Override
-    public MultiParseResponse unmarshall(final JsonNode node,
-                                         final JsonNodeUnmarshallContext context) {
-        return MultiParseResponse.unmarshall(node, context);
+    public SpreadsheetMultiParseResponse unmarshall(final JsonNode node,
+                                                    final JsonNodeUnmarshallContext context) {
+        return SpreadsheetMultiParseResponse.unmarshall(node, context);
     }
 
 }

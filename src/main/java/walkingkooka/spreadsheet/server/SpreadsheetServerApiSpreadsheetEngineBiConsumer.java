@@ -53,10 +53,10 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.server.format.Formatters;
-import walkingkooka.spreadsheet.server.format.MultiFormatRequest;
-import walkingkooka.spreadsheet.server.format.MultiFormatResponse;
-import walkingkooka.spreadsheet.server.parse.MultiParseRequest;
-import walkingkooka.spreadsheet.server.parse.MultiParseResponse;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -176,8 +176,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                                        final SpreadsheetMetadata metadata) {
         return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
                 Formatters.multiFormatters(context),
-                MultiFormatRequest.class,
-                MultiFormatResponse.class,
+                SpreadsheetMultiFormatRequest.class,
+                SpreadsheetMultiFormatResponse.class,
                 metadata.jsonNodeMarshallContext(),
                 metadata.jsonNodeUnmarshallContext()
         );
@@ -202,8 +202,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                                       final SpreadsheetMetadata metadata) {
         return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
                 Parsers.multiParsers(context),
-                MultiParseRequest.class,
-                MultiParseResponse.class,
+                SpreadsheetMultiParseRequest.class,
+                SpreadsheetMultiParseResponse.class,
                 metadata.jsonNodeMarshallContext(),
                 metadata.jsonNodeUnmarshallContext()
         );

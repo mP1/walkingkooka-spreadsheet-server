@@ -44,8 +44,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
-        implements FunctionTesting<MultiFormatter, MultiFormatRequest, MultiFormatResponse> {
+public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTestCase<SpreadsheetMultiFormatter>
+        implements FunctionTesting<SpreadsheetMultiFormatter, SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> {
 
     @Override
     public void testTypeNaming() {
@@ -54,20 +54,20 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
 
     @Test
     public void testWithNullSpreadsheetEngineContext() {
-        assertThrows(NullPointerException.class, () -> MultiFormatter.with(null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetMultiFormatter.with(null));
     }
 
     @Test
     public void testFormatUnknownValueFails() {
-        this.applyAndCheck(MultiFormatRequest.with(
+        this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 "unknown1 ???",
                                 "unknown2 ???"
                         )
                 )
                 ),
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 illegalArgumentException("Invalid pattern \"unknown2 ???\"")
                         )
@@ -77,15 +77,15 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
 
     @Test
     public void testFormatLocalDate() {
-        this.applyAndCheck(MultiFormatRequest.with(
+        this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDate.of(1999, 12, 31),
                                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
                         )
                 )
                 ),
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12")
                         )
@@ -95,19 +95,19 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
 
     @Test
     public void testFormatLocalDateAndLocalTimeSpreadsheetDateFormatPattern() {
-        this.applyAndCheck(MultiFormatRequest.with(
+        this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDate.of(1999, 12, 31),
                                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
                         ),
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDateTime.of(1999, 12, 31, 12, 58, 59),
                                 SpreadsheetFormatPattern.parseDateTimeFormatPattern("yyyy/hh/mm")
                         )
                 )
                 ),
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
                                 SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/12/58")
@@ -118,15 +118,15 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
 
     @Test
     public void testFormatLocalDateAndLocalTimeSpreadsheetLocaleDefaultDateTimeFormat() {
-        this.applyAndCheck(MultiFormatRequest.with(
+        this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDateTime.of(1999, 12, 31, 12, 58, 59),
                                 SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
                         )
                 )
                 ),
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 "31 December 1999, 12:58:59 pm"
                         )
@@ -136,15 +136,15 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
 
     @Test
     public void testFormatFails() {
-        this.applyAndCheck(MultiFormatRequest.with(
+        this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 BigDecimal.ONE,
                                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
                         )
                 )
                 ),
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 illegalArgumentException("Unable to format 1")
                         )
@@ -173,8 +173,8 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
     }
 
     @Override
-    public MultiFormatter createFunction() {
-        return MultiFormatter.with(
+    public SpreadsheetMultiFormatter createFunction() {
+        return SpreadsheetMultiFormatter.with(
                 new FakeSpreadsheetEngineContext() {
                     @Override
                     public Optional<SpreadsheetText> format(final Object value,
@@ -209,8 +209,8 @@ public final class MultiFormatterTest extends FormatterTestCase<MultiFormatter>
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<MultiFormatter> type() {
-        return MultiFormatter.class;
+    public Class<SpreadsheetMultiFormatter> type() {
+        return SpreadsheetMultiFormatter.class;
     }
 
     @Override

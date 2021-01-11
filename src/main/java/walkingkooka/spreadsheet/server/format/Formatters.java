@@ -25,10 +25,10 @@ import java.util.function.Function;
 public final class Formatters implements PublicStaticHelper {
 
     /**
-     * {@see MultiFormatter}
+     * {@see SpreadsheetMultiFormatter}
      */
-    public static Function<MultiFormatRequest, MultiFormatResponse> multiFormatters(final SpreadsheetEngineContext engineContext) {
-        return MultiFormatter.with(engineContext);
+    public static Function<SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> multiFormatters(final SpreadsheetEngineContext engineContext) {
+        return SpreadsheetMultiFormatter.with(engineContext);
     }
 
     private Formatters() {

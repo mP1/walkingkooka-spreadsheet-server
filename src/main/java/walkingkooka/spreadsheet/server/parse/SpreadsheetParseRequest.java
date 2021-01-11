@@ -29,16 +29,16 @@ import java.util.Objects;
 /**
  * Represents a single request to parse text using an identified parser.
  */
-public final class ParseRequest {
+public final class SpreadsheetParseRequest {
 
-    public static ParseRequest with(final String text, final String parser) {
+    public static SpreadsheetParseRequest with(final String text, final String parser) {
         Objects.requireNonNull(text, "text");
         CharSequences.failIfNullOrEmpty(parser, "parser");
 
-        return new ParseRequest(text, parser);
+        return new SpreadsheetParseRequest(text, parser);
     }
 
-    private ParseRequest(final String text, final String parser) {
+    private SpreadsheetParseRequest(final String text, final String parser) {
         this.text = text;
         this.parser = parser;
     }
@@ -64,10 +64,10 @@ public final class ParseRequest {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof ParseRequest && this.equals0((ParseRequest) other);
+        return this == other || other instanceof SpreadsheetParseRequest && this.equals0((SpreadsheetParseRequest) other);
     }
 
-    private boolean equals0(final ParseRequest other) {
+    private boolean equals0(final SpreadsheetParseRequest other) {
         return this.text.equals(other.text) &&
                 this.parser.equals(other.parser);
     }
@@ -91,8 +91,8 @@ public final class ParseRequest {
                 .set(PARSER_PROPERTY, context.marshall(this.parser));
     }
 
-    static ParseRequest unmarshall(final JsonNode node,
-                                   final JsonNodeUnmarshallContext context) {
+    static SpreadsheetParseRequest unmarshall(final JsonNode node,
+                                              final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         String text = null;
@@ -124,10 +124,10 @@ public final class ParseRequest {
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(ParseRequest.class),
-                ParseRequest::unmarshall,
-                ParseRequest::marshall,
-                ParseRequest.class
+                JsonNodeContext.computeTypeName(SpreadsheetParseRequest.class),
+                SpreadsheetParseRequest::unmarshall,
+                SpreadsheetParseRequest::marshall,
+                SpreadsheetParseRequest.class
         );
     }
 

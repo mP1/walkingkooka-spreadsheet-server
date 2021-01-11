@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.parse;
+package walkingkooka.spreadsheet.server.format;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
@@ -26,66 +26,69 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Objects;
 
-public final class MultiParseResponse {
+public final class SpreadsheetMultiFormatRequest {
 
-    public static MultiParseResponse with(final List<Object> responses) {
-        Objects.requireNonNull(responses, "responses");
+    public static SpreadsheetMultiFormatRequest with(final List<SpreadsheetFormatRequest> requests) {
+        Objects.requireNonNull(requests, "requests");
 
-        return new MultiParseResponse(Lists.immutable(responses));
+        return new SpreadsheetMultiFormatRequest(Lists.immutable(requests));
     }
 
-    private MultiParseResponse(final List<Object> responses) {
+    private SpreadsheetMultiFormatRequest(final List<SpreadsheetFormatRequest> requests) {
         super();
-        this.responses = responses;
+        this.requests = requests;
     }
 
-    List<Object> responses() {
-        return this.responses;
+    List<SpreadsheetFormatRequest> requests() {
+        return this.requests;
     }
 
-    private final List<Object> responses;
+    private final List<SpreadsheetFormatRequest> requests;
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return this.responses().hashCode();
+        return this.requests().hashCode();
     }
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof MultiParseResponse && this.equals0((MultiParseResponse) other);
+        return this == other || other instanceof SpreadsheetMultiFormatRequest && this.equals0((SpreadsheetMultiFormatRequest) other);
     }
 
-    private boolean equals0(final MultiParseResponse other) {
-        return this.responses.equals(other.responses);
+    private boolean equals0(final SpreadsheetMultiFormatRequest other) {
+        return this.requests.equals(other.requests);
     }
 
     @Override
     public String toString() {
-        return this.responses().toString();
+        return this.requests().toString();
     }
 
     // Json.............................................................................................................
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return context.marshallWithTypeList(this.responses);
+        return context.marshallWithTypeList(this.requests);
     }
 
-    static MultiParseResponse unmarshall(final JsonNode node,
-                                         final JsonNodeUnmarshallContext context) {
+    static SpreadsheetMultiFormatRequest unmarshall(final JsonNode node,
+                                                    final JsonNodeUnmarshallContext context) {
         return with(context.unmarshallWithTypeList(node));
     }
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(MultiParseResponse.class),
-                MultiParseResponse::unmarshall,
-                MultiParseResponse::marshall,
-                MultiParseResponse.class
+                JsonNodeContext.computeTypeName(SpreadsheetMultiFormatRequest.class),
+                SpreadsheetMultiFormatRequest::unmarshall,
+                SpreadsheetMultiFormatRequest::marshall,
+                SpreadsheetMultiFormatRequest.class
         );
     }
 
+    // for JsonNodeContext.register to happen
     static void init() {
+        SpreadsheetFormatRequest.init();
+        SpreadsheetLocaleDefaultDateTimeFormat.init();
     }
 }

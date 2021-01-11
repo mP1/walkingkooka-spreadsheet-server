@@ -48,13 +48,13 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
-import walkingkooka.spreadsheet.server.format.FormatRequest;
-import walkingkooka.spreadsheet.server.format.MultiFormatRequest;
-import walkingkooka.spreadsheet.server.format.MultiFormatResponse;
+import walkingkooka.spreadsheet.server.format.SpreadsheetFormatRequest;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
 import walkingkooka.spreadsheet.server.format.SpreadsheetLocaleDefaultDateTimeFormat;
-import walkingkooka.spreadsheet.server.parse.MultiParseRequest;
-import walkingkooka.spreadsheet.server.parse.MultiParseResponse;
-import walkingkooka.spreadsheet.server.parse.ParseRequest;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetParseRequest;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -85,13 +85,13 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
 
     @Test
     public void testFormat() {
-        final MultiFormatRequest multiFormatRequest = MultiFormatRequest.with(
+        final SpreadsheetMultiFormatRequest spreadsheetMultiFormatRequest = SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDate.of(1999, 12, 31),
                                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
                         ),
-                        FormatRequest.with(
+                        SpreadsheetFormatRequest.with(
                                 LocalDateTime.of(1999, 12, 31, 12, 58, 59),
                                 SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
                         )
@@ -101,12 +101,12 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
         final HttpRequest httpRequest = this.request(
                 HttpMethod.POST,
                 "1/format",
-                toJsonString(multiFormatRequest));
+                toJsonString(spreadsheetMultiFormatRequest));
         final HttpResponse httpResponse = HttpResponses.recording();
 
         this.handleRequest(httpRequest, httpResponse);
 
-        final MultiFormatResponse multiFormatResponse = MultiFormatResponse.with(
+        final SpreadsheetMultiFormatResponse spreadsheetMultiFormatResponse = SpreadsheetMultiFormatResponse.with(
                 Lists.of(
                         SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
                         "31 December 1999, 12:58:59 pm"
@@ -114,8 +114,8 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
         );
 
         this.checkHttpResponse(httpResponse,
-                HttpStatusCode.OK.setMessage("POST MultiFormatResponse OK"),
-                multiFormatResponse
+                HttpStatusCode.OK.setMessage("POST SpreadsheetMultiFormatResponse OK"),
+                spreadsheetMultiFormatResponse
         );
     }
 
@@ -125,9 +125,9 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
     public void testParse() {
         final String pattern = "yyyy/mm/dd";
 
-        final MultiParseRequest multiParseRequest = MultiParseRequest.with(
+        final SpreadsheetMultiParseRequest spreadsheetMultiParseRequest = SpreadsheetMultiParseRequest.with(
                 Lists.of(
-                        ParseRequest.with(
+                        SpreadsheetParseRequest.with(
                                 pattern,
                                 "spreadsheet-date-formatter" // @see MultiParser.SPREADSHEET_DATE_FORMATTER
                         )
@@ -137,12 +137,12 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
         final HttpRequest httpRequest = this.request(
                 HttpMethod.POST,
                 "1/parse",
-                toJsonString(multiParseRequest));
+                toJsonString(spreadsheetMultiParseRequest));
         final HttpResponse httpResponse = HttpResponses.recording();
 
         this.handleRequest(httpRequest, httpResponse);
 
-        final MultiParseResponse multiParseResponse = MultiParseResponse.with(
+        final SpreadsheetMultiParseResponse spreadsheetMultiParseResponse = SpreadsheetMultiParseResponse.with(
                 Lists.of(
                         SpreadsheetParsePatterns.parseDateFormatPattern(pattern)
                 )
@@ -150,8 +150,8 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
 
         this.checkHttpResponse(
                 httpResponse,
-                HttpStatusCode.OK.setMessage("POST MultiParseResponse OK"),
-                multiParseResponse
+                HttpStatusCode.OK.setMessage("POST SpreadsheetMultiParseResponse OK"),
+                spreadsheetMultiParseResponse
         );
     }
 

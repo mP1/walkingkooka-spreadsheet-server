@@ -27,8 +27,8 @@ public final class Parsers implements PublicStaticHelper {
     /**
      * {@see MultiParseter}
      */
-    public static Function<MultiParseRequest, MultiParseResponse> multiParsers(final SpreadsheetEngineContext engineContext) {
-        return MultiParser.with(engineContext);
+    public static Function<SpreadsheetMultiParseRequest, SpreadsheetMultiParseResponse> multiParsers(final SpreadsheetEngineContext engineContext) {
+        return SpreadsheetMultiParser.with(engineContext);
     }
 
     private Parsers() {

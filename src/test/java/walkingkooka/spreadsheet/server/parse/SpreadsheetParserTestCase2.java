@@ -21,10 +21,10 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
-public abstract class ParserTestCase2<T> extends ParserTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
+public abstract class SpreadsheetParserTestCase2<T> extends SpreadsheetParserTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
         JsonNodeMarshallingTesting<T> {
 
-    ParserTestCase2() {
+    SpreadsheetParserTestCase2() {
         super();
     }
 

@@ -30,11 +30,11 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public final class MultiFormatResponseTest extends FormatterTestCase2<MultiFormatResponse> {
+public final class SpreadsheetMultiFormatResponseTest extends SpreadsheetFormatterTestCase2<SpreadsheetMultiFormatResponse> {
 
     @Test
     public void testWithNullRequests() {
-        assertThrows(NullPointerException.class, () -> MultiFormatResponse.with(null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetMultiFormatResponse.with(null));
     }
 
     // Json.............................................................................................................
@@ -42,7 +42,7 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
     @Test
     public void testJsonRoundtripMixed() {
         this.marshallRoundTripTwiceAndCheck(
-                MultiFormatResponse.with(
+                SpreadsheetMultiFormatResponse.with(
                         Lists.of(
                                 "formatted-text-123",
                                 BigDecimal.valueOf(1.5),
@@ -58,7 +58,7 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
 
     @Test
     public void testDifferentRequests() {
-        this.checkNotEquals(MultiFormatResponse.with(
+        this.checkNotEquals(SpreadsheetMultiFormatResponse.with(
                 Lists.of(
                         "different"
                 )
@@ -71,20 +71,20 @@ public final class MultiFormatResponseTest extends FormatterTestCase2<MultiForma
     }
 
     @Override
-    public MultiFormatResponse createObject() {
-        return MultiFormatResponse.with(Lists.of("hello"));
+    public SpreadsheetMultiFormatResponse createObject() {
+        return SpreadsheetMultiFormatResponse.with(Lists.of("hello"));
     }
 
     @Override
-    public MultiFormatResponse unmarshall(final JsonNode from,
-                                          final JsonNodeUnmarshallContext context) {
-        return MultiFormatResponse.unmarshall(from, context);
+    public SpreadsheetMultiFormatResponse unmarshall(final JsonNode from,
+                                                     final JsonNodeUnmarshallContext context) {
+        return SpreadsheetMultiFormatResponse.unmarshall(from, context);
     }
 
     // ClassTesting......................................................................................................
 
     @Override
-    public Class<MultiFormatResponse> type() {
-        return MultiFormatResponse.class;
+    public Class<SpreadsheetMultiFormatResponse> type() {
+        return SpreadsheetMultiFormatResponse.class;
     }
 }
