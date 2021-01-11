@@ -122,10 +122,12 @@ public final class FormatRequest {
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-format-request",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(FormatRequest.class),
                 FormatRequest::unmarshall,
                 FormatRequest::marshall,
-                FormatRequest.class);
+                FormatRequest.class
+        );
     }
 
     // for JsonNodeContext.register to happen

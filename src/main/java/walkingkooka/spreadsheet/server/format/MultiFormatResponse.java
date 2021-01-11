@@ -73,15 +73,17 @@ public final class MultiFormatResponse {
     }
 
     static MultiFormatResponse unmarshall(final JsonNode node,
-                                         final JsonNodeUnmarshallContext context) {
+                                          final JsonNodeUnmarshallContext context) {
         return with(context.unmarshallWithTypeList(node));
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-multi-format-response",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(MultiFormatResponse.class),
                 MultiFormatResponse::unmarshall,
                 MultiFormatResponse::marshall,
-                MultiFormatResponse.class);
+                MultiFormatResponse.class
+        );
     }
 
     // for JsonNodeContext.register to happen

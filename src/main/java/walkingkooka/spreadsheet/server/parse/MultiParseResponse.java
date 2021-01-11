@@ -73,15 +73,17 @@ public final class MultiParseResponse {
     }
 
     static MultiParseResponse unmarshall(final JsonNode node,
-                                        final JsonNodeUnmarshallContext context) {
+                                         final JsonNodeUnmarshallContext context) {
         return with(context.unmarshallWithTypeList(node));
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-multi-parse-response",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(MultiParseResponse.class),
                 MultiParseResponse::unmarshall,
                 MultiParseResponse::marshall,
-                MultiParseResponse.class);
+                MultiParseResponse.class
+        );
     }
 
     static void init() {
