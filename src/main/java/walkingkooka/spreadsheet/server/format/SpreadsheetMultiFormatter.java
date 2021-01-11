@@ -33,24 +33,24 @@ import java.util.stream.Collectors;
  *     <li>{@link walkingkooka.spreadsheet.format.SpreadsheetFormatter}</li>
  * </ul>
  */
-final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatResponse> {
+final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> {
 
-    static MultiFormatter with(final SpreadsheetEngineContext engineContext) {
+    static SpreadsheetMultiFormatter with(final SpreadsheetEngineContext engineContext) {
         Objects.requireNonNull(engineContext, "engineContext");
 
-        return new MultiFormatter(engineContext);
+        return new SpreadsheetMultiFormatter(engineContext);
     }
 
-    private MultiFormatter(final SpreadsheetEngineContext engineContext) {
+    private SpreadsheetMultiFormatter(final SpreadsheetEngineContext engineContext) {
         super();
         this.engineContext = engineContext;
     }
 
     @Override
-    public MultiFormatResponse apply(final MultiFormatRequest request) {
+    public SpreadsheetMultiFormatResponse apply(final SpreadsheetMultiFormatRequest request) {
         Objects.requireNonNull(request, "request");
 
-        return MultiFormatResponse.with(
+        return SpreadsheetMultiFormatResponse.with(
                 request.requests()
                         .stream()
                         .map(this::formatOrThrowable)
@@ -61,7 +61,7 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
     /**
      * Returns the formatted value or the thrown {@link Throwable}.
      */
-    private Object formatOrThrowable(final FormatRequest request) {
+    private Object formatOrThrowable(final SpreadsheetFormatRequest request) {
         Object result;
         try {
             result = this.format(request);
@@ -74,7 +74,7 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
     /**
      * Handles the request returning the formatted value or throwing a {@link Exception} if formatting failed.
      */
-    private Object format(final FormatRequest request) {
+    private Object format(final SpreadsheetFormatRequest request) {
         Object formatted;
 
         do {
@@ -114,7 +114,7 @@ final class MultiFormatter implements Function<MultiFormatRequest, MultiFormatRe
     }
 
     static {
-        MultiFormatRequest.init();
-        MultiFormatResponse.init();
+        SpreadsheetMultiFormatRequest.init();
+        SpreadsheetMultiFormatResponse.init();
     }
 }

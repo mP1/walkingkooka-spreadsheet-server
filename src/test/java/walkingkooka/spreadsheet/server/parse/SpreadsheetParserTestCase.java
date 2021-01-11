@@ -15,15 +15,15 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format;
+package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public abstract class FormatterTestCase<T> implements ClassTesting<T>, ToStringTesting<T> {
+public abstract class SpreadsheetParserTestCase<T> implements ClassTesting<T>, ToStringTesting<T> {
 
-    FormatterTestCase() {
+    SpreadsheetParserTestCase() {
         super();
     }
 }

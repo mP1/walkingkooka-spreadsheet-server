@@ -33,24 +33,24 @@ import java.util.stream.Collectors;
  *     <li>{@link SpreadsheetFormatPattern}</li>
  * </ul>
  */
-final class MultiParser implements Function<MultiParseRequest, MultiParseResponse> {
+final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequest, SpreadsheetMultiParseResponse> {
 
-    static MultiParser with(final SpreadsheetEngineContext engineContext) {
+    static SpreadsheetMultiParser with(final SpreadsheetEngineContext engineContext) {
         Objects.requireNonNull(engineContext, "engineContext");
 
-        return new MultiParser(engineContext);
+        return new SpreadsheetMultiParser(engineContext);
     }
 
-    private MultiParser(final SpreadsheetEngineContext engineContext) {
+    private SpreadsheetMultiParser(final SpreadsheetEngineContext engineContext) {
         super();
         this.engineContext = engineContext;
     }
 
     @Override
-    public MultiParseResponse apply(final MultiParseRequest request) {
+    public SpreadsheetMultiParseResponse apply(final SpreadsheetMultiParseRequest request) {
         Objects.requireNonNull(request, "request");
 
-        return MultiParseResponse.with(
+        return SpreadsheetMultiParseResponse.with(
                 request.requests()
                         .stream()
                         .map(this::parseOrThrowable)
@@ -61,7 +61,7 @@ final class MultiParser implements Function<MultiParseRequest, MultiParseRespons
     /**
      * Returns the parser value or the thrown {@link Throwable}.
      */
-    private Object parseOrThrowable(final ParseRequest request) {
+    private Object parseOrThrowable(final SpreadsheetParseRequest request) {
         Object result;
         try {
             result = this.parse(request);
@@ -88,7 +88,7 @@ final class MultiParser implements Function<MultiParseRequest, MultiParseRespons
     /**
      * Handles the request returning the parsed value or throwing a {@link Exception} if parsing failed.
      */
-    private Object parse(final ParseRequest request) {
+    private Object parse(final SpreadsheetParseRequest request) {
         Object parsed;
 
         final String text = request.text();
@@ -138,7 +138,7 @@ final class MultiParser implements Function<MultiParseRequest, MultiParseRespons
     }
 
     static void init() {
-        MultiParseRequest.init();
-        MultiParseResponse.init();
+        SpreadsheetMultiParseRequest.init();
+        SpreadsheetMultiParseResponse.init();
     }
 }

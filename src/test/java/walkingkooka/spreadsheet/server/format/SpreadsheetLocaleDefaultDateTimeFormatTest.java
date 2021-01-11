@@ -28,7 +28,7 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends FormatterTestCase2<SpreadsheetLocaleDefaultDateTimeFormat> {
+public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends SpreadsheetFormatterTestCase2<SpreadsheetLocaleDefaultDateTimeFormat> {
 
     @Test
     public void testFormatNullDateTimeFails() {

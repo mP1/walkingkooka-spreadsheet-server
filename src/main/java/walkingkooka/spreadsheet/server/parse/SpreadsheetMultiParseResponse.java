@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format;
+package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.json.JsonNode;
@@ -26,15 +26,15 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.List;
 import java.util.Objects;
 
-public final class MultiFormatResponse {
+public final class SpreadsheetMultiParseResponse {
 
-    public static MultiFormatResponse with(final List<Object> responses) {
+    public static SpreadsheetMultiParseResponse with(final List<Object> responses) {
         Objects.requireNonNull(responses, "responses");
 
-        return new MultiFormatResponse(Lists.immutable(responses));
+        return new SpreadsheetMultiParseResponse(Lists.immutable(responses));
     }
 
-    private MultiFormatResponse(final List<Object> responses) {
+    private SpreadsheetMultiParseResponse(final List<Object> responses) {
         super();
         this.responses = responses;
     }
@@ -54,10 +54,10 @@ public final class MultiFormatResponse {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof MultiFormatResponse && this.equals0((MultiFormatResponse) other);
+        return this == other || other instanceof SpreadsheetMultiParseResponse && this.equals0((SpreadsheetMultiParseResponse) other);
     }
 
-    private boolean equals0(final MultiFormatResponse other) {
+    private boolean equals0(final SpreadsheetMultiParseResponse other) {
         return this.responses.equals(other.responses);
     }
 
@@ -72,21 +72,20 @@ public final class MultiFormatResponse {
         return context.marshallWithTypeList(this.responses);
     }
 
-    static MultiFormatResponse unmarshall(final JsonNode node,
-                                          final JsonNodeUnmarshallContext context) {
+    static SpreadsheetMultiParseResponse unmarshall(final JsonNode node,
+                                                    final JsonNodeUnmarshallContext context) {
         return with(context.unmarshallWithTypeList(node));
     }
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(MultiFormatResponse.class),
-                MultiFormatResponse::unmarshall,
-                MultiFormatResponse::marshall,
-                MultiFormatResponse.class
+                JsonNodeContext.computeTypeName(SpreadsheetMultiParseResponse.class),
+                SpreadsheetMultiParseResponse::unmarshall,
+                SpreadsheetMultiParseResponse::marshall,
+                SpreadsheetMultiParseResponse.class
         );
     }
 
-    // for JsonNodeContext.register to happen
     static void init() {
     }
 }

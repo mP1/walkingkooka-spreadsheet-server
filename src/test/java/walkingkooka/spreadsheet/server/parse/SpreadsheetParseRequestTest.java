@@ -18,37 +18,36 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
+public final class SpreadsheetParseRequestTest extends SpreadsheetParserTestCase2<SpreadsheetParseRequest> {
 
     private final static String TEXT = "yyyy/mm/ddd";
-    private final static String PARSER = MultiParser.SPREADSHEET_DATE_PARSERS;
+    private final static String PARSER = SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS;
 
 
     @Test
     public void testWithNullTextFails() {
-        assertThrows(NullPointerException.class, () -> ParseRequest.with(null, PARSER));
+        assertThrows(NullPointerException.class, () -> SpreadsheetParseRequest.with(null, PARSER));
     }
 
     @Test
     public void testWithNullParserFails() {
-        assertThrows(NullPointerException.class, () -> ParseRequest.with(TEXT, null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetParseRequest.with(TEXT, null));
     }
 
     @Test
     public void testWithEmptyParserFails() {
-        assertThrows(IllegalArgumentException.class, () -> ParseRequest.with(TEXT, ""));
+        assertThrows(IllegalArgumentException.class, () -> SpreadsheetParseRequest.with(TEXT, ""));
     }
 
     @Test
     public void testWith() {
-        final ParseRequest request = ParseRequest.with(TEXT, PARSER);
+        final SpreadsheetParseRequest request = SpreadsheetParseRequest.with(TEXT, PARSER);
         assertEquals(TEXT, request.text(), "text");
         assertEquals(PARSER, request.parser(), "PARSER");
     }
@@ -57,12 +56,12 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
 
     @Test
     public void testDifferentText() {
-        this.checkNotEquals(ParseRequest.with("2000/1/2", PARSER));
+        this.checkNotEquals(SpreadsheetParseRequest.with("2000/1/2", PARSER));
     }
 
     @Test
     public void testDifferentParser() {
-        this.checkNotEquals(ParseRequest.with(TEXT, "different"));
+        this.checkNotEquals(SpreadsheetParseRequest.with(TEXT, "different"));
     }
 
     @Test
@@ -79,22 +78,22 @@ public final class ParseRequestTest extends ParserTestCase2<ParseRequest> {
 
     @Test
     public void testJsonRoundtrip2() {
-        this.marshallRoundTripTwiceAndCheck(ParseRequest.with("hh:mm:ss", MultiParser.SPREADSHEET_TIME_PARSERS));
+        this.marshallRoundTripTwiceAndCheck(SpreadsheetParseRequest.with("hh:mm:ss", SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS));
     }
 
     @Override
-    public ParseRequest createObject() {
-        return ParseRequest.with(TEXT, PARSER);
+    public SpreadsheetParseRequest createObject() {
+        return SpreadsheetParseRequest.with(TEXT, PARSER);
     }
 
     @Override
-    public Class<ParseRequest> type() {
-        return ParseRequest.class;
+    public Class<SpreadsheetParseRequest> type() {
+        return SpreadsheetParseRequest.class;
     }
 
     @Override
-    public ParseRequest unmarshall(final JsonNode node,
-                                   final JsonNodeUnmarshallContext context) {
-        return ParseRequest.unmarshall(node, context);
+    public SpreadsheetParseRequest unmarshall(final JsonNode node,
+                                              final JsonNodeUnmarshallContext context) {
+        return SpreadsheetParseRequest.unmarshall(node, context);
     }
 }

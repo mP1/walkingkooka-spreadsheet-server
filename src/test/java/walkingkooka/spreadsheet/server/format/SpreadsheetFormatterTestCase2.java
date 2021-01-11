@@ -22,10 +22,10 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 
-public abstract class FormatterTestCase2<T> extends FormatterTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
+public abstract class SpreadsheetFormatterTestCase2<T> extends SpreadsheetFormatterTestCase<T> implements HashCodeEqualsDefinedTesting2<T>,
         JsonNodeMarshallingTesting<T> {
 
-    FormatterTestCase2() {
+    SpreadsheetFormatterTestCase2() {
         super();
     }
 

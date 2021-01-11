@@ -29,16 +29,16 @@ import java.util.Objects;
 /**
  * Represents a single request to format a value using a compatible pattern. Examples might include a {@link java.time.LocalDate} and a {@link walkingkooka.spreadsheet.format.pattern.SpreadsheetDateFormatPattern}.
  */
-public final class FormatRequest {
+public final class SpreadsheetFormatRequest {
 
-    public static FormatRequest with(final Object value, final Object pattern) {
+    public static SpreadsheetFormatRequest with(final Object value, final Object pattern) {
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(pattern, "pattern");
 
-        return new FormatRequest(value, pattern);
+        return new SpreadsheetFormatRequest(value, pattern);
     }
 
-    private FormatRequest(final Object value, final Object pattern) {
+    private SpreadsheetFormatRequest(final Object value, final Object pattern) {
         this.value = value;
         this.pattern = pattern;
     }
@@ -64,10 +64,10 @@ public final class FormatRequest {
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof FormatRequest && this.equals0((FormatRequest) other);
+        return this == other || other instanceof SpreadsheetFormatRequest && this.equals0((SpreadsheetFormatRequest) other);
     }
 
-    private boolean equals0(final FormatRequest other) {
+    private boolean equals0(final SpreadsheetFormatRequest other) {
         return this.value.equals(other.value) &&
                 this.pattern.equals(other.pattern);
     }
@@ -90,8 +90,8 @@ public final class FormatRequest {
                 .set(PATTERN_PROPERTY, context.marshallWithType(this.pattern));
     }
 
-    static FormatRequest unmarshall(final JsonNode node,
-                                    final JsonNodeUnmarshallContext context) {
+    static SpreadsheetFormatRequest unmarshall(final JsonNode node,
+                                               final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         Object value = null;
@@ -123,10 +123,10 @@ public final class FormatRequest {
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(FormatRequest.class),
-                FormatRequest::unmarshall,
-                FormatRequest::marshall,
-                FormatRequest.class
+                JsonNodeContext.computeTypeName(SpreadsheetFormatRequest.class),
+                SpreadsheetFormatRequest::unmarshall,
+                SpreadsheetFormatRequest::marshall,
+                SpreadsheetFormatRequest.class
         );
     }
 

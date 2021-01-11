@@ -31,11 +31,11 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormatRequest> implements JsonNodeMarshallingTesting<MultiFormatRequest> {
+public final class SpreadsheetMultiFormatRequestTest extends SpreadsheetFormatterTestCase2<SpreadsheetMultiFormatRequest> implements JsonNodeMarshallingTesting<SpreadsheetMultiFormatRequest> {
 
     @Test
     public void testWithNullRequests() {
-        assertThrows(NullPointerException.class, () -> MultiFormatRequest.with(null));
+        assertThrows(NullPointerException.class, () -> SpreadsheetMultiFormatRequest.with(null));
     }
 
     // Json..............................................................................................................
@@ -43,13 +43,13 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     @Test
     public void testJsonRoundtrip2() {
         this.marshallRoundTripTwiceAndCheck(
-                MultiFormatRequest.with(
+                SpreadsheetMultiFormatRequest.with(
                         Lists.of(
-                                FormatRequest.with(LocalDate.of(2000, 1, 2),
+                                SpreadsheetFormatRequest.with(LocalDate.of(2000, 1, 2),
                                         SpreadsheetFormatPattern.parseDateFormatPattern("dd/mm/yyyy")),
-                                FormatRequest.with(LocalDateTime.of(2000, 1, 2, 12, 58, 59),
+                                SpreadsheetFormatRequest.with(LocalDateTime.of(2000, 1, 2, 12, 58, 59),
                                         SpreadsheetFormatPattern.parseDateTimeFormatPattern("dd/mm/yyyy hh:mm")),
-                                FormatRequest.with(LocalTime.of(12, 58, 59),
+                                SpreadsheetFormatRequest.with(LocalTime.of(12, 58, 59),
                                         SpreadsheetFormatPattern.parseTimeFormatPattern("hh:mm"))
                         )
                 )
@@ -60,9 +60,9 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
 
     @Test
     public void testDifferentRequests() {
-        this.checkNotEquals(MultiFormatRequest.with(
+        this.checkNotEquals(SpreadsheetMultiFormatRequest.with(
                 Lists.of(
-                        FormatRequest.with(LocalDate.of(2000, 1, 2),
+                        SpreadsheetFormatRequest.with(LocalDate.of(2000, 1, 2),
                                 SpreadsheetFormatPattern.parseDateFormatPattern("dd/mm/yyyy")))
                 )
         );
@@ -74,12 +74,12 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     }
 
     @Override
-    public MultiFormatRequest createObject() {
-        return MultiFormatRequest.with(Lists.of(this.request()));
+    public SpreadsheetMultiFormatRequest createObject() {
+        return SpreadsheetMultiFormatRequest.with(Lists.of(this.request()));
     }
 
-    private FormatRequest request() {
-        return FormatRequest.with(
+    private SpreadsheetFormatRequest request() {
+        return SpreadsheetFormatRequest.with(
                 LocalDate.of(1999, 12, 31),
                 SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/mm/dd")
         );
@@ -88,15 +88,15 @@ public final class MultiFormatRequestTest extends FormatterTestCase2<MultiFormat
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<MultiFormatRequest> type() {
-        return MultiFormatRequest.class;
+    public Class<SpreadsheetMultiFormatRequest> type() {
+        return SpreadsheetMultiFormatRequest.class;
     }
 
     // Json.............................................................................................................
 
     @Override
-    public MultiFormatRequest unmarshall(final JsonNode node,
-                                         final JsonNodeUnmarshallContext context) {
-        return MultiFormatRequest.unmarshall(node, context);
+    public SpreadsheetMultiFormatRequest unmarshall(final JsonNode node,
+                                                    final JsonNodeUnmarshallContext context) {
+        return SpreadsheetMultiFormatRequest.unmarshall(node, context);
     }
 }
