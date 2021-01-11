@@ -78,10 +78,12 @@ public final class MultiFormatRequest {
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-multi-format-request",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(MultiFormatRequest.class),
                 MultiFormatRequest::unmarshall,
                 MultiFormatRequest::marshall,
-                MultiFormatRequest.class);
+                MultiFormatRequest.class
+        );
     }
 
     // for JsonNodeContext.register to happen

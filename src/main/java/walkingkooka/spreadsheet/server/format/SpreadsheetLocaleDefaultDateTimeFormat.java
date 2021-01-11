@@ -71,10 +71,12 @@ public final class SpreadsheetLocaleDefaultDateTimeFormat {
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-locale-default-date-time-format",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(SpreadsheetLocaleDefaultDateTimeFormat.class),
                 SpreadsheetLocaleDefaultDateTimeFormat::unmarshall,
                 SpreadsheetLocaleDefaultDateTimeFormat::marshall,
-                SpreadsheetLocaleDefaultDateTimeFormat.class);
+                SpreadsheetLocaleDefaultDateTimeFormat.class
+        );
     }
 
     static void init() {

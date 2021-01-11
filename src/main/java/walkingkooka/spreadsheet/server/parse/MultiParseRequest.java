@@ -78,10 +78,12 @@ public final class MultiParseRequest {
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-multi-parse-request",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(MultiParseRequest.class),
                 MultiParseRequest::unmarshall,
                 MultiParseRequest::marshall,
-                MultiParseRequest.class);
+                MultiParseRequest.class
+        );
     }
 
     static void init() {

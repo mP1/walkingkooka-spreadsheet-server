@@ -123,10 +123,12 @@ public final class ParseRequest {
     }
 
     static {
-        JsonNodeContext.register("spreadsheet-parse-request",
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(ParseRequest.class),
                 ParseRequest::unmarshall,
                 ParseRequest::marshall,
-                ParseRequest.class);
+                ParseRequest.class
+        );
     }
 
     static void init() {
