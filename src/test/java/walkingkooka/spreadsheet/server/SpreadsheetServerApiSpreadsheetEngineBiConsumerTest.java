@@ -39,6 +39,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -49,9 +50,9 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.format.SpreadsheetFormatRequest;
+import walkingkooka.spreadsheet.server.format.SpreadsheetLocaleDefaultDateTimeFormat;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
-import walkingkooka.spreadsheet.server.format.SpreadsheetLocaleDefaultDateTimeFormat;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetParseRequest;
@@ -252,13 +253,14 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
         final LocalDateTime now = LocalDateTime.now();;
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+                .loadFromLocale()
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                 .set(SpreadsheetMetadataPropertyName.CREATOR, user)
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .loadFromLocale();
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"));
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(metadata);
