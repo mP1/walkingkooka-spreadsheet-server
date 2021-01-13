@@ -69,7 +69,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.UnknownFunctionException;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -723,7 +723,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         this.checkSpreadsheetId(spreadsheetId);
 
         return (f) -> {
-            throw new UnknownFunctionException(f);
+            throw new UnknownExpressionFunctionException(f);
         };
     }
 

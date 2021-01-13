@@ -68,7 +68,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.UnknownFunctionException;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
 import java.util.Optional;
@@ -135,7 +135,7 @@ public final class Sample {
 
     private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
         return (n) -> {
-            throw new UnknownFunctionException(n);
+            throw new UnknownExpressionFunctionException(n);
         };
     }
 
