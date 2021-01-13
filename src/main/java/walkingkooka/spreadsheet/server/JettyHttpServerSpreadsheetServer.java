@@ -55,7 +55,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.UnknownFunctionException;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -202,7 +202,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      */
     private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
         return (n) -> {
-            throw new UnknownFunctionException(n);
+            throw new UnknownExpressionFunctionException(n);
         };
     }
 

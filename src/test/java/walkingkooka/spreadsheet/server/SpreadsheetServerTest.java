@@ -76,7 +76,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.UnknownFunctionException;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.io.InputStream;
@@ -771,7 +771,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
      */
     private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
         return (n) -> {
-            throw new UnknownFunctionException(n);
+            throw new UnknownExpressionFunctionException(n);
         };
     }
 
