@@ -106,13 +106,3 @@ All input and output is always a SpreadsheetDelta in JSON form, where necessary.
 - GET     /api/spreadsheet/$spreadsheet-id/viewport/A1:150:25
 
 
-
-## Getting the source
-
-You can either download the source using the "ZIP" button at the top
-of the github page, or you can make a clone using git:
-
-```
-git clone git://github.com/mP1/walkingkooka-spreadsheet-server.git
-```
- 
