@@ -217,7 +217,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
 
-        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(expressionNumberKind,
+        final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
                 functions,
                 engine,
                 labelStore,
@@ -230,7 +231,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 nameToColor,
                 width,
                 fractioner,
-                defaultSpreadsheetFormatter);
+                defaultSpreadsheetFormatter
+        );
 
         return SpreadsheetEngineHateosHandlers.engineRouter(this.baseWithSpreadsheetId(id),
                 this.contentType,
