@@ -226,7 +226,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"1\",\n" +
                                 "                \"text\": \"1\"\n" +
@@ -238,7 +238,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "                \"text\": \"+\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"2\",\n" +
                                 "                \"text\": \"2\"\n" +
@@ -304,7 +304,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"1\",\n" +
                                 "                \"text\": \"1\"\n" +
@@ -316,7 +316,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "                \"text\": \"+\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"2\",\n" +
                                 "                \"text\": \"2\"\n" +
@@ -369,7 +369,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"4\",\n" +
                                 "                \"text\": \"4\"\n" +
@@ -461,7 +461,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"1\",\n" +
                                 "                \"text\": \"1\"\n" +
@@ -473,7 +473,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "                \"text\": \"+\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"2\",\n" +
                                 "                \"text\": \"2\"\n" +
@@ -535,7 +535,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"3\",\n" +
                                 "                \"text\": \"3\"\n" +
@@ -547,7 +547,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "                \"text\": \"+\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"4\",\n" +
                                 "                \"text\": \"4\"\n" +
@@ -601,7 +601,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                                 "          \"value\": {\n" +
                                 "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
                                 "                \"value\": \"4\",\n" +
                                 "                \"text\": \"4\"\n" +
