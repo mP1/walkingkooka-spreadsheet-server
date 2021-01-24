@@ -315,7 +315,8 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                    final SpreadsheetMetadata metadata,
                                                    final SpreadsheetLabelStore labelStore,
                                                    final SpreadsheetEngine engine) {
-        return SpreadsheetEngineContexts.basic(metadata.expressionNumberKind(),
+        return SpreadsheetEngineContexts.basic(
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
                 this.idToFunctions.apply(id),
                 engine,
                 labelStore,
