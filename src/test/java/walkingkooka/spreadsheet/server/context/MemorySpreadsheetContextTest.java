@@ -214,7 +214,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"1\",\n" +
                         "                \"text\": \"1\"\n" +
@@ -226,7 +226,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "                \"text\": \"+\"\n" +
                         "              }\n" +
                         "            }, {\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"2\",\n" +
                         "                \"text\": \"2\"\n" +
@@ -269,7 +269,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"1\",\n" +
                         "                \"text\": \"1\"\n" +
@@ -281,7 +281,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "                \"text\": \"+\"\n" +
                         "              }\n" +
                         "            }, {\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"2\",\n" +
                         "                \"text\": \"2\"\n" +
@@ -332,7 +332,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"1\",\n" +
                         "                \"text\": \"1\"\n" +
@@ -344,7 +344,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "                \"text\": \"+\"\n" +
                         "              }\n" +
                         "            }, {\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"2\",\n" +
                         "                \"text\": \"2\"\n" +
@@ -395,7 +395,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"1\",\n" +
                         "                \"text\": \"1\"\n" +
@@ -407,7 +407,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "                \"text\": \"+\"\n" +
                         "              }\n" +
                         "            }, {\n" +
-                        "              \"type\": \"spreadsheet-expression-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": \"2\",\n" +
                         "                \"text\": \"2\"\n" +
