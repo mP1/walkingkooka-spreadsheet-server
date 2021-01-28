@@ -219,6 +219,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 functions,
                 engine,
                 labelStore,

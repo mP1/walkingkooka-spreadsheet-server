@@ -85,6 +85,7 @@ public final class Sample {
     }
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+    private final static char VALUE_SEPARATOR = ',';
 
     public void testWithCellReference() {
         final SpreadsheetCellStore cellStore = cellStore();
@@ -165,7 +166,7 @@ public final class Sample {
             public SpreadsheetParserToken parseFormula(final String formula) {
                 return Cast.to(SpreadsheetParsers.expression()
                         .orFailIfCursorNotEmpty(ParserReporters.basic())
-                        .parse(TextCursors.charSequence(formula), SpreadsheetParserContexts.basic(DateTimeContexts.fake(), converterContext(), EXPRESSION_NUMBER_KIND))
+                        .parse(TextCursors.charSequence(formula), SpreadsheetParserContexts.basic(DateTimeContexts.fake(), converterContext(), EXPRESSION_NUMBER_KIND, VALUE_SEPARATOR))
                         .get());
             }
 
