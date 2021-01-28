@@ -55,9 +55,9 @@ import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHand
 import walkingkooka.spreadsheet.server.format.Formatters;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
+import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
-import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -317,6 +317,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
                                                    final SpreadsheetEngine engine) {
         return SpreadsheetEngineContexts.basic(
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 this.idToFunctions.apply(id),
                 engine,
                 labelStore,

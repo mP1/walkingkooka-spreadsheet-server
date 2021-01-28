@@ -228,7 +228,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"1\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"1\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
@@ -240,7 +246,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"2\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"2\",\n" +
+                                "                    \"text\": \"2\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"2\"\n" +
                                 "              }\n" +
                                 "            }],\n" +
@@ -306,7 +318,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"1\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"1\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
@@ -318,7 +336,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"2\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"2\",\n" +
+                                "                    \"text\": \"2\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"2\"\n" +
                                 "              }\n" +
                                 "            }],\n" +
@@ -371,7 +395,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"4\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"4\",\n" +
+                                "                    \"text\": \"4\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"4\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
@@ -463,7 +493,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"1\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"1\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
@@ -475,7 +511,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"2\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"2\",\n" +
+                                "                    \"text\": \"2\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"2\"\n" +
                                 "              }\n" +
                                 "            }],\n" +
@@ -537,7 +579,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"3\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"3\",\n" +
+                                "                    \"text\": \"3\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"3\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
@@ -549,7 +597,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"4\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"4\",\n" +
+                                "                    \"text\": \"4\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"4\"\n" +
                                 "              }\n" +
                                 "            }],\n" +
@@ -603,7 +657,13 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                 "            \"value\": [{\n" +
                                 "              \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \"4\",\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"4\",\n" +
+                                "                    \"text\": \"4\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
                                 "                \"text\": \"4\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
