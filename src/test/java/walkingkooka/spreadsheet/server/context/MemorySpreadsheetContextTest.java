@@ -204,47 +204,60 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
     @Test
     public void testHateosRouterThenSaveThenLoadClearValueErrorSkipEvaluate() {
-        this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE,
+        this.hateosRouterThenSaveThenLoadAndCheck(
+                SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE,
                 "{\n" +
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"1+2\",\n" +
+                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"1\",\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"1\",\n" +
+                        "                        \"text\": \"1\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"1\"\n" +
                         "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"+\",\n" +
-                        "                \"text\": \"+\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"2\",\n" +
+                        "                    \"value\": \"+\",\n" +
+                        "                    \"text\": \"+\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"2\",\n" +
+                        "                        \"text\": \"2\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"2\"\n" +
                         "                  }\n" +
                         "                }],\n" +
-                        "                \"text\": \"2\"\n" +
+                        "                \"text\": \"1+2\"\n" +
                         "              }\n" +
                         "            }],\n" +
-                        "            \"text\": \"1+2\"\n" +
+                        "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
@@ -266,52 +279,66 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "  \"maxRowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  }\n" +
-                        "}");
+                        "}"
+        );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadComputeIfNecessary() {
-        this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+        this.hateosRouterThenSaveThenLoadAndCheck(
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 "{\n" +
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"1+2\",\n" +
+                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"1\",\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"1\",\n" +
+                        "                        \"text\": \"1\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"1\"\n" +
                         "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"+\",\n" +
-                        "                \"text\": \"+\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"2\",\n" +
+                        "                    \"value\": \"+\",\n" +
+                        "                    \"text\": \"+\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"2\",\n" +
+                        "                        \"text\": \"2\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"2\"\n" +
                         "                  }\n" +
                         "                }],\n" +
-                        "                \"text\": \"2\"\n" +
+                        "                \"text\": \"1+2\"\n" +
                         "              }\n" +
                         "            }],\n" +
-                        "            \"text\": \"1+2\"\n" +
+                        "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
@@ -341,52 +368,66 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "  \"maxRowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  }\n" +
-                        "}");
+                        "}"
+        );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadForceRecompute() {
-        this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
+        this.hateosRouterThenSaveThenLoadAndCheck(
+                SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
                 "{\n" +
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"1+2\",\n" +
+                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"1\",\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"1\",\n" +
+                        "                        \"text\": \"1\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"1\"\n" +
                         "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"+\",\n" +
-                        "                \"text\": \"+\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"2\",\n" +
+                        "                    \"value\": \"+\",\n" +
+                        "                    \"text\": \"+\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"2\",\n" +
+                        "                        \"text\": \"2\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"2\"\n" +
                         "                  }\n" +
                         "                }],\n" +
-                        "                \"text\": \"2\"\n" +
+                        "                \"text\": \"1+2\"\n" +
                         "              }\n" +
                         "            }],\n" +
-                        "            \"text\": \"1+2\"\n" +
+                        "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
@@ -416,52 +457,66 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "  \"maxRowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  }\n" +
-                        "}");
+                        "}"
+        );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadSkipEvaluate() {
-        this.hateosRouterThenSaveThenLoadAndCheck(SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+        this.hateosRouterThenSaveThenLoadAndCheck(
+                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 "{\n" +
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"1+2\",\n" +
+                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
                         "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
                         "              \"value\": {\n" +
                         "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"1\",\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"1\",\n" +
+                        "                        \"text\": \"1\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"1\"\n" +
                         "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"+\",\n" +
-                        "                \"text\": \"+\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                  \"value\": {\n" +
-                        "                    \"value\": \"2\",\n" +
+                        "                    \"value\": \"+\",\n" +
+                        "                    \"text\": \"+\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": [{\n" +
+                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": \"2\",\n" +
+                        "                        \"text\": \"2\"\n" +
+                        "                      }\n" +
+                        "                    }],\n" +
                         "                    \"text\": \"2\"\n" +
                         "                  }\n" +
                         "                }],\n" +
-                        "                \"text\": \"2\"\n" +
+                        "                \"text\": \"1+2\"\n" +
                         "              }\n" +
                         "            }],\n" +
-                        "            \"text\": \"1+2\"\n" +
+                        "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
@@ -491,7 +546,8 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "  \"maxRowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  }\n" +
-                        "}");
+                        "}"
+        );
     }
 
     private void hateosRouterThenSaveThenLoadAndCheck(final SpreadsheetEngineEvaluation evaluation,
@@ -501,7 +557,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.hateosRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetExpressionReference.parseCellReference("B2");
-        final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("1+2"));
+        final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("=1+2"));
         final Charset utf8 = StandardCharsets.UTF_8;
 
         // save a cell
