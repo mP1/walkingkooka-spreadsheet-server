@@ -78,8 +78,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -558,7 +556,6 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
         final SpreadsheetCellReference cellReference = SpreadsheetExpressionReference.parseCellReference("B2");
         final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("=1+2"));
-        final Charset utf8 = StandardCharsets.UTF_8;
 
         // save a cell
         {
