@@ -477,6 +477,65 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     @Test
+    public void testCreateSpreadsheetSaveCellTime() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "12:34",
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"12:34\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-time-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-hour-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 12,\n" +
+                        "                \"text\": \"12\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \":\",\n" +
+                        "                \"text\": \":\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-minute-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 34,\n" +
+                        "                \"text\": \"34\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"12:34\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"local-time-expression\",\n" +
+                        "          \"value\": \"12:34\"\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-time\",\n" +
+                        "          \"value\": \"12:34\"\n" +
+                        "        }\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"maxColumnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"maxRowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
     public void testCreateSpreadsheetSaveCellExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
