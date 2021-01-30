@@ -521,7 +521,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                         "      },\n" +
                         "      \"formatted\": {\n" +
                         "        \"type\": \"text\",\n" +
-                        "        \"value\": \"\"\n" +
+                        "        \"value\": \"Time 12:34\"\n" +
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +

@@ -69,7 +69,7 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                 ),
                 SpreadsheetMultiFormatResponse.with(
                         Lists.of(
-                                illegalArgumentException("Invalid pattern \"unknown2 ???\"")
+                                exception("Invalid pattern \"unknown2 ???\"")
                         )
                 )
         );
@@ -146,14 +146,17 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                 ),
                 SpreadsheetMultiFormatResponse.with(
                         Lists.of(
-                                illegalArgumentException("Unable to format 1")
+                                exception("Failed to convert 1 (java.math.BigDecimal) to java.time.LocalDateTime")
                         )
                 )
         );
     }
 
-    private static IllegalArgumentException illegalArgumentException(final String message) {
-        return new IllegalArgumentException(message) {
+    /**
+     * This {@link Exception} is equal to any exception with an equal message.
+     */
+    private static Exception exception(final String message) {
+        return new Exception(message) {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -163,10 +166,10 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
 
             @Override
             public boolean equals(final Object other) {
-                return this == other || other instanceof IllegalArgumentException && this.equals0((IllegalArgumentException) other);
+                return this == other || other instanceof Exception && this.equals0((Exception) other);
             }
 
-            private boolean equals0(final IllegalArgumentException other) {
+            private boolean equals0(final Exception other) {
                 return this.getMessage().equals(other.getMessage());
             }
         };
