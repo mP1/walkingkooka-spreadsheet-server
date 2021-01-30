@@ -323,6 +323,101 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     @Test
+    public void testCreateSpreadsheetSaveCellDateTime() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "2000/12/31 12:34",
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"2000/12/31 12:34\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-date-time-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-year-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 2000,\n" +
+                        "                \"text\": \"2000\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"/\",\n" +
+                        "                \"text\": \"/\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-month-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 12,\n" +
+                        "                \"text\": \"12\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"/\",\n" +
+                        "                \"text\": \"/\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-day-number-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 31,\n" +
+                        "                \"text\": \"31\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \" \",\n" +
+                        "                \"text\": \" \"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-hour-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 12,\n" +
+                        "                \"text\": \"12\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \":\",\n" +
+                        "                \"text\": \":\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-minute-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": 34,\n" +
+                        "                \"text\": \"34\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"2000/12/31 12:34\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"local-date-time-expression\",\n" +
+                        "          \"value\": \"2000-12-31T12:34\"\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"local-date-time\",\n" +
+                        "          \"value\": \"2000-12-31T12:34\"\n" +
+                        "        }\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"DateTime 2000/12/31 12:34\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"maxColumnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"maxRowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
     public void testCreateSpreadsheetSaveCellExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
