@@ -418,6 +418,65 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     @Test
+    public void testCreateSpreadsheetSaveCellNumber() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "123.456",
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"123.456\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"123\",\n" +
+                        "                \"text\": \"123\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \".\",\n" +
+                        "                \"text\": \".\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"456\",\n" +
+                        "                \"text\": \"456\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"123.456\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"expression-number-expression\",\n" +
+                        "          \"value\": \"123.456\"\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"123.456\"\n" +
+                        "        }\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Number 123.456\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"maxColumnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"maxRowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
     public void testCreateSpreadsheetSaveCellExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
@@ -1177,7 +1236,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                 .set(SpreadsheetMetadataPropertyName.DATETIME_FORMAT_PATTERN, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy/mm/dd hh:mm"))
                 .set(SpreadsheetMetadataPropertyName.DATETIME_PARSE_PATTERNS, SpreadsheetPattern.parseDateTimeParsePatterns("yyyy/mm/dd hh:mm"))
                 .set(SpreadsheetMetadataPropertyName.NUMBER_FORMAT_PATTERN, SpreadsheetPattern.parseNumberFormatPattern("\"Number\" 000.000"))
-                .set(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS, SpreadsheetPattern.parseNumberParsePatterns("\"Number\" 000.000"))
+                .set(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS, SpreadsheetPattern.parseNumberParsePatterns("000.000"))
                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @"))
                 .set(SpreadsheetMetadataPropertyName.TIME_FORMAT_PATTERN, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" hh:mm"))
                 .set(SpreadsheetMetadataPropertyName.TIME_PARSE_PATTERNS, SpreadsheetPattern.parseTimeParsePatterns("hh:mm"));
