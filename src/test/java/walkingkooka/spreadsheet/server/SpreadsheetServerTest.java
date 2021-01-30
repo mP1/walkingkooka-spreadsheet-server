@@ -252,6 +252,74 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     @Test
+    public void testCreateSpreadsheetSaveCellExpressionString() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "=\"Hello 123\"",
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": [{\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"Hello 123\",\n" +
+                        "                    \"text\": \"Hello 123\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }],\n" +
+                        "                \"text\": \"\\\"Hello 123\\\"\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"=\\\"Hello 123\\\"\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"string-expression\",\n" +
+                        "          \"value\": \"Hello 123\"\n" +
+                        "        },\n" +
+                        "        \"value\": \"Hello 123\"\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Text Hello 123\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"maxColumnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"maxRowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
     public void testCreateSpreadsheetSaveCellExpressionNumber() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=1+2",
