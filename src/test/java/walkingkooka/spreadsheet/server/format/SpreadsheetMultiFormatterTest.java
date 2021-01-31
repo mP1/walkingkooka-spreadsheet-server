@@ -188,7 +188,14 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                                         1,
                                         SpreadsheetFormatters.fake(),
                                         ExpressionNumberConverterContexts.basic(Converters.collection(Lists.of(Converters.simple(), Converters.localDateLocalDateTime())),
-                                                ConverterContexts.basic(Converters.fake(), DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                                                ConverterContexts.basic(
+                                                        Converters.fake(),
+                                                        DateTimeContexts.locale(
+                                                                Locale.ENGLISH,
+                                                                1900,
+                                                                20),
+                                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                                ),
                                                 ExpressionNumberKind.DOUBLE
                                         )
                                 ));

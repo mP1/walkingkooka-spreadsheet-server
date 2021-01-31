@@ -130,7 +130,11 @@ public class JunitTest {
     }
 
     private static DateTimeContext dateTimeContext() {
-        return DateTimeContexts.locale(decimalNumberContext().locale(), 50);
+        return DateTimeContexts.locale(
+                decimalNumberContext().locale(),
+                1900,
+                50
+        );
     }
 
     private static DecimalNumberContext decimalNumberContext() {
