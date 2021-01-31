@@ -849,6 +849,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .loadFromLocale()
                     .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "C")
+                    .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
