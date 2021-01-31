@@ -180,6 +180,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
                         SpreadsheetMetadata.EMPTY
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
                                 .loadFromLocale()
+                                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
                                 .set(SpreadsheetMetadataPropertyName.PRECISION, MathContext.DECIMAL32.getPrecision())
                                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
