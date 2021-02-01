@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Either;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.convert.Converters;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
@@ -180,6 +181,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
                         SpreadsheetMetadata.EMPTY
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
                                 .loadFromLocale()
+                                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.EXCEL_1900_DATE_SYSTEM_OFFSET)
                                 .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
                                 .set(SpreadsheetMetadataPropertyName.PRECISION, MathContext.DECIMAL32.getPrecision())
