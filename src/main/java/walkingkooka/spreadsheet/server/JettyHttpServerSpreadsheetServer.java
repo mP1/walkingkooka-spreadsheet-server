@@ -185,6 +185,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
                                 .set(SpreadsheetMetadataPropertyName.PRECISION, MathContext.DECIMAL32.getPrecision())
                                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"))
+                                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
                 );
     }
 
