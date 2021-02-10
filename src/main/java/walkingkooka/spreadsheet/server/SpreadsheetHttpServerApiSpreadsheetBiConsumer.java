@@ -41,20 +41,20 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
- * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetServerApiSpreadsheetEngineBiConsumer}.
+ * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer}.
  */
-final class SpreadsheetServerApiSpreadsheetBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
-     * Creates a new {@link SpreadsheetServerApiSpreadsheetBiConsumer} handler.
+     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetBiConsumer} handler.
      */
-    static SpreadsheetServerApiSpreadsheetBiConsumer with(final AbsoluteUrl baseUrl,
-                                                          final HateosContentType contentTypeJson,
-                                                          final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                          final Function<BigDecimal, Fraction> fractioner,
-                                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
-                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
-        return new SpreadsheetServerApiSpreadsheetBiConsumer(baseUrl,
+    static SpreadsheetHttpServerApiSpreadsheetBiConsumer with(final AbsoluteUrl baseUrl,
+                                                              final HateosContentType contentTypeJson,
+                                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                              final Function<BigDecimal, Fraction> fractioner,
+                                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
+                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
+        return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(baseUrl,
                 contentTypeJson,
                 createMetadata,
                 fractioner,
@@ -65,12 +65,12 @@ final class SpreadsheetServerApiSpreadsheetBiConsumer implements BiConsumer<Http
     /**
      * Private ctor
      */
-    private SpreadsheetServerApiSpreadsheetBiConsumer(final AbsoluteUrl baseUrl,
-                                                      final HateosContentType contentTypeJson,
-                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                      final Function<BigDecimal, Fraction> fractioner,
-                                                      final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
-                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
+    private SpreadsheetHttpServerApiSpreadsheetBiConsumer(final AbsoluteUrl baseUrl,
+                                                          final HateosContentType contentTypeJson,
+                                                          final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                          final Function<BigDecimal, Fraction> fractioner,
+                                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
+                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
         super();
 
         this.baseUrl = baseUrl;
@@ -101,7 +101,7 @@ final class SpreadsheetServerApiSpreadsheetBiConsumer implements BiConsumer<Http
                        final HttpResponse response) {
         this.contextRouter
                 .route(request.routerParameters())
-                .orElse(SpreadsheetServer::notFound)
+                .orElse(SpreadsheetHttpServer::notFound)
                 .accept(request, response);
     }
 

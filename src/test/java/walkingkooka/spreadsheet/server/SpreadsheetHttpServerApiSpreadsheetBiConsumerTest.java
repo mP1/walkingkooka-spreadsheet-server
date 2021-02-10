@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public final class SpreadsheetServerApiSpreadsheetBiConsumerTest extends SpreadsheetServerTestCase2<SpreadsheetServerApiSpreadsheetBiConsumer> {
+public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetBiConsumer> {
 
     // toString.........................................................................................................
 
@@ -48,8 +48,8 @@ public final class SpreadsheetServerApiSpreadsheetBiConsumerTest extends Spreads
 
     // helper...........................................................................................................
 
-    private SpreadsheetServerApiSpreadsheetBiConsumer handler() {
-        return SpreadsheetServerApiSpreadsheetBiConsumer.with(this.baseUrl(),
+    private SpreadsheetHttpServerApiSpreadsheetBiConsumer handler() {
+        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(this.baseUrl(),
                 HateosContentType.json(JsonNodeUnmarshallContexts.fake(), JsonNodeMarshallContexts.fake()),
                 this::defaultMetadata,
                 this::fractioner,
@@ -80,15 +80,15 @@ public final class SpreadsheetServerApiSpreadsheetBiConsumerTest extends Spreads
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetServerApiSpreadsheetBiConsumer> type() {
-        return SpreadsheetServerApiSpreadsheetBiConsumer.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetBiConsumer> type() {
+        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return SpreadsheetServer.class.getSimpleName();
+        return SpreadsheetHttpServer.class.getSimpleName();
     }
 
     @Override

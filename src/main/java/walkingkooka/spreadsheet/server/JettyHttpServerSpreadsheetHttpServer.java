@@ -73,9 +73,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Creates a {@link SpreadsheetServer} with memory stores using a Jetty server using the scheme/host/port from cmd line arguments.
+ * Creates a {@link SpreadsheetHttpServer} with memory stores using a Jetty server using the scheme/host/port from cmd line arguments.
  */
-public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelper {
+public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticHelper {
 
     /**
      * Starts a server on the scheme/host/port passed as arguments, serving files from the current directory.
@@ -120,7 +120,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-        final SpreadsheetServer server = SpreadsheetServer.with(scheme,
+        final SpreadsheetHttpServer server = SpreadsheetHttpServer.with(scheme,
                 host,
                 port,
                 createMetadata(metadataStore),
@@ -137,11 +137,11 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
      */
     private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
         // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/134
-        // JettyHttpServerSpreadsheetServer: retrieve user from context when creating initial SpreadsheetMetadata
+        // JettyHttpServerSpreadsheetHttpServer: retrieve user from context when creating initial SpreadsheetMetadata
         final EmailAddress user = EmailAddress.parse("user123@example.com");
 
         // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/136
-        // JettyHttpServerSpreadsheetServer: Accept default Locale parameter
+        // JettyHttpServerSpreadsheetHttpServer: Accept default Locale parameter
         final Locale defaultLocale = Locale.forLanguageTag("EN-AU");
 
         // if a Locale is given load a Metadata with those defaults.
@@ -199,7 +199,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
     }
 
     private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
-        return (id) -> JettyHttpServerSpreadsheetServer.functions(id);
+        return (id) -> JettyHttpServerSpreadsheetHttpServer.functions(id);
     }
 
     /**
@@ -269,7 +269,7 @@ public final class JettyHttpServerSpreadsheetServer implements PublicStaticHelpe
         return (handler) -> JettyHttpServer.with(host, port, handler);
     }
 
-    private JettyHttpServerSpreadsheetServer() {
+    private JettyHttpServerSpreadsheetHttpServer() {
         throw new UnsupportedOperationException();
     }
 }

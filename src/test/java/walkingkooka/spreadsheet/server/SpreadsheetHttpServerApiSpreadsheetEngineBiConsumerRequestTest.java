@@ -20,12 +20,12 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.FakeHttpRequest;
 
-public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequestTest extends SpreadsheetServerTestCase2<SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequestTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest> {
 
     @Test
     public void testToString() {
         final String toString = "Request 123";
-        this.toStringAndCheck(SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest.with(new FakeHttpRequest() {
+        this.toStringAndCheck(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.with(new FakeHttpRequest() {
                                                                                               @Override
                                                                                               public String toString() {
                                                                                                   return toString;
@@ -39,15 +39,15 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequestTest ex
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest> type() {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest> type() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
     }
 
     @Override
