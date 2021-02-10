@@ -64,7 +64,7 @@ import java.util.function.Function;
 /**
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
  */
-public final class SpreadsheetServer implements HttpServer {
+public final class SpreadsheetHttpServer implements HttpServer {
 
     /**
      * This header contains the client transaction-id and is used to map responses with the original requests.
@@ -73,18 +73,18 @@ public final class SpreadsheetServer implements HttpServer {
             .stringValues();
 
     /**
-     * Creates a new {@link SpreadsheetServer} using the config and the functions to create the actual {@link HttpServer}.
+     * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
-    public static SpreadsheetServer with(final UrlScheme scheme,
-                                         final HostAddress host,
-                                         final IpPort port,
-                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                         final Function<BigDecimal, Fraction> fractioner,
-                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                         final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                         final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
-        return new SpreadsheetServer(scheme,
+    public static SpreadsheetHttpServer with(final UrlScheme scheme,
+                                             final HostAddress host,
+                                             final IpPort port,
+                                             final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                             final Function<BigDecimal, Fraction> fractioner,
+                                             final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                             final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                             final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                                             final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
+        return new SpreadsheetHttpServer(scheme,
                 host,
                 port,
                 createMetadata,
@@ -106,15 +106,15 @@ public final class SpreadsheetServer implements HttpServer {
     /**
      * Private ctor use factory.
      */
-    private SpreadsheetServer(final UrlScheme scheme,
-                              final HostAddress host,
-                              final IpPort port,
-                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                              final Function<BigDecimal, Fraction> fractioner,
-                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                              final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
+    private SpreadsheetHttpServer(final UrlScheme scheme,
+                                  final HostAddress host,
+                                  final IpPort port,
+                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                  final Function<BigDecimal, Fraction> fractioner,
+                                  final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                  final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                                  final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
         super();
 
         this.contentTypeJson = HateosContentType.json(
@@ -156,7 +156,7 @@ public final class SpreadsheetServer implements HttpServer {
      */
     private void handler(final HttpRequest request, final HttpResponse response) {
         this.router.route(request.routerParameters())
-                .orElse(SpreadsheetServer::notFound)
+                .orElse(SpreadsheetHttpServer::notFound)
                 .accept(request, response);
     }
 
@@ -176,7 +176,7 @@ public final class SpreadsheetServer implements HttpServer {
     }
 
     private BiConsumer<HttpRequest, HttpResponse> spreadsheetHandler(final AbsoluteUrl api) {
-        return SpreadsheetServerApiSpreadsheetBiConsumer.with(api,
+        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(api,
                 this.contentTypeJson,
                 this.createMetadata,
                 this.fractioner,
@@ -194,7 +194,7 @@ public final class SpreadsheetServer implements HttpServer {
     }
 
     private BiConsumer<HttpRequest, HttpResponse> spreadsheetEngineHandler(final AbsoluteUrl url) {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumer.with(url,
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(url,
                 this.contentTypeJson,
                 this.fractioner,
                 this.idToFunctions,

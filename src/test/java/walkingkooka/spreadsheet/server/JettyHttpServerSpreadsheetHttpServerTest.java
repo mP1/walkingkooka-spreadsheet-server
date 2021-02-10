@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class JettyHttpServerSpreadsheetServerTest implements PublicStaticHelperTesting<JettyHttpServerSpreadsheetServer> {
+public final class JettyHttpServerSpreadsheetHttpServerTest implements PublicStaticHelperTesting<JettyHttpServerSpreadsheetHttpServer> {
 
     @Test
     public void testPrepareInitialMetadataWithoutUserLocale() {
@@ -41,7 +41,7 @@ public final class JettyHttpServerSpreadsheetServerTest implements PublicStaticH
     }
 
     private void prepareInitialMetadataAndConverter(final Locale userLocale) {
-        final SpreadsheetMetadata metadata = JettyHttpServerSpreadsheetServer.prepareInitialMetadata(
+        final SpreadsheetMetadata metadata = JettyHttpServerSpreadsheetHttpServer.prepareInitialMetadata(
                 EmailAddress.parse("user@example.com"),
                 LocalDateTime.now(),
                 Optional.ofNullable(userLocale),
@@ -53,8 +53,8 @@ public final class JettyHttpServerSpreadsheetServerTest implements PublicStaticH
     // Class............................................................................................................
 
     @Override
-    public Class<JettyHttpServerSpreadsheetServer> type() {
-        return JettyHttpServerSpreadsheetServer.class;
+    public Class<JettyHttpServerSpreadsheetHttpServer> type() {
+        return JettyHttpServerSpreadsheetHttpServer.class;
     }
 
     @Override

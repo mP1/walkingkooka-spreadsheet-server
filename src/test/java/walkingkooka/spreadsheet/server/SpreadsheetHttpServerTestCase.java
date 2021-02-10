@@ -17,19 +17,12 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.ToStringTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.TypeNameTesting;
 
-public abstract class SpreadsheetServerTestCase2<T> extends SpreadsheetServerTestCase<T> implements ToStringTesting<T> {
+public abstract class SpreadsheetHttpServerTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
 
-    SpreadsheetServerTestCase2() {
+    SpreadsheetHttpServerTestCase() {
         super();
-    }
-
-    // ClassTesting.....................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

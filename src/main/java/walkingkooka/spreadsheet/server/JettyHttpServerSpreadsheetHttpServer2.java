@@ -17,12 +17,11 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.TypeNameTesting;
-
-public abstract class SpreadsheetServerTestCase<T> implements ClassTesting2<T>, TypeNameTesting<T> {
-
-    SpreadsheetServerTestCase() {
-        super();
+/**
+ * Runs {@link JettyHttpServerSpreadsheetHttpServer2#main} with some defaults.
+ */
+public final class JettyHttpServerSpreadsheetHttpServer2 {
+    public static void main(final String[] args) throws Exception {
+        JettyHttpServerSpreadsheetHttpServer.main(new String[]{"http", "localhost", "12345"});
     }
 }

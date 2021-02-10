@@ -71,18 +71,18 @@ import java.util.function.Function;
 /**
  * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
 
     /**
-     * Creates a new {@link SpreadsheetServerApiSpreadsheetEngineBiConsumer} handler.
+     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer} handler.
      */
-    static SpreadsheetServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
-                                                                final HateosContentType contentTypeJson,
-                                                                final Function<BigDecimal, Fraction> fractioner,
-                                                                final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                                final int spreadsheetIdPathComponent) {
-        return new SpreadsheetServerApiSpreadsheetEngineBiConsumer(base,
+    static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
+                                                                    final HateosContentType contentTypeJson,
+                                                                    final Function<BigDecimal, Fraction> fractioner,
+                                                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                    final int spreadsheetIdPathComponent) {
+        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(base,
                 contentTypeJson,
                 fractioner,
                 idToFunctions,
@@ -93,12 +93,12 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     /**
      * Private ctor
      */
-    private SpreadsheetServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
-                                                            final HateosContentType contentTypeJson,
-                                                            final Function<BigDecimal, Fraction> fractioner,
-                                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                            final int spreadsheetIdPathComponent) {
+    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
+                                                                final HateosContentType contentTypeJson,
+                                                                final Function<BigDecimal, Fraction> fractioner,
+                                                                final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                final int spreadsheetIdPathComponent) {
         super();
 
         this.baseUrl = base;
@@ -114,7 +114,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
     @Override
     public void accept(final HttpRequest request,
                        final HttpResponse response) {
-        SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest.with(request, response, this)
+        SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.with(request, response, this)
                 .handle();
     }
 
@@ -340,7 +340,7 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumer implements BiConsume
      */
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
 
-    // shared with SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest
+    // shared with SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest
     final int spreadsheetIdPathComponent;
 
     // toString.........................................................................................................

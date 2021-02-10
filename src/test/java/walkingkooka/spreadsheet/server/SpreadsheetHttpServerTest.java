@@ -97,7 +97,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<SpreadsheetServer> {
+public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
@@ -1244,7 +1244,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     // helpers..........................................................................................................
 
     private TestHttpServer startServer() {
-        SpreadsheetServer.with(UrlScheme.HTTP,
+        SpreadsheetHttpServer.with(UrlScheme.HTTP,
                 HostAddress.with("example.com"),
                 IpPort.HTTP,
                 createMetadata(this.createMetadata(), this.metadataStore),
@@ -1308,7 +1308,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     }
 
     private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
-        return (id) -> SpreadsheetServerTest.functions(id);
+        return (id) -> SpreadsheetHttpServerTest.functions(id);
     }
 
     /**
@@ -1599,7 +1599,7 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
                                   final String bodyTypeName) {
         return this.response(status,
                 HttpEntity.EMPTY
-                        .setHeader(SpreadsheetServer.TRANSACTION_ID, transactionId.map(Lists::of).orElse(Lists.empty()))
+                        .setHeader(SpreadsheetHttpServer.TRANSACTION_ID, transactionId.map(Lists::of).orElse(Lists.empty()))
                         .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8)
                         .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, bodyTypeName)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.value().length)
@@ -1620,8 +1620,8 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetServer> type() {
-        return SpreadsheetServer.class;
+    public Class<SpreadsheetHttpServer> type() {
+        return SpreadsheetHttpServer.class;
     }
 
     @Override

@@ -77,7 +77,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetServerTestCase2<SpreadsheetServerApiSpreadsheetEngineBiConsumer> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
 
     private final static String BASE_URL = "http://example.com/";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
@@ -226,8 +226,8 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
 
     // helpers..........................................................................................................
 
-    private SpreadsheetServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumer.with(Url.parseAbsolute(BASE_URL),
+    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(Url.parseAbsolute(BASE_URL),
                 HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
                 idToFunctions(),
@@ -284,15 +284,15 @@ public final class SpreadsheetServerApiSpreadsheetEngineBiConsumerTest extends S
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetServerApiSpreadsheetEngineBiConsumer> type() {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumer.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> type() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public final String typeNamePrefix() {
-        return SpreadsheetServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
     }
 
     @Override

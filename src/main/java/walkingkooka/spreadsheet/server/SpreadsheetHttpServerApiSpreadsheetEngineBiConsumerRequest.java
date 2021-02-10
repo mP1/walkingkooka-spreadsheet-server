@@ -31,17 +31,17 @@ import java.util.function.BiConsumer;
 /**
  * Handles dispatching a single request, extracting the spreadsheet id and then invoking the hateos service.
  */
-final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
+final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
 
-    static SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest with(final HttpRequest request,
-                                                                       final HttpResponse response,
-                                                                       final SpreadsheetServerApiSpreadsheetEngineBiConsumer engine) {
-        return new SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest(request, response, engine);
+    static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest with(final HttpRequest request,
+                                                                           final HttpResponse response,
+                                                                           final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine) {
+        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest(request, response, engine);
     }
 
-    private SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest(final HttpRequest request,
-                                                                   final HttpResponse response,
-                                                                   final SpreadsheetServerApiSpreadsheetEngineBiConsumer engine) {
+    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest(final HttpRequest request,
+                                                                       final HttpResponse response,
+                                                                       final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine) {
         super();
         this.request = request;
         this.response = response;
@@ -112,12 +112,12 @@ final class SpreadsheetServerApiSpreadsheetEngineBiConsumerRequest {
     }
 
     private BiConsumer<HttpRequest, HttpResponse> notFound() {
-        return (request, response) -> SpreadsheetServer.notFound(this.request, this.response);
+        return (request, response) -> SpreadsheetHttpServer.notFound(this.request, this.response);
     }
 
     private final HttpRequest request;
     private final HttpResponse response;
-    private final SpreadsheetServerApiSpreadsheetEngineBiConsumer engine;
+    private final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine;
 
     // String...........................................................................................................
 

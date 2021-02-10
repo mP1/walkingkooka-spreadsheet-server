@@ -17,11 +17,19 @@
 
 package walkingkooka.spreadsheet.server;
 
-/**
- * Runs {@link JettyHttpServerSpreadsheetServer2#main} with some defaults.
- */
-public final class JettyHttpServerSpreadsheetServer2 {
-    public static void main(final String[] args) throws Exception {
-        JettyHttpServerSpreadsheetServer.main(new String[]{"http", "localhost", "12345"});
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.JavaVisibility;
+
+public abstract class SpreadsheetHttpServerTestCase2<T> extends SpreadsheetHttpServerTestCase<T> implements ToStringTesting<T> {
+
+    SpreadsheetHttpServerTestCase2() {
+        super();
+    }
+
+    // ClassTesting.....................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
