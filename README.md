@@ -7,7 +7,7 @@
 
 
 The http server for [walkingkooka-spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet). It includes a router
-and some handlers for several spreadsheet services. 
+and some handlers for spreadsheet services. 
 
 
 
@@ -73,19 +73,18 @@ DELETE methods require no body and return a BODY
 
 ### Context
 
-A collection of end points related to spreadsheet metadata.
-All outputs return a SpreadsheetMetadata in JSON form.
+A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 
 - GET    /api/spreadsheet/$spreadsheet-id
-- POST   /api/spreadsheet/                expects no BODY, creates a Spreadsheet with SpreadsheetMetadata with defaults using any provided locale.
-- POST   /api/spreadsheet/$spreadsheet-id requires a BODY to update existing SpreadsheetMetadata.
+- POST   /api/spreadsheet/                expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any provided `Locale`.
+- POST   /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
 
 
 
 ### Engine
 
-A collection of end points that support manipulating cells, columns and rows.
-All input and output is always a SpreadsheetDelta in JSON form, where necessary.
+A collection of end points that support manipulating cells, columns and rows and similar functionality.
+All input and output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 - GET     /api/spreadsheet/$spreadsheet-id/cellbox/200,400
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
