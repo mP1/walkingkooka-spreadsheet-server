@@ -114,7 +114,6 @@ public final class SpreadsheetServerTest extends SpreadsheetServerTestCase<Sprea
     private static final String POST_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
     private static final String POST_SPREADSHEET_DELTA_OK = "POST " + SpreadsheetDelta.class.getSimpleName() + " OK";
 
-    private final static String TRANSACTION_ID = "Transaction-123";
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
