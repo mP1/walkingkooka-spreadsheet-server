@@ -1212,6 +1212,166 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         DELTA));
     }
 
+    // save cell, save metadata, save cell..............................................................................
+
+    @Test
+    public void testSaveCellUpdateMetadataLoadCell() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("1.25"))))),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1.25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1.25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        // update metadata with a different decimal separator.
+        final SpreadsheetMetadata updated = initial.set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, ',');
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                updated.jsonNodeMarshallContext().marshall(updated).toString(),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        updated
+                )
+        );
+
+        assertEquals(1, this.metadataStore.count());
+
+        // reload the saved cell
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/A1/FORCE_RECOMPUTE",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1,25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \",\",\n" +
+                                "                \"text\": \",\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1,25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001,250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test
