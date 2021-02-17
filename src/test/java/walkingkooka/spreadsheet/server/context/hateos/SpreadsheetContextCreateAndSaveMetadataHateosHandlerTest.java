@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -49,7 +48,8 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
 
     @Test
     public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com")));
+        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
 
         this.handleNoneFails(this.createHandler(
                 new FakeSpreadsheetContext() {

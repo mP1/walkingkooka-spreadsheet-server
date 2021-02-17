@@ -111,8 +111,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 URL + "/spreadsheet/12ef",
                 HttpStatusCode.OK,
                 "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"load@example.com\"\n" +
+                        "  \"creator\": \"load@example.com\",\n" +
+                        "  \"spreadsheet-id\": \"12ef\"\n" +
                         "}");
     }
 
@@ -122,8 +122,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 URL + "/spreadsheet/",
                 HttpStatusCode.OK,
                 "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"created@example.com\"\n" +
+                        "  \"creator\": \"created@example.com\",\n" +
+                        "  \"spreadsheet-id\": \"12ef\"\n" +
                         "}");
     }
 
@@ -133,8 +133,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 URL + "/spreadsheet/12ef",
                 HttpStatusCode.OK,
                 "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"saved@example.com\"\n" +
+                        "  \"creator\": \"saved@example.com\",\n" +
+                        "  \"spreadsheet-id\": \"12ef\"\n" +
                         "}");
     }
 
@@ -255,16 +255,22 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             @Override
             public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("created@example.com"))));
+                return Optional.of(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId())
+                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("created@example.com"))
+                );
             }
 
             @Override
             public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
                                                            final Optional<SpreadsheetMetadata> resource,
                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("saved@example.com"))));
+                return Optional.of(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId())
+                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("saved@example.com"))
+                );
             }
         };
     }
@@ -275,8 +281,11 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
                                                            final Optional<SpreadsheetMetadata> resource,
                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-                return Optional.of(SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId(),
-                        SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("load@example.com"))));
+                return Optional.of(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId())
+                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("load@example.com"))
+                );
             }
         };
     }
