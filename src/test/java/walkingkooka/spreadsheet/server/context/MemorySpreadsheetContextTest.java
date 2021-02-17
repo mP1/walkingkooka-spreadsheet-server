@@ -799,11 +799,12 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
         final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
 
-        SpreadsheetMetadata metadata = SpreadsheetMetadata.with(Maps.of(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999),
-                SpreadsheetMetadataPropertyName.CREATOR, creatorEmail,
-                SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime,
-                SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail,
-                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime));
+        SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
+                .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
         if (locale.isPresent()) {
             metadata = metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
         }

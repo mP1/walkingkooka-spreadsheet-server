@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.context.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -93,13 +92,13 @@ public abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTes
         final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
         final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
 
-        return SpreadsheetMetadata.with(Maps.of(
-                SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.id(),
-                SpreadsheetMetadataPropertyName.CREATOR, creatorEmail,
-                SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime,
-                SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH,
-                SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail,
-                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime));
+        return SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.id())
+                .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
     }
 
     final SpreadsheetId spreadsheetId() {
