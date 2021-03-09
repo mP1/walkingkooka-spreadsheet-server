@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
-import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -56,8 +55,8 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     @Override
     public final Optional<C> handleAll(final Optional<C> resource,
                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
@@ -66,9 +65,9 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     public final Optional<C> handleList(final List<I> list,
                                         final Optional<C> resource,
                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(list, "list");
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkList(list);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
@@ -76,48 +75,14 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     @Override
     public final Optional<V> handleNone(final Optional<V> resource,
                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
 
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
-
-    // Optional<RESOURCE>...............................................................................................
-
-    /**
-     * Complains if the resource is null.
-     */
-    static void checkRange(final Range<?> range) {
-        Objects.requireNonNull(range, "range");
-    }
-
-    /**
-     * Complains if the resource is null.
-     */
-    static void checkResource(final Optional<?> resource) {
-        Objects.requireNonNull(resource, "resource");
-    }
-
-    /**
-     * Complains if the resource is null or present.
-     */
-    static void checkResourceEmpty(final Optional<?> resource) {
-        checkResource(resource);
-        resource.ifPresent((r) -> {
-            throw new IllegalArgumentException("Resource not allowed=" + r);
-        });
-    }
-
-    /**
-     * Complains if the resource is absent.
-     */
-    static SpreadsheetDelta checkResourceNotEmpty(final Optional<SpreadsheetDelta> resource) {
-        checkResource(resource);
-        return resource.orElseThrow(() -> new IllegalArgumentException("Required resource missing"));
-    }
 
     static void checkWithoutCells(final Optional<SpreadsheetDelta> delta) {
         delta.ifPresent(SpreadsheetEngineHateosHandler::checkWithoutCells0);
@@ -127,14 +92,5 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
         if (!delta.cells().isEmpty()) {
             throw new IllegalArgumentException("Expected delta without cells: " + delta);
         }
-    }
-
-    // parameters.......................................................................................................
-
-    /**
-     * Checks parameters are present.
-     */
-    static void checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
     }
 }

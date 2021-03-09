@@ -53,12 +53,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
 
-        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
+        final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         final Set<SpreadsheetCell> cells = delta.cells();
         if (cells.size() != 1) {
             throw new IllegalArgumentException("Expected 1 cell got " + cells.size());
         }
-        checkParameters(parameters);
+        HateosHandler.checkParameters(parameters);
 
         return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
                 resource));
@@ -69,8 +69,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetRange spreadsheetRange = SpreadsheetRange.with(range);
-        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
-        checkParameters(parameters);
+        final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
+        HateosHandler.checkParameters(parameters);
 
         return Optional.of(this.engine.fillCells(delta.cells(),
                 spreadsheetRange,

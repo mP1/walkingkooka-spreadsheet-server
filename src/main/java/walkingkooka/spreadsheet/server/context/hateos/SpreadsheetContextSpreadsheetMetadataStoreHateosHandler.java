@@ -27,7 +27,6 @@ import walkingkooka.store.Store;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -44,8 +43,8 @@ abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandler extends S
     @Override
     public final Optional<SpreadsheetMetadata> handleAll(final Optional<SpreadsheetMetadata> resource,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
@@ -54,9 +53,9 @@ abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandler extends S
     public Optional<SpreadsheetMetadata> handleList(final List<SpreadsheetId> list,
                                                     final Optional<SpreadsheetMetadata> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(list, "list");
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkList(list);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
@@ -66,9 +65,9 @@ abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandler extends S
     public final Optional<SpreadsheetMetadata> handleRange(final Range<SpreadsheetId> range,
                                                            final Optional<SpreadsheetMetadata> resource,
                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(range, "range");
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkRange(range);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }

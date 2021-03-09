@@ -17,14 +17,10 @@
 
 package walkingkooka.spreadsheet.server.context.hateos;
 
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetContext} to do things.
@@ -55,40 +51,4 @@ abstract class SpreadsheetContextHateosHandler<I extends Comparable<I>, V, C>
     }
 
     abstract String operation();
-
-    // Optional<RESOURCE>...............................................................................................
-
-    /**
-     * Complains if the resource is null.
-     */
-    final void checkResource(final Optional<? extends HateosResource<?>> resource) {
-        Objects.requireNonNull(resource, "resource");
-    }
-
-    /**
-     * Complains if the resource is null or present.
-     */
-    final void checkResourceEmpty(final Optional<? extends HateosResource<?>> resource) {
-        checkResource(resource);
-        resource.ifPresent((r) -> {
-            throw new IllegalArgumentException("Resource not allowed=" + r);
-        });
-    }
-
-    /**
-     * Complains if the resource is absent.
-     */
-    final <T extends HateosResource<?>> T checkResourceNotEmpty(final Optional<T> resource) {
-        checkResource(resource);
-        return resource.orElseThrow(() -> new IllegalArgumentException("Required resource missing"));
-    }
-
-    // parameters.......................................................................................................
-
-    /**
-     * Checks parameters are present.
-     */
-    final void checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(parameters, "parameters");
-    }
 }
