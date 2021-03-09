@@ -40,6 +40,14 @@ public final class SpreadsheetLabelHateosHandlers implements PublicStaticHelper 
     }
 
     /**
+     * {@see SpreadsheetLabelHateosHandlerSaveOrUpdate}
+     */
+    public static HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate(final SpreadsheetLabelStore store) {
+        return SpreadsheetLabelHateosHandlerSaveOrUpdate.with(store);
+    }
+
+
+    /**
      * Stop creation
      */
     private SpreadsheetLabelHateosHandlers() {
