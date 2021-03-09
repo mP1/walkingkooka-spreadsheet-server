@@ -49,11 +49,11 @@ final class SpreadsheetLabelHateosHandlerLoad extends SpreadsheetLabelHateosHand
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return this.store.loadWithLabelName(id);
+        return this.store.load(id);
     }
 
     @Override
     public String toString() {
-        return "loadWithLabelName " + this.store;
+        return "load " + this.store;
     }
 }
