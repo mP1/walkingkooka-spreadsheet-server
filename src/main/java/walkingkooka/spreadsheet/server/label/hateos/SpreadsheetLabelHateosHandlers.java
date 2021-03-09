@@ -26,6 +26,13 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 public final class SpreadsheetLabelHateosHandlers implements PublicStaticHelper {
 
     /**
+     * {@see SpreadsheetLabelHateosHandlerDelete}
+     */
+    public static HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete(final SpreadsheetLabelStore store) {
+        return SpreadsheetLabelHateosHandlerDelete.with(store);
+    }
+    
+    /**
      * {@see SpreadsheetLabelHateosHandlerLoad}
      */
     public static HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load(final SpreadsheetLabelStore store) {
