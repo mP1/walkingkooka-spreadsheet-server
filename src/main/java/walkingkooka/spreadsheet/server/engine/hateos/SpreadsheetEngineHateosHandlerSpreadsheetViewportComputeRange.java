@@ -49,9 +49,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
     public Optional<SpreadsheetRange> handleOne(final SpreadsheetViewport viewport,
                                                 final Optional<SpreadsheetRange> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(viewport, "viewreport");
-        checkResourceEmpty(resource);
-        checkParameters(parameters);
+        Objects.requireNonNull(viewport, "viewport");
+        HateosHandler.checkResourceEmpty(resource);
+        HateosHandler.checkParameters(parameters);
 
         return Optional.of(this.engine.computeRange(viewport));
     }
@@ -60,9 +60,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
     public Optional<SpreadsheetRange> handleRange(final Range<SpreadsheetViewport> range,
                                                   final Optional<SpreadsheetRange> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(range, "range");
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkRange(range);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }

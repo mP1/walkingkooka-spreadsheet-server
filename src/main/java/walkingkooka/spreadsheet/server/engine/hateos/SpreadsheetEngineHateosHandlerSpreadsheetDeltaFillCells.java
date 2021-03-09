@@ -54,8 +54,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
@@ -65,8 +65,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetRange toSpreadsheetRange = SpreadsheetRange.with(to);
-        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
-        checkParameters(parameters);
+        final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
+        HateosHandler.checkParameters(parameters);
 
         final SpreadsheetRange from = FROM.parameterValue(parameters)
                 .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)

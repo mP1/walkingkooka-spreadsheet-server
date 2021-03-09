@@ -53,12 +53,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
 
-        final SpreadsheetDelta delta = checkResourceNotEmpty(resource);
+        final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         final Set<SpreadsheetCell> cells = delta.cells();
         if (false == cells.isEmpty()) {
             throw new IllegalArgumentException("Expected no cells got " + cells.size());
         }
-        this.checkParameters(parameters);
+        HateosHandler.checkParameters(parameters);
 
         return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.deleteCell(cells.iterator().next().reference(), this.context),
                 resource));

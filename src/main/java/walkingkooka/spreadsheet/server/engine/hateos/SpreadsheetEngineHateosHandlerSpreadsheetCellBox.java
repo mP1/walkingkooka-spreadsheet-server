@@ -50,8 +50,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends Spreadsheet
                                                   final Optional<SpreadsheetCellBox> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(coords, "coords");
-        checkResourceEmpty(resource);
-        checkParameters(parameters);
+        HateosHandler.checkResourceEmpty(resource);
+        HateosHandler.checkParameters(parameters);
 
         return Optional.of(this.engine.cellBox(coords));
     }
@@ -60,9 +60,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends Spreadsheet
     public Optional<SpreadsheetCellBox> handleRange(final Range<SpreadsheetCoordinates> range,
                                                     final Optional<SpreadsheetCellBox> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Objects.requireNonNull(range, "range");
-        checkResource(resource);
-        checkParameters(parameters);
+        HateosHandler.checkRange(range);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
 
         throw new UnsupportedOperationException();
     }
