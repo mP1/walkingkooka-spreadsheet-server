@@ -24,7 +24,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -41,8 +40,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRo
     private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(final SpreadsheetEngine engine,
                                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
-
-        final Map<HttpRequestAttribute<?>, Object> parameters = null;
     }
 
     @Override

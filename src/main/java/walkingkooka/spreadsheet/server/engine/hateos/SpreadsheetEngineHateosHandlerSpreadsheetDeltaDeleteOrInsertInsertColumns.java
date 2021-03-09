@@ -24,9 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#insertColumns(SpreadsheetColumnReference, int, SpreadsheetEngineContext)}.
@@ -42,8 +40,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertCo
     private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns(final SpreadsheetEngine engine,
                                                                                       final SpreadsheetEngineContext context) {
         super(engine, context);
-
-        final Map<HttpRequestAttribute<?>, Object> parameters = null;
     }
 
     @Override

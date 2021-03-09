@@ -22,12 +22,9 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#insertRows(SpreadsheetRowReference, int, SpreadsheetEngineContext)}.
@@ -43,8 +40,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertRo
     private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertRows(final SpreadsheetEngine engine,
                                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
-
-        final Map<HttpRequestAttribute<?>, Object> parameters = null;
     }
 
     @Override
