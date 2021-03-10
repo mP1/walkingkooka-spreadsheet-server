@@ -81,14 +81,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final HateosContentType contentTypeJson,
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                                    final int spreadsheetIdPathComponent) {
+                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(base,
                 contentTypeJson,
                 fractioner,
                 idToFunctions,
-                idToStoreRepository,
-                spreadsheetIdPathComponent);
+                idToStoreRepository);
     }
 
     /**
@@ -98,8 +96,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final HateosContentType contentTypeJson,
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                                final int spreadsheetIdPathComponent) {
+                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
         super();
 
         this.baseUrl = base;
@@ -107,6 +104,13 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
+
+        int spreadsheetIdPathComponent = 0;
+
+        for(final UrlPathName name : base.path()) {
+            spreadsheetIdPathComponent++;
+        }
+
         this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
     }
 

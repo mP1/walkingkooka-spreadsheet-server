@@ -165,10 +165,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final static String API = "/api";
     private final static String SPREADSHEET = API + "/spreadsheet";
     private final static UrlPathName WILDCARD = UrlPathName.with("*");
-    /**
-     * The path index to the spreadsheet id within the URL.
-     */
-    private final static int SPREADSHEET_ID_PATH_COMPONENT = 3;
+
 
     private HttpRequestAttributeRouting spreadsheetRouting(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
@@ -198,8 +195,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.contentTypeJson,
                 this.fractioner,
                 this.idToFunctions,
-                this.idToStoreRepository,
-                SPREADSHEET_ID_PATH_COMPONENT);
+                this.idToStoreRepository);
     }
 
     private final HateosContentType contentTypeJson;

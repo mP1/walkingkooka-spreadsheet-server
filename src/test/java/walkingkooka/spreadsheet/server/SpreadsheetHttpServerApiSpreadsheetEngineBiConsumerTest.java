@@ -227,12 +227,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     // helpers..........................................................................................................
 
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(Url.parseAbsolute(BASE_URL),
+        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
+                Url.parseAbsolute(BASE_URL),
                 HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
                 idToFunctions(),
-                idToStoreRepository(),
-                1);
+                idToStoreRepository()
+        );
     }
 
     private Function<BigDecimal, Fraction> fractioner() {
