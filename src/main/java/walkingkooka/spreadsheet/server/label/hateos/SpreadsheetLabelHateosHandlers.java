@@ -17,11 +17,19 @@
 
 package walkingkooka.spreadsheet.server.label.hateos;
 
+import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+
+import java.util.function.BiConsumer;
 
 public final class SpreadsheetLabelHateosHandlers implements PublicStaticHelper {
 
@@ -31,12 +39,29 @@ public final class SpreadsheetLabelHateosHandlers implements PublicStaticHelper 
     public static HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete(final SpreadsheetLabelStore store) {
         return SpreadsheetLabelHateosHandlerDelete.with(store);
     }
-    
+
     /**
      * {@see SpreadsheetLabelHateosHandlerLoad}
      */
     public static HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load(final SpreadsheetLabelStore store) {
         return SpreadsheetLabelHateosHandlerLoad.with(store);
+    }
+
+    /**
+     * {@see SpreadsheetLabelHateosHandlersRouter}
+     */
+    public static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final AbsoluteUrl baseUrl,
+                                                                                                final HateosContentType contentType,
+                                                                                                final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
+                                                                                                final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
+                                                                                                final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
+        return SpreadsheetLabelHateosHandlersRouter.with(
+                baseUrl,
+                contentType,
+                delete,
+                load,
+                saveOrUpdate
+        );
     }
 
     /**
