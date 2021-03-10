@@ -37,9 +37,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTestCase<SpreadsheetContextLoadMetadataHateosHandler> {
+public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends SpreadsheetContextHateosHandlerMetadataTestCase<SpreadsheetContextHateosHandlerMetadataLoad> {
 
-    SpreadsheetContextLoadMetadataHateosHandlerTest() {
+    SpreadsheetContextHateosHandlerMetadataLoadTest() {
         super();
     }
 
@@ -103,8 +103,8 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
     // helpers..........................................................................................................
 
     @Override
-    SpreadsheetContextLoadMetadataHateosHandler createHandler(final SpreadsheetContext context) {
-        return SpreadsheetContextLoadMetadataHateosHandler.with(context);
+    SpreadsheetContextHateosHandlerMetadataLoad createHandler(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
     }
 
     @Override
@@ -120,7 +120,7 @@ public final class SpreadsheetContextLoadMetadataHateosHandlerTest extends Sprea
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetContextLoadMetadataHateosHandler> type() {
-        return SpreadsheetContextLoadMetadataHateosHandler.class;
+    public Class<SpreadsheetContextHateosHandlerMetadataLoad> type() {
+        return SpreadsheetContextHateosHandlerMetadataLoad.class;
     }
 }

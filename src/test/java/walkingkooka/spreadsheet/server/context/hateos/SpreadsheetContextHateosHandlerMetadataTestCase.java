@@ -33,13 +33,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTestCase<H extends SpreadsheetContextSpreadsheetMetadataStoreHateosHandler>
+public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends SpreadsheetContextHateosHandlerMetadata>
         extends SpreadsheetContextHateosHandlerTestCase2<H,
         SpreadsheetId,
         SpreadsheetMetadata,
         SpreadsheetMetadata> {
 
-    SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTestCase() {
+    SpreadsheetContextHateosHandlerMetadataTestCase() {
         super();
     }
 

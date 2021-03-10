@@ -32,11 +32,11 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that requires a {@link Store metadata}.
  */
-abstract class SpreadsheetContextSpreadsheetMetadataStoreHateosHandler extends SpreadsheetContextHateosHandler<SpreadsheetId,
+abstract class SpreadsheetContextHateosHandlerMetadata extends SpreadsheetContextHateosHandler<SpreadsheetId,
         SpreadsheetMetadata,
         SpreadsheetMetadata> {
 
-    SpreadsheetContextSpreadsheetMetadataStoreHateosHandler(final SpreadsheetContext context) {
+    SpreadsheetContextHateosHandlerMetadata(final SpreadsheetContext context) {
         super(context);
     }
 
