@@ -133,7 +133,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         final SpreadsheetMetadata metadata = repository.metadatas().loadOrFail(id);
 
         final AbsoluteUrl baseUrl = this.baseUrl;
-        final UrlPath serverSpreadsheetIdSpreadsheetName = baseUrl.path().
+        final UrlPath spreadsheetIdPath = baseUrl.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
         final SpreadsheetLabelStore labelStore = repository.labels();
@@ -153,12 +153,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         );
 
         // insert handling of /format & /parse
-        return formatRouter(serverSpreadsheetIdSpreadsheetName, context, metadata)
-                .then(parseRouter(serverSpreadsheetIdSpreadsheetName, context, metadata))
+        return formatRouter(spreadsheetIdPath, context, metadata)
+                .then(parseRouter(spreadsheetIdPath, context, metadata))
                 .then(this.engineHateosRouter(id,
                         repository,
                         metadata,
-                        baseUrl.setPath(serverSpreadsheetIdSpreadsheetName))
+                        baseUrl.setPath(spreadsheetIdPath))
                 );
     }
 
@@ -225,7 +225,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineHateosRouter(final SpreadsheetId id,
                                                                                                       final SpreadsheetStoreRepository repository,
                                                                                                       final SpreadsheetMetadata metadata,
-                                                                                                      final AbsoluteUrl serverSpreadsheetIdSpreadsheetName) {
+                                                                                                      final AbsoluteUrl spreadsheetId) {
         final SpreadsheetLabelStore labelStore = repository.labels();
 
         final SpreadsheetEngine engine = this.engine(
@@ -277,7 +277,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHateosHandlers.deleteCell(engine, context);
 
-        return SpreadsheetEngineHateosHandlers.engineRouter(serverSpreadsheetIdSpreadsheetName,
+        return SpreadsheetEngineHateosHandlers.engineRouter(spreadsheetId,
                 this.contentTypeJson,
                 cellBox,
                 computeRange,
