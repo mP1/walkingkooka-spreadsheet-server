@@ -142,7 +142,24 @@ public final class SpreadsheetLabelHateosHandlersRouterTest implements ClassTest
         ));
     }
 
-    // cell.............................................................................................................
+    // label.............................................................................................................
+
+    @Test
+    public void testRouteDifferent() {
+        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
+        store.save(MAPPING);
+
+        this.routeAndCheck2(
+                delete(),
+                load(),
+                saveOrUpdate(),
+                HttpMethod.GET,
+                URL + "/different/" + LABEL,
+                "",
+                HttpStatusCode.NOT_FOUND,
+                ""
+        );
+    }
 
     @Test
     public void testRouteGet() {
