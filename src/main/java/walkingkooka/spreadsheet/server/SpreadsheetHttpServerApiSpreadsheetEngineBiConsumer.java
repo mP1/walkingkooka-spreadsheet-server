@@ -160,16 +160,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     // format...........................................................................................................
 
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetIdSpreadsheetName,
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetId,
                                                                                                        final SpreadsheetEngineContext context,
                                                                                                        final SpreadsheetMetadata metadata) {
         return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(formatRouting(spreadsheetIdSpreadsheetName).build(), formatHandler(context, metadata))
+                .add(formatRouting(spreadsheetId).build(), formatHandler(context, metadata))
                 .router();
     }
 
-    private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetIdSpreadsheetName) {
-        return formatOrParseRouting(spreadsheetIdSpreadsheetName,
+    private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetId) {
+        return formatOrParseRouting(spreadsheetId,
                 "format");
     }
 
@@ -186,16 +186,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     // parse............................................................................................................
 
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> parseRouter(final UrlPath spreadsheetIdSpreadsheetName,
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> parseRouter(final UrlPath spreadsheetId,
                                                                                                       final SpreadsheetEngineContext context,
                                                                                                       final SpreadsheetMetadata metadata) {
         return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(parseRouting(spreadsheetIdSpreadsheetName).build(), parseHandler(context, metadata))
+                .add(parseRouting(spreadsheetId).build(), parseHandler(context, metadata))
                 .router();
     }
 
-    private static HttpRequestAttributeRouting parseRouting(final UrlPath spreadsheetIdSpreadsheetName) {
-        return formatOrParseRouting(spreadsheetIdSpreadsheetName,
+    private static HttpRequestAttributeRouting parseRouting(final UrlPath spreadsheetId) {
+        return formatOrParseRouting(spreadsheetId,
                 "parse");
     }
 
@@ -210,10 +210,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         );
     }
 
-    private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetIdSpreadsheetName,
+    private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetId,
                                                                     final String formatOrParse) {
         return HttpRequestAttributeRouting.empty()
-                .path(spreadsheetIdSpreadsheetName.append(UrlPathName.with(formatOrParse)));
+                .path(spreadsheetId.append(UrlPathName.with(formatOrParse)));
     }
 
     // engine................................................................................................................
