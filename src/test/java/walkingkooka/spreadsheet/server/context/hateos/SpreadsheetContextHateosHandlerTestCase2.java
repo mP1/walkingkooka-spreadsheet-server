@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.context.hateos;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
@@ -53,6 +52,6 @@ public abstract class SpreadsheetContextHateosHandlerTestCase2<H extends Spreads
 
     @Override
     public final String typeNameSuffix() {
-        return HateosHandler.class.getSimpleName();
+        return "";
     }
 }

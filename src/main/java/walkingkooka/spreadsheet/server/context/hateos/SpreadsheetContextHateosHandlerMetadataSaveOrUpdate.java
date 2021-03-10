@@ -32,15 +32,15 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that invokes {@link SpreadsheetContext#createMetadata(Optional)}
  */
-final class SpreadsheetContextCreateAndSaveMetadataHateosHandler extends SpreadsheetContextSpreadsheetMetadataStoreHateosHandler {
+final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends SpreadsheetContextHateosHandlerMetadata {
 
-    static SpreadsheetContextCreateAndSaveMetadataHateosHandler with(final SpreadsheetContext context) {
+    static SpreadsheetContextHateosHandlerMetadataSaveOrUpdate with(final SpreadsheetContext context) {
         checkContext(context);
 
-        return new SpreadsheetContextCreateAndSaveMetadataHateosHandler(context);
+        return new SpreadsheetContextHateosHandlerMetadataSaveOrUpdate(context);
     }
 
-    private SpreadsheetContextCreateAndSaveMetadataHateosHandler(final SpreadsheetContext context) {
+    private SpreadsheetContextHateosHandlerMetadataSaveOrUpdate(final SpreadsheetContext context) {
         super(context);
     }
 

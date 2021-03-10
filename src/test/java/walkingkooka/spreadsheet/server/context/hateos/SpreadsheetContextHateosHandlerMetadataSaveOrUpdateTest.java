@@ -38,9 +38,9 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest extends SpreadsheetContextSpreadsheetMetadataStoreHateosHandlerTestCase<SpreadsheetContextCreateAndSaveMetadataHateosHandler> {
+public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest extends SpreadsheetContextHateosHandlerMetadataTestCase<SpreadsheetContextHateosHandlerMetadataSaveOrUpdate> {
 
-    SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest() {
+    SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest() {
         super();
     }
 
@@ -118,7 +118,7 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
     @Test
     public void testHandleIdWithMetadataSaves() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
-        final SpreadsheetContextCreateAndSaveMetadataHateosHandler handler = SpreadsheetContextCreateAndSaveMetadataHateosHandler.with((new FakeSpreadsheetContext() {
+        final SpreadsheetContextHateosHandlerMetadataSaveOrUpdate handler = SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with((new FakeSpreadsheetContext() {
             @Override
             public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
                 assertEquals(spreadsheetId(), i, "spreadsheetId");
@@ -154,8 +154,8 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
     // helpers..........................................................................................................
 
     @Override
-    SpreadsheetContextCreateAndSaveMetadataHateosHandler createHandler(final SpreadsheetContext context) {
-        return SpreadsheetContextCreateAndSaveMetadataHateosHandler.with(context);
+    SpreadsheetContextHateosHandlerMetadataSaveOrUpdate createHandler(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
     }
 
     @Override
@@ -163,7 +163,7 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
         return new FakeSpreadsheetContext() {
             @Override
             public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                return SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest.this.metadata().remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+                return SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest.this.metadata().remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
         };
     }
@@ -171,7 +171,7 @@ public final class SpreadsheetContextCreateAndSaveMetadataHateosHandlerTest exte
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetContextCreateAndSaveMetadataHateosHandler> type() {
-        return SpreadsheetContextCreateAndSaveMetadataHateosHandler.class;
+    public Class<SpreadsheetContextHateosHandlerMetadataSaveOrUpdate> type() {
+        return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.class;
     }
 }

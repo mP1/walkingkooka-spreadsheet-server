@@ -36,17 +36,17 @@ import java.util.function.BiConsumer;
 public final class SpreadsheetContextHateosHandlers implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetContextCreateAndSaveMetadataHateosHandler}
+     * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
      */
     public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata(final SpreadsheetContext context) {
-        return SpreadsheetContextCreateAndSaveMetadataHateosHandler.with(context);
+        return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
     }
 
     /**
-     * {@see SpreadsheetContextLoadMetadataHateosHandler}
+     * {@see SpreadsheetContextHateosHandlerMetadataLoad}
      */
     public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata(final SpreadsheetContext context) {
-        return SpreadsheetContextLoadMetadataHateosHandler.with(context);
+        return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
     }
 
     /**
