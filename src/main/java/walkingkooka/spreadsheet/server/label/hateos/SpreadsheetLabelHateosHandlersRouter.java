@@ -30,8 +30,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.text.CharSequences;
@@ -43,11 +41,6 @@ import java.util.function.BiConsumer;
  * A collection of factory methods to create various {@link HateosHandler}.
  */
 final class SpreadsheetLabelHateosHandlersRouter implements StaticHelper {
-
-    static {
-        // force static initializers for JsonContext
-        SpreadsheetMetadata.EMPTY.isEmpty();
-    }
 
     /**
      * A {@link HateosResourceName} with <code>metadata</code>.
@@ -75,8 +68,6 @@ final class SpreadsheetLabelHateosHandlersRouter implements StaticHelper {
         Objects.requireNonNull(delete, "delete");
         Objects.requireNonNull(load, "load");
         Objects.requireNonNull(saveOrUpdate, "saveOrUpdate");
-
-        // metadata GET, POST...........................................................................................
 
         return HateosResourceMapping.router(baseUrl,
                 contentType,
