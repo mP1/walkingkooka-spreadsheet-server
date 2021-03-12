@@ -168,7 +168,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                         this.cellCellBoxColumnRowViewportRouter(
                                 id,
                                 repository,
-                                metadata
+                                engine,
+                                context
                         )
                 );
     }
@@ -235,22 +236,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellCellBoxColumnRowViewportRouter(final SpreadsheetId id,
                                                                                                                       final SpreadsheetStoreRepository repository,
-                                                                                                                      final SpreadsheetMetadata metadata) {
+                                                                                                                      final SpreadsheetEngine engine,
+                                                                                                                      final SpreadsheetEngineContext context) {
         final SpreadsheetLabelStore labelStore = repository.labels();
-
-        final SpreadsheetEngine engine = this.engine(
-                id,
-                metadata,
-                repository,
-                labelStore
-        );
-
-        final SpreadsheetEngineContext context = this.engineContext(
-                id,
-                metadata,
-                labelStore,
-                engine
-        );
 
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
 
