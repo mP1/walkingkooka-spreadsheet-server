@@ -159,13 +159,14 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 engine
         );
 
-        // insert handling of /format & /parse
         return formatRouter(spreadsheetIdPath, context, metadata)
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
-                .then(this.cellCellBoxColumnRowViewportRouter(id,
-                        repository,
-                        metadata,
-                        baseUrl.setPath(spreadsheetIdPath))
+                .then(
+                        this.cellCellBoxColumnRowViewportRouter(
+                                id,
+                                repository,
+                                metadata
+                        )
                 );
     }
 
@@ -231,8 +232,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellCellBoxColumnRowViewportRouter(final SpreadsheetId id,
                                                                                                                       final SpreadsheetStoreRepository repository,
-                                                                                                                      final SpreadsheetMetadata metadata,
-                                                                                                                      final AbsoluteUrl spreadsheetId) {
+                                                                                                                      final SpreadsheetMetadata metadata) {
         final SpreadsheetLabelStore labelStore = repository.labels();
 
         final SpreadsheetEngine engine = this.engine(
