@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -35,7 +36,11 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
+import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
@@ -44,6 +49,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
@@ -63,7 +69,6 @@ import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -79,7 +84,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
 
-    private final static String BASE_URL = "http://example.com/";
+    private final static String BASE_URL = "http://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
 
     // format...........................................................................................................
@@ -101,7 +106,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         final HttpRequest httpRequest = this.request(
                 HttpMethod.POST,
-                "1/format",
+                "/api/1/format",
                 toJsonString(spreadsheetMultiFormatRequest));
         final HttpResponse httpResponse = HttpResponses.recording();
 
@@ -137,7 +142,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         final HttpRequest httpRequest = this.request(
                 HttpMethod.POST,
-                "1/parse",
+                "/api/1/parse",
                 toJsonString(spreadsheetMultiParseRequest));
         final HttpResponse httpResponse = HttpResponses.recording();
 
@@ -155,23 +160,196 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 spreadsheetMultiParseResponse
         );
     }
+    
 
-    // engine hateos....................................................................................................
+    // cell.............................................................................................................
 
     @Test
-    public void testEngineHateos() {
-        final HttpRequest httpRequest = this.request(
-                HttpMethod.GET,
-                "1/cell/A1",
-                ""
+    public void testRouteCellGetLoadCell() {
+        this.routeAndCheck(HttpMethod.GET, "/api/1/cell/A1", HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteCellPostSaveCell() {
+        this.routeAndCheck(HttpMethod.POST, "/api/1/cell/A1", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteCellPutFails() {
+        this.routeAndFail(HttpMethod.PUT, "/api/1/cell/A1");
+    }
+
+    @Test
+    public void testRouteCellDelete() {
+        this.routeAndCheck(HttpMethod.DELETE, "/api/1/cell/A1", HttpStatusCode.BAD_REQUEST); // requires SpreadsheetDelta with 0 cells
+    }
+
+    // cell/SpreadsheetEngineEvaluation..................................................................................
+
+    @Test
+    public void testRouteCellGetLoadCellSpreadsheetEngineEvaluation() {
+        for (SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
+            this.routeAndCheck(HttpMethod.GET, "/api/1/cell/A1/" + evaluation.toLinkRelation().toString(), HttpStatusCode.OK);
+        }
+    }
+
+    // column...........................................................................................................
+
+    @Test
+    public void testRouteColumnsGetFails() {
+        this.routeAndFail(HttpMethod.GET, "/api/1/column/A");
+    }
+
+    @Test
+    public void testRouteColumnsPost() {
+        this.routeAndCheck(HttpMethod.POST, "/api/1/column/A", HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteColumnsPutFails() {
+        this.routeAndFail(HttpMethod.PUT, "/api/1/column/A");
+    }
+
+    @Test
+    public void testRouteColumnsDelete() {
+        this.routeAndCheck(HttpMethod.DELETE, "/api/1/column/A", HttpStatusCode.OK);
+    }
+
+    // row..............................................................................................................
+
+    @Test
+    public void testRouteRowsGetFails() {
+        this.routeAndFail(HttpMethod.GET, "/api/1/row/1");
+    }
+
+    @Test
+    public void testRouteRowsPost() {
+        this.routeAndCheck(HttpMethod.POST, "/api/1/row/1", HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteRowsPutFails() {
+        this.routeAndFail(HttpMethod.PUT, "/api/1/row/1");
+    }
+
+    @Test
+    public void testRouteRowsDelete() {
+        this.routeAndCheck(HttpMethod.DELETE, "/api/1/row/1", HttpStatusCode.OK);
+    }
+
+    // fillCells........................................................................................................
+
+    @Test
+    public void testRouteFillCellsGetFails() {
+        this.routeAndFail(HttpMethod.GET, "/api/1/cell/A1:B2/fill");
+    }
+
+    @Test
+    public void testRouteFillCellsPost() {
+        this.routeAndCheck(
+                HttpMethod.POST,
+                "/api/1/cell/A1:B2/fill",
+                JsonNodeMarshallContexts.basic().marshall(
+                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A2"), SpreadsheetFormula.with("1"))))
+                ).toString(),
+                HttpStatusCode.OK
         );
-        final HttpResponse httpResponse = HttpResponses.recording();
+    }
 
-        this.handleRequest(httpRequest, httpResponse);
+    @Test
+    public void testRouteFillCellsPutFails() {
+        this.routeAndFail(HttpMethod.PUT, "/api/1/cell/A1:B2/fill");
+    }
 
-        this.checkHttpResponse(httpResponse,
-                HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"),
-                JsonNode.object()
+    @Test
+    public void testRouteFillCellsDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, "/api/1/cell/A1:B2/fill");
+    }
+
+    // computeRange......................................................................................................
+
+    private final static String CELLBOX_URL = "/api/1/cellbox/200,400";
+
+    @Test
+    public void testRouteCellBoxGet() {
+        this.routeAndCheck(HttpMethod.GET, CELLBOX_URL, HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteCellBoxPostFails() {
+        this.routeAndFail(HttpMethod.POST, CELLBOX_URL);
+    }
+
+    @Test
+    public void testRouteCellBoxPutFails() {
+        this.routeAndFail(HttpMethod.PUT, CELLBOX_URL);
+    }
+
+    @Test
+    public void testRouteCellBoxDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, CELLBOX_URL);
+    }
+
+    // viewport.........................................................................................................
+
+    private final static String COMPUTE_RANGE_URL = "/api/1/viewport/A1:100:200";
+
+    @Test
+    public void testRouteComputeRangeGet() {
+        this.routeAndCheck(HttpMethod.GET, COMPUTE_RANGE_URL, HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteComputeRangePostFails() {
+        this.routeAndFail(HttpMethod.POST, COMPUTE_RANGE_URL);
+    }
+
+    @Test
+    public void testRouteComputeRangePutFails() {
+        this.routeAndFail(HttpMethod.PUT, COMPUTE_RANGE_URL);
+    }
+
+    @Test
+    public void testRouteComputeRangeDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, COMPUTE_RANGE_URL);
+    }
+
+    private void routeAndCheck(final HttpMethod method,
+                               final String url,
+                               final HttpStatusCode statusCode) {
+        this.routeAndCheck(method,
+                url,
+                "",
+                statusCode);
+    }
+
+    private void routeAndFail(final HttpMethod method,
+                               final String url) {
+        this.routeAndCheck(
+                method,
+                url,
+                "",
+                HttpStatusCode.METHOD_NOT_ALLOWED
+        );
+    }
+
+    private void routeAndCheck(final HttpMethod method,
+                               final String url,
+                               final String bodyText,
+                               final HttpStatusCode statusCode) {
+        final HttpRequest request = this.request(
+                method,
+                url,
+                bodyText
+        );
+        final HttpResponse response = HttpResponses.recording();
+
+        this.handleRequest(request, response);
+
+        assertEquals(
+                statusCode,
+                response.status().map(HttpStatus::value).orElse(null),
+                () -> "status\n" + response
         );
     }
 
@@ -221,14 +399,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), BASE_URL);
+        this.toStringAndCheck(this.createBiConsumer(), BASE_URL + "/api");
     }
 
     // helpers..........................................................................................................
 
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
-                Url.parseAbsolute(BASE_URL),
+                Url.parseAbsolute(BASE_URL + "/api"),
                 HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
                 idToFunctions(),

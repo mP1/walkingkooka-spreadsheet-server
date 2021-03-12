@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
@@ -27,14 +28,25 @@ import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
+import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResource;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
+import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetCellBox;
+import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -45,11 +57,24 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRow;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
+import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosResourceMappings;
+import walkingkooka.spreadsheet.server.format.Formatters;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
+import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
+import walkingkooka.spreadsheet.server.parse.Parsers;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
@@ -235,30 +260,155 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 defaultSpreadsheetFormatter
         );
 
-        return SpreadsheetEngineHateosHandlers.engineRouter(this.baseWithSpreadsheetId(id),
-                this.contentType,
-                SpreadsheetEngineHateosHandlers.cellBox(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.computeRange(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.deleteColumns(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.deleteRows(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.fillCells(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.insertColumns(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.insertRows(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, engineContext),
-                SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, engineContext),
-                SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, engineContext),
-                SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, engineContext),
-                SpreadsheetEngineHateosHandlers.saveCell(engine, engineContext),
-                SpreadsheetEngineHateosHandlers.deleteCell(engine, engineContext));
+        final AbsoluteUrl base = this.base;
+        final UrlPath spreadsheetIdPath = base.path().
+                append(UrlPathName.with(id.hateosLinkId()));
+
+        return formatRouter(spreadsheetIdPath, engineContext, metadata)
+                .then(parseRouter(spreadsheetIdPath, engineContext, metadata))
+                .then(this.cellCellBoxColumnRowViewportRouter(engine, engineContext)
+                );
     }
 
-    /**
-     * Appends the spreadsheet id to the {@link #base}.
-     */
-    private AbsoluteUrl baseWithSpreadsheetId(final SpreadsheetId id) {
-        final AbsoluteUrl base = this.base;
-        return base.setPath(base.path()
-                .append(UrlPathName.with(id.hateosLinkId())));
+    // format...........................................................................................................
+
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetId,
+                                                                                                       final SpreadsheetEngineContext context,
+                                                                                                       final SpreadsheetMetadata metadata) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(formatRouting(spreadsheetId).build(), formatHandler(context, metadata))
+                .router();
+    }
+
+    private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetId) {
+        return formatOrParseRouting(spreadsheetId,
+                "format");
+    }
+
+    private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
+                                                                       final SpreadsheetMetadata metadata) {
+        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
+                Formatters.multiFormatters(context),
+                SpreadsheetMultiFormatRequest.class,
+                SpreadsheetMultiFormatResponse.class,
+                metadata.jsonNodeMarshallContext(),
+                metadata.jsonNodeUnmarshallContext()
+        );
+    }
+
+    // parse............................................................................................................
+
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> parseRouter(final UrlPath spreadsheetId,
+                                                                                                      final SpreadsheetEngineContext context,
+                                                                                                      final SpreadsheetMetadata metadata) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(parseRouting(spreadsheetId).build(), parseHandler(context, metadata))
+                .router();
+    }
+
+    private static HttpRequestAttributeRouting parseRouting(final UrlPath spreadsheetId) {
+        return formatOrParseRouting(spreadsheetId,
+                "parse");
+    }
+
+    private static BiConsumer<HttpRequest, HttpResponse> parseHandler(final SpreadsheetEngineContext context,
+                                                                      final SpreadsheetMetadata metadata) {
+        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
+                Parsers.multiParsers(context),
+                SpreadsheetMultiParseRequest.class,
+                SpreadsheetMultiParseResponse.class,
+                metadata.jsonNodeMarshallContext(),
+                metadata.jsonNodeUnmarshallContext()
+        );
+    }
+
+    private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetId,
+                                                                    final String formatOrParse) {
+        return HttpRequestAttributeRouting.empty()
+                .path(spreadsheetId.append(UrlPathName.with(formatOrParse)));
+    }
+
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellCellBoxColumnRowViewportRouter(final SpreadsheetEngine engine,
+                                                                                                                      final SpreadsheetEngineContext context) {
+        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
+
+        final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
+
+        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
+
+        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = row(engine, context);
+
+        final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> viewport = viewport(engine, context);
+
+        return HateosResourceMapping.router(this.base.setPath(base.path().append(UrlPathName.with(engine.id().toString()))),
+                this.contentType,
+                Sets.of(cell, cellBox, column, row, viewport)
+        );
+    }
+
+    private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final SpreadsheetEngine engine,
+                                                                                                                             final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHateosHandlers.fillCells(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHateosHandlers.loadCell(
+                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+                engine,
+                context
+        );
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetEngineHateosHandlers.loadCell(
+                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+                engine,
+                context
+        );
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetEngineHateosHandlers.loadCell(
+                SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
+                engine,
+                context
+        );
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetEngineHateosHandlers.loadCell(
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                engine,
+                context
+        );
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHateosHandlers.saveCell(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHateosHandlers.deleteCell(engine, context);
+
+        return SpreadsheetEngineHateosResourceMappings.cell(
+                fillCells,
+                loadCellClearValueErrorSkipEvaluate,
+                loadCellSkipEvaluate,
+                loadCellForceRecompute,
+                loadCellComputeIfNecessary,
+                saveCell,
+                deleteCell
+        );
+    }
+
+    private static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox(final SpreadsheetEngine engine,
+                                                                                                                                                         final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> handler = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
+        return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
+    }
+
+    private static HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column(final SpreadsheetEngine engine,
+                                                                                                                                   final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHateosHandlers.deleteColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns = SpreadsheetEngineHateosHandlers.insertColumns(engine, context);
+
+        return SpreadsheetEngineHateosResourceMappings.column(deleteColumns, insertColumns);
+    }
+
+    private static HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row(final SpreadsheetEngine engine,
+                                                                                                                          final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHateosHandlers.deleteRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows = SpreadsheetEngineHateosHandlers.insertRows(engine, context);
+
+        return SpreadsheetEngineHateosResourceMappings.row(deleteRows, insertRows);
+    }
+
+    private static HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> viewport(final SpreadsheetEngine engine,
+                                                                                                                                                final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> handler = SpreadsheetEngineHateosHandlers.computeRange(engine, context);
+        return SpreadsheetEngineHateosResourceMappings.viewport(handler);
     }
 
     private final AbsoluteUrl base;
