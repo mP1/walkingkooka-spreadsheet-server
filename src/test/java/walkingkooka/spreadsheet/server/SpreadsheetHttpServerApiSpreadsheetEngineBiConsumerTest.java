@@ -50,7 +50,10 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
@@ -290,6 +293,18 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndFail(HttpMethod.DELETE, CELLBOX_URL);
     }
 
+    // labels...........................................................................................................
+
+    @Test
+    public void testRouteLabelGetNotFound() {
+        this.routeAndCheck(HttpMethod.GET, "/api/1/label/UnknownLabel99", HttpStatusCode.NO_CONTENT);
+    }
+
+    @Test
+    public void testRouteLabelGet() {
+        this.routeAndCheck(HttpMethod.GET, "/api/1/label/" + LABEL, HttpStatusCode.OK);
+    }
+
     // viewport.........................................................................................................
 
     private final static String COMPUTE_RANGE_URL = "/api/1/viewport/A1:100:200";
@@ -444,11 +459,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(metadata);
 
+        final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
+        labelStore.save(LABEL.mapping(SpreadsheetExpressionReference.parse("Z99")));
+
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
                 SpreadsheetGroupStores.treeMap(),
-                SpreadsheetLabelStores.treeMap(),
+                labelStore,
                 SpreadsheetExpressionReferenceStores.treeMap(),
                 metadataStore,
                 SpreadsheetRangeStores.treeMap(),
@@ -459,6 +477,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
             return repository;
         };
     }
+
+    private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("Label123");
 
     // ClassTesting.....................................................................................................
 
