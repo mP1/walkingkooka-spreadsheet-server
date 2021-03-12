@@ -16,14 +16,8 @@
  */
 package walkingkooka.spreadsheet.server.engine.hateos;
 
-import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -35,8 +29,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-
-import java.util.function.BiConsumer;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -124,67 +116,6 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell(final SpreadsheetEngine engine,
                                                                                                          final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell.with(engine, context);
-    }
-
-    /**
-     * Returns a {@link Router} that handles all operations, using the given {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext}.
-     */
-    public static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> engineRouter(final AbsoluteUrl base,
-                                                                                                      final HateosContentType contentType,
-                                                                                                      final HateosHandler<SpreadsheetCoordinates,
-                                                                                                              SpreadsheetCellBox,
-                                                                                                              SpreadsheetCellBox> cellBox,
-                                                                                                      final HateosHandler<SpreadsheetViewport,
-                                                                                                              SpreadsheetRange,
-                                                                                                              SpreadsheetRange> computeRange,
-                                                                                                      final HateosHandler<SpreadsheetColumnReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> deleteColumns,
-                                                                                                      final HateosHandler<SpreadsheetRowReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> deleteRows,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> fillCells,
-                                                                                                      final HateosHandler<SpreadsheetColumnReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> insertColumns,
-                                                                                                      final HateosHandler<SpreadsheetRowReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> insertRows,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> loadCellSkipEvaluate,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> loadCellForceRecompute,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> loadCellComputeIfNecessary,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> saveCell,
-                                                                                                      final HateosHandler<SpreadsheetCellReference,
-                                                                                                              SpreadsheetDelta,
-                                                                                                              SpreadsheetDelta> deleteCell) {
-        return SpreadsheetEngineHateosHandlersRouter.router(base,
-                contentType,
-                cellBox,
-                computeRange,
-                deleteColumns,
-                deleteRows,
-                fillCells,
-                insertColumns,
-                insertRows,
-                loadCellClearValueErrorSkipEvaluate,
-                loadCellSkipEvaluate,
-                loadCellForceRecompute,
-                loadCellComputeIfNecessary,
-                saveCell,
-                deleteCell);
     }
 
     /**

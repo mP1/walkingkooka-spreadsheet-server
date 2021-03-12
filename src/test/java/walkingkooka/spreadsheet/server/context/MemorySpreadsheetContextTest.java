@@ -257,7 +257,25 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "            }],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"add-expression\",\n" +
+                        "          \"value\": [{\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"1\"\n" +
+                        "          }, {\n" +
+                        "            \"type\": \"expression-number-expression\",\n" +
+                        "            \"value\": \"2\"\n" +
+                        "          }]\n" +
+                        "        },\n" +
+                        "        \"value\": {\n" +
+                        "          \"type\": \"expression-number\",\n" +
+                        "          \"value\": \"3\"\n" +
                         "        }\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
