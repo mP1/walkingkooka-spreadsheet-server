@@ -64,6 +64,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
@@ -1368,6 +1371,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  }\n" +
                                 "}",
                         DELTA
+                )
+        );
+    }
+
+    // save cell, save metadata, save cell..............................................................................
+
+    @Test
+    public void testCreateSpreadsheetThenSaveLabel() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.mapping(SpreadsheetExpressionReference.parse("A99"));
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                this.toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
                 )
         );
     }
