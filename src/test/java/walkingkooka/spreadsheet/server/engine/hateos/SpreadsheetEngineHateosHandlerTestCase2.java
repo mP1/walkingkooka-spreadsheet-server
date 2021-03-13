@@ -55,7 +55,5 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
 
     abstract SpreadsheetEngine engine();
 
-    final SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
-    }
+    abstract SpreadsheetEngineContext engineContext();
 }
