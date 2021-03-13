@@ -119,6 +119,14 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerCellReferenceResolve}
+     */
+    public static HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> resolveCellReference(final SpreadsheetEngine engine,
+                                                                                                                 final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerCellReferenceResolve.with(engine, context);
+    }
+
+    /**
      * Stop creation.
      */
     private SpreadsheetEngineHateosHandlers() {
