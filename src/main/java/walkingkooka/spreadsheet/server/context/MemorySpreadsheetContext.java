@@ -347,6 +347,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
 
+        final HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference = cellReference(engine, context);
+
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
         final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(repository.labels());
@@ -359,7 +361,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         return HateosResourceMapping.router(base.setPath(base.path().append(UrlPathName.with(id.toString()))),
                 this.contentType,
-                Sets.of(cell, cellBox, column, label, row, viewport)
+                Sets.of(
+                        cell,
+                        cellBox,
+                        cellReference,
+                        column,
+                        label,
+                        row,
+                        viewport
+                )
         );
     }
 
@@ -404,6 +414,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                                                                                                                                          final SpreadsheetEngineContext context) {
         final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> handler = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
         return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
+    }
+
+    private static HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference(final SpreadsheetEngine engine,
+                                                                                                                                             final SpreadsheetEngineContext context) {
+        final HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> resolveCellReference = SpreadsheetEngineHateosHandlers.resolveCellReference(engine, context);
+
+        return SpreadsheetEngineHateosResourceMappings.cellReference(
+                resolveCellReference
+        );
     }
 
     private static HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column(final SpreadsheetEngine engine,

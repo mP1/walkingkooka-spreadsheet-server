@@ -166,6 +166,29 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     private static final Class<HateosResource<SpreadsheetCoordinates>> COORDS_HATEOS_RESOURCE = Cast.to(HateosResource.class);
 
+    // cellReference....................................................................................................
+
+    public static HateosResourceMapping<String,
+            SpreadsheetCellReference,
+            SpreadsheetCellReference,
+            SpreadsheetCellReference> cellReference(final HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> cellReference) {
+        return HateosResourceMapping.with(CELL_REFERENCE,
+                SpreadsheetEngineHateosResourceMappings::parseCellReferenceText,
+                SpreadsheetCellReference.class,
+                SpreadsheetCellReference.class,
+                SpreadsheetCellReference.class)
+                .set(LinkRelation.SELF, HttpMethod.GET, cellReference);
+    }
+
+    /**
+     * A {@link HateosResourceName} with <code>cell-reference</code>.
+     */
+    private static final HateosResourceName CELL_REFERENCE = HateosResourceName.with("cell-reference");
+
+    private static HateosResourceSelection<String> parseCellReferenceText(final String text) {
+        return HateosResourceSelection.one(text);
+    }
+
     // column...........................................................................................................
 
     public static HateosResourceMapping<SpreadsheetColumnReference,
