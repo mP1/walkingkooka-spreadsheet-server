@@ -196,6 +196,23 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         }
     }
 
+    // cellReference.....................................................................................................
+
+    @Test
+    public void testRouteCellReferenceGet() {
+        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/B2", HttpStatusCode.OK);
+    }
+
+    @Test
+    public void testRouteCellReferenceGetInvalidFails() {
+        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/!invalid", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteCellReferencePutFails() {
+        this.routeAndFail(HttpMethod.PUT, "/api/1/cell-reference/A");
+    }
+
     // column...........................................................................................................
 
     @Test

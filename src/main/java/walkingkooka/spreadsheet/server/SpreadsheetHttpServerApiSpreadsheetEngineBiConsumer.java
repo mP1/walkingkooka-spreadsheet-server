@@ -244,6 +244,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
 
+        final HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference = cellReference(engine, context);
+
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
         final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(repository.labels());
@@ -256,7 +258,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         return HateosResourceMapping.router(base.setPath(base.path().append(UrlPathName.with(id.toString()))),
                 this.contentTypeJson,
-                Sets.of(cell, cellBox, column, label, row, viewport)
+                Sets.of(
+                        cell,
+                        cellBox,
+                        cellReference,
+                        column,
+                        label,
+                        row,
+                        viewport
+                )
         );
     }
 
@@ -325,6 +335,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 labelReferencesStore,
                 rangeToCellStore,
                 rangeToConditionalFormattingRuleStore
+        );
+    }
+
+    private static HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference(final SpreadsheetEngine engine,
+                                                                                                                                             final SpreadsheetEngineContext context) {
+        final HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> resolveCellReference = SpreadsheetEngineHateosHandlers.resolveCellReference(engine, context);
+
+        return SpreadsheetEngineHateosResourceMappings.cellReference(
+                resolveCellReference
         );
     }
 
