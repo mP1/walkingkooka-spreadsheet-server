@@ -1442,6 +1442,320 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // column...........................................................................................................
+
+    @Test
+    public void testColumnInsert() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/column/B",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testColumnInsertShiftsCell() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("C3"), SpreadsheetFormula.with("1.25"))))),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1.25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1.25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/column/B",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1.25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1.25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
+
+    @Test
+    public void testColumnDeleteShiftsCell() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("C3"), SpreadsheetFormula.with("1.25"))))),
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1.25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1.25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.DELETE,
+                "/api/spreadsheet/1/column/B",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("DELETE SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"1.25\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"1\",\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"25\",\n" +
+                                "                \"text\": \"25\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"1.25\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1.25\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.250\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"maxColumnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"maxRowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
     // label............................................................................................................
 
     @Test
