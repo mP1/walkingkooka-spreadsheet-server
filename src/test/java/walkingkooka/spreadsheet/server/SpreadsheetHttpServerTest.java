@@ -1442,6 +1442,131 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // label............................................................................................................
+
+    @Test
+    public void testLabelSave() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetCellReference reference = SpreadsheetCellReference.parseCellReference("A99");
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.mapping(reference);
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testLabelSaveAndLoad() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetCellReference reference = SpreadsheetCellReference.parseCellReference("A99");
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.mapping(reference);
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/label/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testLabelSaveAndResolveCellReference() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetCellReference reference = SpreadsheetCellReference.parseCellReference("A99");
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.mapping(reference);
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell-reference/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetCellReference OK"),
+                        this.toJson(reference),
+                        SpreadsheetCellReference.class.getSimpleName()
+                )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test
