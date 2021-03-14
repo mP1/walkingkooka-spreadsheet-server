@@ -341,8 +341,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                                                                                                       final SpreadsheetStoreRepository repository,
                                                                                                                       final SpreadsheetEngine engine,
                                                                                                                       final SpreadsheetEngineContext context) {
-        final SpreadsheetLabelStore labelStore = repository.labels();
-
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
 
         final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
