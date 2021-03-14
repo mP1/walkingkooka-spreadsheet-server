@@ -1409,6 +1409,39 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // cell-reference...................................................................................................
+
+    @Test
+    public void testResolveCellReference() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetCellReference reference = SpreadsheetCellReference.parseCellReference("A99");
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell-reference/" + reference,
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetCellReference OK"),
+                        this.toJson(reference),
+                        SpreadsheetCellReference.class.getSimpleName()
+                )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test
