@@ -485,7 +485,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     private int width0(final SpreadsheetMetadata metadata) {
-        return metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH);
+        return metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH);
     }
 
     // Object...........................................................................................................

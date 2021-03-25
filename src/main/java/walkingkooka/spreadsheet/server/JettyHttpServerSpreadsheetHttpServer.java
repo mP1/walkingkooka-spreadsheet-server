@@ -185,6 +185,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                         SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
                                 .loadFromLocale()
+                                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
                                 .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.EXCEL_1900_DATE_SYSTEM_OFFSET)
                                 .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
@@ -192,7 +193,6 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"))
                                 .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
-                                .set(SpreadsheetMetadataPropertyName.WIDTH, 1)
                 );
     }
 
