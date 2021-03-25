@@ -393,7 +393,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 metadata.converterContext(),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.WIDTH),
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH),
                 this.fractioner,
                 metadata.formatter());
     }
