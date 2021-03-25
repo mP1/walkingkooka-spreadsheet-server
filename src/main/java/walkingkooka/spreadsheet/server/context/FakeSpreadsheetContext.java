@@ -43,6 +43,11 @@ import java.util.function.Function;
 public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
+    public int cellCharacterWidth(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
@@ -89,11 +94,6 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
     public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int width(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 }

@@ -52,6 +52,11 @@ public interface SpreadsheetContext extends Context {
     }
 
     /**
+     * Returns the cell character width for a given {@link SpreadsheetId}
+     */
+    int cellCharacterWidth(final SpreadsheetId id);
+
+    /**
      * The {@link Converter} for the given {@link SpreadsheetId}
      */
     Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id);
@@ -100,9 +105,4 @@ public interface SpreadsheetContext extends Context {
      * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}
      */
     SpreadsheetStoreRepository storeRepository(final SpreadsheetId id);
-
-    /**
-     * Returns the width for a given {@link SpreadsheetId}
-     */
-    int width(final SpreadsheetId id);
 }

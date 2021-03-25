@@ -142,6 +142,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
+    public int cellCharacterWidth(final SpreadsheetId id) {
+        return this.loadAndGet(id, this::cellCharacterWidth0);
+    }
+
+    private int cellCharacterWidth0(final SpreadsheetMetadata metadata) {
+        return metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH);
+    }
+
+    @Override
     public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
         return this.loadAndGet(id, SpreadsheetMetadata::converter);
     }
@@ -235,11 +244,11 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 rangeToCellStore,
                 rangeToConditionalFormattingRules);
 
+        final int cellCharacterWidth = this.cellCharacterWidth(id);
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
         final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);
-        final int width = this.width(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
 
@@ -258,7 +267,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                         expressionNumberKind),
                 numberToColor,
                 nameToColor,
-                width,
+                cellCharacterWidth,
                 fractioner,
                 defaultSpreadsheetFormatter
         );
@@ -478,15 +487,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository;
-
-    @Override
-    public int width(final SpreadsheetId id) {
-        return this.loadAndGet(id, this::width0);
-    }
-
-    private int width0(final SpreadsheetMetadata metadata) {
-        return metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH);
-    }
 
     // Object...........................................................................................................
 

@@ -28,6 +28,11 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
         TypeNameTesting<C> {
 
     @Test
+    default void testCellCharacterWidthNullSpreadsheetIdFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().cellCharacterWidth(null));
+    }
+
+    @Test
     default void testConverterNullSpreadsheetIdFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().converter(null));
     }
@@ -71,11 +76,6 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
     @Test
     default void testStoreRepositoryNullSpreadsheetIdFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().storeRepository(null));
-    }
-
-    @Test
-    default void testWidthNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().width(null));
     }
 
     // TypeNameTesting..................................................................................................
