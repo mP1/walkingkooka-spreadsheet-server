@@ -86,13 +86,14 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 A collection of end points that support manipulating cells, columns and rows and similar functionality.
 All input and output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
-- GET     /api/spreadsheet/$spreadsheet-id/cellbox/200,400
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
 - POST    /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE  /api/spreadsheet/$spreadsheet-id/cell/A1
+- POST    /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
+- GET     /api/spreadsheet/$spreadsheet-id/cellbox/200,400
 - GET     /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
 - GET     /api/spreadsheet/$spreadsheet-id/column/A
 - PUT     /api/spreadsheet/$spreadsheet-id/column/A
@@ -106,7 +107,6 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - GET     /api/spreadsheet/$spreadsheet-id/row/1
 - PUT     /api/spreadsheet/$spreadsheet-id/row/1
 - DELETE  /api/spreadsheet/$spreadsheet-id/row/1
-- POST    /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
 - GET     /api/spreadsheet/$spreadsheet-id/viewport/A1:150:25
 
 
