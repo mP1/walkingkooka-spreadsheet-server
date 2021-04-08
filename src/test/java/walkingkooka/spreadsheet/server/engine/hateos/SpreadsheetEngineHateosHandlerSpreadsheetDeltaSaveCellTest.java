@@ -124,7 +124,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
 
-        final List<SpreadsheetRectangle<?>> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -208,7 +208,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell saved2 = unsaved2.setFormatted(Optional.of(TextNode.text("FORMATTED2")));
         final SpreadsheetCell saved3 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED3")));
 
-        final List<SpreadsheetRectangle<?>> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         this.handleRangeAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
