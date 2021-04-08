@@ -72,7 +72,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     @Test
     public void testLoadCellAndFilter() {
         final SpreadsheetCellReference id = this.id();
-        final List<SpreadsheetRectangle<?>> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -123,7 +123,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c2 = this.c2();
         final SpreadsheetCell c3 = this.c3();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1));
         cellToDelta.put(b2.reference(), this.delta(b2));
         cellToDelta.put(b3.reference(), this.delta(b3));
@@ -148,7 +148,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c2 = this.c2();
         final SpreadsheetCell c3 = this.c3();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1));
         cellToDelta.put(b2.reference(), this.delta(b2));
         cellToDelta.put(b3.reference(), this.delta(b3));
@@ -170,7 +170,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCellReference c2 = this.c2().reference();
         final SpreadsheetCellReference c3 = this.c3().reference();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1, b2, b3));
         cellToDelta.put(c1, this.delta());
         cellToDelta.put(c2, this.delta());
@@ -189,7 +189,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c2 = this.c2();
         final SpreadsheetCell c3 = this.c3();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1, b2, c3));
         cellToDelta.put(b3.reference(), this.delta(b3));
         cellToDelta.put(c1.reference(), this.delta(c1, c2));
@@ -209,7 +209,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c2 = this.c2();
         final SpreadsheetCell c3 = this.c3();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1, b2, b3, z99));
         cellToDelta.put(c1.reference(), this.delta(c1, c2, c3));
 
@@ -228,7 +228,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCellReference c2 = this.c2().reference();
         final SpreadsheetCellReference c3 = this.c3().reference();
 
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
         cellToDelta.put(b1.reference(), this.delta(b1, b2, b3, z99));
         cellToDelta.put(c1, this.delta());
         cellToDelta.put(c2, this.delta());
@@ -292,7 +292,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final List<SpreadsheetRectangle<?>> window = this.window();
+        final List<SpreadsheetRectangle> window = this.window();
 
         this.handleRangeAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
                 new FakeSpreadsheetEngine() {

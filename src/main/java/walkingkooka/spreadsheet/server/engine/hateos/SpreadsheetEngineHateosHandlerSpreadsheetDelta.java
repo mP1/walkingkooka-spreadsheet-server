@@ -87,9 +87,9 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle<?>> window,
+    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle> window,
                                                                              final SpreadsheetDelta delta) {
-        final List<SpreadsheetRectangle<?>> ranges = SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor.transform(window, this.engine);
+        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor.transform(window, this.engine);
         return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(ranges)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));
     }

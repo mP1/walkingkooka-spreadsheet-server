@@ -57,7 +57,7 @@ public class SpreadsheetEngineHateosHandlerCellReferenceResolveTest extends Spre
         this.handleOneAndCheck2(RANGE, REFERENCE);
     }
 
-    private void handleOneAndCheck2(final SpreadsheetExpressionReference<?> id,
+    private void handleOneAndCheck2(final SpreadsheetExpressionReference id,
                                     final SpreadsheetCellReference cellReference) {
         this.handleOneAndCheck(
                 id.toString(),

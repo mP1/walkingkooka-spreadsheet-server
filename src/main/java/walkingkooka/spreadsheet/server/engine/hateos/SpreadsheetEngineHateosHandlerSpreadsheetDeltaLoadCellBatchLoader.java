@@ -66,7 +66,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader {
     /**
      * Tracks cells that have been loaded.
      */
-    final Map<SpreadsheetCellReference, SpreadsheetCell> referenceToCell = Maps.sorted(SpreadsheetCellReference.COMPARATOR);
+    final Map<SpreadsheetCellReference, SpreadsheetCell> referenceToCell = Maps.sorted();
 
     /**
      * The handler is used to load individual cells
