@@ -23,11 +23,14 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
@@ -43,14 +46,36 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
         SpreadsheetRange> {
 
     @Test
-    public void testComputeRange() {
+    public void testComputeRangeCellReference() {
         final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(100, 20);
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public SpreadsheetRange computeRange(final SpreadsheetViewport v) {
+                    public SpreadsheetRange computeRange(final SpreadsheetViewport v,
+                                                         final SpreadsheetEngineContext context) {
+                        assertEquals(viewport, v, "viewport");
+                        return range;
+                    }
+                },
+                this.engineContext()),
+                viewport,
+                Optional.empty(),
+                Maps.empty(),
+                Optional.of(range));
+    }
+
+    @Test
+    public void testComputeRangeLabel() {
+        final SpreadsheetViewport viewport = SpreadsheetViewport.parseViewport("Label123:100:20");
+        final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
+
+        this.handleOneAndCheck(this.createHandler(
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public SpreadsheetRange computeRange(final SpreadsheetViewport v,
+                                                         final SpreadsheetEngineContext context) {
                         assertEquals(viewport, v, "viewport");
                         return range;
                     }
@@ -80,7 +105,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
 
     @Override
     SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
+        return new FakeSpreadsheetEngineContext() {
+            @Override
+            public SpreadsheetCellReference resolveCellReference(final String text) {
+                final SpreadsheetExpressionReference reference = SpreadsheetExpressionReference.parse(text);
+                if(reference.isCellReference()) {
+                    return (SpreadsheetCellReference) reference;
+                }
+                return SpreadsheetCellReference.parseCellReference("B99");
+            }
+        };
     }
 
     @Override

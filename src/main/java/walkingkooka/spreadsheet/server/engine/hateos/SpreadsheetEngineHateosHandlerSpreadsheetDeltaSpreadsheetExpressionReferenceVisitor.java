@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceVisitor;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
@@ -29,16 +30,22 @@ import java.util.stream.Collectors;
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor extends SpreadsheetExpressionReferenceVisitor {
 
     static List<SpreadsheetRectangle> transform(final List<SpreadsheetRectangle> rectangles,
-                                                final SpreadsheetEngine engine) {
-        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor visitor = new SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(engine);
+                                                final SpreadsheetEngine engine,
+                                                final SpreadsheetEngineContext context) {
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor visitor = new SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(
+                engine,
+                context
+        );
         return rectangles.stream()
                 .map(visitor::transform0)
                 .collect(Collectors.toList());
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(final SpreadsheetEngine engine) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor(final SpreadsheetEngine engine,
+                                                                                                final SpreadsheetEngineContext context) {
         super();
         this.engine = engine;
+        this.context = context;
     }
 
     private SpreadsheetRange transform0(final SpreadsheetRectangle rectangle) {
@@ -47,11 +54,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionR
     }
 
     @Override
-    protected void visit(final SpreadsheetViewport rectangle) {
-        this.range = this.engine.computeRange(rectangle);
+    protected void visit(final SpreadsheetViewport viewport) {
+        this.range = this.engine.computeRange(viewport, this.context);
     }
 
     private final SpreadsheetEngine engine;
+    private final SpreadsheetEngineContext context;
 
     @Override
     protected void visit(final SpreadsheetRange range) {
