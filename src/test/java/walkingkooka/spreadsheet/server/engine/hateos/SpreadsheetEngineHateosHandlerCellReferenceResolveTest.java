@@ -83,7 +83,7 @@ public class SpreadsheetEngineHateosHandlerCellReferenceResolveTest extends Spre
     SpreadsheetEngineContext engineContext() {
         return new FakeSpreadsheetEngineContext() {
             @Override
-            public SpreadsheetCellReference resolveCellReference(final String text) {
+            public SpreadsheetCellReference resolveCellReference(final SpreadsheetExpressionReference reference) {
                 return REFERENCE;
             }
         };

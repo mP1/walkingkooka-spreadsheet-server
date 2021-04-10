@@ -23,6 +23,8 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Objects;
@@ -52,8 +54,15 @@ final class SpreadsheetEngineHateosHandlerCellReferenceResolve extends Spreadshe
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
+        final SpreadsheetExpressionReference reference;
+        try {
+            reference = SpreadsheetExpressionReference.parse(text);
+        } catch (final RuntimeException cause) {
+            throw new IllegalArgumentException("Invalid cell, label or range got " + CharSequences.quoteAndEscape(text));
+        }
+
         return Optional.of(
-                this.context.resolveCellReference(text)
+                this.context.resolveCellReference(reference)
         );
     }
 

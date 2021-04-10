@@ -26,11 +26,9 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
@@ -107,8 +105,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
     SpreadsheetEngineContext engineContext() {
         return new FakeSpreadsheetEngineContext() {
             @Override
-            public SpreadsheetCellReference resolveCellReference(final String text) {
-                final SpreadsheetExpressionReference reference = SpreadsheetExpressionReference.parse(text);
+            public SpreadsheetCellReference resolveCellReference(final SpreadsheetExpressionReference reference) {
                 if(reference.isCellReference()) {
                     return (SpreadsheetCellReference) reference;
                 }
