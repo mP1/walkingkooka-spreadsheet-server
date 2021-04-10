@@ -53,7 +53,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.engine.computeRange(viewport));
+        return Optional.of(this.engine.computeRange(viewport, this.context));
     }
 
     @Override

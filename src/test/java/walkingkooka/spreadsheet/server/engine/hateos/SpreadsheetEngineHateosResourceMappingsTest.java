@@ -277,7 +277,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public SpreadsheetRange computeRange(final SpreadsheetViewport rectangle) {
+            public SpreadsheetRange computeRange(final SpreadsheetViewport viewport,
+                                                 final SpreadsheetEngineContext context) {
                 return SpreadsheetRange.parseRange("B2:C3");
             }
         };

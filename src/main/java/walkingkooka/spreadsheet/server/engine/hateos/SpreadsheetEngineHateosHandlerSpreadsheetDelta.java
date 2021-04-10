@@ -89,7 +89,11 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      */
     private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle> window,
                                                                              final SpreadsheetDelta delta) {
-        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor.transform(window, this.engine);
+        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor.transform(
+                window,
+                this.engine,
+                this.context
+        );
         return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(ranges)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));
     }
