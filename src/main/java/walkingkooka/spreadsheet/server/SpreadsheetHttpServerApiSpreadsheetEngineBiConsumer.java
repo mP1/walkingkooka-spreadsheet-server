@@ -159,7 +159,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 id,
                 metadata,
                 labelStore,
-                engine
+                engine,
+                repository
         );
 
         return formatRouter(spreadsheetIdPath, context, metadata)
@@ -383,7 +384,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     private SpreadsheetEngineContext engineContext(final SpreadsheetId id,
                                                    final SpreadsheetMetadata metadata,
                                                    final SpreadsheetLabelStore labelStore,
-                                                   final SpreadsheetEngine engine) {
+                                                   final SpreadsheetEngine engine,
+                                                   final SpreadsheetStoreRepository repository) {
         return SpreadsheetEngineContexts.basic(
                 metadata.parser(),
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
@@ -395,7 +397,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 metadata.nameToColor(),
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH),
                 this.fractioner,
-                metadata.formatter());
+                metadata.formatter(),
+                repository);
     }
 
     private final HateosContentType contentTypeJson;
