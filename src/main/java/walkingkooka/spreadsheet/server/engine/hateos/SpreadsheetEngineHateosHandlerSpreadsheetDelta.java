@@ -113,7 +113,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
 
             final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if (false == columns.containsKey(column)) {
-                final double width = engine.columnWidth(column);
+                final double width = engine.columnWidth(column, this.context);
                 if (width > 0) {
                     columns.put(column, width);
                 }

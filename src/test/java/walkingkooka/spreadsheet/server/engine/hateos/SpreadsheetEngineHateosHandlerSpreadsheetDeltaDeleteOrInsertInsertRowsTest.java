@@ -66,7 +66,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         return width;
                     }
 
@@ -106,7 +107,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         return 0;
                     }
 
@@ -143,7 +145,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         return 0;
                     }
 
