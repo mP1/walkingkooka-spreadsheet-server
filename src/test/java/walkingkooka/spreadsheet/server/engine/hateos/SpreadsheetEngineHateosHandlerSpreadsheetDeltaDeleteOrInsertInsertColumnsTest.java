@@ -67,7 +67,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
                         return width;
                     }
@@ -107,7 +108,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         switch(column.toString()) {
                             case "A":
                             case "Z":
@@ -151,7 +153,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
                         return 0;
                     }

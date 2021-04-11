@@ -87,7 +87,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference c) {
+                    public double columnWidth(final SpreadsheetColumnReference c,
+                                              final SpreadsheetEngineContext context) {
                         assertEquals(column, c);
                         return columnWidth;
                     }
@@ -143,7 +144,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
 
                     @Override
-                    public double columnWidth(final SpreadsheetColumnReference column) {
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
                         assertEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
                         return width;
                     }
