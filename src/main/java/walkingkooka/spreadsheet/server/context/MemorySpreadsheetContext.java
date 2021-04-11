@@ -259,7 +259,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 functions,
                 engine,
-                labelStore,
                 ExpressionNumberConverterContexts.basic(converter,
                         ConverterContexts.basic(Converters.fake(),
                                 this.dateTimeContext(id),

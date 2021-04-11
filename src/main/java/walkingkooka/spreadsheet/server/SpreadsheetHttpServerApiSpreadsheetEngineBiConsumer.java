@@ -158,7 +158,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         final SpreadsheetEngineContext context = this.engineContext(
                 id,
                 metadata,
-                labelStore,
                 engine,
                 repository
         );
@@ -383,7 +382,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private SpreadsheetEngineContext engineContext(final SpreadsheetId id,
                                                    final SpreadsheetMetadata metadata,
-                                                   final SpreadsheetLabelStore labelStore,
                                                    final SpreadsheetEngine engine,
                                                    final SpreadsheetStoreRepository repository) {
         return SpreadsheetEngineContexts.basic(
@@ -391,7 +389,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 this.idToFunctions.apply(id),
                 engine,
-                labelStore,
                 metadata.converterContext(),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
