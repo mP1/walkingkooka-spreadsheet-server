@@ -121,7 +121,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
 
             final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if (false == rows.containsKey(row)) {
-                final double height = engine.rowHeight(row);
+                final double height = engine.rowHeight(row, context);
                 if (height > 0) {
                     rows.put(row, height);
                 }

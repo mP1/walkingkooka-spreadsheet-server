@@ -94,7 +94,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference r) {
+                    public double rowHeight(final SpreadsheetRowReference r,
+                                            final SpreadsheetEngineContext context) {
                         assertEquals(row, r);
                         return rowHeight;
                     }
@@ -151,7 +152,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         assertEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
                         return height;
                     }
