@@ -53,7 +53,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends Spreadsheet
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.engine.cellBox(coords));
+        return Optional.of(
+                this.engine.cellBox(coords, this.context)
+        );
     }
 
     @Override

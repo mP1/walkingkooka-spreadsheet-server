@@ -271,7 +271,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetCellBox cellBox(final SpreadsheetCoordinates coords) {
+            public SpreadsheetCellBox cellBox(final SpreadsheetCoordinates coords,
+                                              final SpreadsheetEngineContext context) {
                 return SpreadsheetCellReference.parseCellReference("B2:C3")
                         .cellBox(1, 2, 3, 4);
             }
