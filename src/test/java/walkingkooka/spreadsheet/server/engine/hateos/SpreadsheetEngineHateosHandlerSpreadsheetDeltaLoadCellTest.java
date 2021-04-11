@@ -96,7 +96,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         return height;
                     }
                 },
@@ -261,7 +262,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         return 0;
                     }
 
@@ -320,7 +322,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         return 0;
                     }
                 },
@@ -436,7 +439,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
             }
 
             @Override
-            public double rowHeight(final SpreadsheetRowReference row) {
+            public double rowHeight(final SpreadsheetRowReference row,
+                                    final SpreadsheetEngineContext context) {
                 return 0;
             }
         };

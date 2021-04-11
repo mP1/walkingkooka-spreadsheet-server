@@ -72,7 +72,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return height;
                     }
@@ -113,7 +114,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return 0;
                     }
@@ -151,7 +153,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
 
                     @Override
-                    public double rowHeight(final SpreadsheetRowReference row) {
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return 0;
                     }
