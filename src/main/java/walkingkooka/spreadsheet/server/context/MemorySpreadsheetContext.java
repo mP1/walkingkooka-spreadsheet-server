@@ -269,7 +269,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 nameToColor,
                 cellCharacterWidth,
                 fractioner,
-                defaultSpreadsheetFormatter
+                defaultSpreadsheetFormatter,
+                repository
         );
 
         final AbsoluteUrl base = this.base;
