@@ -45,7 +45,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -65,9 +64,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.format.Formatters;
@@ -78,7 +75,6 @@ import walkingkooka.spreadsheet.server.label.hateos.SpreadsheetLabelHateosResour
 import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
@@ -228,22 +224,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetMetadata metadata = this.load(id);
 
-        final SpreadsheetCellStore cellStore = repository.cells();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
-        final SpreadsheetLabelStore labelStore = repository.labels();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
-        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
-        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = repository.rangeToConditionalFormattingRules();
-
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata,
-                cellStore,
-                cellReferencesStore,
-                labelStore,
-                labelReferencesStore,
-                rangeToCellStore,
-                rangeToConditionalFormattingRules
-        );
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
 
         final int cellCharacterWidth = this.cellCharacterWidth(id);
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();

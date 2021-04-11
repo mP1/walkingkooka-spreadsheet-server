@@ -19,13 +19,12 @@ package test;
 import com.google.j2cl.junit.apt.J2clTestInput;
 import org.junit.Assert;
 import org.junit.Test;
+
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContext;
@@ -34,7 +33,6 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -50,16 +48,19 @@ import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatExpressionParserT
 import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParserContexts;
 import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParsers;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
+import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
+import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
@@ -75,10 +76,8 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -91,11 +90,8 @@ public class JunitTest {
 
     @Test
     public void testWithCellReference() {
-        final SpreadsheetCellStore cellStore = cellStore();
-        final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
-
-        final SpreadsheetEngine engine = engine(cellStore, labelStore);
-        final SpreadsheetEngineContext engineContext = engineContext(engine, labelStore);
+        final SpreadsheetEngine engine = engine();
+        final SpreadsheetEngineContext engineContext = engineContext(engine);
 
         engine.saveCell(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A1"), SpreadsheetFormula.with("12+B2")), engineContext);
 
@@ -110,10 +106,6 @@ public class JunitTest {
         // a1=12+34
         // b2=34
         checkEquals(Sets.of("46", "34"), saved, "saved cells formatted value");
-    }
-
-    private static SpreadsheetCellStore cellStore() {
-        return SpreadsheetCellStores.treeMap();
     }
 
     private static Converter<ExpressionNumberConverterContext> converter() {
@@ -147,21 +139,11 @@ public class JunitTest {
         };
     }
 
-    private static SpreadsheetEngine engine(final SpreadsheetCellStore cellStore,
-                                            final SpreadsheetLabelStore labelStore) {
-        return SpreadsheetEngines.basic(
-                SpreadsheetMetadata.EMPTY,
-                cellStore,
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                labelStore,
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                SpreadsheetRangeStores.treeMap(),
-                SpreadsheetRangeStores.treeMap()
-        );
+    private static SpreadsheetEngine engine() {
+        return SpreadsheetEngines.basic(SpreadsheetMetadata.EMPTY);
     }
 
-    private static SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine,
-                                                          final SpreadsheetLabelStore labelStore) {
+    private static SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine) {
         return new FakeSpreadsheetEngineContext() {
 
             @Override
@@ -183,7 +165,11 @@ public class JunitTest {
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
-                return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(engine, labelStore, this);
+                return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
+                        engine,
+                        this.storeRepository().labels(),
+                        this
+                );
             }
 
             @Override
@@ -217,6 +203,23 @@ public class JunitTest {
                 checkEquals(false, value instanceof Optional, "Value must not be optional" + value);
                 return formatter.format(value, formatterContext());
             }
+
+            @Override
+            public SpreadsheetStoreRepository storeRepository() {
+                return this.storeRepository;
+            }
+
+            private SpreadsheetStoreRepository storeRepository = SpreadsheetStoreRepositories.basic(
+                    SpreadsheetCellStores.treeMap(),
+                    SpreadsheetExpressionReferenceStores.treeMap(),
+                    SpreadsheetGroupStores.fake(),
+                    SpreadsheetLabelStores.treeMap(),
+                    SpreadsheetExpressionReferenceStores.treeMap(),
+                    SpreadsheetMetadataStores.fake(),
+                    SpreadsheetRangeStores.treeMap(),
+                    SpreadsheetRangeStores.treeMap(),
+                    SpreadsheetUserStores.fake()
+            );
         };
     }
 

@@ -37,7 +37,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -55,9 +54,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.format.Formatters;
@@ -68,8 +65,6 @@ import walkingkooka.spreadsheet.server.label.hateos.SpreadsheetLabelHateosResour
 import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -143,17 +138,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         final SpreadsheetMetadata metadata = repository.metadatas()
                 .loadOrFail(id);
 
-        final AbsoluteUrl baseUrl = this.baseUrl;
-        final UrlPath spreadsheetIdPath = baseUrl.path().
-                append(UrlPathName.with(id.hateosLinkId()));
-
-        final SpreadsheetLabelStore labelStore = repository.labels();
-
-        final SpreadsheetEngine engine = this.engine(
-                metadata,
-                repository,
-                labelStore
-        );
+        final SpreadsheetEngine engine = this.engine(metadata);
 
         final SpreadsheetEngineContext context = this.engineContext(
                 id,
@@ -161,6 +146,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 engine,
                 repository
         );
+
+        final AbsoluteUrl baseUrl = this.baseUrl;
+        final UrlPath spreadsheetIdPath = baseUrl.path().
+                append(UrlPathName.with(id.hateosLinkId()));
 
         return formatRouter(spreadsheetIdPath, context, metadata)
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
@@ -311,27 +300,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
     }
 
-    private SpreadsheetEngine engine(final SpreadsheetMetadata metadata,
-                                     final SpreadsheetStoreRepository repository,
-                                     final SpreadsheetLabelStore labelStore) {
-        final SpreadsheetCellStore cellStore = SpreadsheetCellStores.spreadsheetFormulaSpreadsheetMetadataAware(
-                repository.cells(),
-                metadata
-        );
-        final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferencesStore = repository.cellReferences();
-        final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferencesStore = repository.labelReferences();
-        final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
-        final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
-
-        return SpreadsheetEngines.basic(
-                metadata,
-                cellStore,
-                cellReferencesStore,
-                labelStore,
-                labelReferencesStore,
-                rangeToCellStore,
-                rangeToConditionalFormattingRuleStore
-        );
+    private SpreadsheetEngine engine(final SpreadsheetMetadata metadata) {
+        return SpreadsheetEngines.basic(metadata);
     }
 
     private static HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference(final SpreadsheetEngine engine,
