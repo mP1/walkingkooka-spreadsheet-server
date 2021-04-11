@@ -235,14 +235,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetRangeStore<SpreadsheetCellReference> rangeToCellStore = repository.rangeToCells();
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = repository.rangeToConditionalFormattingRules();
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(id,
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
                 metadata,
                 cellStore,
                 cellReferencesStore,
                 labelStore,
                 labelReferencesStore,
                 rangeToCellStore,
-                rangeToConditionalFormattingRules);
+                rangeToConditionalFormattingRules
+        );
 
         final int cellCharacterWidth = this.cellCharacterWidth(id);
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();

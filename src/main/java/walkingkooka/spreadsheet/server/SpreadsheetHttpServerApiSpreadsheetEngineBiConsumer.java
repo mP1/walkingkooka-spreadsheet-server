@@ -140,7 +140,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      */
     Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.idToStoreRepository.apply(id);
-        final SpreadsheetMetadata metadata = repository.metadatas().loadOrFail(id);
+        final SpreadsheetMetadata metadata = repository.metadatas()
+                .loadOrFail(id);
 
         final AbsoluteUrl baseUrl = this.baseUrl;
         final UrlPath spreadsheetIdPath = baseUrl.path().
@@ -149,7 +150,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         final SpreadsheetLabelStore labelStore = repository.labels();
 
         final SpreadsheetEngine engine = this.engine(
-                id,
                 metadata,
                 repository,
                 labelStore
@@ -311,8 +311,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
     }
 
-    private SpreadsheetEngine engine(final SpreadsheetId id,
-                                     final SpreadsheetMetadata metadata,
+    private SpreadsheetEngine engine(final SpreadsheetMetadata metadata,
                                      final SpreadsheetStoreRepository repository,
                                      final SpreadsheetLabelStore labelStore) {
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.spreadsheetFormulaSpreadsheetMetadataAware(
@@ -325,7 +324,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         final SpreadsheetRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRuleStore = repository.rangeToConditionalFormattingRules();
 
         return SpreadsheetEngines.basic(
-                id,
                 metadata,
                 cellStore,
                 cellReferencesStore,
