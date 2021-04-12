@@ -223,19 +223,13 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
 
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
-        final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
-        final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 functions,
                 engine,
-                numberToColor,
-                nameToColor,
                 fractioner,
                 defaultSpreadsheetFormatter,
                 repository

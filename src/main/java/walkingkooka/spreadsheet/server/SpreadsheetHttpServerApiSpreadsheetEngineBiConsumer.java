@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -354,12 +353,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                    final SpreadsheetStoreRepository repository) {
         return SpreadsheetEngineContexts.basic(
                 metadata,
-                metadata.parser(),
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 this.idToFunctions.apply(id),
                 engine,
-                metadata.numberToColor(),
-                metadata.nameToColor(),
                 this.fractioner,
                 metadata.formatter(),
                 repository);
