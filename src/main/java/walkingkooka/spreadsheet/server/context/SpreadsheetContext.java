@@ -18,20 +18,14 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.Context;
-import walkingkooka.color.Color;
-import walkingkooka.convert.Converter;
-import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -52,29 +46,9 @@ public interface SpreadsheetContext extends Context {
     }
 
     /**
-     * Returns the cell character width for a given {@link SpreadsheetId}
-     */
-    int cellCharacterWidth(final SpreadsheetId id);
-
-    /**
-     * The {@link Converter} for the given {@link SpreadsheetId}
-     */
-    Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id);
-
-    /**
      * Returns a {@link SpreadsheetMetadata} with necessary defaults allocating a new {@link SpreadsheetId}.
      */
     SpreadsheetMetadata createMetadata(final Optional<Locale> locale);
-
-    /**
-     * The {@link DateTimeContext} for the given {@link SpreadsheetId}
-     */
-    DateTimeContext dateTimeContext(final SpreadsheetId id);
-
-    /**
-     * The {@link DecimalNumberContext} for the given {@link SpreadsheetId}
-     */
-    DecimalNumberContext decimalNumberContext(final SpreadsheetId id);
 
     /**
      * Returns the default {@link SpreadsheetFormatter }for a given {@link SpreadsheetId}
@@ -90,16 +64,6 @@ public interface SpreadsheetContext extends Context {
      * A {@link Router} that can handle hateos requests for the given identified spreadsheet.
      */
     Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter(final SpreadsheetId id);
-
-    /**
-     * Returns a {@link Function} which maps {@link String color name} to {@link Color} for the given {@link SpreadsheetId}.
-     */
-    Function<SpreadsheetColorName, Optional<Color>> nameToColor(final SpreadsheetId id);
-
-    /**
-     * Returns a {@link Function} which maps color number to {@link Color} for the given {@link SpreadsheetId}.
-     */
-    Function<Integer, Optional<Color>> numberToColor(final SpreadsheetId id);
 
     /**
      * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}

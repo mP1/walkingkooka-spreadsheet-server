@@ -17,20 +17,14 @@
 
 package walkingkooka.spreadsheet.server.context;
 
-import walkingkooka.color.Color;
-import walkingkooka.convert.Converter;
-import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -43,27 +37,7 @@ import java.util.function.Function;
 public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
-    public int cellCharacterWidth(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DateTimeContext dateTimeContext(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DecimalNumberContext decimalNumberContext(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
@@ -79,16 +53,6 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Function<SpreadsheetColorName, Optional<Color>> nameToColor(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Function<Integer, Optional<Color>> numberToColor(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

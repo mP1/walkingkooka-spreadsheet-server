@@ -27,30 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends ContextTesting<C>,
         TypeNameTesting<C> {
 
-    @Test
-    default void testCellCharacterWidthNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().cellCharacterWidth(null));
-    }
-
-    @Test
-    default void testConverterNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().converter(null));
-    }
-
     @SuppressWarnings("OptionalAssignedToNull")
     @Test
     default void testCreateMetadataNullLocaleFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().createMetadata(null));
-    }
-
-    @Test
-    default void testDateTimeContextNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().dateTimeContext(null));
-    }
-
-    @Test
-    default void testDecimalNumberContextNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().decimalNumberContext(null));
     }
 
     @Test
@@ -61,16 +41,6 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
     @Test
     default void testHateosRouterNullSpreadsheetIdFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().hateosRouter(null));
-    }
-
-    @Test
-    default void testNameToColorNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().nameToColor(null));
-    }
-
-    @Test
-    default void testNumberToColorNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().numberToColor(null));
     }
 
     @Test
