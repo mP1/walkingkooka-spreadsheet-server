@@ -226,7 +226,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
 
-        final int cellCharacterWidth = this.cellCharacterWidth(id);
         final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
@@ -249,7 +248,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                         expressionNumberKind),
                 numberToColor,
                 nameToColor,
-                cellCharacterWidth,
                 fractioner,
                 defaultSpreadsheetFormatter,
                 repository
