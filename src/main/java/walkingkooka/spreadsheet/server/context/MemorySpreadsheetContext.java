@@ -22,8 +22,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.Fraction;
@@ -77,8 +75,6 @@ import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -226,14 +222,11 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
 
-        final Converter<ExpressionNumberConverterContext> converter = metadata.converter();
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<Integer, Optional<Color>> numberToColor = this.numberToColor(id);
         final Function<SpreadsheetColorName, Optional<Color>> nameToColor = this.nameToColor(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
-
-        final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
@@ -241,11 +234,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 functions,
                 engine,
-                ExpressionNumberConverterContexts.basic(converter,
-                        ConverterContexts.basic(Converters.fake(),
-                                this.dateTimeContext(id),
-                                this.decimalNumberContext(id)),
-                        expressionNumberKind),
                 numberToColor,
                 nameToColor,
                 fractioner,

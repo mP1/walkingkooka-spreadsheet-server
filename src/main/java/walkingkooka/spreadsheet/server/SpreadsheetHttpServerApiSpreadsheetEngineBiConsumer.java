@@ -358,7 +358,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 this.idToFunctions.apply(id),
                 engine,
-                metadata.converterContext(),
                 metadata.numberToColor(),
                 metadata.nameToColor(),
                 this.fractioner,
