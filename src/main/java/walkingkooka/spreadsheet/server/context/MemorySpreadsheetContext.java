@@ -237,6 +237,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         final ExpressionNumberKind expressionNumberKind = metadata.expressionNumberKind();
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
+                metadata,
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.NUMBER_PARSE_PATTERNS).parser(),
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 functions,

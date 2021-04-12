@@ -353,6 +353,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                    final SpreadsheetEngine engine,
                                                    final SpreadsheetStoreRepository repository) {
         return SpreadsheetEngineContexts.basic(
+                metadata,
                 metadata.parser(),
                 metadata.getOrFail(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR),
                 this.idToFunctions.apply(id),
