@@ -20,10 +20,6 @@ package walkingkooka.spreadsheet.server.context;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.color.Color;
-import walkingkooka.convert.Converter;
-import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -49,10 +45,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -74,7 +68,6 @@ import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -134,35 +127,11 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public int cellCharacterWidth(final SpreadsheetId id) {
-        return this.loadAndGet(id, this::cellCharacterWidth0);
-    }
-
-    private int cellCharacterWidth0(final SpreadsheetMetadata metadata) {
-        return metadata.getOrFail(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH);
-    }
-
-    @Override
-    public Converter<ExpressionNumberConverterContext> converter(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::converter);
-    }
-
-    @Override
     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
         return this.createMetadata.apply(locale);
     }
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
-
-    @Override
-    public DateTimeContext dateTimeContext(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::dateTimeContext);
-    }
-
-    @Override
-    public DecimalNumberContext decimalNumberContext(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::decimalNumberContext);
-    }
 
     @Override
     public SpreadsheetFormatter defaultSpreadsheetFormatter(final SpreadsheetId id) {
@@ -433,16 +402,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     private final AbsoluteUrl base;
     private final HateosContentType contentType;
     private final Function<BigDecimal, Fraction> fractioner;
-
-    @Override
-    public Function<SpreadsheetColorName, Optional<Color>> nameToColor(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::nameToColor);
-    }
-
-    @Override
-    public Function<Integer, Optional<Color>> numberToColor(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::numberToColor);
-    }
 
     @Override
     public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {

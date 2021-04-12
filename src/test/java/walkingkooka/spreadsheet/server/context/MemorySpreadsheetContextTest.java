@@ -171,21 +171,6 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     }
 
     @Test
-    public void testConverter() {
-        assertNotEquals(null, this.createContext().converter(this.spreadsheetId()));
-    }
-
-    @Test
-    public void testDateTimeContext() {
-        assertNotEquals(null, this.createContext().dateTimeContext(this.spreadsheetId()));
-    }
-
-    @Test
-    public void testDecimalNumberContext() {
-        assertNotEquals(null, this.createContext().decimalNumberContext(this.spreadsheetId()));
-    }
-
-    @Test
     public void testDefaultSpreadsheetFormatter() {
         assertNotEquals(null, this.createContext().defaultSpreadsheetFormatter(this.spreadsheetId()));
     }
@@ -716,16 +701,6 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         final Optional<Locale> locale = Optional.empty();
         assertEquals(this.createMetadata(locale),
                 this.createContext().createMetadata(locale));
-    }
-
-    @Test
-    public void testNameToColor() {
-        assertNotEquals(null, this.createContext().nameToColor(this.spreadsheetId()));
-    }
-
-    @Test
-    public void testNumberToColor() {
-        assertNotEquals(null, this.createContext().numberToColor(this.spreadsheetId()));
     }
 
     @Test
