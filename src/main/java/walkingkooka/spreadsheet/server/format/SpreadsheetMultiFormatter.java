@@ -19,6 +19,8 @@ package walkingkooka.spreadsheet.server.format;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.HasSpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.text.CharSequences;
 
 import java.time.LocalDateTime;
@@ -89,7 +91,7 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
             }
             if (pattern instanceof SpreadsheetLocaleDefaultDateTimeFormat) {
                 final SpreadsheetLocaleDefaultDateTimeFormat format = (SpreadsheetLocaleDefaultDateTimeFormat) pattern;
-                formatted = format.format((LocalDateTime) value, this.engineContext);
+                formatted = format.format((LocalDateTime) value, this.formatterContext());
                 break;
             }
 
@@ -104,6 +106,11 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
      */
     private IllegalArgumentException formatFail(final Object value, final Object pattern) {
         return new IllegalArgumentException("Unable to format " + CharSequences.quoteIfChars(value));
+    }
+
+    private SpreadsheetFormatterContext formatterContext() {
+        final SpreadsheetMetadata metadata = this.engineContext.metadata();
+        return metadata.formatterContext(metadata.formatter());
     }
 
     private final SpreadsheetEngineContext engineContext;

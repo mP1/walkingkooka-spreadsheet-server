@@ -30,6 +30,9 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.util.FunctionTesting;
@@ -179,6 +182,16 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
     public SpreadsheetMultiFormatter createFunction() {
         return SpreadsheetMultiFormatter.with(
                 new FakeSpreadsheetEngineContext() {
+
+                    @Override
+                    public SpreadsheetMetadata metadata() {
+                        return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+                                .loadFromLocale()
+                                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"));
+
+                    }
+
                     @Override
                     public Optional<SpreadsheetText> format(final Object value,
                                                             final SpreadsheetFormatter formatter) {
@@ -199,11 +212,6 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                                                 ExpressionNumberKind.DOUBLE
                                         )
                                 ));
-                    }
-
-                    @Override
-                    public Locale locale() {
-                        return Locale.forLanguageTag("EN-AU");
                     }
                 }
         );
