@@ -193,14 +193,12 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
-        final SpreadsheetFormatter defaultSpreadsheetFormatter = this.defaultSpreadsheetFormatter(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
                 functions,
                 engine,
                 fractioner,
-                defaultSpreadsheetFormatter,
                 repository
         );
 
