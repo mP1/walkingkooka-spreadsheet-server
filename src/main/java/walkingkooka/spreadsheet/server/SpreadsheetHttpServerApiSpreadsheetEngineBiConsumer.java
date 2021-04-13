@@ -356,7 +356,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.idToFunctions.apply(id),
                 engine,
                 this.fractioner,
-                metadata.formatter(),
                 repository);
     }
 
