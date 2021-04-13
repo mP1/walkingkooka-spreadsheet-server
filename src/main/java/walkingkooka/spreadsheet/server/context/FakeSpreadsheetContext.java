@@ -22,7 +22,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -38,11 +37,6 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
     public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatter defaultSpreadsheetFormatter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

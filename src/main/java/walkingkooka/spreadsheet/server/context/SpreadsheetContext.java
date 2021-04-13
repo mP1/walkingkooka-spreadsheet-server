@@ -23,7 +23,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -49,11 +48,6 @@ public interface SpreadsheetContext extends Context {
      * Returns a {@link SpreadsheetMetadata} with necessary defaults allocating a new {@link SpreadsheetId}.
      */
     SpreadsheetMetadata createMetadata(final Optional<Locale> locale);
-
-    /**
-     * Returns the default {@link SpreadsheetFormatter }for a given {@link SpreadsheetId}
-     */
-    SpreadsheetFormatter defaultSpreadsheetFormatter(final SpreadsheetId id);
 
     /**
      * Returns a {@link Function} which knows available functions for the given {@link SpreadsheetId}.

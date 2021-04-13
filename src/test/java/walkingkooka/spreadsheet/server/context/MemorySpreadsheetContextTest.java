@@ -171,11 +171,6 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     }
 
     @Test
-    public void testDefaultSpreadsheetFormatter() {
-        assertNotEquals(null, this.createContext().defaultSpreadsheetFormatter(this.spreadsheetId()));
-    }
-
-    @Test
     public void testFunctions() {
         assertNotEquals(null, this.createContext().functions(this.spreadsheetId()));
     }

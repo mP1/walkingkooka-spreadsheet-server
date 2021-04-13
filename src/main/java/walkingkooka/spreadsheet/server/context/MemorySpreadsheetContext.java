@@ -45,7 +45,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
@@ -132,11 +131,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     }
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
-
-    @Override
-    public SpreadsheetFormatter defaultSpreadsheetFormatter(final SpreadsheetId id) {
-        return this.loadAndGet(id, SpreadsheetMetadata::formatter);
-    }
 
     @Override
     public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
