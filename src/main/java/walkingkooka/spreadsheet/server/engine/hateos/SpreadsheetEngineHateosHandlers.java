@@ -76,6 +76,14 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities}
+     */
+    public static HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities(final SpreadsheetEngine engine,
+                                                                                                                                                 final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.with(engine, context);
+    }
+
+    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns(final SpreadsheetEngine engine,
