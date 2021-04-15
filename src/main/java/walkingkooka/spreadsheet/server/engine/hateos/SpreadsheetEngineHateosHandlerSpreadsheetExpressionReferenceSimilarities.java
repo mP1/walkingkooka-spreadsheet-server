@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -66,11 +67,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     }
 
     private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final String count = (String) parameters.get(COUNT);
-        if (null == count) {
+        final List<String> counts = (List<String>) parameters.get(COUNT);
+        if (null == counts) {
             throw new IllegalArgumentException("Missing count parameter");
         }
-        return Integer.parseInt(count);
+        switch (counts.size()) {
+            case 0:
+                throw new IllegalArgumentException("Missing count parameter");
+            default:
+                return Integer.parseInt(counts.get(0));
+        }
     }
 
     // @VisibleForTesting

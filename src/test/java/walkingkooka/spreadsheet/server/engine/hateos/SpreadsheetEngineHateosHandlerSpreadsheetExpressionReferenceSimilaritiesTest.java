@@ -69,11 +69,21 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
     }
 
     @Test
+    public void testMissingCountFails2() {
+        this.handleOneFails(
+                "Abc",
+                Optional.empty(),
+                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.empty()),
+                IllegalArgumentException.class
+        );
+    }
+
+    @Test
     public void testInvalidCount() {
         this.handleOneFails(
                 "Abc",
                 Optional.empty(),
-                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, "???"),
+                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.of("???")),
                 IllegalArgumentException.class
         );
     }
@@ -148,7 +158,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
         this.handleOneAndCheck(
                 text,
                 Optional.empty(),
-                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, "" + count),
+                Maps.of(SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.of("" + count)),
                 Optional.ofNullable(expected)
         );
     }
