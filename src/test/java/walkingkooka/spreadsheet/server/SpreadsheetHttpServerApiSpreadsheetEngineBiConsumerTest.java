@@ -200,7 +200,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testRouteCellReferenceGet() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/B2", HttpStatusCode.OK);
+        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/B2?count=1", HttpStatusCode.OK);
     }
 
     @Test
