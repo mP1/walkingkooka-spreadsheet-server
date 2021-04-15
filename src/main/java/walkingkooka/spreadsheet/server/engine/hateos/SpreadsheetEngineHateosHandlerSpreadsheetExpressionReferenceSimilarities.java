@@ -18,8 +18,8 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -80,7 +80,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     }
 
     // @VisibleForTesting
-    final static HttpRequestParameterName COUNT = HttpRequestParameterName.with("count");
+    final static UrlParameterName COUNT = UrlParameterName.with("count");
 
     private Optional<SpreadsheetCellReference> parseCellReference(final String text) {
         SpreadsheetCellReference cellReference;
