@@ -1218,7 +1218,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // save cell, save metadata, save cell..............................................................................
 
-    @Test
+    //@Test @Ignore
     public void testSaveCellUpdateMetadataLoadCell() {
         final TestHttpServer server = this.startServer();
 
@@ -1794,7 +1794,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    @Test
+    //@Test @Ignore
     public void testLabelSaveAndLoad() {
         final TestHttpServer server = this.startServer();
 
@@ -1839,7 +1839,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    @Test
+    //@Test @Ignore
     public void testLabelSaveAndResolveCellReference() {
         final TestHttpServer server = this.startServer();
 
@@ -2424,7 +2424,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final HttpResponse response = this.handle(request);
 
             // ignore response body (which will have a stack trace) if bad request
-            if (HttpStatusCode.BAD_REQUEST.equals(response.status().map(s -> s.value()).orElse(null))) {
+            if (HttpStatusCode.BAD_REQUEST.equals(expected.status().map(s -> s.value()).orElse(null))) {
+                assertEquals(expected.status(), response.status(), () -> "" + request + "\n" + response);
+
                 final List<HttpEntity> entities = response.entities();
                 assertEquals(1, entities.size(), () -> "" + request + "\n" + response);
 
