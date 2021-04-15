@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -37,7 +38,7 @@ import java.util.Set;
 /**
  * Holds the results of invoking a {@link walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore#findSimilar(String, int)}.
  */
-public final class SpreadsheetExpressionReferenceSimilarities {
+public final class SpreadsheetExpressionReferenceSimilarities implements HateosResource<String> {
 
     /**
      * Factory that creates a {@link SpreadsheetExpressionReferenceSimilarities}
@@ -157,5 +158,17 @@ public final class SpreadsheetExpressionReferenceSimilarities {
                 SpreadsheetExpressionReferenceSimilarities::marshall,
                 SpreadsheetExpressionReferenceSimilarities.class
         );
+    }
+
+    // HateosResource...................................................................................................
+
+    @Override
+    public String hateosLinkId() {
+        return "";
+    }
+
+    @Override
+    public Optional<String> id() {
+        return Optional.empty();
     }
 }

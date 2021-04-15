@@ -58,6 +58,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetEngineHateosResourceMappings;
+import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.format.Formatters;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
@@ -278,7 +279,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
 
-        final HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference = cellReference(engine, context);
+        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
@@ -347,12 +348,12 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
     }
 
-    private static HateosResourceMapping<String, SpreadsheetCellReference, SpreadsheetCellReference, SpreadsheetCellReference> cellReference(final SpreadsheetEngine engine,
-                                                                                                                                             final SpreadsheetEngineContext context) {
-        final HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> resolveCellReference = SpreadsheetEngineHateosHandlers.resolveCellReference(engine, context);
+    private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngine engine,
+                                                                                                                                                                                                   final SpreadsheetEngineContext context) {
+        final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHateosHandlers.findSimilarities(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cellReference(
-                resolveCellReference
+                findSimilarities
         );
     }
 

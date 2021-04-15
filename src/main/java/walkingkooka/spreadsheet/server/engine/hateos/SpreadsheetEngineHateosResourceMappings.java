@@ -169,15 +169,19 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     // cellReference....................................................................................................
 
     public static HateosResourceMapping<String,
-            SpreadsheetCellReference,
-            SpreadsheetCellReference,
-            SpreadsheetCellReference> cellReference(final HateosHandler<String, SpreadsheetCellReference, SpreadsheetCellReference> cellReference) {
+            SpreadsheetExpressionReferenceSimilarities,
+            SpreadsheetExpressionReferenceSimilarities,
+            SpreadsheetExpressionReferenceSimilarities> cellReference(final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference) {
         return HateosResourceMapping.with(CELL_REFERENCE,
                 SpreadsheetEngineHateosResourceMappings::parseCellReferenceText,
-                SpreadsheetCellReference.class,
-                SpreadsheetCellReference.class,
-                SpreadsheetCellReference.class)
-                .set(LinkRelation.SELF, HttpMethod.GET, cellReference);
+                SpreadsheetExpressionReferenceSimilarities.class,
+                SpreadsheetExpressionReferenceSimilarities.class,
+                SpreadsheetExpressionReferenceSimilarities.class
+        ).set(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                cellReference
+        );
     }
 
     /**

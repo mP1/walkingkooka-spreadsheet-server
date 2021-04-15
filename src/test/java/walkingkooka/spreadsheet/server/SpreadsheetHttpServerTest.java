@@ -72,6 +72,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -1412,7 +1413,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // cell-reference...................................................................................................
 
     @Test
-    public void testResolveCellReference() {
+    public void testCellReferenceGet() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
@@ -1431,13 +1432,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell-reference/" + reference,
+                "/api/spreadsheet/1/cell-reference/" + reference + "?count=100",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetCellReference OK"),
-                        this.toJson(reference),
-                        SpreadsheetCellReference.class.getSimpleName()
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetExpressionReferenceSimilarities OK"),
+                        "{\n" +
+                                "  \"cell-reference\": \"A99\"\n" +
+                                "}",
+                        SpreadsheetExpressionReferenceSimilarities.class.getSimpleName()
                 )
         );
     }
