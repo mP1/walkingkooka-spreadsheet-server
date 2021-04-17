@@ -1218,7 +1218,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // save cell, save metadata, save cell..............................................................................
 
-    //@Test @Ignore
+    @Test
     public void testSaveCellUpdateMetadataLoadCell() {
         final TestHttpServer server = this.startServer();
 
@@ -1300,7 +1300,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/",
+                "/api/spreadsheet/" + initial.id().get(),
                 NO_HEADERS_TRANSACTION_ID,
                 updated.jsonNodeMarshallContext().marshall(updated).toString(),
                 this.response(
@@ -1314,7 +1314,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // reload the saved cell
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/A1/FORCE_RECOMPUTE",
+                "/api/spreadsheet/1/cell/A1/force-recompute",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -1323,7 +1323,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1,25\",\n" +
+                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1336,8 +1336,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-decimal-separator-symbol-parser-token\",\n" +
                                 "              \"value\": {\n" +
-                                "                \"value\": \",\",\n" +
-                                "                \"text\": \",\"\n" +
+                                "                \"value\": \".\",\n" +
+                                "                \"text\": \".\"\n" +
                                 "              }\n" +
                                 "            }, {\n" +
                                 "              \"type\": \"spreadsheet-digits-parser-token\",\n" +
@@ -1346,7 +1346,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "                \"text\": \"25\"\n" +
                                 "              }\n" +
                                 "            }],\n" +
-                                "            \"text\": \"1,25\"\n" +
+                                "            \"text\": \"1.25\"\n" +
                                 "          }\n" +
                                 "        },\n" +
                                 "        \"expression\": {\n" +
@@ -1794,7 +1794,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    //@Test @Ignore
+    @Test
     public void testLabelSaveAndLoad() {
         final TestHttpServer server = this.startServer();
 
@@ -1830,7 +1830,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.GET,
                 "/api/spreadsheet/1/label/" + label,
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                "",
                 this.response(
                         HttpStatusCode.OK.setMessage("GET SpreadsheetLabelMapping OK"),
                         this.toJson(mapping),
