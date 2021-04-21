@@ -58,8 +58,9 @@ final class SpreadsheetLabelHateosHandlerSaveOrUpdate extends SpreadsheetLabelHa
         final SpreadsheetLabelMapping mapping = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
+        // a rename is actually a delete followed by a save which creates
         if(!id.equals(mapping.id().orElse(null))) {
-            throw new IllegalArgumentException("Id and mapping name must be the same");
+            this.store.delete(id);
         }
 
         return this.saveOrUpdate(mapping);

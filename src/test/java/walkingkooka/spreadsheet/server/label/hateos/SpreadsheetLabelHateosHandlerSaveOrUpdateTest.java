@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
@@ -72,18 +73,47 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
     }
 
     @Test
-    public void testUpdateIdAndMappingNameDifferentFails() {
-        final SpreadsheetLabelName labelName = this.id();
-        final SpreadsheetLabelMapping mapping = mapping(labelName);
+    public void testRename() {
+        final SpreadsheetLabelName oldLabelName = SpreadsheetLabelName.labelName("oldLabel1");
+        final SpreadsheetLabelName newLabelName = SpreadsheetLabelName.labelName("newLabel2");
+        final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(mapping);
+        store.save(this.mapping(oldLabelName));
 
-        this.handleOneFails(
-                SpreadsheetLabelHateosHandlerSaveOrUpdate.with(SpreadsheetLabelStores.fake()),
-                SpreadsheetLabelName.labelName("different1"),
-                Optional.of(SpreadsheetLabelMapping.with(SpreadsheetLabelName.labelName("different2"), SpreadsheetCellReference.parseCellReference("B2"))),
+        this.handleOneAndCheck(
+                SpreadsheetLabelHateosHandlerSaveOrUpdate.with(store),
+                oldLabelName,
+                Optional.of(newMapping),
                 HateosHandler.NO_PARAMETERS,
-                IllegalArgumentException.class
+                Optional.of(newMapping)
+        );
+
+        assertEquals(
+                Lists.of(newMapping),
+                store.all()
+        );
+    }
+
+    @Test
+    public void testRenameNewLabelReplacesAnother() {
+        final SpreadsheetLabelName oldLabelName = SpreadsheetLabelName.labelName("oldLabel1");
+        final SpreadsheetLabelName newLabelName = SpreadsheetLabelName.labelName("newLabel2");
+        final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
+        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
+        store.save(this.mapping(oldLabelName));
+        store.save(newLabelName.mapping(SpreadsheetExpressionReference.parseCellReference("Z99")));
+
+        this.handleOneAndCheck(
+                SpreadsheetLabelHateosHandlerSaveOrUpdate.with(store),
+                oldLabelName,
+                Optional.of(newMapping),
+                HateosHandler.NO_PARAMETERS,
+                Optional.of(newMapping)
+        );
+
+        assertEquals(
+                Lists.of(newMapping),
+                store.all()
         );
     }
 
