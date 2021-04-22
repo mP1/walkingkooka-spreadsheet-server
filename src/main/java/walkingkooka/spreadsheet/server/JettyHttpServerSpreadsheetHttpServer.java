@@ -226,7 +226,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
         return (id) -> {
             SpreadsheetStoreRepository repository = idToRepository.get(id);
             if (null == repository) {
-                repository = repositoryFactory.get();
+                repository = SpreadsheetStoreRepositories.spreadsheetMetadataAwareSpreadsheetCellStore(id, repositoryFactory.get());
                 idToRepository.put(id, repository); // TODO add locks etc.
             }
             return repository;
