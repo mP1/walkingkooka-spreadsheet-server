@@ -88,7 +88,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 "{\n" +
                         "  \"cell-reference\": \"B2\",\n" +
                         "  \"labels\": [{\n" +
-                        "    \"label-name\": \"Label123\",\n" +
+                        "    \"label\": \"Label123\",\n" +
                         "    \"reference\": \"C3\"\n" +
                         "  }]\n" +
                         "}"
