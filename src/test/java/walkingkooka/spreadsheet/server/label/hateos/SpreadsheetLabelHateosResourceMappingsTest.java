@@ -70,7 +70,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
     private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("label123");
     private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelMapping.with(
             LABEL,
-            SpreadsheetCellReference.parse("B2")
+            SpreadsheetCellReference.parseCellReference("B2")
     );
 
     // with.............................................................................................................
@@ -185,7 +185,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
     @Test
     public void testRoutePostUpdate() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(LABEL.mapping(SpreadsheetExpressionReference.parse("ZZ99")));
+        store.save(LABEL.mapping(SpreadsheetExpressionReference.parseCellReference("ZZ99")));
 
         this.routeAndCheck2(
                 delete(),
