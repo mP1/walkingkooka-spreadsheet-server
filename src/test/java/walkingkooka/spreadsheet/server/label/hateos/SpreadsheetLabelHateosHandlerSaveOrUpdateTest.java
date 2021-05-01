@@ -155,7 +155,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName id) {
-        return SpreadsheetLabelMapping.with(id, SpreadsheetCellReference.parse("Z99"));
+        return SpreadsheetLabelMapping.with(id, SpreadsheetCellReference.parseCellReference("Z99"));
     }
 
     @Override

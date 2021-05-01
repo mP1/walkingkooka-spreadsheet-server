@@ -477,7 +477,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         metadataStore.save(metadata);
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
-        labelStore.save(LABEL.mapping(SpreadsheetExpressionReference.parse("Z99")));
+        labelStore.save(LABEL.mapping(SpreadsheetExpressionReference.parseCellReference("Z99")));
 
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),

@@ -1395,7 +1395,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.mapping(SpreadsheetExpressionReference.parse("A99"));
+        final SpreadsheetLabelMapping mapping = label.mapping(SpreadsheetExpressionReference.parseCellReference("A99"));
 
         server.handleAndCheck(
                 HttpMethod.POST,
