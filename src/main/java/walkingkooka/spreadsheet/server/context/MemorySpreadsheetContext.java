@@ -338,7 +338,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 loadCellForceRecompute,
                 loadCellComputeIfNecessary,
                 saveCell,
-                deleteCell
+                deleteCell,
+                (r) -> SpreadsheetEngineHateosResourceMappings.reference(r, context.storeRepository().labels())
         );
     }
 
