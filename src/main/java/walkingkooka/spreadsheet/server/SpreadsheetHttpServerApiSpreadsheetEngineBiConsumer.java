@@ -290,7 +290,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 loadCellForceRecompute,
                 loadCellComputeIfNecessary,
                 saveCell,
-                deleteCell
+                deleteCell,
+                (r) -> SpreadsheetEngineHateosResourceMappings.reference(r, context.storeRepository().labels())
         );
     }
 

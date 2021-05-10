@@ -44,14 +44,20 @@ import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -62,6 +68,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -80,6 +87,9 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosHandlers.fake();
+    private final static Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> LABEL_TO_CELL_REFERENCE = (l) -> {
+        throw new UnsupportedOperationException();
+    };
 
     @Test
     public void testCellNullFillCellsFails() {
@@ -90,7 +100,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -103,7 +114,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -116,7 +128,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -129,7 +142,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 null,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -142,7 +156,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 null,
                 SAVE_CELL,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -155,7 +170,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 null,
-                DELETE_CELL
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
         );
     }
 
@@ -168,6 +184,21 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
+                null,
+                LABEL_TO_CELL_REFERENCE
+        );
+    }
+
+    @Test
+    public void testCellNullLabelToCellReferenceFails() {
+        this.cellFails(
+                FILL_CELLS,
+                LOAD_CELL_CLEAR,
+                LOAD_CELL_SKIP,
+                LOAD_CELL_FORCE,
+                LOAD_CELL_COMPUTE_IF,
+                SAVE_CELL,
+                DELETE_CELL,
                 null
         );
     }
@@ -178,7 +209,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell) {
+                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
+                           final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
         assertThrows(NullPointerException.class, () -> {
             SpreadsheetEngineHateosResourceMappings.cell(fillCells,
                     loadCellClearValueErrorSkipEvaluate,
@@ -186,7 +218,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                     loadCellForceRecompute,
                     loadCellComputeIfNecessary,
                     saveCell,
-                    deleteCell);
+                    deleteCell,
+                    labelToCellReference);
         });
     }
 
@@ -197,12 +230,62 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteCellGetLoadCell() {
-        this.routeCellAndCheck(HttpMethod.GET, "/cell/A1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/A1",
+                HttpStatusCode.NOT_IMPLEMENTED,
+                "Not implemented"
+        );
+    }
+
+    @Test
+    public void testRouteCellGetLoadCellLabel() {
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/Label123",
+                HttpStatusCode.NOT_IMPLEMENTED,
+                "Not implemented"
+        );
+    }
+
+    @Test
+    public void testRouteCellGetLoadCellUnknownLabelFails() {
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/UnknownLabel123",
+                HttpStatusCode.BAD_REQUEST,
+                "Unknown label \"UnknownLabel123\""
+        );
     }
 
     @Test
     public void testRouteCellPostSaveCell() {
-        this.routeCellAndCheck(HttpMethod.POST, "/cell/A1", HttpStatusCode.BAD_REQUEST);
+        this.routeCellAndCheck(
+                HttpMethod.POST,
+                "/cell/A1",
+                HttpStatusCode.BAD_REQUEST,
+                "Required resource missing"
+        );
+    }
+
+    @Test
+    public void testRouteCellPostSaveCellLabel() {
+        this.routeCellAndCheck(
+                HttpMethod.POST,
+                "/cell/Label123",
+                HttpStatusCode.BAD_REQUEST,
+                "Required resource missing"
+        );
+    }
+
+    @Test
+    public void testRouteCellPostSaveCellUnknownLabelFails() {
+        this.routeCellAndCheck(
+                HttpMethod.POST,
+                "/cell/UnknownLabel456",
+                HttpStatusCode.BAD_REQUEST,
+                "Unknown label \"UnknownLabel456\""
+        );
     }
 
     @Test
@@ -212,7 +295,32 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteCellDelete() {
-        this.routeCellAndCheck(HttpMethod.DELETE, "/cell/A1", HttpStatusCode.BAD_REQUEST);
+        this.routeCellAndCheck(
+                HttpMethod.DELETE,
+                "/cell/A1",
+                HttpStatusCode.BAD_REQUEST,
+                "Required resource missing"
+        );
+    }
+
+    @Test
+    public void testRouteCellDeleteLabel() {
+        this.routeCellAndCheck(
+                HttpMethod.DELETE,
+                "/cell/Label123",
+                HttpStatusCode.BAD_REQUEST,
+                "Required resource missing"
+        );
+    }
+
+    @Test
+    public void testRouteCellDeleteLabelUnknownFails() {
+        this.routeCellAndCheck(
+                HttpMethod.DELETE,
+                "/cell/UnknownLabel789",
+                HttpStatusCode.BAD_REQUEST,
+                "Unknown label \"UnknownLabel789\""
+        );
     }
 
     // cell/SpreadsheetEngineEvaluation..................................................................................
@@ -241,13 +349,34 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private void routeCellAndCheck(final HttpMethod method,
                                    final String url,
                                    final HttpStatusCode statusCode) {
-        this.routeCellAndCheck(method, url, "", statusCode);
+        this.routeCellAndCheck(method, url, statusCode, null);
+    }
+
+    private void routeCellAndCheck(final HttpMethod method,
+                                   final String url,
+                                   final HttpStatusCode statusCode,
+                                   final String message) {
+        this.routeCellAndCheck(method, url, "", statusCode, message);
     }
 
     private void routeCellAndCheck(final HttpMethod method,
                                    final String url,
                                    final String body,
                                    final HttpStatusCode statusCode) {
+        this.routeCellAndCheck(
+                method,
+                url,
+                body,
+                statusCode,
+                null
+        );
+    }
+
+    private void routeCellAndCheck(final HttpMethod method,
+                                   final String url,
+                                   final String body,
+                                   final HttpStatusCode statusCode,
+                                   final String message) {
         final SpreadsheetEngine engine = this.engine();
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
@@ -258,12 +387,14 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
                         SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHateosHandlers.saveCell(engine, context),
-                        SpreadsheetEngineHateosHandlers.deleteCell(engine, context)
+                        SpreadsheetEngineHateosHandlers.deleteCell(engine, context),
+                        (r) -> SpreadsheetEngineHateosResourceMappings.reference(r, context.storeRepository().labels())
                 ),
                 method,
                 url,
                 body,
-                statusCode
+                statusCode,
+                message
         );
     }
 
@@ -286,7 +417,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     private SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
+        final SpreadsheetCellReference a1 = SpreadsheetExpressionReference.parseCellReference("A1");
+        final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
+
+        final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
+        labelStore.save(label123.mapping(a1));
+
+        return new FakeSpreadsheetEngineContext(){
+            @Override
+            public SpreadsheetStoreRepository storeRepository() {
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return labelStore;
+                    }
+                };
+            }
+        };
     }
 
     // cellBox..........................................................................................................
@@ -446,7 +593,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 method,
                 url,
                 "",
-                statusCode
+                statusCode,
+                null
         );
     }
 
@@ -456,7 +604,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
-                               final HttpStatusCode statusCode
+                               final HttpStatusCode statusCode) {
+        this.routeAndCheck(
+                mapping,
+                method,
+                url,
+                requestBody,
+                statusCode,
+                null
+        );
+    }
+
+    private void routeAndCheck(final HateosResourceMapping<?, ?, ?, ?> mapping,
+                               final HttpMethod method,
+                               final String url,
+                               final String requestBody,
+                               final HttpStatusCode statusCode,
+                               final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(URL,
@@ -471,7 +635,12 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             possible.get().accept(request, response);
             assertEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
-                    () -> "status " + request + " " + response + "\n" + possible);
+                    () -> "status code: " + request + " " + response + "\n" + possible);
+            if (null != message) {
+                assertEquals(message,
+                        response.status().map(HttpStatus::message).orElse(null),
+                        () -> "status message: " + request + " " + response + "\n" + possible);
+            }
         }
     }
 
