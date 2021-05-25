@@ -93,25 +93,40 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
         this.handleOneAndCheck2(
                 "" + A1,
                 2,
-                A1
+                A1,
+                null
         );
     }
 
     @Test
-    public void testHandleLabel() {
+    public void testHandleLabelWithoutMapping() {
+        final String label = "UnknownLabel999";
+
+        this.handleOneAndCheck2(
+                label,
+                2,
+                null,
+                SpreadsheetLabelName.labelName(label)
+        );
+    }
+
+    @Test
+    public void testHandleLabelWithMapping() {
         this.handleOneAndCheck2(
                 "" + LABEL1,
                 2,
+                null,
                 null,
                 MAPPING1
         );
     }
 
     @Test
-    public void testHandleLabel3() {
+    public void testHandleLabelWithMapping3() {
         this.handleOneAndCheck2(
                 "Label",
                 4,
+                null,
                 null,
                 MAPPING1,
                 MAPPING2,
@@ -125,6 +140,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
                 "A",
                 4,
                 null,
+                null,
                 MAPPING1,
                 MAPPING2,
                 MAPPING3
@@ -137,6 +153,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
                 "1",
                 4,
                 null,
+                null,
                 MAPPING1
         );
     }
@@ -144,11 +161,16 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
     private void handleOneAndCheck2(final String text,
                                     final int count,
                                     final SpreadsheetCellReference cellReference,
-                                    final SpreadsheetLabelMapping... labels) {
+                                    final SpreadsheetLabelName label,
+                                    final SpreadsheetLabelMapping... mappings) {
         this.handleOneAndCheck2(
                 text,
                 count,
-                SpreadsheetExpressionReferenceSimilarities.with(Optional.ofNullable(cellReference), Sets.of(labels))
+                SpreadsheetExpressionReferenceSimilarities.with(
+                        Optional.ofNullable(cellReference),
+                        Optional.ofNullable(label),
+                        Sets.of(mappings)
+                )
         );
     }
 

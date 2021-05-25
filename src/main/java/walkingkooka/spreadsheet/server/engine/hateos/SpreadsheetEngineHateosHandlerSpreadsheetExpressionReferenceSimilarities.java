@@ -24,8 +24,10 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 
 import java.util.List;
@@ -58,14 +60,35 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
+        final SpreadsheetCellReferenceOrLabelName<?> cellOrLabel = parseCellOrLabelOrNull(text);
+        final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(text, count(parameters));
+
         return Optional.of(
                 SpreadsheetExpressionReferenceSimilarities.with(
-                        this.parseCellReference(text),
-                        this.findLabels(text, count(parameters))
+                        Optional.ofNullable(cellOrLabel instanceof SpreadsheetCellReference ? (SpreadsheetCellReference) cellOrLabel : null),
+                        Optional.ofNullable(cellOrLabel instanceof SpreadsheetLabelName && mappings.isEmpty() ? (SpreadsheetLabelName) cellOrLabel : null),
+                        mappings
                 )
         );
     }
 
+    /**
+     * Attempts to parse the text into a {@link SpreadsheetCellReference} or {@link SpreadsheetLabelName} returning
+     * null if that fails.
+     */
+    private static SpreadsheetCellReferenceOrLabelName<?> parseCellOrLabelOrNull(final String text) {
+        SpreadsheetCellReferenceOrLabelName<?> cellOrLabel;
+        try {
+            cellOrLabel = SpreadsheetExpressionReference.parseCellReferenceOrLabelName(text);
+        } catch (final Exception invalid) {
+            cellOrLabel = null;
+        }
+        return cellOrLabel;
+    }
+
+    /**
+     * Returns the count parameter as an integer.
+     */
     private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final List<String> counts = (List<String>) parameters.get(COUNT);
         if (null == counts) {
@@ -82,18 +105,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     // @VisibleForTesting
     final static UrlParameterName COUNT = UrlParameterName.with("count");
 
-    private Optional<SpreadsheetCellReference> parseCellReference(final String text) {
-        SpreadsheetCellReference cellReference;
-        try{
-            cellReference = SpreadsheetExpressionReference.parseCellReference(text);
-        } catch (final Exception invalid) {
-            cellReference = null;
-        }
-
-        return Optional.ofNullable(cellReference);
-    }
-
-    private Set<SpreadsheetLabelMapping> findLabels(final String text,
+    /**
+     * Finds the matching {@link SpreadsheetLabelMapping} for the given text and limit.
+     */
+    private Set<SpreadsheetLabelMapping> findLabelMappings(final String text,
                                                     final int count) {
         return this.context.storeRepository()
                 .labels()
