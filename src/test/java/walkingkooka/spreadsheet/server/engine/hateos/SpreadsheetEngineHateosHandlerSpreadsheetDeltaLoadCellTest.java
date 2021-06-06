@@ -86,7 +86,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.with(cells());
+                        return SpreadsheetDelta.with(cells()).setCellToLabels(cellToLabels());
                     }
 
                     @Override
@@ -106,6 +106,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
                 Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())
+                        .setCellToLabels(this.cellToLabels())
                         .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
