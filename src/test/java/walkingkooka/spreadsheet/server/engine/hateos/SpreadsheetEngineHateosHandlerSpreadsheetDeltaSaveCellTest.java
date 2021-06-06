@@ -284,7 +284,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     }
 
     private SpreadsheetDelta saved() {
-        return SpreadsheetDelta.with(Sets.of(savedCell()));
+        return SpreadsheetDelta.with(Sets.of(savedCell()))
+                .setCellToLabels(this.cellToLabels());
     }
 
     private SpreadsheetCell savedCell() {

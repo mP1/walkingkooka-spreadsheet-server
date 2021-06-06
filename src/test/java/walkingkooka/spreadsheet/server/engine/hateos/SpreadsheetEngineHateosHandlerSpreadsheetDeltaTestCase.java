@@ -19,19 +19,24 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
@@ -65,6 +70,17 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
 
     final Set<SpreadsheetCell> cellsWithinWindow() {
         return Sets.of(this.cell());
+    }
+
+    final Map<SpreadsheetCellReference, Set<SpreadsheetLabelName>> cellToLabels() {
+        return Maps.of(
+                this.cell().reference(),
+                Sets.of(this.label())
+        );
+    }
+
+    final SpreadsheetLabelName label() {
+        return SpreadsheetLabelName.labelName("Label1a");
     }
 
     final List<SpreadsheetRectangle> window() {
