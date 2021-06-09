@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -33,7 +32,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 
 import java.util.List;
 import java.util.Map;
@@ -83,7 +81,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         return SpreadsheetLabelName.labelName("Label1a");
     }
 
-    final List<SpreadsheetRectangle> window() {
+    final List<SpreadsheetRange> window() {
         final SpreadsheetRange window = SpreadsheetExpressionReference.parseRange("A1:B99");
 
         this.testTrue(window, this.cell().reference());
