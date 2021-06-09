@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
+import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
@@ -87,14 +87,9 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRectangle> window,
+    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRange> window,
                                                                              final SpreadsheetDelta delta) {
-        final List<SpreadsheetRectangle> ranges = SpreadsheetEngineHateosHandlerSpreadsheetDeltaSpreadsheetExpressionReferenceVisitor.transform(
-                window,
-                this.engine,
-                this.context
-        );
-        return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(ranges)
+        return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(window)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));
     }
 

@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetRectangle;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -111,7 +110,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
         final SpreadsheetDelta resource = SpreadsheetDelta.with(Sets.of(unsaved1));
 
-        final List<SpreadsheetRectangle> window = this.window();
+        final List<SpreadsheetRange> window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {

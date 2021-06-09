@@ -66,7 +66,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
 
     @Test
     public void testComputeRangeLabel() {
-        final SpreadsheetViewport viewport = SpreadsheetViewport.parseViewport("Label123:100:20");
+        final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:100:20");
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(

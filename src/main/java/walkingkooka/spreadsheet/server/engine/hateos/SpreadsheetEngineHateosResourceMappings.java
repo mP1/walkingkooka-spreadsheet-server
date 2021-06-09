@@ -316,7 +316,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName VIEWPORT = HateosResourceName.with("viewport");
 
     private static HateosResourceSelection<SpreadsheetViewport> parseViewport(final String selection) {
-        return HateosResourceSelection.one(SpreadsheetViewport.parseViewport(selection));
+        return HateosResourceSelection.one(SpreadsheetViewport.parse(selection));
     }
 
     private static final Class<HateosResource<SpreadsheetViewport>> VIEWPORT_HATEOS_RESOURCE = Cast.to(HateosResource.class);
