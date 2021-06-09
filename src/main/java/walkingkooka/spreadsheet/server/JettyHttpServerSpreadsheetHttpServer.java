@@ -37,7 +37,6 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.WebFiles;
 import walkingkooka.net.http.server.jetty.JettyHttpServer;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -180,7 +179,6 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_NAME, DEFAULT_NAME)
                 .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
                 .set(SpreadsheetMetadataPropertyName.VIEWPORT_CELL, INITIAL_VIEWPORT_CELL)
-                .set(SpreadsheetMetadataPropertyName.VIEWPORT_COORDINATES, INITIAL_VIEWPORT_COORDINATES)
                 .setDefaults(
                         SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, localeOrDefault)
@@ -197,7 +195,6 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     }
 
     private final static SpreadsheetCellReference INITIAL_VIEWPORT_CELL = SpreadsheetCellReference.parseCellReference("A1");
-    private final static SpreadsheetCoordinates INITIAL_VIEWPORT_COORDINATES = SpreadsheetCoordinates.with(0, 0);
 
     private static Function<BigDecimal, Fraction> fractioner() {
         return (n) -> {
