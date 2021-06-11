@@ -324,7 +324,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     // viewport.........................................................................................................
 
-    private final static String COMPUTE_RANGE_URL = "/api/1/viewport/A1:100:200";
+    private final static String COMPUTE_RANGE_URL = "/api/1/viewport/A1:0:0:100:200";
 
     @Test
     public void testRouteComputeRangeGet() {

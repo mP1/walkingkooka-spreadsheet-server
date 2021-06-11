@@ -40,7 +40,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -402,10 +401,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetCellBox cellBox(final SpreadsheetCoordinates coords,
-                                              final SpreadsheetEngineContext context) {
+            public SpreadsheetViewport viewport(final SpreadsheetCoordinates coords,
+                                                final SpreadsheetEngineContext context) {
                 return SpreadsheetCellReference.parseCellReference("B2:C3")
-                        .cellBox(1, 2, 3, 4);
+                        .viewport(1, 2, 3, 4);
             }
 
             @Override
@@ -558,7 +557,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.viewport(null));
     }
 
-    private final static String COMPUTE_RANGE_URL = "/viewport/A1:100:200";
+    private final static String COMPUTE_RANGE_URL = "/viewport/A1:0:0:100:200";
 
     @Test
     public void testRouteComputeRangeInvalidFails() {
