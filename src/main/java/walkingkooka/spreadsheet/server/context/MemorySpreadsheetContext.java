@@ -36,7 +36,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -277,7 +276,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                                                                                                       final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
 
-        final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
+        final HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport, HateosResource<SpreadsheetCoordinates>> cellBox = cellBox(engine, context);
 
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
 
@@ -343,9 +342,9 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         );
     }
 
-    private static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox(final SpreadsheetEngine engine,
+    private static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport, HateosResource<SpreadsheetCoordinates>> cellBox(final SpreadsheetEngine engine,
                                                                                                                                                          final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> handler = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
+        final HateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> handler = SpreadsheetEngineHateosHandlers.cellBox(engine, context);
         return SpreadsheetEngineHateosResourceMappings.cellBox(handler);
     }
 

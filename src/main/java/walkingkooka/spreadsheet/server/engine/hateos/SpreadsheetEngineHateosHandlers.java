@@ -18,7 +18,6 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -38,8 +37,8 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellBox}
      */
-    public static HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> cellBox(final SpreadsheetEngine engine,
-                                                                                                        final SpreadsheetEngineContext context) {
+    public static HateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> cellBox(final SpreadsheetEngine engine,
+                                                                                                          final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetCellBox.with(engine, context);
     }
 

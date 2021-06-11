@@ -27,7 +27,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -182,12 +181,12 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     // cellBox...........................................................................................................
 
-    public static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox, HateosResource<SpreadsheetCoordinates>> cellBox(final HateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> handler) {
+    public static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport, HateosResource<SpreadsheetCoordinates>> cellBox(final HateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> handler) {
         return HateosResourceMapping.with(
                 COORDS,
                 SpreadsheetEngineHateosResourceMappings::parseCoordinates,
-                SpreadsheetCellBox.class,
-                SpreadsheetCellBox.class,
+                SpreadsheetViewport.class,
+                SpreadsheetViewport.class,
                 COORDS_HATEOS_RESOURCE)
                 .set(LinkRelation.SELF, HttpMethod.GET, handler);
     }

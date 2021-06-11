@@ -20,19 +20,19 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCellBox;
 import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that returns the {@link SpreadsheetCellBox} for a given {@link `SpreadsheetCoordinates`}.
+ * A {@link HateosHandler} that returns the {@link SpreadsheetViewport} for a given {@link `SpreadsheetCoordinates`}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends SpreadsheetEngineHateosHandler<SpreadsheetCoordinates, SpreadsheetCellBox, SpreadsheetCellBox> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends SpreadsheetEngineHateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetCellBox with(final SpreadsheetEngine engine,
                                                                  final SpreadsheetEngineContext context) {
@@ -46,21 +46,21 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellBox extends Spreadsheet
     }
 
     @Override
-    public Optional<SpreadsheetCellBox> handleOne(final SpreadsheetCoordinates coords,
-                                                  final Optional<SpreadsheetCellBox> resource,
+    public Optional<SpreadsheetViewport> handleOne(final SpreadsheetCoordinates coords,
+                                                  final Optional<SpreadsheetViewport> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(coords, "coords");
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(
-                this.engine.cellBox(coords, this.context)
+                this.engine.viewport(coords, this.context)
         );
     }
 
     @Override
-    public Optional<SpreadsheetCellBox> handleRange(final Range<SpreadsheetCoordinates> range,
-                                                    final Optional<SpreadsheetCellBox> resource,
+    public Optional<SpreadsheetViewport> handleRange(final Range<SpreadsheetCoordinates> range,
+                                                    final Optional<SpreadsheetViewport> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkRange(range);
         HateosHandler.checkResource(resource);

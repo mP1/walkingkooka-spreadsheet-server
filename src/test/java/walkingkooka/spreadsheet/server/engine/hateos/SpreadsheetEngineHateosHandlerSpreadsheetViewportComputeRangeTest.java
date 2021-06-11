@@ -45,7 +45,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
 
     @Test
     public void testComputeRangeCellReference() {
-        final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(100, 20);
+        final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(0, 0, 100, 20);
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
@@ -66,7 +66,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
 
     @Test
     public void testComputeRangeLabel() {
-        final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:100:20");
+        final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:0:0:100:20");
         final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
@@ -116,7 +116,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange
 
     @Override
     public SpreadsheetViewport id() {
-        return SpreadsheetCellReference.parseCellReference("A1").viewport(100, 20);
+        return SpreadsheetCellReference.parseCellReference("A1").viewport(0, 0, 100, 20);
     }
 
     @Override
