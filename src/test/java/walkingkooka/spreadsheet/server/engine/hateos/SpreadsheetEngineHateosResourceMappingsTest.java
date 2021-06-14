@@ -40,7 +40,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -401,15 +400,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetViewport viewport(final SpreadsheetCoordinates coords,
-                                                final SpreadsheetEngineContext context) {
-                return SpreadsheetCellReference.parseCellReference("B2:C3")
-                        .viewport(1, 2, 3, 4);
-            }
-
-            @Override
-            public SpreadsheetRange computeRange(final SpreadsheetViewport viewport,
-                                                 final SpreadsheetEngineContext context) {
+            public SpreadsheetRange range(final SpreadsheetViewport viewport,
+                                          final SpreadsheetEngineContext context) {
                 return SpreadsheetRange.parseRange("B2:C3");
             }
         };
@@ -433,13 +425,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 };
             }
         };
-    }
-
-    // cellBox..........................................................................................................
-
-    @Test
-    public void testCellBoxNullHateosHandlerFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.cellBox(null));
     }
 
     // column...........................................................................................................
@@ -550,45 +535,45 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
-    // viewport..........................................................................................................
+    // range..........................................................................................................
 
     @Test
-    public void testViewportNullHateosHandlerFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.viewport(null));
+    public void testRangeNullHateosHandlerFails() {
+        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.range(null));
     }
 
-    private final static String COMPUTE_RANGE_URL = "/viewport/A1:0:0:100:200";
+    private final static String RANGE_URL = "/range/A1:0:0:100:200";
 
     @Test
-    public void testRouteComputeRangeInvalidFails() {
-        this.routeComputeRangeAndCheck(HttpMethod.GET, "/invalid/A1:100:200", HttpStatusCode.NOT_FOUND);
-    }
-
-    @Test
-    public void testRouteComputeRangeGet() {
-        this.routeComputeRangeAndCheck(HttpMethod.GET, COMPUTE_RANGE_URL, HttpStatusCode.OK);
+    public void testRouteRangeInvalidFails() {
+        this.routeRangeAndCheck(HttpMethod.GET, "/invalid/A1:100:200", HttpStatusCode.NOT_FOUND);
     }
 
     @Test
-    public void testRouteComputeRangePostFails() {
-        this.routeComputeRangeAndCheck(HttpMethod.POST, COMPUTE_RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
+    public void testRouteRangeGet() {
+        this.routeRangeAndCheck(HttpMethod.GET, RANGE_URL, HttpStatusCode.OK);
     }
 
     @Test
-    public void testRouteComputeRangePutFails() {
-        this.routeComputeRangeAndCheck(HttpMethod.PUT, COMPUTE_RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
+    public void testRouteRangePostFails() {
+        this.routeRangeAndCheck(HttpMethod.POST, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
     }
 
     @Test
-    public void testRouteComputeRangeDeleteFails() {
-        this.routeComputeRangeAndCheck(HttpMethod.DELETE, COMPUTE_RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
+    public void testRouteRangePutFails() {
+        this.routeRangeAndCheck(HttpMethod.PUT, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
     }
 
-    private void routeComputeRangeAndCheck(final HttpMethod method,
+    @Test
+    public void testRouteRangeDeleteFails() {
+        this.routeRangeAndCheck(HttpMethod.DELETE, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
+    }
+
+    private void routeRangeAndCheck(final HttpMethod method,
                                            final String url,
                                            final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.viewport(SpreadsheetEngineHateosHandlers.computeRange(this.engine(), this.engineContext())),
+                SpreadsheetEngineHateosResourceMappings.range(SpreadsheetEngineHateosHandlers.range(this.engine(), this.engineContext())),
                 method,
                 url,
                 "",
