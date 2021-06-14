@@ -286,30 +286,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndFail(HttpMethod.DELETE, "/api/1/cell/A1:B2/fill");
     }
 
-    // computeRange......................................................................................................
-
-    private final static String CELLBOX_URL = "/api/1/cellbox/200,400";
-
-    @Test
-    public void testRouteCellBoxGet() {
-        this.routeAndCheck(HttpMethod.GET, CELLBOX_URL, HttpStatusCode.OK);
-    }
-
-    @Test
-    public void testRouteCellBoxPostFails() {
-        this.routeAndFail(HttpMethod.POST, CELLBOX_URL);
-    }
-
-    @Test
-    public void testRouteCellBoxPutFails() {
-        this.routeAndFail(HttpMethod.PUT, CELLBOX_URL);
-    }
-
-    @Test
-    public void testRouteCellBoxDeleteFails() {
-        this.routeAndFail(HttpMethod.DELETE, CELLBOX_URL);
-    }
-
     // labels...........................................................................................................
 
     @Test
@@ -322,28 +298,28 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndCheck(HttpMethod.GET, "/api/1/label/" + LABEL, HttpStatusCode.OK);
     }
 
-    // viewport.........................................................................................................
+    // range............................................................................................................
 
-    private final static String COMPUTE_RANGE_URL = "/api/1/viewport/A1:0:0:100:200";
+    private final static String RANGE_URL = "/api/1/range/A1:0:0:100:200";
 
     @Test
-    public void testRouteComputeRangeGet() {
-        this.routeAndCheck(HttpMethod.GET, COMPUTE_RANGE_URL, HttpStatusCode.OK);
+    public void testRouteRangeGet() {
+        this.routeAndCheck(HttpMethod.GET, RANGE_URL, HttpStatusCode.OK);
     }
 
     @Test
-    public void testRouteComputeRangePostFails() {
-        this.routeAndFail(HttpMethod.POST, COMPUTE_RANGE_URL);
+    public void testRouteRangePostFails() {
+        this.routeAndFail(HttpMethod.POST, RANGE_URL);
     }
 
     @Test
-    public void testRouteComputeRangePutFails() {
-        this.routeAndFail(HttpMethod.PUT, COMPUTE_RANGE_URL);
+    public void testRouteRangePutFails() {
+        this.routeAndFail(HttpMethod.PUT, RANGE_URL);
     }
 
     @Test
-    public void testRouteComputeRangeDeleteFails() {
-        this.routeAndFail(HttpMethod.DELETE, COMPUTE_RANGE_URL);
+    public void testRouteRangeDeleteFails() {
+        this.routeAndFail(HttpMethod.DELETE, RANGE_URL);
     }
 
     private void routeAndCheck(final HttpMethod method,

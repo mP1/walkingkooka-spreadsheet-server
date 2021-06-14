@@ -18,7 +18,6 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -33,22 +32,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
  * A collection of factory methods to create various {@link HateosHandler}.
  */
 public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper {
-
-    /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellBox}
-     */
-    public static HateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> cellBox(final SpreadsheetEngine engine,
-                                                                                                          final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetCellBox.with(engine, context);
-    }
-
-    /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange}
-     */
-    public static HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> computeRange(final SpreadsheetEngine engine,
-                                                                                                      final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange.with(engine, context);
-    }
 
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
@@ -123,6 +106,14 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell(final SpreadsheetEngine engine,
                                                                                                          final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell.with(engine, context);
+    }
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetRangeRange}
+     */
+    public static HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> range(final SpreadsheetEngine engine,
+                                                                                               final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetRangeRange.with(engine, context);
     }
 
     /**

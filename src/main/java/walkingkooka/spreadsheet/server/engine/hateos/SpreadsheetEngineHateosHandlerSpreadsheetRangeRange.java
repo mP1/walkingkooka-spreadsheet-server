@@ -32,16 +32,16 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that computes the {@link SpreadsheetRange} for a given {@link SpreadsheetViewport}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extends SpreadsheetEngineHateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRange extends SpreadsheetEngineHateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
 
-    static SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange with(final SpreadsheetEngine engine,
-                                                                              final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetRangeRange with(final SpreadsheetEngine engine,
+                                                                    final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetRangeRange(engine, context);
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange(final SpreadsheetEngine engine,
-                                                                          final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetRangeRange(final SpreadsheetEngine engine,
+                                                                final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
@@ -53,7 +53,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.engine.computeRange(viewport, this.context));
+        return Optional.of(this.engine.range(viewport, this.context));
     }
 
     @Override
@@ -69,6 +69,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetViewportComputeRange extend
 
     @Override
     public String toString() {
-        return SpreadsheetEngine.class.getSimpleName() + ".computeRange";
+        return SpreadsheetEngine.class.getSimpleName() + ".range";
     }
 }

@@ -27,7 +27,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCoordinates;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -178,30 +177,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * A {@link LinkRelation} with <code>fill</code>.
      */
     private static final LinkRelation<?> FILL = LinkRelation.with("fill");
-
-    // cellBox...........................................................................................................
-
-    public static HateosResourceMapping<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport, HateosResource<SpreadsheetCoordinates>> cellBox(final HateosHandler<SpreadsheetCoordinates, SpreadsheetViewport, SpreadsheetViewport> handler) {
-        return HateosResourceMapping.with(
-                COORDS,
-                SpreadsheetEngineHateosResourceMappings::parseCoordinates,
-                SpreadsheetViewport.class,
-                SpreadsheetViewport.class,
-                COORDS_HATEOS_RESOURCE)
-                .set(LinkRelation.SELF, HttpMethod.GET, handler);
-    }
-
-    /**
-     * A {@link HateosResourceName} with <code>cellbox</code>.
-     */
-    private static final HateosResourceName COORDS = HateosResourceName.with("cellbox");
-
-    private static HateosResourceSelection<SpreadsheetCoordinates> parseCoordinates(final String selection) {
-        return HateosResourceSelection.one(SpreadsheetCoordinates.parse(selection));
-    }
-
-    private static final Class<HateosResource<SpreadsheetCoordinates>> COORDS_HATEOS_RESOURCE = Cast.to(HateosResource.class);
-
+    
     // cellReference....................................................................................................
 
     public static HateosResourceMapping<String,
@@ -295,30 +271,30 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         return result;
     }
 
-    // viewport .........................................................................................................
+    // range .........................................................................................................
 
-    public static HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> viewport(final HateosHandler<SpreadsheetViewport,
+    public static HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> range(final HateosHandler<SpreadsheetViewport,
             SpreadsheetRange,
             SpreadsheetRange> handler) {
         return HateosResourceMapping.with(
-                VIEWPORT,
+                RANGE,
                 SpreadsheetEngineHateosResourceMappings::parseViewport,
                 SpreadsheetRange.class,
                 SpreadsheetRange.class,
-                VIEWPORT_HATEOS_RESOURCE)
+                RANGE_HATEOS_RESOURCE)
                 .set(LinkRelation.SELF, HttpMethod.GET, handler);
     }
 
     /**
      * A {@link HateosResourceName} with <code>viewport</code>.
      */
-    private static final HateosResourceName VIEWPORT = HateosResourceName.with("viewport");
+    private static final HateosResourceName RANGE = HateosResourceName.with("range");
 
     private static HateosResourceSelection<SpreadsheetViewport> parseViewport(final String selection) {
         return HateosResourceSelection.one(SpreadsheetViewport.parse(selection));
     }
 
-    private static final Class<HateosResource<SpreadsheetViewport>> VIEWPORT_HATEOS_RESOURCE = Cast.to(HateosResource.class);
+    private static final Class<HateosResource<SpreadsheetViewport>> RANGE_HATEOS_RESOURCE = Cast.to(HateosResource.class);
 
     /**
      * {@see SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionReferenceVisitor}
