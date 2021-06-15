@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -113,146 +115,24 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     // handleRange.................................................................................................
 
     @Test
-    public void testBatchLoadIndividually() {
-        // B1, B2, B3
-        // C1, C2, C3
-
+    public void testBatchLoad() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
 
-        final SpreadsheetCell c1 = this.c1();
-        final SpreadsheetCell c2 = this.c2();
-        final SpreadsheetCell c3 = this.c3();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1));
-        cellToDelta.put(b2.reference(), this.delta(b2));
-        cellToDelta.put(b3.reference(), this.delta(b3));
-
-        cellToDelta.put(c1.reference(), this.delta(c1));
-        cellToDelta.put(c2.reference(), this.delta(c2));
-        cellToDelta.put(c3.reference(), this.delta(c3));
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
-    }
-
-    @Test
-    public void testBatchLoadMissing() {
-        // B1, B2, B3
-        // C1, C2, C3
-
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCell c1 = this.c1();
-        final SpreadsheetCell c2 = this.c2();
-        final SpreadsheetCell c3 = this.c3();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1));
-        cellToDelta.put(b2.reference(), this.delta(b2));
-        cellToDelta.put(b3.reference(), this.delta(b3));
-
-        cellToDelta.put(c1.reference(), this.delta(c1));
-        cellToDelta.put(c2.reference(), this.delta(c2));
-        cellToDelta.put(c3.reference(), this.delta(c3));
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
-    }
-
-    @Test
-    public void testBatchLoadOnce() {
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCellReference c1 = this.c1().reference();
-        final SpreadsheetCellReference c2 = this.c2().reference();
-        final SpreadsheetCellReference c3 = this.c3().reference();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1, b2, b3));
-        cellToDelta.put(c1, this.delta());
-        cellToDelta.put(c2, this.delta());
-        cellToDelta.put(c3, this.delta());
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3));
-    }
-
-    @Test
-    public void testBatchLoadChunks() {
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCell c1 = this.c1();
-        final SpreadsheetCell c2 = this.c2();
-        final SpreadsheetCell c3 = this.c3();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1, b2, c3));
-        cellToDelta.put(b3.reference(), this.delta(b3));
-        cellToDelta.put(c1.reference(), this.delta(c1, c2));
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, c1, c2, c3));
-    }
-
-    @Test
-    public void testBatchLoadExtra() {
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCell z99 = this.z99();
-
-        final SpreadsheetCell c1 = this.c1();
-        final SpreadsheetCell c2 = this.c2();
-        final SpreadsheetCell c3 = this.c3();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1, b2, b3, z99));
-        cellToDelta.put(c1.reference(), this.delta(c1, c2, c3));
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, z99, c1, c2, c3));
-    }
-
-    @Test
-    public void testBatchLoadMixed() {
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCell z99 = this.z99();
-
-        final SpreadsheetCellReference c1 = this.c1().reference();
-        final SpreadsheetCellReference c2 = this.c2().reference();
-        final SpreadsheetCellReference c3 = this.c3().reference();
-
-        final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta = Maps.sorted();
-        cellToDelta.put(b1.reference(), this.delta(b1, b2, b3, z99));
-        cellToDelta.put(c1, this.delta());
-        cellToDelta.put(c2, this.delta());
-        cellToDelta.put(c3, this.delta());
-
-        this.handleRangeAndCheck2(cellToDelta, this.result(b1, b2, b3, z99));
-    }
-
-    private void handleRangeAndCheck2(final Map<SpreadsheetCellReference, SpreadsheetDelta> cellToDelta,
-                                      final Optional<SpreadsheetDelta> result) {
-        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                EVALUATION,
                 new FakeSpreadsheetEngine() {
+
+
                     @Override
-                    public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
-                                                     final SpreadsheetEngineEvaluation evaluation,
-                                                     final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
 
-                        final SpreadsheetDelta delta = cellToDelta.remove(cell);
-                        assertNotEquals(null, delta, () -> "unexpected cell load " + cell + " outstanding cells: " + cellToDelta.keySet());
-                        return delta;
+                        return SpreadsheetDelta.with(Sets.of(b1, b2, b3));
                     }
 
                     @Override
@@ -269,15 +149,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
                     @Override
                     public String toString() {
-                        return "load: " + cellToDelta.toString();
+                        return "loadCells";
                     }
                 },
-                this.engineContext());
-        this.handleRangeAndCheck(handler,
+                this.engineContext()
+        );
+        this.handleRangeAndCheck(
+                handler,
                 this.range(),
                 this.collectionResource(),
                 this.parameters(),
-                result);
+                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3)))
+        );
     }
 
     @Test
@@ -298,40 +181,46 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final Range<SpreadsheetCellReference> range = this.range();
         final List<SpreadsheetRange> window = this.window();
 
-        this.handleRangeAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
-                                                     final SpreadsheetEngineEvaluation evaluation,
-                                                     final SpreadsheetEngineContext context) {
-                        assertSame(EVALUATION, evaluation, "evaluation");
-                        assertNotNull(context, "context");
+        this.handleRangeAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                        EVALUATION,
+                        new FakeSpreadsheetEngine() {
 
-                        final SpreadsheetCell loaded = cells.stream()
-                                .filter(c -> c.reference().equalsIgnoreReferenceKind(cell))
-                                .findFirst()
-                                .orElseThrow(() -> new AssertionError("Unable to find cell " + cell));
+                            @Override
+                            public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final SpreadsheetEngineContext context) {
+                                assertSame(EVALUATION, evaluation, "evaluation");
+                                assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.with(Sets.of(loaded, cellOutsideWindow()));
-                    }
+                                final Set<SpreadsheetCell> loaded = cells.stream()
+                                        .filter(c -> range.test(c.reference()))
+                                        .collect(Collectors.toCollection(() -> Sets.ordered()));
 
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
+                                loaded.add(cellOutsideWindow());
 
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-                },
-                this.engineContext()),
+                                return SpreadsheetDelta.with(loaded);
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+                        },
+                        this.engineContext()),
                 range,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))));
+                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))
+                )
+        );
     }
 
     private SpreadsheetCell b1() {
