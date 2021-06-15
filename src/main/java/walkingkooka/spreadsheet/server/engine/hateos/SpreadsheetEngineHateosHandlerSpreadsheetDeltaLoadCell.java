@@ -25,6 +25,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.Map;
 import java.util.Objects;
@@ -84,7 +85,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         checkWithoutCells(resource);
 
-        return Optional.ofNullable(filterWindowAndSetMaxColumnWidthsMaxRowHeights(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellBatchLoader.with(this).batchLoad(cells), resource));
+        return Optional.ofNullable(
+                filterWindowAndSetMaxColumnWidthsMaxRowHeights(
+                        this.engine.loadCells(SpreadsheetRange.with(cells), this.evaluation, this.context),
+                resource)
+        );
     }
 
     @Override
