@@ -31,7 +31,7 @@ import java.util.Optional;
 /**
  * A template that also filters using any requested {@link SpreadsheetDelta#window()}} if present.
  */
-abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R extends SpreadsheetColumnOrRowReference<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<R> {
+abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R extends SpreadsheetColumnOrRowReference<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<R> {
 
     SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert(final SpreadsheetEngine engine,
                                                                  final SpreadsheetEngineContext context) {

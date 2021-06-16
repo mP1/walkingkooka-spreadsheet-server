@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -26,10 +27,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCell(SpreadsheetCellReference, SpreadsheetEngineEvaluation, SpreadsheetEngineContext)}.
@@ -52,6 +55,45 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
         this.evaluation = evaluation;
+    }
+
+    @Override
+    public final Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+        checkWithoutCells(resource);
+
+        final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCellReference);
+
+        final double xOffset = firstParameterValueAndConvert(X_OFFSET, parameters, Double::parseDouble);
+        final double yOffset = firstParameterValueAndConvert(Y_OFFSET, parameters, Double::parseDouble);
+
+        final double width = firstParameterValueAndConvert(WIDTH, parameters, Double::parseDouble);
+        final double height = firstParameterValueAndConvert(HEIGHT, parameters, Double::parseDouble);
+
+        return this.handleRange0(
+                this.engine.range(SpreadsheetViewport.with(home, xOffset, yOffset, width, height), this.context),
+                resource
+        );
+    }
+
+    // @VisibleForTesting
+    final static UrlParameterName HOME = UrlParameterName.with("home");
+    final static UrlParameterName X_OFFSET = UrlParameterName.with("xOffset");
+    final static UrlParameterName Y_OFFSET = UrlParameterName.with("yOffset");
+    final static UrlParameterName WIDTH = UrlParameterName.with("width");
+    final static UrlParameterName HEIGHT = UrlParameterName.with("height");
+
+    private static <T> T firstParameterValueAndConvert(final UrlParameterName parameter,
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final Function<String, T> converter) {
+        final String value = parameter.firstParameterValueOrFail(parameters);
+        try {
+            return converter.apply(value);
+        } catch (final Exception convertFailed) {
+            throw new IllegalArgumentException("Invalid value for parameter: " + parameter);
+        }
     }
 
     @Override
@@ -85,10 +127,18 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         checkWithoutCells(resource);
 
+        return this.handleRange0(
+                SpreadsheetRange.with(cells),
+                resource
+        );
+    }
+
+    private Optional<SpreadsheetDelta> handleRange0(final SpreadsheetRange range,
+                                                    final Optional<SpreadsheetDelta> resource) {
         return Optional.ofNullable(
                 filterWindowAndSetMaxColumnWidthsMaxRowHeights(
-                        this.engine.loadCells(SpreadsheetRange.with(cells), this.evaluation, this.context),
-                resource)
+                        this.engine.loadCells(range, this.evaluation, this.context),
+                        resource)
         );
     }
 

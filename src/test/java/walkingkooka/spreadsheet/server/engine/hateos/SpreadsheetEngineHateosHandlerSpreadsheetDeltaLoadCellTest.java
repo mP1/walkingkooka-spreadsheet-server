@@ -35,6 +35,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.List;
 import java.util.Map;
@@ -222,6 +223,134 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 )
         );
     }
+
+    // handleAll........................................................................................................
+
+    @Test
+    public void testHandleAllMissingHomeParameterFails() {
+        this.handleAllFails2(Maps.empty(), "Missing parameter \"home\"");
+    }
+
+    @Test
+    public void testHandleAllMissingXOffsetParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1")
+                ),
+                "Missing parameter \"xOffset\""
+        );
+    }
+
+    @Test
+    public void testHandleAllMissingYOffsetParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0")
+                ),
+                "Missing parameter \"yOffset\""
+        );
+    }
+
+    @Test
+    public void testHandleAllMissingWidthParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0")
+                ),
+                "Missing parameter \"width\""
+        );
+    }
+
+    @Test
+    public void testHandleAllMissingHeightParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0")
+                ),
+                "Missing parameter \"height\""
+        );
+    }
+
+    private void handleAllFails2(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                Optional.<SpreadsheetDelta>empty(),
+                parameters,
+                IllegalArgumentException.class
+        );
+        assertEquals(message, thrown.getMessage(), "message");
+    }
+
+    @Test
+    public void testHandleAllFiltered() {
+        // B1, B2, B3
+        // C1, C2, C3
+
+        final SpreadsheetCell b1 = this.b1();
+        final SpreadsheetCell b2 = this.b2();
+        final SpreadsheetCell b3 = this.b3();
+
+        final SpreadsheetCell c1 = this.c1();
+        final SpreadsheetCell c2 = this.c2();
+        final SpreadsheetCell c3 = this.c3();
+
+        final Range<SpreadsheetCellReference> range = this.range();
+        final List<SpreadsheetRange> window = this.window();
+
+        this.handleRangeAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                        EVALUATION,
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta loadCells(final SpreadsheetRange r,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final SpreadsheetEngineContext context) {
+                                assertEquals(SpreadsheetRange.with(range), r, "range");
+                                assertEquals(EVALUATION, evaluation, "evaluation");
+
+                                return SpreadsheetDelta.with(Sets.of(b1, b2, b3, c1, c2, c3));
+                            }
+
+                            @Override
+                            public SpreadsheetRange range(final SpreadsheetViewport viewport,
+                                                          final SpreadsheetEngineContext context) {
+                                assertEquals(SpreadsheetViewport.with(SpreadsheetCellReference.parseCellReference("B2"), 11.0, 22.0, 33.0, 44.0), "viewport");
+                                return SpreadsheetRange.with(range);
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+                        },
+                        this.engineContext()),
+                range,
+                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("11"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("22"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("33"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44")
+                ),
+                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))
+                )
+        );
+    }
+
+    // helpers..........................................................................................................
 
     private SpreadsheetCell b1() {
         return this.cell("B1", "1");

@@ -32,7 +32,7 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that computes the {@link SpreadsheetRange} for a given {@link SpreadsheetViewport}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRange extends SpreadsheetEngineHateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRange extends SpreadsheetEngineHateosHandler2<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetRangeRange with(final SpreadsheetEngine engine,
                                                                     final SpreadsheetEngineContext context) {

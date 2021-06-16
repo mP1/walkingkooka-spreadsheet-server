@@ -34,7 +34,7 @@ import java.util.Set;
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#saveCell(SpreadsheetCell, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetCellReference> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell with(final SpreadsheetEngine engine,
                                                                        final SpreadsheetEngineContext context) {
