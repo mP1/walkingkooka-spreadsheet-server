@@ -34,7 +34,7 @@ import java.util.Set;
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#deleteCell(SpreadsheetCellReference, SpreadsheetEngineContext)}.
  * Deleting more than one cell is not supported.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetCellReference> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell with(final SpreadsheetEngine engine,
                                                                          final SpreadsheetEngineContext context) {

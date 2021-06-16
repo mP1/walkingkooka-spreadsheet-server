@@ -39,7 +39,7 @@ import java.util.Set;
 /**
  * A {@link HateosHandler} that resolves {@link String text} holding a cell-reference or label or range to a cell-reference.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities extends SpreadsheetEngineHateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities extends SpreadsheetEngineHateosHandler2<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities with(final SpreadsheetEngine engine,
                                                                                          final SpreadsheetEngineContext context) {

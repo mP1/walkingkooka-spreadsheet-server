@@ -86,6 +86,7 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 A collection of end points that support manipulating cells, columns and rows and similar functionality.
 All input and output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
+- GET     /api/spreadsheet/$spreadsheet-id/cell/*/clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET     /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute

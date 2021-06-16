@@ -36,7 +36,7 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetRange, SpreadsheetRange, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetCellReference> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells with(final SpreadsheetEngine engine,
                                                                         final SpreadsheetEngineContext context) {
