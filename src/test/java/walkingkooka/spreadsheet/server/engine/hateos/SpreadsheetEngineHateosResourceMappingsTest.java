@@ -257,6 +257,26 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
+    public void testRouteCellGetLoadCellViewport() {
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/*?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
+                HttpStatusCode.OK,
+                "GET SpreadsheetDelta OK"
+        );
+    }
+
+    @Test
+    public void testRouteCellGetLoadCellViewportEvaluation() {
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
+                HttpStatusCode.OK,
+                "GET SpreadsheetDelta OK"
+        );
+    }
+
+    @Test
     public void testRouteCellPostSaveCell() {
         this.routeCellAndCheck(
                 HttpMethod.POST,
@@ -398,6 +418,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     private SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine() {
+
+            @Override
+            public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+                                              final SpreadsheetEngineEvaluation evaluation,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.with(Sets.empty());
+            }
 
             @Override
             public SpreadsheetRange range(final SpreadsheetViewport viewport,

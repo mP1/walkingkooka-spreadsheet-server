@@ -302,7 +302,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final Range<SpreadsheetCellReference> range = this.range();
         final List<SpreadsheetRange> window = this.window();
 
-        this.handleRangeAndCheck(
+        this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
                         EVALUATION,
                         new FakeSpreadsheetEngine() {
@@ -319,7 +319,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public SpreadsheetRange range(final SpreadsheetViewport viewport,
                                                           final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetViewport.with(SpreadsheetCellReference.parseCellReference("B2"), 11.0, 22.0, 33.0, 44.0), "viewport");
+                                assertEquals(SpreadsheetViewport.with(SpreadsheetCellReference.parseCellReference("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
                                 return SpreadsheetRange.with(range);
                             }
 
@@ -336,7 +336,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
                         },
                         this.engineContext()),
-                range,
+                //range,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"),
@@ -345,7 +345,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("33"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44")
                 ),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))
+                Optional.of(
+                        SpreadsheetDelta.with(Sets.of(b1, b2, b3))
                 )
         );
     }
