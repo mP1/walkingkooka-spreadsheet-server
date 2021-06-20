@@ -140,22 +140,26 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         if (selection.isEmpty()) {
             result = HateosResourceSelection.none();
         } else {
-            final int colon = selection.indexOf(':');
-            switch (colon) {
-                case -1:
-                    result = HateosResourceSelection.one(parseCellReferenceOrLabel0(selection, labelToCellReference));
-                    break;
-                case 0:
-                    throw new IllegalArgumentException("Missing begin");
-                default:
-                    final SpreadsheetCellReference begin = parseCellReferenceOrLabel0(selection.substring(0, colon), labelToCellReference);
+            if("*".equals(selection)) {
+                result = HateosResourceSelection.all();
+            } else {
+                final int colon = selection.indexOf(':');
+                switch (colon) {
+                    case -1:
+                        result = HateosResourceSelection.one(parseCellReferenceOrLabel0(selection, labelToCellReference));
+                        break;
+                    case 0:
+                        throw new IllegalArgumentException("Missing begin");
+                    default:
+                        final SpreadsheetCellReference begin = parseCellReferenceOrLabel0(selection.substring(0, colon), labelToCellReference);
 
-                    if (colon + 1 == selection.length()) {
-                        throw new IllegalArgumentException("Missing end");
-                    }
-                    final SpreadsheetCellReference end = parseCellReferenceOrLabel0(selection.substring(colon + 1), labelToCellReference);
-                    result = HateosResourceSelection.range(begin.range(end));
-                    break;
+                        if (colon + 1 == selection.length()) {
+                            throw new IllegalArgumentException("Missing end");
+                        }
+                        final SpreadsheetCellReference end = parseCellReferenceOrLabel0(selection.substring(colon + 1), labelToCellReference);
+                        result = HateosResourceSelection.range(begin.range(end));
+                        break;
+                }
             }
         }
 
