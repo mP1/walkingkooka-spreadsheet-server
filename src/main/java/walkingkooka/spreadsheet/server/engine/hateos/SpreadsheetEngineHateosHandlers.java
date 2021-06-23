@@ -18,6 +18,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -26,7 +27,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
