@@ -20,10 +20,10 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
 import java.util.Map;
 import java.util.Objects;
