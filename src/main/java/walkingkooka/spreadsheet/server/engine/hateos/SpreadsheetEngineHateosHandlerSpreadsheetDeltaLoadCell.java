@@ -66,11 +66,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCellReference);
 
-        final double xOffset = firstParameterValueAndConvert(X_OFFSET, parameters, Double::parseDouble);
-        final double yOffset = firstParameterValueAndConvert(Y_OFFSET, parameters, Double::parseDouble);
+        final double xOffset = firstDoubleParameterValue(X_OFFSET, parameters);
+        final double yOffset = firstDoubleParameterValue(Y_OFFSET, parameters);
 
-        final double width = firstParameterValueAndConvert(WIDTH, parameters, Double::parseDouble);
-        final double height = firstParameterValueAndConvert(HEIGHT, parameters, Double::parseDouble);
+        final double width = firstDoubleParameterValue(WIDTH, parameters);
+        final double height = firstDoubleParameterValue(HEIGHT, parameters);
 
         return this.handleRange0(
                 this.engine.range(SpreadsheetViewport.with(home, xOffset, yOffset, width, height), this.context),
@@ -84,6 +84,15 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     final static UrlParameterName Y_OFFSET = UrlParameterName.with("yOffset");
     final static UrlParameterName WIDTH = UrlParameterName.with("width");
     final static UrlParameterName HEIGHT = UrlParameterName.with("height");
+
+    private static double firstDoubleParameterValue(final UrlParameterName parameter,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstParameterValueAndConvert(
+                parameter,
+                parameters,
+                Double::parseDouble
+        );
+    }
 
     private static <T> T firstParameterValueAndConvert(final UrlParameterName parameter,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
