@@ -60,7 +60,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetCellReferenceOrLabelName<?> cellOrLabel = parseCellOrLabelOrNull(text);
+        final SpreadsheetCellReferenceOrLabelName cellOrLabel = parseCellOrLabelOrNull(text);
         final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(text, count(parameters));
 
         return Optional.of(
@@ -76,8 +76,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
      * Attempts to parse the text into a {@link SpreadsheetCellReference} or {@link SpreadsheetLabelName} returning
      * null if that fails.
      */
-    private static SpreadsheetCellReferenceOrLabelName<?> parseCellOrLabelOrNull(final String text) {
-        SpreadsheetCellReferenceOrLabelName<?> cellOrLabel;
+    private static SpreadsheetCellReferenceOrLabelName parseCellOrLabelOrNull(final String text) {
+        SpreadsheetCellReferenceOrLabelName cellOrLabel;
         try {
             cellOrLabel = SpreadsheetExpressionReference.parseCellReferenceOrLabelName(text);
         } catch (final Exception invalid) {
