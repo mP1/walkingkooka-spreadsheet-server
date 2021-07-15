@@ -129,7 +129,9 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 idToFunctions(),
                 idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
                 fileServer(Paths.get(".")),
-                jettyHttpServer(host, port));
+                jettyHttpServer(host, port),
+                JettyHttpServerSpreadsheetHttpServer::spreadsheetMetadataStamper
+        );
         server.start();
     }
 
@@ -271,6 +273,13 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     private static Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> jettyHttpServer(final HostAddress host,
                                                                                                final IpPort port) {
         return (handler) -> JettyHttpServer.with(host, port, handler);
+    }
+
+    private static SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
+        return metadata.set(
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+                LocalDateTime.now()
+        );
     }
 
     private JettyHttpServerSpreadsheetHttpServer() {

@@ -92,20 +92,24 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                          final Function<BigDecimal, Fraction> fractioner,
                                          final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
+                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
+        Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
 
-        return new MemorySpreadsheetContext(base,
+        return new MemorySpreadsheetContext(
+                base,
                 contentType,
                 fractioner,
                 createMetadata,
                 spreadsheetIdFunctions,
-                spreadsheetIdToRepository);
+                spreadsheetIdToRepository,
+                spreadsheetMetadataStamper);
     }
 
     private MemorySpreadsheetContext(final AbsoluteUrl base,
@@ -113,7 +117,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                      final Function<BigDecimal, Fraction> fractioner,
                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                      final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
+                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         super();
 
         this.base = base;
@@ -122,6 +127,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         this.createMetadata = createMetadata;
         this.spreadsheetIdFunctions = spreadsheetIdFunctions;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
+        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
     }
 
     @Override
@@ -182,7 +188,10 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetMetadata metadata = this.load(id);
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
+                SpreadsheetEngines.basic(metadata),
+                this.spreadsheetMetadataStamper
+        );
 
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
@@ -210,6 +219,8 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                         )
                 );
     }
+
+    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
 
     // format...........................................................................................................
 

@@ -50,13 +50,17 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                             final Function<BigDecimal, Fraction> fractioner,
                                             final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                             final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
-        return MemorySpreadsheetContext.with(base,
+                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+        return MemorySpreadsheetContext.with(
+                base,
                 contentType,
                 fractioner,
                 createMetadata,
                 spreadsheetIdFunctions,
-                spreadsheetIdToRepository);
+                spreadsheetIdToRepository,
+                spreadsheetMetadataStamper
+        );
     }
 
     /**

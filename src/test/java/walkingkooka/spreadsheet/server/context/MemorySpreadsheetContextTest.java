@@ -95,65 +95,95 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class MemorySpreadsheetContextTest implements SpreadsheetContextTesting<MemorySpreadsheetContext> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
 
     @Test
     public void testWithNullBaseFails() {
-        this.withFails(null,
+        this.withFails(
+                null,
                 this.contentType(),
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     @Test
     public void testWithNullContentTypeFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 null,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     @Test
     public void testWithNullFractionerFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
                 null,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     @Test
     public void testWithNullCreateMetadataFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
                 this::fractioner,
                 null,
                 this::spreadsheetIdFunctions,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     @Test
     public void testWithNullSpreadsheetIdFunctionsFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
                 this::fractioner,
                 this::createMetadata,
                 null,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper);
     }
 
     @Test
     public void testWithNullSpreadsheetIdRepositoryFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
-                null);
+                null,
+                this::spreadsheetMetadataStamper);
+    }
+
+    @Test
+    public void testWithNullSpreadsheetMetadataStamperFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                this::fractioner,
+                this::createMetadata,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                null
+        );
     }
 
     private void withFails(final AbsoluteUrl base,
@@ -161,13 +191,19 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository) {
-        assertThrows(NullPointerException.class, () -> MemorySpreadsheetContext.with(base,
+                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+        assertThrows(
+                NullPointerException.class,
+                () -> MemorySpreadsheetContext.with(
+                base,
                 contentType,
                 fractioner,
                 createMetadata,
                 spreadsheetIdFunctions,
-                spreadsheetIdToRepository));
+                spreadsheetIdToRepository,
+                spreadsheetMetadataStamper)
+        );
     }
 
     @Test
@@ -757,12 +793,15 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
     @Override
     public MemorySpreadsheetContext createContext() {
-        return MemorySpreadsheetContext.with(this.base(),
+        return MemorySpreadsheetContext.with(
+                this.base(),
                 this.contentType(),
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
-                this::spreadsheetIdToRepository);
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     private AbsoluteUrl base() {
@@ -805,6 +844,10 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         return (f) -> {
             throw new UnknownExpressionFunctionException(f);
         };
+    }
+
+    private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
+        return metadata.set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, MODIFIED_DATE_TIME);
     }
 
     private SpreadsheetStoreRepository spreadsheetIdToRepository(final SpreadsheetId id) {

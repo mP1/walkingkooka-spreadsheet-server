@@ -53,13 +53,17 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
-                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
-        return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(baseUrl,
+                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+        return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
+                baseUrl,
                 contentTypeJson,
                 createMetadata,
                 fractioner,
                 functions,
-                idToStoreRepository);
+                idToStoreRepository,
+                spreadsheetMetadataStamper
+        );
     }
 
     /**
@@ -70,17 +74,21 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
-                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
+                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                          final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         super();
 
         this.baseUrl = baseUrl;
 
-        final SpreadsheetContext context = SpreadsheetContexts.memory(baseUrl,
+        final SpreadsheetContext context = SpreadsheetContexts.memory(
+                baseUrl,
                 contentTypeJson,
                 fractioner,
                 createMetadata,
                 functions,
-                idToStoreRepository);
+                idToStoreRepository,
+                spreadsheetMetadataStamper
+        );
 
         this.contextRouter = SpreadsheetContextHateosHandlers.router(
                 baseUrl,

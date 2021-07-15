@@ -121,6 +121,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
+    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 07, 15, 20, 33);
+
     @Test
     public void testStartServer() {
         this.startServer();
@@ -2619,7 +2621,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 idToFunctions(),
                 this.idToRepository,
                 this::fileServer,
-                this::server);
+                this::server,
+                this::spreadsheetMetadataStamper);
         this.httpServer.start();
         return this.httpServer;
     }
@@ -2768,6 +2771,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private final TestHttpServer httpServer = new TestHttpServer();
+
+    final SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
+        return metadata.set(
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+                MODIFIED_DATE_TIME
+        );
+    }
 
     /**
      * A {@link HttpServer} that allows direct invocation of the main handler skipping the HTTP transport layer
