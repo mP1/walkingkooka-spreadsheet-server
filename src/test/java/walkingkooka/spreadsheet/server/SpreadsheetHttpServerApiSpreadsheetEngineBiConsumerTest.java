@@ -418,7 +418,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
                 idToFunctions(),
-                idToStoreRepository()
+                idToStoreRepository(),
+                spreadsheetMetadataStamper()
         );
     }
 
@@ -472,6 +473,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     }
 
     private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("Label123");
+
+    private Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper() {
+        return m -> m.set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.now());
+    }
 
     // ClassTesting.....................................................................................................
 

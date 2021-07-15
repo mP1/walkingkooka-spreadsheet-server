@@ -24,6 +24,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -32,12 +33,15 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetBiConsumer> {
+
+    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 34);
 
     // toString.........................................................................................................
 
@@ -49,12 +53,15 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
     // helper...........................................................................................................
 
     private SpreadsheetHttpServerApiSpreadsheetBiConsumer handler() {
-        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(this.baseUrl(),
+        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
+                this.baseUrl(),
                 HateosContentType.json(JsonNodeUnmarshallContexts.fake(), JsonNodeMarshallContexts.fake()),
                 this::defaultMetadata,
                 this::fractioner,
                 this::idToFunctions,
-                this::idToStoreRepository);
+                this::idToStoreRepository,
+                this::spreadsheetMetadataStamper
+        );
     }
 
     private AbsoluteUrl baseUrl() {
@@ -75,6 +82,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
 
     private SpreadsheetStoreRepository idToStoreRepository(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
+    }
+
+    private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
+        return metadata.set(
+            SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+                MODIFIED_DATE_TIME
+        );
     }
 
     // ClassTesting.....................................................................................................

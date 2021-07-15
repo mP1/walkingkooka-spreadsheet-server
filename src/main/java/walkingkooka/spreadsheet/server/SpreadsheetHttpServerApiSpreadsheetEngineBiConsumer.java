@@ -84,12 +84,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final HateosContentType contentTypeJson,
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(base,
+                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
+                base,
                 contentTypeJson,
                 fractioner,
                 idToFunctions,
-                idToStoreRepository);
+                idToStoreRepository,
+                spreadsheetMetadataStamper
+        );
     }
 
     /**
@@ -99,7 +103,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final HateosContentType contentTypeJson,
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
-                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository) {
+                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         super();
 
         this.baseUrl = base;
@@ -115,6 +120,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         }
 
         this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
+
+        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
     }
 
     // Router...........................................................................................................
@@ -291,8 +298,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     }
 
     private SpreadsheetEngine engine(final SpreadsheetMetadata metadata) {
-        return SpreadsheetEngines.basic(metadata);
+        return SpreadsheetEngines.stamper(
+                SpreadsheetEngines.basic(metadata),
+                this.spreadsheetMetadataStamper
+        );
     }
+
+    /**
+     * Updates the last-modified timestamp.
+     */
+    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
 
     private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngine engine,
                                                                                                                                                                                                    final SpreadsheetEngineContext context) {
