@@ -697,8 +697,74 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    private void createSpreadsheetSaveCellAndCheck(final String formula,
-                                                   final String responseJson) {
+    @Test
+    public void testCreateSpreadsheetSaveCellStampsMetadata() {
+        final TestHttpServer server = this.createSpreadsheetSaveCellAndCheck(
+                "'Hello123'",
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"'Hello123'\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"'\",\n" +
+                        "                \"text\": \"'\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"Hello123'\",\n" +
+                        "                \"text\": \"Hello123'\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"'Hello123'\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"string-expression\",\n" +
+                        "          \"value\": \"Hello123'\"\n" +
+                        "        },\n" +
+                        "        \"value\": \"Hello123'\"\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Text Hello123'\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"maxColumnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"maxRowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+
+        final SpreadsheetMetadata stamped = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, MODIFIED_DATE_TIME);
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetMetadata OK"),
+                        this.toJson(stamped),
+                        SpreadsheetMetadata.class.getSimpleName()
+                )
+        );
+    }
+
+    private TestHttpServer createSpreadsheetSaveCellAndCheck(final String formula,
+                                                             final String responseJson) {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(HttpMethod.POST,
@@ -719,6 +785,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         responseJson,
                         DELTA
                 ));
+
+        return server;
     }
 
     @Test
