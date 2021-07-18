@@ -88,7 +88,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.with(cells()).setCellToLabels(cellToLabels());
+                        return SpreadsheetDelta.with(cells())
+                                .setLabels(labels());
                     }
 
                     @Override
@@ -107,10 +108,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 id,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())
-                        .setCellToLabels(this.cellToLabels())
+                Optional.of(
+                        SpreadsheetDelta.with(this.cellsWithinWindow())
+                        .setLabels(this.labels())
                         .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
+                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
+                )
+        );
     }
 
     // handleRange.................................................................................................
