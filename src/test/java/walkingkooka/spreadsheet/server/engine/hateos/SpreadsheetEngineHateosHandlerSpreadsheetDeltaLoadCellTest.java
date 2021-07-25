@@ -111,7 +111,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.with(this.cellsWithinWindow())
                         .setLabels(this.labels())
-                        .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
+                        .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
                 )
         );

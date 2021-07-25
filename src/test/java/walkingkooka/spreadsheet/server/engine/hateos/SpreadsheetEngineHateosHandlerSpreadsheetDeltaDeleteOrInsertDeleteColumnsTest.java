@@ -81,7 +81,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                 resource,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(SpreadsheetDelta.with(cells)
-                        .setMaxColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width,
+                        .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width,
                                 SpreadsheetColumnReference.parseColumn("Z"), width))
                         .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }

@@ -73,30 +73,30 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     abstract String operation();
 
     /**
-     * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#maxColumnWidths()} and
+     * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#columnWidths()} and
      * {@link SpreadsheetDelta#maxRowHeights()}
      */
-    final SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
-                                                                          final Optional<SpreadsheetDelta> in) {
+    final SpreadsheetDelta filterWindowAndSetColumnWidthsMaxRowHeights(final SpreadsheetDelta out,
+                                                                       final Optional<SpreadsheetDelta> in) {
         // if $in is present apply its window to filter the result cells
         return in.isPresent() ?
-                this.filterWindowAndSetMaxColumnWidthsMaxRowHeights0(in.get().window(), out) :
-                this.setMaxColumnWidthsMaxRowHeights(out);
+                this.filterWindowAndSetColumnWidthsMaxRowHeights0(in.get().window(), out) :
+                this.setColumnWidthsMaxRowHeights(out);
     }
 
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetMaxColumnWidthsMaxRowHeights0(final List<SpreadsheetRange> window,
-                                                                             final SpreadsheetDelta delta) {
-        return this.setMaxColumnWidthsMaxRowHeights(delta.setWindow(window)
+    private SpreadsheetDelta filterWindowAndSetColumnWidthsMaxRowHeights0(final List<SpreadsheetRange> window,
+                                                                          final SpreadsheetDelta delta) {
+        return this.setColumnWidthsMaxRowHeights(delta.setWindow(window)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));
     }
 
     /**
      * Computes the widths and heights for all the columns and rows covered by the cells.
      */
-    private SpreadsheetDelta setMaxColumnWidthsMaxRowHeights(final SpreadsheetDelta delta) {
+    private SpreadsheetDelta setColumnWidthsMaxRowHeights(final SpreadsheetDelta delta) {
 
         final SpreadsheetEngine engine = this.engine;
 
@@ -123,7 +123,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
             }
         }
 
-        return delta.setMaxColumnWidths(columns)
+        return delta.setColumnWidths(columns)
                 .setMaxRowHeights(rows);
     }
 }
