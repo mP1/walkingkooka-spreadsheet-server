@@ -115,7 +115,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         int spreadsheetIdPathComponent = 0;
 
-        for(final UrlPathName name : base.path()) {
+        for (final UrlPathName name : base.path()) {
             spreadsheetIdPathComponent++;
         }
 

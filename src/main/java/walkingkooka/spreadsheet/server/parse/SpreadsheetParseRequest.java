@@ -43,11 +43,11 @@ public final class SpreadsheetParseRequest {
         this.parser = parser;
     }
 
-    String text () {
+    String text() {
         return this.text;
     }
 
-    private final String text ;
+    private final String text;
 
     String parser() {
         return this.parser;

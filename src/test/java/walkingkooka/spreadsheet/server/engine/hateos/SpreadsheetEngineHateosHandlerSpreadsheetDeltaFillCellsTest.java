@@ -123,9 +123,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                                                                      assertEquals(resource.cells(), cells, "cells");
                                                                                      assertEquals(spreadsheetRange, from, "from");
                                                                                      assertEquals(spreadsheetRange, to, "to");
-                                                                     return SpreadsheetDelta.with(Sets.of(saved1, cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED 2")))));
-                                                                 }
-                                                             },
+                                                                                     return SpreadsheetDelta.with(Sets.of(saved1, cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED 2")))));
+                                                                                 }
+                                                                             },
                         this.engineContext()),
                 range,
                 Optional.of(resource.setWindow(window)),

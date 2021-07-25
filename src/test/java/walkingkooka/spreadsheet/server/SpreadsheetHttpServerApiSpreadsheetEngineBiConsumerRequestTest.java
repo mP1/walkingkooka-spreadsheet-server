@@ -26,11 +26,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequestTes
     public void testToString() {
         final String toString = "Request 123";
         this.toStringAndCheck(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.with(new FakeHttpRequest() {
-                                                                                              @Override
-                                                                                              public String toString() {
-                                                                                                  return toString;
-                                                                                              }
-                                                                                          },
+                                                                                                  @Override
+                                                                                                  public String toString() {
+                                                                                                      return toString;
+                                                                                                  }
+                                                                                              },
                 null,
                 null),
                 toString);

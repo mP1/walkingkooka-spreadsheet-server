@@ -46,8 +46,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         super();
     }
 
-    @Override
-    final SpreadsheetEngineContext engineContext() {
+    @Override final SpreadsheetEngineContext engineContext() {
         return SpreadsheetEngineContexts.fake();
     }
 

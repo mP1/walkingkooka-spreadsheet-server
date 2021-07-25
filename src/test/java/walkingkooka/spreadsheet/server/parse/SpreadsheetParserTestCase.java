@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
 
 public abstract class SpreadsheetParserTestCase<T> implements ClassTesting<T>, ToStringTesting<T> {
 

@@ -52,7 +52,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell,
-                SpreadsheetCellReference> {
+        SpreadsheetCellReference> {
 
     private final static SpreadsheetEngineEvaluation EVALUATION = SpreadsheetEngineEvaluation.FORCE_RECOMPUTE;
 
@@ -283,7 +283,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     private void handleAllFails2(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
         final IllegalArgumentException thrown = this.handleAllFails(
-                Optional.<SpreadsheetDelta>empty(),
+                Optional.empty(),
                 parameters,
                 IllegalArgumentException.class
         );

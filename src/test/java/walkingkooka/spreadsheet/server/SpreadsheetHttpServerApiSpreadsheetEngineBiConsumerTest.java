@@ -163,7 +163,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 spreadsheetMultiParseResponse
         );
     }
-    
+
 
     // cell.............................................................................................................
 
@@ -332,7 +332,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     }
 
     private void routeAndFail(final HttpMethod method,
-                               final String url) {
+                              final String url) {
         this.routeAndCheck(
                 method,
                 url,
@@ -431,14 +431,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
         return (i) ->
-            (n) -> {
-                throw new UnsupportedOperationException();
-            };
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                };
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository() {
         final EmailAddress user = EmailAddress.parse("user@example.com");
-        final LocalDateTime now = LocalDateTime.now();;
+        final LocalDateTime now = LocalDateTime.now();
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
