@@ -104,7 +104,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 this.parameters(),
                 Optional.of(this.saved()
                         .setColumnWidths(Maps.of(column, columnWidth))
-                        .setMaxRowHeights(Maps.of(row, rowHeight))));
+                        .setRowHeights(Maps.of(row, rowHeight))));
     }
 
     @Test
@@ -166,7 +166,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 this.parameters(),
                 Optional.of(SpreadsheetDelta.with(Sets.of(saved1))
                         .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
+                        .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
     // handleRange.................................................................................................
