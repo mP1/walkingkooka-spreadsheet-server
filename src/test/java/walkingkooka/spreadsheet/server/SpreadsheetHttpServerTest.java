@@ -249,7 +249,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -320,7 +320,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -415,7 +415,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -474,7 +474,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -533,7 +533,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -601,7 +601,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -690,7 +690,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -740,7 +740,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"columnWidths\": {\n" +
                         "    \"A\": 100\n" +
                         "  },\n" +
-                        "  \"maxRowHeights\": {\n" +
+                        "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
                         "  }\n" +
                         "}"
@@ -883,7 +883,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -981,7 +981,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1082,7 +1082,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1180,7 +1180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1279,7 +1279,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1381,7 +1381,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1481,7 +1481,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1656,7 +1656,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"A\": 100,\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30,\n" +
                                 "    \"2\": 30\n" +
                                 "  },\n" +
@@ -1739,7 +1739,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1818,7 +1818,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -1997,7 +1997,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2059,7 +2059,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"D\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2139,7 +2139,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2201,7 +2201,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2436,7 +2436,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2498,7 +2498,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2578,7 +2578,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
@@ -2640,7 +2640,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
-                                "  \"maxRowHeights\": {\n" +
+                                "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
                                 "  }\n" +
                                 "}",

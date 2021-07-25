@@ -597,8 +597,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     private void routeRangeAndCheck(final HttpMethod method,
-                                           final String url,
-                                           final HttpStatusCode statusCode) {
+                                    final String url,
+                                    final HttpStatusCode statusCode) {
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.range(SpreadsheetEngineHateosHandlers.range(this.engine(), this.engineContext())),
                 method,

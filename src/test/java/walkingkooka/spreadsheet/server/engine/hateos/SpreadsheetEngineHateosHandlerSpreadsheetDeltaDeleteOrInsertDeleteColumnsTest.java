@@ -83,7 +83,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                 Optional.of(SpreadsheetDelta.with(cells)
                         .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width,
                                 SpreadsheetColumnReference.parseColumn("Z"), width))
-                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
+                        .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
 
     @Test
@@ -110,7 +110,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
                                               final SpreadsheetEngineContext context) {
-                        switch(column.toString()) {
+                        switch (column.toString()) {
                             case "A":
                             case "Z":
                                 break;

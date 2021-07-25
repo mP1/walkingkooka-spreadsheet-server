@@ -110,9 +110,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 this.parameters(),
                 Optional.of(
                         SpreadsheetDelta.with(this.cellsWithinWindow())
-                        .setLabels(this.labels())
-                        .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                        .setMaxRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
+                                .setLabels(this.labels())
+                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
+                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
                 )
         );
     }
