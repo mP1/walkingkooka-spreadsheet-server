@@ -17,8 +17,6 @@
 
 package walkingkooka.spreadsheet.server.label.hateos;
 
-import walkingkooka.net.http.server.hateos.HateosHandler;
-
 public final class SpreadsheetLabelHateosHandlerTest extends SpreadsheetLabelHateosHandlerTestCase<SpreadsheetLabelHateosHandler> {
 
     // ClassTesting......................................................................................................

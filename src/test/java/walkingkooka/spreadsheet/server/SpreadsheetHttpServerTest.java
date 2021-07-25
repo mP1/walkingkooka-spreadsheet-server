@@ -179,7 +179,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.metadataStore.load(SpreadsheetId.with(1L)),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
     }
-    
+
     @Test
     public void testCreateSpreadsheetThenLoadSpreadsheet() {
         final TestHttpServer server = this.startServer();

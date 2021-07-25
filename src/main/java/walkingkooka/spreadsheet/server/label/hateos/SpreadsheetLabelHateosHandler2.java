@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-abstract class SpreadsheetLabelHateosHandler2 extends SpreadsheetLabelHateosHandler{
+abstract class SpreadsheetLabelHateosHandler2 extends SpreadsheetLabelHateosHandler {
 
     SpreadsheetLabelHateosHandler2(final SpreadsheetLabelStore store) {
         super(store);

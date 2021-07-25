@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.format;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
 
 public abstract class SpreadsheetFormatterTestCase<T> implements ClassTesting<T>, ToStringTesting<T> {
 

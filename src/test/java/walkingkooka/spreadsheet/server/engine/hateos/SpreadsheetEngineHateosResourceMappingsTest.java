@@ -441,7 +441,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
         labelStore.save(label123.mapping(a1));
 
-        return new FakeSpreadsheetEngineContext(){
+        return new FakeSpreadsheetEngineContext() {
             @Override
             public SpreadsheetStoreRepository storeRepository() {
                 return new FakeSpreadsheetStoreRepository() {

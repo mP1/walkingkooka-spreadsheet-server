@@ -49,8 +49,8 @@ public final class SpreadsheetLocaleDefaultDateTimeFormat {
 
         return dateTime.format(
                 DateTimeFormatter
-                .ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)
-                .withLocale(context.locale())
+                        .ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)
+                        .withLocale(context.locale())
         );
     }
 

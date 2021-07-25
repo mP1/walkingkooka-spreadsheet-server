@@ -140,7 +140,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         if (selection.isEmpty()) {
             result = HateosResourceSelection.none();
         } else {
-            if("*".equals(selection)) {
+            if ("*".equals(selection)) {
                 result = HateosResourceSelection.all();
             } else {
                 final int colon = selection.indexOf(':');
@@ -181,7 +181,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * A {@link LinkRelation} with <code>fill</code>.
      */
     private static final LinkRelation<?> FILL = LinkRelation.with("fill");
-    
+
     // cellReference....................................................................................................
 
     public static HateosResourceMapping<String,

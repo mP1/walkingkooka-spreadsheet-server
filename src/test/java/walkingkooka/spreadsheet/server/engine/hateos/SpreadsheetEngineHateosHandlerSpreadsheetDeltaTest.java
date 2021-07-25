@@ -18,8 +18,6 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.Cast;
-import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 

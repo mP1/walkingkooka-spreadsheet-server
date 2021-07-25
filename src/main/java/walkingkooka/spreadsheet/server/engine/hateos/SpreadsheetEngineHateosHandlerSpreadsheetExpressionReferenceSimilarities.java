@@ -109,7 +109,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
      * Finds the matching {@link SpreadsheetLabelMapping} for the given text and limit.
      */
     private Set<SpreadsheetLabelMapping> findLabelMappings(final String text,
-                                                    final int count) {
+                                                           final int count) {
         return this.context.storeRepository()
                 .labels()
                 .findSimilar(text, count);

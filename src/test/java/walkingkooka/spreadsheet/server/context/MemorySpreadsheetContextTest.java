@@ -196,13 +196,13 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         assertThrows(
                 NullPointerException.class,
                 () -> MemorySpreadsheetContext.with(
-                base,
-                contentType,
-                fractioner,
-                createMetadata,
-                spreadsheetIdFunctions,
-                spreadsheetIdToRepository,
-                spreadsheetMetadataStamper)
+                        base,
+                        contentType,
+                        fractioner,
+                        createMetadata,
+                        spreadsheetIdFunctions,
+                        spreadsheetIdToRepository,
+                        spreadsheetMetadataStamper)
         );
     }
 

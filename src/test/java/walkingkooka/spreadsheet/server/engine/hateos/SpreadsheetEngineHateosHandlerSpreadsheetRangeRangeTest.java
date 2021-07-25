@@ -106,7 +106,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest exten
         return new FakeSpreadsheetEngineContext() {
             @Override
             public SpreadsheetCellReference resolveCellReference(final SpreadsheetExpressionReference reference) {
-                if(reference.isCellReference()) {
+                if (reference.isCellReference()) {
                     return (SpreadsheetCellReference) reference;
                 }
                 return SpreadsheetCellReference.parseCellReference("B99");

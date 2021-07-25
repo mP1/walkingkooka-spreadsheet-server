@@ -59,7 +59,7 @@ final class SpreadsheetLabelHateosHandlerSaveOrUpdate extends SpreadsheetLabelHa
         HateosHandler.checkParameters(parameters);
 
         // a rename is actually a delete followed by a save which creates
-        if(!id.equals(mapping.id().orElse(null))) {
+        if (!id.equals(mapping.id().orElse(null))) {
             this.store.delete(id);
         }
 

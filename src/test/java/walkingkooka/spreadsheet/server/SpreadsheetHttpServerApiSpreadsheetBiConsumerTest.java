@@ -86,7 +86,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
         return metadata.set(
-            SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
                 MODIFIED_DATE_TIME
         );
     }

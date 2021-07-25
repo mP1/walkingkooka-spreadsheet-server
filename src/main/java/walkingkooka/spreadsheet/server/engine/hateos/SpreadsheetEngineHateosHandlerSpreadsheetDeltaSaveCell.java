@@ -62,7 +62,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
 
         return Optional.of(
                 filterWindowAndSetColumnWidthsRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
-                resource)
+                        resource)
         );
     }
 

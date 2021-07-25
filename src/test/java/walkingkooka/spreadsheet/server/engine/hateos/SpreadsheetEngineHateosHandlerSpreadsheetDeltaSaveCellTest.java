@@ -52,7 +52,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell,
-                SpreadsheetCellReference> {
+        SpreadsheetCellReference> {
 
     // handle...........................................................................................................
 

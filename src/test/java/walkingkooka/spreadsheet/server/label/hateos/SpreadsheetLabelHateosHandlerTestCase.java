@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.label.hateos;
 
-import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
