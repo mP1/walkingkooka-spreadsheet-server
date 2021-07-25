@@ -60,8 +60,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
         }
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(filterWindowAndSetMaxColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
-                resource));
+        return Optional.of(
+                filterWindowAndSetColumnWidthsMaxRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
+                resource)
+        );
     }
 
     @Override

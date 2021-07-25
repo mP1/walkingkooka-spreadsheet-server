@@ -295,7 +295,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
-                        "  \"maxColumnWidths\": {\n" +
+                        "  \"column-widths\": {\n" +
                         "    \"B\": 100\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
@@ -384,7 +384,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
-                        "  \"maxColumnWidths\": {\n" +
+                        "  \"column-widths\": {\n" +
                         "    \"B\": 100\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
@@ -473,7 +473,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
-                        "  \"maxColumnWidths\": {\n" +
+                        "  \"column-widths\": {\n" +
                         "    \"B\": 100\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
@@ -562,7 +562,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
-                        "  \"maxColumnWidths\": {\n" +
+                        "  \"column-widths\": {\n" +
                         "    \"B\": 100\n" +
                         "  },\n" +
                         "  \"maxRowHeights\": {\n" +
