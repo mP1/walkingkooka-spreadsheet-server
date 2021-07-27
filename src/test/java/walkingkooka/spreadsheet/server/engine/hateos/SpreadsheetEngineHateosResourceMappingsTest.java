@@ -48,10 +48,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -420,16 +420,16 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
                                               final SpreadsheetEngineEvaluation evaluation,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.with(Sets.empty());
             }
 
             @Override
-            public SpreadsheetRange range(final SpreadsheetViewport viewport,
-                                          final SpreadsheetEngineContext context) {
-                return SpreadsheetRange.parseRange("B2:C3");
+            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetCellRange.parseCellRange("B2:C3");
             }
         };
     }

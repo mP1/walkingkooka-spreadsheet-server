@@ -45,12 +45,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
@@ -294,7 +294,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = row(engine, context);
 
-        final HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> viewport = range(engine, context);
+        final HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> viewport = range(engine, context);
 
         final AbsoluteUrl base = this.base;
 
@@ -387,9 +387,9 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         return SpreadsheetEngineHateosResourceMappings.row(deleteRows, insertRows);
     }
 
-    private static HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> range(final SpreadsheetEngine engine,
-                                                                                                                                             final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> handler = SpreadsheetEngineHateosHandlers.range(engine, context);
+    private static HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> range(final SpreadsheetEngine engine,
+                                                                                                                                                     final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> handler = SpreadsheetEngineHateosHandlers.range(engine, context);
         return SpreadsheetEngineHateosResourceMappings.range(handler);
     }
 

@@ -55,9 +55,9 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetRangeStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
@@ -895,8 +895,8 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                     SpreadsheetLabelStores.treeMap(),
                     SpreadsheetExpressionReferenceStores.treeMap(),
                     metadataStore,
-                    SpreadsheetRangeStores.treeMap(),
-                    SpreadsheetRangeStores.treeMap(),
+                    SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetUserStores.treeMap()
             );
             this.idToRepositories.put(id, repository);

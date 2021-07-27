@@ -19,11 +19,11 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceVisitorTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 
@@ -106,7 +106,7 @@ public final class SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionR
     public void testRange() {
         final SpreadsheetCellReference cell = this.cell();
         final SpreadsheetCellReference cell2 = SpreadsheetCellReference.parseCellReference("Z99");
-        final SpreadsheetRange range = SpreadsheetRange.with(cell.range(cell2));
+        final SpreadsheetCellRange range = SpreadsheetCellRange.with(cell.range(cell2));
 
         final SpreadsheetLabelName label = this.label();
 

@@ -23,32 +23,32 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that computes the {@link SpreadsheetRange} for a given {@link SpreadsheetViewport}.
+ * A {@link HateosHandler} that computes the {@link SpreadsheetCellRange} for a given {@link SpreadsheetViewport}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRange extends SpreadsheetEngineHateosHandler2<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange extends SpreadsheetEngineHateosHandler2<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> {
 
-    static SpreadsheetEngineHateosHandlerSpreadsheetRangeRange with(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange with(final SpreadsheetEngine engine,
+                                                                        final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineHateosHandlerSpreadsheetRangeRange(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange(engine, context);
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetRangeRange(final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange(final SpreadsheetEngine engine,
+                                                                    final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
     @Override
-    public Optional<SpreadsheetRange> handleOne(final SpreadsheetViewport viewport,
-                                                final Optional<SpreadsheetRange> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetCellRange> handleOne(final SpreadsheetViewport viewport,
+                                                    final Optional<SpreadsheetCellRange> resource,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
         Objects.requireNonNull(viewport, "viewport");
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
@@ -57,9 +57,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRange extends Spreadsh
     }
 
     @Override
-    public Optional<SpreadsheetRange> handleRange(final Range<SpreadsheetViewport> range,
-                                                  final Optional<SpreadsheetRange> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetCellRange> handleRange(final Range<SpreadsheetViewport> range,
+                                                      final Optional<SpreadsheetCellRange> resource,
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkRange(range);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);

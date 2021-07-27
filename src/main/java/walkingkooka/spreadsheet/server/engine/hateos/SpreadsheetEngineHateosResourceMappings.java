@@ -30,13 +30,13 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
@@ -277,14 +277,14 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     // range .........................................................................................................
 
-    public static HateosResourceMapping<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange, HateosResource<SpreadsheetViewport>> range(final HateosHandler<SpreadsheetViewport,
-            SpreadsheetRange,
-            SpreadsheetRange> handler) {
+    public static HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> range(final HateosHandler<SpreadsheetViewport,
+            SpreadsheetCellRange,
+            SpreadsheetCellRange> handler) {
         return HateosResourceMapping.with(
                 RANGE,
                 SpreadsheetEngineHateosResourceMappings::parseViewport,
-                SpreadsheetRange.class,
-                SpreadsheetRange.class,
+                SpreadsheetCellRange.class,
+                SpreadsheetCellRange.class,
                 RANGE_HATEOS_RESOURCE)
                 .set(LinkRelation.SELF, HttpMethod.GET, handler);
     }

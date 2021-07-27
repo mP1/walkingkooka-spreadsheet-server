@@ -17,11 +17,11 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceVisitor;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.tree.expression.ExpressionReference;
 
@@ -64,7 +64,7 @@ final class SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionReferenc
         }
     }
 
-    protected void visit(final SpreadsheetRange range) {
+    protected void visit(final SpreadsheetCellRange range) {
         this.reference = range.begin();
     }
 
