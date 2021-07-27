@@ -23,9 +23,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 /**
@@ -109,11 +109,11 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     }
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetRangeRange}
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange}
      */
-    public static HateosHandler<SpreadsheetViewport, SpreadsheetRange, SpreadsheetRange> range(final SpreadsheetEngine engine,
-                                                                                               final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetRangeRange.with(engine, context);
+    public static HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> range(final SpreadsheetEngine engine,
+                                                                                                       final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange.with(engine, context);
     }
 
     /**

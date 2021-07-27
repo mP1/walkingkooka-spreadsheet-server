@@ -27,10 +27,10 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.List;
 import java.util.Set;
@@ -79,8 +79,8 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         return SpreadsheetLabelName.labelName("Label1a");
     }
 
-    final List<SpreadsheetRange> window() {
-        final SpreadsheetRange window = SpreadsheetExpressionReference.parseRange("A1:B99");
+    final List<SpreadsheetCellRange> window() {
+        final SpreadsheetCellRange window = SpreadsheetExpressionReference.parseCellRange("A1:B99");
 
         this.testTrue(window, this.cell().reference());
 

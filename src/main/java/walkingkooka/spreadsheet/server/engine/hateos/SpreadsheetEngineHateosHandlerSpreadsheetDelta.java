@@ -24,9 +24,9 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
@@ -87,7 +87,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights0(final List<SpreadsheetRange> window,
+    private SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights0(final List<SpreadsheetCellRange> window,
                                                                        final SpreadsheetDelta delta) {
         return this.setColumnWidthsRowHeights(delta.setWindow(window)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));

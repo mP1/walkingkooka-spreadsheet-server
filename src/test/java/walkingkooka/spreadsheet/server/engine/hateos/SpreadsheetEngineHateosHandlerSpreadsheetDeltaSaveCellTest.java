@@ -32,10 +32,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.tree.text.TextNode;
@@ -125,7 +125,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
 
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetCellRange> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -175,7 +175,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     public void testHandleCollectionBatchSaves() {
         final SpreadsheetCell b2 = this.cell("B2", "1");
         final SpreadsheetCell c3 = this.cell("C3", "2");
-        final SpreadsheetRange range = SpreadsheetRange.fromCells(Lists.of(b2.reference(), c3.reference()));
+        final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(b2.reference(), c3.reference()));
 
         final SpreadsheetCell d4 = this.cell("C4", "3");
         final SpreadsheetDelta result = SpreadsheetDelta.with(Sets.of(b2, c3, d4));
@@ -184,8 +184,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                     @Override
                     public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                      final SpreadsheetRange from,
-                                                      final SpreadsheetRange to,
+                                                      final SpreadsheetCellRange from,
+                                                      final SpreadsheetCellRange to,
                                                       final SpreadsheetEngineContext context) {
                         assertEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
                         assertEquals(range, from, "from");
@@ -205,21 +205,21 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell unsaved1 = this.cell("B2", "1");
         final SpreadsheetCell unsaved2 = this.cell("B3", "2");
 
-        final SpreadsheetRange range = SpreadsheetRange.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
+        final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
 
         final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = unsaved2.setFormatted(Optional.of(TextNode.text("FORMATTED2")));
         final SpreadsheetCell saved3 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED3")));
 
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
 
                     @Override
                     public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                      final SpreadsheetRange from,
-                                                      final SpreadsheetRange to,
+                                                      final SpreadsheetCellRange from,
+                                                      final SpreadsheetCellRange to,
                                                       final SpreadsheetEngineContext context) {
                         assertEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
                         assertEquals(range, from, "from");

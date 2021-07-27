@@ -24,8 +24,8 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.Map;
 import java.util.Optional;
@@ -70,13 +70,13 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetRange spreadsheetRange = SpreadsheetRange.with(range);
+        final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetCellRange.with(range);
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(this.engine.fillCells(delta.cells(),
-                spreadsheetRange,
-                spreadsheetRange,
+                spreadsheetCellRange,
+                spreadsheetCellRange,
                 this.context).setWindow(delta.window()));
     }
 

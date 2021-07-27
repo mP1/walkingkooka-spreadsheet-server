@@ -24,9 +24,9 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetRange, SpreadsheetRange, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRange, SpreadsheetCellRange, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetCellReference> {
 
@@ -64,24 +64,24 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> to,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetRange toSpreadsheetRange = SpreadsheetRange.with(to);
+        final SpreadsheetCellRange range = SpreadsheetCellRange.with(to);
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetRange from = FROM.parameterValue(parameters)
+        final SpreadsheetCellRange from = FROM.parameterValue(parameters)
                 .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)
-                .orElse(toSpreadsheetRange);
+                .orElse(range);
 
         return Optional.of(delta.setCells(this.engine.fillCells(delta.cells(),
                 from,
-                toSpreadsheetRange,
+                range,
                 this.context).cells()));
     }
 
-    private static SpreadsheetRange mapFirstStringValue(final List<String> values) {
+    private static SpreadsheetCellRange mapFirstStringValue(final List<String> values) {
         return values.stream()
                 .limit(1)
-                .map(SpreadsheetExpressionReference::parseRange)
+                .map(SpreadsheetExpressionReference::parseCellRange)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Required parameter " + FROM + " missing"));
     }

@@ -31,10 +31,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.List;
@@ -74,7 +74,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     @Test
     public void testLoadCellAndFilter() {
         final SpreadsheetCellReference id = this.id();
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetCellRange> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -131,7 +131,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
 
                     @Override
-                    public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+                    public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
@@ -184,7 +184,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -192,7 +192,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetRange range,
+                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
                                 assertSame(EVALUATION, evaluation, "evaluation");
@@ -304,27 +304,27 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c3 = this.c3();
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final List<SpreadsheetRange> window = this.window();
+        final List<SpreadsheetCellRange> window = this.window();
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
                         EVALUATION,
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetRange r,
+                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetRange.with(range), r, "range");
+                                assertEquals(SpreadsheetCellRange.with(range), r, "range");
                                 assertEquals(EVALUATION, evaluation, "evaluation");
 
                                 return SpreadsheetDelta.with(Sets.of(b1, b2, b3, c1, c2, c3));
                             }
 
                             @Override
-                            public SpreadsheetRange range(final SpreadsheetViewport viewport,
-                                                          final SpreadsheetEngineContext context) {
+                            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
+                                                              final SpreadsheetEngineContext context) {
                                 assertEquals(SpreadsheetViewport.with(SpreadsheetCellReference.parseCellReference("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
-                                return SpreadsheetRange.with(range);
+                                return SpreadsheetCellRange.with(range);
                             }
 
                             @Override
@@ -419,7 +419,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     @Override
     public Range<SpreadsheetCellReference> range() {
-        return SpreadsheetRange.parseRange("B1:C3").range();
+        return SpreadsheetCellRange.parseCellRange("B1:C3").range();
     }
 
     @Override

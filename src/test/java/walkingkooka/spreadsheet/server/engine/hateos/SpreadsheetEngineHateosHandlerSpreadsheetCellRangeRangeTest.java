@@ -28,9 +28,9 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRange;
 
 import java.util.List;
 import java.util.Map;
@@ -38,21 +38,21 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetRangeRange,
+public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange,
         SpreadsheetViewport,
-        SpreadsheetRange,
-        SpreadsheetRange> {
+        SpreadsheetCellRange,
+        SpreadsheetCellRange> {
 
     @Test
     public void testRangeCellReference() {
         final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(0, 0, 100, 20);
-        final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
+        final SpreadsheetCellRange range = SpreadsheetCellRange.parseCellRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public SpreadsheetRange range(final SpreadsheetViewport v,
-                                                  final SpreadsheetEngineContext context) {
+                    public SpreadsheetCellRange range(final SpreadsheetViewport v,
+                                                      final SpreadsheetEngineContext context) {
                         assertEquals(viewport, v, "viewport");
                         return range;
                     }
@@ -67,13 +67,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest exten
     @Test
     public void testRangeLabel() {
         final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:0:0:100:20");
-        final SpreadsheetRange range = SpreadsheetRange.parseRange("B99:C102");
+        final SpreadsheetCellRange range = SpreadsheetCellRange.parseCellRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public SpreadsheetRange range(final SpreadsheetViewport v,
-                                                  final SpreadsheetEngineContext context) {
+                    public SpreadsheetCellRange range(final SpreadsheetViewport v,
+                                                      final SpreadsheetEngineContext context) {
                         assertEquals(viewport, v, "viewport");
                         return range;
                     }
@@ -91,9 +91,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest exten
     }
 
     @Override
-    SpreadsheetEngineHateosHandlerSpreadsheetRangeRange createHandler(final SpreadsheetEngine engine,
-                                                                      final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetRangeRange.with(engine, context);
+    SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange createHandler(final SpreadsheetEngine engine,
+                                                                          final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange.with(engine, context);
     }
 
     @Override
@@ -130,12 +130,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest exten
     }
 
     @Override
-    public Optional<SpreadsheetRange> resource() {
+    public Optional<SpreadsheetCellRange> resource() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<SpreadsheetRange> collectionResource() {
+    public Optional<SpreadsheetCellRange> collectionResource() {
         return Optional.empty();
     }
 
@@ -145,7 +145,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetRangeRangeTest exten
     }
 
     @Override
-    public Class<SpreadsheetEngineHateosHandlerSpreadsheetRangeRange> type() {
-        return SpreadsheetEngineHateosHandlerSpreadsheetRangeRange.class;
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange> type() {
+        return SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange.class;
     }
 }
