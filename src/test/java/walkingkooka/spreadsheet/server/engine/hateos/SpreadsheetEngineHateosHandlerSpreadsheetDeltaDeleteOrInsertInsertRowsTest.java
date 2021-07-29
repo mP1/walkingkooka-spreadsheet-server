@@ -90,7 +90,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
     public void testInsertSeveralRows() {
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
-        final Range<SpreadsheetRowReference> range = SpreadsheetColumnOrRowReference.parseRowRange("2:4");
+        final Range<SpreadsheetRowReference> range = SpreadsheetColumnOrRowReference.parseRowRange("2:4")
+                .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
         final SpreadsheetDelta delta = SpreadsheetDelta.with(cells);
@@ -211,7 +212,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
 
     @Override
     public Range<SpreadsheetRowReference> range() {
-        return SpreadsheetColumnOrRowReference.parseRowRange("2:4");
+        return SpreadsheetColumnOrRowReference.parseRowRange("2:4")
+                .range();
     }
 
     @Override

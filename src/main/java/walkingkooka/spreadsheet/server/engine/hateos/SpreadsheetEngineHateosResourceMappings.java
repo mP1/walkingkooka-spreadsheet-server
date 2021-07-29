@@ -234,7 +234,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         HateosResourceSelection<SpreadsheetColumnReference> result;
 
         if (selection.contains(":")) {
-            result = HateosResourceSelection.range(SpreadsheetColumnReference.parseColumnRange(selection));
+            result = HateosResourceSelection.range(SpreadsheetColumnReference.parseColumnRange(selection).range());
         } else {
             result = HateosResourceSelection.one(SpreadsheetColumnReference.parseColumn(selection));
         }
@@ -267,7 +267,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         HateosResourceSelection<SpreadsheetRowReference> result;
 
         if (selection.contains(":")) {
-            result = HateosResourceSelection.range(SpreadsheetRowReference.parseRowRange(selection));
+            result = HateosResourceSelection.range(SpreadsheetRowReference.parseRowRange(selection).range());
         } else {
             result = HateosResourceSelection.one(SpreadsheetRowReference.parseRow(selection));
         }
