@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Collection;
 import java.util.List;
@@ -64,7 +65,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> to,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange range = SpreadsheetCellRange.with(to);
+        final SpreadsheetCellRange range = SpreadsheetSelection.cellRange(to);
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 

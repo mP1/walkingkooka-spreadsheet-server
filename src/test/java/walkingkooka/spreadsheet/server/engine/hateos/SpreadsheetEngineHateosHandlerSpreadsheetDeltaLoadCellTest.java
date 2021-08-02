@@ -36,6 +36,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.List;
 import java.util.Map;
@@ -314,7 +315,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             public SpreadsheetDelta loadCells(final SpreadsheetCellRange r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetCellRange.with(range), r, "range");
+                                assertEquals(SpreadsheetSelection.cellRange(range), r, "range");
                                 assertEquals(EVALUATION, evaluation, "evaluation");
 
                                 return SpreadsheetDelta.with(Sets.of(b1, b2, b3, c1, c2, c3));
@@ -324,7 +325,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
                                                               final SpreadsheetEngineContext context) {
                                 assertEquals(SpreadsheetViewport.with(SpreadsheetCellReference.parseCellReference("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
-                                return SpreadsheetCellRange.with(range);
+                                return SpreadsheetSelection.cellRange(range);
                             }
 
                             @Override

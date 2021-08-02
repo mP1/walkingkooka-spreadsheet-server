@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -106,7 +107,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED 1")));
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetCellRange.with(range);
+        final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetSelection.cellRange(range);
 
         final SpreadsheetDelta resource = SpreadsheetDelta.with(Sets.of(unsaved1));
 
