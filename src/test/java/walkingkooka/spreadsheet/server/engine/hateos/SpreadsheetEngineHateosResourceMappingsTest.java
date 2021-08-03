@@ -52,6 +52,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -359,7 +360,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(HttpMethod.POST,
                 "/cell/A1:B2/fill",
                 JsonNodeMarshallContexts.basic().marshall(
-                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("B99"), SpreadsheetFormula.with("1"))))
+                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("B99"), SpreadsheetFormula.with("1"))))
                 ).toString(),
                 HttpStatusCode.NOT_IMPLEMENTED);
     }
@@ -435,7 +436,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     private SpreadsheetEngineContext engineContext() {
-        final SpreadsheetCellReference a1 = SpreadsheetExpressionReference.parseCellReference("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();

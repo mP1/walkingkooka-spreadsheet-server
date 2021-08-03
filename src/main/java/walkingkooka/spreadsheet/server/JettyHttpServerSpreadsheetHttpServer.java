@@ -45,6 +45,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
@@ -196,7 +197,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 );
     }
 
-    private final static SpreadsheetCellReference INITIAL_VIEWPORT_CELL = SpreadsheetCellReference.parseCellReference("A1");
+    private final static SpreadsheetCellReference INITIAL_VIEWPORT_CELL = SpreadsheetSelection.parseCell("A1");
 
     private static Function<BigDecimal, Fraction> fractioner() {
         return (n) -> {

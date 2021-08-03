@@ -35,9 +35,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -110,7 +110,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Test
     public void testHandleSaveMultipleCellsFails() {
         final SpreadsheetCell cell = this.cell();
-        final SpreadsheetCell z99 = SpreadsheetCell.with(SpreadsheetExpressionReference.parseCellReference("Z99"), SpreadsheetFormula.with("99"));
+        final SpreadsheetCell z99 = SpreadsheetCell.with(SpreadsheetSelection.parseCell("Z99"), SpreadsheetFormula.with("99"));
 
         this.handleOneFails(this.id(),
                 Optional.of(SpreadsheetDelta.with(Sets.of(cell, z99))),
@@ -253,7 +253,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
     @Override
     public SpreadsheetCellReference id() {
-        return SpreadsheetExpressionReference.parseCellReference("A1");
+        return SpreadsheetSelection.parseCell("A1");
     }
 
     @Override

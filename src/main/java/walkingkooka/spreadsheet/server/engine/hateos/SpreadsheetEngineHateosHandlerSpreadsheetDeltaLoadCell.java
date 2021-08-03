@@ -65,7 +65,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkParameters(parameters);
         checkWithoutCells(resource);
 
-        final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCellReference);
+        final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCell);
 
         final double xOffset = firstDoubleParameterValue(X_OFFSET, parameters);
         final double yOffset = firstDoubleParameterValue(Y_OFFSET, parameters);

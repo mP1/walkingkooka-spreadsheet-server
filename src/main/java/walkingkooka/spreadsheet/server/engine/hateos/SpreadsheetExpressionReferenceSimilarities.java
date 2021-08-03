@@ -24,6 +24,7 @@ import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -190,7 +191,7 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
 
     static {
         // force static initializers to run, preventing Json type name lookup failures.
-        SpreadsheetLabelName.labelName("Label").mapping(SpreadsheetCellReference.parseCellReference("A1"));
+        SpreadsheetLabelName.labelName("Label").mapping(SpreadsheetSelection.parseCell("A1"));
 
         JsonNodeContext.register(
                 JsonNodeContext.computeTypeName(SpreadsheetExpressionReferenceSimilarities.class),

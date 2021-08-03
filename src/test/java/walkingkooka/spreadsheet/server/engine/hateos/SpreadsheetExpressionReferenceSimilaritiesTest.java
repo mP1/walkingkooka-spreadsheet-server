@@ -26,6 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -39,9 +40,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetExpressionReferenceSimilaritiesTest implements HashCodeEqualsDefinedTesting2<SpreadsheetExpressionReferenceSimilarities>,
         ClassTesting<SpreadsheetExpressionReferenceSimilarities>, JsonNodeMarshallingTesting<SpreadsheetExpressionReferenceSimilarities>, ToStringTesting<SpreadsheetExpressionReferenceSimilarities> {
 
-    private final static SpreadsheetCellReference REFERENCE = SpreadsheetCellReference.parseCellReference("B2");
+    private final static SpreadsheetCellReference REFERENCE = SpreadsheetSelection.parseCell("B2");
     private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("Label123");
-    private final static SpreadsheetCellReference LABEL_REFERENCE = SpreadsheetCellReference.parseCellReference("C3");
+    private final static SpreadsheetCellReference LABEL_REFERENCE = SpreadsheetSelection.parseCell("C3");
     private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelName.labelName("Label234").mapping(LABEL_REFERENCE);
 
     @Test
@@ -156,7 +157,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     @Test
     public void testDifferentCellReference() {
         this.checkNotEquals(SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.of(SpreadsheetCellReference.parseCellReference("Z99")),
+                Optional.of(SpreadsheetSelection.parseCell("Z99")),
                 Optional.of(LABEL),
                 Sets.of(MAPPING)
         ));
@@ -165,7 +166,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     @Test
     public void testDifferentLabel() {
         this.checkNotEquals(SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.of(SpreadsheetCellReference.parseCellReference("Z99")),
+                Optional.of(SpreadsheetSelection.parseCell("Z99")),
                 Optional.of(SpreadsheetLabelName.labelName("DifferentLabel99")),
                 Sets.of(MAPPING)
         ));
@@ -193,7 +194,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 SpreadsheetExpressionReferenceSimilarities.with(
                         Optional.of(REFERENCE),
                         Optional.of(LABEL),
-                        Sets.of(MAPPING, SpreadsheetLabelName.labelName("Label99").mapping(SpreadsheetCellReference.parseCellReference("Z9")))
+                        Sets.of(MAPPING, SpreadsheetLabelName.labelName("Label99").mapping(SpreadsheetSelection.parseCell("Z9")))
                 ),
                 "B2 Label123 Label234=C3, Label99=Z9"
         );

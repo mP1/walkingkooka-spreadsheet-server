@@ -23,9 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 
@@ -68,7 +68,7 @@ public final class SpreadsheetLabelHateosHandlerDeleteTest extends SpreadsheetLa
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName labelName) {
-        return SpreadsheetLabelMapping.with(labelName, SpreadsheetCellReference.parseCellReference("B2"));
+        return SpreadsheetLabelMapping.with(labelName, SpreadsheetSelection.parseCell("B2"));
     }
 
     @Test

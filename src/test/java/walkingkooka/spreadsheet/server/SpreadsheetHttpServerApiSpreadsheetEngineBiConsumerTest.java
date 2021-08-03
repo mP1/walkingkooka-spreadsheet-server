@@ -49,9 +49,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
@@ -270,7 +269,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 HttpMethod.POST,
                 "/api/1/cell/A1:B2/fill",
                 JsonNodeMarshallContexts.basic().marshall(
-                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetCellReference.parseCellReference("A2"), SpreadsheetFormula.with("1"))))
+                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A2"), SpreadsheetFormula.with("1"))))
                 ).toString(),
                 HttpStatusCode.OK
         );
@@ -454,7 +453,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         metadataStore.save(metadata);
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
-        labelStore.save(LABEL.mapping(SpreadsheetExpressionReference.parseCellReference("Z99")));
+        labelStore.save(LABEL.mapping(SpreadsheetSelection.parseCell("Z99")));
 
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
