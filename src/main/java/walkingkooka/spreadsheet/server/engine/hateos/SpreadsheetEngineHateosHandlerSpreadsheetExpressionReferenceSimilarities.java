@@ -25,9 +25,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 
 import java.util.List;
@@ -79,7 +79,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     private static SpreadsheetCellReferenceOrLabelName parseCellOrLabelOrNull(final String text) {
         SpreadsheetCellReferenceOrLabelName cellOrLabel;
         try {
-            cellOrLabel = SpreadsheetExpressionReference.parseCellReferenceOrLabelName(text);
+            cellOrLabel = SpreadsheetSelection.parseCellOrLabelName(text);
         } catch (final Exception invalid) {
             cellOrLabel = null;
         }

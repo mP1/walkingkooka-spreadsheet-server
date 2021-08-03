@@ -80,7 +80,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 SpreadsheetDelta,
                 SpreadsheetDelta,
                 SpreadsheetCell> cell = HateosResourceMapping.with(CELL,
-                (t) -> SpreadsheetEngineHateosResourceMappings.parseCellReferenceOrLabel(t, labelToCellReference),
+                (t) -> SpreadsheetEngineHateosResourceMappings.parseCellOrLabel(t, labelToCellReference),
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
                 SpreadsheetCell.class)
@@ -133,8 +133,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * Handles parsing just a cell or label or a range with either, always resolving labels to cells. Any returned
      * {@link walkingkooka.collect.Range} will only have {@link SpreadsheetCellReference}.
      */
-    private static HateosResourceSelection<SpreadsheetCellReference> parseCellReferenceOrLabel(final String selection,
-                                                                                               final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+    private static HateosResourceSelection<SpreadsheetCellReference> parseCellOrLabel(final String selection,
+                                                                                      final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
         final HateosResourceSelection<SpreadsheetCellReference> result;
 
         if (selection.isEmpty()) {
@@ -146,17 +146,17 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 final int colon = selection.indexOf(':');
                 switch (colon) {
                     case -1:
-                        result = HateosResourceSelection.one(parseCellReferenceOrLabel0(selection, labelToCellReference));
+                        result = HateosResourceSelection.one(parseCellOrLabel0(selection, labelToCellReference));
                         break;
                     case 0:
                         throw new IllegalArgumentException("Missing begin");
                     default:
-                        final SpreadsheetCellReference begin = parseCellReferenceOrLabel0(selection.substring(0, colon), labelToCellReference);
+                        final SpreadsheetCellReference begin = parseCellOrLabel0(selection.substring(0, colon), labelToCellReference);
 
                         if (colon + 1 == selection.length()) {
                             throw new IllegalArgumentException("Missing end");
                         }
-                        final SpreadsheetCellReference end = parseCellReferenceOrLabel0(selection.substring(colon + 1), labelToCellReference);
+                        final SpreadsheetCellReference end = parseCellOrLabel0(selection.substring(colon + 1), labelToCellReference);
                         result = HateosResourceSelection.range(begin.range(end));
                         break;
                 }
@@ -169,9 +169,9 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     /**
      * Parses the given text as either a cell reference or label name, if the later it is resolved to a {@link SpreadsheetCellReference}.
      */
-    private static SpreadsheetCellReference parseCellReferenceOrLabel0(final String cellOrLabelText,
-                                                                       final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
-        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetExpressionReference.parseCellReferenceOrLabelName(cellOrLabelText);
+    private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
+                                                              final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetExpressionReference.parseCellOrLabelName(cellOrLabelText);
         return cellOrLabel instanceof SpreadsheetLabelName ?
                 labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel).orElseThrow(() -> new IllegalArgumentException("Unknown label " + CharSequences.quote(cellOrLabelText))) :
                 (SpreadsheetCellReference) cellOrLabel;
