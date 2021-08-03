@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -46,9 +47,9 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
         SpreadsheetExpressionReferenceSimilarities,
         SpreadsheetExpressionReferenceSimilarities> implements ToStringTesting<SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities> {
 
-    private final static SpreadsheetCellReference A1 = SpreadsheetExpressionReference.parseCellReference("A1");
-    private final static SpreadsheetCellReference B2 = SpreadsheetExpressionReference.parseCellReference("B2");
-    private final static SpreadsheetCellReference C3 = SpreadsheetExpressionReference.parseCellReference("C3");
+    private final static SpreadsheetCellReference A1 = SpreadsheetSelection.parseCell("A1");
+    private final static SpreadsheetCellReference B2 = SpreadsheetSelection.parseCell("B2");
+    private final static SpreadsheetCellReference C3 = SpreadsheetSelection.parseCell("C3");
 
     private final static SpreadsheetLabelName LABEL1 = SpreadsheetExpressionReference.labelName("Label123");
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");

@@ -54,7 +54,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
@@ -578,7 +578,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         final SpreadsheetId id = this.spreadsheetId();
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.hateosRouter(id);
 
-        final SpreadsheetCellReference cellReference = SpreadsheetExpressionReference.parseCellReference("B2");
+        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("=1+2"));
 
         // save a cell
@@ -751,7 +751,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
         this.countAndCheck(repository.rangeToConditionalFormattingRules(), 0);
         this.countAndCheck(repository.users(), 0);
 
-        repository.cells().save(SpreadsheetCell.with(SpreadsheetExpressionReference.parseCellReference("A1"), SpreadsheetFormula.with("1+2")));
+        repository.cells().save(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("1+2")));
         this.countAndCheck(repository.cells(), 1);
     }
 

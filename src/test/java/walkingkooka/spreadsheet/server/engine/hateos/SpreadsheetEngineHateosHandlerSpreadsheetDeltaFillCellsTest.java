@@ -159,7 +159,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
     @Override
     public SpreadsheetCellReference id() {
-        return SpreadsheetExpressionReference.parseCellReference("A1");
+        return SpreadsheetSelection.parseCell("A1");
     }
 
     @Override

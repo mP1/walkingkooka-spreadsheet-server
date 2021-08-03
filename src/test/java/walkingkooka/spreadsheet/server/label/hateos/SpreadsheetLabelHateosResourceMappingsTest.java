@@ -39,10 +39,9 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
@@ -70,7 +69,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
     private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("label123");
     private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelMapping.with(
             LABEL,
-            SpreadsheetCellReference.parseCellReference("B2")
+            SpreadsheetSelection.parseCell("B2")
     );
 
     // with.............................................................................................................
@@ -185,7 +184,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
     @Test
     public void testRoutePostUpdate() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(LABEL.mapping(SpreadsheetExpressionReference.parseCellReference("ZZ99")));
+        store.save(LABEL.mapping(SpreadsheetSelection.parseCell("ZZ99")));
 
         this.routeAndCheck2(
                 delete(),

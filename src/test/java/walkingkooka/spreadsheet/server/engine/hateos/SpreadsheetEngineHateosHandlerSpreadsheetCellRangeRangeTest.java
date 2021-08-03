@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
 
     @Test
     public void testRangeCellReference() {
-        final SpreadsheetViewport viewport = SpreadsheetCellReference.parseCellReference("B99").viewport(0, 0, 100, 20);
+        final SpreadsheetViewport viewport = SpreadsheetSelection.parseCell("B99").viewport(0, 0, 100, 20);
         final SpreadsheetCellRange range = SpreadsheetCellRange.parseCellRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
@@ -109,14 +110,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
                 if (reference.isCellReference()) {
                     return (SpreadsheetCellReference) reference;
                 }
-                return SpreadsheetCellReference.parseCellReference("B99");
+                return SpreadsheetSelection.parseCell("B99");
             }
         };
     }
 
     @Override
     public SpreadsheetViewport id() {
-        return SpreadsheetCellReference.parseCellReference("A1").viewport(0, 0, 100, 20);
+        return SpreadsheetSelection.parseCell("A1").viewport(0, 0, 100, 20);
     }
 
     @Override

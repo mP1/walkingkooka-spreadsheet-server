@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.List;
 import java.util.Set;
@@ -55,7 +56,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     }
 
     final SpreadsheetCell cell(final String cellReference, final String formula) {
-        return SpreadsheetCell.with(SpreadsheetExpressionReference.parseCellReference(cellReference),
+        return SpreadsheetCell.with(SpreadsheetSelection.parseCell(cellReference),
                 SpreadsheetFormula.with(formula));
     }
 

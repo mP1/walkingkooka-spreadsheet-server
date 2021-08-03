@@ -106,7 +106,7 @@ public final class SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionR
     @Test
     public void testRange() {
         final SpreadsheetCellReference cell = this.cell();
-        final SpreadsheetCellReference cell2 = SpreadsheetCellReference.parseCellReference("Z99");
+        final SpreadsheetCellReference cell2 = SpreadsheetSelection.parseCell("Z99");
         final SpreadsheetCellRange range = SpreadsheetSelection.cellRange(cell.range(cell2));
 
         final SpreadsheetLabelName label = this.label();
@@ -122,7 +122,7 @@ public final class SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionR
     }
 
     private SpreadsheetCellReference cell() {
-        return SpreadsheetCellReference.parseCellReference("A2");
+        return SpreadsheetSelection.parseCell("A2");
     }
 
     private SpreadsheetLabelName label() {

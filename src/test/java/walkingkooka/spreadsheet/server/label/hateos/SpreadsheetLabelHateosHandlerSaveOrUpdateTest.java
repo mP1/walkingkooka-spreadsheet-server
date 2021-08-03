@@ -23,10 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 
@@ -41,7 +40,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
     @Test
     public void testSave() {
         final SpreadsheetLabelName labelName = this.id();
-        final SpreadsheetLabelMapping mapping = SpreadsheetLabelMapping.with(labelName, SpreadsheetCellReference.parseCellReference("B2"));
+        final SpreadsheetLabelMapping mapping = SpreadsheetLabelMapping.with(labelName, SpreadsheetSelection.parseCell("B2"));
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         this.handleNoneAndCheck(
@@ -101,7 +100,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
         final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(this.mapping(oldLabelName));
-        store.save(newLabelName.mapping(SpreadsheetExpressionReference.parseCellReference("Z99")));
+        store.save(newLabelName.mapping(SpreadsheetSelection.parseCell("Z99")));
 
         this.handleOneAndCheck(
                 SpreadsheetLabelHateosHandlerSaveOrUpdate.with(store),
@@ -155,7 +154,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName id) {
-        return SpreadsheetLabelMapping.with(id, SpreadsheetCellReference.parseCellReference("Z99"));
+        return SpreadsheetLabelMapping.with(id, SpreadsheetSelection.parseCell("Z99"));
     }
 
     @Override
