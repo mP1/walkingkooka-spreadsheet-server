@@ -53,7 +53,13 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange extends Spre
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.engine.range(viewport, this.context));
+        return Optional.of(
+                this.engine.range(
+                        viewport,
+                        Optional.empty(),
+                        this.context
+                )
+        );
     }
 
     @Override

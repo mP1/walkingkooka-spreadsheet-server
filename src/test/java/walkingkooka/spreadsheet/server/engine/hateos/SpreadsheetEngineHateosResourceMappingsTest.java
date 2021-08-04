@@ -429,6 +429,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
             @Override
             public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
+                                              final Optional<SpreadsheetSelection> selection,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetCellRange.parseCellRange("B2:C3");
             }
