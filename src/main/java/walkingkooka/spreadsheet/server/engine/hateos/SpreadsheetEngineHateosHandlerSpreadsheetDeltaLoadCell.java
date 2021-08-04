@@ -74,7 +74,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         final double height = firstDoubleParameterValue(HEIGHT, parameters);
 
         return this.handleRange0(
-                this.engine.range(SpreadsheetViewport.with(home, xOffset, yOffset, width, height), this.context),
+                this.engine.range(
+                        SpreadsheetViewport.with(home, xOffset, yOffset, width, height),
+                        Optional.empty(),
+                        this.context
+                ),
                 resource
         );
     }

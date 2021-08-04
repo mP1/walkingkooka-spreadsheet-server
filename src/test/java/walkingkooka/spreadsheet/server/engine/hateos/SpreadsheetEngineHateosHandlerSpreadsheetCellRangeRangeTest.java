@@ -53,8 +53,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetCellRange range(final SpreadsheetViewport v,
+                                                      final Optional<SpreadsheetSelection> s,
                                                       final SpreadsheetEngineContext context) {
                         assertEquals(viewport, v, "viewport");
+                        assertEquals(Optional.empty(), s, "selection");
                         return range;
                     }
                 },
@@ -74,8 +76,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
                 new FakeSpreadsheetEngine() {
                     @Override
                     public SpreadsheetCellRange range(final SpreadsheetViewport v,
+                                                      final Optional<SpreadsheetSelection> s,
                                                       final SpreadsheetEngineContext context) {
                         assertEquals(viewport, v, "viewport");
+                        assertEquals(Optional.empty(), s, "selection");
                         return range;
                     }
                 },

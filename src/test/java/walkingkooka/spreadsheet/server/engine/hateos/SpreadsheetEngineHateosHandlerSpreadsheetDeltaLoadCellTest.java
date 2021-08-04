@@ -322,8 +322,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
                             @Override
                             public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
+                                                              final Optional<SpreadsheetSelection> selection,
                                                               final SpreadsheetEngineContext context) {
                                 assertEquals(SpreadsheetViewport.with(SpreadsheetSelection.parseCell("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
+                                assertEquals(Optional.empty(), selection, "selection");
                                 return SpreadsheetSelection.cellRange(range);
                             }
 
