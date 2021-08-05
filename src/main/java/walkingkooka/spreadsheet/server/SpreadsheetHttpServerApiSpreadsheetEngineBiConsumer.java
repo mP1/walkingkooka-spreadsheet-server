@@ -159,7 +159,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         return formatRouter(spreadsheetIdPath, context, metadata)
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
                 .then(
-                        this.cellCellBoxColumnRowViewportRouter(
+                        this.cellColumnRowViewportRouter(
                                 id,
                                 repository,
                                 engine,
@@ -228,10 +228,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     // engine................................................................................................................
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellCellBoxColumnRowViewportRouter(final SpreadsheetId id,
-                                                                                                                      final SpreadsheetStoreRepository repository,
-                                                                                                                      final SpreadsheetEngine engine,
-                                                                                                                      final SpreadsheetEngineContext context) {
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
+                                                                                                               final SpreadsheetStoreRepository repository,
+                                                                                                               final SpreadsheetEngine engine,
+                                                                                                               final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
 
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
