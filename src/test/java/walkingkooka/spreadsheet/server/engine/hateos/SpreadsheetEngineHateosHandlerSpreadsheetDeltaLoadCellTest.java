@@ -281,6 +281,39 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         );
     }
 
+    @Test
+    public void testHandleAllSelectionTypePresentAndMissingSelectionParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of("cell")
+                ),
+                "Missing parameter \"selection\""
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidSelectionTypeParameterFails() {
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of("unknownn?"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION, Lists.of("A1"));
+
+        this.handleAllFails2(
+                parameters,
+                "Invalid parameter \"selection-type\" value \"A1\""
+        );
+    }
+
     private void handleAllFails2(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
         final IllegalArgumentException thrown = this.handleAllFails(
                 Optional.empty(),
@@ -291,7 +324,71 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFiltered() {
+    public void testHandleAllFilteredNone() {
+        this.handleAllFilteredAndCheck(
+                null,
+                null,
+                null
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredCell() {
+        this.handleAllFilteredAndCheck(
+                "cell",
+                "A9",
+                SpreadsheetSelection.parseCell("A9")
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredCellRange() {
+        this.handleAllFilteredAndCheck(
+                "cell-range",
+                "A9:A99",
+                SpreadsheetSelection.parseCellRange("A9:A99")
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredColumn() {
+        this.handleAllFilteredAndCheck(
+                "column",
+                "B",
+                SpreadsheetSelection.parseColumn("B")
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredColumnRange() {
+        this.handleAllFilteredAndCheck(
+                "column-range",
+                "B:D",
+                SpreadsheetSelection.parseColumnRange("B:D")
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredRow() {
+        this.handleAllFilteredAndCheck(
+                "row",
+                "99",
+                SpreadsheetSelection.parseRow("99")
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredrowRange() {
+        this.handleAllFilteredAndCheck(
+                "row-range",
+                "98:99",
+                SpreadsheetSelection.parseRowRange("98:99")
+        );
+    }
+
+    private void handleAllFilteredAndCheck(final String selectionType,
+                                           final String selectionText,
+                                           final SpreadsheetSelection selection) {
         // B1, B2, B3
         // C1, C2, C3
 
@@ -305,6 +402,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         final Range<SpreadsheetCellReference> range = this.range();
         final List<SpreadsheetCellRange> window = this.window();
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("11"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("22"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("33"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44"));
+
+        if (null != selectionType) {
+            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of(selectionType));
+            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION, Lists.of(selectionText));
+        }
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -322,10 +431,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
                             @Override
                             public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
-                                                              final Optional<SpreadsheetSelection> selection,
+                                                              final Optional<SpreadsheetSelection> s,
                                                               final SpreadsheetEngineContext context) {
                                 assertEquals(SpreadsheetViewport.with(SpreadsheetSelection.parseCell("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
-                                assertEquals(Optional.empty(), selection, "selection");
+                                assertEquals(Optional.ofNullable(selection), s, "selection");
                                 return SpreadsheetSelection.cellRange(range);
                             }
 
@@ -344,13 +453,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         this.engineContext()),
                 //range,
                 Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("11"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("22"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("33"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44")
-                ),
+                parameters,
                 Optional.of(
                         SpreadsheetDelta.with(Sets.of(b1, b2, b3))
                 )
