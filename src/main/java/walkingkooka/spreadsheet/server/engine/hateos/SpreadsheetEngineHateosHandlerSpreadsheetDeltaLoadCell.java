@@ -94,7 +94,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     /**
      * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
      */
-    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selection-type");
+    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
 
     /**
      * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.

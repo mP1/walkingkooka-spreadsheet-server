@@ -310,7 +310,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         this.handleAllFails2(
                 parameters,
-                "Invalid parameter \"selection-type\" value \"A1\""
+                "Invalid parameter \"selectionType\" value \"A1\""
         );
     }
 
