@@ -210,7 +210,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     }
 
     @Override
-    public SpreadsheetExpressionReferenceSimilarities createJsonNodeMappingValue() {
+    public SpreadsheetExpressionReferenceSimilarities createJsonNodeMarshallingValue() {
         return this.createObject();
     }
 

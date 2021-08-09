@@ -29,7 +29,7 @@ public abstract class SpreadsheetParserTestCase2<T> extends SpreadsheetParserTes
     }
 
     @Override
-    public final T createJsonNodeMappingValue() {
+    public final T createJsonNodeMarshallingValue() {
         return this.createObject();
     }
 
