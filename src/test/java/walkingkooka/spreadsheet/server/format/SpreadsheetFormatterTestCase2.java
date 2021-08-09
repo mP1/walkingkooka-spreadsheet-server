@@ -35,7 +35,7 @@ public abstract class SpreadsheetFormatterTestCase2<T> extends SpreadsheetFormat
     }
 
     @Override
-    public final T createJsonNodeMappingValue() {
+    public final T createJsonNodeMarshallingValue() {
         return this.createObject();
     }
 
