@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
@@ -80,14 +81,14 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         return SpreadsheetLabelName.labelName("Label1a");
     }
 
-    final List<SpreadsheetCellRange> window() {
+    final Optional<SpreadsheetCellRange> window() {
         final SpreadsheetCellRange window = SpreadsheetExpressionReference.parseCellRange("A1:B99");
 
         this.testTrue(window, this.cell().reference());
 
         this.testFalse(window, cellOutsideWindow().reference());
 
-        return Lists.of(window);
+        return Optional.of(window);
     }
 
     final SpreadsheetCell cellOutsideWindow() {

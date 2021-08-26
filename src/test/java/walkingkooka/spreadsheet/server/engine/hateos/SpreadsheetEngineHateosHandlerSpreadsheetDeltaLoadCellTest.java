@@ -74,7 +74,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     @Test
     public void testLoadCellAndFilter() {
         final SpreadsheetCellReference id = this.id();
-        final List<SpreadsheetCellRange> window = this.window();
+        final Optional<SpreadsheetCellRange> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -184,7 +184,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final List<SpreadsheetCellRange> window = this.window();
+        final Optional<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -401,7 +401,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c3 = this.c3();
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final List<SpreadsheetCellRange> window = this.window();
+        final Optional<SpreadsheetCellRange> window = this.window();
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"));

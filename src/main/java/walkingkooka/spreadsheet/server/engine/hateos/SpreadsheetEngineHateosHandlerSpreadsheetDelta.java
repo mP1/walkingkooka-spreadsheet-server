@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -87,7 +86,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights0(final List<SpreadsheetCellRange> window,
+    private SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights0(final Optional<SpreadsheetCellRange> window,
                                                                        final SpreadsheetDelta delta) {
         return this.setColumnWidthsRowHeights(delta.setWindow(window)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));

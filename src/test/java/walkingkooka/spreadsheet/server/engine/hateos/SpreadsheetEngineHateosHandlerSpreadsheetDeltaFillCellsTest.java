@@ -36,7 +36,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -111,7 +110,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
         final SpreadsheetDelta resource = SpreadsheetDelta.with(Sets.of(unsaved1));
 
-        final List<SpreadsheetCellRange> window = this.window();
+        final Optional<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {

@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -140,7 +139,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
         final SpreadsheetColumnReference column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
-        final List<SpreadsheetCellRange> window = this.window();
+        final Optional<SpreadsheetCellRange> window = this.window();
 
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
