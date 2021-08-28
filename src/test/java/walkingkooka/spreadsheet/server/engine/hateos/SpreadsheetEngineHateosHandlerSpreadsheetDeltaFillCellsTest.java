@@ -108,29 +108,36 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         final Range<SpreadsheetCellReference> range = this.range();
         final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetSelection.cellRange(range);
 
-        final SpreadsheetDelta resource = SpreadsheetDelta.with(Sets.of(unsaved1));
+        final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY.setCells(Sets.of(unsaved1));
 
         final Optional<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(
-                SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(new FakeSpreadsheetEngine() {
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(
+                        new FakeSpreadsheetEngine() {
 
-                                                                                 @Override
-                                                                                 public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                                                                                   final SpreadsheetCellRange from,
-                                                                                                                   final SpreadsheetCellRange to,
-                                                                                                                   final SpreadsheetEngineContext context) {
-                                                                                     assertEquals(resource.cells(), cells, "cells");
-                                                                                     assertEquals(spreadsheetCellRange, from, "from");
-                                                                                     assertEquals(spreadsheetCellRange, to, "to");
-                                                                                     return SpreadsheetDelta.with(Sets.of(saved1, cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED 2")))));
-                                                                                 }
-                                                                             },
+                            @Override
+                            public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
+                                                              final SpreadsheetCellRange from,
+                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetEngineContext context) {
+                                assertEquals(resource.cells(), cells, "cells");
+                                assertEquals(spreadsheetCellRange, from, "from");
+                                assertEquals(spreadsheetCellRange, to, "to");
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(Sets.of(saved1, cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED 2")))));
+                            }
+                        },
                         this.engineContext()),
                 range,
                 Optional.of(resource.setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(saved1)).setWindow(window)));
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(saved1))
+                                .setWindow(window)
+                )
+        );
     }
 
     // toString.........................................................................................................
@@ -185,7 +192,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
     }
 
     private SpreadsheetDelta deltaWithCell() {
-        return SpreadsheetDelta.with(Sets.of(this.cell()));
+        return SpreadsheetDelta.EMPTY.setCells(Sets.of(this.cell()));
     }
 
     @Override

@@ -268,9 +268,15 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndCheck(
                 HttpMethod.POST,
                 "/api/1/cell/A1:B2/fill",
-                JsonNodeMarshallContexts.basic().marshall(
-                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A2"), SpreadsheetFormula.with("1"))))
-                ).toString(),
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                                        .setCells(
+                                                Sets.of(
+                                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A2"), SpreadsheetFormula.with("1"))
+                                                )
+                                        )
+                        ).toString(),
                 HttpStatusCode.OK
         );
     }

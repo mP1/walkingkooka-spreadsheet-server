@@ -112,7 +112,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell z99 = SpreadsheetCell.with(SpreadsheetSelection.parseCell("Z99"), SpreadsheetFormula.with("99"));
 
         this.handleOneFails(this.id(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(cell, z99))),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(cell, z99)
+                                )
+                ),
                 this.parameters(),
                 IllegalArgumentException.class);
     }
@@ -139,7 +144,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         assertEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
                         assertNotEquals(null, context, "context");
 
-                        return SpreadsheetDelta.with(Sets.of(saved1, saved2)).setWindow(window);
+                        return SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(saved1, saved2))
+                                .setWindow(window);
                     }
 
                     @Override
@@ -161,11 +168,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
                 }),
                 this.id(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(unsaved1)).setWindow(window)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(unsaved1))
+                                .setWindow(window)
+                ),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(saved1))
-                        .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                        .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(saved1))
+                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
+                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height)))
+        );
     }
 
     // handleRange.................................................................................................
@@ -177,7 +192,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(b2.reference(), c3.reference()));
 
         final SpreadsheetCell d4 = this.cell("C4", "3");
-        final SpreadsheetDelta result = SpreadsheetDelta.with(Sets.of(b2, c3, d4));
+        final SpreadsheetDelta result = SpreadsheetDelta.EMPTY
+                .setCells(
+                        Sets.of(b2, c3, d4)
+                );
 
         this.handleRangeAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
 
@@ -194,7 +212,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     }
                 }),
                 range.range(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b2, c3))),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(b2, c3))
+                ),
                 this.parameters(),
                 Optional.of(result));
     }
@@ -224,13 +245,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         assertEquals(range, from, "from");
                         assertEquals(range, to, "to");
 
-                        return SpreadsheetDelta.with(Sets.of(saved1, saved2, saved3));
+                        return SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(saved1, saved2, saved3));
                     }
                 }),
                 range.range(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(unsaved1, unsaved2)).setWindow(window)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setCells(Sets.of(unsaved1, unsaved2)).setWindow(window)),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(saved1, saved2)).setWindow(window)));
+                Optional.of(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(saved1, saved2)
+                        ).setWindow(window))
+        );
     }
 
     // toString.........................................................................................................
@@ -264,12 +291,21 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Override
     public Optional<SpreadsheetDelta> resource() {
         final SpreadsheetCell cell = this.cell();
-        return Optional.of(SpreadsheetDelta.with(Sets.of(cell)));
+        return Optional.of(
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(cell)
+                        )
+        );
     }
 
     @Override
     public Optional<SpreadsheetDelta> collectionResource() {
-        return Optional.of(SpreadsheetDelta.with(Sets.of(this.cell())));
+        return Optional.of(
+                SpreadsheetDelta.EMPTY.setCells(
+                        Sets.of(this.cell())
+                )
+        );
     }
 
     @Override
@@ -283,7 +319,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     }
 
     private SpreadsheetDelta saved() {
-        return SpreadsheetDelta.with(Sets.of(savedCell()))
+        return SpreadsheetDelta.EMPTY
+                .setCells(Sets.of(savedCell()))
                 .setLabels(this.labels());
     }
 

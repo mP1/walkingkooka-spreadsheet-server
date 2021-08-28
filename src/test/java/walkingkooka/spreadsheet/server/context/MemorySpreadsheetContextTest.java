@@ -611,7 +611,8 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
                 @Override
                 public String bodyText() {
-                    return marshallContext().marshall(SpreadsheetDelta.with(Sets.of(cell)))
+                    return marshallContext()
+                            .marshall(SpreadsheetDelta.EMPTY.setCells(Sets.of(cell)))
                             .toString();
                 }
 

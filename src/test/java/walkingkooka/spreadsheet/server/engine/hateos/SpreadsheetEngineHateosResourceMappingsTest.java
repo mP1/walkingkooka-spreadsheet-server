@@ -360,7 +360,12 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(HttpMethod.POST,
                 "/cell/A1:B2/fill",
                 JsonNodeMarshallContexts.basic().marshall(
-                        SpreadsheetDelta.with(Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("B99"), SpreadsheetFormula.with("1"))))
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("B99"), SpreadsheetFormula.with("1"))
+                                        )
+                                )
                 ).toString(),
                 HttpStatusCode.NOT_IMPLEMENTED);
     }
@@ -424,7 +429,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
                                               final SpreadsheetEngineEvaluation evaluation,
                                               final SpreadsheetEngineContext context) {
-                return SpreadsheetDelta.with(Sets.empty());
+                return SpreadsheetDelta.EMPTY;
             }
 
             @Override

@@ -36,7 +36,12 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInse
     @Test
     public final void testDeleteResourceWithCellsFails() {
         final I id = this.id();
-        final Optional<SpreadsheetDelta> resource = Optional.of(SpreadsheetDelta.with(Sets.of(this.cell())));
+        final Optional<SpreadsheetDelta> resource = Optional.of(
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(this.cell())
+                        )
+        );
         this.handleOneFails(id,
                 resource,
                 this.parameters(),
@@ -46,7 +51,14 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInse
     @Test
     public final void testDeleteResourceCollectionWithCellsFails() {
         final Range<I> id = this.range();
-        final Optional<SpreadsheetDelta> resource = Optional.of(SpreadsheetDelta.with(Sets.of(this.cell())));
+        final Optional<SpreadsheetDelta> resource = Optional.of(
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        this.cell()
+                                )
+                        )
+        );
         this.handleRangeFails(id,
                 resource,
                 this.parameters(),
