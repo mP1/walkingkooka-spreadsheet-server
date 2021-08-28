@@ -88,7 +88,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.with(cells())
+                        return SpreadsheetDelta.EMPTY
+                                .setCells(cells())
                                 .setLabels(labels());
                     }
 
@@ -104,12 +105,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         return height;
                     }
                 },
-                this.engineContext()),
+                        this.engineContext()),
                 id,
-                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(SpreadsheetDelta.NO_CELLS)
+                                .setWindow(window)
+                ),
                 this.parameters(),
                 Optional.of(
-                        SpreadsheetDelta.with(this.cellsWithinWindow())
+                        SpreadsheetDelta.EMPTY
+                                .setCells(this.cellsWithinWindow())
                                 .setLabels(this.labels())
                                 .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                                 .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
@@ -137,7 +143,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.with(Sets.of(b1, b2, b3));
+                        return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
                     }
 
                     @Override
@@ -164,7 +170,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 this.range(),
                 this.collectionResource(),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3)))
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3))
+                )
         );
     }
 
@@ -204,7 +212,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
                                 loaded.add(cellOutsideWindow());
 
-                                return SpreadsheetDelta.with(loaded);
+                                return SpreadsheetDelta.EMPTY.setCells(loaded);
                             }
 
                             @Override
@@ -221,9 +229,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         this.engineContext()),
                 range,
-                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(SpreadsheetDelta.EMPTY
+                        .setCells(SpreadsheetDelta.NO_CELLS)
+                        .setWindow(window)
+                ),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.with(Sets.of(b1, b2, b3))
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(b1, b2, b3))
                 )
         );
     }
@@ -426,7 +439,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 assertEquals(SpreadsheetSelection.cellRange(range), r, "range");
                                 assertEquals(EVALUATION, evaluation, "evaluation");
 
-                                return SpreadsheetDelta.with(Sets.of(b1, b2, b3, c1, c2, c3));
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(
+                                                Sets.of(
+                                                        b1, b2, b3, c1, c2, c3
+                                                )
+                                        );
                             }
 
                             @Override
@@ -452,10 +470,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         this.engineContext()),
                 //range,
-                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(SpreadsheetDelta.NO_CELLS)
+                                .setWindow(window)
+                ),
                 parameters,
                 Optional.of(
-                        SpreadsheetDelta.with(Sets.of(b1, b2, b3))
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(b1, b2, b3))
                 )
         );
     }
@@ -486,16 +509,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         return this.cell("c3", "6");
     }
 
-    private SpreadsheetCell z99() {
-        return this.cell("z99", "99");
-    }
-
     private SpreadsheetDelta delta(final SpreadsheetCell... cells) {
-        return SpreadsheetDelta.with(Sets.of(cells));
-    }
-
-    private Optional<SpreadsheetDelta> result(final SpreadsheetCell... cells) {
-        return Optional.of(SpreadsheetDelta.with(Sets.of(cells)));
+        return SpreadsheetDelta.EMPTY.setCells(Sets.of(cells));
     }
 
     // toString.........................................................................................................
@@ -575,7 +590,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     private SpreadsheetDelta spreadsheetDelta() {
-        return SpreadsheetDelta.with(Sets.of(this.cell()));
+        return SpreadsheetDelta.EMPTY.setCells(Sets.of(this.cell()));
     }
 
     @Override

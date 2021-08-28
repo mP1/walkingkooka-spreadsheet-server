@@ -61,7 +61,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                                                        final SpreadsheetEngineContext context) {
                         assertEquals(row, r, "row");
                         assertEquals(1, count, "count");
-                        return SpreadsheetDelta.with(cells);
+                        return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
 
                     @Override
@@ -80,7 +80,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                 row,
                 resource,
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(cells)
+                Optional.of(SpreadsheetDelta.EMPTY.setCells(cells)
                         .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width, SpreadsheetColumnReference.parseColumn("Z"), width))
                         .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
     }
@@ -93,7 +93,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                 .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
-        final SpreadsheetDelta delta = SpreadsheetDelta.with(cells);
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
         this.handleRangeAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
@@ -143,7 +143,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                                                        final SpreadsheetEngineContext context) {
                         assertEquals(row, r, "row");
                         assertEquals(1, count, "count");
-                        return SpreadsheetDelta.with(cells);
+                        return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
 
                     @Override
@@ -160,9 +160,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
                 }),
                 row,
-                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(SpreadsheetDelta.EMPTY.setCells(SpreadsheetDelta.NO_CELLS).setWindow(window)),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())));
+                Optional.of(SpreadsheetDelta.EMPTY.setCells(this.cellsWithinWindow())));
     }
 
     @Test

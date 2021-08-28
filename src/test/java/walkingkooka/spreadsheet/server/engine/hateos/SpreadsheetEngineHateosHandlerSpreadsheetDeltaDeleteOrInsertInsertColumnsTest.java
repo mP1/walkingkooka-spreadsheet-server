@@ -62,7 +62,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                                                           final SpreadsheetEngineContext context) {
                         assertEquals(column, c, "column");
                         assertEquals(1, count, "count");
-                        return SpreadsheetDelta.with(cells);
+                        return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
 
                     @Override
@@ -81,9 +81,20 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                 column,
                 resource,
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(cells)
-                        .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                        .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))));
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(cells)
+                                .setColumnWidths(
+                                        Maps.of(
+                                                SpreadsheetColumnReference.parseColumn("A"), width
+                                        )
+                                )
+                                .setRowHeights(
+                                        Maps.of(
+                                                SpreadsheetRowReference.parseRow("99"), height)
+                                )
+                )
+        );
     }
 
     @Test
@@ -94,7 +105,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                 .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
-        final SpreadsheetDelta delta = SpreadsheetDelta.with(cells);
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
         this.handleRangeAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
@@ -151,7 +162,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                                                           final SpreadsheetEngineContext context) {
                         assertEquals(column, c, "column");
                         assertEquals(1, count, "count");
-                        return SpreadsheetDelta.with(cells);
+                        return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
 
                     @Override
@@ -168,9 +179,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
                 }),
                 column,
-                Optional.of(SpreadsheetDelta.with(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(SpreadsheetDelta.NO_CELLS)
+                                .setWindow(window)
+                ),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.with(this.cellsWithinWindow())));
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(this.cellsWithinWindow())
+                )
+        );
     }
 
     @Test
