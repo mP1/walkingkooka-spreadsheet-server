@@ -2121,6 +2121,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
+                                "  \"deletedCells\": [\"C3\"],\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"D\": 100\n" +
                                 "  },\n" +
@@ -2270,6 +2271,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
+                                "  \"deletedCells\": [\"C3\"],\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
@@ -2574,6 +2576,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
+                                "  \"deletedCells\": [\"C3\"],\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
@@ -2723,6 +2726,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
+                                "  \"deletedCells\": [\"C3\"],\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
