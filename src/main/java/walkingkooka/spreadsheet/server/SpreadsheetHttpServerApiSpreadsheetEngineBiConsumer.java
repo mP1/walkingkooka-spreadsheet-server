@@ -81,14 +81,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer} handler.
      */
     static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
-                                                                    final HateosContentType contentTypeJson,
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
                 base,
-                contentTypeJson,
                 fractioner,
                 idToFunctions,
                 idToStoreRepository,
@@ -100,7 +98,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      * Private ctor
      */
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
-                                                                final HateosContentType contentTypeJson,
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
@@ -108,7 +105,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         super();
 
         this.baseUrl = base;
-        this.contentTypeJson = contentTypeJson;
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
@@ -246,8 +242,13 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         final AbsoluteUrl base = this.baseUrl;
 
+        final SpreadsheetMetadata metadata = context.metadata();
+
         return HateosResourceMapping.router(base.setPath(base.path().append(UrlPathName.with(id.toString()))),
-                this.contentTypeJson,
+                HateosContentType.json(
+                        metadata.jsonNodeUnmarshallContext().setPreProcessor(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.with(repository.labels())),
+                        metadata.jsonNodeMarshallContext()
+                ),
                 Sets.of(
                         cell,
                         cellReference,
@@ -364,8 +365,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.fractioner,
                 repository);
     }
-
-    private final HateosContentType contentTypeJson;
 
     private final Function<BigDecimal, Fraction> fractioner;
 
