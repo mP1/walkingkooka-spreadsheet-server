@@ -39,9 +39,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -299,14 +297,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     }
 
     private static final Class<HateosResource<SpreadsheetViewport>> RANGE_HATEOS_RESOURCE = Cast.to(HateosResource.class);
-
-    /**
-     * {@see SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionReferenceVisitor}
-     */
-    public static Optional<SpreadsheetCellReference> reference(final ExpressionReference reference,
-                                                               final SpreadsheetLabelStore store) {
-        return SpreadsheetEngineHateosResourceMappingsSpreadsheetExpressionReferenceVisitor.reference(reference, store);
-    }
 
     /**
      * Stop creation.

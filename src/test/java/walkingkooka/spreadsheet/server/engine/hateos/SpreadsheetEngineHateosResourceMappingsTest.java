@@ -412,7 +412,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHateosHandlers.saveCell(engine, context),
                         SpreadsheetEngineHateosHandlers.deleteCell(engine, context),
-                        (r) -> SpreadsheetEngineHateosResourceMappings.reference(r, context.storeRepository().labels())
+                        context.storeRepository().labels()::cellReference
                 ),
                 method,
                 url,
