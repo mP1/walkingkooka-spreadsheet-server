@@ -202,7 +202,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private BiConsumer<HttpRequest, HttpResponse> spreadsheetEngineHandler(final AbsoluteUrl url) {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 url,
-                this.contentTypeJson,
                 this.fractioner,
                 this.idToFunctions,
                 this.idToStoreRepository,

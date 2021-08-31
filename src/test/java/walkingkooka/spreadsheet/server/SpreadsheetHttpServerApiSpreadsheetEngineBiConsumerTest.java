@@ -420,7 +420,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 Url.parseAbsolute(BASE_URL + "/api"),
-                HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
+//                HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
                 idToFunctions(),
                 idToStoreRepository(),
