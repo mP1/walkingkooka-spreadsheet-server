@@ -171,7 +171,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
                                                               final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
         final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetExpressionReference.parseCellOrLabelName(cellOrLabelText);
-        return cellOrLabel instanceof SpreadsheetLabelName ?
+        return cellOrLabel.isLabelName() ?
                 labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel).orElseThrow(() -> new IllegalArgumentException("Unknown label " + CharSequences.quote(cellOrLabelText))) :
                 (SpreadsheetCellReference) cellOrLabel;
     }
