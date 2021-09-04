@@ -39,6 +39,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -141,20 +142,20 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
             if ("*".equals(selection)) {
                 result = HateosResourceSelection.all();
             } else {
-                final int colon = selection.indexOf(':');
-                switch (colon) {
+                final int separator = selection.indexOf(SpreadsheetSelection.SEPARATOR.character());
+                switch (separator) {
                     case -1:
                         result = HateosResourceSelection.one(parseCellOrLabel0(selection, labelToCellReference));
                         break;
                     case 0:
                         throw new IllegalArgumentException("Missing begin");
                     default:
-                        final SpreadsheetCellReference begin = parseCellOrLabel0(selection.substring(0, colon), labelToCellReference);
+                        final SpreadsheetCellReference begin = parseCellOrLabel0(selection.substring(0, separator), labelToCellReference);
 
-                        if (colon + 1 == selection.length()) {
+                        if (separator + 1 == selection.length()) {
                             throw new IllegalArgumentException("Missing end");
                         }
-                        final SpreadsheetCellReference end = parseCellOrLabel0(selection.substring(colon + 1), labelToCellReference);
+                        final SpreadsheetCellReference end = parseCellOrLabel0(selection.substring(separator + 1), labelToCellReference);
                         result = HateosResourceSelection.range(begin.range(end));
                         break;
                 }
@@ -231,7 +232,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<SpreadsheetColumnReference> parseColumn(final String selection) {
         HateosResourceSelection<SpreadsheetColumnReference> result;
 
-        if (selection.contains(":")) {
+        if (-1 != selection.indexOf(SpreadsheetSelection.SEPARATOR.character())) {
             result = HateosResourceSelection.range(SpreadsheetColumnReference.parseColumnRange(selection).range());
         } else {
             result = HateosResourceSelection.one(SpreadsheetColumnReference.parseColumn(selection));
@@ -264,7 +265,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<SpreadsheetRowReference> parseRow(final String selection) {
         HateosResourceSelection<SpreadsheetRowReference> result;
 
-        if (selection.contains(":")) {
+        if (-1 == selection.indexOf(SpreadsheetSelection.SEPARATOR.character())) {
             result = HateosResourceSelection.range(SpreadsheetRowReference.parseRowRange(selection).range());
         } else {
             result = HateosResourceSelection.one(SpreadsheetRowReference.parseRow(selection));
