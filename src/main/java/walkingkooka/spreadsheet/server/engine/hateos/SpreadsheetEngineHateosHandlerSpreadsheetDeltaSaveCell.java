@@ -62,8 +62,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(
-                filterWindowAndSetColumnWidthsRowHeights(this.engine.saveCell(cells.iterator().next(), this.context),
-                        resource)
+                this.prepareResponse(
+                        this.engine.saveCell(
+                                cells.iterator()
+                                        .next(),
+                                this.context
+                        ),
+                        resource
+                )
         );
     }
 
