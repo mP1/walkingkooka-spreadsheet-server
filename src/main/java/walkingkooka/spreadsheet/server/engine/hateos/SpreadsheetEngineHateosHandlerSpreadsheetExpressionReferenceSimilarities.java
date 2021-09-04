@@ -61,7 +61,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
         HateosHandler.checkParameters(parameters);
 
         final SpreadsheetCellReferenceOrLabelName cellOrLabel = parseCellOrLabelOrNull(text);
-        final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(text, count(parameters));
+        final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
+                text,
+                count(parameters)
+        );
 
         return Optional.of(
                 SpreadsheetExpressionReferenceSimilarities.with(

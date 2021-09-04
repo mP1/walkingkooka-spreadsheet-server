@@ -152,7 +152,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                     selection = SpreadsheetSelection.parseRowRange(selectionText);
                     break;
                 default:
-                    throw new IllegalArgumentException("Invalid parameter " + CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) + " value " + CharSequences.quoteAndEscape(selectionText));
+                    throw new IllegalArgumentException(
+                            "Invalid parameter " +
+                                    CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) +
+                                    " value " +
+                                    CharSequences.quoteAndEscape(selectionText)
+                    );
             }
         } else {
             selection = null;
@@ -171,13 +176,20 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         checkWithoutCells(resource);
 
-        return Optional.of(prepareResponse(this.loadCell(cell), resource));
+        return Optional.of(
+                prepareResponse(
+                        this.loadCell(cell),
+                        resource
+                )
+        );
     }
 
     SpreadsheetDelta loadCell(final SpreadsheetCellReference reference) {
-        return this.engine.loadCell(reference,
+        return this.engine.loadCell(
+                reference,
                 this.evaluation,
-                this.context);
+                this.context
+        );
     }
 
     private final SpreadsheetEngineEvaluation evaluation;
@@ -203,7 +215,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         return Optional.ofNullable(
                 prepareResponse(
                         this.engine.loadCells(range, this.evaluation, this.context),
-                        resource)
+                        resource
+                )
         );
     }
 
