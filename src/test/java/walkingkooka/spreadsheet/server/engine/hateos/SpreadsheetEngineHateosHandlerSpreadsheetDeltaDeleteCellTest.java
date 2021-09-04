@@ -22,15 +22,18 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,6 +61,48 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest 
                         this.engineContext()
                 ),
                 this.id(),
+                this.resource(),
+                this.parameters(),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setDeletedCells(
+                                        Sets.of(cell)
+                                )
+                )
+        );
+    }
+
+    @Test
+    public void testDeleteCellRange() {
+        final SpreadsheetCellReference cell = this.id();
+
+        this.handleRangeAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
+                                                              final SpreadsheetCellRange from,
+                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetEngineContext context) {
+                                assertEquals(
+                                        SpreadsheetExpressionReference.cellRange(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest.this.range()),
+                                        from,
+                                        "from"
+                                );
+                                assertEquals(
+                                        SpreadsheetExpressionReference.cellRange(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest.this.range()),
+                                        to,
+                                        "to"
+                                );
+                                return SpreadsheetDelta.EMPTY
+                                        .setDeletedCells(
+                                                Sets.of(cell)
+                                        );
+                            }
+                        },
+                        this.engineContext()
+                ),
+                this.range(),
                 this.resource(),
                 this.parameters(),
                 Optional.of(
