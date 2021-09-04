@@ -62,8 +62,12 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
-        final R lower = columnOrRow.lowerBound().value().get();
-        final R upper = columnOrRow.upperBound().value().get();
+        final R lower = columnOrRow.lowerBound()
+                .value()
+                .get();
+        final R upper = columnOrRow.upperBound()
+                .value()
+                .get();
 
         return Optional.of(
                 this.executeAndPrepareResponse(

@@ -81,10 +81,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.engine.fillCells(delta.cells(),
-                spreadsheetCellRange,
-                spreadsheetCellRange,
-                this.context).setWindow(delta.window()));
+        return Optional.of(
+                this.engine.fillCells(
+                                delta.cells(),
+                                spreadsheetCellRange,
+                                spreadsheetCellRange,
+                                this.context)
+                        .setWindow(delta.window())
+        );
     }
 
     @Override

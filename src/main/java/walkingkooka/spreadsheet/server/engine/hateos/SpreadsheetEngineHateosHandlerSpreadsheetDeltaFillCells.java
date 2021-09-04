@@ -73,10 +73,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
                 .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)
                 .orElse(range);
 
-        return Optional.of(delta.setCells(this.engine.fillCells(delta.cells(),
-                from,
-                range,
-                this.context).cells()));
+        return Optional.of(
+                delta.setCells(
+                        this.engine.fillCells(
+                                delta.cells(),
+                                from,
+                                range,
+                                this.context
+                        ).cells()
+                )
+        );
     }
 
     private static SpreadsheetCellRange mapFirstStringValue(final List<String> values) {

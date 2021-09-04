@@ -105,7 +105,8 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
         for (final SpreadsheetCell cell : delta.cells()) {
             final SpreadsheetCellReference reference = cell.reference();
 
-            final SpreadsheetColumnReference column = reference.column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+            final SpreadsheetColumnReference column = reference.column()
+                    .setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if (false == columns.containsKey(column)) {
                 final double width = engine.columnWidth(column, this.context);
                 if (width > 0) {
@@ -113,7 +114,8 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                 }
             }
 
-            final SpreadsheetRowReference row = reference.row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
+            final SpreadsheetRowReference row = reference.row()
+                    .setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
             if (false == rows.containsKey(row)) {
                 final double height = engine.rowHeight(row, context);
                 if (height > 0) {

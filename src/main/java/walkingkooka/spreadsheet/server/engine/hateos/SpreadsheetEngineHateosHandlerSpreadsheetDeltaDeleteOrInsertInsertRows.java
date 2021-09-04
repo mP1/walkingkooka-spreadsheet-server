@@ -54,7 +54,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertRo
 
     @Override
     SpreadsheetDelta execute(final SpreadsheetRowReference row, final int count) {
-        return this.engine.insertRows(row, count, this.context);
+        return this.engine.insertRows(
+                row,
+                count,
+                this.context
+        );
     }
 
     @Override
