@@ -317,8 +317,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.DELETE,
                 "/cell/A1",
-                HttpStatusCode.BAD_REQUEST,
-                "Required resource missing"
+                HttpStatusCode.OK,
+                "DELETE SpreadsheetDelta OK"
         );
     }
 
@@ -327,8 +327,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.DELETE,
                 "/cell/Label123",
-                HttpStatusCode.BAD_REQUEST,
-                "Required resource missing"
+                HttpStatusCode.OK,
+                "DELETE SpreadsheetDelta OK"
         );
     }
 
@@ -430,6 +430,17 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                               final SpreadsheetEngineEvaluation evaluation,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
+            }
+
+            @Override
+            public SpreadsheetDelta deleteCell(final SpreadsheetCellReference cell,
+                                               final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY
+                        .setDeletedCells(
+                                Sets.of(
+                                        cell
+                                )
+                        );
             }
 
             @Override

@@ -183,7 +183,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testRouteCellDelete() {
-        this.routeAndCheck(HttpMethod.DELETE, "/api/1/cell/A1", HttpStatusCode.BAD_REQUEST); // requires SpreadsheetDelta with 0 cells
+        this.routeAndCheck(
+                HttpMethod.DELETE,
+                "/api/1/cell/A1",
+                HttpStatusCode.OK
+        );
     }
 
     // cell/SpreadsheetEngineEvaluation..................................................................................
