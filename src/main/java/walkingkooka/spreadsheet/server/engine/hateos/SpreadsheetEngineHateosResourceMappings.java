@@ -35,6 +35,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
@@ -230,15 +231,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName COLUMN = HateosResourceName.with("column");
 
     private static HateosResourceSelection<SpreadsheetColumnReference> parseColumn(final String selection) {
-        HateosResourceSelection<SpreadsheetColumnReference> result;
+        final SpreadsheetColumnReferenceRange parsed = SpreadsheetSelection.parseColumnRange(selection);
 
-        if (-1 != selection.indexOf(SpreadsheetSelection.SEPARATOR.character())) {
-            result = HateosResourceSelection.range(SpreadsheetColumnReference.parseColumnRange(selection).range());
-        } else {
-            result = HateosResourceSelection.one(SpreadsheetColumnReference.parseColumn(selection));
-        }
-
-        return result;
+        return parsed.isSingle() ?
+                HateosResourceSelection.one(parsed.begin()) :
+                HateosResourceSelection.range(parsed.range());
     }
 
     // row..............................................................................................................
