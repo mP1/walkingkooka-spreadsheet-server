@@ -362,8 +362,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                                                                                                                    final SpreadsheetEngineContext context) {
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHateosHandlers.deleteColumns(engine, context);
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns = SpreadsheetEngineHateosHandlers.insertColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHateosHandlers.insertAfterColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHateosHandlers.insertBeforeColumns(engine, context);
 
-        return SpreadsheetEngineHateosResourceMappings.column(deleteColumns, insertColumns);
+        return SpreadsheetEngineHateosResourceMappings.column(
+                deleteColumns,
+                insertColumns,
+                insertAfterColumns,
+                insertBeforeColumns
+        );
     }
 
     private static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label(final SpreadsheetLabelStore store) {
@@ -383,8 +390,15 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                                                                                                           final SpreadsheetEngineContext context) {
         final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHateosHandlers.deleteRows(engine, context);
         final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows = SpreadsheetEngineHateosHandlers.insertRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHateosHandlers.insertAfterRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHateosHandlers.insertBeforeRows(engine, context);
 
-        return SpreadsheetEngineHateosResourceMappings.row(deleteRows, insertRows);
+        return SpreadsheetEngineHateosResourceMappings.row(
+                deleteRows,
+                insertRows,
+                insertAfterRows,
+                insertBeforeRows
+        );
     }
 
     private static HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> range(final SpreadsheetEngine engine,

@@ -98,7 +98,10 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - POST   /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
 - GET    /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
 - GET    /api/spreadsheet/$spreadsheet-id/column/A
-- POST   /api/spreadsheet/$spreadsheet-id/column/A
+- POST   /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A
   DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
 - GET    /api/spreadsheet/$spreadsheet-id/format
@@ -110,6 +113,10 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - GET    /api/spreadsheet/$spreadsheet-id/range/A1:0:0:150:25
 - GET    /api/spreadsheet/$spreadsheet-id/row/1
 - POST   /api/spreadsheet/$spreadsheet-id/row/1
+- POST   /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/row/1:2/after?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/row/1/before?count=1
+- POST   /api/spreadsheet/$spreadsheet-id/row/1:2/before?count=1
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1:2
 

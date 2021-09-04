@@ -2134,6 +2134,491 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testColumnInsertAfter() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        // save a cell at C3
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        // save a cell at D4
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/D4",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/column/C/after?count=1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"E4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"E\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testColumnInsertBefore() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        // save a cell at C3
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        // save a cell at D4
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/D4",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/column/D/before?count=1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"E4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"C3\", \"D4\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100,\n" +
+                                "    \"E\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"3\": 30,\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
 
     @Test
     public void testColumnDeleteShiftsCell() {
@@ -2589,6 +3074,491 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testRowInsertAfter() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        // save a cell at C3
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        // save a cell at D4
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/D4",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/row/3/after?count=1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D5\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"5\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testRowInsertBefore() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        // save a cell at C3
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C3\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"C\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"3\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        // save a cell at D4
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/D4",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"D4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/row/4/before?count=1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"C4\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"123\",\n" +
+                                "                    \"text\": \"123\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"D5\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=456\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"456\",\n" +
+                                "                    \"text\": \"456\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"456\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=456\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"456\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 456.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"C3\", \"D4\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"C\": 100,\n" +
+                                "    \"D\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"4\": 30,\n" +
+                                "    \"5\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
 
     @Test
     public void testRowDeleteShiftsCell() {

@@ -66,6 +66,38 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColumn}
+     */
+    public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns(final SpreadsheetEngine engine,
+                                                                                                                   final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColumn.with(engine, context);
+    }
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRow}
+     */
+    public static HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows(final SpreadsheetEngine engine,
+                                                                                                             final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRow.with(engine, context);
+    }
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn}
+     */
+    public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns(final SpreadsheetEngine engine,
+                                                                                                                    final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn.with(engine, context);
+    }
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow}
+     */
+    public static HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows(final SpreadsheetEngine engine,
+                                                                                                              final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(engine, context);
+    }
+    
+    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns(final SpreadsheetEngine engine,
@@ -80,7 +112,7 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
                                                                                                         final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertRows.with(engine, context);
     }
-
+    
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell}
      */
