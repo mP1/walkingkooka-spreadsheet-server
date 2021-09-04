@@ -40,6 +40,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.CharSequences;
 
@@ -260,15 +261,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName ROW = HateosResourceName.with("row");
 
     private static HateosResourceSelection<SpreadsheetRowReference> parseRow(final String selection) {
-        HateosResourceSelection<SpreadsheetRowReference> result;
+        final SpreadsheetRowReferenceRange parsed = SpreadsheetSelection.parseRowRange(selection);
 
-        if (-1 == selection.indexOf(SpreadsheetSelection.SEPARATOR.character())) {
-            result = HateosResourceSelection.range(SpreadsheetRowReference.parseRowRange(selection).range());
-        } else {
-            result = HateosResourceSelection.one(SpreadsheetRowReference.parseRow(selection));
-        }
-
-        return result;
+        return parsed.isSingle() ?
+                HateosResourceSelection.one(parsed.begin()) :
+                HateosResourceSelection.range(parsed.range());
     }
 
     // range .........................................................................................................
