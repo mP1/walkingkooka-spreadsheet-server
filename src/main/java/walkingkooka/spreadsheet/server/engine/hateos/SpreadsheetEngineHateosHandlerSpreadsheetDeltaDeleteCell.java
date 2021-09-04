@@ -23,8 +23,11 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -68,10 +71,21 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkRangeBounded(range, "range");
-        checkWithoutCells(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        throw new UnsupportedOperationException();
+        final SpreadsheetCellRange cellRange = SpreadsheetExpressionReference.cellRange(range);
+
+        return Optional.of(
+                this.prepareResponse(
+                        this.engine.fillCells(
+                                Collections.emptyList(),
+                                cellRange,
+                                cellRange,
+                                this.context
+                        ),
+                        resource)
+        );
     }
 
     @Override

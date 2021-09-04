@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A template that also filters using any requested {@link SpreadsheetDelta#window()}} if present.
+ * Abstract base class for DELETE / INSERT a column or row or range of either
  */
 abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<R> {
 

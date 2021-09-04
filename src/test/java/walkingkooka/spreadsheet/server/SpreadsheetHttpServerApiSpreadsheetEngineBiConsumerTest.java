@@ -35,7 +35,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -67,12 +66,10 @@ import walkingkooka.spreadsheet.server.parse.SpreadsheetParseRequest;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -186,6 +183,15 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndCheck(
                 HttpMethod.DELETE,
                 "/api/1/cell/A1",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testRouteCellDeleteRange() {
+        this.routeAndCheck(
+                HttpMethod.DELETE,
+                "/api/1/cell/A1:B2",
                 HttpStatusCode.OK
         );
     }
