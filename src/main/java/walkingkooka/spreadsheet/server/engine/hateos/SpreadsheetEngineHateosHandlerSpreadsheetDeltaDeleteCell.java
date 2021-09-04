@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -28,7 +27,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#deleteCell(SpreadsheetCellReference, SpreadsheetEngineContext)}.
@@ -52,20 +50,13 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-
-        final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
-        final Set<SpreadsheetCell> cells = delta.cells();
-        if (false == cells.isEmpty()) {
-            throw new IllegalArgumentException("Expected no cells got " + cells.size());
-        }
+        checkWithoutCells(resource);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(
                 this.prepareResponse(
                         this.engine.deleteCell(
-                                cells.iterator()
-                                        .next()
-                                        .reference(),
+                                cell,
                                 this.context
                         ),
                         resource)
@@ -76,6 +67,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkRangeBounded(range, "range");
+        checkWithoutCells(resource);
+        HateosHandler.checkParameters(parameters);
+
         throw new UnsupportedOperationException();
     }
 
