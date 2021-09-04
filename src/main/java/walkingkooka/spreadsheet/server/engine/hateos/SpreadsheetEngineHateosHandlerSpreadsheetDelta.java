@@ -75,19 +75,19 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#columnWidths()} and
      * {@link SpreadsheetDelta#rowHeights()}
      */
-    final SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights(final SpreadsheetDelta out,
-                                                                    final Optional<SpreadsheetDelta> in) {
+    final SpreadsheetDelta prepareResponse(final SpreadsheetDelta out,
+                                           final Optional<SpreadsheetDelta> in) {
         // if $in is present apply its window to filter the result cells
         return in.isPresent() ?
-                this.filterWindowAndSetColumnWidthsRowHeights0(in.get().window(), out) :
+                this.prepareResponse0(in.get().window(), out) :
                 this.setColumnWidthsRowHeights(out);
     }
 
     /**
      * Filter the cells with the window and then gather the column widths and row heights.
      */
-    private SpreadsheetDelta filterWindowAndSetColumnWidthsRowHeights0(final Optional<SpreadsheetCellRange> window,
-                                                                       final SpreadsheetDelta delta) {
+    private SpreadsheetDelta prepareResponse0(final Optional<SpreadsheetCellRange> window,
+                                              final SpreadsheetDelta delta) {
         return this.setColumnWidthsRowHeights(delta.setWindow(window)
                 .setWindow(SpreadsheetDelta.NO_WINDOW));
     }

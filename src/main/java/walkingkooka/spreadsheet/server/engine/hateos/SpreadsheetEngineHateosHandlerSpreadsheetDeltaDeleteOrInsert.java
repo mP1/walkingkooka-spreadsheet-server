@@ -46,7 +46,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.executeAndWindowFilter(columnOrRow,
+        return Optional.of(this.executeAndPrepareResponse(columnOrRow,
                 1,
                 resource));
     }
@@ -65,19 +65,26 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
         final R lower = columnOrRow.lowerBound().value().get();
         final R upper = columnOrRow.upperBound().value().get();
 
-        return Optional.of(this.executeAndWindowFilter(lower,
-                upper.value() - lower.value() + 1,
-                resource));
+        return Optional.of(
+                this.executeAndPrepareResponse(
+                        lower,
+                        upper.value() - lower.value() + 1,
+                        resource
+                )
+        );
     }
 
     abstract String rangeLabel();
 
-    private SpreadsheetDelta executeAndWindowFilter(final R lower,
-                                                    final int count,
-                                                    final Optional<SpreadsheetDelta> in) {
+    private SpreadsheetDelta executeAndPrepareResponse(final R lower,
+                                                       final int count,
+                                                       final Optional<SpreadsheetDelta> in) {
         checkWithoutCells(in);
 
-        return filterWindowAndSetColumnWidthsRowHeights(this.execute(lower, count), in);
+        return this.prepareResponse(
+                this.execute(lower, count),
+                in
+        );
     }
 
     /**

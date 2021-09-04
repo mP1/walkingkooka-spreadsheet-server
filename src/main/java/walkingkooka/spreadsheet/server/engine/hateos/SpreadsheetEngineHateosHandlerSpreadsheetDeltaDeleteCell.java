@@ -60,8 +60,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
         }
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(filterWindowAndSetColumnWidthsRowHeights(this.engine.deleteCell(cells.iterator().next().reference(), this.context),
-                resource));
+        return Optional.of(
+                this.prepareResponse(
+                        this.engine.deleteCell(
+                                cells.iterator()
+                                        .next()
+                                        .reference(),
+                                this.context
+                        ),
+                        resource)
+        );
     }
 
     @Override

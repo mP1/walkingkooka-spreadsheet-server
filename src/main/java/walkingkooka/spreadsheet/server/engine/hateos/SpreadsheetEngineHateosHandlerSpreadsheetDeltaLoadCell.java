@@ -171,7 +171,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         checkWithoutCells(resource);
 
-        return Optional.of(filterWindowAndSetColumnWidthsRowHeights(this.loadCell(cell), resource));
+        return Optional.of(prepareResponse(this.loadCell(cell), resource));
     }
 
     SpreadsheetDelta loadCell(final SpreadsheetCellReference reference) {
@@ -201,7 +201,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     private Optional<SpreadsheetDelta> handleRange0(final SpreadsheetCellRange range,
                                                     final Optional<SpreadsheetDelta> resource) {
         return Optional.ofNullable(
-                filterWindowAndSetColumnWidthsRowHeights(
+                prepareResponse(
                         this.engine.loadCells(range, this.evaluation, this.context),
                         resource)
         );
