@@ -131,9 +131,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
         final Optional<SpreadsheetCellRange> window = this.window();
 
-        final double width = 50;
-        final double height = 20;
-
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
                     @Override
@@ -153,14 +150,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     public double columnWidth(final SpreadsheetColumnReference column,
                                               final SpreadsheetEngineContext context) {
                         assertEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
-                        return width;
+                        return WIDTH;
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
                         assertEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
-                        return height;
+                        return HEIGHT;
                     }
 
                     private SpreadsheetCell cell() {
@@ -178,8 +175,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
-                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
+                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), WIDTH))
+                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), HEIGHT))
                                 .setWindow(window)
                 )
         );
@@ -199,27 +196,55 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         Sets.of(b2, c3, d4)
                 );
 
-        this.handleRangeAndCheck(this.createHandler(new FakeSpreadsheetEngine() {
+        this.handleRangeAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                      final SpreadsheetCellRange from,
-                                                      final SpreadsheetCellRange to,
+                            @Override
+                            public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
+                                                              final SpreadsheetCellRange from,
+                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetEngineContext context) {
+                                assertEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
+                                assertEquals(range, from, "from");
+                                assertEquals(range, to, "to");
+
+                                return result;
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                        assertEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
-                        assertEquals(range, from, "from");
-                        assertEquals(range, to, "to");
+                                return WIDTH;
+                            }
 
-                        return result;
-                    }
-                }),
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return HEIGHT;
+                            }
+                        }),
                 range.range(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b2, c3))
                 ),
                 this.parameters(),
-                Optional.of(result));
+                Optional.of(
+                        result.setColumnWidths(
+                                Maps.of(
+                                        SpreadsheetSelection.parseColumn("B"), WIDTH,
+                                        SpreadsheetSelection.parseColumn("C"), WIDTH
+                                )
+                        ).setRowHeights(
+                                Maps.of(
+                                        SpreadsheetSelection.parseRow("2"), HEIGHT,
+                                        SpreadsheetSelection.parseRow("3"), HEIGHT,
+                                        SpreadsheetSelection.parseRow("4"), HEIGHT
+                                )
+                        )
+                )
+        );
     }
 
     @Test
@@ -235,32 +260,65 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
         final Optional<SpreadsheetCellRange> window = this.window();
 
-        this.handleRangeAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleRangeAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                      final SpreadsheetCellRange from,
-                                                      final SpreadsheetCellRange to,
+                            @Override
+                            public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
+                                                              final SpreadsheetCellRange from,
+                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetEngineContext context) {
+                                assertEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
+                                assertEquals(range, from, "from");
+                                assertEquals(range, to, "to");
+
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(
+                                                Sets.of(saved1, saved2, saved3)
+                                        );
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                        assertEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
-                        assertEquals(range, from, "from");
-                        assertEquals(range, to, "to");
+                                return WIDTH;
+                            }
 
-                        return SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(saved1, saved2, saved3));
-                    }
-                }),
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return HEIGHT;
+                            }
+                        }),
                 range.range(),
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setCells(Sets.of(unsaved1, unsaved2)).setWindow(window)),
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(unsaved1, unsaved2))
+                                .setWindow(window)
+                ),
                 this.parameters(),
-                Optional.of(SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(saved1, saved2)
-                        ).setWindow(window))
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(saved1, saved2)
+                                ).setColumnWidths(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseColumn("B"), WIDTH
+                                        )
+                                ).setRowHeights(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseRow("2"), HEIGHT,
+                                                SpreadsheetSelection.parseRow("3"), HEIGHT
+                                        )
+                                )
+                                .setWindow(window)
+                )
         );
     }
+
+    private final static double WIDTH = 50;
+    private final static double HEIGHT = 20;
 
     // toString.........................................................................................................
 
