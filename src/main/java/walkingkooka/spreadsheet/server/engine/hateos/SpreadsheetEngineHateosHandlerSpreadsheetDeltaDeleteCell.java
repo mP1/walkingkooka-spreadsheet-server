@@ -58,11 +58,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
 
         return Optional.of(
                 this.prepareResponse(
-                        this.engine.deleteCell(
+                        resource, this.engine.deleteCell(
                                 cell,
                                 this.context
-                        ),
-                        resource)
+                        )
+                )
         );
     }
 
@@ -78,13 +78,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
 
         return Optional.of(
                 this.prepareResponse(
+                        resource,
                         this.engine.fillCells(
                                 Collections.emptyList(),
                                 cellRange,
                                 cellRange,
                                 this.context
-                        ),
-                        resource)
+                        )
+                )
         );
     }
 

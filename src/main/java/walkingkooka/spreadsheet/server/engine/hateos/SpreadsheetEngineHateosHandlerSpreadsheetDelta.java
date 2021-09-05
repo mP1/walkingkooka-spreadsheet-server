@@ -137,8 +137,8 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#columnWidths()} and
      * {@link SpreadsheetDelta#rowHeights()}
      */
-    final SpreadsheetDelta prepareResponse(final SpreadsheetDelta out,
-                                           final Optional<SpreadsheetDelta> in) {
+    final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
+                                           final SpreadsheetDelta out) {
         // if $in is present apply its window to filter the result cells
         return in.isPresent() ?
                 this.prepareResponse0(in.get().window(), out) :
