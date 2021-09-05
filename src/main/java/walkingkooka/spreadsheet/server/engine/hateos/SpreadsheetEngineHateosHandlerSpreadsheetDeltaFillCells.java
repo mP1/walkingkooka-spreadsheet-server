@@ -74,13 +74,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
                 .orElse(range);
 
         return Optional.of(
-                delta.setCells(
+                this.prepareResponse(
+                        resource,
                         this.engine.fillCells(
                                 delta.cells(),
                                 from,
                                 range,
                                 this.context
-                        ).cells()
+                        )
                 )
         );
     }
