@@ -63,12 +63,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
 
         return Optional.of(
                 this.prepareResponse(
-                        this.engine.saveCell(
+                        resource, this.engine.saveCell(
                                 cells.iterator()
                                         .next(),
                                 this.context
-                        ),
-                        resource
+                        )
                 )
         );
     }

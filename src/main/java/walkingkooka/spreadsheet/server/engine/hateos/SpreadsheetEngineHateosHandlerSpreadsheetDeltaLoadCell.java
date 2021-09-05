@@ -122,8 +122,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         return Optional.of(
                 prepareResponse(
-                        this.loadCell(cell),
-                        resource
+                        resource, this.loadCell(cell)
                 )
         );
     }
@@ -158,8 +157,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                                     final Optional<SpreadsheetDelta> resource) {
         return Optional.ofNullable(
                 prepareResponse(
-                        this.engine.loadCells(range, this.evaluation, this.context),
-                        resource
+                        resource, this.engine.loadCells(range, this.evaluation, this.context)
                 )
         );
     }

@@ -46,9 +46,12 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.executeAndPrepareResponse(columnOrRow,
-                1,
-                resource));
+        return Optional.of(
+                this.executeAndPrepareResponse(
+                        columnOrRow,
+                        1,
+                        resource)
+        );
     }
 
     abstract void checkReference(R columnOrRow);
@@ -86,8 +89,8 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
         checkWithoutCells(in);
 
         return this.prepareResponse(
-                this.execute(lower, count),
-                in
+                in,
+                this.execute(lower, count)
         );
     }
 
