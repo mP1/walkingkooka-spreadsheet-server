@@ -76,6 +76,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
         return Optional.of(
                 this.prepareResponse(
                         resource,
+                        parameters,
                         this.engine.fillCells(
                                 delta.cells(),
                                 from,

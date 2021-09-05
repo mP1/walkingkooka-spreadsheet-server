@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -73,13 +74,18 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         final double width = firstDoubleParameterValue(WIDTH, parameters);
         final double height = firstDoubleParameterValue(HEIGHT, parameters);
 
+        final SpreadsheetCellRange window = this.engine.range(
+                SpreadsheetViewport.with(home, xOffset, yOffset, width, height),
+                selection(parameters),
+                this.context
+        );
+
         return this.handleRange0(
-                this.engine.range(
-                        SpreadsheetViewport.with(home, xOffset, yOffset, width, height),
-                        selection(parameters),
-                        this.context
-                ),
-                resource
+                window,
+                resource,
+                Map.of(
+                        WINDOW, List.of(window.toString())
+                )
         );
     }
 
@@ -121,8 +127,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         checkWithoutCells(resource);
 
         return Optional.of(
-                prepareResponse(
+                this.prepareResponse(
                         resource,
+                        parameters,
                         this.loadCell(cell)
                 )
         );
@@ -150,15 +157,18 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
         return this.handleRange0(
                 SpreadsheetSelection.cellRange(cells),
-                resource
+                resource,
+                parameters
         );
     }
 
     private Optional<SpreadsheetDelta> handleRange0(final SpreadsheetCellRange range,
-                                                    final Optional<SpreadsheetDelta> resource) {
+                                                    final Optional<SpreadsheetDelta> resource,
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
         return Optional.ofNullable(
-                prepareResponse(
+                this.prepareResponse(
                         resource,
+                        parameters,
                         this.engine.loadCells(range, this.evaluation, this.context)
                 )
         );

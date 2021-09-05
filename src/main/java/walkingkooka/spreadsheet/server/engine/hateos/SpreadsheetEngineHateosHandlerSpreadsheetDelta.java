@@ -105,9 +105,24 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
     /**
+     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
+     */
+    private static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
+                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Optional<SpreadsheetCellRange> window = input.isPresent() ?
+                input.get().window() :
+                Optional.empty();
+        if (!window.isPresent()) {
+            window = window(parameters);
+        }
+
+        return window;
+    }
+
+    /**
      * Returns the window taken from the query parameters if present.
      */
-    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetCellRange window;
 
         final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
@@ -162,20 +177,12 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      * {@link SpreadsheetDelta#rowHeights()}
      */
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
+                                           final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetDelta out) {
-        // if $in is present apply its window to filter the result cells
-        return in.isPresent() ?
-                this.prepareResponse0(in.get().window(), out) :
-                this.setColumnWidthsRowHeights(out);
-    }
-
-    /**
-     * Filter the cells with the window and then gather the column widths and row heights.
-     */
-    private SpreadsheetDelta prepareResponse0(final Optional<SpreadsheetCellRange> window,
-                                              final SpreadsheetDelta delta) {
         return this.setColumnWidthsRowHeights(
-                delta.setWindow(window)
+                out.setWindow(
+                        window(in, parameters)
+                )
         );
     }
 

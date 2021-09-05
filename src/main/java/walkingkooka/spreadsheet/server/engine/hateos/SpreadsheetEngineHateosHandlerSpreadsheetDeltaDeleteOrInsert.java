@@ -50,7 +50,9 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
                 this.executeAndPrepareResponse(
                         columnOrRow,
                         1,
-                        resource)
+                        resource,
+                        parameters
+                )
         );
     }
 
@@ -76,7 +78,8 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
                 this.executeAndPrepareResponse(
                         lower,
                         upper.value() - lower.value() + 1,
-                        resource
+                        resource,
+                        parameters
                 )
         );
     }
@@ -85,11 +88,13 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
 
     private SpreadsheetDelta executeAndPrepareResponse(final R lower,
                                                        final int count,
-                                                       final Optional<SpreadsheetDelta> in) {
+                                                       final Optional<SpreadsheetDelta> in,
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkWithoutCells(in);
 
         return this.prepareResponse(
                 in,
+                parameters,
                 this.execute(lower, count)
         );
     }
