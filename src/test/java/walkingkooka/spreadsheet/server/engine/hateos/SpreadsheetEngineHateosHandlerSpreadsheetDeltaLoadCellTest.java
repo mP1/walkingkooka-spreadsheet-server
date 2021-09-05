@@ -37,12 +37,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -65,16 +62,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     @Test
     public void testLoadCell() {
-        this.handleOneAndCheck(this.id(),
+        this.handleOneAndCheck(
+                this.id(),
                 this.resource(),
                 this.parameters(),
-                Optional.of(this.spreadsheetDelta()));
+                Optional.of(this.spreadsheetDelta())
+        );
     }
 
     @Test
-    public void testLoadCellAndFilter() {
+    public void testLoadCell2() {
         final SpreadsheetCellReference id = this.id();
-        final Optional<SpreadsheetCellRange> window = this.window();
 
         final double width = 50;
         final double height = 20;
@@ -101,27 +99,31 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         return width;
                     }
 
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return height;
-                    }
-                },
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return height;
+                            }
+                        },
                         this.engineContext()),
                 id,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(SpreadsheetDelta.NO_CELLS)
-                                .setWindow(window)
-                ),
+                Optional.empty(),
                 this.parameters(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
-                                .setCells(this.cellsWithinWindow())
+                                .setCells(this.cells())
                                 .setLabels(this.labels())
-                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
-                                .setWindow(window)
+                                .setColumnWidths(
+                                        Maps.of(
+                                                SpreadsheetColumnReference.parseColumn("A"), width,
+                                                SpreadsheetColumnReference.parseColumn("Z"), width
+                                        )
+                                )
+                                .setRowHeights(
+                                        Maps.of(
+                                                SpreadsheetRowReference.parseRow("99"), height
+                                        )
+                                )
                 )
         );
     }
@@ -175,72 +177,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 this.parameters(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3))
-                )
-        );
-    }
-
-    @Test
-    public void testBatchLoadIndividuallyAndFilterWindow() {
-        // B1, B2, B3
-        // C1, C2, C3
-
-        final SpreadsheetCell b1 = this.b1();
-        final SpreadsheetCell b2 = this.b2();
-        final SpreadsheetCell b3 = this.b3();
-
-        final SpreadsheetCell c1 = this.c1();
-        final SpreadsheetCell c2 = this.c2();
-        final SpreadsheetCell c3 = this.c3();
-
-        final List<SpreadsheetCell> cells = Lists.of(b1, b2, b3, c1, c2, c3);
-
-        final Range<SpreadsheetCellReference> range = this.range();
-        final Optional<SpreadsheetCellRange> window = this.window();
-
-        this.handleRangeAndCheck(
-                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
-                        EVALUATION,
-                        new FakeSpreadsheetEngine() {
-
-                            @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
-                                                              final SpreadsheetEngineEvaluation evaluation,
-                                                              final SpreadsheetEngineContext context) {
-                                assertSame(EVALUATION, evaluation, "evaluation");
-                                assertNotNull(context, "context");
-
-                                final Set<SpreadsheetCell> loaded = cells.stream()
-                                        .filter(c -> range.test(c.reference()))
-                                        .collect(Collectors.toCollection(() -> Sets.ordered()));
-
-                                loaded.add(cellOutsideWindow());
-
-                                return SpreadsheetDelta.EMPTY.setCells(loaded);
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return 0;
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return 0;
-                            }
-                        },
-                        this.engineContext()),
-                range,
-                Optional.of(SpreadsheetDelta.EMPTY
-                        .setCells(SpreadsheetDelta.NO_CELLS)
-                        .setWindow(window)
-                ),
-                this.parameters(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(b1, b2, b3))
-                                .setWindow(window)
                 )
         );
     }
@@ -418,7 +354,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell c3 = this.c3();
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final Optional<SpreadsheetCellRange> window = this.window();
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"));
@@ -474,16 +409,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         this.engineContext()),
                 //range,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(SpreadsheetDelta.NO_CELLS)
-                                .setWindow(window)
-                ),
+                Optional.empty(),
                 parameters,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(b1, b2, b3))
-                                .setWindow(window)
+                                .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                 )
         );
     }
