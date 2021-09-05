@@ -59,8 +59,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     }
 
     @Override
-    public final Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
-                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
+                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
         checkWithoutCells(resource);
