@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Objects;
@@ -91,16 +90,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     final static UrlParameterName WIDTH = UrlParameterName.with("width");
     final static UrlParameterName HEIGHT = UrlParameterName.with("height");
 
-    /**
-     * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
-     */
-    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
-
-    /**
-     * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
-     */
-    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
-
     private static double firstDoubleParameterValue(final UrlParameterName parameter,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
         return firstParameterValueAndConvert(
@@ -119,51 +108,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         } catch (final Exception convertFailed) {
             throw new IllegalArgumentException("Invalid value for parameter: " + parameter);
         }
-    }
-
-    private static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetSelection selection;
-
-        final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
-        if (maybeSelectionType.isPresent()) {
-            final String selectionType = maybeSelectionType.get();
-            final String selectionText = SELECTION.firstParameterValueOrFail(parameters);
-
-            switch (selectionType) {
-                case "cell":
-                    selection = SpreadsheetSelection.parseCell(selectionText);
-                    break;
-                case "cell-range":
-                    selection = SpreadsheetSelection.parseCellRange(selectionText);
-                    break;
-                case "column":
-                    selection = SpreadsheetSelection.parseColumn(selectionText);
-                    break;
-                case "column-range":
-                    selection = SpreadsheetSelection.parseColumnRange(selectionText);
-                    break;
-                case "label":
-                    selection = SpreadsheetSelection.labelName(selectionText);
-                    break;
-                case "row":
-                    selection = SpreadsheetSelection.parseRow(selectionText);
-                    break;
-                case "row-range":
-                    selection = SpreadsheetSelection.parseRowRange(selectionText);
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Invalid parameter " +
-                                    CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) +
-                                    " value " +
-                                    CharSequences.quoteAndEscape(selectionText)
-                    );
-            }
-        } else {
-            selection = null;
-        }
-
-        return Optional.ofNullable(selection);
     }
 
     @Override
