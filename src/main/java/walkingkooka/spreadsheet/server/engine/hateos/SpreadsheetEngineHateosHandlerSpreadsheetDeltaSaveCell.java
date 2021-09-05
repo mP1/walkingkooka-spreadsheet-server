@@ -64,8 +64,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
         return Optional.of(
                 this.prepareResponse(
                         resource,
+                        parameters,
                         this.engine.saveCell(
-                                cells.iterator().next(),
+                                cells.iterator()
+                                        .next(),
                                 this.context
                         )
                 )
@@ -83,6 +85,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
         return Optional.of(
                 this.prepareResponse(
                         resource,
+                        parameters,
                         this.engine.fillCells(
                                 delta.cells(),
                                 spreadsheetCellRange,

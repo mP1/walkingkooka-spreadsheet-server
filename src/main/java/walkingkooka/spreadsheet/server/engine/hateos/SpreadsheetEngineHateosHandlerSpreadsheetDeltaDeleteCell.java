@@ -58,7 +58,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
 
         return Optional.of(
                 this.prepareResponse(
-                        resource, this.engine.deleteCell(
+                        resource,
+                        parameters,
+                        this.engine.deleteCell(
                                 cell,
                                 this.context
                         )
@@ -79,6 +81,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
         return Optional.of(
                 this.prepareResponse(
                         resource,
+                        parameters,
                         this.engine.fillCells(
                                 Collections.emptyList(),
                                 cellRange,

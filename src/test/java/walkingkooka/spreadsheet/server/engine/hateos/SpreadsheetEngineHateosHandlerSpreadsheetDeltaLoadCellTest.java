@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -176,7 +177,70 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 this.collectionResource(),
                 this.parameters(),
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3))
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(b1, b2, b3))
+                )
+        );
+    }
+
+    @Test
+    public void testBatchLoadWithWindowParameter() {
+        final SpreadsheetCell b1 = this.b1();
+        final SpreadsheetCell b2 = this.b2();
+        final SpreadsheetCell b3 = this.b3();
+
+        final SpreadsheetCellRange window = b1.reference()
+                .toSpreadsheetCellRange();
+
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
+
+
+                    @Override
+                    public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final SpreadsheetEngineContext context) {
+                        assertSame(EVALUATION, evaluation, "evaluation");
+                        assertNotNull(context, "context");
+
+                        return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
+                    }
+
+                    @Override
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
+                        return 0;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "loadCells";
+                    }
+                },
+                this.engineContext()
+        );
+        this.handleRangeAndCheck(
+                handler,
+                this.range(),
+                this.collectionResource(),
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WINDOW, List.of(window.toString())
+                ),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(Sets.of(b1))
+                                .setWindow(
+                                        Optional.of(
+                                                window
+                                        )
+                                )
                 )
         );
     }
@@ -414,6 +478,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
+                                .setWindow(Optional.of(
+                                        SpreadsheetSelection.parseCellRange("B1:C3")
+                                ))
                 )
         );
     }
