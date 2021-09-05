@@ -151,17 +151,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
         final Set<SpreadsheetCell> cells = this.cells();
         final Optional<SpreadsheetCellRange> window = this.window();
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    @SuppressWarnings("OptionalGetWithoutIsPresent")
-                    public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
-                                                          final int count,
-                                                          final SpreadsheetEngineContext context) {
-                        assertEquals(column, c, "column");
-                        assertEquals(1, count, "count");
-                        return SpreadsheetDelta.EMPTY.setCells(cells);
+                            @Override
+                            @SuppressWarnings("OptionalGetWithoutIsPresent")
+                            public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
+                                                                  final int count,
+                                                                  final SpreadsheetEngineContext context) {
+                                assertEquals(column, c, "column");
+                                assertEquals(1, count, "count");
+                                return SpreadsheetDelta.EMPTY.setCells(cells);
                     }
 
                     @Override
@@ -171,12 +172,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                         return 0;
                     }
 
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-                }),
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+                        }
+                ),
                 column,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
@@ -187,6 +189,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())
+                                .setWindow(window)
                 )
         );
     }

@@ -160,9 +160,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                     }
                 }),
                 row,
-                Optional.of(SpreadsheetDelta.EMPTY.setCells(SpreadsheetDelta.NO_CELLS).setWindow(window)),
+                Optional.of(SpreadsheetDelta.EMPTY
+                        .setCells(SpreadsheetDelta.NO_CELLS)
+                        .setWindow(window)),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(SpreadsheetDelta.EMPTY.setCells(this.cellsWithinWindow())));
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(this.cellsWithinWindow())
+                                .setWindow(window)
+                )
+        );
     }
 
     @Test

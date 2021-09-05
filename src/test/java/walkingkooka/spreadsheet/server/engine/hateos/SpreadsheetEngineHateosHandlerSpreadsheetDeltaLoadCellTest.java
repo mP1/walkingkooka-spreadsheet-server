@@ -79,17 +79,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final double width = 50;
         final double height = 20;
 
-        this.handleOneAndCheck(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(EVALUATION,
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
-                                                     final SpreadsheetEngineEvaluation evaluation,
-                                                     final SpreadsheetEngineContext context) {
-                        assertSame(EVALUATION, evaluation, "evaluation");
-                        assertNotNull(context, "context");
+        this.handleOneAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                        EVALUATION,
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
+                                                             final SpreadsheetEngineEvaluation evaluation,
+                                                             final SpreadsheetEngineContext context) {
+                                assertSame(EVALUATION, evaluation, "evaluation");
+                                assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.EMPTY
-                                .setCells(cells())
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(cells())
                                 .setLabels(labels());
                     }
 
@@ -119,6 +121,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setLabels(this.labels())
                                 .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
                                 .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
+                                .setWindow(window)
                 )
         );
     }
@@ -237,6 +240,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3))
+                                .setWindow(window)
                 )
         );
     }
@@ -479,6 +483,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3))
+                                .setWindow(window)
                 )
         );
     }

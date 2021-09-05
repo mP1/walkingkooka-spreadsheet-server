@@ -174,8 +174,9 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      */
     private SpreadsheetDelta prepareResponse0(final Optional<SpreadsheetCellRange> window,
                                               final SpreadsheetDelta delta) {
-        return this.setColumnWidthsRowHeights(delta.setWindow(window)
-                .setWindow(SpreadsheetDelta.NO_WINDOW));
+        return this.setColumnWidthsRowHeights(
+                delta.setWindow(window)
+        );
     }
 
     /**

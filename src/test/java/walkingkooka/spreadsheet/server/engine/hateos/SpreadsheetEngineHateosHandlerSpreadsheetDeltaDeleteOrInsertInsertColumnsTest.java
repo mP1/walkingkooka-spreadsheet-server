@@ -188,6 +188,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())
+                                .setWindow(window)
                 )
         );
     }
