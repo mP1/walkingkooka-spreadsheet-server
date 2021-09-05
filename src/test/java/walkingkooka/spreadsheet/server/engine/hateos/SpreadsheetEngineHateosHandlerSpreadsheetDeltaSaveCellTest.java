@@ -179,7 +179,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
                                 .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), width))
-                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height)))
+                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), height))
+                                .setWindow(window)
+                )
         );
     }
 

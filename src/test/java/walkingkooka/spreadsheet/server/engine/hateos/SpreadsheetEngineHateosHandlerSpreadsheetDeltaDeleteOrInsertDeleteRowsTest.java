@@ -179,7 +179,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                 ),
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setCells(this.cellsWithinWindow())
+                        SpreadsheetDelta.EMPTY
+                                .setCells(this.cellsWithinWindow())
+                                .setWindow(window)
                 )
         );
     }
