@@ -104,6 +104,27 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     // @VisibleForTesting
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
+    /**
+     * Returns the window taken from the query parameters if present.
+     */
+    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetCellRange window;
+
+        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
+        if (maybeWindow.isPresent()) {
+            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
+        } else {
+            window = null;
+        }
+
+        return Optional.ofNullable(window);
+    }
+
+    /**
+     * Adds support for passing the window as a url query parameter.
+     */
+    // @VisibleForTesting
+    final static UrlParameterName WINDOW = UrlParameterName.with("window");
 
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
