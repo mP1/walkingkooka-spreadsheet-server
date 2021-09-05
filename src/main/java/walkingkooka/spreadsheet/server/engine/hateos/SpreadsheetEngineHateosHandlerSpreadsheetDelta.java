@@ -45,16 +45,6 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
         extends SpreadsheetEngineHateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
 
     /**
-     * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
-     */
-    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
-
-    /**
-     * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
-     */
-    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
-
-    /**
      * Returns the selection from the request parameters if one was present.
      */
     static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
@@ -101,6 +91,19 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
 
         return Optional.ofNullable(selection);
     }
+
+    /**
+     * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
+     */
+    // @VisibleForTesting
+    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
+
+    /**
+     * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
+     */
+    // @VisibleForTesting
+    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
+
 
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
