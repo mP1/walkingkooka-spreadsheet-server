@@ -31,7 +31,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.text.TextNode;
 
@@ -92,12 +94,36 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                 assertEquals(toSpreadsheetCellRange(), t, "to");
                                 return deltaWithCell();
                             }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return WIDTH;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return HEIGHT;
+                            }
                         },
                         this.engineContext()),
                 this.range(),
                 this.collectionResource(),
                 parameters,
-                Optional.of(this.deltaWithCell()));
+                Optional.of(
+                        this.deltaWithCell()
+                                .setColumnWidths(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseColumn("A"), WIDTH
+                                        )
+                                ).setRowHeights(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseRow("99"), HEIGHT
+                                        )
+                                )
+                )
+        );
     }
 
     @Test
@@ -108,7 +134,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         final Range<SpreadsheetCellReference> range = this.range();
         final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetSelection.cellRange(range);
 
-        final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY.setCells(Sets.of(unsaved1));
+        final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY
+                .setCells(Sets.of(unsaved1));
 
         final Optional<SpreadsheetCellRange> window = this.window();
 
@@ -127,18 +154,43 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(Sets.of(saved1, cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED 2")))));
                             }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return WIDTH;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return HEIGHT;
+                            }
                         },
-                        this.engineContext()),
+                        this.engineContext()
+                ),
                 range,
                 Optional.of(resource.setWindow(window)),
                 this.parameters(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
+                                .setColumnWidths(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseColumn("A"), WIDTH
+                                        )
+                                ).setRowHeights(
+                                        Maps.of(
+                                                SpreadsheetSelection.parseRow("99"), HEIGHT
+                                        )
+                                )
                                 .setWindow(window)
                 )
         );
     }
+
+    private final static double WIDTH = 100;
+    private final static double HEIGHT = 20;
 
     // toString.........................................................................................................
 
