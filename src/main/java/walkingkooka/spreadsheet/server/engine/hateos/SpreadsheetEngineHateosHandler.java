@@ -17,11 +17,14 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,64 @@ import java.util.Optional;
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
  */
 abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> implements HateosHandler<I, V, C> {
+
+    /**
+     * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
+     */
+    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
+
+    /**
+     * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
+     */
+    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
+
+    /**
+     * Returns the selection from the request parameters if one was present.
+     */
+    static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetSelection selection;
+
+        final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
+        if (maybeSelectionType.isPresent()) {
+            final String selectionType = maybeSelectionType.get();
+            final String selectionText = SELECTION.firstParameterValueOrFail(parameters);
+
+            switch (selectionType) {
+                case "cell":
+                    selection = SpreadsheetSelection.parseCell(selectionText);
+                    break;
+                case "cell-range":
+                    selection = SpreadsheetSelection.parseCellRange(selectionText);
+                    break;
+                case "column":
+                    selection = SpreadsheetSelection.parseColumn(selectionText);
+                    break;
+                case "column-range":
+                    selection = SpreadsheetSelection.parseColumnRange(selectionText);
+                    break;
+                case "label":
+                    selection = SpreadsheetSelection.labelName(selectionText);
+                    break;
+                case "row":
+                    selection = SpreadsheetSelection.parseRow(selectionText);
+                    break;
+                case "row-range":
+                    selection = SpreadsheetSelection.parseRowRange(selectionText);
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            "Invalid parameter " +
+                                    CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) +
+                                    " value " +
+                                    CharSequences.quoteAndEscape(selectionText)
+                    );
+            }
+        } else {
+            selection = null;
+        }
+
+        return Optional.ofNullable(selection);
+    }
 
     /**
      * Checks required factory method parameters are not null.
