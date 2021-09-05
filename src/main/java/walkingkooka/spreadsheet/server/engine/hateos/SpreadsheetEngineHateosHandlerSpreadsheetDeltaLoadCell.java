@@ -62,8 +62,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResource(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
-        checkWithoutCells(resource);
 
         final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCell);
 
@@ -115,7 +115,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-        HateosHandler.checkResource(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         checkWithoutCells(resource);
@@ -143,7 +143,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkRange(cells);
-        HateosHandler.checkResource(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         checkWithoutCells(resource);
