@@ -45,6 +45,21 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
         extends SpreadsheetEngineHateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
 
     /**
+     * Checks the given {@link SpreadsheetDelta} and if selection is absent then checks the selection query parameter.
+     */
+    private static Optional<SpreadsheetSelection> selection(final Optional<SpreadsheetDelta> input,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Optional<SpreadsheetSelection> selection = input.isPresent() ?
+                input.get().selection() :
+                Optional.empty();
+        if (!selection.isPresent()) {
+            selection = selection(parameters);
+        }
+
+        return selection;
+    }
+
+    /**
      * Returns the selection from the request parameters if one was present.
      */
     static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
@@ -183,7 +198,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                 out.setWindow(
                         window(in, parameters)
                 )
-        );
+        ).setSelection(selection(in, parameters));
     }
 
     /**
