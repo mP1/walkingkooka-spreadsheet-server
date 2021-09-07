@@ -511,10 +511,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         return this.cell("c3", "6");
     }
 
-    private SpreadsheetDelta delta(final SpreadsheetCell... cells) {
-        return SpreadsheetDelta.EMPTY.setCells(Sets.of(cells));
-    }
-
     // toString.........................................................................................................
 
     @Test
