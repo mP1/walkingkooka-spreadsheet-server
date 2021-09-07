@@ -18,11 +18,14 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.Range;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<I>,
@@ -53,5 +56,21 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInse
                 ),
                 this.parameters(),
                 IllegalArgumentException.class);
+    }
+
+    @Override final SpreadsheetEngine engine() {
+        return new FakeSpreadsheetEngine();
+    }
+
+    @Override final public Optional<SpreadsheetDelta> resource() {
+        return Optional.empty();
+    }
+
+    @Override final public Optional<SpreadsheetDelta> collectionResource() {
+        return Optional.empty();
+    }
+
+    @Override final public Map<HttpRequestAttribute<?>, Object> parameters() {
+        return HateosHandler.NO_PARAMETERS;
     }
 }

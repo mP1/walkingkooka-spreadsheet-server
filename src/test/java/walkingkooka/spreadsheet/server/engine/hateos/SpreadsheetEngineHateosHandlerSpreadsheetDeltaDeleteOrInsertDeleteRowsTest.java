@@ -22,7 +22,6 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -34,7 +33,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -235,26 +233,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
     public Range<SpreadsheetRowReference> range() {
         return SpreadsheetColumnOrRowReference.parseRowRange("2:4")
                 .range();
-    }
-
-    @Override
-    public Optional<SpreadsheetDelta> resource() {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<SpreadsheetDelta> collectionResource() {
-        return Optional.empty();
-    }
-
-    @Override
-    public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return HateosHandler.NO_PARAMETERS;
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return new FakeSpreadsheetEngine();
     }
 
     @Override
