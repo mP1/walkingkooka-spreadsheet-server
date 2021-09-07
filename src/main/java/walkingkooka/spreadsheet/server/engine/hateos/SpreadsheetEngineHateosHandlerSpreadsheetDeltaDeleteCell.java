@@ -53,7 +53,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-        checkWithoutCells(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(

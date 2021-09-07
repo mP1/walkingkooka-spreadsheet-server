@@ -64,7 +64,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
-        HateosHandler.checkResource(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         final R lower = columnOrRow.lowerBound()
@@ -90,8 +90,6 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
                                                        final int count,
                                                        final Optional<SpreadsheetDelta> in,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkWithoutCells(in);
-
         return this.prepareResponse(
                 in,
                 parameters,
