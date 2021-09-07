@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -163,14 +164,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                                 assertEquals(column, c, "column");
                                 assertEquals(1, count, "count");
                                 return SpreadsheetDelta.EMPTY.setCells(cells);
-                    }
+                            }
 
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
-                        return 0;
-                    }
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
+                                return 0;
+                            }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
@@ -180,12 +181,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                         }
                 ),
                 column,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(SpreadsheetDelta.NO_CELLS)
-                                .setWindow(window)
+                Optional.empty(),
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.WINDOW, Lists.of(window.get().toString())
                 ),
-                HateosHandler.NO_PARAMETERS,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())

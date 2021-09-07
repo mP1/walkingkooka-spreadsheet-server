@@ -43,7 +43,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R ex
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkReference(columnOrRow);
-        HateosHandler.checkResource(resource);
+        HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(

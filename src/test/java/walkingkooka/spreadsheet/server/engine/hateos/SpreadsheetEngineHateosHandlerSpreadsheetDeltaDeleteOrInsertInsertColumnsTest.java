@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -152,39 +153,38 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertI
         final Set<SpreadsheetCell> cells = this.cells();
         final Optional<SpreadsheetCellRange> window = this.window();
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    @SuppressWarnings("OptionalGetWithoutIsPresent")
-                    public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference c,
-                                                          final int count,
-                                                          final SpreadsheetEngineContext context) {
-                        assertEquals(column, c, "column");
-                        assertEquals(1, count, "count");
-                        return SpreadsheetDelta.EMPTY.setCells(cells);
-                    }
+                            @Override
+                            @SuppressWarnings("OptionalGetWithoutIsPresent")
+                            public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference c,
+                                                                  final int count,
+                                                                  final SpreadsheetEngineContext context) {
+                                assertEquals(column, c, "column");
+                                assertEquals(1, count, "count");
+                                return SpreadsheetDelta.EMPTY.setCells(cells);
+                            }
 
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
-                        return 0;
-                    }
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
+                                return 0;
+                            }
 
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-                }),
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 0;
+                            }
+                        }),
                 column,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(SpreadsheetDelta.NO_CELLS)
-                                .setWindow(window)
+                Optional.empty(),
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.WINDOW, Lists.of(window.get().toString())
                 ),
-                HateosHandler.NO_PARAMETERS,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())
