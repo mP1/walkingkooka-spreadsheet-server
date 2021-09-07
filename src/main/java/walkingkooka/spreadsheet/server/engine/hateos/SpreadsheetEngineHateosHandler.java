@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
@@ -74,14 +73,4 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
 
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
-
-    static void checkWithoutCells(final Optional<SpreadsheetDelta> delta) {
-        delta.ifPresent(SpreadsheetEngineHateosHandler::checkWithoutCells0);
-    }
-
-    private static void checkWithoutCells0(final SpreadsheetDelta delta) {
-        if (!delta.cells().isEmpty()) {
-            throw new IllegalArgumentException("Expected delta without cells: " + delta);
-        }
-    }
 }

@@ -125,8 +125,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        checkWithoutCells(resource);
-
         return Optional.of(
                 this.prepareResponse(
                         resource,
@@ -153,8 +151,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkRange(cells);
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
-
-        checkWithoutCells(resource);
 
         return this.handleRange0(
                 SpreadsheetSelection.cellRange(cells),
