@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -30,7 +29,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -88,25 +86,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
         }
         return cellOrLabel;
     }
-
-    /**
-     * Returns the count parameter as an integer.
-     */
-    private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final List<String> counts = (List<String>) parameters.get(COUNT);
-        if (null == counts) {
-            throw new IllegalArgumentException("Missing count parameter");
-        }
-        switch (counts.size()) {
-            case 0:
-                throw new IllegalArgumentException("Missing count parameter");
-            default:
-                return Integer.parseInt(counts.get(0));
-        }
-    }
-
-    // @VisibleForTesting
-    final static UrlParameterName COUNT = UrlParameterName.with("count");
 
     /**
      * Finds the matching {@link SpreadsheetLabelMapping} for the given text and limit.
