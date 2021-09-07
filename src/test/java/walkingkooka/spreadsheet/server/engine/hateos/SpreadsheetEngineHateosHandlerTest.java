@@ -17,9 +17,55 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.net.http.server.hateos.HateosHandler;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosHandlerTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandler<?, ?, ?>> {
+
+    @Test
+    public void testCountParameterMissingFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHateosHandler.count(HateosHandler.NO_PARAMETERS)
+        );
+    }
+
+    @Test
+    public void testCountParameterMissingFails2() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHateosHandler.count(
+                        Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.empty())
+                )
+        );
+    }
+
+    @Test
+    public void testInvalidCountParameterMissingFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHateosHandler.count(
+                        Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("!invalid"))
+                )
+        );
+        assertEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
+    }
+
+    @Test
+    public void testCount() {
+        assertEquals(
+                123,
+                SpreadsheetEngineHateosHandler.count(
+                        Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("123"))
+                )
+        );
+    }
 
     @Override
     public Class<SpreadsheetEngineHateosHandler<?, ?, ?>> type() {

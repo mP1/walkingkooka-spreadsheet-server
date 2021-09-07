@@ -17,10 +17,12 @@
 
 package walkingkooka.spreadsheet.server.engine.hateos;
 
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.text.CharSequences;
 
 import java.util.List;
 import java.util.Map;
@@ -73,4 +75,28 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
 
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
+
+    /**
+     * Returns the count parameter as an integer.
+     */
+    static int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final List<String> counts = (List<String>) parameters.get(COUNT);
+        if (null == counts) {
+            throw new IllegalArgumentException("Missing count parameter");
+        }
+        switch (counts.size()) {
+            case 0:
+                throw new IllegalArgumentException("Missing count parameter");
+            default:
+                final String countString = counts.get(0);
+                try {
+                    return Integer.parseInt(countString);
+                } catch (final NumberFormatException cause) {
+                    throw new IllegalArgumentException("Invalid count parameter got " + CharSequences.quoteAndEscape(countString));
+                }
+        }
+    }
+
+    // @VisibleForTesting
+    final static UrlParameterName COUNT = UrlParameterName.with("count");
 }
