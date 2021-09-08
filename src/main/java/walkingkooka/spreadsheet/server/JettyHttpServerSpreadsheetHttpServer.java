@@ -85,11 +85,13 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     public static void main(final String[] args) throws Exception {
         switch (args.length) {
             case 0:
-                throw new IllegalArgumentException("Missing scheme, host, port for jetty HttpServer");
+                throw new IllegalArgumentException("Missing scheme, host, port, defaultLocale for jetty HttpServer");
             case 1:
-                throw new IllegalArgumentException("Missing host, port for jetty HttpServer");
+                throw new IllegalArgumentException("Missing host, port, defaultLocale for jetty HttpServer");
             case 2:
-                throw new IllegalArgumentException("Missing port for jetty HttpServer");
+                throw new IllegalArgumentException("Missing port, defaultLocale for jetty HttpServer");
+            case 3:
+                throw new IllegalArgumentException("Missing default Locale for jetty HttpServer");
             default:
                 startJettyHttpServer(args);
                 break;
@@ -120,12 +122,20 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
             throw cause;
         }
 
+        final Locale defaultLocale;
+        try {
+            defaultLocale = Locale.forLanguageTag(args[3]);
+        } catch (final RuntimeException cause) {
+            System.err.println("Invalid default Locale: " + cause.getMessage());
+            throw cause;
+        }
+
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
         final SpreadsheetHttpServer server = SpreadsheetHttpServer.with(scheme,
                 host,
                 port,
-                createMetadata(metadataStore),
+                createMetadata(defaultLocale, metadataStore),
                 fractioner(),
                 idToFunctions(),
                 idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
@@ -139,24 +149,23 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     /**
      * Creates a function which merges the given {@link Locale} and then saves it to the {@link SpreadsheetMetadataStore}.
      */
-    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadataStore store) {
+    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final Locale defaultLocale,
+                                                                                  final SpreadsheetMetadataStore store) {
         // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/134
         // JettyHttpServerSpreadsheetHttpServer: retrieve user from context when creating initial SpreadsheetMetadata
         final EmailAddress user = EmailAddress.parse("user123@example.com");
-
-        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/136
-        // JettyHttpServerSpreadsheetHttpServer: Accept default Locale parameter
-        final Locale defaultLocale = Locale.forLanguageTag("EN-AU");
 
         // if a Locale is given load a Metadata with those defaults.
         return (userLocale) -> {
             final LocalDateTime now = LocalDateTime.now();
 
-            return store.save(prepareInitialMetadata(
-                    user,
-                    now,
-                    userLocale,
-                    defaultLocale)
+            return store.save(
+                    prepareInitialMetadata(
+                            user,
+                            now,
+                            userLocale,
+                            defaultLocale
+                    )
             );
         };
     }

@@ -22,6 +22,13 @@ package walkingkooka.spreadsheet.server;
  */
 public final class JettyHttpServerSpreadsheetHttpServer2 {
     public static void main(final String[] args) throws Exception {
-        JettyHttpServerSpreadsheetHttpServer.main(new String[]{"http", "localhost", "12345"});
+        JettyHttpServerSpreadsheetHttpServer.main(
+                new String[]{
+                        "http",
+                        "localhost",
+                        "12345",
+                        "EN-GB"
+                }
+        );
     }
 }
