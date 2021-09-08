@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.engine.hateos;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -71,5 +72,19 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn ext
     @Override
     String operation() {
         return "columnInsertBefore";
+    }
+
+    /**
+     * <pre>
+     * INFO] Caused by: java.lang.IllegalStateException: An alias was needed for walkingkooka.net.http.server.HttpRequestAttribute<?Lwalkingkooka/net/http/server/HttpRequestAttribute;:TT;> but no alias was found.
+     * [INFO]  at com.google.common.base.Preconditions.checkState(Preconditions.java:585)
+     * [INFO] [WARNING] Killing all running tasks
+     * [INFO]  at com.google.j2cl.generator.GenerationEnvironment.aliasForType(GenerationEnvironment.java:65)
+     * [INFO]  at com.google.j2cl.generator.ClosureTypesGenerator.getClosureTypeForDeclaration(ClosureTypesGenerator.java:298)
+     * [INFO]  at com.google.j2cl.generator.ClosureTypesGenerator.getClosureType(ClosureTypesGenerator.java:115)
+     * </pre>
+     * Needed to avoid the above failure. Note this method is pruned from output.
+     */
+    private void dummy(final HttpRequestAttribute<?> ignored){
     }
 }
