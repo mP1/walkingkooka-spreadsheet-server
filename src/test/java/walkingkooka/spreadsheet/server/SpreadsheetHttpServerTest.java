@@ -181,7 +181,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetThenLoadSpreadsheet() {
+    public void testCreateThenLoadSpreadsheet() {
         final TestHttpServer server = this.startServer();
 
         // create spreadsheet
@@ -207,7 +207,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellApostropheString() {
+    public void testSaveCellApostropheString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "'Hello123'",
                 "{\n" +
@@ -257,7 +257,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellDate() {
+    public void testSaveCellDate() {
         this.createSpreadsheetSaveCellAndCheck(
                 "2000/12/31",
                 "{\n" +
@@ -328,7 +328,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellDateTime() {
+    public void testSaveCellDateTime() {
         this.createSpreadsheetSaveCellAndCheck(
                 "2000/12/31 12:34",
                 "{\n" +
@@ -423,7 +423,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellNumber() {
+    public void testSaveCellNumber() {
         this.createSpreadsheetSaveCellAndCheck(
                 "123.456",
                 "{\n" +
@@ -482,7 +482,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellTime() {
+    public void testSaveCellTime() {
         this.createSpreadsheetSaveCellAndCheck(
                 "12:34",
                 "{\n" +
@@ -541,7 +541,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellExpressionString() {
+    public void testSaveCellExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
                 "{\n" +
@@ -609,7 +609,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellExpressionNumber() {
+    public void testSaveCellExpressionNumber() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=1+2",
                 "{\n" +
@@ -698,7 +698,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellStampsMetadata() {
+    public void testSaveCellStampsMetadata() {
         final TestHttpServer server = this.createSpreadsheetSaveCellAndCheck(
                 "'Hello123'",
                 "{\n" +
@@ -794,7 +794,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellThenSaveAnotherCellReferencingFirst() {
+    public void testSaveCellThenSaveAnotherCellReferencingFirst() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(HttpMethod.POST,
@@ -1006,7 +1006,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetSaveCellTwice() {
+    public void testSaveCellTwice() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(HttpMethod.POST,
@@ -1325,7 +1325,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetLoadViewport() {
+    public void testLoadViewport() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(HttpMethod.POST,
@@ -1888,7 +1888,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testCreateSpreadsheetThenSaveLabel() {
+    public void testThenSaveLabel() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
