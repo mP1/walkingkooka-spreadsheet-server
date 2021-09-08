@@ -476,12 +476,34 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testColumnNullDeleteFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake()));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+        );
     }
 
     @Test
     public void testColumnNullInsertFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), null));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+        );
+    }
+
+    @Test
+    public void testColumnNullInsertAfterFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+        );
+    }
+
+    @Test
+    public void testColumnNullInsertBeforeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+        );
     }
 
     @Test
@@ -500,6 +522,46 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
+    public void testRouteColumnsInsertAfterPostMissingCountFails() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteColumnRangeInsertAfterPostMissingCountFails() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after", HttpStatusCode.BAD_REQUEST);
+    }
+    
+    @Test
+    public void testRouteColumnsInsertAfterPost() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteColumnRangeInsertAfterPost() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteColumnsInsertBeforePostMissingCountFails() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteColumnRangeInsertBeforePostMissingCountFails() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before", HttpStatusCode.BAD_REQUEST);
+    }
+    
+    @Test
+    public void testRouteColumnsInsertBeforePost() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteColumnRangeInsertBeforePost() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+    
+    @Test
     public void testRouteColumnsPutFails() {
         this.routeColumnAndCheck(HttpMethod.PUT, "/column/A", HttpStatusCode.METHOD_NOT_ALLOWED);
     }
@@ -517,7 +579,9 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.column(
                         SpreadsheetEngineHateosHandlers.deleteColumns(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertColumns(engine, context)
+                        SpreadsheetEngineHateosHandlers.insertColumns(engine, context),
+                        SpreadsheetEngineHateosHandlers.insertAfterColumns(engine, context),
+                        SpreadsheetEngineHateosHandlers.insertBeforeColumns(engine, context)
                 ),
                 method,
                 url,
@@ -530,12 +594,34 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRowNullDeleteFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake()));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+        );
     }
 
     @Test
     public void testRowNullInsertFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+        );
+    }
+
+    @Test
+    public void testRowNullInsertAfterFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+        );
+    }
+
+    @Test
+    public void testRowNullInsertBeforeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+        );
     }
 
     @Test
@@ -554,6 +640,46 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
+    public void testRouteRowsAfterPostMissingCountFails() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteRowRangeAfterPostMissingCountFails() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteRowsAfterPost() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteRowRangeAfterPost() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteRowsBeforePostMissingCountFails() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before", HttpStatusCode.BAD_REQUEST);
+    }
+
+    @Test
+    public void testRouteRowRangeBeforePostMissingCountFails() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before", HttpStatusCode.BAD_REQUEST);
+    }
+    
+    @Test
+    public void testRouteRowsBeforePost() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+
+    @Test
+    public void testRouteRowRangeBeforePost() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+    }
+    
+    @Test
     public void testRouteRowsPutFails() {
         this.routeRowAndCheck(HttpMethod.PUT, "/row/1", HttpStatusCode.METHOD_NOT_ALLOWED);
     }
@@ -571,7 +697,9 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.row(
                         SpreadsheetEngineHateosHandlers.deleteRows(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertRows(engine, context)
+                        SpreadsheetEngineHateosHandlers.insertRows(engine, context),
+                        SpreadsheetEngineHateosHandlers.insertAfterRows(engine, context),
+                        SpreadsheetEngineHateosHandlers.insertBeforeRows(engine, context)
                 ),
                 method,
                 url,
