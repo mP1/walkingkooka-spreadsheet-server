@@ -2849,7 +2849,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    //@Test @Ignore
+    @Test
     public void testLabelSaveAndResolveCellReference() {
         final TestHttpServer server = this.startServer();
 
@@ -2883,13 +2883,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell-reference/" + label,
+                "/api/spreadsheet/1/cell-reference/" + label + "?count=1",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetCellReference OK"),
-                        this.toJson(reference),
-                        SpreadsheetCellReference.class.getSimpleName()
+                        HttpStatusCode.OK.setMessage("GET SpreadsheetExpressionReferenceSimilarities OK"),
+                        this.toJson(
+                                SpreadsheetExpressionReferenceSimilarities.with(
+                                        SpreadsheetExpressionReferenceSimilarities.NO_CELL_REFERENCE,
+                                        SpreadsheetExpressionReferenceSimilarities.NO_LABEL,
+                                        Sets.of(mapping)
+                                )
+                        ),
+                        SpreadsheetExpressionReferenceSimilarities.class.getSimpleName()
                 )
         );
     }
