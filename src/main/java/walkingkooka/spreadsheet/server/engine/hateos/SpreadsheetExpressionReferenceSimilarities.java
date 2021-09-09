@@ -41,6 +41,12 @@ import java.util.Set;
  */
 public final class SpreadsheetExpressionReferenceSimilarities implements HateosResource<String> {
 
+    public final static Optional<SpreadsheetCellReference> NO_CELL_REFERENCE = Optional.empty();
+
+    public final static Optional<SpreadsheetLabelName> NO_LABEL = Optional.empty();
+
+    public final static Set<SpreadsheetLabelMapping> NO_LABEL_MAPPINGS = Sets.empty();
+
     /**
      * Factory that creates a {@link SpreadsheetExpressionReferenceSimilarities}
      */
