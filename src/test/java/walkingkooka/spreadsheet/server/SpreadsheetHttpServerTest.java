@@ -2894,6 +2894,49 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testLabelDelete() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+        );
+
+        final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelMapping mapping = label.mapping(reference);
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.DELETE,
+                "/api/spreadsheet/1/label/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.NO_CONTENT.setMessage("DELETE SpreadsheetLabelMapping No content")
+                )
+        );
+    }
+
     // row...........................................................................................................
 
     @Test
