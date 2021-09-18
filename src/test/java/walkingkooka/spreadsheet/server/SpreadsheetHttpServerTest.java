@@ -3758,6 +3758,367 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // fillCell........................................................................................................
+
+    @Test
+    public void testFillCell() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("'Hello"))
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello\",\n" +
+                                "                \"text\": \"Hello\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // fill A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1:B2/fill",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1"))
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"B2\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testFillCellRepeatsFromRange() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        // fill A1:B2 from A1
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1:B2/fill?from=A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1"))
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"A2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"B1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100,\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30,\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test
