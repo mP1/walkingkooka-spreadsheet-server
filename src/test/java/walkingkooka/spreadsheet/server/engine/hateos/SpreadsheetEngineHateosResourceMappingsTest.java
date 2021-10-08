@@ -262,8 +262,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.GET,
                 "/cell/*?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
-                HttpStatusCode.OK,
-                "GET SpreadsheetDelta OK"
+                HttpStatusCode.OK
         );
     }
 
@@ -272,8 +271,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.GET,
                 "/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
-                HttpStatusCode.OK,
-                "GET SpreadsheetDelta OK"
+                HttpStatusCode.OK
         );
     }
 
@@ -317,8 +315,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.DELETE,
                 "/cell/A1",
-                HttpStatusCode.OK,
-                "DELETE SpreadsheetDelta OK"
+                HttpStatusCode.OK
         );
     }
 
@@ -327,8 +324,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.DELETE,
                 "/cell/Label123",
-                HttpStatusCode.OK,
-                "DELETE SpreadsheetDelta OK"
+                HttpStatusCode.OK
         );
     }
 

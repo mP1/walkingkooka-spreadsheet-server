@@ -114,9 +114,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static HttpStatus FILE_NOT_FOUND = HttpStatusCode.NOT_FOUND.setMessage("File not found custom message");
 
     private final static String DELTA = SpreadsheetDelta.class.getSimpleName();
-    private static final String GET_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
-    private static final String POST_SPREADSHEET_METADATA_OK = "POST " + SpreadsheetMetadata.class.getSimpleName() + " OK";
-    private static final String POST_SPREADSHEET_DELTA_OK = "POST " + SpreadsheetDelta.class.getSimpleName() + " OK";
 
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
@@ -143,11 +140,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testGetUnknownSpreadsheetNoContent() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.GET,
+        server.handleAndCheck(
+                HttpMethod.GET,
                 "/api/spreadsheet/99",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.NO_CONTENT.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " No content")));
+                this.response(HttpStatusCode.NO_CONTENT.status())
+        );
     }
 
     @Test
@@ -158,7 +157,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
         assertNotEquals(null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
@@ -173,7 +172,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
         assertNotEquals(null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
@@ -189,7 +188,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("POST " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
         assertNotEquals(null,
@@ -201,7 +200,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/1",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage("GET " + SpreadsheetMetadata.class.getSimpleName() + " OK"),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
     }
@@ -756,7 +755,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetMetadata OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(stamped),
                         SpreadsheetMetadata.class.getSimpleName()
                 )
@@ -772,7 +771,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L)))
         );
@@ -785,7 +784,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with(formula)))
                         )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         responseJson,
                         DELTA
                 ));
@@ -797,12 +797,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testSaveCellThenSaveAnotherCellReferencingFirst() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(GET_SPREADSHEET_METADATA_OK),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
 
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
@@ -814,7 +819,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                         )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -910,7 +916,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -1013,7 +1020,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
@@ -1026,7 +1033,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                         )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1115,7 +1123,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))));
 
         assertEquals(2, this.metadataStore.count());
@@ -1131,7 +1139,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1228,7 +1237,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -1332,7 +1342,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         server.handleAndCheck(HttpMethod.POST,
@@ -1346,7 +1356,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1444,7 +1455,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -1546,7 +1558,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1733,7 +1745,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        initial
+                )
         );
 
         server.handleAndCheck(
@@ -1748,7 +1763,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1813,7 +1829,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 updated.jsonNodeMarshallContext().marshall(updated).toString(),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        HttpStatusCode.OK.status(),
                         updated
                 )
         );
@@ -1827,7 +1843,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -1900,7 +1916,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        initial
+                )
         );
 
         final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
@@ -1912,7 +1931,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 this.toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -1934,7 +1953,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        initial
+                )
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
@@ -1945,7 +1967,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetExpressionReferenceSimilarities OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cell-reference\": \"A99\"\n" +
                                 "}",
@@ -1969,7 +1991,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        initial
+                )
         );
 
         server.handleAndCheck(
@@ -1978,7 +2003,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -1998,7 +2023,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        initial
+                )
         );
 
         server.handleAndCheck(
@@ -2013,7 +2041,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -2075,7 +2104,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D3\": {\n" +
@@ -2147,7 +2176,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         // save a cell at C3
@@ -2164,7 +2193,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -2234,7 +2263,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
@@ -2296,7 +2325,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"E4\": {\n" +
@@ -2368,7 +2397,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         // save a cell at C3
@@ -2385,7 +2414,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -2455,7 +2484,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
@@ -2517,7 +2546,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D3\": {\n" +
@@ -2633,7 +2662,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         server.handleAndCheck(
@@ -2648,7 +2677,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -2710,7 +2740,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("DELETE SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B3\": {\n" +
@@ -2784,7 +2814,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
@@ -2797,7 +2827,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -2817,7 +2847,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
@@ -2830,7 +2860,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -2842,7 +2872,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -2862,7 +2892,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
@@ -2875,7 +2905,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -2887,7 +2917,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("GET SpreadsheetExpressionReferenceSimilarities OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(
                                 SpreadsheetExpressionReferenceSimilarities.with(
                                         SpreadsheetExpressionReferenceSimilarities.NO_CELL_REFERENCE,
@@ -2913,7 +2943,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
@@ -2926,7 +2956,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetLabelMapping OK"),
+                        HttpStatusCode.OK.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -2938,7 +2968,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.setMessage("DELETE SpreadsheetLabelMapping No content")
+                        HttpStatusCode.NO_CONTENT.status()
                 )
         );
     }
@@ -2958,7 +2988,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         server.handleAndCheck(
@@ -2967,7 +2997,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -2987,7 +3017,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         server.handleAndCheck(
@@ -3002,7 +3032,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -3064,7 +3095,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C4\": {\n" +
@@ -3136,7 +3167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         // save a cell at C3
@@ -3153,7 +3184,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -3223,7 +3254,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
@@ -3285,7 +3316,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D5\": {\n" +
@@ -3357,7 +3388,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         // save a cell at C3
@@ -3374,7 +3405,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -3444,7 +3475,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
@@ -3506,7 +3537,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("POST SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C4\": {\n" +
@@ -3622,7 +3653,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK), initial)
+                this.response(HttpStatusCode.OK.status(), initial)
         );
 
         server.handleAndCheck(
@@ -3637,7 +3668,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
@@ -3699,7 +3731,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage("DELETE SpreadsheetDelta OK"),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"C2\": {\n" +
@@ -3769,7 +3801,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                this.response(HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         // save cell B2
@@ -3785,7 +3817,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -3845,7 +3877,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3915,7 +3947,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
@@ -3933,7 +3965,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -4130,7 +4162,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_METADATA_OK),
+                        HttpStatusCode.OK.status(),
                         this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
         );
@@ -4148,7 +4180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         )
                 ),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
@@ -4202,7 +4234,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY),
                 this.response(
-                        HttpStatusCode.OK.setMessage(POST_SPREADSHEET_DELTA_OK),
+                        HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"deletedCells\": [\"B2\"]\n" +
                                 "}",
