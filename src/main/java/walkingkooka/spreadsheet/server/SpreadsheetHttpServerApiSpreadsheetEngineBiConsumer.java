@@ -22,10 +22,13 @@ import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
+import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -67,6 +70,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.json.marshall.util.MarshallUtils;
 
 import java.math.BigDecimal;
 import java.util.function.BiConsumer;
@@ -181,12 +185,24 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
                                                                        final SpreadsheetMetadata metadata) {
-        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
-                Formatters.multiFormatters(context),
-                SpreadsheetMultiFormatRequest.class,
-                SpreadsheetMultiFormatResponse.class,
-                metadata.jsonNodeMarshallContext(),
-                metadata.jsonNodeUnmarshallContext()
+
+        return HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.POST,
+                JsonHttpRequestHttpResponseBiConsumers.json(
+                        MarshallUtils.mapper(
+                                SpreadsheetMultiFormatRequest.class,
+                                metadata.jsonNodeUnmarshallContext(),
+                                metadata.jsonNodeMarshallContext(),
+                                Formatters.multiFormatters(context)
+                        ),
+                        SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer::formatHandlerPostHandler
+                )
+        );
+    }
+
+    private static HttpEntity formatHandlerPostHandler(final HttpEntity entity) {
+        return entity.addHeader(
+                JsonHttpRequestHttpResponseBiConsumers.X_CONTENT_TYPE_NAME, SpreadsheetMultiFormatResponse.class.getSimpleName()
         );
     }
 
@@ -207,12 +223,23 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static BiConsumer<HttpRequest, HttpResponse> parseHandler(final SpreadsheetEngineContext context,
                                                                       final SpreadsheetMetadata metadata) {
-        return JsonHttpRequestHttpResponseBiConsumers.postRequestBody(
-                Parsers.multiParsers(context),
-                SpreadsheetMultiParseRequest.class,
-                SpreadsheetMultiParseResponse.class,
-                metadata.jsonNodeMarshallContext(),
-                metadata.jsonNodeUnmarshallContext()
+        return HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.POST,
+                JsonHttpRequestHttpResponseBiConsumers.json(
+                        MarshallUtils.mapper(
+                                SpreadsheetMultiParseRequest.class,
+                                metadata.jsonNodeUnmarshallContext(),
+                                metadata.jsonNodeMarshallContext(),
+                                Parsers.multiParsers(context)
+                        ),
+                        SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer::parseHandlerPostHandler
+                )
+        );
+    }
+
+    private static HttpEntity parseHandlerPostHandler(final HttpEntity entity) {
+        return entity.addHeader(
+                JsonHttpRequestHttpResponseBiConsumers.X_CONTENT_TYPE_NAME, SpreadsheetMultiParseResponse.class.getSimpleName()
         );
     }
 
