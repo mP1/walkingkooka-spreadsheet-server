@@ -673,7 +673,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
             consumer.accept(request, response);
 
             final HttpResponse expected = HttpResponses.recording();
-            expected.setStatus(HttpStatusCode.OK.setMessage("GET SpreadsheetDelta OK"));
+            expected.setStatus(HttpStatusCode.OK.status());
 
             expected.addEntity(HttpEntity.EMPTY
                     .addHeader(HttpHeaderName.CONTENT_TYPE, contentType().contentType().setCharset(CharsetName.UTF_8))
