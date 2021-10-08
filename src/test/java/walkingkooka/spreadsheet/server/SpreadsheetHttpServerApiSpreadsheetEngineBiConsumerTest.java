@@ -119,7 +119,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         );
 
         this.checkHttpResponse(httpResponse,
-                HttpStatusCode.OK.setMessage("POST SpreadsheetMultiFormatResponse OK"),
+                HttpStatusCode.OK.status(),
                 spreadsheetMultiFormatResponse
         );
     }
@@ -155,7 +155,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         this.checkHttpResponse(
                 httpResponse,
-                HttpStatusCode.OK.setMessage("POST SpreadsheetMultiParseResponse OK"),
+                HttpStatusCode.OK.status(),
                 spreadsheetMultiParseResponse
         );
     }
