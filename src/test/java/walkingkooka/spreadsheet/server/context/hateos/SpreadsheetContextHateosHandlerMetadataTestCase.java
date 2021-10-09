@@ -34,10 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends SpreadsheetContextHateosHandlerMetadata>
-        extends SpreadsheetContextHateosHandlerTestCase2<H,
-        SpreadsheetId,
-        SpreadsheetMetadata,
-        SpreadsheetMetadata> {
+        extends SpreadsheetContextHateosHandlerTestCase2<H> {
 
     SpreadsheetContextHateosHandlerMetadataTestCase() {
         super();

@@ -19,16 +19,14 @@ package walkingkooka.spreadsheet.server.context.hateos;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
+import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetContextHateosHandlerTestCase2<H extends SpreadsheetContextHateosHandler<I, V, C>,
-        I extends Comparable<I>,
-        V,
-        C>
+public abstract class SpreadsheetContextHateosHandlerTestCase2<H extends SpreadsheetContextHateosHandlerMetadata>
         extends SpreadsheetContextHateosHandlerTestCase<H>
-        implements HateosHandlerTesting<H, I, V, C> {
+        implements HateosHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> {
 
     SpreadsheetContextHateosHandlerTestCase2() {
         super();
@@ -44,9 +42,9 @@ public abstract class SpreadsheetContextHateosHandlerTestCase2<H extends Spreads
         return this.createHandler(this.context());
     }
 
-    abstract H createHandler(final SpreadsheetContext context);
+    abstract H createHandler(final walkingkooka.spreadsheet.server.context.SpreadsheetContext context);
 
-    abstract SpreadsheetContext context();
+    abstract walkingkooka.spreadsheet.server.context.SpreadsheetContext context();
 
     // TypeNameTesting..................................................................................................
 
