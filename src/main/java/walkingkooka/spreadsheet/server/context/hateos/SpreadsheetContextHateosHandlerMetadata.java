@@ -27,17 +27,24 @@ import walkingkooka.store.Store;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * A {@link HateosHandler} that requires a {@link Store metadata}.
  */
-abstract class SpreadsheetContextHateosHandlerMetadata extends SpreadsheetContextHateosHandler<SpreadsheetId,
-        SpreadsheetMetadata,
-        SpreadsheetMetadata> {
+abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> {
+
+    /**
+     * Checks required factory method parameters are not null.
+     */
+    static void checkContext(final SpreadsheetContext context) {
+        Objects.requireNonNull(context, "context");
+    }
 
     SpreadsheetContextHateosHandlerMetadata(final SpreadsheetContext context) {
-        super(context);
+        super();
+        this.context = context;
     }
 
     @Override
@@ -71,4 +78,13 @@ abstract class SpreadsheetContextHateosHandlerMetadata extends SpreadsheetContex
 
         throw new UnsupportedOperationException();
     }
+
+    final SpreadsheetContext context;
+
+    @Override
+    public final String toString() {
+        return this.context + " " + this.operation();
+    }
+
+    abstract String operation();
 }
