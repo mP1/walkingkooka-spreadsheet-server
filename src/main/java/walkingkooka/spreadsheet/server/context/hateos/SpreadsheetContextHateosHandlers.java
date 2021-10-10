@@ -27,8 +27,10 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.function.BiConsumer;
+import java.util.function.UnaryOperator;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -47,6 +49,14 @@ public final class SpreadsheetContextHateosHandlers implements PublicStaticHelpe
      */
     public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
+    }
+
+    /**
+     * {@see SpreadsheetContextMetadataPatchFunction}
+     */
+    public static UnaryOperator<JsonNode> patch(final SpreadsheetId id,
+                                                final SpreadsheetContext context) {
+        return SpreadsheetContextMetadataPatchFunction.with(id, context);
     }
 
     /**
