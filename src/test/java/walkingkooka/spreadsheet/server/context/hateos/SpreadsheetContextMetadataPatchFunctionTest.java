@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -61,6 +62,45 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
     @Test
     public void testWithNullContextFails() {
         assertThrows(NullPointerException.class, () -> SpreadsheetContextMetadataPatchFunction.with(ID, null));
+    }
+
+    @Test
+    public void testApplyLoadFails() {
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+
+        final SpreadsheetContext context = new FakeSpreadsheetContext() {
+            @Override
+            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
+                assertEquals(ID, id, "id");
+
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return store;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return this.metadatas().toString();
+                    }
+                };
+            }
+        };
+
+        final LoadStoreException thrown = assertThrows(
+                LoadStoreException.class,
+                () -> {
+                    SpreadsheetContextMetadataPatchFunction.with(ID, context)
+                            .apply(
+                                    JsonNode.object()
+                                            .set(
+                                                    JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                                                    JsonNode.string("NSWD")
+                                            )
+                            );
+                }
+        );
+        assertEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
     }
 
     @Test

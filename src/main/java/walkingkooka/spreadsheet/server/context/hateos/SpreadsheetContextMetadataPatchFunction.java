@@ -21,6 +21,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
+import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
@@ -50,15 +51,19 @@ final class SpreadsheetContextMetadataPatchFunction implements UnaryOperator<Jso
     public JsonNode apply(final JsonNode json) {
         final SpreadsheetId id = this.id;
 
-        final SpreadsheetMetadataStore store = this.context.storeRepository(id)
-                .metadatas();
+        try {
+            final SpreadsheetMetadataStore store = this.context.storeRepository(id)
+                    .metadatas();
 
-        final SpreadsheetMetadata loadAndPatched = store.loadOrFail(id)
-                .patch(json.objectOrFail());
+            final SpreadsheetMetadata loadAndPatched = store.loadOrFail(id)
+                    .patch(json.objectOrFail());
 
-        final SpreadsheetMetadata saved = store.save(loadAndPatched);
-        return saved.jsonNodeMarshallContext()
-                .marshall(saved);
+            final SpreadsheetMetadata saved = store.save(loadAndPatched);
+            return saved.jsonNodeMarshallContext()
+                    .marshall(saved);
+        } catch (final LoadStoreException cause) {
+            throw new LoadStoreException("Unable to load spreadsheet with id=" + id);
+        }
     }
 
     private final SpreadsheetId id;
