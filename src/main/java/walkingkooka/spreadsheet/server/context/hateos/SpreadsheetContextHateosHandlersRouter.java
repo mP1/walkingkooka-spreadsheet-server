@@ -79,7 +79,7 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                 contentType,
                 Sets.of(
                         HateosResourceMapping.with(
-                                SPREADSHEET,
+                                        SPREADSHEET,
                                         SpreadsheetContextHateosHandlersRouter::parse,
                                         SpreadsheetMetadata.class,
                                         SpreadsheetMetadata.class,
