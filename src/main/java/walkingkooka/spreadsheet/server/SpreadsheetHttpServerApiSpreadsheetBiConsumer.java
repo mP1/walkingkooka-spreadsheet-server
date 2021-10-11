@@ -19,10 +19,18 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPath;
+import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.HttpRequestAttributeRouting;
+import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -36,9 +44,11 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer}.
@@ -49,7 +59,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetBiConsumer} handler.
      */
     static SpreadsheetHttpServerApiSpreadsheetBiConsumer with(final AbsoluteUrl baseUrl,
-                                                              final HateosContentType contentTypeJson,
+                                                              final HateosContentType contentType,
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
@@ -57,7 +67,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
                 baseUrl,
-                contentTypeJson,
+                contentType,
                 createMetadata,
                 fractioner,
                 functions,
@@ -70,7 +80,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
      * Private ctor
      */
     private SpreadsheetHttpServerApiSpreadsheetBiConsumer(final AbsoluteUrl baseUrl,
-                                                          final HateosContentType contentTypeJson,
+                                                          final HateosContentType contentType,
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
@@ -79,10 +89,11 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         super();
 
         this.baseUrl = baseUrl;
+        this.contentType = contentType;
 
         final SpreadsheetContext context = SpreadsheetContexts.memory(
                 baseUrl,
-                contentTypeJson,
+                contentType,
                 fractioner,
                 createMetadata,
                 functions,
@@ -90,28 +101,75 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 spreadsheetMetadataStamper
         );
 
-        this.contextRouter = SpreadsheetContextHateosHandlers.router(
-                baseUrl,
-                contentTypeJson,
-                SpreadsheetContextHateosHandlers.createAndSaveMetadata(context),
-                SpreadsheetContextHateosHandlers.loadMetadata(context));
-    }
+        this.context = context;
 
-    /**
-     * A {@link Function} that creates a default metadata with the given {@link Locale}.
-     */
-    private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> contextRouter;
+        this.hateosRouter = SpreadsheetContextHateosHandlers.router(
+                baseUrl,
+                contentType,
+                SpreadsheetContextHateosHandlers.createAndSaveMetadata(context),
+                SpreadsheetContextHateosHandlers.loadMetadata(context)
+        );
+    }
 
     // BiConsumer.......................................................................................................
 
     @Override
     public void accept(final HttpRequest request,
                        final HttpResponse response) {
-        this.contextRouter
+        RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(
+                        patchRouterPredicates(),
+                        this::patchRequestResponseBiConsumer
+                )
+                .router()
+                .then(this.hateosRouter)
                 .route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
                 .accept(request, response);
     }
+
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRouterPredicates() {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(UrlPath.parse("/api/spreadsheet/*"))
+                .build();
+    }
+
+    private void patchRequestResponseBiConsumer(final HttpRequest request,
+                                                final HttpResponse response) {
+        // PATCH
+        // content type = JSON
+        // Function<JsonNode, JsonNode> handler, Function<HttpEntity, HttpEntity> pos
+        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.PATCH,
+                HttpRequestHttpResponseBiConsumers.contentType(
+                        this.contentType.contentType(),
+                        JsonHttpRequestHttpResponseBiConsumers.json(
+                                (json) -> SpreadsheetContextHateosHandlers.patch(
+                                        SpreadsheetId.parse(request.url().path().name().value()),
+                                        context
+                                ).apply(json),
+                                SpreadsheetHttpServerApiSpreadsheetBiConsumer::patchPost
+                        )
+                )
+        ).accept(request, response);
+    }
+
+    private final HateosContentType contentType;
+
+    private static HttpEntity patchPost(final HttpEntity response) {
+        return response.addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetMetadata.class.getSimpleName()
+        );
+    }
+
+    private final SpreadsheetContext context;
+
+    /**
+     * A {@link Function} that creates a default metadata with the given {@link Locale}.
+     */
+    private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter;
 
     // toString.........................................................................................................
 

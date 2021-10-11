@@ -81,6 +81,8 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.io.InputStream;
@@ -224,6 +226,50 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+    }
+
+    @Test
+    public void testCreateAndPatch() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
+        assertNotEquals(
+                null,
+                loaded,
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
+
+        // patch metadata
+        final String currency = "NSWD";
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1",
+                NO_HEADERS_TRANSACTION_ID,
+                JsonNode.object()
+                        .set(
+                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                                JsonNode.string(currency)
+                        )
+                        .toString(),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        loaded.set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, currency)
                 )
         );
     }
