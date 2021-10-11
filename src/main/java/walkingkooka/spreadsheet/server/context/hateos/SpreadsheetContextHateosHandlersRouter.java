@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosHandlers;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -76,13 +77,18 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
 
         return HateosResourceMapping.router(baseUrl,
                 contentType,
-                Sets.of(HateosResourceMapping.with(SPREADSHEET,
-                        SpreadsheetContextHateosHandlersRouter::parse,
-                        SpreadsheetMetadata.class,
-                        SpreadsheetMetadata.class,
-                        SpreadsheetMetadata.class)
-                        .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
-                        .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)));
+                Sets.of(
+                        HateosResourceMapping.with(
+                                SPREADSHEET,
+                                        SpreadsheetContextHateosHandlersRouter::parse,
+                                        SpreadsheetMetadata.class,
+                                        SpreadsheetMetadata.class,
+                                        SpreadsheetMetadata.class)
+                                .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
+                                .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)
+                                .set(METADATA_LINK_RELATION, HttpMethod.PATCH, HateosHandlers.fake())
+                )
+        );
     }
 
     private static HateosResourceSelection<SpreadsheetId> parse(final String text) {
