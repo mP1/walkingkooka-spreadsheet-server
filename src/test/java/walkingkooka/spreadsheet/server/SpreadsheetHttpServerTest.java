@@ -129,11 +129,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testGetInvalidSpreadsheetIdBadRequest() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.GET,
+        server.handleAndCheck(
+                HttpMethod.GET,
                 "/api/spreadsheet/XYZ",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\"")));
+                this.response(HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\""))
+        );
     }
 
     @Test
@@ -153,12 +155,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testCreateSpreadsheet() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
         assertNotEquals(null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
@@ -168,15 +175,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testCreateSpreadsheetWithTransactionIdHeader() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
-        assertNotEquals(null,
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+        assertNotEquals(
+                null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
-                () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
     }
 
     @Test
@@ -184,25 +198,34 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServer();
 
         // create spreadsheet
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
-        assertNotEquals(null,
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+        assertNotEquals(
+                null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
-                () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
 
         // fetch metadata back again.
-        server.handleAndCheck(HttpMethod.GET,
+        server.handleAndCheck(
+                HttpMethod.GET,
                 "/api/spreadsheet/1",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
+                this.response(
+                        HttpStatusCode.OK.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
     }
 
     @Test
@@ -766,29 +789,41 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                              final String responseJson) {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L)))
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
         );
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
-                                Sets.of(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with(formula)))
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("A1"),
+                                                SpreadsheetFormula.with(formula)
+                                        )
+                                )
                         )
                 ),
                 this.response(
                         HttpStatusCode.OK.status(),
                         responseJson,
                         DELTA
-                ));
+                )
+        );
 
         return server;
     }
@@ -805,17 +840,24 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
                 )
         );
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1+2"))
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("A1"),
+                                                SpreadsheetFormula.with("=1+2")
+                                        )
                                 )
                         )
                 ),
@@ -905,14 +947,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "}",
                         DELTA));
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("=4+A1"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("B2"),
+                                                        SpreadsheetFormula.with("=4+A1")
+                                                )
                                         )
                                 )
                 ),
@@ -1016,22 +1062,35 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testSaveCellTwice() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1+2"))
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        SpreadsheetFormula.with("=1+2")
+                                                )
+                                        )
                                 )
-                        )
                 ),
                 this.response(
                         HttpStatusCode.OK.status(),
@@ -1119,23 +1178,31 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "}",
                         DELTA));
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))));
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))
+                )
+        );
 
         assertEquals(2, this.metadataStore.count());
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/2/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=3+4"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        SpreadsheetFormula.with("=3+4")
+                                                )
                                         )
                                 )
                 ),
@@ -1226,14 +1293,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         DELTA));
 
         // create another cell in the first spreadsheet
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("=4+A1"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("B2"),
+                                                        SpreadsheetFormula.with("=4+A1")
+                                                )
                                         )
                                 )
                 ),
@@ -1338,21 +1409,30 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testLoadViewport() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1+2"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        SpreadsheetFormula.with("=1+2")
+                                                )
                                         )
                                 )
                 ),
@@ -1444,14 +1524,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // create another cell in the first spreadsheet
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/api/spreadsheet/1/cell/B2",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("=4+A1"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("B2"),
+                                                        SpreadsheetFormula.with("=4+A1")
+                                                )
                                         )
                                 )
                 ),
@@ -1759,7 +1843,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("1.25"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        SpreadsheetFormula.with("1.25")
+                                                )
                                         )
                                 )
                 ),
@@ -2409,7 +2496,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("=123")
+                                                )
                                         )
                                 )
                 ),
@@ -2467,7 +2557,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // save a cell at D4
@@ -2479,7 +2570,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("D4"),
+                                                        SpreadsheetFormula.with("=456")
+                                                )
                                         )
                                 )
                 ),
@@ -2673,7 +2767,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("1.25"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("1.25")
+                                                )
                                         )
                                 )
                 ),
@@ -2731,7 +2828,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         server.handleAndCheck(
@@ -3028,7 +3126,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("1.25"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("1.25")
+                                                )
                                         )
                                 )
                 ),
@@ -3179,7 +3280,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("=123")
+                                                )
                                         )
                                 )
                 ),
@@ -3237,7 +3341,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"3\": 30\n" +
                                 "  }\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // save a cell at D4
@@ -3249,7 +3354,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("D4"),
+                                                        SpreadsheetFormula.with("=456")
+                                                )
                                         )
                                 )
                 ),
@@ -3307,7 +3415,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"4\": 30\n" +
                                 "  }\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         server.handleAndCheck(
@@ -3400,7 +3509,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("=123")
+                                                )
                                         )
                                 )
                 ),
@@ -3470,7 +3582,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("D4"),
+                                                        SpreadsheetFormula.with("=456")
+                                                )
                                         )
                                 )
                 ),
@@ -3664,7 +3779,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("1.25"))
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("C3"),
+                                                        SpreadsheetFormula.with("1.25")
+                                                )
                                         )
                                 )
                 ),
@@ -3802,7 +3920,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
 
         // save cell B2
         server.handleAndCheck(
@@ -3812,7 +3931,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("'Hello"))
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("B2"),
+                                                SpreadsheetFormula.with("'Hello")
+                                        )
                                 )
                         )
                 ),
@@ -3872,7 +3994,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1"))
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("A1"),
+                                                SpreadsheetFormula.with("=1")
+                                        )
                                 )
                         )
                 ),
@@ -3957,12 +4082,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(HttpMethod.POST,
                 "/api/spreadsheet/1/cell/A1:B2/fill?from=A1",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("=1"))
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        SpreadsheetFormula.with("=1")
+                                                )
+                                        )
                                 )
-                        )
                 ),
                 this.response(
                         HttpStatusCode.OK.status(),
@@ -4175,7 +4304,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("'Hello"))
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("B2"),
+                                                SpreadsheetFormula.with("'Hello")
+                                        )
                                 )
                         )
                 ),
@@ -4251,7 +4383,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(HttpMethod.POST,
                 FILE.value(),
-                Maps.of(HttpHeaderName.ACCEPT, Lists.of(MediaType.ALL.accept())),
+                Maps.of(
+                        HttpHeaderName.ACCEPT,
+                        Lists.of(MediaType.ALL.accept())
+                ),
                 "",
                 this.response(HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY
