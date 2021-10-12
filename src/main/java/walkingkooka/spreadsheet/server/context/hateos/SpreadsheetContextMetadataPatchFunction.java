@@ -55,10 +55,13 @@ final class SpreadsheetContextMetadataPatchFunction implements UnaryOperator<Jso
             final SpreadsheetMetadataStore store = this.context.storeRepository(id)
                     .metadatas();
 
-            final SpreadsheetMetadata loadAndPatched = store.loadOrFail(id)
-                    .patch(json.objectOrFail());
-
-            final SpreadsheetMetadata saved = store.save(loadAndPatched);
+            final SpreadsheetMetadata loadAndPatched = store.loadOrFail(id);
+            final SpreadsheetMetadata saved = store.save(loadAndPatched
+                    .patch(
+                            json,
+                            loadAndPatched.jsonNodeUnmarshallContext()
+                    )
+            );
             return saved.jsonNodeMarshallContext()
                     .marshall(saved);
         } catch (final LoadStoreException cause) {
