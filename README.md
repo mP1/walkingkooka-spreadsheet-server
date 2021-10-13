@@ -95,8 +95,9 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - POST   /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
-- POST   /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
-- GET    /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
+- POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
+- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
+- GET /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
 - GET    /api/spreadsheet/$spreadsheet-id/column/A
 - POST   /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
 - POST   /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
