@@ -36,22 +36,15 @@ import java.util.function.Function;
 public final class SpreadsheetContexts implements PublicStaticHelper {
 
     /**
-     * {@see FakeSpreadsheetContext}
+     * {@see BasicSpreadsheetContext}
      */
-    public static FakeSpreadsheetContext fake() {
-        return new FakeSpreadsheetContext();
-    }
-
-    /**
-     * {@see MemorySpreadsheetContext}
-     */
-    public static SpreadsheetContext memory(final AbsoluteUrl base,
-                                            final HateosContentType contentType,
-                                            final Function<BigDecimal, Fraction> fractioner,
-                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+    public static SpreadsheetContext basic(final AbsoluteUrl base,
+                                           final HateosContentType contentType,
+                                           final Function<BigDecimal, Fraction> fractioner,
+                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         return MemorySpreadsheetContext.with(
                 base,
                 contentType,
@@ -61,6 +54,13 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper
         );
+    }
+
+    /**
+     * {@see FakeSpreadsheetContext}
+     */
+    public static FakeSpreadsheetContext fake() {
+        return new FakeSpreadsheetContext();
     }
 
     /**
