@@ -36,7 +36,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
-import walkingkooka.spreadsheet.server.context.hateos.SpreadsheetContextHateosHandlers;
+import walkingkooka.spreadsheet.server.context.hateos.SpreadsheetContextHttps;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -103,11 +103,11 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
 
         this.context = context;
 
-        this.hateosRouter = SpreadsheetContextHateosHandlers.router(
+        this.hateosRouter = SpreadsheetContextHttps.router(
                 baseUrl,
                 contentType,
-                SpreadsheetContextHateosHandlers.createAndSaveMetadata(context),
-                SpreadsheetContextHateosHandlers.loadMetadata(context)
+                SpreadsheetContextHttps.createAndSaveMetadata(context),
+                SpreadsheetContextHttps.loadMetadata(context)
         );
     }
 
@@ -145,7 +145,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 HttpRequestHttpResponseBiConsumers.contentType(
                         this.contentType.contentType(),
                         JsonHttpRequestHttpResponseBiConsumers.json(
-                                (json) -> SpreadsheetContextHateosHandlers.patch(
+                                (json) -> SpreadsheetContextHttps.patch(
                                         SpreadsheetId.parse(request.url().path().name().value()),
                                         context
                                 ).apply(json),

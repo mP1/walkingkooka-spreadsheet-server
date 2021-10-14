@@ -22,14 +22,14 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetContextHateosHandlersTest implements ClassTesting2<SpreadsheetContextHateosHandlers>,
-        PublicStaticHelperTesting<SpreadsheetContextHateosHandlers> {
+public final class SpreadsheetContextHttpsTest implements ClassTesting2<SpreadsheetContextHttps>,
+        PublicStaticHelperTesting<SpreadsheetContextHttps> {
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetContextHateosHandlers> type() {
-        return SpreadsheetContextHateosHandlers.class;
+    public Class<SpreadsheetContextHttps> type() {
+        return SpreadsheetContextHttps.class;
     }
 
     @Override
