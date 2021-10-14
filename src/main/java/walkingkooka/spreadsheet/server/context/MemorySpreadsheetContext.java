@@ -148,16 +148,6 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
 
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions;
 
-    /**
-     * Loads the {@link SpreadsheetMetadata} and then executes the given getter to return a particular property.
-     */
-    private <T> T loadAndGet(final SpreadsheetId id,
-                             final Function<SpreadsheetMetadata, T> getter) {
-        Objects.requireNonNull(id, "id");
-
-        return getter.apply(this.load(id));
-    }
-
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)
                 .metadatas()
