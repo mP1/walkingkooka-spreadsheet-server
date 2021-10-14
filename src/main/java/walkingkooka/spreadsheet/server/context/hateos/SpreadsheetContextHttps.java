@@ -33,9 +33,9 @@ import java.util.function.BiConsumer;
 import java.util.function.UnaryOperator;
 
 /**
- * A collection of factory methods to create various {@link HateosHandler}.
+ * A collection of factory methods to create various {@link HateosHandler}, {@link Router} etc.
  */
-public final class SpreadsheetContextHateosHandlers implements PublicStaticHelper {
+public final class SpreadsheetContextHttps implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
@@ -75,7 +75,7 @@ public final class SpreadsheetContextHateosHandlers implements PublicStaticHelpe
     /**
      * Stop creation.
      */
-    private SpreadsheetContextHateosHandlers() {
+    private SpreadsheetContextHttps() {
         throw new UnsupportedOperationException();
     }
 }
