@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.hateos;
+package walkingkooka.spreadsheet.server.context.http;
 
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;

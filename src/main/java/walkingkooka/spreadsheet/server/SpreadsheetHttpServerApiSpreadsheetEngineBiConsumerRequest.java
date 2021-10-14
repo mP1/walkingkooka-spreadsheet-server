@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 
 /**
- * Handles dispatching a single request, extracting the spreadsheet id and then invoking the hateos service.
+ * Handles dispatching a single request, extracting the spreadsheet id and then invoking the http service.
  */
 final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
 

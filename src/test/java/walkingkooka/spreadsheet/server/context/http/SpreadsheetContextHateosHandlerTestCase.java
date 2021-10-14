@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.hateos;
+package walkingkooka.spreadsheet.server.context.http;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosHandler;

@@ -55,7 +55,7 @@ public interface SpreadsheetContext extends Context {
     Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id);
 
     /**
-     * A {@link Router} that can handle hateos requests for the given identified spreadsheet.
+     * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */
     Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id);
 
