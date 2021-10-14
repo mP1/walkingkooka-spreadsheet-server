@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
  */
-public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper {
+public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
@@ -151,7 +151,7 @@ public final class SpreadsheetEngineHateosHandlers implements PublicStaticHelper
     /**
      * Stop creation.
      */
-    private SpreadsheetEngineHateosHandlers() {
+    private SpreadsheetEngineHttps() {
         throw new UnsupportedOperationException();
     }
 }

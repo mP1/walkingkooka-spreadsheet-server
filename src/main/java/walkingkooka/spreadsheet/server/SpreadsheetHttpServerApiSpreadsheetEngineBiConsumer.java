@@ -55,8 +55,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHateosHandlers;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHateosResourceMappings;
+import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.format.Formatters;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
@@ -289,29 +289,29 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final SpreadsheetEngine engine,
                                                                                                                              final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHateosHandlers.fillCells(engine, context);
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHateosHandlers.loadCell(
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHttps.fillCells(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetEngineHateosHandlers.loadCell(
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetEngineHateosHandlers.loadCell(
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetEngineHateosHandlers.loadCell(
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHateosHandlers.saveCell(engine, context);
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHateosHandlers.deleteCell(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHttps.saveCell(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cell(
                 fillCells,
@@ -339,7 +339,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngine engine,
                                                                                                                                                                                                    final SpreadsheetEngineContext context) {
-        final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHateosHandlers.findSimilarities(engine, context);
+        final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHttps.findSimilarities(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cellReference(
                 findSimilarities
@@ -348,10 +348,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column(final SpreadsheetEngine engine,
                                                                                                                                    final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHateosHandlers.deleteColumns(engine, context);
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns = SpreadsheetEngineHateosHandlers.insertColumns(engine, context);
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHateosHandlers.insertAfterColumns(engine, context);
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHateosHandlers.insertBeforeColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHttps.deleteColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns = SpreadsheetEngineHttps.insertColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHttps.insertAfterColumns(engine, context);
+        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHttps.insertBeforeColumns(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.column(
                 deleteColumns,
@@ -376,16 +376,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private static HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> range(final SpreadsheetEngine engine,
                                                                                                                                                      final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> handler = SpreadsheetEngineHateosHandlers.range(engine, context);
+        final HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> handler = SpreadsheetEngineHttps.range(engine, context);
         return SpreadsheetEngineHateosResourceMappings.range(handler);
     }
 
     private static HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row(final SpreadsheetEngine engine,
                                                                                                                           final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHateosHandlers.deleteRows(engine, context);
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows = SpreadsheetEngineHateosHandlers.insertRows(engine, context);
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHateosHandlers.insertAfterRows(engine, context);
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHateosHandlers.insertBeforeRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHttps.deleteRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows = SpreadsheetEngineHttps.insertRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHttps.insertAfterRows(engine, context);
+        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHttps.insertBeforeRows(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.row(
                 deleteRows,
