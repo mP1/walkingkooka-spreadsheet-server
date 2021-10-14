@@ -401,13 +401,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.cell(
-                        SpreadsheetEngineHateosHandlers.fillCells(engine, context),
-                        SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
-                        SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
-                        SpreadsheetEngineHateosHandlers.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHateosHandlers.saveCell(engine, context),
-                        SpreadsheetEngineHateosHandlers.deleteCell(engine, context),
+                        SpreadsheetEngineHttps.fillCells(engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
+                        SpreadsheetEngineHttps.saveCell(engine, context),
+                        SpreadsheetEngineHttps.deleteCell(engine, context),
                         context.storeRepository().labels()::cellReference
                 ),
                 method,
@@ -574,10 +574,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.column(
-                        SpreadsheetEngineHateosHandlers.deleteColumns(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertColumns(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertAfterColumns(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertBeforeColumns(engine, context)
+                        SpreadsheetEngineHttps.deleteColumns(engine, context),
+                        SpreadsheetEngineHttps.insertColumns(engine, context),
+                        SpreadsheetEngineHttps.insertAfterColumns(engine, context),
+                        SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
                 ),
                 method,
                 url,
@@ -692,10 +692,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.row(
-                        SpreadsheetEngineHateosHandlers.deleteRows(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertRows(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertAfterRows(engine, context),
-                        SpreadsheetEngineHateosHandlers.insertBeforeRows(engine, context)
+                        SpreadsheetEngineHttps.deleteRows(engine, context),
+                        SpreadsheetEngineHttps.insertRows(engine, context),
+                        SpreadsheetEngineHttps.insertAfterRows(engine, context),
+                        SpreadsheetEngineHttps.insertBeforeRows(engine, context)
                 ),
                 method,
                 url,
@@ -742,7 +742,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                     final String url,
                                     final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.range(SpreadsheetEngineHateosHandlers.range(this.engine(), this.engineContext())),
+                SpreadsheetEngineHateosResourceMappings.range(SpreadsheetEngineHttps.range(this.engine(), this.engineContext())),
                 method,
                 url,
                 "",
