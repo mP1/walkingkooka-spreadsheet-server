@@ -46,7 +46,7 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
