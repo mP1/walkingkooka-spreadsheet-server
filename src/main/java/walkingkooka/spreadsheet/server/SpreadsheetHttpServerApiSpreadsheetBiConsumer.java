@@ -91,7 +91,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         this.baseUrl = baseUrl;
         this.contentType = contentType;
 
-        final SpreadsheetContext context = SpreadsheetContexts.memory(
+        final SpreadsheetContext context = SpreadsheetContexts.basic(
                 baseUrl,
                 contentType,
                 fractioner,
