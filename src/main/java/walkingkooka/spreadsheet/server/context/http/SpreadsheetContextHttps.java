@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.context.hateos;
+package walkingkooka.spreadsheet.server.context.http;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpRequest;

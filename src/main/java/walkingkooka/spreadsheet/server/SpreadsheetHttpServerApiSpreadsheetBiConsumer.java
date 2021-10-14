@@ -36,7 +36,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
-import walkingkooka.spreadsheet.server.context.hateos.SpreadsheetContextHttps;
+import walkingkooka.spreadsheet.server.context.http.SpreadsheetContextHttps;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
