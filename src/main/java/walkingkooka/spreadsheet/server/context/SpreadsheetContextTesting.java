@@ -39,8 +39,8 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
     }
 
     @Test
-    default void testHateosRouterNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().hateosRouter(null));
+    default void testHttpRouterNullSpreadsheetIdFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().httpRouter(null));
     }
 
     @Test

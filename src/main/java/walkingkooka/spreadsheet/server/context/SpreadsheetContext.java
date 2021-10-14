@@ -57,7 +57,7 @@ public interface SpreadsheetContext extends Context {
     /**
      * A {@link Router} that can handle hateos requests for the given identified spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter(final SpreadsheetId id);
+    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id);
 
     /**
      * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}

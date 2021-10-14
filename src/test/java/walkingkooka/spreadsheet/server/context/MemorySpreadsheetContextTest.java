@@ -213,7 +213,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
 
     @Test
     public void testHateosRouter() {
-        assertNotEquals(null, this.createContext().hateosRouter(this.spreadsheetId()));
+        assertNotEquals(null, this.createContext().httpRouter(this.spreadsheetId()));
     }
 
     @Test
@@ -576,7 +576,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
                                                       final String expectedBody) {
         final MemorySpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
-        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.hateosRouter(id);
+        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("=1+2"));
@@ -689,7 +689,7 @@ public final class MemorySpreadsheetContextTest implements SpreadsheetContextTes
     public void testHateosRouterAndRouteInvalidRequest() {
         final MemorySpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
-        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.hateosRouter(id);
+        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
         final HttpRequest request = new TestHttpRequest() {
             @Override

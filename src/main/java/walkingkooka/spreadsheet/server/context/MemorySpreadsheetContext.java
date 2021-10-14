@@ -160,12 +160,12 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
      * Lazily creates a {@link Router} using the {@link SpreadsheetId} to a cache.
      */
     @Override
-    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id) {
         SpreadsheetContext.checkId(id);
 
         Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter = this.idToHateosRouter.get(id);
         if (null == hateosRouter) {
-            hateosRouter = this.createHateosHandler(id);
+            hateosRouter = this.createHttpRouter(id);
 
             this.idToHateosRouter.put(id, hateosRouter);
         }
@@ -177,7 +177,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
     /**
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
      */
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> createHateosHandler(final SpreadsheetId id) {
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
         final SpreadsheetMetadata metadata = this.load(id);
