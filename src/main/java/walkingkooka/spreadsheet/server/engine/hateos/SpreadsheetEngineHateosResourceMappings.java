@@ -80,22 +80,22 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         HateosResourceMapping<SpreadsheetCellReference,
                 SpreadsheetDelta,
                 SpreadsheetDelta,
-                SpreadsheetCell> cell = HateosResourceMapping.with(CELL,
-                (t) -> SpreadsheetEngineHateosResourceMappings.parseCellOrLabel(t, labelToCellReference),
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetCell.class)
+                SpreadsheetCell> cell = HateosResourceMapping.with(
+                        CELL,
+                        (t) -> SpreadsheetEngineHateosResourceMappings.parseCellOrLabel(t, labelToCellReference),
+                        SpreadsheetDelta.class,
+                        SpreadsheetDelta.class,
+                        SpreadsheetCell.class
+                )
                 .set(LinkRelation.SELF, HttpMethod.GET, loadCellComputeIfNecessary)
                 .set(LinkRelation.SELF, HttpMethod.POST, saveCell)
                 .set(LinkRelation.SELF, HttpMethod.DELETE, deleteCell);
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
 
-        for (
-                SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
-            final HateosHandler<SpreadsheetCellReference,
-                    SpreadsheetDelta,
-                    SpreadsheetDelta> loadCell;
+        for (final SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
+            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCell;
+
             switch (evaluation) {
                 case CLEAR_VALUE_ERROR_SKIP_EVALUATE:
                     loadCell = loadCellClearValueErrorSkipEvaluate;
@@ -110,8 +110,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                     loadCell = loadCellComputeIfNecessary;
                     break;
                 default:
-                    NeverError.unhandledEnum(evaluation, SpreadsheetEngineEvaluation.values());
-                    loadCell = null;
+                    loadCell = NeverError.unhandledEnum(evaluation, SpreadsheetEngineEvaluation.values());
+                    break;
             }
 
             cell = cell.set(evaluation.toLinkRelation(),
@@ -120,9 +120,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         }
 
         // cell/copy POST...............................................................................................
-        return cell.set(FILL,
+        return cell.set(
+                FILL,
                 HttpMethod.POST,
-                fillCells);
+                fillCells
+        );
     }
 
     /**
@@ -173,8 +175,12 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
                                                               final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
         final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetExpressionReference.parseCellOrLabelName(cellOrLabelText);
+
         return cellOrLabel.isLabelName() ?
-                labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel).orElseThrow(() -> new IllegalArgumentException("Unknown label " + CharSequences.quote(cellOrLabelText))) :
+                labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel)
+                        .orElseThrow(
+                                () -> new IllegalArgumentException("Unknown label " + CharSequences.quote(cellOrLabelText))
+                        ) :
                 (SpreadsheetCellReference) cellOrLabel;
     }
 
@@ -189,7 +195,9 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
             SpreadsheetExpressionReferenceSimilarities,
             SpreadsheetExpressionReferenceSimilarities,
             SpreadsheetExpressionReferenceSimilarities> cellReference(final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference) {
-        return HateosResourceMapping.with(CELL_REFERENCE,
+
+        return HateosResourceMapping.with(
+                CELL_REFERENCE,
                 SpreadsheetEngineHateosResourceMappings::parseCellReferenceText,
                 SpreadsheetExpressionReferenceSimilarities.class,
                 SpreadsheetExpressionReferenceSimilarities.class,
@@ -219,12 +227,13 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns,
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns,
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns) {
-        return HateosResourceMapping.with(COLUMN,
-                SpreadsheetEngineHateosResourceMappings::parseColumn,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetColumn.class)
-                .set(LinkRelation.SELF, HttpMethod.POST, insertColumns)
+        return HateosResourceMapping.with(
+                        COLUMN,
+                        SpreadsheetEngineHateosResourceMappings::parseColumn,
+                        SpreadsheetDelta.class,
+                        SpreadsheetDelta.class,
+                        SpreadsheetColumn.class
+                ).set(LinkRelation.SELF, HttpMethod.POST, insertColumns)
                 .set(AFTER, HttpMethod.POST, insertAfterColumns)
                 .set(BEFORE, HttpMethod.POST, insertBeforeColumns)
                 .set(LinkRelation.SELF, HttpMethod.DELETE, deleteColumns);
@@ -252,11 +261,13 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows,
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows,
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows) {
-        return HateosResourceMapping.with(ROW,
-                SpreadsheetEngineHateosResourceMappings::parseRow,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetRow.class)
+        return HateosResourceMapping.with(
+                        ROW,
+                        SpreadsheetEngineHateosResourceMappings::parseRow,
+                        SpreadsheetDelta.class,
+                        SpreadsheetDelta.class,
+                        SpreadsheetRow.class
+                )
                 .set(LinkRelation.SELF, HttpMethod.POST, insertRows)
                 .set(AFTER, HttpMethod.POST, insertAfterRows)
                 .set(BEFORE, HttpMethod.POST, insertBeforeRows)
@@ -289,8 +300,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 SpreadsheetEngineHateosResourceMappings::parseViewport,
                 SpreadsheetCellRange.class,
                 SpreadsheetCellRange.class,
-                RANGE_HATEOS_RESOURCE)
-                .set(LinkRelation.SELF, HttpMethod.GET, handler);
+                RANGE_HATEOS_RESOURCE
+        ).set(LinkRelation.SELF, HttpMethod.GET, handler);
     }
 
     /**
@@ -299,7 +310,9 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName RANGE = HateosResourceName.with("range");
 
     private static HateosResourceSelection<SpreadsheetViewport> parseViewport(final String selection) {
-        return HateosResourceSelection.one(SpreadsheetViewport.parse(selection));
+        return HateosResourceSelection.one(
+                SpreadsheetViewport.parse(selection)
+        );
     }
 
     private static final Class<HateosResource<SpreadsheetViewport>> RANGE_HATEOS_RESOURCE = Cast.to(HateosResource.class);
