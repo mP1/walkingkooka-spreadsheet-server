@@ -72,7 +72,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceSt
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
-import walkingkooka.spreadsheet.server.engine.hateos.SpreadsheetExpressionReferenceSimilarities;
+import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
