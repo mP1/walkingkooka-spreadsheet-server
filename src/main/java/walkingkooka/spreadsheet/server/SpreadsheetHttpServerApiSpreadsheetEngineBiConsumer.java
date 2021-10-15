@@ -50,6 +50,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
@@ -73,8 +74,10 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.util.MarshallUtils;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A handler that routes all spreadsheet API calls.
@@ -153,17 +156,25 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         );
 
         final AbsoluteUrl baseUrl = this.baseUrl;
+
         final UrlPath spreadsheetIdPath = baseUrl.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
+        final HateosContentType contentType = HateosContentType.json(
+                metadata.jsonNodeUnmarshallContext().setPreProcessor(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.with(repository.labels())),
+                metadata.jsonNodeMarshallContext()
+        );
+
         return formatRouter(spreadsheetIdPath, context, metadata)
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
+                .then(patchCellRouter(spreadsheetIdPath, contentType, engine, context))
                 .then(
                         this.cellColumnRowViewportRouter(
-                                id,
                                 repository,
                                 engine,
-                                context
+                                context,
+                                contentType,
+                                spreadsheetIdPath
                         )
                 );
     }
@@ -249,12 +260,63 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 .path(spreadsheetId.append(UrlPathName.with(formatOrParse)));
     }
 
-    // engine................................................................................................................
+    // patchCell.......................................................................................................
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
-                                                                                                               final SpreadsheetStoreRepository repository,
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> patchCellRouter(final UrlPath spreadsheetId,
+                                                                                                          final HateosContentType contentType,
+                                                                                                          final SpreadsheetEngine engine,
+                                                                                                          final SpreadsheetEngineContext context) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(patchCellRouterPredicates(spreadsheetId), (request, response) -> patchCellRequestResponseBiConsumer(request, response, contentType, engine, context))
+                .router();
+    }
+
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchCellRouterPredicates(final UrlPath path) {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(path.append(CELL))
+                .build();
+    }
+
+    private final static UrlPathName CELL = UrlPathName.with("cell");
+
+    private static void patchCellRequestResponseBiConsumer(final HttpRequest request,
+                                                           final HttpResponse response,
+                                                           final HateosContentType contentType,
+                                                           final SpreadsheetEngine engine,
+                                                           final SpreadsheetEngineContext context) {
+        // PATCH
+        // content type = JSON
+        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.PATCH,
+                HttpRequestHttpResponseBiConsumers.contentType(
+                        contentType.contentType(),
+                        JsonHttpRequestHttpResponseBiConsumers.json(
+                                (json) -> SpreadsheetEngineHttps.patchCell(
+                                        SpreadsheetExpressionReference.parseCell(request.url().path().name().value()), // label ?
+                                        engine,
+                                        context
+                                ).apply(json),
+                                SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer::patchPost
+                        )
+                )
+        ).accept(request, response);
+    }
+
+    private static HttpEntity patchPost(final HttpEntity response) {
+        return response.addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetDelta.class.getSimpleName()
+        );
+    }
+
+    // hateos...........................................................................................................
+
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetStoreRepository repository,
                                                                                                                final SpreadsheetEngine engine,
-                                                                                                               final SpreadsheetEngineContext context) {
+                                                                                                               final SpreadsheetEngineContext context,
+                                                                                                               final HateosContentType contentType,
+                                                                                                               final UrlPath path) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
 
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
@@ -269,13 +331,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
         final AbsoluteUrl base = this.baseUrl;
 
-        final SpreadsheetMetadata metadata = context.metadata();
-
-        return HateosResourceMapping.router(base.setPath(base.path().append(UrlPathName.with(id.toString()))),
-                HateosContentType.json(
-                        metadata.jsonNodeUnmarshallContext().setPreProcessor(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.with(repository.labels())),
-                        metadata.jsonNodeMarshallContext()
-                ),
+        return HateosResourceMapping.router(base.setPath(path),
+                contentType,
                 Sets.of(
                         cell,
                         cellReference,
