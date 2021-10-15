@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.label.hateos;
+package walkingkooka.spreadsheet.server.label.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;

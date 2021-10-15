@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label.hateos;
+package walkingkooka.spreadsheet.server.label.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
@@ -33,64 +33,44 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public final class SpreadsheetLabelHateosHandlerDeleteTest extends SpreadsheetLabelHateosHandlerTestCase2<SpreadsheetLabelHateosHandlerDelete> {
+public final class SpreadsheetLabelHateosHandlerLoadTest extends SpreadsheetLabelHateosHandlerTestCase2<SpreadsheetLabelHateosHandlerLoad> {
 
     @Test
-    public void testDeleteWithResourceFails() {
+    public void testLoad() {
         final SpreadsheetLabelName labelName = this.id();
-
-        this.handleOneFails(
-                labelName,
-                Optional.of(this.mapping(labelName)),
-                HateosHandler.NO_PARAMETERS,
-                IllegalArgumentException.class
-        );
-    }
-
-    @Test
-    public void testDelete() {
-        final SpreadsheetLabelName labelName = this.id();
-        final SpreadsheetLabelMapping mapping = this.mapping(labelName);
+        final SpreadsheetLabelMapping mapping = SpreadsheetLabelMapping.with(labelName, SpreadsheetSelection.parseCell("B2"));
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(mapping);
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosHandlerDelete.with(store),
+                SpreadsheetLabelHateosHandlerLoad.with(store),
                 labelName,
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                Optional.empty()
+                Optional.of(mapping)
         );
-
-        assertEquals(Optional.empty(), store.load(labelName));
-    }
-
-    private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName labelName) {
-        return SpreadsheetLabelMapping.with(labelName, SpreadsheetSelection.parseCell("B2"));
     }
 
     @Test
-    public void testDeleteUnknownSpreadsheetLabel() {
+    public void testLoadUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
                 this.id(),
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                Optional.empty()
+                this.resource()
         );
     }
 
     // ClassTesting......................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosHandlerDelete> type() {
-        return SpreadsheetLabelHateosHandlerDelete.class;
+    public Class<SpreadsheetLabelHateosHandlerLoad> type() {
+        return SpreadsheetLabelHateosHandlerLoad.class;
     }
 
     @Override
-    SpreadsheetLabelHateosHandlerDelete createHandler(final SpreadsheetLabelStore store) {
-        return SpreadsheetLabelHateosHandlerDelete.with(store);
+    SpreadsheetLabelHateosHandlerLoad createHandler(final SpreadsheetLabelStore store) {
+        return SpreadsheetLabelHateosHandlerLoad.with(store);
     }
 
     @Override

@@ -14,31 +14,38 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.label.hateos;
 
-import walkingkooka.reflect.ClassTesting2;
+package walkingkooka.spreadsheet.server.label.http;
+
+import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
-import java.lang.reflect.Method;
+public abstract class SpreadsheetLabelHateosHandlerTestCase<T>
+        implements ClassTesting<T>,
+        TypeNameTesting<T> {
 
-public final class SpreadsheetLabelHateosHandlersTest implements ClassTesting2<SpreadsheetLabelHateosHandlers>,
-        PublicStaticHelperTesting<SpreadsheetLabelHateosHandlers> {
+    SpreadsheetLabelHateosHandlerTestCase() {
+        super();
+    }
 
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosHandlers> type() {
-        return SpreadsheetLabelHateosHandlers.class;
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // TypeNameTesting..................................................................................................
+
+    @Override
+    public final String typeNamePrefix() {
+        return "SpreadsheetLabel" + HateosHandler.class.getSimpleName();
     }
 
     @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    public final String typeNameSuffix() {
+        return "";
     }
 }

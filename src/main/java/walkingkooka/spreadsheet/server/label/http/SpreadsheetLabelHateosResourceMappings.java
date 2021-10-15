@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.label.hateos;
+package walkingkooka.spreadsheet.server.label.http;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
