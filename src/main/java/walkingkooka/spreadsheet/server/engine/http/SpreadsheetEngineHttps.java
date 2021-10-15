@@ -27,6 +27,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.tree.json.JsonNode;
+
+import java.util.function.UnaryOperator;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -146,6 +149,19 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> range(final SpreadsheetEngine engine,
                                                                                                        final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange.with(engine, context);
+    }
+
+    /**
+     * {@see SpreadsheetEngineSpreadsheetCellPatchFunction}
+     */
+    public static UnaryOperator<JsonNode> patchCell(final SpreadsheetCellReference reference,
+                                                    final SpreadsheetEngine engine,
+                                                    final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+                reference,
+                engine,
+                context
+        );
     }
 
     /**

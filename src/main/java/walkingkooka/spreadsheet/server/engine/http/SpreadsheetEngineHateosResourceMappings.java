@@ -21,6 +21,7 @@ import walkingkooka.NeverError;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosHandlers;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
@@ -89,7 +90,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 )
                 .set(LinkRelation.SELF, HttpMethod.GET, loadCellComputeIfNecessary)
                 .set(LinkRelation.SELF, HttpMethod.POST, saveCell)
-                .set(LinkRelation.SELF, HttpMethod.DELETE, deleteCell);
+                .set(LinkRelation.SELF, HttpMethod.DELETE, deleteCell)
+                .set(LinkRelation.SELF, HttpMethod.PATCH, HateosHandlers.fake());
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
 
