@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label.hateos;
+package walkingkooka.spreadsheet.server.label.http;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -29,15 +29,15 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that attempts to load a {@link SpreadsheetLabelMapping} with the given {@link SpreadsheetLabelName}.
  */
-final class SpreadsheetLabelHateosHandlerLoad extends SpreadsheetLabelHateosHandlerOne {
+final class SpreadsheetLabelHateosHandlerDelete extends SpreadsheetLabelHateosHandlerOne {
 
-    static SpreadsheetLabelHateosHandlerLoad with(final SpreadsheetLabelStore store) {
+    static SpreadsheetLabelHateosHandlerDelete with(final SpreadsheetLabelStore store) {
         checkStore(store);
 
-        return new SpreadsheetLabelHateosHandlerLoad(store);
+        return new SpreadsheetLabelHateosHandlerDelete(store);
     }
 
-    private SpreadsheetLabelHateosHandlerLoad(final SpreadsheetLabelStore store) {
+    private SpreadsheetLabelHateosHandlerDelete(final SpreadsheetLabelStore store) {
         super(store);
     }
 
@@ -49,11 +49,12 @@ final class SpreadsheetLabelHateosHandlerLoad extends SpreadsheetLabelHateosHand
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return this.store.load(id);
+        this.store.delete(id);
+        return Optional.empty();
     }
 
     @Override
     public String toString() {
-        return "load " + this.store;
+        return "delete with labelName " + this.store;
     }
 }

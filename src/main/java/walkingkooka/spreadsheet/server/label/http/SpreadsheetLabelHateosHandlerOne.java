@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label.hateos;
+package walkingkooka.spreadsheet.server.label.http;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;

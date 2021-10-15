@@ -63,8 +63,8 @@ import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenc
 import walkingkooka.spreadsheet.server.format.Formatters;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
 import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
-import walkingkooka.spreadsheet.server.label.hateos.SpreadsheetLabelHateosHandlers;
-import walkingkooka.spreadsheet.server.label.hateos.SpreadsheetLabelHateosResourceMappings;
+import walkingkooka.spreadsheet.server.label.http.SpreadsheetLabelHateosHandlers;
+import walkingkooka.spreadsheet.server.label.http.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;

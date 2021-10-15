@@ -86,26 +86,26 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 A collection of end points that support manipulating cells, columns and rows and similar functionality.
 All input and output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
-- GET    /api/spreadsheet/$spreadsheet-id/cell/*/clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:
+- GET /api/spreadsheet/$spreadsheet-id/cell/*
+  /clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:
   B2
-- GET    /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
-- GET    /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
-- GET    /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
-- GET    /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
-- POST   /api/spreadsheet/$spreadsheet-id/cell/A1
+- GET /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
+- GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
+- GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
+- GET /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
+- POST /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
 - PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
 - GET /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
-- GET    /api/spreadsheet/$spreadsheet-id/column/A
-- POST   /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
-- POST   /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
-- POST   /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
-- POST   /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
-- DELETE /api/spreadsheet/$spreadsheet-id/column/A
-  DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
-- GET    /api/spreadsheet/$spreadsheet-id/format
+- GET /api/spreadsheet/$spreadsheet-id/column/A
+- POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
+- POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
+- POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
+- POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
+- DELETE /api/spreadsheet/$spreadsheet-id/column/A DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
+- GET /api/spreadsheet/$spreadsheet-id/format
 - DELETE /api/spreadsheet/$spreadsheet-id/label/$label-name
 - GET    /api/spreadsheet/$spreadsheet-id/label/$label-name
 - POST   /api/spreadsheet/$spreadsheet-id/label
