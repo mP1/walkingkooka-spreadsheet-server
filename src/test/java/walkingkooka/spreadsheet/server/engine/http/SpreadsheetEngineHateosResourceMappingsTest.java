@@ -224,26 +224,28 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteCellInvalidFails() {
-        this.routeCellAndCheck(HttpMethod.GET, "/invalid/A1", HttpStatusCode.NOT_FOUND);
-    }
-
-    @Test
-    public void testRouteCellGetLoadCell() {
         this.routeCellAndCheck(
                 HttpMethod.GET,
-                "/cell/A1",
-                HttpStatusCode.NOT_IMPLEMENTED,
-                "Not implemented"
+                "/invalid/A1",
+                HttpStatusCode.NOT_FOUND
         );
     }
 
     @Test
-    public void testRouteCellGetLoadCellLabel() {
-        this.routeCellAndCheck(
+    public void testRouteCellGetLoadCell() {
+        this.routeCellFails(
+                HttpMethod.GET,
+                "/cell/A1",
+                UnsupportedOperationException.class
+        );
+    }
+
+    @Test
+    public void testRouteCellGetLoadCellLabelFails() {
+        this.routeCellFails(
                 HttpMethod.GET,
                 "/cell/Label123",
-                HttpStatusCode.NOT_IMPLEMENTED,
-                "Not implemented"
+                UnsupportedOperationException.class
         );
     }
 
@@ -277,20 +279,22 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteCellPostSaveCell() {
-        this.routeCellAndCheck(
+        this.routeCellFails(
                 HttpMethod.POST,
                 "/cell/A1",
-                HttpStatusCode.BAD_REQUEST,
+                "",
+                IllegalArgumentException.class,
                 "Required resource missing"
         );
     }
 
     @Test
     public void testRouteCellPostSaveCellLabel() {
-        this.routeCellAndCheck(
+        this.routeCellFails(
                 HttpMethod.POST,
                 "/cell/Label123",
-                HttpStatusCode.BAD_REQUEST,
+                "",
+                IllegalArgumentException.class,
                 "Required resource missing"
         );
     }
@@ -343,17 +347,18 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testRouteCellGetLoadCellSpreadsheetEngineEvaluation() {
         for (final SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
-            this.routeCellAndCheck(
+            this.routeCellFails(
                     HttpMethod.GET,
                     "/cell/A1/" + evaluation.toLinkRelation().toString(),
-                    HttpStatusCode.NOT_IMPLEMENTED
+                    UnsupportedOperationException.class
             );
         }
     }
 
     @Test
     public void testRouteFillCellsPost() {
-        this.routeCellAndCheck(HttpMethod.POST,
+        this.routeCellFails(
+                HttpMethod.POST,
                 "/cell/A1:B2/fill",
                 JsonNodeMarshallContexts.basic().marshall(
                         SpreadsheetDelta.EMPTY
@@ -363,7 +368,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                         )
                                 )
                 ).toString(),
-                HttpStatusCode.NOT_IMPLEMENTED);
+                UnsupportedOperationException.class
+        );
     }
 
     private void routeCellAndCheck(final HttpMethod method,
@@ -416,6 +422,63 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 statusCode,
                 message
         );
+    }
+
+    private HttpResponse routeCell(final HttpMethod method,
+                                   final String url,
+                                   final String body) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+        return this.route(
+                SpreadsheetEngineHateosResourceMappings.cell(
+                        SpreadsheetEngineHttps.fillCells(engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
+                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
+                        SpreadsheetEngineHttps.saveCell(engine, context),
+                        SpreadsheetEngineHttps.deleteCell(engine, context),
+                        context.storeRepository().labels()::cellReference
+                ),
+                method,
+                url,
+                body
+        );
+    }
+
+    private void routeCellFails(final HttpMethod method,
+                                final String url,
+                                final Class<? extends Throwable> thrown) {
+        this.routeCellFails(
+                method,
+                url,
+                "",
+                thrown
+        );
+    }
+
+    private Throwable routeCellFails(final HttpMethod method,
+                                     final String url,
+                                     final String body,
+                                     final Class<? extends Throwable> thrown) {
+        return assertThrows(
+                thrown,
+                () -> this.routeCell(method, url, body)
+        );
+    }
+
+    private void routeCellFails(final HttpMethod method,
+                                final String url,
+                                final String body,
+                                final Class<? extends Throwable> thrown,
+                                final String message) {
+        final Throwable throwable = this.routeCellFails(
+                method,
+                url,
+                body,
+                thrown
+        );
+        assertEquals(message, throwable.getMessage(), "message");
     }
 
     private SpreadsheetEngine engine() {
@@ -514,47 +577,47 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteColumnsPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnsInsertAfterPostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after", HttpStatusCode.BAD_REQUEST);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertAfterPostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after", HttpStatusCode.BAD_REQUEST);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after", IllegalArgumentException.class);
     }
     
     @Test
     public void testRouteColumnsInsertAfterPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertAfterPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnsInsertBeforePostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before", HttpStatusCode.BAD_REQUEST);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertBeforePostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before", HttpStatusCode.BAD_REQUEST);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before", IllegalArgumentException.class);
     }
     
     @Test
     public void testRouteColumnsInsertBeforePost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertBeforePost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before?count=1", UnsupportedOperationException.class);
     }
     
     @Test
@@ -564,7 +627,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteColumnsDelete() {
-        this.routeColumnAndCheck(HttpMethod.DELETE, "/column/A", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeColumnAndCheck(HttpMethod.DELETE, "/column/A", UnsupportedOperationException.class);
     }
 
     private void routeColumnAndCheck(final HttpMethod method,
@@ -583,6 +646,28 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 url,
                 "",
                 statusCode
+        );
+    }
+
+    private void routeColumnAndCheck(final HttpMethod method,
+                                     final String url,
+                                     final Class<? extends Throwable> thcolumnn) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+
+        assertThrows(
+                thcolumnn,
+                () -> this.route(
+                        SpreadsheetEngineHateosResourceMappings.column(
+                                SpreadsheetEngineHttps.deleteColumns(engine, context),
+                                SpreadsheetEngineHttps.insertColumns(engine, context),
+                                SpreadsheetEngineHttps.insertAfterColumns(engine, context),
+                                SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
+                        ),
+                        method,
+                        url,
+                        ""
+                )
         );
     }
 
@@ -632,49 +717,49 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteRowsPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowsAfterPostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after", HttpStatusCode.BAD_REQUEST);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowRangeAfterPostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after", HttpStatusCode.BAD_REQUEST);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowsAfterPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowRangeAfterPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowsBeforePostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before", HttpStatusCode.BAD_REQUEST);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowRangeBeforePostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before", HttpStatusCode.BAD_REQUEST);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before", IllegalArgumentException.class);
     }
     
     @Test
     public void testRouteRowsBeforePost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowRangeBeforePost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before?count=1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before?count=1", UnsupportedOperationException.class);
     }
-    
+
     @Test
     public void testRouteRowsPutFails() {
         this.routeRowAndCheck(HttpMethod.PUT, "/row/1", HttpStatusCode.METHOD_NOT_ALLOWED);
@@ -682,7 +767,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     @Test
     public void testRouteRowsDelete() {
-        this.routeRowAndCheck(HttpMethod.DELETE, "/row/1", HttpStatusCode.NOT_IMPLEMENTED);
+        this.routeRowAndCheck(HttpMethod.DELETE, "/row/1", UnsupportedOperationException.class);
     }
 
     private void routeRowAndCheck(final HttpMethod method,
@@ -701,6 +786,28 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 url,
                 "",
                 statusCode
+        );
+    }
+
+    private void routeRowAndCheck(final HttpMethod method,
+                                  final String url,
+                                  final Class<? extends Throwable> thrown) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+
+        assertThrows(
+                thrown,
+                () -> this.route(
+                        SpreadsheetEngineHateosResourceMappings.row(
+                                SpreadsheetEngineHttps.deleteRows(engine, context),
+                                SpreadsheetEngineHttps.insertRows(engine, context),
+                                SpreadsheetEngineHttps.insertAfterRows(engine, context),
+                                SpreadsheetEngineHttps.insertBeforeRows(engine, context)
+                        ),
+                        method,
+                        url,
+                        ""
+                )
         );
     }
 
@@ -795,6 +902,24 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         () -> "status message: " + request + " " + response + "\n" + possible);
             }
         }
+    }
+
+    private HttpResponse route(final HateosResourceMapping<?, ?, ?, ?> mapping,
+                               final HttpMethod method,
+                               final String url,
+                               final String requestBody) {
+        final HttpRequest request = this.request(method, URL + url, requestBody);
+        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(URL,
+                        contentType(),
+                        Sets.of(mapping))
+                .route(request.routerParameters());
+        assertNotEquals(Optional.empty(),
+                possible,
+                () -> method + " " + URL + url);
+        final HttpResponse response = HttpResponses.recording();
+        possible.get()
+                .accept(request, response);
+        return response;
     }
 
     private HttpRequest request(final HttpMethod method,
