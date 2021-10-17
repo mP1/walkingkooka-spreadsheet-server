@@ -134,7 +134,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                         HttpRequestHttpResponseBiConsumers.headerCopy(
                                 Sets.of(TRANSACTION_ID),
                                 this::handler
-                        )
+                        ),
+                        HttpRequestHttpResponseBiConsumers.throwableTranslator()
                 )
         );
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
