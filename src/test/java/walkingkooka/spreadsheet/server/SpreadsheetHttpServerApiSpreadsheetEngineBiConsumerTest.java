@@ -80,6 +80,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
 
@@ -170,7 +171,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testRouteCellPostSaveCell() {
-        this.routeAndCheck(HttpMethod.POST, "/api/1/cell/A1", HttpStatusCode.BAD_REQUEST);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.route(HttpMethod.POST, "/api/1/cell/A1", "")
+        );
     }
 
     @Test
@@ -214,7 +218,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testRouteCellReferenceGetInvalidFails() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/cell-reference/!invalid", HttpStatusCode.BAD_REQUEST);
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.route(HttpMethod.GET, "/api/1/cell-reference/!invalid", "")
+        );
     }
 
     @Test
@@ -360,6 +367,22 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                                final String url,
                                final String bodyText,
                                final HttpStatusCode statusCode) {
+        final HttpResponse response = this.route(
+                method,
+                url,
+                bodyText
+        );
+
+        assertEquals(
+                statusCode,
+                response.status().map(HttpStatus::value).orElse(null),
+                () -> "status\n" + response
+        );
+    }
+
+    private HttpResponse route(final HttpMethod method,
+                               final String url,
+                               final String bodyText) {
         final HttpRequest request = this.request(
                 method,
                 url,
@@ -369,11 +392,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         this.handleRequest(request, response);
 
-        assertEquals(
-                statusCode,
-                response.status().map(HttpStatus::value).orElse(null),
-                () -> "status\n" + response
-        );
+        return response;
     }
 
     // helpers..........................................................................................................

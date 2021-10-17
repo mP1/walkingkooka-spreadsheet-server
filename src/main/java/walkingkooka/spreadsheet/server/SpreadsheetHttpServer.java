@@ -162,8 +162,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * given request/response.
      */
     private void handler(final HttpRequest request, final HttpResponse response) {
-        this.router.route(request.routerParameters())
-                .orElse(SpreadsheetHttpServer::notFound)
+        this.router.route(
+                        request.routerParameters()
+                ).orElse(SpreadsheetHttpServer::notFound)
                 .accept(request, response);
     }
 
