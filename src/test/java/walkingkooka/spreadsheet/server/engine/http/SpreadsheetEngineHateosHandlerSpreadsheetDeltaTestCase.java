@@ -57,8 +57,11 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     }
 
     final SpreadsheetCell cell(final String cellReference, final String formula) {
-        return SpreadsheetCell.with(SpreadsheetSelection.parseCell(cellReference),
-                SpreadsheetFormula.with(formula));
+        return SpreadsheetCell.with(
+                SpreadsheetSelection.parseCell(cellReference),
+                SpreadsheetFormula.EMPTY
+                        .setText(formula)
+        );
     }
 
     final Set<SpreadsheetCell> cells() {

@@ -45,7 +45,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
 
         final SpreadsheetCell cell = SpreadsheetCell.with(
                 SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.with("=99")
+                SpreadsheetFormula.EMPTY
+                        .setText("=99")
         );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
                 .setCells(
@@ -103,7 +104,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
 
         final SpreadsheetCell cell = SpreadsheetCell.with(
                 SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.with("=99")
+                SpreadsheetFormula.EMPTY
+                        .setText("=99")
         );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
                 .setCells(

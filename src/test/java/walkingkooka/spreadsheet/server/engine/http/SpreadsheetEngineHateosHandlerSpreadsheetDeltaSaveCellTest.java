@@ -109,7 +109,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Test
     public void testHandleSaveMultipleCellsFails() {
         final SpreadsheetCell cell = this.cell();
-        final SpreadsheetCell z99 = SpreadsheetCell.with(SpreadsheetSelection.parseCell("Z99"), SpreadsheetFormula.with("99"));
+        final SpreadsheetCell z99 = SpreadsheetCell.with(
+                SpreadsheetSelection.parseCell("Z99"),
+                SpreadsheetFormula.EMPTY
+                        .setText("99")
+        );
 
         this.handleOneFails(this.id(),
                 Optional.of(
@@ -385,7 +389,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     }
 
     private SpreadsheetCell savedCell() {
-        return this.cell().setFormula(SpreadsheetFormula.with("1+2").setError(Optional.of(SpreadsheetError.with("Error something"))));
+        return this.cell()
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                                .setText("1+2")
+                                .setError(
+                                        Optional.of(
+                                                SpreadsheetError.with("Error something")
+                                        )
+                                )
+                );
     }
 
     @Override

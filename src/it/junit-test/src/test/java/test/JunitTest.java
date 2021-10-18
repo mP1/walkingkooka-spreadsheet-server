@@ -94,9 +94,23 @@ public class JunitTest {
         final SpreadsheetEngine engine = engine();
         final SpreadsheetEngineContext engineContext = engineContext(engine);
 
-        engine.saveCell(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("12+B2")), engineContext);
+        engine.saveCell(
+                SpreadsheetCell.with(
+                        SpreadsheetSelection.parseCell("A1"),
+                        SpreadsheetFormula.EMPTY
+                                .setText("12+B2")
+                ),
+                engineContext
+        );
 
-        final SpreadsheetDelta delta = engine.saveCell(SpreadsheetCell.with(SpreadsheetSelection.parseCell("B2"), SpreadsheetFormula.with("34")), engineContext);
+        final SpreadsheetDelta delta = engine.saveCell(
+                SpreadsheetCell.with(
+                        SpreadsheetSelection.parseCell("B2"),
+                        SpreadsheetFormula.EMPTY
+                                .setText("34")
+                ),
+                engineContext
+        );
 
         final Set<String> saved = delta.cells()
                 .stream()

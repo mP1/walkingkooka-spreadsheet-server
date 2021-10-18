@@ -859,7 +859,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(
                                         SpreadsheetCell.with(
                                                 SpreadsheetSelection.parseCell("A1"),
-                                                SpreadsheetFormula.with(formula)
+                                                formula(formula)
                                         )
                                 )
                         )
@@ -902,7 +902,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(
                                         SpreadsheetCell.with(
                                                 SpreadsheetSelection.parseCell("A1"),
-                                                SpreadsheetFormula.with("=1+2")
+                                                formula("=1+2")
                                         )
                                 )
                         )
@@ -1003,7 +1003,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("B2"),
-                                                        SpreadsheetFormula.with("=4+A1")
+                                                        formula("=4+A1")
                                                 )
                                         )
                                 )
@@ -1133,7 +1133,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("=1+2")
+                                                        formula("=1+2")
                                                 )
                                         )
                                 )
@@ -1247,7 +1247,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("=3+4")
+                                                        formula("=3+4")
                                                 )
                                         )
                                 )
@@ -1349,7 +1349,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("B2"),
-                                                        SpreadsheetFormula.with("=4+A1")
+                                                        formula("=4+A1")
                                                 )
                                         )
                                 )
@@ -1480,7 +1480,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("=1+2")
+                                                        formula("=1+2")
                                                 )
                                         )
                                 )
@@ -1661,7 +1661,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("=1+2")
+                                                        formula("=1+2")
                                                 )
                                         )
                                 )
@@ -1764,7 +1764,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("B2"),
-                                                        SpreadsheetFormula.with("=4+A1")
+                                                        formula("=4+A1")
                                                 )
                                         )
                                 )
@@ -2075,7 +2075,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("1.25")
+                                                        formula("1.25")
                                                 )
                                         )
                                 )
@@ -2354,7 +2354,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("1.25"))
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), formula("1.25"))
                                         )
                                 )
                 ),
@@ -2505,7 +2505,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), SpreadsheetFormula.with("=123"))
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("C3"), formula("=123"))
                                         )
                                 )
                 ),
@@ -2575,7 +2575,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), SpreadsheetFormula.with("=456"))
+                                                SpreadsheetCell.with(SpreadsheetSelection.parseCell("D4"), formula("=456"))
                                         )
                                 )
                 ),
@@ -2728,7 +2728,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("=123")
+                                                        formula("=123")
                                                 )
                                         )
                                 )
@@ -2802,7 +2802,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("D4"),
-                                                        SpreadsheetFormula.with("=456")
+                                                        formula("=456")
                                                 )
                                         )
                                 )
@@ -2999,7 +2999,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("1.25")
+                                                        formula("1.25")
                                                 )
                                         )
                                 )
@@ -3358,7 +3358,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("1.25")
+                                                        formula("1.25")
                                                 )
                                         )
                                 )
@@ -3512,7 +3512,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("=123")
+                                                        formula("=123")
                                                 )
                                         )
                                 )
@@ -3586,7 +3586,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("D4"),
-                                                        SpreadsheetFormula.with("=456")
+                                                        formula("=456")
                                                 )
                                         )
                                 )
@@ -3741,7 +3741,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("=123")
+                                                        formula("=123")
                                                 )
                                         )
                                 )
@@ -3814,7 +3814,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("D4"),
-                                                        SpreadsheetFormula.with("=456")
+                                                        formula("=456")
                                                 )
                                         )
                                 )
@@ -4011,7 +4011,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("C3"),
-                                                        SpreadsheetFormula.with("1.25")
+                                                        formula("1.25")
                                                 )
                                         )
                                 )
@@ -4163,7 +4163,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(
                                         SpreadsheetCell.with(
                                                 SpreadsheetSelection.parseCell("B2"),
-                                                SpreadsheetFormula.with("'Hello")
+                                                formula("'Hello")
                                         )
                                 )
                         )
@@ -4226,7 +4226,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(
                                         SpreadsheetCell.with(
                                                 SpreadsheetSelection.parseCell("A1"),
-                                                SpreadsheetFormula.with("=1")
+                                                formula("=1")
                                         )
                                 )
                         )
@@ -4318,7 +4318,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("A1"),
-                                                        SpreadsheetFormula.with("=1")
+                                                        formula("=1")
                                                 )
                                         )
                                 )
@@ -4536,7 +4536,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 Sets.of(
                                         SpreadsheetCell.with(
                                                 SpreadsheetSelection.parseCell("B2"),
-                                                SpreadsheetFormula.with("'Hello")
+                                                formula("'Hello")
                                         )
                                 )
                         )
@@ -4786,6 +4786,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     }
                 }) :
                 Either.right(FILE_NOT_FOUND);
+    }
+
+    private static SpreadsheetFormula formula(final String text) {
+        return SpreadsheetFormula.EMPTY
+                .setText(text);
     }
 
     /**

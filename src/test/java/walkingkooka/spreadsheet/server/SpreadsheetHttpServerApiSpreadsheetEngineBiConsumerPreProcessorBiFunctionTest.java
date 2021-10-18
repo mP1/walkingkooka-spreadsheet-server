@@ -42,8 +42,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcess
 
     private final static SpreadsheetCellReference CELL1 = SpreadsheetExpressionReference.parseCell("B2");
     private final static SpreadsheetCellReference CELL2 = SpreadsheetExpressionReference.parseCell("C3");
-    private static final SpreadsheetFormula FORMULA1 = SpreadsheetFormula.with("=1+2+3");
-    private static final SpreadsheetFormula FORMULA2 = SpreadsheetFormula.with("=4+5");
+    private static final SpreadsheetFormula FORMULA1 = SpreadsheetFormula.EMPTY
+            .setText("=1+2+3");
+    private static final SpreadsheetFormula FORMULA2 = SpreadsheetFormula.EMPTY
+            .setText("=4+5");
 
     @Test
     public void testEmpty() {
@@ -115,7 +117,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcess
                 SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(CELL1, SpreadsheetFormula.with("=1+" + LABEL1))
+                                        SpreadsheetCell.with(
+                                                CELL1,
+                                                SpreadsheetFormula.EMPTY
+                                                        .setText("=1+" + LABEL1)
+                                        )
                                 )
                         )
         );
