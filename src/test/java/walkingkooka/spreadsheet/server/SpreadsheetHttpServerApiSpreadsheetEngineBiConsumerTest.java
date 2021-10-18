@@ -290,7 +290,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                                 SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
-                                                        SpreadsheetCell.with(SpreadsheetSelection.parseCell("A2"), SpreadsheetFormula.with("1"))
+                                                        SpreadsheetCell.with(
+                                                                SpreadsheetSelection.parseCell("A2"),
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("1")
+                                                        )
                                                 )
                                         )
                         ).toString(),

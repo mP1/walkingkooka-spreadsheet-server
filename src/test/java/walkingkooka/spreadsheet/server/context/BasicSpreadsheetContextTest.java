@@ -579,7 +579,11 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
-        final SpreadsheetCell cell = SpreadsheetCell.with(cellReference, SpreadsheetFormula.with("=1+2"));
+        final SpreadsheetCell cell = SpreadsheetCell.with(
+                cellReference,
+                SpreadsheetFormula.EMPTY
+                        .setText("=1+2")
+        );
 
         // save a cell
         {
@@ -752,7 +756,14 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.countAndCheck(repository.rangeToConditionalFormattingRules(), 0);
         this.countAndCheck(repository.users(), 0);
 
-        repository.cells().save(SpreadsheetCell.with(SpreadsheetSelection.parseCell("A1"), SpreadsheetFormula.with("1+2")));
+        repository.cells()
+                .save(
+                        SpreadsheetCell.with(
+                                SpreadsheetSelection.parseCell("A1"),
+                                SpreadsheetFormula.EMPTY
+                                        .setText("1+2")
+                        )
+                );
         this.countAndCheck(repository.cells(), 1);
     }
 

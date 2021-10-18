@@ -90,7 +90,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                         Sets.of(
                                                 SpreadsheetCell.with(
                                                         SpreadsheetSelection.parseCell("Z9"),
-                                                        SpreadsheetFormula.with("=1+2")
+                                                        SpreadsheetFormula.EMPTY
+                                                                .setText("=1+2")
                                                 )
                                         )
                                 )

@@ -68,7 +68,12 @@ final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperat
 
         // if cell is new, create with empty formula.
         final SpreadsheetCell cell = delta.cell(reference)
-                .orElseGet(() -> SpreadsheetCell.with(reference, SpreadsheetFormula.with("")));
+                .orElseGet(() -> SpreadsheetCell.with(
+                                reference,
+                                SpreadsheetFormula.EMPTY
+                                        .setText("")
+                        )
+                );
         final SpreadsheetMetadata metadata = context.metadata();
 
         final SpreadsheetCell patched = cell.patch(

@@ -100,7 +100,8 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     public void testApply() {
         final SpreadsheetCell cell = SpreadsheetCell.with(
                 REFERENCE,
-                SpreadsheetFormula.with("=2")
+                SpreadsheetFormula.EMPTY
+                        .setText("=2")
         );
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setCells(
@@ -124,7 +125,8 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                                                 Sets.of(
                                                         SpreadsheetCell.with(
                                                                 REFERENCE,
-                                                                SpreadsheetFormula.with("=1")
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("=1")
                                                         )
                                                 )
                                         );
