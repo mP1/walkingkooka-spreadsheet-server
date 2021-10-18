@@ -4796,7 +4796,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     /**
      * Initializes the test {@link HttpServer}.
      */
-    final HttpServer server(final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private HttpServer server(final BiConsumer<HttpRequest, HttpResponse> handler) {
         assertNotEquals(null, handler, "handler");
         this.httpServer.setHandler(handler);
         return this.httpServer;
@@ -4804,7 +4804,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final TestHttpServer httpServer = new TestHttpServer();
 
-    final SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
+    private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
         return metadata.set(
                 SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
                 MODIFIED_DATE_TIME
@@ -5036,14 +5036,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public String typeNamePrefix() {
         return "Spreadsheet";
     }
 
