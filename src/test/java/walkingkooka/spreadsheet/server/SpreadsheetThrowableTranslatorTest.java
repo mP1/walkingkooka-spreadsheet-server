@@ -38,6 +38,16 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         );
     }
 
+    @Test
+    public void testLoadStoreExceptionFileNotFoundMultiline() {
+        final String message = "Load failed 12345";
+
+        this.applyAndCheck(
+                new LoadStoreException(message + "\n678"),
+                HttpStatusCode.NOT_FOUND.setMessage(message)
+        );
+    }
+
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
