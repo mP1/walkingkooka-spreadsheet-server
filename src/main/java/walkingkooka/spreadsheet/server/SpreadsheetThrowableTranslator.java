@@ -46,7 +46,9 @@ final class SpreadsheetThrowableTranslator implements Function<Throwable, HttpSt
 
         do {
             if (throwable instanceof LoadStoreException) {
-                status = HttpStatusCode.NOT_FOUND.setMessage(throwable.getMessage());
+                status = HttpStatusCode.NOT_FOUND.setMessage(
+                        HttpStatus.firstLineOfText(throwable.getMessage())
+                );
                 break;
             }
             status = HttpRequestHttpResponseBiConsumers.throwableTranslator()
