@@ -1473,6 +1473,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testPatchCellInvalidCellFails() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/cell/!",
+                NO_HEADERS_TRANSACTION_ID,
+                "{\n" +
+                        "  \"formula\": {\n" +
+                        "    \"text\": \"=2\"\n" +
+                        "  }\n" +
+                        "}",
+                HttpStatusCode.BAD_REQUEST
+                        .setMessage("Unrecognized character '!' at (1,1) \"!\" expected (SpreadsheetColumnReference, SpreadsheetRowReference)"),
+                ""
+        );
+    }
+
+    @Test
     public void testSaveCellPatchCell() {
         final TestHttpServer server = this.startServer();
 
