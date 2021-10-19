@@ -136,7 +136,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/XYZ",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\""))
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\""),
+                ""
         );
     }
 
@@ -226,50 +227,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
-    }
-
-    @Test
-    public void testCreateAndPatch() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
-
-        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
-        assertNotEquals(
-                null,
-                loaded,
-                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
-        );
-
-        // patch metadata
-        final String currency = "NSWD";
-
-        server.handleAndCheck(
-                HttpMethod.PATCH,
-                "/api/spreadsheet/1",
-                NO_HEADERS_TRANSACTION_ID,
-                JsonNode.object()
-                        .set(
-                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                                JsonNode.string(currency)
-                        )
-                        .toString(),
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        loaded.set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, currency)
                 )
         );
     }
@@ -828,6 +785,70 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         this.toJson(stamped),
                         SpreadsheetMetadata.class.getSimpleName()
                 )
+        );
+    }
+
+    @Test
+    public void testCreateAndPatch() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
+        assertNotEquals(
+                null,
+                loaded,
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
+
+        // patch metadata
+        final String currency = "NSWD";
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1",
+                NO_HEADERS_TRANSACTION_ID,
+                JsonNode.object()
+                        .set(
+                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                                JsonNode.string(currency)
+                        )
+                        .toString(),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        loaded.set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, currency)
+                )
+        );
+    }
+
+    @Test
+    public void testPatchFails() {
+        final TestHttpServer server = this.startServer();
+
+        // patch metadata will fail with 404
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1",
+                NO_HEADERS_TRANSACTION_ID,
+                JsonNode.object()
+                        .set(
+                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                                JsonNode.string("NSWD")
+                        )
+                        .toString(),
+                HttpStatusCode.NOT_FOUND.setMessage("Unable to load spreadsheet with id=1"),
+                ""
         );
     }
 
@@ -4630,11 +4651,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFileNotFound() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 "/file/not/found.txt",
                 HttpRequest.NO_HEADERS,
                 "",
-                this.response(FILE_NOT_FOUND, HttpEntity.EMPTY));
+                FILE_NOT_FOUND,
+                ""
+        );
     }
 
     // helpers..........................................................................................................
@@ -4838,6 +4862,34 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             final String url,
                             final Map<HttpHeaderName<?>, List<?>> headers,
                             final String body,
+                            final HttpStatus status,
+                            final String bodyTextContains) {
+            this.handleAndCheck(
+                    request(method, url, headers, body),
+                    status,
+                    bodyTextContains
+            );
+        }
+
+        void handleAndCheck(final HttpRequest request,
+                            final HttpStatus status,
+                            final String bodyTextContains) {
+            final HttpResponse response = this.handle(request);
+            assertEquals(status, response.status().orElse(null), "status");
+
+            final List<HttpEntity> entities = response.entities();
+            assertEquals(1, entities.size(), () -> "" + request + "\n" + response);
+
+            final HttpEntity first = entities.get(0);
+            final String body = first.bodyText();
+
+            assertTrue(body.contains(bodyTextContains), () -> "" + request + "\n" + response);
+        }
+
+        void handleAndCheck(final HttpMethod method,
+                            final String url,
+                            final Map<HttpHeaderName<?>, List<?>> headers,
+                            final String body,
                             final HttpResponse expected) {
             this.handleAndCheck(request(method, url, headers, body), expected);
         }
@@ -4846,19 +4898,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             final HttpResponse expected) {
             final HttpResponse response = this.handle(request);
 
-            // ignore response body (which will have a stack trace) if bad request
-            if (HttpStatusCode.BAD_REQUEST.equals(expected.status().map(s -> s.value()).orElse(null))) {
-                assertEquals(expected.status(), response.status(), () -> "" + request + "\n" + response);
-
-                final List<HttpEntity> entities = response.entities();
-                assertEquals(1, entities.size(), () -> "" + request + "\n" + response);
-
-                final HttpEntity only = entities.get(0);
-                final String body = only.bodyText();
-                assertTrue(body.contains("Exception"), () -> "" + request + "\n" + response);
-            } else {
-                assertEquals(expected, response, () -> "" + request);
-            }
+//            // ignore response body (which will have a stack trace) if bad request
+//            final HttpStatus responseStatus = expected.status().orElse(null);
+            assertEquals(expected, response, () -> "" + request);
+            //}
         }
 
         HttpResponse handle(final HttpRequest request) {
