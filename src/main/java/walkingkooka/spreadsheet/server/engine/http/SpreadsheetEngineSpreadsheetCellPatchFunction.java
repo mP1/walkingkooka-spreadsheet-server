@@ -17,8 +17,6 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
-import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -66,22 +64,19 @@ final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperat
                 context
         );
 
-        // if cell is new, create with empty formula.
-        final SpreadsheetCell cell = delta.cell(reference)
-                .orElseGet(() -> SpreadsheetCell.with(
-                                reference,
-                                SpreadsheetFormula.EMPTY
-                                        .setText("")
-                        )
-                );
         final SpreadsheetMetadata metadata = context.metadata();
 
-        final SpreadsheetCell patched = cell.patch(
+        final SpreadsheetDelta patched = delta.patch(
                 json,
                 metadata.jsonNodeUnmarshallContext()
         );
 
-        final SpreadsheetDelta saved = engine.saveCell(patched, context);
+        final SpreadsheetDelta saved = engine.saveCell(
+                        patched.cell(reference)
+                                .orElseThrow(() -> new IllegalStateException("Missing cell " + reference)),
+                        context
+                ).setWindow(patched.window())
+                .setSelection(patched.selection());
 
         return metadata.jsonNodeMarshallContext()
                 .marshall(saved);

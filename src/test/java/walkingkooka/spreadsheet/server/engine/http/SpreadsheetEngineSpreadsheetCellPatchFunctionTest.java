@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.engine.http;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.color.Color;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -37,6 +38,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.text.TextStyle;
+import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.util.FunctionTesting;
 
 import java.util.Locale;
@@ -103,10 +106,18 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                 SpreadsheetFormula.EMPTY
                         .setText("=2")
         );
+
+        final TextStyle style = TextStyle.EMPTY
+                .set(TextStylePropertyName.BACKGROUND_COLOR, Color.BLACK);
+
+        final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
+                .setCells(
+                        Sets.of(cell)
+                );
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(
-                                cell
+                                cell.setStyle(style)
                         )
                 );
         this.applyAndCheck(
@@ -114,20 +125,19 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                         REFERENCE,
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
+                            public SpreadsheetDelta loadCell(final SpreadsheetCellReference cellReference,
                                                              final SpreadsheetEngineEvaluation evaluation,
                                                              final SpreadsheetEngineContext context) {
-                                assertSame(cell, REFERENCE, "reference");
+                                assertSame(REFERENCE, cellReference, "reference");
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
-                                                        SpreadsheetCell.with(
-                                                                REFERENCE,
+                                                        cell.setFormula(
                                                                 SpreadsheetFormula.EMPTY
-                                                                        .setText("=1")
-                                                        )
+                                                                        .setText("=-1")
+                                                        ).setStyle(style)
                                                 )
                                         );
                             }
@@ -135,24 +145,21 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                             @Override
                             public SpreadsheetDelta saveCell(final SpreadsheetCell c,
                                                              final SpreadsheetEngineContext context) {
-                                assertEquals(cell, c, "cell");
+                                assertEquals(cell.setStyle(style), c, "cell");
                                 assertSame(CONTEXT, context, "context");
                                 return response;
                             }
                         },
                         CONTEXT
                 ),
-                JsonNode.parse(
-                        "{\n" +
-                                "  \"formula\": {\n" +
-                                "    \"text\": \"=2\"\n" +
-                                "  }\n" +
-                                "}"
-                ),
-                JsonNodeMarshallContexts.basic().marshall(
-                        response
-                )
+                marshall(request),
+                marshall(response)
         );
+    }
+
+    private JsonNode marshall(final Object object) {
+        return JsonNodeMarshallContexts.basic()
+                .marshall(object);
     }
 
     @Test
