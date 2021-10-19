@@ -1633,8 +1633,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/1/cell/A1",
                 NO_HEADERS_TRANSACTION_ID,
                 "{\n" +
-                        "  \"formula\": {\n" +
-                        "    \"text\": \"=2\"\n" +
+                        "  \"cells\": {\n" +
+                        "     \"a1\": {\n" +
+                        "        \"formula\": {\n" +
+                        "           \"text\": \"=2\"\n" +
+                        "        }\n" +
+                        "     }\n" +
                         "  }\n" +
                         "}",
                 this.response(
