@@ -4898,10 +4898,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             final HttpResponse expected) {
             final HttpResponse response = this.handle(request);
 
-//            // ignore response body (which will have a stack trace) if bad request
-//            final HttpStatus responseStatus = expected.status().orElse(null);
             assertEquals(expected, response, () -> "" + request);
-            //}
         }
 
         HttpResponse handle(final HttpRequest request) {
