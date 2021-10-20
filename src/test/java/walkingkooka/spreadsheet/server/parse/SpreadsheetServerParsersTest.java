@@ -22,11 +22,11 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class ParsersTest implements PublicStaticHelperTesting<Parsers> {
+public final class SpreadsheetServerParsersTest implements PublicStaticHelperTesting<SpreadsheetServerParsers> {
 
     @Override
-    public Class<Parsers> type() {
-        return Parsers.class;
+    public Class<SpreadsheetServerParsers> type() {
+        return SpreadsheetServerParsers.class;
     }
 
     @Override

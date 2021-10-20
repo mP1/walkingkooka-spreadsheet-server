@@ -22,7 +22,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.function.Function;
 
-public final class Parsers implements PublicStaticHelper {
+public final class SpreadsheetServerParsers implements PublicStaticHelper {
 
     /**
      * {@see MultiParseter}
@@ -31,7 +31,7 @@ public final class Parsers implements PublicStaticHelper {
         return SpreadsheetMultiParser.with(engineContext);
     }
 
-    private Parsers() {
+    private SpreadsheetServerParsers() {
         throw new UnsupportedOperationException();
     }
 }
