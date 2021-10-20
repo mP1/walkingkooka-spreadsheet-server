@@ -92,7 +92,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetContextTest implements SpreadsheetContextTesting<MemorySpreadsheetContext> {
+public final class BasicSpreadsheetContextTest implements SpreadsheetContextTesting<BasicSpreadsheetContext> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
@@ -195,7 +195,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         assertThrows(
                 NullPointerException.class,
-                () -> MemorySpreadsheetContext.with(
+                () -> BasicSpreadsheetContext.with(
                         base,
                         contentType,
                         fractioner,
@@ -574,7 +574,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     private void hateosRouterThenSaveThenLoadAndCheck(final SpreadsheetEngineEvaluation evaluation,
                                                       final String expectedBody) {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
@@ -691,7 +691,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testHateosRouterAndRouteInvalidRequest() {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
@@ -741,7 +741,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testStoreRepositoryUnknownSpreadsheetId() {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
         final SpreadsheetId id = SpreadsheetId.with(123);
 
         final SpreadsheetStoreRepository repository = context.storeRepository(id);
@@ -769,7 +769,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testStoreRepositoryDifferentSpreadsheetId() {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
 
         final SpreadsheetId id1 = SpreadsheetId.with(111);
         final SpreadsheetStoreRepository repository1 = context.storeRepository(id1);
@@ -782,7 +782,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testStoreRepositorySameSpreadsheetId() {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
 
         final SpreadsheetId id1 = SpreadsheetId.with(111);
         final SpreadsheetStoreRepository repository1 = context.storeRepository(id1);
@@ -795,7 +795,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testToString() {
-        final MemorySpreadsheetContext context = this.createContext();
+        final BasicSpreadsheetContext context = this.createContext();
         context.storeRepository(SpreadsheetId.with(111));
 
         this.toStringAndCheck(context, "base=http://example.com/api987 contentType=JSON");
@@ -804,8 +804,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     // SpreadsheetContext...............................................................................................
 
     @Override
-    public MemorySpreadsheetContext createContext() {
-        return MemorySpreadsheetContext.with(
+    public BasicSpreadsheetContext createContext() {
+        return BasicSpreadsheetContext.with(
                 this.base(),
                 this.contentType(),
                 this::fractioner,
@@ -964,7 +964,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     @Override
-    public Class<MemorySpreadsheetContext> type() {
-        return MemorySpreadsheetContext.class;
+    public Class<BasicSpreadsheetContext> type() {
+        return BasicSpreadsheetContext.class;
     }
 }

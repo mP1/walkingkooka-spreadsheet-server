@@ -45,7 +45,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
-        return MemorySpreadsheetContext.with(
+        return BasicSpreadsheetContext.with(
                 base,
                 contentType,
                 fractioner,

@@ -86,18 +86,18 @@ import java.util.function.Function;
  * A {@link SpreadsheetContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
  * There is no way to delete existing spreadsheets.
  */
-final class MemorySpreadsheetContext implements SpreadsheetContext {
+final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     /**
-     * Creates a new empty {@link MemorySpreadsheetContext}
+     * Creates a new empty {@link BasicSpreadsheetContext}
      */
-    static MemorySpreadsheetContext with(final AbsoluteUrl base,
-                                         final HateosContentType contentType,
-                                         final Function<BigDecimal, Fraction> fractioner,
-                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+    static BasicSpreadsheetContext with(final AbsoluteUrl base,
+                                        final HateosContentType contentType,
+                                        final Function<BigDecimal, Fraction> fractioner,
+                                        final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                        final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                                        final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                        final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(fractioner, "fractioner");
@@ -106,7 +106,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
 
-        return new MemorySpreadsheetContext(
+        return new BasicSpreadsheetContext(
                 base,
                 contentType,
                 fractioner,
@@ -116,13 +116,13 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                 spreadsheetMetadataStamper);
     }
 
-    private MemorySpreadsheetContext(final AbsoluteUrl base,
-                                     final HateosContentType contentType,
-                                     final Function<BigDecimal, Fraction> fractioner,
-                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
-                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+    private BasicSpreadsheetContext(final AbsoluteUrl base,
+                                    final HateosContentType contentType,
+                                    final Function<BigDecimal, Fraction> fractioner,
+                                    final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
+                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         super();
 
         this.base = base;
@@ -243,7 +243,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                 metadata.jsonNodeMarshallContext(),
                                 Formatters.multiFormatters(context)
                         ),
-                        MemorySpreadsheetContext::formatHandlerPostHandler
+                        BasicSpreadsheetContext::formatHandlerPostHandler
                 )
         );
     }
@@ -280,7 +280,7 @@ final class MemorySpreadsheetContext implements SpreadsheetContext {
                                 metadata.jsonNodeMarshallContext(),
                                 Parsers.multiParsers(context)
                         ),
-                        MemorySpreadsheetContext::parseHandlerPostHandler
+                        BasicSpreadsheetContext::parseHandlerPostHandler
                 )
         );
     }
