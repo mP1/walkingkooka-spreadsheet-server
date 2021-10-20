@@ -22,7 +22,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.function.Function;
 
-public final class Formatters implements PublicStaticHelper {
+public final class SpreadsheetServerFormatters implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetMultiFormatter}
@@ -31,7 +31,7 @@ public final class Formatters implements PublicStaticHelper {
         return SpreadsheetMultiFormatter.with(engineContext);
     }
 
-    private Formatters() {
+    private SpreadsheetServerFormatters() {
         throw new UnsupportedOperationException();
     }
 }

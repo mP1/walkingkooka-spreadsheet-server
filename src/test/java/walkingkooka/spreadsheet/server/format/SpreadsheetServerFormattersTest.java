@@ -22,11 +22,11 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class FormattersTest implements PublicStaticHelperTesting<Formatters> {
+public final class SpreadsheetServerFormattersTest implements PublicStaticHelperTesting<SpreadsheetServerFormatters> {
 
     @Override
-    public Class<Formatters> type() {
-        return Formatters.class;
+    public Class<SpreadsheetServerFormatters> type() {
+        return SpreadsheetServerFormatters.class;
     }
 
     @Override
