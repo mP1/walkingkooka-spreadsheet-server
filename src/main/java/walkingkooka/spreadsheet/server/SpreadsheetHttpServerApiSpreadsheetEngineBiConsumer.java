@@ -378,7 +378,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 loadCellComputeIfNecessary,
                 saveCell,
                 deleteCell,
-                context.storeRepository().labels()::cellReference
+                context.storeRepository().labels()::cellReferenceOrFail
         );
     }
 

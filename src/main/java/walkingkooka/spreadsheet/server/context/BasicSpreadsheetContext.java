@@ -362,7 +362,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 loadCellComputeIfNecessary,
                 saveCell,
                 deleteCell,
-                context.storeRepository().labels()::cellReference
+                context.storeRepository().labels()::cellReferenceOrFail
         );
     }
 
