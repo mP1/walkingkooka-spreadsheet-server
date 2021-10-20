@@ -64,9 +64,9 @@ import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
 import walkingkooka.spreadsheet.server.format.SpreadsheetServerFormatters;
 import walkingkooka.spreadsheet.server.label.http.SpreadsheetLabelHateosHandlers;
 import walkingkooka.spreadsheet.server.label.http.SpreadsheetLabelHateosResourceMappings;
-import walkingkooka.spreadsheet.server.parse.Parsers;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -241,7 +241,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                 SpreadsheetMultiParseRequest.class,
                                 metadata.jsonNodeUnmarshallContext(),
                                 metadata.jsonNodeMarshallContext(),
-                                Parsers.multiParsers(context)
+                                SpreadsheetServerParsers.multiParsers(context)
                         ),
                         SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer::parseHandlerPostHandler
                 )
