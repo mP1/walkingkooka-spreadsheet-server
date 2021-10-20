@@ -50,11 +50,11 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHttps;
@@ -293,7 +293,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                         contentType.contentType(),
                         JsonHttpRequestHttpResponseBiConsumers.json(
                                 (json) -> SpreadsheetEngineHttps.patchCell(
-                                        SpreadsheetExpressionReference.parseCell(request.url().path().name().value()), // label ?
+                                        SpreadsheetSelection.parseCell(request.url().path().name().value()), // label ?
                                         engine,
                                         context
                                 ).apply(json),
