@@ -86,7 +86,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosHandlers.fake();
-    private final static Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> LABEL_TO_CELL_REFERENCE = (l) -> {
+    private final static Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL_REFERENCE = (l) -> {
         throw new UnsupportedOperationException();
     };
 
@@ -209,7 +209,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
-                           final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+                           final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         assertThrows(NullPointerException.class, () -> {
             SpreadsheetEngineHateosResourceMappings.cell(fillCells,
                     loadCellClearValueErrorSkipEvaluate,
@@ -418,7 +418,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
-                        context.storeRepository().labels()::cellReference
+                        context.storeRepository().labels()::cellReferenceOrFail
                 ),
                 method,
                 url,
@@ -442,7 +442,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
-                        context.storeRepository().labels()::cellReference
+                        context.storeRepository().labels()::cellReferenceOrFail
                 ),
                 method,
                 url,

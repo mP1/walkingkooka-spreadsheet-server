@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
@@ -51,13 +50,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFun
     private JsonObject handleSpreadsheetDelta(final JsonObject object) {
         return SpreadsheetDelta.resolveCellLabels(
                 object,
-                this::cellToLabels
+                this.store::cellReferenceOrFail
         );
-    }
-
-    private SpreadsheetCellReference cellToLabels(final SpreadsheetLabelName label) {
-        return this.store.cellReference(label)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown label: " + label));
     }
 
     private final SpreadsheetLabelStore store;

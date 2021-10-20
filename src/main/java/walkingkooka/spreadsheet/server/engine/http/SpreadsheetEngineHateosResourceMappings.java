@@ -42,10 +42,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -65,7 +63,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
-                                  final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+                                  final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(loadCellClearValueErrorSkipEvaluate, "loadCellClearValueErrorSkipEvaluate");
         Objects.requireNonNull(loadCellSkipEvaluate, "loadCellSkipEvaluate");
@@ -138,7 +136,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * {@link walkingkooka.collect.Range} will only have {@link SpreadsheetCellReference}.
      */
     private static HateosResourceSelection<SpreadsheetCellReference> parseCellOrLabel(final String selection,
-                                                                                      final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+                                                                                      final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         final HateosResourceSelection<SpreadsheetCellReference> result;
 
         if (selection.isEmpty()) {
@@ -174,14 +172,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * Parses the given text as either a cell reference or label name, if the later it is resolved to a {@link SpreadsheetCellReference}.
      */
     private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
-                                                              final Function<SpreadsheetLabelName, Optional<SpreadsheetCellReference>> labelToCellReference) {
+                                                              final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetSelection.parseCellOrLabelName(cellOrLabelText);
 
         return cellOrLabel.isLabelName() ?
-                labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel)
-                        .orElseThrow(
-                                () -> new IllegalArgumentException("Unknown label " + CharSequences.quote(cellOrLabelText))
-                        ) :
+                labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :
                 (SpreadsheetCellReference) cellOrLabel;
     }
 
