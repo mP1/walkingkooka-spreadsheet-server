@@ -19,16 +19,12 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
-import walkingkooka.tree.json.JsonPropertyName;
 
-import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 /**
  * Adds support resolving a cell with a label rather than {@link SpreadsheetCellReference reference}.
@@ -53,38 +49,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFun
     }
 
     private JsonObject handleSpreadsheetDelta(final JsonObject object) {
-        final Optional<JsonNode> cells =  object.get(CELLS);
-        return cells.isPresent() ?
-                object.set(CELLS, this.replaceAllLabelWithCellReference(cells.get().objectOrFail())) :
-                object;
-    }
-
-    private final static JsonPropertyName CELLS = JsonPropertyName.with("cells");
-
-    private JsonObject replaceAllLabelWithCellReference(final JsonObject object) {
-        return object.setChildren(
-                object.children()
-                        .stream()
-                        .map(this::replaceLabelWithCellReference)
-                        .collect(Collectors.toList())
+        return SpreadsheetDelta.resolveCellLabels(
+                object,
+                this::cellToLabels
         );
     }
 
-    private JsonNode replaceLabelWithCellReference(final JsonNode referenceOrLabelToCell) {
-        final JsonPropertyName referenceOrLabel = referenceOrLabelToCell.name();
-        final String referenceOrLabelString = referenceOrLabel.value();
-
-        return SpreadsheetExpressionReference.isCellReferenceText(referenceOrLabelString) ?
-                referenceOrLabelToCell :
-                referenceOrLabelToCell.setName(this.replaceLabelWithCellReference0(referenceOrLabelString));
-    }
-
-    private JsonPropertyName replaceLabelWithCellReference0(final String label) {
-        final Optional<SpreadsheetCellReference> reference = this.store.cellReference(SpreadsheetExpressionReference.labelName(label));
-        if (!reference.isPresent()) {
-            throw new IllegalArgumentException("Label " + CharSequences.quote(label) + "is not a cell");
-        }
-        return JsonPropertyName.with(reference.get().toString());
+    private SpreadsheetCellReference cellToLabels(final SpreadsheetLabelName label) {
+        return this.store.cellReference(label)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown label: " + label));
     }
 
     private final SpreadsheetLabelStore store;
