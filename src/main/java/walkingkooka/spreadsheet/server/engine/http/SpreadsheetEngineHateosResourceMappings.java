@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumn;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
@@ -42,6 +41,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -173,11 +173,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      */
     private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
                                                               final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
-        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetSelection.parseCellOrLabelName(cellOrLabelText);
-
-        return cellOrLabel.isLabelName() ?
-                labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :
-                (SpreadsheetCellReference) cellOrLabel;
+        return SpreadsheetServerParsers.parseCellOrLabelAndResolveLabels(labelToCellReference)
+                .apply(cellOrLabelText);
     }
 
     /**
