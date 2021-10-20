@@ -19,6 +19,8 @@ package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 
 import java.util.function.Function;
 
@@ -29,6 +31,13 @@ public final class SpreadsheetServerParsers implements PublicStaticHelper {
      */
     public static Function<SpreadsheetMultiParseRequest, SpreadsheetMultiParseResponse> multiParsers(final SpreadsheetEngineContext engineContext) {
         return SpreadsheetMultiParser.with(engineContext);
+    }
+
+    /**
+     * {@see ParseCellOrLabelAndResolveLabelsFunction}
+     */
+    public static Function<String, SpreadsheetCellReference> parseCellOrLabelAndResolveLabels(final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
+        return ParseCellOrLabelAndResolveLabelsFunction.with(labelToCellReference);
     }
 
     private SpreadsheetServerParsers() {
