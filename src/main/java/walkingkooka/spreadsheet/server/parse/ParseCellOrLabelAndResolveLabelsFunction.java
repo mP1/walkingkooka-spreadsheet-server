@@ -43,7 +43,7 @@ final class ParseCellOrLabelAndResolveLabelsFunction implements Function<String,
 
     @Override
     public SpreadsheetCellReference apply(final String cellOrLabelText) {
-        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetSelection.parseCellOrLabelName(cellOrLabelText);
+        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetSelection.parseCellOrLabel(cellOrLabelText);
 
         return cellOrLabel.isLabelName() ?
                 labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :

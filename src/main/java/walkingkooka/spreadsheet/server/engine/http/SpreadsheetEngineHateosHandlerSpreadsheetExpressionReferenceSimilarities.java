@@ -80,7 +80,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     private static SpreadsheetCellReferenceOrLabelName parseCellOrLabelOrNull(final String text) {
         SpreadsheetCellReferenceOrLabelName cellOrLabel;
         try {
-            cellOrLabel = SpreadsheetSelection.parseCellOrLabelName(text);
+            cellOrLabel = SpreadsheetSelection.parseCellOrLabel(text);
         } catch (final Exception invalid) {
             cellOrLabel = null;
         }
