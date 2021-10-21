@@ -80,7 +80,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 SpreadsheetDelta,
                 SpreadsheetCell> cell = HateosResourceMapping.with(
                         CELL,
-                        (t) -> SpreadsheetEngineHateosResourceMappings.parseCellOrLabel(t, labelToCellReference),
+                        (t) -> parseSelectionAndResolveLabels(t, labelToCellReference),
                         SpreadsheetDelta.class,
                         SpreadsheetDelta.class,
                         SpreadsheetCell.class
@@ -135,8 +135,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * Handles parsing just a cell or label or a range with either, always resolving labels to cells. Any returned
      * {@link walkingkooka.collect.Range} will only have {@link SpreadsheetCellReference}.
      */
-    private static HateosResourceSelection<SpreadsheetCellReference> parseCellOrLabel(final String selection,
-                                                                                      final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
+    private static HateosResourceSelection<SpreadsheetCellReference> parseSelectionAndResolveLabels(final String selection,
+                                                                                                    final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         final HateosResourceSelection<SpreadsheetCellReference> result;
 
         if (selection.isEmpty()) {
@@ -148,17 +148,28 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 final int separator = selection.indexOf(SpreadsheetSelection.SEPARATOR.character());
                 switch (separator) {
                     case -1:
-                        result = HateosResourceSelection.one(parseCellOrLabel0(selection, labelToCellReference));
+                        result = HateosResourceSelection.one(
+                                parseSelectionAndResolveLabels0(
+                                        selection,
+                                        labelToCellReference
+                                )
+                        );
                         break;
                     case 0:
                         throw new IllegalArgumentException("Missing begin");
                     default:
-                        final SpreadsheetCellReference begin = parseCellOrLabel0(selection.substring(0, separator), labelToCellReference);
+                        final SpreadsheetCellReference begin = parseSelectionAndResolveLabels0(
+                                selection.substring(0, separator),
+                                labelToCellReference
+                        );
 
                         if (separator + 1 == selection.length()) {
                             throw new IllegalArgumentException("Missing end");
                         }
-                        final SpreadsheetCellReference end = parseCellOrLabel0(selection.substring(separator + 1), labelToCellReference);
+                        final SpreadsheetCellReference end = parseSelectionAndResolveLabels0(
+                                selection.substring(separator + 1),
+                                labelToCellReference
+                        );
                         result = HateosResourceSelection.range(begin.range(end));
                         break;
                 }
@@ -171,8 +182,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     /**
      * Parses the given text as either a cell reference or label name, if the later it is resolved to a {@link SpreadsheetCellReference}.
      */
-    private static SpreadsheetCellReference parseCellOrLabel0(final String cellOrLabelText,
-                                                              final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
+    private static SpreadsheetCellReference parseSelectionAndResolveLabels0(final String cellOrLabelText,
+                                                                            final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         return SpreadsheetServerParsers.parseCellOrLabelAndResolveLabels(labelToCellReference)
                 .apply(cellOrLabelText);
     }
