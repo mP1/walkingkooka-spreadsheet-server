@@ -267,7 +267,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                                                           final SpreadsheetEngine engine,
                                                                                                           final SpreadsheetEngineContext context) {
         return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(patchCellRouterPredicates(spreadsheetId), (request, response) -> patchCellRequestResponseBiConsumer(request, response, contentType, engine, context))
+                .add(patchCellRouterPredicates(spreadsheetId), (request, response) -> patchCellHandler(request, response, contentType, engine, context))
                 .router();
     }
 
@@ -280,11 +280,11 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private final static UrlPathName CELL = UrlPathName.with("cell");
 
-    private static void patchCellRequestResponseBiConsumer(final HttpRequest request,
-                                                           final HttpResponse response,
-                                                           final HateosContentType contentType,
-                                                           final SpreadsheetEngine engine,
-                                                           final SpreadsheetEngineContext context) {
+    private static void patchCellHandler(final HttpRequest request,
+                                         final HttpResponse response,
+                                         final HateosContentType contentType,
+                                         final SpreadsheetEngine engine,
+                                         final SpreadsheetEngineContext context) {
         // PATCH
         // content type = JSON
         HttpRequestHttpResponseBiConsumers.methodNotAllowed(
