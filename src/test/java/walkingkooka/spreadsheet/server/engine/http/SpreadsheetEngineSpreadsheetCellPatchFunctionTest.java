@@ -36,6 +36,10 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.text.TextStyle;
@@ -60,6 +64,16 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
             return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                     .loadFromLocale();
+        }
+
+        @Override
+        public SpreadsheetStoreRepository storeRepository() {
+            return new FakeSpreadsheetStoreRepository() {
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return SpreadsheetLabelStores.fake();
+                }
+            };
         }
     };
 
