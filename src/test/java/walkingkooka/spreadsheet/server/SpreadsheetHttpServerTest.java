@@ -1501,7 +1501,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  }\n" +
                         "}",
                 HttpStatusCode.BAD_REQUEST
-                        .setMessage("Unrecognized character '!' at (1,1) \"!\" expected (SpreadsheetColumnReference, SpreadsheetRowReference)"),
+                        .setMessage("Invalid character '!' at 0 in \"!\""),
                 ""
         );
     }
@@ -1688,6 +1688,208 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testSaveCellPatchCellUnknownLabelFails() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/cell/UnknownLabel123",
+                NO_HEADERS_TRANSACTION_ID,
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "     \"ZZZ\": {\n" +
+                        "        \"formula\": {\n" +
+                        "           \"text\": \"'PatchedText123\"\n" +
+                        "        }\n" +
+                        "     }\n" +
+                        "  }\n" +
+                        "}",
+                HttpStatusCode.BAD_REQUEST.setMessage("Unknown label \"UnknownLabel123\""),
+                "java.lang.IllegalArgumentException: Unknown label \"UnknownLabel123\""
+        );
+    }
+
+    @Test
+    public void testSaveCellPatchCellLabel() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("ZZZ");
+        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetLabelMapping mapping = label.mapping(cellReference);
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                this.toJson(mapping),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.toJson(mapping),
+                        SpreadsheetLabelMapping.class.getSimpleName()
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/" + cellReference,
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(
+                                                        cellReference,
+                                                        formula("'Hello")
+                                                )
+                                        )
+                                )
+                ).replace(cellReference.toString(), label.toString()),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello\",\n" +
+                                "                \"text\": \"Hello\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"labels\": [{\n" +
+                                "    \"label\": \"ZZZ\",\n" +
+                                "    \"reference\": \"B2\"\n" +
+                                "  }],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // url and payload use label and not reference
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/cell/" + label,
+                NO_HEADERS_TRANSACTION_ID,
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "     \"ZZZ\": {\n" +
+                        "        \"formula\": {\n" +
+                        "           \"text\": \"'PatchedText123\"\n" +
+                        "        }\n" +
+                        "     }\n" +
+                        "  }\n" +
+                        "}",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'PatchedText123\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"PatchedText123\",\n" +
+                                "                \"text\": \"PatchedText123\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'PatchedText123\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"PatchedText123\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"PatchedText123\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text PatchedText123\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"labels\": [{\n" +
+                                "    \"label\": \"ZZZ\",\n" +
+                                "    \"reference\": \"B2\"\n" +
+                                "  }]\n" +
                                 "}",
                         DELTA
                 )

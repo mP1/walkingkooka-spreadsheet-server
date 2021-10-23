@@ -17,13 +17,17 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.HttpResponseHttpServerException;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObject;
 
 import java.util.Objects;
 import java.util.function.UnaryOperator;
@@ -58,16 +62,32 @@ final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperat
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
-        final SpreadsheetDelta delta = engine.loadCell(
-                reference,
-                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
-                context
+        final SpreadsheetDelta delta;
+        try {
+            delta = engine.loadCell(
+                    reference,
+                    SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+                    context
+            );
+        } catch (final LoadStoreException cause) {
+            throw new HttpResponseHttpServerException(
+                    HttpStatusCode.BAD_REQUEST
+                            .setMessage(cause.getMessage()),
+                    HttpResponseHttpServerException.NO_ENTITY
+            );
+        }
+
+        final JsonObject resolved = SpreadsheetDelta.resolveCellLabels(
+                json.objectOrFail(),
+                context.storeRepository()
+                        .labels()
+                        ::cellReferenceOrFail
         );
 
         final SpreadsheetMetadata metadata = context.metadata();
 
         final SpreadsheetDelta patched = delta.patch(
-                json,
+                resolved,
                 metadata.jsonNodeUnmarshallContext()
         );
 

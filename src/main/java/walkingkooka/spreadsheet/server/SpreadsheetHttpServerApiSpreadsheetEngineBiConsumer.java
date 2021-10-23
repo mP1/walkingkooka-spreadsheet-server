@@ -293,7 +293,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                         contentType.contentType(),
                         JsonHttpRequestHttpResponseBiConsumers.json(
                                 (json) -> SpreadsheetEngineHttps.patchCell(
-                                        SpreadsheetSelection.parseCell(request.url().path().name().value()), // label ?
+                                        SpreadsheetSelection.parseCellOrLabelResolvingLabels(
+                                                request.url()
+                                                        .path()
+                                                        .name()
+                                                        .value(),
+                                                l -> context.storeRepository()
+                                                        .labels()
+                                                        .cellReferenceOrFail(l)
+                                        ), // label ?
                                         engine,
                                         context
                                 ).apply(json),
