@@ -40,7 +40,7 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> saveOrUpdateMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
     }
 

@@ -106,7 +106,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         this.hateosRouter = SpreadsheetContextHttps.router(
                 baseUrl,
                 contentType,
-                SpreadsheetContextHttps.createAndSaveMetadata(context),
+                SpreadsheetContextHttps.saveOrUpdateMetadata(context),
                 SpreadsheetContextHttps.loadMetadata(context)
         );
     }
