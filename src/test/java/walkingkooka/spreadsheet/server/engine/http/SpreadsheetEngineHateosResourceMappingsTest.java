@@ -27,10 +27,14 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
@@ -932,6 +936,16 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeHttpRequest() {
 
             @Override
+            public HttpTransport transport() {
+                return HttpTransport.UNSECURED;
+            }
+
+            @Override
+            public HttpProtocolVersion protocolVersion() {
+                return HttpProtocolVersion.VERSION_1_0;
+            }
+
+            @Override
             public RelativeUrl url() {
                 return Url.parseAbsolute(url).relativeUrl();
             }
@@ -960,6 +974,11 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             @Override
             public long bodyLength() {
                 return bodyText.length();
+            }
+
+            @Override
+            public Map<HttpRequestParameterName, List<String>> parameters() {
+                return Maps.empty();
             }
         };
     }

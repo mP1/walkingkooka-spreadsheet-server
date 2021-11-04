@@ -36,6 +36,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 
 import java.util.List;
 import java.util.Map;
@@ -345,6 +347,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 null,
                 null,
+                null,
                 null
         );
     }
@@ -354,7 +357,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "cell",
                 "A9",
+                null,
                 SpreadsheetSelection.parseCell("A9")
+                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
         );
     }
 
@@ -363,7 +368,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "cell-range",
                 "A9:A99",
+                "TOP_LEFT",
                 SpreadsheetSelection.parseCellRange("A9:A99")
+                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.TOP_LEFT))
         );
     }
 
@@ -372,7 +379,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "column",
                 "B",
+                null,
                 SpreadsheetSelection.parseColumn("B")
+                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
         );
     }
 
@@ -381,7 +390,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "column-range",
                 "B:D",
+                "LEFT",
                 SpreadsheetSelection.parseColumnRange("B:D")
+                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.LEFT))
         );
     }
 
@@ -390,7 +401,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "row",
                 "99",
+                null,
                 SpreadsheetSelection.parseRow("99")
+                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
         );
     }
 
@@ -399,13 +412,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "row-range",
                 "98:99",
+                "TOP",
                 SpreadsheetSelection.parseRowRange("98:99")
+                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.TOP))
         );
     }
 
     private void handleAllFilteredAndCheck(final String selectionType,
                                            final String selectionText,
-                                           final SpreadsheetSelection selection) {
+                                           final String anchor,
+                                           final SpreadsheetViewportSelection viewportSelection) {
         // B1, B2, B3
         // C1, C2, C3
 
@@ -429,6 +445,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         if (null != selectionType) {
             parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of(selectionType));
             parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION, Lists.of(selectionText));
+
+            if(null != anchor) {
+                parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_ANCHOR, Lists.of(anchor));
+            }
         }
 
         this.handleAllAndCheck(
@@ -455,7 +475,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                               final Optional<SpreadsheetSelection> s,
                                                               final SpreadsheetEngineContext context) {
                                 assertEquals(SpreadsheetViewport.with(SpreadsheetSelection.parseCell("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
-                                assertEquals(Optional.ofNullable(selection), s, "selection");
+                                assertEquals(Optional.ofNullable(viewportSelection).map(SpreadsheetViewportSelection::selection), s, "selection");
                                 return SpreadsheetSelection.cellRange(range);
                             }
 
@@ -478,9 +498,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
-                                .setWindow(Optional.of(
-                                        SpreadsheetSelection.parseCellRange("B1:C3")
-                                ))
+                                .setWindow(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseCellRange("B1:C3")
+                                        )
+                                ).setSelection(
+                                        Optional.ofNullable(viewportSelection)
+                                )
                 )
         );
     }
