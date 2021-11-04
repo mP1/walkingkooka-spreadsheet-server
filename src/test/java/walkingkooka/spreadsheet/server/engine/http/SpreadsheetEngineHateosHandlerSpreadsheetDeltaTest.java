@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 
 import java.util.Map;
 import java.util.Optional;
@@ -48,8 +50,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
     @Test
     public void testSelectionPresentInputSpreadsheetDelta() {
-        final Optional<SpreadsheetSelection> selection = Optional.of(
-                SpreadsheetSelection.parseCellRange("A1:B2")
+        final Optional<SpreadsheetViewportSelection> selection = Optional.of(
+                SpreadsheetSelection.parseCell("B2")
+                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
         );
 
         this.prepareResponseAndCheck(
@@ -63,25 +66,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
     @Test
     public void testSelectionQueryParameters() {
-        final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
-
-        this.prepareResponseAndCheck(
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                ),
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell-range")
-                ),
-                Optional.of(
-                        selection
-                )
-        );
-    }
-
-    @Test
-    public void testSelectionQueryParameters2() {
-        final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
+        final SpreadsheetSelection selection = SpreadsheetSelection.parseCell("C3");
 
         this.prepareResponseAndCheck(
                 Optional.of(
@@ -98,17 +83,48 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                 ),
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell-range")
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell")
                 ),
                 Optional.of(
-                        selection
+                        selection.setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                )
+        );
+    }
+
+    @Test
+    public void testSelectionQueryParameters2() {
+        final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
+        final SpreadsheetViewportSelectionAnchor anchor = SpreadsheetViewportSelectionAnchor.TOP_LEFT;
+
+        this.prepareResponseAndCheck(
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("Z9"),
+                                                        SpreadsheetFormula.EMPTY
+                                                                .setText("=1+2")
+                                                )
+                                        )
+                                )
+                ),
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION, Lists.of(selection.toString()),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell-range"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_ANCHOR, Lists.of(anchor.toString())
+                ),
+                Optional.of(
+                        selection.setAnchor(
+                                Optional.of(anchor)
+                        )
                 )
         );
     }
 
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final Optional<SpreadsheetSelection> expected) {
+                                         final Optional<SpreadsheetViewportSelection> expected) {
         final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(null, null) {
 
             @Override

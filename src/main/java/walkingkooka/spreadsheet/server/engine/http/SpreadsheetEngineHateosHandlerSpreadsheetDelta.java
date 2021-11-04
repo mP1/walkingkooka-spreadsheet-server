@@ -32,6 +32,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
@@ -47,22 +49,37 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     /**
      * Checks the given {@link SpreadsheetDelta} and if selection is absent then checks the selection query parameter.
      */
-    private static Optional<SpreadsheetSelection> selection(final Optional<SpreadsheetDelta> input,
-                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Optional<SpreadsheetSelection> selection = input.isPresent() ?
+    static Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
+                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Optional<SpreadsheetViewportSelection> viewportSelection = input.isPresent() ?
                 input.get().selection() :
                 Optional.empty();
-        if (!selection.isPresent()) {
-            selection = selection(parameters);
+        if (!viewportSelection.isPresent()) {
+            viewportSelection = viewportSelection(parameters);
         }
 
-        return selection;
+        return viewportSelection;
+    }
+
+    static Optional<SpreadsheetViewportSelection> viewportSelection(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetSelection selection = selectionOrNull(parameters);
+        return Optional.ofNullable(
+                null != selection ?
+                        selection.setAnchor(anchor(parameters)) :
+                        null
+        );
     }
 
     /**
      * Returns the selection from the request parameters if one was present.
      */
     static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return Optional.ofNullable(
+                selectionOrNull(parameters)
+        );
+    }
+
+    static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetSelection selection;
 
         final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
@@ -104,7 +121,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
             selection = null;
         }
 
-        return Optional.ofNullable(selection);
+        return selection;
     }
 
     /**
@@ -118,6 +135,23 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
+
+    private static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        SpreadsheetViewportSelectionAnchor anchor;
+        final Optional<String> maybeAnchor = SELECTION_ANCHOR.firstParameterValue(parameters);
+        if (maybeAnchor.isPresent()) {
+            anchor = SpreadsheetViewportSelectionAnchor.valueOf(maybeAnchor.get());
+        } else {
+            anchor = null;
+        }
+        return Optional.ofNullable(anchor);
+    }
+
+    /**
+     * The {@link SpreadsheetViewportSelectionAnchor} in text form, eg "TOP_BOTTOM"
+     */
+    // @VisibleForTesting
+    final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
 
     /**
      * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
@@ -198,7 +232,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                 out.setWindow(
                         window(in, parameters)
                 )
-        ).setSelection(selection(in, parameters));
+        ).setSelection(viewportSelection(in, parameters));
     }
 
     /**
