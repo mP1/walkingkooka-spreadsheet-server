@@ -83,12 +83,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 this.context
         );
 
+        final Map<HttpRequestAttribute<?>, Object> parametersAndWindow = Maps.ordered();
+        parametersAndWindow.putAll(parameters);
+        parametersAndWindow.put(WINDOW, Lists.of(window.toString()));
+
         return this.handleRange0(
                 window,
                 resource,
-                Maps.of(
-                        WINDOW, Lists.of(window.toString())
-                )
+                parametersAndWindow
         );
     }
 
