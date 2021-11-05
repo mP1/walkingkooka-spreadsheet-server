@@ -31,6 +31,7 @@ import walkingkooka.net.IpPort;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
@@ -789,6 +790,157 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testSaveCellSelectionQueryParameter() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "=\"Hello 123\"",
+                "?selectionType=cell&selection=A2",
+                "{\n" +
+                        "  \"selection\": {\n" +
+                        "    \"selection\": {\n" +
+                        "      \"type\": \"spreadsheet-cell-reference\",\n" +
+                        "      \"value\": \"A2\"\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": [{\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"Hello 123\",\n" +
+                        "                    \"text\": \"Hello 123\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }],\n" +
+                        "                \"text\": \"\\\"Hello 123\\\"\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"=\\\"Hello 123\\\"\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"string-expression\",\n" +
+                        "          \"value\": \"Hello 123\"\n" +
+                        "        },\n" +
+                        "        \"value\": \"Hello 123\"\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Text Hello 123\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"columnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"rowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
+    public void testSaveCellSelectionQueryParameterWithAnchor() {
+        this.createSpreadsheetSaveCellAndCheck(
+                "=\"Hello 123\"",
+                "?selectionType=cell-range&selection=A1:B2&anchor=TOP_RIGHT",
+                "{\n" +
+                        "  \"selection\": {\n" +
+                        "    \"selection\": {\n" +
+                        "      \"type\": \"spreadsheet-cell-range\",\n" +
+                        "      \"value\": \"A1:B2\"\n" +
+                        "    },\n" +
+                        "    \"anchor\": \"TOP_LEFT\"\n" +
+                        "  },\n" +
+                        "  \"cells\": {\n" +
+                        "    \"A1\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [{\n" +
+                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": \"=\",\n" +
+                        "                \"text\": \"=\"\n" +
+                        "              }\n" +
+                        "            }, {\n" +
+                        "              \"type\": \"spreadsheet-text-parser-token\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"value\": [{\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"Hello 123\",\n" +
+                        "                    \"text\": \"Hello 123\"\n" +
+                        "                  }\n" +
+                        "                }, {\n" +
+                        "                  \"type\": \"spreadsheet-double-quote-symbol-parser-token\",\n" +
+                        "                  \"value\": {\n" +
+                        "                    \"value\": \"\\\"\",\n" +
+                        "                    \"text\": \"\\\"\"\n" +
+                        "                  }\n" +
+                        "                }],\n" +
+                        "                \"text\": \"\\\"Hello 123\\\"\"\n" +
+                        "              }\n" +
+                        "            }],\n" +
+                        "            \"text\": \"=\\\"Hello 123\\\"\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"string-expression\",\n" +
+                        "          \"value\": \"Hello 123\"\n" +
+                        "        },\n" +
+                        "        \"value\": \"Hello 123\"\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Text Hello 123\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  \"columnWidths\": {\n" +
+                        "    \"A\": 100\n" +
+                        "  },\n" +
+                        "  \"rowHeights\": {\n" +
+                        "    \"1\": 30\n" +
+                        "  }\n" +
+                        "}"
+        );
+    }
+
+    @Test
     public void testCreateAndPatch() {
         final TestHttpServer server = this.startServer();
 
@@ -854,6 +1006,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private TestHttpServer createSpreadsheetSaveCellAndCheck(final String formula,
                                                              final String responseJson) {
+        return this.createSpreadsheetSaveCellAndCheck(formula, "", responseJson);
+    }
+
+    private TestHttpServer createSpreadsheetSaveCellAndCheck(final String formula,
+                                                             final String queryParameters,
+                                                             final String responseJson) {
+        if(!queryParameters.isEmpty()) {
+            UrlQueryString.with(queryParameters);
+        }
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -873,7 +1034,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/A1",
+                "/api/spreadsheet/1/cell/A1" + queryParameters,
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
@@ -4827,6 +4988,42 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testRowInsertWithQueryParameter() {
+        final TestHttpServer server = this.startServer();
+
+        final SpreadsheetMetadata initial = this.createMetadata()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+
+        // create a new spreadsheet.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.status(), initial)
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/row/2?selectionType=row&selection=3",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"selection\": {\n" +
+                                "    \"selection\": {\n" +
+                                "      \"type\": \"spreadsheet-row-reference\",\n" +
+                                "      \"value\": \"3\"\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetDelta.class.getSimpleName()
+                )
+        );
+    }
+
     // fillCell........................................................................................................
 
     @Test
@@ -5288,6 +5485,164 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"deletedCells\": [\"B2\"]\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testFillCellWithSelectionQueryParameter() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2?selectionType=cell&selection=C3",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("B2"),
+                                                formula("'Hello")
+                                        )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"selection\": {\n" +
+                                "    \"selection\": {\n" +
+                                "      \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "      \"value\": \"C3\"\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello\",\n" +
+                                "                \"text\": \"Hello\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // fill A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1:B2/fill",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("A1"),
+                                                formula("=1")
+                                        )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"1\",\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"expression-number-expression\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"1\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 001.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"deletedCells\": [\"B2\"],\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
                                 "}",
                         DELTA
                 )
