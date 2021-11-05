@@ -21,6 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
+import walkingkooka.net.RelativeUrl;
+import walkingkooka.net.Url;
+import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -36,6 +41,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -47,6 +54,7 @@ import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.util.FunctionTesting;
 
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -56,6 +64,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
         FunctionTesting<SpreadsheetEngineSpreadsheetCellPatchFunction, JsonNode, JsonNode>,
         ToStringTesting<SpreadsheetEngineSpreadsheetCellPatchFunction> {
 
+    private final static HttpRequest REQUEST = HttpRequests.fake();
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetExpressionReference.parseCell("B2");
     private final static SpreadsheetEngine ENGINE = SpreadsheetEngines.fake();
     private final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
@@ -78,7 +87,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     };
 
     @Test
-    public void testWithNullSpreadsheetCellReferenceFails() {
+    public void testWithNullRequestFails() {
         assertThrows(
                 NullPointerException.class, () ->
                         SpreadsheetEngineSpreadsheetCellPatchFunction.with(
@@ -94,7 +103,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
         assertThrows(
                 NullPointerException.class, () ->
                         SpreadsheetEngineSpreadsheetCellPatchFunction.with(
-                                REFERENCE,
+                                REQUEST,
                                 null,
                                 CONTEXT
                         )
@@ -106,7 +115,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
         assertThrows(
                 NullPointerException.class, () ->
                         SpreadsheetEngineSpreadsheetCellPatchFunction.with(
-                                REFERENCE,
+                                REQUEST,
                                 ENGINE,
                                 null
                         )
@@ -115,6 +124,23 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
 
     @Test
     public void testApply() {
+        this.applyAndCheck2("", Optional.empty());
+    }
+
+    @Test
+    public void testApplySelectionQueryParameter() {
+        this.applyAndCheck2(
+                "?selectionType=cell&selection=Z99",
+                Optional.of(
+                        SpreadsheetSelection.parseCell("Z99")
+                                .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                )
+        );
+    }
+
+    @Test
+    private void applyAndCheck2(final String queryString,
+                                final Optional<SpreadsheetViewportSelection> viewportSelection) {
         final SpreadsheetCell cell = SpreadsheetCell.with(
                 REFERENCE,
                 SpreadsheetFormula.EMPTY
@@ -133,16 +159,22 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                         Sets.of(
                                 cell.setStyle(style)
                         )
-                );
+                ).setSelection(viewportSelection);
+
         this.applyAndCheck(
                 SpreadsheetEngineSpreadsheetCellPatchFunction.with(
-                        REFERENCE,
+                        new FakeHttpRequest() {
+                            @Override
+                            public RelativeUrl url() {
+                                return Url.parseRelative("/cell/" + REFERENCE + queryString);
+                            }
+                        },
                         new FakeSpreadsheetEngine() {
                             @Override
                             public SpreadsheetDelta loadCell(final SpreadsheetCellReference cellReference,
                                                              final SpreadsheetEngineEvaluation evaluation,
                                                              final SpreadsheetEngineContext context) {
-                                assertSame(REFERENCE, cellReference, "reference");
+                                assertEquals(REFERENCE, cellReference, "reference");
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY
@@ -178,13 +210,13 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createFunction(), ENGINE + " " + CONTEXT);
+        this.toStringAndCheck(this.createFunction(), REQUEST + " " + ENGINE + " " + CONTEXT);
     }
 
     @Override
     public SpreadsheetEngineSpreadsheetCellPatchFunction createFunction() {
         return SpreadsheetEngineSpreadsheetCellPatchFunction.with(
-                REFERENCE,
+                REQUEST,
                 ENGINE,
                 CONTEXT
         );

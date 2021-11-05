@@ -1668,7 +1668,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellPatchCell() {
+    public void testPatchCell() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -2051,6 +2051,191 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"label\": \"ZZZ\",\n" +
                                 "    \"reference\": \"B2\"\n" +
                                 "  }]\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testPatchCellSelectionQueryParameter() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetCell.with(
+                                                        SpreadsheetSelection.parseCell("A1"),
+                                                        formula("=1+2")
+                                                )
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=1+2\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"=\",\n" +
+                                "                \"text\": \"=\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": [{\n" +
+                                "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": [{\n" +
+                                "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": \"1\",\n" +
+                                "                        \"text\": \"1\"\n" +
+                                "                      }\n" +
+                                "                    }],\n" +
+                                "                    \"text\": \"1\"\n" +
+                                "                  }\n" +
+                                "                }, {\n" +
+                                "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": \"+\",\n" +
+                                "                    \"text\": \"+\"\n" +
+                                "                  }\n" +
+                                "                }, {\n" +
+                                "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "                  \"value\": {\n" +
+                                "                    \"value\": [{\n" +
+                                "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": \"2\",\n" +
+                                "                        \"text\": \"2\"\n" +
+                                "                      }\n" +
+                                "                    }],\n" +
+                                "                    \"text\": \"2\"\n" +
+                                "                  }\n" +
+                                "                }],\n" +
+                                "                \"text\": \"1+2\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"=1+2\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"add-expression\",\n" +
+                                "          \"value\": [{\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"1\"\n" +
+                                "          }, {\n" +
+                                "            \"type\": \"expression-number-expression\",\n" +
+                                "            \"value\": \"2\"\n" +
+                                "          }]\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"3\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 003.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/cell/A1?selectionType=cell&selection=B2",
+                NO_HEADERS_TRANSACTION_ID,
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "     \"a1\": {\n" +
+                        "        \"formula\": {\n" +
+                        "           \"text\": \"'PATCHED\"\n" +
+                        "        }\n" +
+                        "     }\n" +
+                        "  }\n" +
+                        "}",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"selection\": {\n" +
+                                "    \"selection\": {\n" +
+                                "      \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "      \"value\": \"B2\"\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'PATCHED\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"PATCHED\",\n" +
+                                "                \"text\": \"PATCHED\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'PATCHED\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"PATCHED\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"PATCHED\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text PATCHED\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  }\n" +
                                 "}",
                         DELTA
                 )
