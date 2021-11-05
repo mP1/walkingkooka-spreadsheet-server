@@ -17,6 +17,7 @@
 package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.net.UrlParameterName;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -162,11 +163,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetEngineSpreadsheetCellPatchFunction}
      */
-    public static UnaryOperator<JsonNode> patchCell(final SpreadsheetCellReference reference,
+    public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,
                                                     final SpreadsheetEngine engine,
                                                     final SpreadsheetEngineContext context) {
         return SpreadsheetEngineSpreadsheetCellPatchFunction.with(
-                reference,
+                request,
                 engine,
                 context
         );

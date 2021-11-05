@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -25,11 +26,14 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
@@ -37,28 +41,28 @@ import java.util.function.UnaryOperator;
  */
 final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperator<JsonNode> {
 
-    static SpreadsheetEngineSpreadsheetCellPatchFunction with(final SpreadsheetCellReference reference,
+    static SpreadsheetEngineSpreadsheetCellPatchFunction with(final HttpRequest request,
                                                               final SpreadsheetEngine engine,
                                                               final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(reference, "reference");
+        Objects.requireNonNull(request, "request");
         Objects.requireNonNull(engine, "engine");
         Objects.requireNonNull(context, "context");
 
-        return new SpreadsheetEngineSpreadsheetCellPatchFunction(reference, engine, context);
+        return new SpreadsheetEngineSpreadsheetCellPatchFunction(request, engine, context);
     }
 
-    private SpreadsheetEngineSpreadsheetCellPatchFunction(final SpreadsheetCellReference reference,
+    private SpreadsheetEngineSpreadsheetCellPatchFunction(final HttpRequest request,
                                                           final SpreadsheetEngine engine,
                                                           final SpreadsheetEngineContext context) {
         super();
-        this.reference = reference;
+        this.request = request;
         this.engine = engine;
         this.context = context;
     }
 
     @Override
     public JsonNode apply(final JsonNode json) {
-        final SpreadsheetCellReference reference = this.reference;
+        final SpreadsheetCellReference reference = this.patchCellCellReference();
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
@@ -96,18 +100,40 @@ final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperat
                                 .orElseThrow(() -> new IllegalStateException("Missing cell " + reference)),
                         context
                 ).setWindow(patched.window())
-                .setSelection(patched.selection());
+                .setSelection(this.selection(patched.selection()));
 
         return metadata.jsonNodeMarshallContext()
                 .marshall(saved);
     }
 
-    private final SpreadsheetCellReference reference;
+
+    private SpreadsheetCellReference patchCellCellReference() {
+        return SpreadsheetSelection.parseCellOrLabelResolvingLabels(
+                this.request.url()
+                        .path()
+                        .name()
+                        .value(),
+                l -> this.context.storeRepository()
+                        .labels()
+                        .cellReferenceOrFail(l)
+        );
+    }
+
+    private final HttpRequest request;
     private final SpreadsheetEngine engine;
     private final SpreadsheetEngineContext context;
 
+    /**
+     * If the given selection is present returns that or the {@link this#selection} field.
+     */
+    private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
+        return selection.isPresent() ?
+                selection :
+                SpreadsheetEngineHttps.viewportSelection(this.request.routerParameters());
+    }
+
     @Override
     public String toString() {
-        return this.engine + " " + this.context;
+        return this.request + " " + this.engine + " " + this.context;
     }
 }
