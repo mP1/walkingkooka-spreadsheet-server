@@ -75,7 +75,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         final double width = firstDoubleParameterValue(WIDTH, parameters);
         final double height = firstDoubleParameterValue(HEIGHT, parameters);
 
-        final Optional<SpreadsheetSelection> selection = selection(parameters);
+        final Optional<SpreadsheetSelection> selection = SpreadsheetEngineHttps.selection(parameters);
 
         final SpreadsheetCellRange window = this.engine.range(
                 SpreadsheetViewport.with(home, xOffset, yOffset, width, height),
