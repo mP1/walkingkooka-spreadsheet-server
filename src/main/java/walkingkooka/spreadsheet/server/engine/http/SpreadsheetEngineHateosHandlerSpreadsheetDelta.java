@@ -31,10 +31,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
-import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Objects;
@@ -45,114 +41,6 @@ import java.util.Optional;
  */
 abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparable<I>>
         extends SpreadsheetEngineHateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
-
-    /**
-     * Checks the given {@link SpreadsheetDelta} and if selection is absent then checks the selection query parameter.
-     */
-    static Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
-                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Optional<SpreadsheetViewportSelection> viewportSelection = input.isPresent() ?
-                input.get().selection() :
-                Optional.empty();
-        if (!viewportSelection.isPresent()) {
-            viewportSelection = viewportSelection(parameters);
-        }
-
-        return viewportSelection;
-    }
-
-    static Optional<SpreadsheetViewportSelection> viewportSelection(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetSelection selection = selectionOrNull(parameters);
-        final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
-        return Optional.ofNullable(
-                null != selection ?
-                        selection.setAnchor(anchor.isPresent() ? anchor : selection.defaultAnchor()) :
-                        null
-        );
-    }
-
-    /**
-     * Returns the selection from the request parameters if one was present.
-     */
-    static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return Optional.ofNullable(
-                selectionOrNull(parameters)
-        );
-    }
-
-    static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetSelection selection;
-
-        final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
-        if (maybeSelectionType.isPresent()) {
-            final String selectionType = maybeSelectionType.get();
-            final String selectionText = SELECTION.firstParameterValueOrFail(parameters);
-
-            switch (selectionType) {
-                case "cell":
-                    selection = SpreadsheetSelection.parseCell(selectionText);
-                    break;
-                case "cell-range":
-                    selection = SpreadsheetSelection.parseCellRange(selectionText);
-                    break;
-                case "column":
-                    selection = SpreadsheetSelection.parseColumn(selectionText);
-                    break;
-                case "column-range":
-                    selection = SpreadsheetSelection.parseColumnRange(selectionText);
-                    break;
-                case "label":
-                    selection = SpreadsheetSelection.labelName(selectionText);
-                    break;
-                case "row":
-                    selection = SpreadsheetSelection.parseRow(selectionText);
-                    break;
-                case "row-range":
-                    selection = SpreadsheetSelection.parseRowRange(selectionText);
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Invalid parameter " +
-                                    CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) +
-                                    " value " +
-                                    CharSequences.quoteAndEscape(selectionText)
-                    );
-            }
-        } else {
-            selection = null;
-        }
-
-        return selection;
-    }
-
-    /**
-     * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
-     */
-    // @VisibleForTesting
-    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
-
-    /**
-     * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
-     */
-    // @VisibleForTesting
-    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
-
-    private static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        SpreadsheetViewportSelectionAnchor anchor;
-        final Optional<String> maybeAnchor = SELECTION_ANCHOR.firstParameterValue(parameters);
-        if (maybeAnchor.isPresent()) {
-            anchor = SpreadsheetViewportSelectionAnchor.valueOf(maybeAnchor.get());
-        } else {
-            anchor = null;
-        }
-        return Optional.ofNullable(anchor);
-    }
-
-    /**
-     * The {@link SpreadsheetViewportSelectionAnchor} in text form, eg "TOP_BOTTOM"
-     */
-    // @VisibleForTesting
-    final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
 
     /**
      * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
@@ -233,7 +121,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                 out.setWindow(
                         window(in, parameters)
                 )
-        ).setSelection(viewportSelection(in, parameters));
+        ).setSelection(SpreadsheetEngineHttps.viewportSelection(in, parameters));
     }
 
     /**

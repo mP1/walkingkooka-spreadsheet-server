@@ -309,7 +309,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of("cell")
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
                 ),
                 "Missing parameter \"selection\""
         );
@@ -324,8 +324,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of("unknownn?"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION, Lists.of("A1"));
+        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("unknownn?"));
+        parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of("A1"));
 
         this.handleAllFails2(
                 parameters,
@@ -443,11 +443,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44"));
 
         if (null != selectionType) {
-            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_TYPE, Lists.of(selectionType));
-            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION, Lists.of(selectionText));
+            parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selectionType));
+            parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selectionText));
 
-            if(null != anchor) {
-                parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.SELECTION_ANCHOR, Lists.of(anchor));
+            if (null != anchor) {
+                parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor));
             }
         }
 

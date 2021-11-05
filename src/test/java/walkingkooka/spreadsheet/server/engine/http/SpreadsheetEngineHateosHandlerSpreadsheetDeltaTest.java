@@ -82,8 +82,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                 )
                 ),
                 Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell")
+                        SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
                 ),
                 Optional.of(
                         selection.setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
@@ -110,9 +110,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                 )
                 ),
                 Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.SELECTION_ANCHOR, Lists.of(anchor.toString())
+                        SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell-range"),
+                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.toString())
                 ),
                 Optional.of(
                         selection.setAnchor(
