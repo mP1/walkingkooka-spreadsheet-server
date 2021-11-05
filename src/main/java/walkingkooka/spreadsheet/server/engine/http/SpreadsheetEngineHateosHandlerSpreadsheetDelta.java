@@ -63,9 +63,10 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
 
     static Optional<SpreadsheetViewportSelection> viewportSelection(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetSelection selection = selectionOrNull(parameters);
+        final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
         return Optional.ofNullable(
                 null != selection ?
-                        selection.setAnchor(anchor(parameters)) :
+                        selection.setAnchor(anchor.isPresent() ? anchor : selection.defaultAnchor()) :
                         null
         );
     }
