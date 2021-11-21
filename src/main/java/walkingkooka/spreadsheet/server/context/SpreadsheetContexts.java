@@ -23,14 +23,17 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public final class SpreadsheetContexts implements PublicStaticHelper {
@@ -61,6 +64,13 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
      */
     public static FakeSpreadsheetContext fake() {
         return new FakeSpreadsheetContext();
+    }
+
+    /**
+     * {@see SpreadsheetDeltaJsonCellLabelResolverBiFunction}
+     */
+    public static BiFunction<JsonNode, Class<?>, JsonNode> spreadsheetDeltaJsonCellLabelResolver(final SpreadsheetLabelStore store) {
+        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.with(store);
     }
 
     /**

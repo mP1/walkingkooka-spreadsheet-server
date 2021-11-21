@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
@@ -32,7 +32,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.util.BiFunctionTesting;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunctionTest implements BiFunctionTesting<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction,
+public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverBiFunction,
         JsonNode,
         Class<?>,
         JsonNode> {
@@ -197,17 +197,17 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcess
     }
 
     @Override
-    public SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction createBiFunction() {
+    public SpreadsheetDeltaJsonCellLabelResolverBiFunction createBiFunction() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         store.save(LABEL1.mapping(CELL1));
         store.save(LABEL2.mapping(CELL2));
 
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.with(store);
+        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.with(store);
     }
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction> type() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.class;
+    public Class<SpreadsheetDeltaJsonCellLabelResolverBiFunction> type() {
+        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.class;
     }
 }

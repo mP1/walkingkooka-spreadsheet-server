@@ -55,6 +55,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRow;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
@@ -160,7 +161,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 append(UrlPathName.with(id.hateosLinkId()));
 
         final HateosContentType contentType = HateosContentType.json(
-                metadata.jsonNodeUnmarshallContext().setPreProcessor(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction.with(repository.labels())),
+                metadata.jsonNodeUnmarshallContext()
+                        .setPreProcessor(
+                                SpreadsheetContexts.spreadsheetDeltaJsonCellLabelResolver(repository.labels())
+                        ),
                 metadata.jsonNodeMarshallContext()
         );
 
