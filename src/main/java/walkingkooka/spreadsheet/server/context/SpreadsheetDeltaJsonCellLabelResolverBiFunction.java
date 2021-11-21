@@ -15,26 +15,27 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 
+import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
- * Adds support resolving a cell with a label rather than {@link SpreadsheetCellReference reference}.
+ * A function that resolves labels within a JSON payload if it contains a {@link SpreadsheetDelta}.
  */
-final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction implements BiFunction<JsonNode, Class<?>, JsonNode> {
+final class SpreadsheetDeltaJsonCellLabelResolverBiFunction implements BiFunction<JsonNode, Class<?>, JsonNode> {
 
-    static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction with(final SpreadsheetLabelStore store) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction(store);
+    static SpreadsheetDeltaJsonCellLabelResolverBiFunction with(final SpreadsheetLabelStore store) {
+        Objects.requireNonNull(store, "store");
+        return new SpreadsheetDeltaJsonCellLabelResolverBiFunction(store);
     }
 
-    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerPreProcessorBiFunction(final SpreadsheetLabelStore store) {
+    private SpreadsheetDeltaJsonCellLabelResolverBiFunction(final SpreadsheetLabelStore store) {
         super();
         this.store = store;
     }
