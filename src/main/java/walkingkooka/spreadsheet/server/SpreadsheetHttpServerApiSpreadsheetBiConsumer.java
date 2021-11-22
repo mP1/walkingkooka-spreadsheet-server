@@ -34,6 +34,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.context.http.SpreadsheetContextHttps;
@@ -47,6 +48,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -64,7 +66,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
                 baseUrl,
                 contentType,
@@ -72,7 +75,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 fractioner,
                 functions,
                 idToStoreRepository,
-                spreadsheetMetadataStamper
+                spreadsheetMetadataStamper,
+                contentTypeFactory
         );
     }
 
@@ -85,7 +89,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                          final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                                          final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                          final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         super();
 
         this.baseUrl = baseUrl;
@@ -98,7 +103,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 createMetadata,
                 functions,
                 idToStoreRepository,
-                spreadsheetMetadataStamper
+                spreadsheetMetadataStamper,
+                contentTypeFactory
         );
 
         this.context = context;
@@ -128,6 +134,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 .accept(request, response);
     }
 
+    // patch
+
     private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRouterPredicates() {
         return HttpRequestAttributeRouting.empty()
                 .method(HttpMethod.PATCH)
@@ -139,7 +147,6 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                 final HttpResponse response) {
         // PATCH
         // content type = JSON
-        // Function<JsonNode, JsonNode> handler, Function<HttpEntity, HttpEntity> pos
         HttpRequestHttpResponseBiConsumers.methodNotAllowed(
                 HttpMethod.PATCH,
                 HttpRequestHttpResponseBiConsumers.contentType(
