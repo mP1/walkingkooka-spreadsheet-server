@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceSt
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -141,7 +142,8 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
                 fileServer(Paths.get(".")),
                 jettyHttpServer(host, port),
-                JettyHttpServerSpreadsheetHttpServer::spreadsheetMetadataStamper
+                JettyHttpServerSpreadsheetHttpServer::spreadsheetMetadataStamper,
+                SpreadsheetContexts::jsonHateosContentType
         );
         server.start();
     }
