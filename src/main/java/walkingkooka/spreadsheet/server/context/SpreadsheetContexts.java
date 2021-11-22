@@ -47,7 +47,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         return BasicSpreadsheetContext.with(
                 base,
                 contentType,
@@ -55,7 +56,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 createMetadata,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
-                spreadsheetMetadataStamper
+                spreadsheetMetadataStamper,
+                contentTypeFactory
         );
     }
 
@@ -71,6 +73,20 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
      */
     public static BiFunction<JsonNode, Class<?>, JsonNode> spreadsheetDeltaJsonCellLabelResolver(final SpreadsheetLabelStore store) {
         return SpreadsheetDeltaJsonCellLabelResolverBiFunction.with(store);
+    }
+
+    /**
+     * Creates a JSON {@link HateosContentType}.
+     */
+    public static HateosContentType jsonHateosContentType(final SpreadsheetMetadata metadata,
+                                                          final SpreadsheetLabelStore labelStore) {
+        return HateosContentType.json(
+                metadata.jsonNodeUnmarshallContext()
+                        .setPreProcessor(
+                                SpreadsheetContexts.spreadsheetDeltaJsonCellLabelResolver(labelStore)
+                        ),
+                metadata.jsonNodeMarshallContext()
+        );
     }
 
     /**

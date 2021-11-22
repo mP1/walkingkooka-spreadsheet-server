@@ -455,6 +455,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 Url.parseAbsolute(BASE_URL + "/api"),
 //                HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 fractioner(),
+                createMetadata(),
                 idToFunctions(),
                 idToStoreRepository(),
                 spreadsheetMetadataStamper()
@@ -464,6 +465,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     private Function<BigDecimal, Fraction> fractioner() {
         return (b) -> {
             throw new UnsupportedOperationException();
+        };
+    }
+
+    private Function<Optional<Locale>, SpreadsheetMetadata> createMetadata() {
+        return (l) -> {
+            throw new UnsupportedOperationException();
+
         };
     }
 

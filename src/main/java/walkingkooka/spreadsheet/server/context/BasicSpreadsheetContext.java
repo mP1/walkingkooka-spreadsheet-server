@@ -24,6 +24,7 @@ import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
@@ -80,7 +81,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * A {@link SpreadsheetContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
@@ -97,7 +100,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                        final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                        final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                        final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(fractioner, "fractioner");
@@ -105,6 +109,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
+        Objects.requireNonNull(contentTypeFactory, "contentTypeFactory");
 
         return new BasicSpreadsheetContext(
                 base,
@@ -113,7 +118,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 createMetadata,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
-                spreadsheetMetadataStamper);
+                spreadsheetMetadataStamper,
+                contentTypeFactory
+        );
     }
 
     private BasicSpreadsheetContext(final AbsoluteUrl base,
@@ -122,7 +129,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                    final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         super();
 
         this.base = base;
@@ -132,6 +140,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         this.spreadsheetIdFunctions = spreadsheetIdFunctions;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
+        this.contentTypeFactory = contentTypeFactory;
     }
 
     @Override
@@ -204,10 +213,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         return formatRouter(spreadsheetIdPath, context, metadata)
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
+                .then(patchCellRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context))
                 .then(
                         this.cellColumnRowViewportRouter(
                                 id,
-                                repository,
                                 engine,
                                 context
                         )
@@ -215,6 +224,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
+    private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
     // format...........................................................................................................
 
@@ -298,7 +308,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
-                                                                                                               final SpreadsheetStoreRepository repository,
                                                                                                                final SpreadsheetEngine engine,
                                                                                                                final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
@@ -307,7 +316,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(repository.labels());
+        final SpreadsheetLabelStore labelStore = context.storeRepository()
+                .labels();
+
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(labelStore);
 
         final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = row(engine, context);
 
@@ -315,8 +327,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final AbsoluteUrl base = this.base;
 
-        return HateosResourceMapping.router(base.setPath(base.path().append(UrlPathName.with(id.toString()))),
-                this.contentType,
+        return HateosResourceMapping.router(
+                base.setPath(base.path().append(UrlPathName.with(id.toString()))),
+                this.contentTypeFactory.apply(context.metadata(), labelStore),
                 Sets.of(
                         cell,
                         cellReference,
@@ -365,6 +378,58 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 context.storeRepository().labels()::cellReferenceOrFail
         );
     }
+
+    // patchCell.......................................................................................................
+
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> patchCellRouter(final UrlPath spreadsheetId,
+                                                                                                          final MediaType contentType,
+                                                                                                          final SpreadsheetEngine engine,
+                                                                                                          final SpreadsheetEngineContext context) {
+        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+                .add(patchCellRouterPredicates(spreadsheetId), (request, response) -> patchCellHandler(request, response, contentType, engine, context))
+                .router();
+    }
+
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchCellRouterPredicates(final UrlPath path) {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(path.append(CELL))
+                .build();
+    }
+
+    private final static UrlPathName CELL = UrlPathName.with("cell");
+
+    private static void patchCellHandler(final HttpRequest request,
+                                         final HttpResponse response,
+                                         final MediaType contentType,
+                                         final SpreadsheetEngine engine,
+                                         final SpreadsheetEngineContext context) {
+        // PATCH
+        // content type = JSON
+        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.PATCH,
+                HttpRequestHttpResponseBiConsumers.contentType(
+                        contentType,
+                        JsonHttpRequestHttpResponseBiConsumers.json(
+                                (json) -> SpreadsheetEngineHttps.patchCell(
+                                        request,
+                                        engine,
+                                        context
+                                ).apply(json),
+                                BasicSpreadsheetContext::patchPost
+                        )
+                )
+        ).accept(request, response);
+    }
+
+    private static HttpEntity patchPost(final HttpEntity response) {
+        return response.addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetDelta.class.getSimpleName()
+        );
+    }
+
+    // cell reference...................................................................................................
 
     private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngine engine,
                                                                                                                                                                                                    final SpreadsheetEngineContext context) {

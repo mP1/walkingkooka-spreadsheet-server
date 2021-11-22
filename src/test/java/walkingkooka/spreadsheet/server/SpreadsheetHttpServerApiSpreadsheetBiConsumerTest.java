@@ -25,6 +25,8 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -60,7 +62,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 this::fractioner,
                 this::idToFunctions,
                 this::idToStoreRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -89,6 +92,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
                 MODIFIED_DATE_TIME
         );
+    }
+
+    private HateosContentType contentTypeFactory(final SpreadsheetMetadata metadata,
+                                                 final SpreadsheetLabelStore labelStore) {
+        return SpreadsheetContexts.jsonHateosContentType(metadata, labelStore);
     }
 
     // ClassTesting.....................................................................................................

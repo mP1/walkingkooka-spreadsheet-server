@@ -70,9 +70,11 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
@@ -5872,7 +5874,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // helpers..........................................................................................................
 
     private TestHttpServer startServer() {
-        SpreadsheetHttpServer.with(UrlScheme.HTTP,
+        SpreadsheetHttpServer.with(
+                UrlScheme.HTTP,
                 HostAddress.with("example.com"),
                 IpPort.HTTP,
                 createMetadata(this.createMetadata(), this.metadataStore),
@@ -5881,7 +5884,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.idToRepository,
                 this::fileServer,
                 this::server,
-                this::spreadsheetMetadataStamper);
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory);
         this.httpServer.start();
         return this.httpServer;
     }
@@ -6041,6 +6045,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
                 MODIFIED_DATE_TIME
         );
+    }
+
+    private HateosContentType contentTypeFactory(final SpreadsheetMetadata metadata,
+                                                 final SpreadsheetLabelStore labelStore) {
+        return SpreadsheetContexts.jsonHateosContentType(metadata, labelStore);
     }
 
     /**
