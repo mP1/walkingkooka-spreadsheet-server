@@ -45,6 +45,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -59,6 +60,7 @@ import java.math.MathContext;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -84,7 +86,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
-                                             final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                             final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                             final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         return new SpreadsheetHttpServer(
                 scheme,
                 host,
@@ -95,7 +98,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 idToStoreRepository,
                 fileServer,
                 server,
-                spreadsheetMetadataStamper
+                spreadsheetMetadataStamper,
+                contentTypeFactory
         );
     }
 
@@ -119,7 +123,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
-                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                  final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         super();
 
         this.contentTypeJson = HateosContentType.json(
@@ -139,6 +144,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
         );
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
+        this.contentTypeFactory = contentTypeFactory;
 
         final AbsoluteUrl base = Url.absolute(scheme,
                 AbsoluteUrl.NO_CREDENTIALS,
@@ -188,7 +194,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.fractioner,
                 this.idToFunctions,
                 this.idToStoreRepository,
-                this.spreadsheetMetadataStamper
+                this.spreadsheetMetadataStamper,
+                this.contentTypeFactory
         );
     }
 
@@ -205,6 +212,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 url,
                 this.fractioner,
+                this.createMetadata,
                 this.idToFunctions,
                 this.idToStoreRepository,
                 this.spreadsheetMetadataStamper
@@ -217,6 +225,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
+    private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
     private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router;
 

@@ -57,6 +57,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
@@ -72,7 +73,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
@@ -85,6 +85,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -106,7 +107,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -119,7 +121,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -132,7 +135,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -145,7 +149,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -158,7 +163,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 null,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper);
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
+        );
     }
 
     @Test
@@ -170,7 +177,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 null,
-                this::spreadsheetMetadataStamper);
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
+        );
     }
 
     @Test
@@ -182,6 +191,21 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
+                null,
+                this::contentTypeFactory
+        );
+    }
+
+    @Test
+    public void testWithNullContentTypeFactoryFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                this::fractioner,
+                this::createMetadata,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
                 null
         );
     }
@@ -192,7 +216,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetContext.with(
@@ -202,7 +227,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         createMetadata,
                         spreadsheetIdFunctions,
                         spreadsheetIdToRepository,
-                        spreadsheetMetadataStamper)
+                        spreadsheetMetadataStamper,
+                        contentTypeFactory
+                )
         );
     }
 
@@ -576,6 +603,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                                                       final String expectedBody) {
         final BasicSpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
+
+        final MediaType contentType = HateosContentType.JSON_CONTENT_TYPE;
+
         final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
@@ -600,7 +630,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
-                    final MediaType contentType = contentType().contentType();
                     return headersMap(
                             HttpHeaderName.ACCEPT, contentType.accept(),
                             HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
@@ -649,7 +678,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
-                    final MediaType contentType = contentType().contentType();
                     return headersMap(
                             HttpHeaderName.ACCEPT, contentType.accept(),
                             HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
@@ -680,7 +708,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             expected.setStatus(HttpStatusCode.OK.status());
 
             expected.addEntity(HttpEntity.EMPTY
-                    .addHeader(HttpHeaderName.CONTENT_TYPE, contentType().contentType().setCharset(CharsetName.UTF_8))
+                    .addHeader(HttpHeaderName.CONTENT_TYPE, contentType.setCharset(CharsetName.UTF_8))
                     .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
                     .setContentLength());
@@ -812,7 +840,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
         );
     }
 
@@ -821,14 +850,18 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     private HateosContentType contentType() {
-        return HateosContentType.json(this.unmarshallContext(), this.marshallContext());
+        return HateosContentType.json(
+                JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.BIG_DECIMAL, MathContext.DECIMAL32)),
+                JsonNodeMarshallContexts.basic()
+        );
     }
 
-    private JsonNodeUnmarshallContext unmarshallContext() {
-        return JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32));
+    private HateosContentType contentTypeFactory(final SpreadsheetMetadata metadata,
+                                                 final SpreadsheetLabelStore labelStore) {
+        return SpreadsheetContexts.jsonHateosContentType(metadata, labelStore);
     }
 
-    final Fraction fractioner(final BigDecimal value) {
+    private Fraction fractioner(final BigDecimal value) {
         throw new UnsupportedOperationException();
     }
 
