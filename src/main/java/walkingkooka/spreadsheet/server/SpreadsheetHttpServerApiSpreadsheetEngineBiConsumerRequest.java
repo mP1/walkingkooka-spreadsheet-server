@@ -41,16 +41,16 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
 
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest(final HttpRequest request,
                                                                        final HttpResponse response,
-                                                                       final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine) {
+                                                                       final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer handler) {
         super();
         this.request = request;
         this.response = response;
-        this.engine = engine;
+        this.handler = handler;
     }
 
     void handle() {
         // verify spreadsheetId is present...
-        final Optional<UrlPathName> path = this.path(this.engine.spreadsheetIdPathComponent + 1);
+        final Optional<UrlPathName> path = this.path(this.handler.spreadsheetIdPathComponent + 1);
         if (path.isPresent()) {
             this.handle0();
         } else {
@@ -59,7 +59,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
     }
 
     private void handle0() {
-        final Optional<UrlPathName> path = path(this.engine.spreadsheetIdPathComponent);
+        final Optional<UrlPathName> path = path(this.handler.spreadsheetIdPathComponent);
         if (path.isPresent()) {
             this.handleSpreadsheetId(path.get());
         } else {
@@ -90,7 +90,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
      * Uses the {@link SpreadsheetId} to locate the handle0 router and dispatches.
      */
     private void handleSpreadsheetId0(final SpreadsheetId id) {
-        this.engine.router(id)
+        this.handler.router(id)
                 .route(this.request.routerParameters())
                 .orElse(notFound())
                 .accept(this.request, this.response);
@@ -117,7 +117,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
 
     private final HttpRequest request;
     private final HttpResponse response;
-    private final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine;
+    private final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer handler;
 
     // String...........................................................................................................
 
