@@ -102,6 +102,8 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
 - GET /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
 - GET /api/spreadsheet/$spreadsheet-id/column/A
+- POST /api/spreadsheet/$spreadsheet-id/column/A/clear
+- POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
