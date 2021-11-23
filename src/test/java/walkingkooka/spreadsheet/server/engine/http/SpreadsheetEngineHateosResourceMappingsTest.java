@@ -605,10 +605,18 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     // column...........................................................................................................
 
     @Test
+    public void testColumnNullClearFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+        );
+    }
+
+    @Test
     public void testColumnNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(),null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -616,7 +624,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -624,7 +632,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
         );
     }
 
@@ -632,7 +640,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
         );
     }
 
@@ -649,6 +657,32 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testRouteColumnsPost() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A", UnsupportedOperationException.class);
+    }
+
+    @Test
+    public void testRouteClearColumnsOnePost() {
+        this.routeColumnAndCheck(
+                HttpMethod.POST,
+                "/column/A/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testRouteClearColumnRangePost() {
+        this.routeColumnAndCheck(
+                HttpMethod.POST,
+                "/column/A:B/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
     }
 
     @Test
@@ -704,10 +738,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private void routeColumnAndCheck(final HttpMethod method,
                                      final String url,
                                      final HttpStatusCode statusCode) {
+        this.routeColumnAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeColumnAndCheck(final HttpMethod method,
+                                     final String url,
+                                     final String body,
+                                     final HttpStatusCode statusCode) {
         final SpreadsheetEngine engine = this.engine();
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.column(
+                        SpreadsheetEngineHttps.clearColumns(engine, context),
                         SpreadsheetEngineHttps.deleteColumns(engine, context),
                         SpreadsheetEngineHttps.insertColumns(engine, context),
                         SpreadsheetEngineHttps.insertAfterColumns(engine, context),
@@ -715,7 +762,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 ),
                 method,
                 url,
-                "",
+                body,
                 statusCode
         );
     }
@@ -730,6 +777,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 thcolumnn,
                 () -> this.route(
                         SpreadsheetEngineHateosResourceMappings.column(
+                                SpreadsheetEngineHttps.clearColumns(engine, context),
                                 SpreadsheetEngineHttps.deleteColumns(engine, context),
                                 SpreadsheetEngineHttps.insertColumns(engine, context),
                                 SpreadsheetEngineHttps.insertAfterColumns(engine, context),

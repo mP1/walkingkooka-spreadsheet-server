@@ -54,6 +54,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns}
+     */
+    public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns(final SpreadsheetEngine engine,
+                                                                                                             final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns.with(engine, context);
+    }
+    
+    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns(final SpreadsheetEngine engine,
