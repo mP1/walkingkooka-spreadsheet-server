@@ -5211,6 +5211,225 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // clear...........................................................................................................
+
+
+    @Test
+    public void testClearCell() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("B2"),
+                                                formula("'Hello")
+                                        )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello\",\n" +
+                                "                \"text\": \"Hello\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // clear A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2/clear",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // GET deleted cell should return nothing.
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/B2",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testClearCellRange() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("B2"),
+                                                formula("'Hello")
+                                        )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello\",\n" +
+                                "                \"text\": \"Hello\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"string-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // clear A1:B2
+        server.handleAndCheck(HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1:C3/clear",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // GET deleted cell should return nothing.
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/B2",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{}",
+                        DELTA
+                )
+        );
+    }
+
     // fillCell........................................................................................................
 
     @Test

@@ -33,7 +33,6 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
@@ -67,6 +66,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -83,6 +83,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     // cell.............................................................................................................
 
+    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> CLEAR_CELLS = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FILL_CELLS = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_CLEAR = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_SKIP = HateosHandlers.fake();
@@ -95,8 +96,24 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     };
 
     @Test
+    public void testCellNullClearCellsFails() {
+        this.cellFails(
+                null,
+                FILL_CELLS,
+                LOAD_CELL_CLEAR,
+                LOAD_CELL_SKIP,
+                LOAD_CELL_FORCE,
+                LOAD_CELL_COMPUTE_IF,
+                SAVE_CELL,
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
+        );
+    }
+
+    @Test
     public void testCellNullFillCellsFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 null,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -111,6 +128,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullLoadCellClearFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 null,
                 LOAD_CELL_SKIP,
@@ -125,6 +143,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullLoadCellSkipFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 null,
@@ -139,6 +158,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullLoadCellForceFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -153,6 +173,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullLoadCellComputeIfFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -167,6 +188,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullSaveCellFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -181,6 +203,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullDeleteCellFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -195,6 +218,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testCellNullLabelToCellReferenceFails() {
         this.cellFails(
+                CLEAR_CELLS,
                 FILL_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -206,7 +230,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
-    private void cellFails(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+    private void cellFails(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells,
+                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
@@ -215,7 +240,9 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
                            final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         assertThrows(NullPointerException.class, () -> {
-            SpreadsheetEngineHateosResourceMappings.cell(fillCells,
+            SpreadsheetEngineHateosResourceMappings.cell(
+                    clearCells,
+                    fillCells,
                     loadCellClearValueErrorSkipEvaluate,
                     loadCellSkipEvaluate,
                     loadCellForceRecompute,
@@ -360,8 +387,34 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
+    public void testRouteClearCellsOnePost() {
+        this.routeCellAndCheck(
+                HttpMethod.POST,
+                "/cell/A1/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testRouteClearCellRangePost() {
+        this.routeCellAndCheck(
+                HttpMethod.POST,
+                "/cell/A1:B2/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
     public void testRouteFillCellsPost() {
-        this.routeCellFails(
+        this.routeCellAndCheck(
                 HttpMethod.POST,
                 "/cell/A1:B2/fill",
                 JsonNodeMarshallContexts.basic().marshall(
@@ -376,7 +429,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                         )
                                 )
                 ).toString(),
-                UnsupportedOperationException.class
+                HttpStatusCode.OK
         );
     }
 
@@ -415,6 +468,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.cell(
+                        SpreadsheetEngineHttps.clearCells(engine, context),
                         SpreadsheetEngineHttps.fillCells(engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
@@ -439,6 +493,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         final SpreadsheetEngineContext context = this.engineContext();
         return this.route(
                 SpreadsheetEngineHateosResourceMappings.cell(
+                        SpreadsheetEngineHttps.clearCells(engine, context),
                         SpreadsheetEngineHttps.fillCells(engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
@@ -515,6 +570,14 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                               final Optional<SpreadsheetSelection> selection,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetCellRange.parseCellRange("B2:C3");
+            }
+
+            @Override
+            public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
+                                              final SpreadsheetCellRange from,
+                                              final SpreadsheetCellRange to,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY;
             }
         };
     }
