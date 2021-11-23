@@ -56,7 +56,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetCellReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+            SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells,
+                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
@@ -64,6 +65,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
                                   final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
+        Objects.requireNonNull(clearCells, "clearCells");
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(loadCellClearValueErrorSkipEvaluate, "loadCellClearValueErrorSkipEvaluate");
         Objects.requireNonNull(loadCellSkipEvaluate, "loadCellSkipEvaluate");
@@ -118,7 +120,14 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                     loadCell);
         }
 
-        // cell/copy POST...............................................................................................
+        // cell/clearPOST...............................................................................................
+        cell = cell.set(
+                CLEAR,
+                HttpMethod.POST,
+                clearCells
+        );
+
+        // cell/fill POST...............................................................................................
         return cell.set(
                 FILL,
                 HttpMethod.POST,
@@ -187,6 +196,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         return SpreadsheetServerParsers.parseCellOrLabelAndResolveLabels(labelToCellReference)
                 .apply(cellOrLabelText);
     }
+
+    /**
+     * A {@link LinkRelation} with <code>clear</code>.
+     */
+    private static final LinkRelation<?> CLEAR = LinkRelation.with("clear");
 
     /**
      * A {@link LinkRelation} with <code>fill</code>.

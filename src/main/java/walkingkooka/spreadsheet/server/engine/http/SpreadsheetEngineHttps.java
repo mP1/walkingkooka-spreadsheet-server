@@ -46,6 +46,14 @@ import java.util.function.UnaryOperator;
 public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells}
+     */
+    public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells(final SpreadsheetEngine engine,
+                                                                                                         final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells.with(engine, context);
+    }
+
+    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns(final SpreadsheetEngine engine,
