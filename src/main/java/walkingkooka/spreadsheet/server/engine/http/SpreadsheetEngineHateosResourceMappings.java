@@ -278,7 +278,8 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetRowReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetRow> row(final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows,
+            SpreadsheetRow> row(final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows,
+                                final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows,
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertRows,
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows,
                                 final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows) {
@@ -289,6 +290,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                         SpreadsheetDelta.class,
                         SpreadsheetRow.class
                 )
+                .set(CLEAR, HttpMethod.POST, clearRows)
                 .set(LinkRelation.SELF, HttpMethod.POST, insertRows)
                 .set(AFTER, HttpMethod.POST, insertAfterRows)
                 .set(BEFORE, HttpMethod.POST, insertBeforeRows)
