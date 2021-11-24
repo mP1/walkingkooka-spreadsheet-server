@@ -60,7 +60,15 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                                                                              final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns.with(engine, context);
     }
-    
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows}
+     */
+    public static HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows(final SpreadsheetEngine engine,
+                                                                                                       final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows.with(engine, context);
+    }
+
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
      */

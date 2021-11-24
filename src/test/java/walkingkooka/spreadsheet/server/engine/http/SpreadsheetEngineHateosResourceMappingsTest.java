@@ -793,10 +793,18 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     // row...........................................................................................................
 
     @Test
+    public void testRowNullClearFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+        );
+    }
+
+    @Test
     public void testRowNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -804,7 +812,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -812,7 +820,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
         );
     }
 
@@ -820,7 +828,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
         );
     }
 
@@ -868,7 +876,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRouteRowRangeBeforePostMissingCountFails() {
         this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before", IllegalArgumentException.class);
     }
-    
+
     @Test
     public void testRouteRowsBeforePost() {
         this.routeRowAndCheck(HttpMethod.POST, "/row/1/before?count=1", UnsupportedOperationException.class);
@@ -877,6 +885,32 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     @Test
     public void testRouteRowRangeBeforePost() {
         this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before?count=1", UnsupportedOperationException.class);
+    }
+
+    @Test
+    public void testRouteRowsClearOnePost() {
+        this.routeRowAndCheck(
+                HttpMethod.POST,
+                "/row/1/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testRouteRowRangeClearPost() {
+        this.routeRowAndCheck(
+                HttpMethod.POST,
+                "/row/1:2/clear",
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                SpreadsheetDelta.EMPTY
+                        ).toString(),
+                HttpStatusCode.OK
+        );
     }
 
     @Test
@@ -892,10 +926,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private void routeRowAndCheck(final HttpMethod method,
                                   final String url,
                                   final HttpStatusCode statusCode) {
+        this.routeRowAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeRowAndCheck(final HttpMethod method,
+                                  final String url,
+                                  final String body,
+                                  final HttpStatusCode statusCode) {
         final SpreadsheetEngine engine = this.engine();
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.row(
+                        SpreadsheetEngineHttps.clearRows(engine, context),
                         SpreadsheetEngineHttps.deleteRows(engine, context),
                         SpreadsheetEngineHttps.insertRows(engine, context),
                         SpreadsheetEngineHttps.insertAfterRows(engine, context),
@@ -903,7 +950,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 ),
                 method,
                 url,
-                "",
+                body,
                 statusCode
         );
     }
@@ -918,6 +965,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 thrown,
                 () -> this.route(
                         SpreadsheetEngineHateosResourceMappings.row(
+                                SpreadsheetEngineHttps.clearRows(engine, context),
                                 SpreadsheetEngineHttps.deleteRows(engine, context),
                                 SpreadsheetEngineHttps.insertRows(engine, context),
                                 SpreadsheetEngineHttps.insertAfterRows(engine, context),
