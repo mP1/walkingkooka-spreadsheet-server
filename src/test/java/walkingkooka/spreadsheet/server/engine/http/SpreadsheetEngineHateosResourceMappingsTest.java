@@ -786,7 +786,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullClearFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -794,15 +794,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
-        );
-    }
-
-    @Test
-    public void testRowNullInsertFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -810,7 +802,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
         );
     }
 
@@ -818,7 +810,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
         );
     }
 
@@ -833,8 +825,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
-    public void testRouteRowsPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1", UnsupportedOperationException.class);
+    public void testRouteRowsPostFails() {
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1", HttpStatusCode.METHOD_NOT_ALLOWED);
     }
 
     @Test
@@ -934,7 +926,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 SpreadsheetEngineHateosResourceMappings.row(
                         SpreadsheetEngineHttps.clearRows(engine, context),
                         SpreadsheetEngineHttps.deleteRows(engine, context),
-                        SpreadsheetEngineHttps.insertRows(engine, context),
                         SpreadsheetEngineHttps.insertAfterRows(engine, context),
                         SpreadsheetEngineHttps.insertBeforeRows(engine, context)
                 ),
@@ -957,7 +948,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHateosResourceMappings.row(
                                 SpreadsheetEngineHttps.clearRows(engine, context),
                                 SpreadsheetEngineHttps.deleteRows(engine, context),
-                                SpreadsheetEngineHttps.insertRows(engine, context),
                                 SpreadsheetEngineHttps.insertAfterRows(engine, context),
                                 SpreadsheetEngineHttps.insertBeforeRows(engine, context)
                         ),

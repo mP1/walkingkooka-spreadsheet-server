@@ -259,8 +259,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     }
 
     @Test
-    public void testRouteRowsPost() {
-        this.routeAndCheck(HttpMethod.POST, "/api/1/row/1", HttpStatusCode.OK);
+    public void testRouteRowsPostFails() {
+        this.routeAndFail(HttpMethod.POST, "/api/1/row/1");
     }
 
     @Test
