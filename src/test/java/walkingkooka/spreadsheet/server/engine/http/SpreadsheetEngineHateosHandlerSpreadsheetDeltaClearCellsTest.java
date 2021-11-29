@@ -58,52 +58,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
     public void testClearCell() {
         final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
-        final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
-
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                metadata,
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
-                engine,
-                (b) -> {
-                    throw new UnsupportedOperationException();
-                },
-                new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return cellStore;
-                    }
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
-                        return this.cellReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return this.labels;
-                    }
-
-                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
-                        return this.labelReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                        return this.rangeToCells;
-                    }
-
-                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
-                }
-        );
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells.with(
                 engine,
@@ -112,6 +67,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
 
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
         cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
 
         this.handleOneAndCheck(
@@ -133,60 +90,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
     @Test
     public void testClearCellRange() {
         final SpreadsheetMetadata metadata = this.metadata();
-
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
-        final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
-
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                metadata,
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
-                engine,
-                (b) -> {
-                    throw new UnsupportedOperationException();
-                },
-                new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return cellStore;
-                    }
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
-                        return this.cellReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return this.labels;
-                    }
-
-                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
-                        return this.labelReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                        return this.rangeToCells;
-                    }
-
-                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
-                }
-        );
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
         final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");
 
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
         cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
         cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY));
         cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY));

@@ -60,52 +60,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
     public void testClearColumn() {
         final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
-        final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
-
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                metadata,
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
-                engine,
-                (b) -> {
-                    throw new UnsupportedOperationException();
-                },
-                new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return cellStore;
-                    }
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
-                        return this.cellReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return this.labels;
-                    }
-
-                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
-                        return this.labelReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                        return this.rangeToCells;
-                    }
-
-                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
-                }
-        );
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns.with(
                 engine,
@@ -117,6 +72,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetCellReference a1048576 = SpreadsheetSelection.parseCell("A1048576");
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("b2");
+
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
 
         cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
         cellStore.save(SpreadsheetCell.with(a1048576, SpreadsheetFormula.EMPTY));
@@ -144,57 +102,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
     public void testClearColumnRange() {
         final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
-        final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
-
-        final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                metadata,
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
-                engine,
-                (b) -> {
-                    throw new UnsupportedOperationException();
-                },
-                new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return cellStore;
-                    }
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
-                        return this.cellReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return this.labels;
-                    }
-
-                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
-
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
-                        return this.labelReferences;
-                    }
-
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
-
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                        return this.rangeToCells;
-                    }
-
-                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
-                }
-        );
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
         final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");
+
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
 
         cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
         cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY));
