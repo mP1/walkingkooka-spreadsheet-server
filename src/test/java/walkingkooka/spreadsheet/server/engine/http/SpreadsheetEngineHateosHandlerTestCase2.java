@@ -21,13 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
+import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStore;
@@ -39,14 +43,18 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.text.Length;
+import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -164,14 +172,47 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                     private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
 
                     @Override
+                    public SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules() {
+                        return this.rangeToConditionalFormattingRules;
+                    }
+
+                    private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
+
+                    @Override
                     public String toString() {
                         return "cells: " + this.cells() +
                                 ", cellReferences: " + this.cellReferences() +
                                 ", labels: " + this.labels() +
                                 ", labelReferences: " + this.labelReferences() +
-                                ", rangeToCells: " + this.rangeToCells();
+                                ", rangeToCells: " + this.rangeToCells() +
+                                ", rangeToConditionalFormattingRules: " + this.rangeToConditionalFormattingRules();
                     }
                 }
         );
+    }
+
+    /**
+     * Creates a cell with the formatted text. This does not parse anything else such as a math equation.
+     */
+    final SpreadsheetCell formattedCell(final SpreadsheetCellReference reference,
+                                        final String text) {
+        return SpreadsheetCell.with(
+                reference,
+                SpreadsheetFormula.EMPTY
+                        .setText("'" + text)
+                        .setToken(
+                                Optional.of(
+                                        SpreadsheetParserToken.text(
+                                                List.of(
+                                                        SpreadsheetParserToken.apostropheSymbol("'", "'"),
+                                                        SpreadsheetParserToken.textLiteral(text, text)
+                                                ),
+                                                "'" + text
+                                        )
+                                )
+                        )
+                        .setExpression(Optional.of(Expression.string(text)))
+                        .setValue(Optional.of(text))
+        ).setFormatted(Optional.of(Text.text(text)));
     }
 }

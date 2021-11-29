@@ -52,18 +52,27 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn ext
     @Override
     SpreadsheetDelta insert(final SpreadsheetColumnReference column,
                             final int count) {
-        return this.engine.insertColumns(
-                column.addSaturated(-count),
-                count,
-                this.context
+        return this.insertBefore(
+                column,
+                count
         );
     }
 
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetColumnReference> column,
                             final int count) {
+        return this.insertBefore(
+                column.lowerBound()
+                        .value()
+                        .get(),
+                count
+        );
+    }
+
+    private SpreadsheetDelta insertBefore(final SpreadsheetColumnReference column,
+                                          final int count) {
         return this.engine.insertColumns(
-                column.lowerBound().value().get().addSaturated(-count),
+                column,
                 count,
                 this.context
         );
