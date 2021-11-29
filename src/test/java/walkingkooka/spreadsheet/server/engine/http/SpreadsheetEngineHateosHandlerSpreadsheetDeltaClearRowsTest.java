@@ -21,20 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -49,11 +45,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 
-import java.math.RoundingMode;
-import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -67,23 +59,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
     @Test
     public void testClearRow() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .loadFromLocale()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
-                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
-                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
-                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"));
-
+        final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
@@ -167,23 +143,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
     @Test
     public void testClearRowRange() {
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .loadFromLocale()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
-                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
-                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
-                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"));
-
+        final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
