@@ -19,9 +19,19 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
+import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -51,6 +61,28 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
 
     abstract H createHandler(final SpreadsheetEngine engine,
                              final SpreadsheetEngineContext context);
+
+    /**
+     * Creates a {@link SpreadsheetMetadata} with id=1 and all the necessary required properties
+     */
+    final SpreadsheetMetadata metadata() {
+        return SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+                .loadFromLocale()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
+                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
+                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
+                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"));
+    }
 
     abstract SpreadsheetEngine engine();
 
