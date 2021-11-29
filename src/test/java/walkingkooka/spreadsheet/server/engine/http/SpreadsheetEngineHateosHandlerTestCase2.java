@@ -24,9 +24,21 @@ import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStore;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.RoundingMode;
@@ -87,4 +99,66 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
     abstract SpreadsheetEngine engine();
 
     abstract SpreadsheetEngineContext engineContext();
+
+    /**
+     * Creates a {@link SpreadsheetEngineContext} with the provided engine and metadata with a limited {@link walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository}
+     */
+    final SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine,
+                                                 final SpreadsheetMetadata metadata) {
+        return SpreadsheetEngineContexts.basic(
+                metadata,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                engine,
+                (b) -> {
+                    throw new UnsupportedOperationException();
+                },
+                new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetCellStore cells() {
+                        return cellStore;
+                    }
+
+                    private final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
+
+                    @Override
+                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
+                        return this.cellReferences;
+                    }
+
+                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
+
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return this.labels;
+                    }
+
+                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
+
+                    @Override
+                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
+                        return this.labelReferences;
+                    }
+
+                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
+
+                    @Override
+                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
+                        return this.rangeToCells;
+                    }
+
+                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
+
+                    @Override
+                    public String toString() {
+                        return "cells: " + this.cells() +
+                                ", cellReferences: " + this.cellReferences() +
+                                ", labels: " + this.labels() +
+                                ", labelReferences: " + this.labelReferences() +
+                                ", rangeToCells: " + this.rangeToCells();
+                    }
+                }
+        );
+    }
 }
