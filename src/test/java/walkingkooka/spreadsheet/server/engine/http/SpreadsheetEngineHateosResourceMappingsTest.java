@@ -608,7 +608,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullClearFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -616,15 +616,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(),null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
-        );
-    }
-
-    @Test
-    public void testColumnNullInsertFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
         );
     }
 
@@ -632,7 +624,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
         );
     }
 
@@ -640,7 +632,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
         );
     }
 
@@ -655,8 +647,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     @Test
-    public void testRouteColumnsPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A", UnsupportedOperationException.class);
+    public void testRouteColumnsPostFails() {
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A", HttpStatusCode.METHOD_NOT_ALLOWED);
     }
 
     @Test
@@ -756,7 +748,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 SpreadsheetEngineHateosResourceMappings.column(
                         SpreadsheetEngineHttps.clearColumns(engine, context),
                         SpreadsheetEngineHttps.deleteColumns(engine, context),
-                        SpreadsheetEngineHttps.insertColumns(engine, context),
                         SpreadsheetEngineHttps.insertAfterColumns(engine, context),
                         SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
                 ),
@@ -779,7 +770,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHateosResourceMappings.column(
                                 SpreadsheetEngineHttps.clearColumns(engine, context),
                                 SpreadsheetEngineHttps.deleteColumns(engine, context),
-                                SpreadsheetEngineHttps.insertColumns(engine, context),
                                 SpreadsheetEngineHttps.insertAfterColumns(engine, context),
                                 SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
                         ),

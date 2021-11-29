@@ -132,14 +132,6 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                                                                               final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(engine, context);
     }
-    
-    /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns}
-     */
-    public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns(final SpreadsheetEngine engine,
-                                                                                                              final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertColumns.with(engine, context);
-    }
 
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertInsertRows}
