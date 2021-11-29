@@ -450,14 +450,12 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHttps.deleteColumns(engine, context);
 
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns = SpreadsheetEngineHttps.insertColumns(engine, context);
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHttps.insertAfterColumns(engine, context);
         final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHttps.insertBeforeColumns(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.column(
                 clearColumns,
                 deleteColumns,
-                insertColumns,
                 insertAfterColumns,
                 insertBeforeColumns
         );

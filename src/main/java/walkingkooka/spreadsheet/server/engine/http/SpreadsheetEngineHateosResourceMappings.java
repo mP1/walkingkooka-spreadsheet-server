@@ -243,7 +243,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
             SpreadsheetDelta,
             SpreadsheetColumn> column(final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns,
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns,
-                                      final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertColumns,
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns,
                                       final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns) {
         return HateosResourceMapping.with(
@@ -254,7 +253,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                         SpreadsheetColumn.class
                 )
                 .set(CLEAR, HttpMethod.POST, clearColumns)
-                .set(LinkRelation.SELF, HttpMethod.POST, insertColumns)
                 .set(AFTER, HttpMethod.POST, insertAfterColumns)
                 .set(BEFORE, HttpMethod.POST, insertBeforeColumns)
                 .set(LinkRelation.SELF, HttpMethod.DELETE, deleteColumns);
