@@ -19,142 +19,161 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRowTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow, SpreadsheetRowReference> {
 
-    @Test
-    public void testRow() {
-        final SpreadsheetRowReference row = SpreadsheetSelection.parseRow("3");
+    private final static Optional<SpreadsheetDelta> RESOURCE = Optional.empty();
 
-        final SpreadsheetCell cell = SpreadsheetCell.with(
-                SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.EMPTY
-                        .setText("=99")
+    @Test
+    public void testInsertBeforeRow() {
+        final SpreadsheetMetadata metadata = this.metadata();
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
+
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
+                engine,
+                context
         );
-        final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
+        final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");
+
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
+
+        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY.setText("'a1")));
+        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY.setText("'b2")));
+        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY.setText("'c3")));
+        cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY.setText("'d4")));
+
+        final double width = COLUMN_WIDTH.pixelValue();
+        final double height = ROW_HEIGHT.pixelValue();
+
+        final int count = 2;
+
+        final SpreadsheetCellReference c5 = c3.addRow(count);
+        final SpreadsheetCellReference d6 = d4.addRow(count);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
-
-                            @Override
-                            public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseRow("1"), row, "row");
-                                assertEquals(COUNT, count, "count");
-                                return returned;
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference c,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference r,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
-                        },
-                        this.engineContext()
-                ),
-                row,
-                this.resource(),
-                this.parameters(),
+                handler,
+                c3.row(),
+                RESOURCE,
+                Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("" + count)),
                 Optional.of(
-                        returned.setColumnWidths(
-                                        Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                formattedCell(a1, "a1"),
+                                                formattedCell(b2, "b2"),
+                                                formattedCell(c5, "c3"),
+                                                formattedCell(d6, "d4")
                                         )
+                                ).setDeletedCells(
+                                        Sets.of(c3, d4)
+                                )
+                                .setColumnWidths(
+                                        Maps.of(a1.column(), width, b2.column(), width, c5.column(), width, d6.column(), width)
                                 )
                                 .setRowHeights(
-                                        Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
-                                        )
+                                        Maps.of(a1.row(), height, b2.row(), height, c5.row(), height, d6.row(), height)
                                 )
                 )
         );
+
+        assertEquals(4, cellStore.count(), "cell count remains unchanged");
+
+        assertNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
+        assertNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
+        assertNotEquals(Optional.empty(), cellStore.load(c5), "d3 moved");
+        assertNotEquals(Optional.empty(), cellStore.load(d6), "e4 moved");
     }
 
     @Test
-    public void testRowRange() {
-        final SpreadsheetRowReferenceRange range = SpreadsheetSelection.parseRowRange("3:5");
+    public void testInsertBeforeRowRange() {
+        final SpreadsheetMetadata metadata = this.metadata();
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
-        final SpreadsheetCell cell = SpreadsheetCell.with(
-                SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.EMPTY
-                        .setText("=99")
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
+                engine,
+                context
         );
-        final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
+        final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");
+
+        final SpreadsheetCellStore cellStore = context.storeRepository()
+                .cells();
+
+        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY.setText("'a1")));
+        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY.setText("'b2")));
+        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY.setText("'c3")));
+        cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY.setText("'d4")));
+
+        final double width = COLUMN_WIDTH.pixelValue();
+        final double height = ROW_HEIGHT.pixelValue();
+
+        final int count = 2;
+
+        final SpreadsheetCellReference c5 = c3.addRow(count);
+        final SpreadsheetCellReference d6 = d4.addRow(count);
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
-
-                            @Override
-                            public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseRow("1"), row, "row");
-                                assertEquals(COUNT, count, "count");
-                                return returned;
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference c,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference r,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
-                        },
-                        this.engineContext()
-                ),
-                range.range(),
-                this.resource(),
-                this.parameters(),
+                handler,
+                c3.row().range(d4.row()),
+                RESOURCE,
+                Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("" + count)),
                 Optional.of(
-                        returned.setColumnWidths(
-                                        Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                formattedCell(a1, "a1"),
+                                                formattedCell(b2, "b2"),
+                                                formattedCell(c5, "c3"),
+                                                formattedCell(d6, "d4")
                                         )
+                                ).setDeletedCells(
+                                        Sets.of(c3, d4)
+                                )
+                                .setColumnWidths(
+                                        Maps.of(a1.column(), width, b2.column(), width, c5.column(), width, d6.column(), width)
                                 )
                                 .setRowHeights(
-                                        Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
-                                        )
+                                        Maps.of(a1.row(), height, b2.row(), height, c5.row(), height, d6.row(), height)
                                 )
                 )
         );
+
+        assertEquals(4, cellStore.count(), "cell count remains unchanged");
+
+        assertNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
+        assertNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
+        assertNotEquals(Optional.empty(), cellStore.load(c5), "d3 moved");
+        assertNotEquals(Optional.empty(), cellStore.load(d6), "e4 moved");
     }
 
     @Override
