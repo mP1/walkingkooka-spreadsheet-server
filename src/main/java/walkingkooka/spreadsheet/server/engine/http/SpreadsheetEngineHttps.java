@@ -70,19 +70,19 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns}
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns(final SpreadsheetEngine engine,
                                                                                                               final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteColumns.with(engine, context);
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumns.with(engine, context);
     }
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows}
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows}
      */
     public static HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows(final SpreadsheetEngine engine,
                                                                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows.with(engine, context);
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows.with(engine, context);
     }
 
     /**

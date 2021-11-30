@@ -29,16 +29,16 @@ import java.util.Objects;
 /**
  * A {@link HateosHandler} for {@link SpreadsheetEngine#deleteRows(SpreadsheetRowReference, int, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<SpreadsheetRowReference> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete<SpreadsheetRowReference> {
 
-    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows with(final SpreadsheetEngine engine,
-                                                                                       final SpreadsheetEngineContext context) {
+    static SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows with(final SpreadsheetEngine engine,
+                                                                         final SpreadsheetEngineContext context) {
         check(engine, context);
-        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(engine, context);
+        return new SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows(engine, context);
     }
 
-    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertDeleteRows(final SpreadsheetEngine engine,
-                                                                                   final SpreadsheetEngineContext context) {
+    private SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows(final SpreadsheetEngine engine,
+                                                                     final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 

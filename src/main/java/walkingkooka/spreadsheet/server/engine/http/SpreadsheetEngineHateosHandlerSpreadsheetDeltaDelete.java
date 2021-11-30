@@ -31,10 +31,10 @@ import java.util.Optional;
 /**
  * Abstract base class for DELETE / INSERT a column or row or range of either
  */
-abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<R> {
+abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<R> {
 
-    SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert(final SpreadsheetEngine engine,
-                                                                 final SpreadsheetEngineContext context) {
+    SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete(final SpreadsheetEngine engine,
+                                                         final SpreadsheetEngineContext context) {
         super(engine, context);
     }
 
