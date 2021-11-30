@@ -4943,48 +4943,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"cells\": {\n" +
-                                "    \"C4\": {\n" +
-                                "      \"formula\": {\n" +
-                                "        \"text\": \"=123\",\n" +
-                                "        \"token\": {\n" +
-                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
-                                "          \"value\": {\n" +
-                                "            \"value\": [{\n" +
-                                "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                                "              \"value\": {\n" +
-                                "                \"value\": \"=\",\n" +
-                                "                \"text\": \"=\"\n" +
-                                "              }\n" +
-                                "            }, {\n" +
-                                "              \"type\": \"spreadsheet-number-parser-token\",\n" +
-                                "              \"value\": {\n" +
-                                "                \"value\": [{\n" +
-                                "                  \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                                "                  \"value\": {\n" +
-                                "                    \"value\": \"123\",\n" +
-                                "                    \"text\": \"123\"\n" +
-                                "                  }\n" +
-                                "                }],\n" +
-                                "                \"text\": \"123\"\n" +
-                                "              }\n" +
-                                "            }],\n" +
-                                "            \"text\": \"=123\"\n" +
-                                "          }\n" +
-                                "        },\n" +
-                                "        \"expression\": {\n" +
-                                "          \"type\": \"expression-number-expression\",\n" +
-                                "          \"value\": \"123\"\n" +
-                                "        },\n" +
-                                "        \"value\": {\n" +
-                                "          \"type\": \"expression-number\",\n" +
-                                "          \"value\": \"123\"\n" +
-                                "        }\n" +
-                                "      },\n" +
-                                "      \"formatted\": {\n" +
-                                "        \"type\": \"text\",\n" +
-                                "        \"value\": \"Number 123.000\"\n" +
-                                "      }\n" +
-                                "    },\n" +
                                 "    \"D5\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"text\": \"=456\",\n" +
@@ -5028,13 +4986,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"C3\", \"D4\"],\n" +
+                                "  \"deletedCells\": [\"D4\"],\n" +
                                 "  \"columnWidths\": {\n" +
-                                "    \"C\": 100,\n" +
                                 "    \"D\": 100\n" +
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
-                                "    \"4\": 30,\n" +
                                 "    \"5\": 30\n" +
                                 "  }\n" +
                                 "}",

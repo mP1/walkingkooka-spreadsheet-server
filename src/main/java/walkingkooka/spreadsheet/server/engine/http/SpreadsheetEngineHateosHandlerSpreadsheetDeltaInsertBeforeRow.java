@@ -50,20 +50,29 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow extend
     }
 
     @Override
-    SpreadsheetDelta insert(final SpreadsheetRowReference row,
+    SpreadsheetDelta insert(final SpreadsheetRowReference column,
                             final int count) {
-        return this.engine.insertRows(
-                row.addSaturated(-count),
-                count,
-                this.context
+        return this.insertBefore(
+                column,
+                count
         );
     }
 
     @Override
-    SpreadsheetDelta insert(final Range<SpreadsheetRowReference> row,
+    SpreadsheetDelta insert(final Range<SpreadsheetRowReference> column,
                             final int count) {
+        return this.insertBefore(
+                column.lowerBound()
+                        .value()
+                        .get(),
+                count
+        );
+    }
+
+    private SpreadsheetDelta insertBefore(final SpreadsheetRowReference column,
+                                          final int count) {
         return this.engine.insertRows(
-                row.lowerBound().value().get().addSaturated(-count),
+                column,
                 count,
                 this.context
         );
