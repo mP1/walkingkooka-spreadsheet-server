@@ -115,13 +115,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                                return WIDTH;
+                                return COLUMN_WIDTH.pixelValue();
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
                                                     final SpreadsheetEngineContext context) {
-                                return HEIGHT;
+                                return ROW_HEIGHT.pixelValue();
                             }
                         },
                         this.engineContext()),
@@ -132,11 +132,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                         this.deltaWithCell()
                                 .setColumnWidths(
                                         Maps.of(
-                                                SpreadsheetSelection.parseColumn("A"), WIDTH
+                                                SpreadsheetSelection.parseColumn("A"), COLUMN_WIDTH.pixelValue()
                                         )
                                 ).setRowHeights(
                                         Maps.of(
-                                                SpreadsheetSelection.parseRow("99"), HEIGHT
+                                                SpreadsheetSelection.parseRow("99"), ROW_HEIGHT.pixelValue()
                                         )
                                 )
                 )
@@ -188,13 +188,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                                return WIDTH;
+                                return COLUMN_WIDTH.pixelValue();
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
                                                     final SpreadsheetEngineContext context) {
-                                return HEIGHT;
+                                return ROW_HEIGHT.pixelValue();
                             }
                         },
                         this.engineContext()
@@ -207,20 +207,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                 .setCells(Sets.of(saved1))
                                 .setColumnWidths(
                                         Maps.of(
-                                                SpreadsheetSelection.parseColumn("A"), WIDTH
+                                                SpreadsheetSelection.parseColumn("A"), COLUMN_WIDTH.pixelValue()
                                         )
                                 ).setRowHeights(
                                         Maps.of(
-                                                SpreadsheetSelection.parseRow("99"), HEIGHT
+                                                SpreadsheetSelection.parseRow("99"), ROW_HEIGHT.pixelValue()
                                         )
                                 )
                                 .setWindow(window)
                 )
         );
     }
-
-    private final static double WIDTH = 100;
-    private final static double HEIGHT = 20;
 
     // toString.........................................................................................................
 

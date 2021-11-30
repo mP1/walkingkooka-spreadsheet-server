@@ -69,13 +69,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference c,
                                                       final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH;
+                                return COLUMN_WIDTH.pixelValue();
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference r,
                                                     final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT;
+                                return ROW_HEIGHT.pixelValue();
                             }
                         },
                         this.engineContext()
@@ -86,12 +86,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                 Optional.of(
                         returned.setColumnWidths(
                                         Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH
+                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
                                         )
                                 )
                                 .setRowHeights(
                                         Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT
+                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
                                         )
                                 )
                 )
@@ -128,13 +128,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference c,
                                                       final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH;
+                                return COLUMN_WIDTH.pixelValue();
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference r,
                                                     final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT;
+                                return ROW_HEIGHT.pixelValue();
                             }
                         },
                         this.engineContext()
@@ -145,12 +145,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                 Optional.of(
                         returned.setColumnWidths(
                                         Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH
+                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
                                         )
                                 )
                                 .setRowHeights(
                                         Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT
+                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
                                         )
                                 )
                 )

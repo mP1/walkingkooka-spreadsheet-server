@@ -65,8 +65,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
     @Test
     public void testHandleSaveCell() {
-        final double columnWidth = 50;
-        final double rowHeight = 20;
         final SpreadsheetCell cell = this.cell();
         final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
         final SpreadsheetRowReference row = this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
@@ -88,22 +86,28 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     public double columnWidth(final SpreadsheetColumnReference c,
                                               final SpreadsheetEngineContext context) {
                         assertEquals(column, c);
-                        return columnWidth;
+                        return COLUMN_WIDTH.pixelValue();
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference r,
                                             final SpreadsheetEngineContext context) {
                         assertEquals(row, r);
-                        return rowHeight;
+                        return ROW_HEIGHT.pixelValue();
                     }
                 }),
                 this.id(),
                 this.resource(),
                 this.parameters(),
                 Optional.of(this.saved()
-                        .setColumnWidths(Maps.of(column, columnWidth))
-                        .setRowHeights(Maps.of(row, rowHeight))));
+                        .setColumnWidths(
+                                Maps.of(column, COLUMN_WIDTH.pixelValue())
+                        )
+                        .setRowHeights(
+                                Maps.of(row, ROW_HEIGHT.pixelValue())
+                        )
+                )
+        );
     }
 
     @Test
