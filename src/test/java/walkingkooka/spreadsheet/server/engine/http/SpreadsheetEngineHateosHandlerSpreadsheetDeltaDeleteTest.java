@@ -19,10 +19,10 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.Cast;
 
-public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<?>> {
+public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete<?>> {
 
     @Override
-    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert<?>> type() {
-        return Cast.to(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsert.class);
+    public Class<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete<?>> type() {
+        return Cast.to(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDelete.class);
     }
 }
