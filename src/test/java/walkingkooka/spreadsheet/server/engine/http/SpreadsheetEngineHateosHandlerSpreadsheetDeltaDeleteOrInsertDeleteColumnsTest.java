@@ -47,9 +47,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
 
         final Set<SpreadsheetCell> cells = this.cells();
 
-        final double width = 50;
-        final double height = 20;
-
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
 
@@ -66,13 +63,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
                                               final SpreadsheetEngineContext context) {
-                        return width;
+                        return COLUMN_WIDTH.pixelValue();
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
-                        return height;
+                        return ROW_HEIGHT.pixelValue();
                     }
                 }),
                 column,
@@ -83,13 +80,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                                 .setCells(cells)
                                 .setColumnWidths(
                                         Maps.of(
-                                                SpreadsheetColumnReference.parseColumn("A"), width,
-                                                SpreadsheetColumnReference.parseColumn("Z"), width
+                                                SpreadsheetColumnReference.parseColumn("A"), COLUMN_WIDTH.pixelValue(),
+                                                SpreadsheetColumnReference.parseColumn("Z"), COLUMN_WIDTH.pixelValue()
                                         )
                                 )
                                 .setRowHeights(
                                         Maps.of(
-                                                SpreadsheetRowReference.parseRow("99"), height)
+                                                SpreadsheetRowReference.parseRow("99"), ROW_HEIGHT.pixelValue()
+                                        )
                                 )
                 )
         );

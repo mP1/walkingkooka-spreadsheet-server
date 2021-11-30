@@ -36,9 +36,6 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCa
         super();
     }
 
-    final static double COLUMN_WIDTH = 50;
-    final static double ROW_HEIGHT = 20;
-
     @Override
     final SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();

@@ -48,9 +48,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
 
         final Set<SpreadsheetCell> cells = Sets.of(this.cell());
 
-        final double width = 50;
-        final double height = 20;
-
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
 
@@ -67,14 +64,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
                                               final SpreadsheetEngineContext context) {
-                        return width;
+                        return COLUMN_WIDTH.pixelValue();
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
                         assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
-                        return height;
+                        return ROW_HEIGHT.pixelValue();
                     }
                 }),
                 row,
@@ -85,12 +82,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteOrInsertD
                                 .setCells(cells)
                                 .setColumnWidths(
                                         Maps.of(
-                                                SpreadsheetColumnReference.parseColumn("A"), width
+                                                SpreadsheetColumnReference.parseColumn("A"), COLUMN_WIDTH.pixelValue()
                                         )
                                 )
                                 .setRowHeights(
                                         Maps.of(
-                                                SpreadsheetRowReference.parseRow("99"), height
+                                                SpreadsheetRowReference.parseRow("99"), ROW_HEIGHT.pixelValue()
                                         )
                                 )
                 )

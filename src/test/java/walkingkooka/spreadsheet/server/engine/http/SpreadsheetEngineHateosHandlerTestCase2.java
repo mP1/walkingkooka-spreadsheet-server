@@ -40,6 +40,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.text.Length;
+import walkingkooka.tree.text.TextStyle;
+import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -74,6 +77,10 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
     abstract H createHandler(final SpreadsheetEngine engine,
                              final SpreadsheetEngineContext context);
 
+    final static Length<?> COLUMN_WIDTH = Length.parsePixels("100px");
+
+    final static Length<?> ROW_HEIGHT = Length.parsePixels("30px");
+
     /**
      * Creates a {@link SpreadsheetMetadata} with id=1 and all the necessary required properties
      */
@@ -93,7 +100,13 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                 .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"));
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"))
+                .set(
+                        SpreadsheetMetadataPropertyName.STYLE,
+                        TextStyle.EMPTY
+                                .set(TextStylePropertyName.WIDTH, COLUMN_WIDTH)
+                                .set(TextStylePropertyName.HEIGHT, ROW_HEIGHT)
+                );
     }
 
     abstract SpreadsheetEngine engine();
