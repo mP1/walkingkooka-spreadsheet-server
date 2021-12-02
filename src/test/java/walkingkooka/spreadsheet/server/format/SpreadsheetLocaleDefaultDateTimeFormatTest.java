@@ -79,7 +79,7 @@ public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends Spreadshee
     // Json..............................................................................................................
 
     @Override
-    public void testFromJsonNodeNullFails() {
+    public void testUnmarshallNullFails() {
         throw new UnsupportedOperationException();
     }
 
