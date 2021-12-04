@@ -34,8 +34,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColumnTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColumn, SpreadsheetColumnReference> {
 
@@ -61,8 +59,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                             public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
                                                                   final int count,
                                                                   final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseColumn("D"), column, "column");
-                                assertEquals(COUNT, count, "count");
+                                checkEquals(SpreadsheetSelection.parseColumn("D"), column, "column");
+                                checkEquals(COUNT, count, "count");
+
                                 return returned;
                             }
 
@@ -120,8 +119,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                             public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
                                                                   final int count,
                                                                   final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseColumn("F"), column, "column");
-                                assertEquals(COUNT, count, "count");
+                                checkEquals(SpreadsheetSelection.parseColumn("F"), column, "column");
+                                checkEquals(COUNT, count, "count");
+
                                 return returned;
                             }
 

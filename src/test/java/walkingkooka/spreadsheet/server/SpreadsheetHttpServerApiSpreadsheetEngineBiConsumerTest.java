@@ -79,7 +79,6 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
@@ -377,7 +376,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 bodyText
         );
 
-        assertEquals(
+        this.checkEquals(
                 statusCode,
                 response.status().map(HttpStatus::value).orElse(null),
                 () -> "status\n" + response
@@ -429,8 +428,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     private void checkHttpResponse(final HttpResponse httpResponse,
                                    final HttpStatus status,
                                    final Object body) {
-        assertEquals(Optional.of(status), httpResponse.status(), () -> "status\n" + httpResponse);
-        assertEquals(toJsonString(body),
+        this.checkEquals(Optional.of(status), httpResponse.status(), () -> "status\n" + httpResponse);
+        this.checkEquals(toJsonString(body),
                 httpResponse.entities().get(0).bodyText(),
                 () -> httpResponse.toString());
     }
@@ -513,7 +512,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetUserStores.treeMap());
         return (i) -> {
-            assertEquals(ID, i, "id");
+            this.checkEquals(ID, i, "id");
             return repository;
         };
     }

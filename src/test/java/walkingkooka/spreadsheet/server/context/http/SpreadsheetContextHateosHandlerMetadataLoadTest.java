@@ -35,8 +35,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends SpreadsheetContextHateosHandlerMetadataTestCase<SpreadsheetContextHateosHandlerMetadataLoad> {
 
     SpreadsheetContextHateosHandlerMetadataLoadTest() {
@@ -73,23 +71,25 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        assertEquals(id, i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
                             @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return store;
+                            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                                checkEquals(id, i, "spreadsheetId");
+                                return new FakeSpreadsheetStoreRepository() {
+                                    @Override
+                                    public SpreadsheetMetadataStore metadatas() {
+                                        return store;
+                                    }
+                                };
                             }
-                        };
-                    }
-                }),
+                        }),
                 id,
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(metadata));
+                Optional.of(metadata)
+        );
     }
 
     // toString.........................................................................................................

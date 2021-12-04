@@ -37,8 +37,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell,
         SpreadsheetCellReference> {
@@ -53,7 +51,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest 
                             @Override
                             public SpreadsheetDelta deleteCell(final SpreadsheetCellReference c,
                                                                final SpreadsheetEngineContext context) {
-                                assertEquals(cell, c, "cell");
+                                checkEquals(cell, c, "cell");
                                 return SpreadsheetDelta.EMPTY
                                         .setDeletedCells(Sets.of(c));
                             }
@@ -84,12 +82,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest 
                                                               final SpreadsheetCellRange from,
                                                               final SpreadsheetCellRange to,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(
+                                checkEquals(
                                         SpreadsheetExpressionReference.cellRange(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest.this.range()),
                                         from,
                                         "from"
                                 );
-                                assertEquals(
+                                checkEquals(
                                         SpreadsheetExpressionReference.cellRange(SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest.this.range()),
                                         to,
                                         "to"

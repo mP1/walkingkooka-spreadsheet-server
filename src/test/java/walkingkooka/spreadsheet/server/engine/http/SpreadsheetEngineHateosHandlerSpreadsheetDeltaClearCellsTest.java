@@ -28,26 +28,14 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
-import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 
 import java.util.Map;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells,
         SpreadsheetCellReference> {
@@ -84,7 +72,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
                 )
         );
 
-        assertEquals(Optional.empty(), cellStore.load(a1), "a1 should have been deleted");
+        this.checkEquals(Optional.empty(), cellStore.load(a1), "a1 should have been deleted");
     }
 
     @Test
@@ -124,10 +112,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
                 )
         );
 
-        assertEquals(Optional.empty(), cellStore.load(a1), "a1 should have been deleted");
-        assertEquals(Optional.empty(), cellStore.load(b2), "b2 should have been deleted");
-        assertEquals(Optional.empty(), cellStore.load(c3), "c3 should have been deleted");
-        assertEquals(Optional.of(d4Cell), cellStore.load(d4), "d4 should have been deleted");
+        this.checkEquals(Optional.empty(), cellStore.load(a1), "a1 should have been deleted");
+        this.checkEquals(Optional.empty(), cellStore.load(b2), "b2 should have been deleted");
+        this.checkEquals(Optional.empty(), cellStore.load(c3), "c3 should have been deleted");
+        this.checkEquals(Optional.of(d4Cell), cellStore.load(d4), "d4 should have been deleted");
     }
 
     // toString.........................................................................................................

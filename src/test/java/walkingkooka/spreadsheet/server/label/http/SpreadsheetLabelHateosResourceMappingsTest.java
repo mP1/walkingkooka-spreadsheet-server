@@ -57,8 +57,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTesting2<SpreadsheetLabelHateosResourceMappings> {
@@ -178,7 +176,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 toJson(MAPPING)
         );
 
-        assertEquals(MAPPING, store.loadOrFail(LABEL));
+        this.checkEquals(MAPPING, store.loadOrFail(LABEL));
     }
 
     @Test
@@ -197,7 +195,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 toJson(MAPPING)
         );
 
-        assertEquals(MAPPING, store.loadOrFail(LABEL));
+        this.checkEquals(MAPPING, store.loadOrFail(LABEL));
     }
 
     @Test
@@ -230,7 +228,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 ""
         );
 
-        assertEquals(Optional.empty(), store.load(LABEL));
+        this.checkEquals(Optional.empty(), store.load(LABEL));
     }
 
     // helpers..........................................................................................................
@@ -276,18 +274,18 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 contentType(),
                 Sets.of(mapping)
         ).route(request.routerParameters());
-        assertNotEquals(Optional.empty(),
+        this.checkNotEquals(Optional.empty(),
                 possible,
                 () -> method + " " + url);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
-            assertEquals(statusCode,
+            this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
 
             final List<HttpEntity> entities = response.entities();
-            assertEquals(responseBody,
+            this.checkEquals(responseBody,
                     entities.isEmpty() ? "" : entities.get(0).bodyText(),
                     () -> "body " + request + " " + response + "\n" + possible);
         }

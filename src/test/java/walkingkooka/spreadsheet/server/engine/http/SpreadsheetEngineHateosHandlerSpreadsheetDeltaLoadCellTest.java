@@ -44,8 +44,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -339,7 +337,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 parameters,
                 IllegalArgumentException.class
         );
-        assertEquals(message, thrown.getMessage(), "message");
+        this.checkEquals(message, thrown.getMessage(), "message");
     }
 
     @Test
@@ -459,8 +457,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             public SpreadsheetDelta loadCells(final SpreadsheetCellRange r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.cellRange(range), r, "range");
-                                assertEquals(EVALUATION, evaluation, "evaluation");
+                                checkEquals(SpreadsheetSelection.cellRange(range), r, "range");
+                                checkEquals(EVALUATION, evaluation, "evaluation");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
@@ -474,8 +472,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
                                                               final Optional<SpreadsheetSelection> s,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetViewport.with(SpreadsheetSelection.parseCell("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
-                                assertEquals(Optional.ofNullable(viewportSelection).map(SpreadsheetViewportSelection::selection), s, "selection");
+                                checkEquals(SpreadsheetViewport.with(SpreadsheetSelection.parseCell("B2"), 11.0, 22.0, 33.0, 44.0), viewport, "viewport");
+                                checkEquals(Optional.ofNullable(viewportSelection).map(SpreadsheetViewportSelection::selection), s, "selection");
+
                                 return SpreadsheetSelection.cellRange(range);
                             }
 
@@ -590,9 +589,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Objects.requireNonNull(evaluation, "evaluation");
                 Objects.requireNonNull(context, "context");
 
-                assertEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");
-                assertEquals(EVALUATION, evaluation, "evaluation");
-                assertNotEquals(null, context, "context");
+                checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");
+                checkEquals(EVALUATION, evaluation, "evaluation");
+                checkNotEquals(null, context, "context");
 
                 return spreadsheetDelta();
             }

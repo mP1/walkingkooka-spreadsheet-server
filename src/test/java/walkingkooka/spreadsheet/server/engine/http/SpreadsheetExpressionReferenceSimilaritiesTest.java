@@ -34,7 +34,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetExpressionReferenceSimilaritiesTest implements HashCodeEqualsDefinedTesting2<SpreadsheetExpressionReferenceSimilarities>,
@@ -63,7 +62,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     @Test
     public void testWithLabelWithinMappingsFails() {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> SpreadsheetExpressionReferenceSimilarities.with(Optional.of(REFERENCE), Optional.of(LABEL), Set.of(LABEL.mapping(REFERENCE))));
-        assertEquals("Label Label123 present within mappings: [Label123=B2]", thrown.getMessage(), "message");
+        this.checkEquals("Label Label123 present within mappings: [Label123=B2]", thrown.getMessage(), "message");
     }
 
     @Test
@@ -95,8 +94,8 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 Optional.ofNullable(label),
                 labelMappings
         );
-        assertEquals(Optional.ofNullable(reference), similar.cellReference(), "cellReference");
-        assertEquals(labelMappings, similar.labelMappings(), "labelMappings");
+        this.checkEquals(Optional.ofNullable(reference), similar.cellReference(), "cellReference");
+        this.checkEquals(labelMappings, similar.labelMappings(), "labelMappings");
     }
 
     @Test

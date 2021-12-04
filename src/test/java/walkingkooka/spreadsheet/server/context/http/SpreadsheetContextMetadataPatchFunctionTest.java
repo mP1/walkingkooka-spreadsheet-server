@@ -43,7 +43,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetContextMetadataPatchFunctionTest implements FunctionTesting<SpreadsheetContextMetadataPatchFunction, JsonNode, JsonNode>,
@@ -71,7 +70,7 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
         final SpreadsheetContext context = new FakeSpreadsheetContext() {
             @Override
             public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                assertEquals(ID, id, "id");
+                checkEquals(ID, id, "id");
 
                 return new FakeSpreadsheetStoreRepository() {
                     @Override
@@ -100,7 +99,7 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
                             );
                 }
         );
-        assertEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
+        this.checkEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
     }
 
     @Test
@@ -124,7 +123,7 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
         final SpreadsheetContext context = new FakeSpreadsheetContext() {
             @Override
             public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                assertEquals(ID, id, "id");
+                checkEquals(ID, id, "id");
 
                 return new FakeSpreadsheetStoreRepository() {
                     @Override

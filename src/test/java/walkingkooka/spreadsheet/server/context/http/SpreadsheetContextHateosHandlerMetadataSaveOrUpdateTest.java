@@ -36,8 +36,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest extends SpreadsheetContextHateosHandlerMetadataTestCase<SpreadsheetContextHateosHandlerMetadataSaveOrUpdate> {
 
     SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest() {
@@ -118,18 +116,20 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
     @Test
     public void testHandleIdWithMetadataSaves() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
-        final SpreadsheetContextHateosHandlerMetadataSaveOrUpdate handler = SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with((new FakeSpreadsheetContext() {
-            @Override
-            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                assertEquals(spreadsheetId(), i, "spreadsheetId");
-                return new FakeSpreadsheetStoreRepository() {
+        final SpreadsheetContextHateosHandlerMetadataSaveOrUpdate handler = SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(
+                new FakeSpreadsheetContext() {
                     @Override
-                    public SpreadsheetMetadataStore metadatas() {
-                        return store;
+                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                        checkEquals(spreadsheetId(), i, "spreadsheetId");
+                        return new FakeSpreadsheetStoreRepository() {
+                            @Override
+                            public SpreadsheetMetadataStore metadatas() {
+                                return store;
+                            }
+                        };
                     }
-                };
-            }
-        }));
+                }
+        );
 
         final SpreadsheetId id = this.id();
         final SpreadsheetMetadata metadata = this.metadata();
@@ -140,7 +140,7 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
                 this.parameters(),
                 Optional.of(metadata));
 
-        assertEquals(Optional.of(metadata), store.load(id), () -> "store missing id=" + id);
+        this.checkEquals(Optional.of(metadata), store.load(id), () -> "store missing id=" + id);
     }
 
     // toString.........................................................................................................

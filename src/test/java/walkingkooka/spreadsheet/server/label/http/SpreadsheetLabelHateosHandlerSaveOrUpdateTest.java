@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends SpreadsheetLabelHateosHandlerTestCase2<SpreadsheetLabelHateosHandlerSaveOrUpdate> {
 
     @Test
@@ -50,7 +48,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
                 Optional.of(mapping)
         );
 
-        assertEquals(mapping, store.loadOrFail(labelName));
+        this.checkEquals(mapping, store.loadOrFail(labelName));
     }
 
     @Test
@@ -68,7 +66,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
                 Optional.of(mapping)
         );
 
-        assertEquals(mapping, store.loadOrFail(labelName));
+        this.checkEquals(mapping, store.loadOrFail(labelName));
     }
 
     @Test
@@ -87,7 +85,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
                 Optional.of(newMapping)
         );
 
-        assertEquals(
+        this.checkEquals(
                 Lists.of(newMapping),
                 store.all()
         );
@@ -110,7 +108,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
                 Optional.of(newMapping)
         );
 
-        assertEquals(
+        this.checkEquals(
                 Lists.of(newMapping),
                 store.all()
         );

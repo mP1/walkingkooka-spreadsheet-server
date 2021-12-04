@@ -35,8 +35,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 
     @Test
@@ -153,7 +151,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
             }
         }.prepareResponse(input, parameters, SpreadsheetDelta.EMPTY);
 
-        assertEquals(
+        this.checkEquals(
                 expected,
                 response.selection(),
                 () -> "input=" + input + " parameters=" + parameters

@@ -53,8 +53,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetContextHateosHandlersRouterTest extends SpreadsheetContextHateosHandlerTestCase<SpreadsheetContextHateosHandlersRouter> {
@@ -172,14 +170,14 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                                final String responseBody) {
         final HttpRequest request = this.request(method, url);
         final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
-        assertNotEquals(Optional.empty(), possible);
+        this.checkNotEquals(Optional.empty(), possible);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
-            assertEquals(statusCode,
+            this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
-            assertEquals(responseBody,
+            this.checkEquals(responseBody,
                     response.entities().get(0).bodyText());
         }
     }
@@ -192,7 +190,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
-            assertEquals(statusCode,
+            this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
         }
@@ -292,8 +290,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
 
     private void checkHandleParameters(final Optional<SpreadsheetMetadata> resource,
                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        assertEquals(Optional.empty(), resource, "resource");
-        assertNotEquals(null, parameters, "parameters");
+        this.checkEquals(Optional.empty(), resource, "resource");
+        this.checkNotEquals(null, parameters, "parameters");
     }
 
     private SpreadsheetId spreadsheetId() {

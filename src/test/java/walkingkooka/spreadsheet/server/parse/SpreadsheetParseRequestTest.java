@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetParseRequestTest extends SpreadsheetParserTestCase2<SpreadsheetParseRequest> {
@@ -48,8 +47,8 @@ public final class SpreadsheetParseRequestTest extends SpreadsheetParserTestCase
     @Test
     public void testWith() {
         final SpreadsheetParseRequest request = SpreadsheetParseRequest.with(TEXT, PARSER);
-        assertEquals(TEXT, request.text(), "text");
-        assertEquals(PARSER, request.parser(), "PARSER");
+        this.checkEquals(TEXT, request.text(), "text");
+        this.checkEquals(PARSER, request.parser(), "PARSER");
     }
 
     // Object............................................................................................................
