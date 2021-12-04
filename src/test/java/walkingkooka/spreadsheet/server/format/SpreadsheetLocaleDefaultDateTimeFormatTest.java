@@ -25,7 +25,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends SpreadsheetFormatterTestCase2<SpreadsheetLocaleDefaultDateTimeFormat> {
@@ -66,7 +65,7 @@ public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends Spreadshee
     private void formatAndCheck(final LocalDateTime dateTime,
                                 final Locale locale,
                                 final String formatted) {
-        assertEquals(formatted,
+        this.checkEquals(formatted,
                 this.createObject().format(dateTime, new HasLocale() {
                     @Override
                     public Locale locale() {

@@ -88,8 +88,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -235,12 +233,12 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     @Test
     public void testFunctions() {
-        assertNotEquals(null, this.createContext().functions(this.spreadsheetId()));
+        this.checkNotEquals(null, this.createContext().functions(this.spreadsheetId()));
     }
 
     @Test
     public void testHateosRouter() {
-        assertNotEquals(null, this.createContext().httpRouter(this.spreadsheetId()));
+        this.checkNotEquals(null, this.createContext().httpRouter(this.spreadsheetId()));
     }
 
     @Test
@@ -656,7 +654,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             };
 
             final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
-            assertNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
+            this.checkNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
 
             final HttpResponse response = HttpResponses.recording();
             @SuppressWarnings("OptionalGetWithoutIsPresent") final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
@@ -697,7 +695,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             };
 
             final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
-            assertNotEquals(Optional.empty(), mapped, "request " + request.parameters());
+            this.checkNotEquals(Optional.empty(), mapped, "request " + request.parameters());
 
             final HttpResponse response = HttpResponses.recording();
             //noinspection OptionalGetWithoutIsPresent
@@ -713,7 +711,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                     .setBodyText(expectedBody)
                     .setContentLength());
 
-            assertEquals(expected, response, () -> "consumer: " + consumer + ", request: " + request);
+            this.checkEquals(expected, response, () -> "consumer: " + consumer + ", request: " + request);
         }
     }
 
@@ -750,20 +748,20 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         };
 
         final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
-        assertEquals(Optional.empty(), mapped, "request " + request.parameters());
+        this.checkEquals(Optional.empty(), mapped, "request " + request.parameters());
     }
 
     @Test
     public void testMetadataWithDefaultsWithLocale() {
         final Optional<Locale> locale = Optional.of(Locale.ENGLISH);
-        assertEquals(this.createMetadata(locale),
+        this.checkEquals(this.createMetadata(locale),
                 this.createContext().createMetadata(locale));
     }
 
     @Test
     public void testMetadataWithDefaultsWithoutLocale() {
         final Optional<Locale> locale = Optional.empty();
-        assertEquals(this.createMetadata(locale),
+        this.checkEquals(this.createMetadata(locale),
                 this.createContext().createMetadata(locale));
     }
 
@@ -773,7 +771,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         final SpreadsheetId id = SpreadsheetId.with(123);
 
         final SpreadsheetStoreRepository repository = context.storeRepository(id);
-        assertNotEquals(null, repository);
+        this.checkNotEquals(null, repository);
 
         this.countAndCheck(repository.cells(), 0);
         this.countAndCheck(repository.cellReferences(), 0);
@@ -801,11 +799,11 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
         final SpreadsheetId id1 = SpreadsheetId.with(111);
         final SpreadsheetStoreRepository repository1 = context.storeRepository(id1);
-        assertNotEquals(null, repository1);
+        this.checkNotEquals(null, repository1);
 
         final SpreadsheetId id2 = SpreadsheetId.with(222);
         final SpreadsheetStoreRepository repository2 = context.storeRepository(id2);
-        assertNotEquals(null, repository2);
+        this.checkNotEquals(null, repository2);
     }
 
     @Test
@@ -818,7 +816,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     private void countAndCheck(final Store<?, ?> store, final int count) {
-        assertEquals(count, store.count(), () -> "" + store.all());
+        this.checkEquals(count, store.count(), () -> "" + store.all());
     }
 
     @Test
@@ -954,7 +952,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     private void checkSpreadsheetId(final SpreadsheetId id) {
         Objects.requireNonNull(id, "spreadsheetId");
-        assertEquals(this.spreadsheetId(), id, "spreadsheetId");
+        this.checkEquals(this.spreadsheetId(), id, "spreadsheetId");
     }
 
     private SpreadsheetId spreadsheetId() {

@@ -26,7 +26,6 @@ import walkingkooka.util.FunctionTesting;
 
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements FunctionTesting<ParseCellOrLabelAndResolveLabelsFunction, String, SpreadsheetCellReference>,
@@ -35,8 +34,8 @@ public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements Funct
     private final static SpreadsheetCellReference CELL = SpreadsheetSelection.parseCell("Z99");
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
 
-    private final static Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL = (label) -> {
-        assertEquals(LABEL, label, "label");
+    private final Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL = (label) -> {
+        this.checkEquals(LABEL, label, "label");
         return CELL;
     };
 

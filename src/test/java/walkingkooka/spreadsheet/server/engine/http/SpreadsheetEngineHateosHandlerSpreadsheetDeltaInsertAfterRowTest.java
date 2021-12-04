@@ -34,8 +34,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRow, SpreadsheetRowReference> {
 
@@ -61,8 +59,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowT
                             public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
                                                                final int count,
                                                                final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseRow("4"), row, "row");
-                                assertEquals(COUNT, count, "count");
+                                checkEquals(SpreadsheetSelection.parseRow("4"), row, "row");
+                                checkEquals(COUNT, count, "count");
                                 return returned;
                             }
 
@@ -120,8 +118,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowT
                             public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
                                                                final int count,
                                                                final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetSelection.parseRow("6"), row, "row");
-                                assertEquals(COUNT, count, "count");
+                                checkEquals(SpreadsheetSelection.parseRow("6"), row, "row");
+                                checkEquals(COUNT, count, "count");
                                 return returned;
                             }
 

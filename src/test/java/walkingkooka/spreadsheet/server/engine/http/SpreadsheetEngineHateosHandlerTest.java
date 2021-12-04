@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosHandlerTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandler<?, ?, ?>> {
@@ -54,12 +53,12 @@ public final class SpreadsheetEngineHateosHandlerTest extends SpreadsheetEngineH
                         Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("!invalid"))
                 )
         );
-        assertEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
+        this.checkEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
     }
 
     @Test
     public void testCount() {
-        assertEquals(
+        this.checkEquals(
                 123,
                 SpreadsheetEngineHateosHandler.count(
                         Maps.of(SpreadsheetEngineHateosHandler.COUNT, Lists.of("123"))

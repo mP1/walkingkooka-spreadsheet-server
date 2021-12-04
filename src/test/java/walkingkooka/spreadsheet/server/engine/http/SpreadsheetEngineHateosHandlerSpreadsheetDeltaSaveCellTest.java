@@ -46,9 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell,
         SpreadsheetCellReference> {
@@ -69,30 +66,31 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
         final SpreadsheetRowReference row = this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetDelta saveCell(final SpreadsheetCell c,
-                                                     final SpreadsheetEngineContext context) {
-                        Objects.requireNonNull(context, "context");
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta saveCell(final SpreadsheetCell c,
+                                                             final SpreadsheetEngineContext context) {
+                                Objects.requireNonNull(context, "context");
 
-                        assertEquals(cell, c, "cell");
-                        assertNotEquals(null, context, "context");
+                                checkEquals(cell, c, "cell");
+                                checkNotEquals(null, context, "context");
 
-                        return saved();
-                    }
+                                return saved();
+                            }
 
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference c,
                                               final SpreadsheetEngineContext context) {
-                        assertEquals(column, c);
+                        checkEquals(column, c);
                         return COLUMN_WIDTH.pixelValue();
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference r,
                                             final SpreadsheetEngineContext context) {
-                        assertEquals(row, r);
+                        checkEquals(row, r);
                         return ROW_HEIGHT.pixelValue();
                     }
                 }),
@@ -146,8 +144,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                                      final SpreadsheetEngineContext context) {
                         Objects.requireNonNull(context, "context");
 
-                        assertEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
-                        assertNotEquals(null, context, "context");
+                        checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
+                        checkNotEquals(null, context, "context");
 
                         return SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1, saved2))
@@ -157,14 +155,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
                                               final SpreadsheetEngineContext context) {
-                        assertEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
+                        checkEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
                         return WIDTH;
                     }
 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
-                        assertEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
+                        checkEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
                         return HEIGHT;
                     }
 
@@ -213,9 +211,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                                               final SpreadsheetCellRange from,
                                                               final SpreadsheetCellRange to,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
-                                assertEquals(range, from, "from");
-                                assertEquals(range, to, "to");
+                                checkEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
+                                checkEquals(range, from, "from");
+                                checkEquals(range, to, "to");
 
                                 return result;
                             }
@@ -277,9 +275,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                                               final SpreadsheetCellRange from,
                                                               final SpreadsheetCellRange to,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
-                                assertEquals(range, from, "from");
-                                assertEquals(range, to, "to");
+                                checkEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
+                                checkEquals(range, from, "from");
+                                checkEquals(range, to, "to");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(

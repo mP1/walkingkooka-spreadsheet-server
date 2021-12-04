@@ -35,8 +35,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumns,
         SpreadsheetColumnReference> {
 
@@ -47,18 +45,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
 
         final Set<SpreadsheetCell> cells = this.cells();
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    @SuppressWarnings("OptionalGetWithoutIsPresent")
-                    public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
-                                                          final int count,
-                                                          final SpreadsheetEngineContext context) {
-                        assertEquals(column, c, "column");
-                        assertEquals(1, count, "count");
-                        return SpreadsheetDelta.EMPTY.setCells(cells);
-                    }
+                            @Override
+                            @SuppressWarnings("OptionalGetWithoutIsPresent")
+                            public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
+                                                                  final int count,
+                                                                  final SpreadsheetEngineContext context) {
+                                checkEquals(column, c, "column");
+                                checkEquals(1, count, "count");
+                                return SpreadsheetDelta.EMPTY.setCells(cells);
+                            }
 
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
@@ -103,17 +102,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
-        this.handleRangeAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleRangeAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
-                                                          final int count,
-                                                          final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetColumnOrRowReference.parseColumn("C"), c, "column");
-                        assertEquals(3, count, "count"); // C, D & E
-                        return delta;
-                    }
+                            @Override
+                            public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
+                                                                  final int count,
+                                                                  final SpreadsheetEngineContext context) {
+                                checkEquals(SpreadsheetColumnOrRowReference.parseColumn("C"), c, "column");
+                                checkEquals(3, count, "count"); // C, D & E
+                                return delta;
+                            }
 
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
@@ -157,15 +157,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
                             public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
                                                                   final int count,
                                                                   final SpreadsheetEngineContext context) {
-                                assertEquals(column, c, "column");
-                                assertEquals(1, count, "count");
+                                checkEquals(column, c, "column");
+                                checkEquals(1, count, "count");
                                 return SpreadsheetDelta.EMPTY.setCells(cells);
                             }
 
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
+                                checkEquals(SpreadsheetColumnReference.parseColumn("A"), column, "column");
                                 return 0;
                             }
 
@@ -205,7 +205,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
     }
 
     private void handleRangeFails2(final Range<SpreadsheetColumnReference> columns) {
-        assertEquals("Range with both columns required=" + columns,
+        this.checkEquals("Range with both columns required=" + columns,
                 this.handleRangeFails(columns,
                         this.collectionResource(),
                         HateosHandler.NO_PARAMETERS,

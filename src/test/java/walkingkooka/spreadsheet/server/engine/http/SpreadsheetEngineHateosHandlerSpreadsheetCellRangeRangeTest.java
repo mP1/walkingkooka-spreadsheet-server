@@ -37,8 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange,
         SpreadsheetViewport,
         SpreadsheetCellRange,
@@ -55,8 +53,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
                     public SpreadsheetCellRange range(final SpreadsheetViewport v,
                                                       final Optional<SpreadsheetSelection> s,
                                                       final SpreadsheetEngineContext context) {
-                        assertEquals(viewport, v, "viewport");
-                        assertEquals(Optional.empty(), s, "selection");
+                        checkEquals(viewport, v, "viewport");
+                        checkEquals(Optional.empty(), s, "selection");
+
                         return range;
                     }
                 },
@@ -78,8 +77,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
                     public SpreadsheetCellRange range(final SpreadsheetViewport v,
                                                       final Optional<SpreadsheetSelection> s,
                                                       final SpreadsheetEngineContext context) {
-                        assertEquals(viewport, v, "viewport");
-                        assertEquals(Optional.empty(), s, "selection");
+                        checkEquals(viewport, v, "viewport");
+                        checkEquals(Optional.empty(), s, "selection");
+
                         return range;
                     }
                 },

@@ -73,8 +73,6 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassTesting2<SpreadsheetEngineHateosResourceMappings> {
@@ -541,7 +539,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 body,
                 thrown
         );
-        assertEquals(message, throwable.getMessage(), "message");
+        this.checkEquals(message, throwable.getMessage(), "message");
     }
 
     private SpreadsheetEngine engine() {
@@ -1034,17 +1032,17 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 contentType(),
                 Sets.of(mapping))
                 .route(request.routerParameters());
-        assertNotEquals(Optional.empty(),
+        this.checkNotEquals(Optional.empty(),
                 possible,
                 () -> method + " " + URL + url);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get().accept(request, response);
-            assertEquals(statusCode,
+            this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status code: " + request + " " + response + "\n" + possible);
             if (null != message) {
-                assertEquals(message,
+                this.checkEquals(message,
                         response.status().map(HttpStatus::message).orElse(null),
                         () -> "status message: " + request + " " + response + "\n" + possible);
             }
@@ -1060,7 +1058,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         contentType(),
                         Sets.of(mapping))
                 .route(request.routerParameters());
-        assertNotEquals(Optional.empty(),
+        this.checkNotEquals(Optional.empty(),
                 possible,
                 () -> method + " " + URL + url);
         final HttpResponse response = HttpResponses.recording();

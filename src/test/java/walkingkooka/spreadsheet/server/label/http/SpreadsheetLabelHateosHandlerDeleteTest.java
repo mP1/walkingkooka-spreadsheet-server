@@ -33,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetLabelHateosHandlerDeleteTest extends SpreadsheetLabelHateosHandlerTestCase2<SpreadsheetLabelHateosHandlerDelete> {
 
     @Test
@@ -64,7 +62,7 @@ public final class SpreadsheetLabelHateosHandlerDeleteTest extends SpreadsheetLa
                 Optional.empty()
         );
 
-        assertEquals(Optional.empty(), store.load(labelName));
+        this.checkEquals(Optional.empty(), store.load(labelName));
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName labelName) {

@@ -56,7 +56,6 @@ import walkingkooka.util.FunctionTesting;
 import java.util.Locale;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -174,7 +173,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                             public SpreadsheetDelta loadCell(final SpreadsheetCellReference cellReference,
                                                              final SpreadsheetEngineEvaluation evaluation,
                                                              final SpreadsheetEngineContext context) {
-                                assertEquals(REFERENCE, cellReference, "reference");
+                                checkEquals(REFERENCE, cellReference, "reference");
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY
@@ -191,8 +190,9 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                             @Override
                             public SpreadsheetDelta saveCell(final SpreadsheetCell c,
                                                              final SpreadsheetEngineContext context) {
-                                assertEquals(cell.setStyle(style), c, "cell");
+                                checkEquals(cell.setStyle(style), c, "cell");
                                 assertSame(CONTEXT, context, "context");
+
                                 return response;
                             }
                         },

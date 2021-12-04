@@ -36,9 +36,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumnTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn, SpreadsheetColumnReference> {
 
@@ -102,12 +99,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                 )
         );
 
-        assertEquals(4, cellStore.count(), "cell count remains unchanged");
+        this.checkEquals(4, cellStore.count(), "cell count remains unchanged");
 
-        assertNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
-        assertNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
-        assertNotEquals(Optional.empty(), cellStore.load(d3), "d3 moved");
-        assertNotEquals(Optional.empty(), cellStore.load(e4), "e4 moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(d3), "d3 moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(e4), "e4 moved");
     }
 
     @Test
@@ -168,12 +165,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                 )
         );
 
-        assertEquals(4, cellStore.count(), "cell count remains unchanged");
+        this.checkEquals(4, cellStore.count(), "cell count remains unchanged");
 
-        assertNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
-        assertNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
-        assertNotEquals(Optional.empty(), cellStore.load(d3), "d3 moved");
-        assertNotEquals(Optional.empty(), cellStore.load(e4), "e4 moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(a1), "a1 was not moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(b2), "b2 was not moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(d3), "d3 moved");
+        this.checkNotEquals(Optional.empty(), cellStore.load(e4), "e4 moved");
     }
 
     @Override

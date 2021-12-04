@@ -41,8 +41,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells,
         SpreadsheetCellReference> {
 
@@ -106,9 +104,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                                               final SpreadsheetCellRange f,
                                                               final SpreadsheetCellRange t,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(collectionResource().get().cells(), cells, "cells");
-                                assertEquals(from, f, "from");
-                                assertEquals(toSpreadsheetCellRange(), t, "to");
+                                checkEquals(collectionResource().get().cells(), cells, "cells");
+                                checkEquals(from, f, "from");
+                                checkEquals(toSpreadsheetCellRange(), t, "to");
                                 return deltaWithCell();
                             }
 
@@ -169,9 +167,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                                               final SpreadsheetCellRange from,
                                                               final SpreadsheetCellRange to,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(resource.cells(), cells, "cells");
-                                assertEquals(spreadsheetCellRange, from, "from");
-                                assertEquals(spreadsheetCellRange, to, "to");
+                                checkEquals(resource.cells(), cells, "cells");
+                                checkEquals(spreadsheetCellRange, from, "from");
+                                checkEquals(spreadsheetCellRange, to, "to");
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(saved1,

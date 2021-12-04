@@ -27,7 +27,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatRequestTest extends SpreadsheetFormatterTestCase2<SpreadsheetFormatRequest> {
@@ -49,8 +48,8 @@ public final class SpreadsheetFormatRequestTest extends SpreadsheetFormatterTest
     @Test
     public void testWith() {
         final SpreadsheetFormatRequest request = SpreadsheetFormatRequest.with(VALUE, PATTERN);
-        assertEquals(VALUE, request.value(), "value");
-        assertEquals(PATTERN, request.pattern(), "PATTERN");
+        this.checkEquals(VALUE, request.value(), "value");
+        this.checkEquals(PATTERN, request.pattern(), "PATTERN");
     }
 
     // Json..............................................................................................................

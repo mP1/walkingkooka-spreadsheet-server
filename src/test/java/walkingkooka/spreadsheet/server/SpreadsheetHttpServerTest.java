@@ -102,8 +102,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer> {
@@ -172,7 +170,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
         );
-        assertNotEquals(null,
+        this.checkNotEquals(null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
     }
@@ -192,7 +190,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
         );
-        assertNotEquals(
+        this.checkNotEquals(
                 null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore
@@ -214,7 +212,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
         );
-        assertNotEquals(
+        this.checkNotEquals(
                 null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore
@@ -960,7 +958,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
-        assertNotEquals(
+        this.checkNotEquals(
                 null,
                 loaded,
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore
@@ -1419,7 +1417,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
         );
 
-        assertEquals(2, this.metadataStore.count());
+        this.checkEquals(2, this.metadataStore.count());
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3188,7 +3186,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
         );
 
-        assertEquals(1, this.metadataStore.count());
+        this.checkEquals(1, this.metadataStore.count());
 
         // reload the saved cell
         server.handleAndCheck(
@@ -6193,7 +6191,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
      * Initializes the test {@link HttpServer}.
      */
     private HttpServer server(final BiConsumer<HttpRequest, HttpResponse> handler) {
-        assertNotEquals(null, handler, "handler");
+        this.checkNotEquals(null, handler, "handler");
         this.httpServer.setHandler(handler);
         return this.httpServer;
     }
@@ -6215,7 +6213,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     /**
      * A {@link HttpServer} that allows direct invocation of the main handler skipping the HTTP transport layer
      */
-    private static class TestHttpServer implements HttpServer {
+    private class TestHttpServer implements HttpServer {
 
         private TestHttpServer() {
             super();
@@ -6252,10 +6250,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             final HttpStatus status,
                             final String bodyTextContains) {
             final HttpResponse response = this.handle(request);
-            assertEquals(status, response.status().orElse(null), "status");
+            checkEquals(status, response.status().orElse(null), "status");
 
             final List<HttpEntity> entities = response.entities();
-            assertEquals(1, entities.size(), () -> "" + request + "\n" + response);
+            checkEquals(1, entities.size(), () -> "" + request + "\n" + response);
 
             final HttpEntity first = entities.get(0);
             final String body = first.bodyText();
@@ -6275,7 +6273,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             final HttpResponse expected) {
             final HttpResponse response = this.handle(request);
 
-            assertEquals(expected, response, () -> "" + request);
+            checkEquals(expected, response, () -> "" + request);
         }
 
         HttpResponse handle(final HttpRequest request) {
@@ -6284,7 +6282,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             }
             final HttpResponse response = HttpResponses.recording();
             this.handler.accept(request, response);
-            assertNotEquals(null, response.status(), "status not set");
+            checkNotEquals(null, response.status(), "status not set");
             return response;
         }
 

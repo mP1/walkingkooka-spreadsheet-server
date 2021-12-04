@@ -36,8 +36,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRows,
         SpreadsheetRowReference> {
 
@@ -48,18 +46,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
 
         final Set<SpreadsheetCell> cells = Sets.of(this.cell());
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
 
-                    @Override
-                    @SuppressWarnings("OptionalGetWithoutIsPresent")
-                    public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
-                                                       final int count,
-                                                       final SpreadsheetEngineContext context) {
-                        assertEquals(row, r, "row");
-                        assertEquals(1, count, "count");
-                        return SpreadsheetDelta.EMPTY.setCells(cells);
-                    }
+                            @Override
+                            @SuppressWarnings("OptionalGetWithoutIsPresent")
+                            public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
+                                                               final int count,
+                                                               final SpreadsheetEngineContext context) {
+                                checkEquals(row, r, "row");
+                                checkEquals(1, count, "count");
+                                return SpreadsheetDelta.EMPTY.setCells(cells);
+                            }
 
                     @Override
                     public double columnWidth(final SpreadsheetColumnReference column,
@@ -70,7 +69,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
+                        checkEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return ROW_HEIGHT.pixelValue();
                     }
                 }),
@@ -111,8 +110,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                     public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
                                                        final int count,
                                                        final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetColumnOrRowReference.parseRow("2"), r, "row");
-                        assertEquals(3, count, "count"); // 2, 3 & 4
+                        checkEquals(SpreadsheetColumnOrRowReference.parseRow("2"), r, "row");
+                        checkEquals(3, count, "count"); // 2, 3 & 4
                         return delta;
                     }
 
@@ -125,7 +124,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                     @Override
                     public double rowHeight(final SpreadsheetRowReference row,
                                             final SpreadsheetEngineContext context) {
-                        assertEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
+                        checkEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
                         return 0;
                     }
                 }),
@@ -151,8 +150,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                             public SpreadsheetDelta deleteRows(final SpreadsheetRowReference c,
                                                                final int count,
                                                                final SpreadsheetEngineContext context) {
-                                assertEquals(row, c, "row");
-                                assertEquals(1, count, "count");
+                                checkEquals(row, c, "row");
+                                checkEquals(1, count, "count");
                                 return SpreadsheetDelta.EMPTY.setCells(cells);
                             }
 
@@ -165,7 +164,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference r,
                                                     final SpreadsheetEngineContext context) {
-                                assertEquals(SpreadsheetRowReference.parseRow("99"), r);
+                                checkEquals(SpreadsheetRowReference.parseRow("99"), r);
                                 return 0;
                             }
                         }),
@@ -198,7 +197,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
     }
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
-        assertEquals("Range with both rows required=" + rows,
+        this.checkEquals("Range with both rows required=" + rows,
                 this.handleRangeFails(rows,
                         this.collectionResource(),
                         HateosHandler.NO_PARAMETERS,
