@@ -58,7 +58,7 @@ public final class JettyHttpServerSpreadsheetHttpServerTest implements PublicSta
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
     }
 

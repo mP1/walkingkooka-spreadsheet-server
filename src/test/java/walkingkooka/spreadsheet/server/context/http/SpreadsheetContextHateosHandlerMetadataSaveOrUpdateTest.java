@@ -146,7 +146,7 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
     // toString.........................................................................................................
 
     @Test
-    public final void testToString() {
+    public void testToString() {
         final SpreadsheetContext context = this.context();
         this.toStringAndCheck(this.createHandler(context), context + " create/saveMetadata");
     }
