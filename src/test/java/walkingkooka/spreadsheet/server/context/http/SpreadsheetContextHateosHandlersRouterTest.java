@@ -288,12 +288,6 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         };
     }
 
-    private void checkHandleParameters(final Optional<SpreadsheetMetadata> resource,
-                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
-        this.checkEquals(Optional.empty(), resource, "resource");
-        this.checkNotEquals(null, parameters, "parameters");
-    }
-
     private SpreadsheetId spreadsheetId() {
         return SpreadsheetId.parse("12ef");
     }
