@@ -217,7 +217,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     }
 
     private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
-        return (id) -> JettyHttpServerSpreadsheetHttpServer.functions(id);
+        return JettyHttpServerSpreadsheetHttpServer::functions;
     }
 
     /**

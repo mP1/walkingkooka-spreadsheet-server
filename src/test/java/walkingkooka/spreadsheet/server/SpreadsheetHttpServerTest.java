@@ -6099,7 +6099,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions() {
-        return (id) -> SpreadsheetHttpServerTest.functions(id);
+        return SpreadsheetHttpServerTest::functions;
     }
 
     /**

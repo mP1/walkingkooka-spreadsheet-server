@@ -431,7 +431,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.checkEquals(Optional.of(status), httpResponse.status(), () -> "status\n" + httpResponse);
         this.checkEquals(toJsonString(body),
                 httpResponse.entities().get(0).bodyText(),
-                () -> httpResponse.toString());
+                httpResponse::toString);
     }
 
     private static String toJsonString(final Object value) {
