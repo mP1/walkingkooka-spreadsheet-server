@@ -107,7 +107,7 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
      * Reports that formatting the value failed but the formatter did not throw an exception.
      */
     private IllegalArgumentException formatFail(final Object value, final Object pattern) {
-        return new IllegalArgumentException("Unable to format " + CharSequences.quoteIfChars(value));
+        return new IllegalArgumentException("Unable to format " + CharSequences.quoteIfChars(value) + " with " + CharSequences.quoteIfChars(pattern));
     }
 
     private final SpreadsheetEngineContext engineContext;

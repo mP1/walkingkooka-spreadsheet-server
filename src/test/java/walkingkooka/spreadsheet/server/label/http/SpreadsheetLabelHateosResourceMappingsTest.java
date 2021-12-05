@@ -48,7 +48,6 @@ import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
@@ -253,10 +252,6 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 statusCode,
                 responseBody
         );
-    }
-
-    private static JsonNodeUnmarshallContext unmarshallContext() {
-        return JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake());
     }
 
     private static JsonNodeMarshallContext marshallContext() {
