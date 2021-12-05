@@ -121,7 +121,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
-    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 07, 15, 20, 33);
+    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
 
     @Test
     public void testStartServer() {
