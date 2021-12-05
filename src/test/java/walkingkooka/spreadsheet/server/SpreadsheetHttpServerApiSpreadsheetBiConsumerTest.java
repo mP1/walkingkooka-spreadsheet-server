@@ -109,7 +109,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
     // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public String typeNamePrefix() {
         return SpreadsheetHttpServer.class.getSimpleName();
     }
 

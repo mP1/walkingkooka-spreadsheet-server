@@ -95,7 +95,7 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
     // toString.........................................................................................................
 
     @Test
-    public final void testToString() {
+    public void testToString() {
         final SpreadsheetContext context = this.context();
         this.toStringAndCheck(this.createHandler(context), context + " loadMetadata");
     }

@@ -46,7 +46,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequestTes
     // TypeNameTesting..................................................................................................
 
     @Override
-    public final String typeNamePrefix() {
+    public String typeNamePrefix() {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
     }
 

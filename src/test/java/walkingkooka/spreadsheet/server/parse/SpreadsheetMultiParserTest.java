@@ -173,7 +173,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
 
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

@@ -42,8 +42,8 @@ final class SpreadsheetLabelHateosHandlerSaveOrUpdate extends SpreadsheetLabelHa
     }
 
     @Override
-    public final Optional<SpreadsheetLabelMapping> handleNone(final Optional<SpreadsheetLabelMapping> resource,
-                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public Optional<SpreadsheetLabelMapping> handleNone(final Optional<SpreadsheetLabelMapping> resource,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetLabelMapping mapping = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
