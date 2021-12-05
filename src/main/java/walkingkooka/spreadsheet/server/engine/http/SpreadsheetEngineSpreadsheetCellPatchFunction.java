@@ -123,9 +123,6 @@ final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperat
     private final SpreadsheetEngine engine;
     private final SpreadsheetEngineContext context;
 
-    /**
-     * If the given selection is present returns that or the {@link this#selection} field.
-     */
     private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
         return selection.isPresent() ?
                 selection :
