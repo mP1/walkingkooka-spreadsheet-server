@@ -983,7 +983,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         return Lists.of(values);
     }
 
-    abstract class TestHttpRequest extends FakeHttpRequest {
+    abstract static class TestHttpRequest extends FakeHttpRequest {
         TestHttpRequest() {
             super();
         }
