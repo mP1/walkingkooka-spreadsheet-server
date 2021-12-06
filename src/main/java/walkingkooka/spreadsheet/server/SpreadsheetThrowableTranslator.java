@@ -42,20 +42,12 @@ final class SpreadsheetThrowableTranslator implements Function<Throwable, HttpSt
 
     @Override
     public HttpStatus apply(final Throwable throwable) {
-        final HttpStatus status;
-
-        do {
-            if (throwable instanceof LoadStoreException) {
-                status = HttpStatusCode.NOT_FOUND.setMessage(
+        return throwable instanceof LoadStoreException ?
+                HttpStatusCode.NOT_FOUND.setMessage(
                         HttpStatus.firstLineOfText(throwable.getMessage())
-                );
-                break;
-            }
-            status = HttpRequestHttpResponseBiConsumers.throwableTranslator()
-                    .apply(throwable);
-        } while (false);
-
-        return status;
+                ) :
+                HttpRequestHttpResponseBiConsumers.throwableTranslator()
+                        .apply(throwable);
     }
 
     public String toString() {
