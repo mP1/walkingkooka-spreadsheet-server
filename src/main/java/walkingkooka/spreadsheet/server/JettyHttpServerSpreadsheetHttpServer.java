@@ -99,7 +99,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
         }
     }
 
-    private static void startJettyHttpServer(final String[] args) throws Exception {
+    private static void startJettyHttpServer(final String[] args) {
         final UrlScheme scheme;
         try {
             scheme = UrlScheme.with(args[0]);
