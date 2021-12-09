@@ -83,7 +83,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     /**
      * Starts a server on the scheme/host/port passed as arguments, serving files from the current directory.
      */
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
         switch (args.length) {
             case 0:
                 throw new IllegalArgumentException("Missing scheme, host, port, defaultLocale for jetty HttpServer");
