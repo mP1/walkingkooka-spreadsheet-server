@@ -24,8 +24,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
 import walkingkooka.util.FunctionTesting;
 
-import java.util.function.Function;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<SpreadsheetMultiParser>
@@ -156,12 +154,6 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
     @Override
     public SpreadsheetMultiParser createFunction() {
         return SpreadsheetMultiParser.with(SpreadsheetEngineContexts.fake());
-    }
-
-    private static <S, D> Function<S, D> function() {
-        return (s) -> {
-            throw new UnsupportedOperationException();
-        };
     }
 
     // ClassTesting.....................................................................................................
