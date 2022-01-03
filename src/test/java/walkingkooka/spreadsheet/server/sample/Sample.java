@@ -45,6 +45,7 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
@@ -63,6 +64,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -187,17 +189,27 @@ public final class Sample {
             }
 
             @Override
-            public Object evaluate(final Expression node) {
-                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                        functions(),
-                        references(),
-                        metadata.converterContext()));
+            public Object evaluate(final Expression node,
+                                   final Optional<SpreadsheetCellReference> cell) {
+                return node.toValue(
+                        ExpressionEvaluationContexts.basic(
+                                EXPRESSION_NUMBER_KIND,
+                                functions(),
+                                references(),
+                                functionContext(),
+                                metadata.converterContext()
+                        )
+                );
             }
 
             private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
                 return (n) -> {
                     throw new UnsupportedOperationException("unsupported function " + n);
                 };
+            }
+
+            private ExpressionFunctionContext functionContext() {
+                return ExpressionFunctionContexts.fake();
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
