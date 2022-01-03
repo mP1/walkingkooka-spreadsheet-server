@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStores;
@@ -189,7 +188,7 @@ public final class Sample {
 
             @Override
             public Object evaluate(final Expression node,
-                                   final Optional<SpreadsheetCellReference> cell) {
+                                   final Optional<SpreadsheetCell> cell) {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,

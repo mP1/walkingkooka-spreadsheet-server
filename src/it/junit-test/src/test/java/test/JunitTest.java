@@ -201,7 +201,7 @@ public class JunitTest {
 
             @Override
             public Object evaluate(final Expression node,
-                                   final Optional<SpreadsheetCellReference> cell) {
+                                   final Optional<SpreadsheetCell> cell) {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
