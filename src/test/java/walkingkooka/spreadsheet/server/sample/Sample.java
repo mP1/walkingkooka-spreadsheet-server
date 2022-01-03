@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.sample;
 
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converters;
@@ -196,8 +195,7 @@ public final class Sample {
                                 EXPRESSION_NUMBER_KIND,
                                 functions(),
                                 references(),
-                                functionContext(),
-                                metadata.converterContext()
+                                functionContext()
                         )
                 );
             }
@@ -209,7 +207,12 @@ public final class Sample {
             }
 
             private ExpressionFunctionContext functionContext() {
-                return ExpressionFunctionContexts.fake();
+                return ExpressionFunctionContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        this.functions(),
+                        this.references(),
+                        this.metadata().converterContext()
+                );
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
@@ -218,12 +221,6 @@ public final class Sample {
                         this.storeRepository().labels(),
                         this
                 );
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                checkEquals(Boolean.class, target, "Only support converting to Boolean=" + value);
-                return Cast.to(Either.left(Boolean.parseBoolean(String.valueOf(value))));
             }
 
             @Override

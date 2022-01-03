@@ -207,8 +207,7 @@ public class JunitTest {
                                 EXPRESSION_NUMBER_KIND,
                                 functions(),
                                 references(),
-                                functionContext(),
-                                metadata.converterContext()
+                                functionContext()
                         )
                 );
             }
@@ -220,7 +219,12 @@ public class JunitTest {
             }
 
             private ExpressionFunctionContext functionContext() {
-                return ExpressionFunctionContexts.fake();
+                return ExpressionFunctionContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        this.functions(),
+                        this.references(),
+                        this.metadata().converterContext()
+                );
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
@@ -229,12 +233,6 @@ public class JunitTest {
                         this.storeRepository().labels(),
                         this
                 );
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                checkEquals(Boolean.class, target, "Only support converting to Boolean=" + value);
-                return Cast.to(Either.left(Boolean.parseBoolean(String.valueOf(value))));
             }
 
             @Override
@@ -262,7 +260,7 @@ public class JunitTest {
                 return this.storeRepository;
             }
 
-            private SpreadsheetStoreRepository storeRepository = SpreadsheetStoreRepositories.basic(
+            private final SpreadsheetStoreRepository storeRepository = SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetExpressionReferenceStores.treeMap(),
                     SpreadsheetGroupStores.fake(),
