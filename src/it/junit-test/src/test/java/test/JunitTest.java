@@ -69,6 +69,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -199,17 +200,27 @@ public class JunitTest {
             }
 
             @Override
-            public Object evaluate(final Expression node) {
-                return node.toValue(ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                        functions(),
-                        references(),
-                        metadata.converterContext()));
+            public Object evaluate(final Expression node,
+                                   final Optional<SpreadsheetCellReference> cell) {
+                return node.toValue(
+                        ExpressionEvaluationContexts.basic(
+                                EXPRESSION_NUMBER_KIND,
+                                functions(),
+                                references(),
+                                functionContext(),
+                                metadata.converterContext()
+                        )
+                );
             }
 
             private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
                 return (n) -> {
                     throw new UnsupportedOperationException("unsupported function " + n);
                 };
+            }
+
+            private ExpressionFunctionContext functionContext() {
+                return ExpressionFunctionContexts.fake();
             }
 
             private Function<ExpressionReference, Optional<Expression>> references() {
