@@ -190,7 +190,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell b3 = this.b3();
 
         final SpreadsheetCellRange window = b1.reference()
-                .toSpreadsheetCellRange();
+                .toRange();
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
                 EVALUATION,
