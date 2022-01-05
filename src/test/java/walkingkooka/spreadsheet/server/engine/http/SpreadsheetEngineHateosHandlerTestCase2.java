@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -187,7 +188,8 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                                 ", rangeToCells: " + this.rangeToCells() +
                                 ", rangeToConditionalFormattingRules: " + this.rangeToConditionalFormattingRules();
                     }
-                }
+                },
+                Url.parseAbsolute("http://example.com")
         );
     }
 
