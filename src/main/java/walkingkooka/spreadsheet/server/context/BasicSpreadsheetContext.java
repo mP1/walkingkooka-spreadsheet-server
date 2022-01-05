@@ -204,7 +204,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 functions,
                 engine,
                 fractioner,
-                repository
+                repository,
+                this.base
         );
 
         final AbsoluteUrl base = this.base;
