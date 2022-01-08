@@ -213,7 +213,11 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                                         )
                                 )
                         )
-                        .setExpression(Optional.of(Expression.string(text)))
+                        .setExpression(
+                                Optional.of(
+                                        Expression.value(text)
+                                )
+                        )
                         .setValue(Optional.of(text))
         ).setFormatted(Optional.of(Text.text(text)));
     }
