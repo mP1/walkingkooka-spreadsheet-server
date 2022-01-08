@@ -302,11 +302,17 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"1\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"1\"\n" +
+                        "            }\n" +
                         "          }, {\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"2\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            }\n" +
                         "          }]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
@@ -391,11 +397,17 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"1\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"1\"\n" +
+                        "            }\n" +
                         "          }, {\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"2\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            }\n" +
                         "          }]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
@@ -480,11 +492,17 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"1\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"1\"\n" +
+                        "            }\n" +
                         "          }, {\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"2\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            }\n" +
                         "          }]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
@@ -569,11 +587,17 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
                         "          \"value\": [{\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"1\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"1\"\n" +
+                        "            }\n" +
                         "          }, {\n" +
-                        "            \"type\": \"expression-number-expression\",\n" +
-                        "            \"value\": \"2\"\n" +
+                        "            \"type\": \"value-expression\",\n" +
+                        "            \"value\": {\n" +
+                        "              \"type\": \"expression-number\",\n" +
+                        "              \"value\": \"2\"\n" +
+                        "            }\n" +
                         "          }]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
