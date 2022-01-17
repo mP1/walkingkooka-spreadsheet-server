@@ -395,7 +395,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 .setFormula(
                         SpreadsheetFormula.EMPTY
                                 .setText("1+2")
-                                .setError(
+                                .setValue(
                                         Optional.of(
                                                 SpreadsheetError.with("Error something")
                                         )
