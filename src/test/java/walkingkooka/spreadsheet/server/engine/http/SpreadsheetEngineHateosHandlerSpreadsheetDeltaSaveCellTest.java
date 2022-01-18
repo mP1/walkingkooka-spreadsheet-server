@@ -25,7 +25,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetError;
+import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -397,7 +397,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                 .setText("1+2")
                                 .setValue(
                                         Optional.of(
-                                                SpreadsheetError.with("Error something")
+                                                SpreadsheetErrorKind.VALUE.setMessage("Error something")
                                         )
                                 )
                 );
