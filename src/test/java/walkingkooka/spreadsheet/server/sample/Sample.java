@@ -193,7 +193,6 @@ public final class Sample {
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
                                 functions(),
-                                references(),
                                 functionContext()
                         )
                 );
@@ -214,7 +213,7 @@ public final class Sample {
                 );
             }
 
-            private Function<ExpressionReference, Optional<Expression>> references() {
+            private Function<ExpressionReference, Optional<Object>> references() {
                 return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
                         engine,
                         this.storeRepository().labels(),
