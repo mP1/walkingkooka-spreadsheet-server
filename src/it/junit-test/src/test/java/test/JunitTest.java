@@ -206,7 +206,6 @@ public class JunitTest {
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
                                 functions(),
-                                references(),
                                 functionContext()
                         )
                 );
@@ -227,7 +226,7 @@ public class JunitTest {
                 );
             }
 
-            private Function<ExpressionReference, Optional<Expression>> references() {
+            private Function<ExpressionReference, Optional<Object>> references() {
                 return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
                         engine,
                         this.storeRepository().labels(),
