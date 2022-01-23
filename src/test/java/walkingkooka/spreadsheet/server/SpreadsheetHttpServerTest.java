@@ -1940,8 +1940,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "     }\n" +
                         "  }\n" +
                         "}",
-                HttpStatusCode.BAD_REQUEST.setMessage("Unknown label \"UnknownLabel123\""),
-                "java.lang.IllegalArgumentException: Unknown label \"UnknownLabel123\""
+                HttpStatusCode.BAD_REQUEST.setMessage("Unknown Label \"UnknownLabel123\""),
+                "java.lang.IllegalArgumentException: Unknown Label \"UnknownLabel123\""
         );
     }
 
