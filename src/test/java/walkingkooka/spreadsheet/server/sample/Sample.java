@@ -209,6 +209,7 @@ public final class Sample {
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         this.metadata().converterContext()
                 );
             }
