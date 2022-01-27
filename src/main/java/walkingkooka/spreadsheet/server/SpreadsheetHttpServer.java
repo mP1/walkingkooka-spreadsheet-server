@@ -47,7 +47,6 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -128,7 +127,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
         super();
 
         this.contentTypeJson = HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, MathContext.DECIMAL32)),
+                JsonNodeUnmarshallContexts.basic(
+                        ExpressionNumberKind.DEFAULT,
+                        MathContext.DECIMAL32
+                ),
                 JsonNodeMarshallContexts.basic()); // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/42
         this.createMetadata = createMetadata;
         this.fractioner = fractioner;

@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -326,7 +325,10 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
     private HateosContentType contentType() {
         return HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, MathContext.DECIMAL32)),
+                JsonNodeUnmarshallContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        MathContext.DECIMAL32
+                ),
                 JsonNodeMarshallContexts.basic()
         );
     }
