@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -116,7 +115,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         return SpreadsheetContexts.basic(
                 this.baseUrl,
                 HateosContentType.json(
-                        JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.DOUBLE, MathContext.DECIMAL32)),
+                        JsonNodeUnmarshallContexts.basic(
+                                ExpressionNumberKind.DOUBLE,
+                                MathContext.DECIMAL32
+                        ),
                         JsonNodeMarshallContexts.basic()
                 ),
                 this.fractioner,

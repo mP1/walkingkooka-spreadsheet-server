@@ -42,7 +42,6 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -244,7 +243,11 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     }
 
     private HateosContentType contentType() {
-        return HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, MathContext.DECIMAL32)),
+        return HateosContentType.json(
+                JsonNodeUnmarshallContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        MathContext.DECIMAL32
+                ),
                 JsonNodeMarshallContexts.basic());
     }
 

@@ -65,7 +65,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -873,7 +872,10 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     private HateosContentType contentType() {
         return HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.basic(ExpressionNumberKind.BIG_DECIMAL, MathContext.DECIMAL32)),
+                JsonNodeUnmarshallContexts.basic(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        MathContext.DECIMAL32
+                ),
                 JsonNodeMarshallContexts.basic()
         );
     }
