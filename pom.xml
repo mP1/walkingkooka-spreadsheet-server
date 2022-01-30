@@ -26,7 +26,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>walkingkooka-spreadsheet</name>
+  <name>walkingkooka-spreadsheet-server</name>
   <url>http://www.github.com/mP1/walkingkooka-spreadsheet-server</url>
 
   <properties>
