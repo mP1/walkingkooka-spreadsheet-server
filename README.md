@@ -75,18 +75,21 @@ DELETE methods require no body and return a BODY
 
 A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 
-- GET    /api/spreadsheet/$spreadsheet-id
-- POST   /api/spreadsheet/                expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any provided `Locale`.
-- POST   /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
-
-
+- GET /api/spreadsheet/$spreadsheet-id
+- POST /api/spreadsheet/ expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any
+  provided `Locale`.
+- POST /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
 
 ### Engine
 
-A collection of end points that support manipulating cells, columns and rows and similar functionality.
-All input and output is always a `SpreadsheetDelta` in JSON form, where necessary.
+A collection of end points that support manipulating cells, columns and rows and similar functionality. All input and
+output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
-- GET /api/spreadsheet/$spreadsheet-id/cell/*/clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:B2
+#### cell
+
+- GET /api/spreadsheet/$spreadsheet-id/cell/*
+  /clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:
+  B2
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
@@ -98,7 +101,10 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1:B2/clear
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
 - PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
-- GET /api/spreadsheet/$spreadsheet-id/cell-reference/Label123
+- GET /api/spreadsheet/$spreadsheet-id/cell/Label123
+
+#### column
+
 - GET /api/spreadsheet/$spreadsheet-id/column/A
 - POST /api/spreadsheet/$spreadsheet-id/column/A/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
@@ -107,13 +113,28 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
-- GET /api/spreadsheet/$spreadsheet-id/format
+
+#### format
+
+- POST /api/spreadsheet/$spreadsheet-id/format
+
+#### label
+
 - DELETE /api/spreadsheet/$spreadsheet-id/label/$label-name
-- GET    /api/spreadsheet/$spreadsheet-id/label/$label-name
+- GET /api/spreadsheet/$spreadsheet-id/label/$label-name
 - POST /api/spreadsheet/$spreadsheet-id/label
 - POST /api/spreadsheet/$spreadsheet-id/label/$label-name
+
+#### parse
+
 - GET /api/spreadsheet/$spreadsheet-id/parse
+
+#### range
+
 - GET /api/spreadsheet/$spreadsheet-id/range/A1:0:0:150:25
+
+#### row
+
 - GET /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
@@ -125,6 +146,6 @@ All input and output is always a `SpreadsheetDelta` in JSON form, where necessar
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1:2
 
-#### Engine url query parameters
+
 - The selection-type and selection url parameters are optional, but must both be present together.
 - Window may be passed to specify a window for the returned delta.
