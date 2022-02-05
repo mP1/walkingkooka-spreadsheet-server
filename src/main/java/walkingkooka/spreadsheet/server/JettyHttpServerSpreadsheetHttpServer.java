@@ -86,13 +86,15 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     public static void main(final String[] args) {
         switch (args.length) {
             case 0:
-                throw new IllegalArgumentException("Missing scheme, host, port, defaultLocale for jetty HttpServer");
+                throw new IllegalArgumentException("Missing scheme, host, port, defaultLocale, file server root for jetty HttpServer");
             case 1:
-                throw new IllegalArgumentException("Missing host, port, defaultLocale for jetty HttpServer");
+                throw new IllegalArgumentException("Missing host, port, defaultLocale, file server root for jetty HttpServer");
             case 2:
-                throw new IllegalArgumentException("Missing port, defaultLocale for jetty HttpServer");
+                throw new IllegalArgumentException("Missing port, defaultLocale, file server root for jetty HttpServer");
             case 3:
-                throw new IllegalArgumentException("Missing default Locale for jetty HttpServer");
+                throw new IllegalArgumentException("Missing default Locale, file server root for jetty HttpServer");
+            case 4:
+                throw new IllegalArgumentException("Missing file server root for jetty HttpServer");
             default:
                 startJettyHttpServer(args);
                 break;
@@ -104,6 +106,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
         final HostAddress host = hostAddress(args[1]);
         final IpPort port = port(args[2]);
         final Locale defaultLocale = locale(args[3]);
+        final Path fileServerRoot = fileServer(args[4]);
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
@@ -115,7 +118,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 fractioner(),
                 idToFunctions(),
                 idToRepository(Maps.concurrent(), storeRepositorySupplier(metadataStore)),
-                fileServer(Paths.get(".")),
+                urlPathFileServer(fileServerRoot),
                 jettyHttpServer(host, port),
                 JettyHttpServerSpreadsheetHttpServer::spreadsheetMetadataStamper,
                 SpreadsheetContexts::jsonHateosContentType
@@ -165,6 +168,19 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
             throw cause;
         }
         return defaultLocale;
+    }
+
+    private static Path fileServer(final String string) {
+        final Path fileServer = Paths.get(string);
+
+        if (!Files.isDirectory(fileServer)) {
+            final String message = "Invalid path not a directory: " + string;
+
+            System.err.println(message);
+            throw new IllegalArgumentException(message);
+        }
+
+        return fileServer;
     }
 
     /**
@@ -282,7 +298,7 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     /**
      * Creates a file server which serves files from the given {@link Path path}.
      */
-    private static Function<UrlPath, Either<WebFile, HttpStatus>> fileServer(final Path path) {
+    private static Function<UrlPath, Either<WebFile, HttpStatus>> urlPathFileServer(final Path path) {
         return (p) -> {
             final Path file = Paths.get(path.toString(), p.value());
             return Files.isRegularFile(file) ?
