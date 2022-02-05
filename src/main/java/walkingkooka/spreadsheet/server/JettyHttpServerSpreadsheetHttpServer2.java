@@ -27,7 +27,8 @@ public final class JettyHttpServerSpreadsheetHttpServer2 {
                         "http",
                         "localhost",
                         "12345",
-                        "EN-GB"
+                        "EN-GB",
+                        "./src/main/resources"
                 }
         );
     }
