@@ -80,10 +80,14 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
   provided `Locale`.
 - POST /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
 
+
+
 ### Engine
 
 A collection of end points that support manipulating cells, columns and rows and similar functionality. All input and
 output is always a `SpreadsheetDelta` in JSON form, where necessary.
+
+
 
 #### cell
 
@@ -94,25 +98,24 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
+- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1/clear
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1:B2/clear
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
-- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
-- GET /api/spreadsheet/$spreadsheet-id/cell/Label123
 
 #### column
 
-- GET /api/spreadsheet/$spreadsheet-id/column/A
 - POST /api/spreadsheet/$spreadsheet-id/column/A/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
-- DELETE /api/spreadsheet/$spreadsheet-id/column/A DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
+- DELETE /api/spreadsheet/$spreadsheet-id/column/A
+- DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
 
 #### format
 
@@ -135,7 +138,6 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### row
 
-- GET /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/row/1:2/after?count=1
