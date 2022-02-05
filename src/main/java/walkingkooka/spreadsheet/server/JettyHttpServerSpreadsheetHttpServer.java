@@ -100,40 +100,15 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
     }
 
     private static void startJettyHttpServer(final String[] args) {
-        final UrlScheme scheme;
-        try {
-            scheme = UrlScheme.with(args[0]);
-        } catch (final IllegalArgumentException cause) {
-            System.err.println("Invalid scheme: " + cause.getMessage());
-            throw cause;
-        }
-
-        final HostAddress host;
-        try {
-            host = HostAddress.with(args[1]);
-        } catch (final IllegalArgumentException cause) {
-            System.err.println("Invalid hostname: " + cause.getMessage());
-            throw cause;
-        }
-        final IpPort port;
-        try {
-            port = IpPort.with(Integer.parseInt(args[2]));
-        } catch (final RuntimeException cause) {
-            System.err.println("Invalid port: " + cause.getMessage());
-            throw cause;
-        }
-
-        final Locale defaultLocale;
-        try {
-            defaultLocale = Locale.forLanguageTag(args[3]);
-        } catch (final RuntimeException cause) {
-            System.err.println("Invalid default Locale: " + cause.getMessage());
-            throw cause;
-        }
+        final UrlScheme scheme = urlScheme(args[0]);
+        final HostAddress host = hostAddress(args[1]);
+        final IpPort port = port(args[2]);
+        final Locale defaultLocale = locale(args[3]);
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-        final SpreadsheetHttpServer server = SpreadsheetHttpServer.with(scheme,
+        final SpreadsheetHttpServer server = SpreadsheetHttpServer.with(
+                scheme,
                 host,
                 port,
                 createMetadata(defaultLocale, metadataStore),
@@ -146,6 +121,50 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 SpreadsheetContexts::jsonHateosContentType
         );
         server.start();
+    }
+
+    private static UrlScheme urlScheme(final String string) {
+        final UrlScheme scheme;
+        try {
+            scheme = UrlScheme.with(string);
+        } catch (final IllegalArgumentException cause) {
+            System.err.println("Invalid scheme: " + cause.getMessage());
+            throw cause;
+        }
+        return scheme;
+    }
+
+    private static HostAddress hostAddress(final String string) {
+        final HostAddress host;
+        try {
+            host = HostAddress.with(string);
+        } catch (final IllegalArgumentException cause) {
+            System.err.println("Invalid hostname: " + cause.getMessage());
+            throw cause;
+        }
+        return host;
+    }
+
+    private static IpPort port(final String string) {
+        final IpPort port;
+        try {
+            port = IpPort.with(Integer.parseInt(string));
+        } catch (final RuntimeException cause) {
+            System.err.println("Invalid port: " + cause.getMessage());
+            throw cause;
+        }
+        return port;
+    }
+
+    private static Locale locale(final String string) {
+        final Locale defaultLocale;
+        try {
+            defaultLocale = Locale.forLanguageTag(string);
+        } catch (final RuntimeException cause) {
+            System.err.println("Invalid default Locale: " + cause.getMessage());
+            throw cause;
+        }
+        return defaultLocale;
     }
 
     /**
