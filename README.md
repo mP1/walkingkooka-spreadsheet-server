@@ -79,6 +79,7 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 - POST /api/spreadsheet/ expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any
   provided `Locale`.
 - POST /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
+- PATCH /api/spreadsheet/$spreadsheet-id Patch an existing `SpreadsheetMetadata.`
 
 
 
