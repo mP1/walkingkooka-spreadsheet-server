@@ -747,7 +747,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         final HttpRequest request = new TestHttpRequest() {
             @Override
             public HttpMethod method() {
-                return HttpMethod.GET;
+                return HttpMethod.POST;
             }
 
             @Override
@@ -771,7 +771,11 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         };
 
         final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
-        this.checkEquals(Optional.empty(), mapped, "request " + request.parameters());
+        this.checkEquals(
+                Optional.empty(),
+                mapped,
+                "request " + request.parameters()
+        );
     }
 
     @Test
