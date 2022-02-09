@@ -77,6 +77,8 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -6289,13 +6291,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return () -> SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
+                SpreadsheetColumnStores.treeMap(),
                 SpreadsheetGroupStores.treeMap(),
                 SpreadsheetLabelStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
                 metadataStore,
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetUserStores.treeMap());
+                SpreadsheetRowStores.treeMap(),
+                SpreadsheetUserStores.treeMap()
+        );
     }
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {

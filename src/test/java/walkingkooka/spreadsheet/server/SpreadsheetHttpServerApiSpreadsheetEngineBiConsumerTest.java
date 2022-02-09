@@ -64,6 +64,8 @@ import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetParseRequest;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -504,13 +506,16 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
+                SpreadsheetColumnStores.treeMap(),
                 SpreadsheetGroupStores.treeMap(),
                 labelStore,
                 SpreadsheetExpressionReferenceStores.treeMap(),
                 metadataStore,
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetUserStores.treeMap());
+                SpreadsheetRowStores.treeMap(),
+                SpreadsheetUserStores.treeMap()
+        );
         return (i) -> {
             this.checkEquals(ID, i, "id");
             return repository;
