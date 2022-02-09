@@ -62,6 +62,8 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
@@ -964,12 +966,14 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             repository = SpreadsheetStoreRepositories.basic(
                     SpreadsheetCellStores.treeMap(),
                     SpreadsheetExpressionReferenceStores.treeMap(),
+                    SpreadsheetColumnStores.treeMap(),
                     SpreadsheetGroupStores.treeMap(),
                     SpreadsheetLabelStores.treeMap(),
                     SpreadsheetExpressionReferenceStores.treeMap(),
                     metadataStore,
                     SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetCellRangeStores.treeMap(),
+                    SpreadsheetRowStores.treeMap(),
                     SpreadsheetUserStores.treeMap()
             );
             this.idToRepositories.put(id, repository);
