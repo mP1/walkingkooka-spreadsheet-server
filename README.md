@@ -7,15 +7,21 @@
 
 
 The http server for [walkingkooka-spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet). It includes a router
-and some handlers for spreadsheet services. 
-
+and some handlers for spreadsheet services.
 
 ## REST
 
-GET methods require no BODY and always return a BODY
-POST, PUT methods require and return a BODY
-DELETE methods require no body and return a BODY
+GET methods require no BODY and always return a BODY POST, PUT methods require and return a BODY DELETE methods require
+no body and return a BODY
 
+A swagger-ui is available at:
+
+> http://server/api-doc/index.html
+
+- Simple payloads are present.
+- The definitions of the available JSON types are not
+  present [TODO](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/480)
+- To examine the JSON form examining tests will be required.
 
 ### Context
 
