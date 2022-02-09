@@ -10,65 +10,11 @@ The http server for [walkingkooka-spreadsheet](https://github.com/mP1/walkingkoo
 and some handlers for spreadsheet services. 
 
 
-
-# J2cl-compatibility
-
-An abstraction will exist for a fetch that rather than making a network call to a real Http Servlet such as Jetty,
-the `HttpRequest` will be serialized into a String and `WebWorker.postMessage`. The web worker have a `HttpServer` like
-abstraction that routes the received `HttpRequest`. Both the servlet container and the web worker fake `HttpServer` process
-their `HttpRequests` through the same routers based on paths and other request attributes until a handler is matched
-and processing completed.
-
-
-
-Standard browser Fetch makes request to HttpServer Servlet container like Jetty
-
-```
-main UI thread -> Fetch HttpRequest -> Http Servlet container -> promise -> dispatch
-```
-
-
-
-Fetch that posts Message to Web-worker.
-
-In this case the client that calls this version of fetch interface remains unchanged. The `HttpRequest` will be converted
-into a String with json and posted across the boundary.
-
-```
-main UI thread -> Fetch that really posts message (HttpRequest) -> window.postMessage(JSON.stringify(HttpRequest)) ->
-
-web worker.onMessage -> message -> JSON.parse(HttpRequest) -> fake HttpServer
-```
-
-
-
-Routing the `HttpRequest` based on URLs, and other attributes will perform the same identical logic and result in the same
-handler being matched, assuming the same routing mappings. Eventually the handler will produce a `HttpResponse` with some JSON body.
-
-```
-HttpRequest -> router -> handler -> HttpResponse
-```
-
-The return path is different of the `HttpResponse` is however different. The standard browser Fetch promise will resolve
-while the Web Worker will post a message back the main UI thread. In both cases the `HttpResponse` status can be tested, headers
-consumed, ahd the body parsed back into JSON.
-
-
-Web worker
-```
-HttpResponse -> webworker.postMessage(JSON.stringify(HttpResponse) -> window.onMessage -> JSON.parse(HttpResponse) -> dispatch
-```
-
-The Web worker http server emulation layer will live in [walkingkooka-spreadsheet-webworker](https://github.com/mP1/walkingkooka-spreadsheet-webworker).
-
-
-
 ## REST
 
 GET methods require no BODY and always return a BODY
 POST, PUT methods require and return a BODY
 DELETE methods require no body and return a BODY
-
 
 
 ### Context
@@ -152,3 +98,45 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 - The selection-type and selection url parameters are optional, but must both be present together.
 - Window may be passed to specify a window for the returned delta.
+
+# Execution environment
+
+Currently communication between the browser and the server follows a browser client and Http server paradigm.
+A `HttpRequest` is constructed, headers describe various aspects of the JSON payload and the desired response. The
+server hosts a router which examines the request which selects a handler which performs the action and prepares a
+response.
+
+## browser client / jetty server
+
+A simple message from the browser to an API, looks something like this, where the react app uses the browser's fetch
+object.
+
+```
+main UI thread -> Fetch HttpRequest -> Http Servlet container -> promise -> dispatch
+```
+
+## offline mode
+
+The switch to offline mode means the React application simply replaces the Jetty servlet container, rather than using
+the browser's fetch object to communicate via http to a Jetty server, the request is serialized and posted to a
+webworker. The webworker hosts the same java server code translated to javascript.
+
+`HttpRequests` and `HttpResponses` abstractions are still present but in webworker mode they are serialized as strings
+within messages and the semantics are emulated
+by [walkingkooka-spreadsheet-webworker](https://github.com/mP1/walkingkooka-spreadsheet-webworker).
+
+```
+main UI thread -> Fetch that really posts message (HttpRequest) -> window.postMessage(JSON.stringify(HttpRequest)) ->
+
+web worker.onMessage -> message -> JSON.parse(HttpRequest) -> fake HttpServer
+```
+
+The url, headers and body of the request are still present and used to evaluate, route and select a handler which will
+be responsible for producing some reply.
+
+```
+HttpResponse -> webworker.postMessage(JSON.stringify(HttpResponse) -> window.onMessage -> JSON.parse(HttpResponse) -> dispatch
+```
+
+Naturally there are limitations due to the offline nature and browser sand-boxing and those are currently unaddressed
+and issues will be created.
