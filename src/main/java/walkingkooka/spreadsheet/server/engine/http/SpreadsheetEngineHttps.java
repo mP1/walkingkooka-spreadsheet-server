@@ -169,12 +169,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEngineSpreadsheetCellPatchFunction}
+     * {@see SpreadsheetEnginePatchSpreadsheetCellFunction}
      */
     public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,
                                                     final SpreadsheetEngine engine,
                                                     final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+        return SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                 request,
                 engine,
                 context

@@ -39,19 +39,19 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEngineSpreadsheetCellPatchFunction implements UnaryOperator<JsonNode> {
+final class SpreadsheetEnginePatchSpreadsheetCellFunction implements UnaryOperator<JsonNode> {
 
-    static SpreadsheetEngineSpreadsheetCellPatchFunction with(final HttpRequest request,
+    static SpreadsheetEnginePatchSpreadsheetCellFunction with(final HttpRequest request,
                                                               final SpreadsheetEngine engine,
                                                               final SpreadsheetEngineContext context) {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(engine, "engine");
         Objects.requireNonNull(context, "context");
 
-        return new SpreadsheetEngineSpreadsheetCellPatchFunction(request, engine, context);
+        return new SpreadsheetEnginePatchSpreadsheetCellFunction(request, engine, context);
     }
 
-    private SpreadsheetEngineSpreadsheetCellPatchFunction(final HttpRequest request,
+    private SpreadsheetEnginePatchSpreadsheetCellFunction(final HttpRequest request,
                                                           final SpreadsheetEngine engine,
                                                           final SpreadsheetEngineContext context) {
         super();

@@ -59,9 +59,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements ClassTesting<SpreadsheetEngineSpreadsheetCellPatchFunction>,
-        FunctionTesting<SpreadsheetEngineSpreadsheetCellPatchFunction, JsonNode, JsonNode>,
-        ToStringTesting<SpreadsheetEngineSpreadsheetCellPatchFunction> {
+public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest implements ClassTesting<SpreadsheetEnginePatchSpreadsheetCellFunction>,
+        FunctionTesting<SpreadsheetEnginePatchSpreadsheetCellFunction, JsonNode, JsonNode>,
+        ToStringTesting<SpreadsheetEnginePatchSpreadsheetCellFunction> {
 
     private final static HttpRequest REQUEST = HttpRequests.fake();
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetExpressionReference.parseCell("B2");
@@ -89,7 +89,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     public void testWithNullRequestFails() {
         assertThrows(
                 NullPointerException.class, () ->
-                        SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                                 null,
                                 ENGINE,
                                 CONTEXT
@@ -101,7 +101,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     public void testWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class, () ->
-                        SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                                 REQUEST,
                                 null,
                                 CONTEXT
@@ -113,7 +113,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     public void testWithNullContextFails() {
         assertThrows(
                 NullPointerException.class, () ->
-                        SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                                 REQUEST,
                                 ENGINE,
                                 null
@@ -161,7 +161,7 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
                 ).setSelection(viewportSelection);
 
         this.applyAndCheck(
-                SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+                SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
@@ -214,8 +214,8 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     }
 
     @Override
-    public SpreadsheetEngineSpreadsheetCellPatchFunction createFunction() {
-        return SpreadsheetEngineSpreadsheetCellPatchFunction.with(
+    public SpreadsheetEnginePatchSpreadsheetCellFunction createFunction() {
+        return SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                 REQUEST,
                 ENGINE,
                 CONTEXT
@@ -223,8 +223,8 @@ public final class SpreadsheetEngineSpreadsheetCellPatchFunctionTest implements 
     }
 
     @Override
-    public Class<SpreadsheetEngineSpreadsheetCellPatchFunction> type() {
-        return SpreadsheetEngineSpreadsheetCellPatchFunction.class;
+    public Class<SpreadsheetEnginePatchSpreadsheetCellFunction> type() {
+        return SpreadsheetEnginePatchSpreadsheetCellFunction.class;
     }
 
     @Override
