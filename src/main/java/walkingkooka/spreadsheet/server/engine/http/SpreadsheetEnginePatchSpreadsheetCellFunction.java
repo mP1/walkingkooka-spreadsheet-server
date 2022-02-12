@@ -17,120 +17,76 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
-import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpResponseHttpServerException;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
-import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchSpreadsheetCellFunction implements UnaryOperator<JsonNode> {
+final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEnginePatch<SpreadsheetCellReference> {
 
     static SpreadsheetEnginePatchSpreadsheetCellFunction with(final HttpRequest request,
                                                               final SpreadsheetEngine engine,
                                                               final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(request, "request");
-        Objects.requireNonNull(engine, "engine");
-        Objects.requireNonNull(context, "context");
-
         return new SpreadsheetEnginePatchSpreadsheetCellFunction(request, engine, context);
     }
 
     private SpreadsheetEnginePatchSpreadsheetCellFunction(final HttpRequest request,
                                                           final SpreadsheetEngine engine,
                                                           final SpreadsheetEngineContext context) {
-        super();
-        this.request = request;
-        this.engine = engine;
-        this.context = context;
+        super(request, engine, context);
     }
 
     @Override
-    public JsonNode apply(final JsonNode json) {
-        final SpreadsheetCellReference reference = this.patchCellCellReference();
-        final SpreadsheetEngine engine = this.engine;
-        final SpreadsheetEngineContext context = this.context;
-
-        final SpreadsheetDelta delta;
-        try {
-            delta = engine.loadCell(
-                    reference,
-                    SpreadsheetEngineEvaluation.SKIP_EVALUATE,
-                    context
-            );
-        } catch (final LoadStoreException cause) {
-            throw new HttpResponseHttpServerException(
-                    HttpStatusCode.BAD_REQUEST
-                            .setMessage(cause.getMessage()),
-                    HttpResponseHttpServerException.NO_ENTITY
-            );
-        }
-
-        final JsonObject resolved = SpreadsheetDelta.resolveCellLabels(
-                json.objectOrFail(),
-                context.storeRepository()
-                        .labels()
-                        ::cellReferenceOrFail
-        );
-
-        final SpreadsheetMetadata metadata = context.metadata();
-
-        final SpreadsheetDelta patched = delta.patch(
-                resolved,
-                metadata.jsonNodeUnmarshallContext()
-        );
-
-        final SpreadsheetDelta saved = engine.saveCell(
-                        patched.cell(reference)
-                                .orElseThrow(() -> new IllegalStateException("Missing cell " + reference)),
-                        context
-                ).setWindow(patched.window())
-                .setSelection(this.selection(patched.selection()));
-
-        return metadata.jsonNodeMarshallContext()
-                .marshall(saved);
-    }
-
-
-    private SpreadsheetCellReference patchCellCellReference() {
+    SpreadsheetCellReference parseReference(final String text) {
         return SpreadsheetSelection.parseCellOrLabelResolvingLabels(
-                this.request.url()
-                        .path()
-                        .name()
-                        .value(),
+                text,
                 l -> this.context.storeRepository()
                         .labels()
                         .cellReferenceOrFail(l)
         );
     }
 
-    private final HttpRequest request;
-    private final SpreadsheetEngine engine;
-    private final SpreadsheetEngineContext context;
-
-    private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
-        return selection.isPresent() ?
-                selection :
-                SpreadsheetEngineHttps.viewportSelection(this.request.routerParameters());
+    @Override
+    SpreadsheetDelta load(final SpreadsheetCellReference reference) {
+        return this.engine.loadCell(
+                reference,
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                this.context
+        );
     }
 
     @Override
-    public String toString() {
-        return this.request + " " + this.engine + " " + this.context;
+    JsonObject preparePatch(final JsonNode delta) {
+        return SpreadsheetDelta.resolveCellLabels(
+                delta.objectOrFail(),
+                this.context.storeRepository()
+                        .labels()
+                        ::cellReferenceOrFail
+        );
+    }
+
+    @Override
+    SpreadsheetDelta save(final SpreadsheetDelta patched,
+                          final SpreadsheetCellReference reference) {
+        return this.engine.saveCell(
+                patched.cell(reference)
+                        .orElseThrow(() -> new IllegalStateException("Missing patched cell " + reference)),
+                this.context
+        );
+    }
+
+    @Override
+    String toStringPrefix() {
+        return "Patch cell: ";
     }
 }

@@ -18,108 +18,33 @@
 package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
-import walkingkooka.net.http.server.HttpRequests;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
-import walkingkooka.util.FunctionTesting;
 
-import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest implements ClassTesting<SpreadsheetEnginePatchSpreadsheetCellFunction>,
-        FunctionTesting<SpreadsheetEnginePatchSpreadsheetCellFunction, JsonNode, JsonNode>,
-        ToStringTesting<SpreadsheetEnginePatchSpreadsheetCellFunction> {
+public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetCellFunction, SpreadsheetCellReference> {
 
-    private final static HttpRequest REQUEST = HttpRequests.fake();
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetExpressionReference.parseCell("B2");
-    private final static SpreadsheetEngine ENGINE = SpreadsheetEngines.fake();
-    private final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
-        @Override
-        public SpreadsheetMetadata metadata() {
-            return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                    .loadFromLocale();
-        }
-
-        @Override
-        public SpreadsheetStoreRepository storeRepository() {
-            return new FakeSpreadsheetStoreRepository() {
-                @Override
-                public SpreadsheetLabelStore labels() {
-                    return SpreadsheetLabelStores.fake();
-                }
-            };
-        }
-    };
-
-    @Test
-    public void testWithNullRequestFails() {
-        assertThrows(
-                NullPointerException.class, () ->
-                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
-                                null,
-                                ENGINE,
-                                CONTEXT
-                        )
-        );
-    }
-
-    @Test
-    public void testWithNullEngineFails() {
-        assertThrows(
-                NullPointerException.class, () ->
-                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
-                                REQUEST,
-                                null,
-                                CONTEXT
-                        )
-        );
-    }
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-                NullPointerException.class, () ->
-                        SpreadsheetEnginePatchSpreadsheetCellFunction.with(
-                                REQUEST,
-                                ENGINE,
-                                null
-                        )
-        );
-    }
 
     @Test
     public void testApply() {
@@ -203,32 +128,27 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest implements 
         );
     }
 
-    private JsonNode marshall(final Object object) {
-        return JsonNodeMarshallContexts.basic()
-                .marshall(object);
-    }
-
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createFunction(), REQUEST + " " + ENGINE + " " + CONTEXT);
+        this.toStringAndCheck(
+                this.createFunction(),
+                "Patch cell: " + REQUEST + " " + ENGINE + " " + CONTEXT
+        );
     }
 
     @Override
-    public SpreadsheetEnginePatchSpreadsheetCellFunction createFunction() {
+    public SpreadsheetEnginePatchSpreadsheetCellFunction createFunction(final HttpRequest request,
+                                                                        final SpreadsheetEngine engine,
+                                                                        final SpreadsheetEngineContext context) {
         return SpreadsheetEnginePatchSpreadsheetCellFunction.with(
-                REQUEST,
-                ENGINE,
-                CONTEXT
+                request,
+                engine,
+                context
         );
     }
 
     @Override
     public Class<SpreadsheetEnginePatchSpreadsheetCellFunction> type() {
         return SpreadsheetEnginePatchSpreadsheetCellFunction.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
