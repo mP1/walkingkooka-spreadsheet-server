@@ -67,6 +67,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -94,6 +96,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetContextTest implements SpreadsheetContextTesting<BasicSpreadsheetContext> {
 
+    private final static Indentation INDENTATION = Indentation.with("  ");
+    private final static LineEnding LINE_ENDING = LineEnding.NL;
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
 
@@ -102,6 +106,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 null,
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
@@ -115,6 +121,40 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     public void testWithNullContentTypeFails() {
         this.withFails(
                 this.base(),
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
+        );
+    }
+
+    @Test
+    public void testWithNullIndentationFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                null,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory
+        );
+    }
+
+    @Test
+    public void testWithNullLineEndingFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
                 null,
                 this::fractioner,
                 this::createMetadata,
@@ -130,6 +170,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 null,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
@@ -144,6 +186,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 null,
                 this::spreadsheetIdFunctions,
@@ -158,6 +202,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 null,
@@ -172,6 +218,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
@@ -186,6 +234,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
@@ -200,6 +250,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         this.withFails(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,
@@ -211,6 +263,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     private void withFails(final AbsoluteUrl base,
                            final HateosContentType contentType,
+                           final Indentation indentation,
+                           final LineEnding lineEnding,
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
@@ -222,6 +276,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 () -> BasicSpreadsheetContext.with(
                         base,
                         contentType,
+                        indentation,
+                        lineEnding,
                         fractioner,
                         createMetadata,
                         spreadsheetIdFunctions,
@@ -863,6 +919,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         return BasicSpreadsheetContext.with(
                 this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
                 this::spreadsheetIdFunctions,

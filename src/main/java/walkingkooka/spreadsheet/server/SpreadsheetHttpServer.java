@@ -47,6 +47,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -79,6 +81,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public static SpreadsheetHttpServer with(final UrlScheme scheme,
                                              final HostAddress host,
                                              final IpPort port,
+                                             final Indentation indentation,
+                                             final LineEnding lineEnding,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
@@ -91,6 +95,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 scheme,
                 host,
                 port,
+                indentation,
+                lineEnding,
                 createMetadata,
                 fractioner,
                 idToFunctions,
@@ -116,6 +122,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private SpreadsheetHttpServer(final UrlScheme scheme,
                                   final HostAddress host,
                                   final IpPort port,
+                                  final Indentation indentation,
+                                  final LineEnding lineEnding,
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
@@ -132,6 +140,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                         MathContext.DECIMAL32
                 ),
                 JsonNodeMarshallContexts.basic()); // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/42
+        this.indentation = indentation;
+        this.lineEnding = lineEnding;
+
         this.createMetadata = createMetadata;
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
@@ -192,6 +203,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
                 api,
                 this.contentTypeJson,
+                this.indentation,
+                this.lineEnding,
                 this.createMetadata,
                 this.fractioner,
                 this.idToFunctions,
@@ -213,6 +226,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private BiConsumer<HttpRequest, HttpResponse> spreadsheetEngineHandler(final AbsoluteUrl url) {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 url,
+                this.indentation,
+                this.lineEnding,
                 this.fractioner,
                 this.createMetadata,
                 this.idToFunctions,
@@ -222,6 +237,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private final HateosContentType contentTypeJson;
+    private final Indentation indentation;
+    private final LineEnding lineEnding;
+
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
     private final Function<BigDecimal, Fraction> fractioner;
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;

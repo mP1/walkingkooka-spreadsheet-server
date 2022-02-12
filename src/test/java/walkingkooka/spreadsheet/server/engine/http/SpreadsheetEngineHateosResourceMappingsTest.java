@@ -60,6 +60,8 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -77,6 +79,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassTesting2<SpreadsheetEngineHateosResourceMappings> {
 
     private final static AbsoluteUrl URL = Url.parseAbsolute("http://example.com/");
+    private final static Indentation INDENTATION = Indentation.with("  ");
+    private final static LineEnding LINE_ENDING = LineEnding.NL;
 
     // cell.............................................................................................................
 
@@ -1027,9 +1031,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(URL,
-                contentType(),
-                Sets.of(mapping))
+        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+                        URL,
+                        contentType(),
+                        Sets.of(mapping),
+                        INDENTATION,
+                        LINE_ENDING
+                )
                 .route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
                 possible,
@@ -1053,10 +1061,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                final String url,
                                final String requestBody) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(URL,
-                        contentType(),
-                        Sets.of(mapping))
-                .route(request.routerParameters());
+        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+                URL,
+                contentType(),
+                Sets.of(mapping),
+                INDENTATION,
+                LINE_ENDING
+        ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
                 possible,
                 () -> method + " " + URL + url);

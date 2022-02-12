@@ -25,6 +25,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -43,6 +45,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
      */
     public static SpreadsheetContext basic(final AbsoluteUrl base,
                                            final HateosContentType contentType,
+                                           final Indentation indentation,
+                                           final LineEnding lineEnding,
                                            final Function<BigDecimal, Fraction> fractioner,
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
@@ -52,6 +56,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
         return BasicSpreadsheetContext.with(
                 base,
                 contentType,
+                indentation,
+                lineEnding,
                 fractioner,
                 createMetadata,
                 spreadsheetIdFunctions,

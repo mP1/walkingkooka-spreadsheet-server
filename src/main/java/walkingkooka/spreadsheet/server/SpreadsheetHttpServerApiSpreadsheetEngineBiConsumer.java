@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -52,6 +54,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer} handler.
      */
     static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
+                                                                    final Indentation indentation,
+                                                                    final LineEnding lineEnding,
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
@@ -59,6 +63,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
                 base,
+                indentation,
+                lineEnding,
                 fractioner,
                 createMetadata,
                 idToFunctions,
@@ -71,6 +77,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      * Private ctor
      */
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
+                                                                final Indentation indentation,
+                                                                final LineEnding lineEnding,
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
@@ -79,6 +87,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         super();
 
         this.baseUrl = base;
+        this.indentation = indentation;
+        this.lineEnding = lineEnding;
+
         this.fractioner = fractioner;
 
         this.createMetadata = createMetadata;
@@ -121,6 +132,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                         ),
                         JsonNodeMarshallContexts.basic()
                 ),
+                this.indentation,
+                this.lineEnding,
                 this.fractioner,
                 this.createMetadata,
                 this.idToFunctions,
@@ -129,6 +142,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 SpreadsheetContexts::jsonHateosContentType
         ).httpRouter(id);
     }
+
+    private final Indentation indentation;
+
+    private final LineEnding lineEnding;
 
     private final Function<BigDecimal, Fraction> fractioner;
 

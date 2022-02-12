@@ -28,6 +28,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -58,6 +60,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
                 this.baseUrl(),
                 HateosContentType.json(JsonNodeUnmarshallContexts.fake(), JsonNodeMarshallContexts.fake()),
+                Indentation.with("  "),
+                LineEnding.NL,
                 this::defaultMetadata,
                 this::fractioner,
                 this::idToFunctions,

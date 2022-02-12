@@ -57,6 +57,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -116,6 +118,8 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 scheme,
                 host,
                 port,
+                Indentation.with("  "),
+                LineEnding.SYSTEM,
                 createMetadata(defaultLocale, metadataStore),
                 fractioner(),
                 idToFunctions(),

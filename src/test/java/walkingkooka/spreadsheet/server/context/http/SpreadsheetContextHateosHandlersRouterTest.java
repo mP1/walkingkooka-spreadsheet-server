@@ -42,6 +42,8 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -56,48 +58,98 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetContextHateosHandlersRouterTest extends SpreadsheetContextHateosHandlerTestCase<SpreadsheetContextHateosHandlersRouter> {
 
+    private final static Indentation INDENTATION = Indentation.with("  ");
+    private final static LineEnding LINE_ENDING = LineEnding.SYSTEM;
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testWithNullBaseFails() {
-        this.withFails(null,
+        this.withFails(
+                null,
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this.createAndSaveMetadata(),
                 this.loadMetadata());
     }
 
     @Test
     public void testWithNullContentTypeFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                this.createAndSaveMetadata(),
+                this.loadMetadata()
+        );
+    }
+
+    @Test
+    public void testWithNullIndentationFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                null,
+                LINE_ENDING,
+                this.createAndSaveMetadata(),
+                this.loadMetadata()
+        );
+    }
+
+    @Test
+    public void testWithNullLineEndingFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
                 null,
                 this.createAndSaveMetadata(),
-                this.loadMetadata());
+                this.loadMetadata()
+        );
     }
 
     @Test
     public void testWithNullCreateAndSaveMetadataHandlerFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 null,
-                this.loadMetadata());
+                this.loadMetadata()
+        );
     }
 
     @Test
     public void testWithNullLoadMetadataHandlerFails() {
-        this.withFails(this.base(),
+        this.withFails(
+                this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this.createAndSaveMetadata(),
-                null);
+                null
+        );
     }
 
     private void withFails(final AbsoluteUrl base,
                            final HateosContentType contentType,
+                           final Indentation indentation,
+                           final LineEnding lineEnding,
                            final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
                            final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
-        assertThrows(NullPointerException.class, () -> SpreadsheetContextHateosHandlersRouter.with(base,
-                contentType,
-                createAndSaveMetadata,
-                loadMetadata));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetContextHateosHandlersRouter.with(
+                        base,
+                        contentType,
+                        indentation,
+                        lineEnding,
+                        createAndSaveMetadata,
+                        loadMetadata
+                )
+        );
     }
 
     // handle...........................................................................................................
@@ -157,10 +209,14 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router() {
-        return SpreadsheetContextHateosHandlersRouter.with(this.base(),
+        return SpreadsheetContextHateosHandlersRouter.with(
+                this.base(),
                 this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
                 this.createAndSaveMetadata(),
-                this.loadMetadata());
+                this.loadMetadata()
+        );
     }
 
     private void routeAndCheck(final HttpMethod method,

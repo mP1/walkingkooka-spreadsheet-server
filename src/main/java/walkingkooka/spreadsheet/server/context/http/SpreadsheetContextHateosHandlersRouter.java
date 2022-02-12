@@ -34,6 +34,8 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -66,10 +68,14 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
      */
     static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> with(final AbsoluteUrl baseUrl,
                                                                                        final HateosContentType contentType,
+                                                                                       final Indentation indentation,
+                                                                                       final LineEnding lineEnding,
                                                                                        final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
                                                                                        final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
+        Objects.requireNonNull(indentation, "indentation");
+        Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(createAndSaveMetadata, "createAndSaveMetadata");
         Objects.requireNonNull(loadMetadata, "loadMetadata");
 
@@ -87,7 +93,9 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                 .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.PATCH, HateosHandlers.fake())
-                )
+                ),
+                indentation,
+                lineEnding
         );
     }
 

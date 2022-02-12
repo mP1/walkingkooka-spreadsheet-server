@@ -81,6 +81,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -6190,6 +6192,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 UrlScheme.HTTP,
                 HostAddress.with("example.com"),
                 IpPort.HTTP,
+                Indentation.with("  "),
+                LineEnding.NL,
                 createMetadata(this.createMetadata(), this.metadataStore),
                 fractioner(),
                 idToFunctions(),

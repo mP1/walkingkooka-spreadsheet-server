@@ -39,6 +39,8 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.context.http.SpreadsheetContextHttps;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -62,6 +64,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
      */
     static SpreadsheetHttpServerApiSpreadsheetBiConsumer with(final AbsoluteUrl baseUrl,
                                                               final HateosContentType contentType,
+                                                              final Indentation indentation,
+                                                              final LineEnding lineEnding,
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
@@ -71,6 +75,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
                 baseUrl,
                 contentType,
+                indentation,
+                lineEnding,
                 createMetadata,
                 fractioner,
                 functions,
@@ -85,6 +91,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
      */
     private SpreadsheetHttpServerApiSpreadsheetBiConsumer(final AbsoluteUrl baseUrl,
                                                           final HateosContentType contentType,
+                                                          final Indentation indentation,
+                                                          final LineEnding lineEnding,
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
@@ -99,6 +107,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         final SpreadsheetContext context = SpreadsheetContexts.basic(
                 baseUrl,
                 contentType,
+                indentation,
+                lineEnding,
                 fractioner,
                 createMetadata,
                 functions,
@@ -112,6 +122,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         this.hateosRouter = SpreadsheetContextHttps.router(
                 baseUrl,
                 contentType,
+                indentation,
+                lineEnding,
                 SpreadsheetContextHttps.saveOrUpdateMetadata(context),
                 SpreadsheetContextHttps.loadMetadata(context)
         );
