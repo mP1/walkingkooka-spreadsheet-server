@@ -68,6 +68,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -454,7 +456,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 Url.parseAbsolute(BASE_URL + "/api"),
-//                HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
+                //HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
+                Indentation.with("  "),
+                LineEnding.NL,
                 fractioner(),
                 createMetadata(),
                 idToFunctions(),

@@ -44,6 +44,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -264,9 +266,12 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                                 final HttpStatusCode statusCode,
                                 final String responseBody) {
         final HttpRequest request = this.request(method, url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(URL,
+        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+                URL,
                 contentType(),
-                Sets.of(mapping)
+                Sets.of(mapping),
+                Indentation.with("  "),
+                LineEnding.NL
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
                 possible,

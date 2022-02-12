@@ -27,6 +27,8 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.function.BiConsumer;
@@ -64,12 +66,18 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
      */
     public static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final AbsoluteUrl baseUrl,
                                                                                                 final HateosContentType contentType,
+                                                                                                final Indentation indentation,
+                                                                                                final LineEnding lineEnding,
                                                                                                 final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
                                                                                                 final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
-        return SpreadsheetContextHateosHandlersRouter.with(baseUrl,
+        return SpreadsheetContextHateosHandlersRouter.with(
+                baseUrl,
                 contentType,
+                indentation,
+                lineEnding,
                 createAndSaveMetadata,
-                loadMetadata);
+                loadMetadata
+        );
     }
 
     /**

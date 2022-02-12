@@ -70,6 +70,8 @@ import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -96,6 +98,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
      */
     static BasicSpreadsheetContext with(final AbsoluteUrl base,
                                         final HateosContentType contentType,
+                                        final Indentation indentation,
+                                        final LineEnding lineEnding,
                                         final Function<BigDecimal, Fraction> fractioner,
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
@@ -104,6 +108,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
+        Objects.requireNonNull(indentation, "indentation");
+        Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
@@ -114,6 +120,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         return new BasicSpreadsheetContext(
                 base,
                 contentType,
+                indentation,
+                lineEnding,
                 fractioner,
                 createMetadata,
                 spreadsheetIdFunctions,
@@ -125,6 +133,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private BasicSpreadsheetContext(final AbsoluteUrl base,
                                     final HateosContentType contentType,
+                                    final Indentation indentation,
+                                    final LineEnding lineEnding,
                                     final Function<BigDecimal, Fraction> fractioner,
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
@@ -134,7 +144,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         super();
 
         this.base = base;
+
         this.contentType = contentType;
+        this.indentation = indentation;
+        this.lineEnding = lineEnding;
+
         this.fractioner = fractioner;
         this.createMetadata = createMetadata;
         this.spreadsheetIdFunctions = spreadsheetIdFunctions;
@@ -338,7 +352,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                         label,
                         row,
                         viewport
-                )
+                ),
+                this.indentation,
+                this.lineEnding
         );
     }
 
@@ -500,6 +516,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private final AbsoluteUrl base;
     private final HateosContentType contentType;
+    private final Indentation indentation;
+    private final LineEnding lineEnding;
     private final Function<BigDecimal, Fraction> fractioner;
 
     @Override
