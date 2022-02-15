@@ -43,6 +43,10 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -152,6 +156,13 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                     private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
 
                     @Override
+                    public SpreadsheetColumnStore columns() {
+                        return this.columnStore;
+                    }
+
+                    private final SpreadsheetColumnStore columnStore = SpreadsheetColumnStores.treeMap();
+
+                    @Override
                     public SpreadsheetLabelStore labels() {
                         return this.labels;
                     }
@@ -180,13 +191,22 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                     private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
 
                     @Override
+                    public SpreadsheetRowStore rows() {
+                        return this.rowStore;
+                    }
+
+                    private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
+
+                    @Override
                     public String toString() {
                         return "cells: " + this.cells() +
                                 ", cellReferences: " + this.cellReferences() +
+                                ", columns: " + this.columns() +
                                 ", labels: " + this.labels() +
                                 ", labelReferences: " + this.labelReferences() +
                                 ", rangeToCells: " + this.rangeToCells() +
-                                ", rangeToConditionalFormattingRules: " + this.rangeToConditionalFormattingRules();
+                                ", rangeToConditionalFormattingRules: " + this.rangeToConditionalFormattingRules() +
+                                ", rows: " + this.rows();
                     }
                 },
                 Url.parseAbsolute("http://example.com")
