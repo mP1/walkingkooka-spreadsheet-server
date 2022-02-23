@@ -67,11 +67,6 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
         );
 
         final SpreadsheetDelta saved =
-                //engine.saveCell(
-                //  patched.cell(reference)
-                //          .orElseThrow(() -> new IllegalStateException("Missing cell " + reference)),
-                //  context
-                // )
                 this.save(patched, reference)
                         .setWindow(patched.window())
                         .setSelection(this.selection(patched.selection()));
