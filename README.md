@@ -61,7 +61,7 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### column
 
-- PATCH /api/spreadsheet/$spreadsheet-id/column/A1
+- PATCH /api/spreadsheet/$spreadsheet-id/column/A
 - POST /api/spreadsheet/$spreadsheet-id/column/A/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
