@@ -124,7 +124,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SpreadsheetDelta"
+                  "$ref": "#/components/schemas/SpreadsheetMetadata"
                 },
                 "examples": {
                   "example": {
@@ -182,7 +182,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SpreadsheetDelta"
+                  "$ref": "#/components/schemas/SpreadsheetMetadata"
                 },
                 "examples": {
                   "example": {
