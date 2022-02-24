@@ -28,7 +28,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -61,7 +61,8 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
 
         final SpreadsheetMetadata metadata = context.metadata();
 
-        final SpreadsheetDelta patched = delta.patch(
+        final SpreadsheetDelta patched = this.patch(
+                delta,
                 patch,
                 metadata.jsonNodeUnmarshallContext()
         );
@@ -106,7 +107,11 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
      */
     abstract SpreadsheetDelta load(final R reference);
 
-    abstract JsonObject preparePatch(final JsonNode delta);
+    abstract JsonNode preparePatch(final JsonNode delta);
+
+    abstract SpreadsheetDelta patch(final SpreadsheetDelta delta,
+                                    final JsonNode patch,
+                                    final JsonNodeUnmarshallContext context);
 
     abstract SpreadsheetDelta save(final SpreadsheetDelta patched,
                                    final R reference);
