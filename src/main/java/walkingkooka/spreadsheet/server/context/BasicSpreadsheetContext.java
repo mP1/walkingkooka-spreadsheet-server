@@ -227,8 +227,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 append(UrlPathName.with(id.hateosLinkId()));
 
         return formatRouter(spreadsheetIdPath, context, metadata)
+                .then(patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context))
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
-                .then(patchCellRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context))
                 .then(
                         this.cellColumnRowViewportRouter(
                                 id,
@@ -400,14 +400,21 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         );
     }
 
-    // patchCell.......................................................................................................
+    // patch............................................................................................................
 
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> patchCellRouter(final UrlPath spreadsheetId,
-                                                                                                          final MediaType contentType,
-                                                                                                          final SpreadsheetEngine engine,
-                                                                                                          final SpreadsheetEngineContext context) {
+    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> patchRouter(final UrlPath spreadsheetId,
+                                                                                                      final MediaType contentType,
+                                                                                                      final SpreadsheetEngine engine,
+                                                                                                      final SpreadsheetEngineContext context) {
         return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(patchCellRouterPredicates(spreadsheetId), (request, response) -> patchCellHandler(request, response, contentType, engine, context))
+                .add(
+                        patchCellRouterPredicates(spreadsheetId),
+                        (request, response) -> patchCellHandler(request, response, contentType, engine, context)
+                )
+                .add(
+                        patchColumnRouterPredicates(spreadsheetId),
+                        (request, response) -> patchColumnHandler(request, response, contentType, engine, context)
+                )
                 .router();
     }
 
@@ -433,6 +440,38 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                         contentType,
                         JsonHttpRequestHttpResponseBiConsumers.json(
                                 (json) -> SpreadsheetEngineHttps.patchCell(
+                                        request,
+                                        engine,
+                                        context
+                                ).apply(json),
+                                BasicSpreadsheetContext::patchPost
+                        )
+                )
+        ).accept(request, response);
+    }
+
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchColumnRouterPredicates(final UrlPath path) {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(path.append(COLUMN))
+                .build();
+    }
+
+    private final static UrlPathName COLUMN = UrlPathName.with("column");
+
+    private static void patchColumnHandler(final HttpRequest request,
+                                           final HttpResponse response,
+                                           final MediaType contentType,
+                                           final SpreadsheetEngine engine,
+                                           final SpreadsheetEngineContext context) {
+        // PATCH
+        // content type = JSON
+        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+                HttpMethod.PATCH,
+                HttpRequestHttpResponseBiConsumers.contentType(
+                        contentType,
+                        JsonHttpRequestHttpResponseBiConsumers.json(
+                                (json) -> SpreadsheetEngineHttps.patchColumn(
                                         request,
                                         engine,
                                         context

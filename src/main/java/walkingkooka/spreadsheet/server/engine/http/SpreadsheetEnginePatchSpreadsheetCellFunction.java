@@ -25,7 +25,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.function.UnaryOperator;
 
@@ -66,12 +66,22 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     }
 
     @Override
-    JsonObject preparePatch(final JsonNode delta) {
+    JsonNode preparePatch(final JsonNode delta) {
         return SpreadsheetDelta.resolveCellLabels(
                 delta.objectOrFail(),
                 this.context.storeRepository()
                         .labels()
                         ::cellReferenceOrFail
+        );
+    }
+
+    @Override
+    SpreadsheetDelta patch(final SpreadsheetDelta delta,
+                           final JsonNode patch,
+                           final JsonNodeUnmarshallContext context) {
+        return delta.patch(
+                patch,
+                context
         );
     }
 

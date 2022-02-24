@@ -724,6 +724,64 @@
             "description": "Not Found"
           }
         }
+      },
+      "patch": {
+        "tags": [
+          "spreadsheet"
+        ],
+        "operationId": "spreadsheet",
+        "summary": "Updates the column of the given spreadsheet.",
+        "parameters": [
+          {
+            "name": "spreadsheet-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpreadsheetDelta"
+              },
+              "examples": {
+                "example": {
+                  "value": "$SPREADSHEETMETADATA"
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpreadsheetDelta"
+                },
+                "examples": {
+                  "example": {
+                    "value": "$SPREADSHEETMETADATA"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/api/spreadsheet/{spreadsheet-id}/column/{column-OR-column-range}/clear": {
