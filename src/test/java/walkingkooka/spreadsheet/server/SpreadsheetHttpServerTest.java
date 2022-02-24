@@ -6337,6 +6337,193 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // row...........................................................................................................
+
+    @Test
+    public void testPatchRow() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/row/1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setRows(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseRow("1")
+                                                        .row()
+                                                        .setHidden(true)
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"rows\": {\n" +
+                                "    \"1\": {\n" +
+                                "      \"hidden\": true\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testSaveCellPatchRow() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        // save cell A1
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetCell.with(
+                                                SpreadsheetSelection.parseCell("A1"),
+                                                formula("'Hello A1")
+                                        )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Hello A1\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [{\n" +
+                                "              \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"'\",\n" +
+                                "                \"text\": \"'\"\n" +
+                                "              }\n" +
+                                "            }, {\n" +
+                                "              \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "              \"value\": {\n" +
+                                "                \"value\": \"Hello A1\",\n" +
+                                "                \"text\": \"Hello A1\"\n" +
+                                "              }\n" +
+                                "            }],\n" +
+                                "            \"text\": \"'Hello A1\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Hello A1\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello A1\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello A1\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/row/1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setRows(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseRow("1")
+                                                        .row()
+                                                        .setHidden(true)
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"rows\": {\n" +
+                                "    \"1\": {\n" +
+                                "      \"hidden\": true\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/row/1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setRows(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseRow("1")
+                                                        .row()
+                                                        .setHidden(false)
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"rows\": {\n" +
+                                "    \"1\": {\n" +
+                                "      \"hidden\": false\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test

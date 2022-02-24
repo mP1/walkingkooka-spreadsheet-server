@@ -195,6 +195,19 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
+     * {@see SpreadsheetEnginePatchSpreadsheetRowFunction}
+     */
+    public static UnaryOperator<JsonNode> patchRow(final HttpRequest request,
+                                                   final SpreadsheetEngine engine,
+                                                   final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+                request,
+                engine,
+                context
+        );
+    }
+
+    /**
      * Checks the given {@link SpreadsheetDelta} and if selection is absent then checks the selection query parameter.
      */
     static Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,

@@ -92,6 +92,7 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### row
 
+- PATCH /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/row/1:2/after?count=1
