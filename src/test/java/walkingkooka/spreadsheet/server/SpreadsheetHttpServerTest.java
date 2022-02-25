@@ -6365,7 +6365,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/row/1",
+                "/api/spreadsheet/1/row/1?window=A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
@@ -6476,7 +6476,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/row/1",
+                "/api/spreadsheet/1/row/1?window=A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
@@ -6503,7 +6503,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/row/1",
+                "/api/spreadsheet/1/row/1?window=A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
