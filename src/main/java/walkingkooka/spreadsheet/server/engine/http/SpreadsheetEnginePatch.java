@@ -20,10 +20,13 @@ package walkingkooka.spreadsheet.server.engine.http;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.store.LoadStoreException;
@@ -32,6 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.UnaryOperator;
 
 /**
@@ -124,6 +128,26 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
         return selection.isPresent() ?
                 selection :
                 SpreadsheetEngineHttps.viewportSelection(this.request.routerParameters());
+    }
+
+    final SpreadsheetCellRange window(final SpreadsheetDelta delta) {
+        return SpreadsheetEngineHttps.window(
+                Optional.of(delta),
+                this.request.routerParameters()
+        ).orElseThrow(
+                () -> new IllegalArgumentException("Missing required window")
+        );
+    }
+
+    /**
+     * Used to load all the cells within an unhidden column or row.
+     */
+    final Set<SpreadsheetCell> loadCells(final SpreadsheetCellRange range) {
+        return this.engine.loadCells(
+                range,
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                this.context
+        ).cells();
     }
 
     @Override

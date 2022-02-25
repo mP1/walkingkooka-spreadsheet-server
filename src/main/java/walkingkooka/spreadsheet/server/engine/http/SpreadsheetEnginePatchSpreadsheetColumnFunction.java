@@ -17,17 +17,21 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.UnaryOperator;
 
 /**
@@ -69,10 +73,35 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
     SpreadsheetDelta patch(final SpreadsheetDelta delta,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
-        return delta.patchColumns(
+        final SpreadsheetDelta patched = delta.patchColumns(
                 patch,
                 context
         );
+
+        final SpreadsheetCellRange window = window(
+                patched
+        );
+
+        // load all the cells for any unhidden columns....
+        Set<SpreadsheetCell> unhidden = Sets.sorted();
+
+        for (final SpreadsheetColumn beforeColumn : delta.columns()) {
+            if (beforeColumn.hidden()) {
+                final Optional<SpreadsheetColumn> afterColumn = patched.column(beforeColumn.reference());
+                if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
+                    // column was hidden now shown, load all the cells within that window.
+                    unhidden.addAll(
+                            this.loadCells(
+                                    window.setRowReferenceRange(
+                                            window.rowReferenceRange()
+                                    )
+                            )
+                    );
+                }
+            }
+        }
+
+        return patched.setCells(unhidden);
     }
 
     @Override
