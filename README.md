@@ -28,12 +28,12 @@ A swagger-ui is available at:
 A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 
 - GET /api/spreadsheet/$spreadsheet-id
-- POST /api/spreadsheet/ expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any
-  provided `Locale`.
-- POST /api/spreadsheet/$spreadsheet-id requires a BODY to update existing `SpreadsheetMetadata.`
-- PATCH /api/spreadsheet/$spreadsheet-id Patch an existing `SpreadsheetMetadata.`
-
-
+- POST /api/spreadsheet/  
+  expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any provided `Locale`.
+- POST /api/spreadsheet/$spreadsheet-id [TODO PUT](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/504)  
+  requires a BODY to update existing `SpreadsheetMetadata.`
+- PATCH /api/spreadsheet/$spreadsheet-id  
+  Patch an existing `SpreadsheetMetadata.`, creates will fail.
 
 ### Engine
 
@@ -46,25 +46,32 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 - GET /api/spreadsheet/$spreadsheet-id/cell/*
   /clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:
-  B2
+  B2  
+  Used by the UI to load just enough cells to fill the viewport.
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
-- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1
+- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1  
+  The UI uses this to update individual properties of a cell, such as updating the formula text
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1/clear
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1:B2/clear
-- POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill **input includes region of cells to be the fill content**
+- POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill  
+  input includes region of cells to be the fill content  
+  This has many purposes including functionality such as filling a range, pasting previously copied cells etc.
 
 #### column
 
 - PATCH /api/spreadsheet/$spreadsheet-id/column/A
-- POST /api/spreadsheet/$spreadsheet-id/column/A/clear
+- POST /api/spreadsheet/$spreadsheet-id/column/A/clear  
+  Used by the UI to clear or erase all cells within the selected column/columns.
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
-- POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1
+- POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1  
+  Used by the UI to insert one or more columns before the given column, typically maps to the context menu > insert
+  before
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
@@ -73,18 +80,20 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### format
 
-- POST /api/spreadsheet/$spreadsheet-id/format
+- POST /api/spreadsheet/$spreadsheet-id/format  
+  Support for the UI to format various value types using numerous pattern formats.
 
 #### label
 
 - DELETE /api/spreadsheet/$spreadsheet-id/label/$label-name
 - GET /api/spreadsheet/$spreadsheet-id/label/$label-name
-- POST /api/spreadsheet/$spreadsheet-id/label
+- POST /api/spreadsheet/$spreadsheet-id/label Used by the UI to create a new label to cell or cell-range
 - POST /api/spreadsheet/$spreadsheet-id/label/$label-name
 
 #### parse
 
-- GET /api/spreadsheet/$spreadsheet-id/parse
+- GET /api/spreadsheet/$spreadsheet-id/parse  
+  Support for the UI to parse text using numerous patterns into values.
 
 #### range
 
@@ -103,9 +112,15 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1
 - DELETE /api/spreadsheet/$spreadsheet-id/row/1:2
 
+#### url / query string parameters
 
-- The selection-type and selection url parameters are optional, but must both be present together.
-- Window may be passed to specify a window for the returned delta.
+- `selection-type` & `selection`  
+  These parameters which must be present together are used to include the current selection and may affect the results,
+  such as loading cells.
+- `window`  
+  This parameter is used to limit the range of cells, columns and rows returned. For example updating a cell may
+  result  
+  in many cells being updated but only those visible in the viewport should be returned.
 
 # Execution environment
 
