@@ -57,7 +57,6 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
         );
     }
 
-    @Test
     private void applyAndCheck2(final String queryString,
                                 final Optional<SpreadsheetViewportSelection> viewportSelection) {
         final SpreadsheetColumn column = REFERENCE.column()
