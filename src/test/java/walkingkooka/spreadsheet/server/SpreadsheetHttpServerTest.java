@@ -6183,6 +6183,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                         .column()
                                                         .setHidden(true)
                                         )
+                                ).setWindow(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseCellRange("A1:B2")
+                                        )
                                 )
                 ),
                 this.response(
@@ -6192,7 +6196,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"A\": {\n" +
                                 "      \"hidden\": true\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -6284,7 +6289,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/column/A",
+                "/api/spreadsheet/1/column/A?window=A1:B2",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
@@ -6311,7 +6316,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/column/A",
+                "/api/spreadsheet/1/column/A?window=A1",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
