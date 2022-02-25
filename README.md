@@ -33,7 +33,7 @@ A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 - POST /api/spreadsheet/$spreadsheet-id [TODO PUT](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/504)  
   requires a BODY to update existing `SpreadsheetMetadata.`
 - PATCH /api/spreadsheet/$spreadsheet-id  
-  Patch an existing `SpreadsheetMetadata.`, creates will fail.
+  Used to update an existing `SpreadsheetMetadata`, name or individual global settings for a spreadsheet.
 
 ### Engine
 
@@ -43,6 +43,9 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 
 #### cell
+
+Most of these end points are used to fill the viewport or from actions such as selecting a cell or cell-range and then
+clicking a context menu command.
 
 - GET /api/spreadsheet/$spreadsheet-id/cell/*
   /clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selection-type=cell-range&selection=A1:
@@ -65,13 +68,14 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### column
 
+Many of these are very closed mapped to the context menu that appears when column/columns are selected.
+
 - PATCH /api/spreadsheet/$spreadsheet-id/column/A
 - POST /api/spreadsheet/$spreadsheet-id/column/A/clear  
   Used by the UI to clear or erase all cells within the selected column/columns.
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
 - POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1  
-  Used by the UI to insert one or more columns before the given column, typically maps to the context menu > insert
-  before
+  Used by the UI to insert one or more columns before the given column
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
 - POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
@@ -85,9 +89,12 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 
 #### label
 
+These end points are mostly used by the label management dialog.
+
 - DELETE /api/spreadsheet/$spreadsheet-id/label/$label-name
 - GET /api/spreadsheet/$spreadsheet-id/label/$label-name
-- POST /api/spreadsheet/$spreadsheet-id/label Used by the UI to create a new label to cell or cell-range
+- POST /api/spreadsheet/$spreadsheet-id/label  
+  Used by the UI to create a new label to cell or cell-range
 - POST /api/spreadsheet/$spreadsheet-id/label/$label-name
 
 #### parse
@@ -100,6 +107,8 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 - GET /api/spreadsheet/$spreadsheet-id/range/A1:0:0:150:25
 
 #### row
+
+Many of these are very closed mapped to the context menu that appears when row/rows are selected.
 
 - PATCH /api/spreadsheet/$spreadsheet-id/row/1
 - POST /api/spreadsheet/$spreadsheet-id/row/1
