@@ -171,7 +171,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                 row,
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDelta.WINDOW, Lists.of(window.get().toString())
+                        SpreadsheetEngineHttps.WINDOW,
+                        Lists.of(
+                                window.get().toString()
+                        )
                 ),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
