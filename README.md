@@ -135,7 +135,11 @@ A simple message from the browser to an API, looks something like this, where th
 object.
 
 ```
-main UI thread -> Fetch HttpRequest -> Http Servlet container -> promise -> dispatch
+main UI thread
+-> Fetch HttpRequest
+-> Http Servlet container
+-> promise
+-> dispatch
 ```
 
 ## offline mode
@@ -149,16 +153,27 @@ within messages and the semantics are emulated
 by [walkingkooka-spreadsheet-webworker](https://github.com/mP1/walkingkooka-spreadsheet-webworker).
 
 ```
-main UI thread -> Fetch that really posts message (HttpRequest) -> window.postMessage(JSON.stringify(HttpRequest)) ->
+main UI thread 
+-> Fetch that really posts message (HttpRequest)
+-> window.postMessage(JSON.stringify(HttpRequest))
 
-web worker.onMessage -> message -> JSON.parse(HttpRequest) -> fake HttpServer
+web worker.onMessage
+-> message
+-> JSON.parse(HttpRequest)
+-> fake HttpServer
 ```
 
 The url, headers and body of the request are still present and used to evaluate, route and select a handler which will
 be responsible for producing some reply.
 
 ```
-HttpResponse -> webworker.postMessage(JSON.stringify(HttpResponse) -> window.onMessage -> JSON.parse(HttpResponse) -> dispatch
+webworker HttpResponse
+-> webworker.postMessage(JSON.stringify(HttpResponse)
+
+main UI thread
+-> window.onMessage
+-> JSON.parse(HttpResponse)
+-> dispatch
 ```
 
 Naturally there are limitations due to the offline nature and browser sand-boxing and those are currently unaddressed
