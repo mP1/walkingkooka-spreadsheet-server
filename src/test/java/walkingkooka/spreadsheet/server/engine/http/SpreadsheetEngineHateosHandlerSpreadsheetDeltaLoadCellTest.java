@@ -231,7 +231,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 this.range(),
                 this.collectionResource(),
                 Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WINDOW, List.of(window.toString())
+                        SpreadsheetEngineHttps.WINDOW,
+                        List.of(
+                                window.toString()
+                        )
                 ),
                 Optional.of(
                         SpreadsheetDelta.EMPTY

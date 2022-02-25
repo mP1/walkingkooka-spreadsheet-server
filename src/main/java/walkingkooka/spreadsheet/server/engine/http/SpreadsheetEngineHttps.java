@@ -233,6 +233,42 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
+     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
+     */
+    static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Optional<SpreadsheetCellRange> window = input.isPresent() ?
+                input.get().window() :
+                Optional.empty();
+        if (!window.isPresent()) {
+            window = window(parameters);
+        }
+
+        return window;
+    }
+
+    /**
+     * Returns the window taken from the query parameters if present.
+     */
+    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetCellRange window;
+
+        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
+        if (maybeWindow.isPresent()) {
+            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
+        } else {
+            window = null;
+        }
+
+        return Optional.ofNullable(window);
+    }
+
+    /**
+     * Adds support for passing the window as a url query parameter.
+     */
+    final static UrlParameterName WINDOW = UrlParameterName.with("window");
+
+    /**
      * Returns the selection from the request parameters if one was present.
      */
     static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {

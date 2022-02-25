@@ -19,14 +19,12 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
@@ -41,43 +39,6 @@ import java.util.Optional;
  */
 abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparable<I>>
         extends SpreadsheetEngineHateosHandler<I, SpreadsheetDelta, SpreadsheetDelta> {
-
-    /**
-     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
-     */
-    private static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
-                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Optional<SpreadsheetCellRange> window = input.isPresent() ?
-                input.get().window() :
-                Optional.empty();
-        if (!window.isPresent()) {
-            window = window(parameters);
-        }
-
-        return window;
-    }
-
-    /**
-     * Returns the window taken from the query parameters if present.
-     */
-    private static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange window;
-
-        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
-        if (maybeWindow.isPresent()) {
-            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
-        } else {
-            window = null;
-        }
-
-        return Optional.ofNullable(window);
-    }
-
-    /**
-     * Adds support for passing the window as a url query parameter.
-     */
-    // @VisibleForTesting
-    final static UrlParameterName WINDOW = UrlParameterName.with("window");
 
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
@@ -119,7 +80,10 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                                            final SpreadsheetDelta out) {
         return this.setColumnWidthsRowHeights(
                 out.setWindow(
-                        window(in, parameters)
+                        SpreadsheetEngineHttps.window(
+                                in,
+                                parameters
+                        )
                 )
         ).setSelection(SpreadsheetEngineHttps.viewportSelection(in, parameters));
     }
