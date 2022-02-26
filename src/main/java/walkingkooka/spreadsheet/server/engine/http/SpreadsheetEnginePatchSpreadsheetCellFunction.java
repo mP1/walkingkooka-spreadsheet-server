@@ -79,7 +79,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     SpreadsheetDelta patch(final SpreadsheetDelta delta,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
-        return delta.patch(
+        return delta.patchCells(
                 patch,
                 context
         );
