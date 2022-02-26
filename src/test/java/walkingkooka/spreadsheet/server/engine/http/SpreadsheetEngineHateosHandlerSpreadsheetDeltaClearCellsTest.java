@@ -57,7 +57,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
 
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
+        cellStore.save(
+                a1.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
         this.handleOneAndCheck(
                 handler,
@@ -88,11 +90,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
 
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY));
+        cellStore.save(
+                a1.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                b2.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                c3.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
-        final SpreadsheetCell d4Cell = cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY));
+        final SpreadsheetCell d4Cell = cellStore.save(
+                d4.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells.with(
                 engine,

@@ -111,11 +111,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Test
     public void testHandleSaveMultipleCellsFails() {
         final SpreadsheetCell cell = this.cell();
-        final SpreadsheetCell z99 = SpreadsheetCell.with(
-                SpreadsheetSelection.parseCell("Z99"),
-                SpreadsheetFormula.EMPTY
-                        .setText("99")
-        );
+        final SpreadsheetCell z99 = SpreadsheetSelection.parseCell("Z99")
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                                .setText("99")
+                );
 
         this.handleOneFails(this.id(),
                 Optional.of(

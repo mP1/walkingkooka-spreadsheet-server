@@ -65,8 +65,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
     @Test
     private void applyAndCheck2(final String queryString,
                                 final Optional<SpreadsheetViewportSelection> viewportSelection) {
-        final SpreadsheetCell cell = SpreadsheetCell.with(
-                REFERENCE,
+        final SpreadsheetCell cell = REFERENCE.setFormula(
                 SpreadsheetFormula.EMPTY
                         .setText("=2")
         );

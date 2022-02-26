@@ -218,8 +218,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
      */
     final SpreadsheetCell formattedCell(final SpreadsheetCellReference reference,
                                         final String text) {
-        return SpreadsheetCell.with(
-                reference,
+        return reference.setFormula(
                 SpreadsheetFormula.EMPTY
                         .setText("'" + text)
                         .setToken(

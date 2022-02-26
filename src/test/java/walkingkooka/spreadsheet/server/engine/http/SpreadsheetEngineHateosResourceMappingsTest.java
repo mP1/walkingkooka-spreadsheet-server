@@ -422,11 +422,11 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(
-                                                        SpreadsheetSelection.parseCell("B99"),
-                                                        SpreadsheetFormula.EMPTY
-                                                                .setText("1")
-                                                )
+                                                SpreadsheetSelection.parseCell("B99")
+                                                        .setFormula(
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("1")
+                                                        )
                                         )
                                 )
                 ).toString(),

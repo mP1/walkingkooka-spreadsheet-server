@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.context;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -92,7 +91,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
                 SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(CELL1, FORMULA1)
+                                        CELL1.setFormula(FORMULA1)
                                 )
                         )
         );
@@ -104,8 +103,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
                 SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(CELL1, FORMULA1),
-                                        SpreadsheetCell.with(CELL2, FORMULA2)
+                                        CELL1.setFormula(FORMULA1),
+                                        CELL2.setFormula(FORMULA2)
                                 )
                         )
         );
@@ -117,8 +116,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
                 SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetCell.with(
-                                                CELL1,
+                                        CELL1.setFormula(
                                                 SpreadsheetFormula.EMPTY
                                                         .setText("=1+" + LABEL1)
                                         )
@@ -132,7 +130,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(
-                                SpreadsheetCell.with(CELL1, FORMULA1)
+                                CELL1.setFormula(FORMULA1)
                         )
                 );
         this.applyAndCheck2(
@@ -146,8 +144,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(
-                                SpreadsheetCell.with(CELL1, FORMULA1),
-                                SpreadsheetCell.with(CELL2, FORMULA2)
+                                CELL1.setFormula(FORMULA1),
+                                CELL2.setFormula(FORMULA2)
                         )
                 );
         this.applyAndCheck2(
@@ -165,8 +163,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(
-                                SpreadsheetCell.with(CELL1, FORMULA1),
-                                SpreadsheetCell.with(CELL2, FORMULA2)
+                                CELL1.setFormula(FORMULA1),
+                                CELL2.setFormula(FORMULA2)
                         )
                 );
         this.applyAndCheck2(

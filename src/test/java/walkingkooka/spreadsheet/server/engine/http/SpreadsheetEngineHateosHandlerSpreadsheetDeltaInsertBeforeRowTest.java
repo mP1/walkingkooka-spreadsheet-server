@@ -22,7 +22,6 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -60,10 +59,26 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
 
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY.setText("'a1")));
-        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY.setText("'b2")));
-        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY.setText("'c3")));
-        cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY.setText("'d4")));
+        cellStore.save(
+                a1.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'a1")
+                )
+        );
+        cellStore.save(
+                b2.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'b2")
+                )
+        );
+        cellStore.save(
+                c3.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'c3")
+                )
+        );
+        cellStore.save(
+                d4.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'d4")
+                )
+        );
 
         final double width = COLUMN_WIDTH.pixelValue();
         final double height = ROW_HEIGHT.pixelValue();
@@ -126,10 +141,26 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
 
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY.setText("'a1")));
-        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY.setText("'b2")));
-        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY.setText("'c3")));
-        cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY.setText("'d4")));
+        cellStore.save(
+                a1.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'a1")
+                )
+        );
+        cellStore.save(
+                b2.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'b2")
+                )
+        );
+        cellStore.save(
+                c3.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'c3")
+                )
+        );
+        cellStore.save(
+                d4.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'d4")
+                )
+        );
 
         final double width = COLUMN_WIDTH.pixelValue();
         final double height = ROW_HEIGHT.pixelValue();

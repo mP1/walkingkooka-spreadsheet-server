@@ -41,11 +41,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowT
     public void testRow() {
         final SpreadsheetRowReference row = SpreadsheetSelection.parseRow("3");
 
-        final SpreadsheetCell cell = SpreadsheetCell.with(
-                SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.EMPTY
-                        .setText("=99")
-        );
+        final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                                .setText("=99")
+                );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(cell)
@@ -100,11 +100,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowT
     public void testRowRange() {
         final SpreadsheetRowReferenceRange range = SpreadsheetSelection.parseRowRange("3:5");
 
-        final SpreadsheetCell cell = SpreadsheetCell.with(
-                SpreadsheetSelection.parseCell("C3"),
-                SpreadsheetFormula.EMPTY
-                        .setText("=99")
-        );
+        final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                                .setText("=99")
+                );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
                 .setCells(
                         Sets.of(cell)
