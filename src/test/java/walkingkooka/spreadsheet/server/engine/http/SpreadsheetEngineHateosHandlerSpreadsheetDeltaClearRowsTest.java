@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -64,9 +63,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
 
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(row1ColMax, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY));
+        cellStore.save(
+                a1.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                row1ColMax.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                b2.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
         this.handleOneAndCheck(
                 handler,
@@ -100,11 +105,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
         final SpreadsheetCellStore cellStore = context.storeRepository()
                 .cells();
 
-        cellStore.save(SpreadsheetCell.with(a1, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(b2, SpreadsheetFormula.EMPTY));
-        cellStore.save(SpreadsheetCell.with(c3, SpreadsheetFormula.EMPTY));
+        cellStore.save(
+                a1.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                b2.setFormula(SpreadsheetFormula.EMPTY)
+        );
+        cellStore.save(
+                c3.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
-        cellStore.save(SpreadsheetCell.with(d4, SpreadsheetFormula.EMPTY));
+        cellStore.save(
+                d4.setFormula(SpreadsheetFormula.EMPTY)
+        );
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows.with(
                 engine,

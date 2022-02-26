@@ -25,7 +25,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -71,11 +70,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(
-                                                        SpreadsheetSelection.parseCell("Z9"),
-                                                        SpreadsheetFormula.EMPTY
-                                                                .setText("=1+2")
-                                                )
+                                                SpreadsheetSelection.parseCell("Z9")
+                                                        .setFormula(
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("=1+2")
+                                                        )
                                         )
                                 )
                 ),
@@ -99,11 +98,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetCell.with(
-                                                        SpreadsheetSelection.parseCell("Z9"),
-                                                        SpreadsheetFormula.EMPTY
-                                                                .setText("=1+2")
-                                                )
+                                                SpreadsheetSelection.parseCell("Z9")
+                                                        .setFormula(
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("=1+2")
+                                                        )
                                         )
                                 )
                 ),

@@ -130,15 +130,15 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Optional.of(WINDOW)
                 );
 
-        final SpreadsheetCell c1 = SpreadsheetCell.with(
-                REFERENCE.setColumn(SpreadsheetSelection.parseColumn("A")),
-                SpreadsheetFormula.EMPTY
-        );
+        final SpreadsheetCell c1 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("A"))
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                );
 
-        final SpreadsheetCell c2 = SpreadsheetCell.with(
-                REFERENCE.setColumn(SpreadsheetSelection.parseColumn("B")),
-                SpreadsheetFormula.EMPTY
-        );
+        final SpreadsheetCell c2 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("B"))
+                .setFormula(
+                        SpreadsheetFormula.EMPTY
+                );
 
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setRows(

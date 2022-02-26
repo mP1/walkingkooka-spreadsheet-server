@@ -35,7 +35,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -293,11 +292,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                                 SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
-                                                        SpreadsheetCell.with(
-                                                                SpreadsheetSelection.parseCell("A2"),
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("1")
-                                                        )
+                                                        SpreadsheetSelection.parseCell("A2")
+                                                                .setFormula(
+                                                                        SpreadsheetFormula.EMPTY
+                                                                                .setText("1")
+                                                                )
                                                 )
                                         )
                         ).toString(),
