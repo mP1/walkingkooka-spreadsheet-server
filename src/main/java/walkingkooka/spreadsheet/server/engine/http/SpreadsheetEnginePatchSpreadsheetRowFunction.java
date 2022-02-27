@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -37,7 +38,7 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEnginePatch<SpreadsheetRowReference> {
+final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEnginePatch<SpreadsheetRowReferenceRange> {
 
     static SpreadsheetEnginePatchSpreadsheetRowFunction with(final HttpRequest request,
                                                              final SpreadsheetEngine engine,
@@ -52,16 +53,27 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
     }
 
     @Override
-    SpreadsheetRowReference parseReference(final String text) {
-        return SpreadsheetSelection.parseRow(text);
+    SpreadsheetRowReferenceRange parseReference(final String text) {
+        return SpreadsheetSelection.parseRowRange(text);
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetRowReference reference) {
-        return this.engine.loadRow(
-                reference,
-                this.context
-        );
+    SpreadsheetDelta load(final SpreadsheetRowReferenceRange range) {
+        final SpreadsheetEngine engine = this.engine;
+        final SpreadsheetEngineContext context = this.context;
+
+        final Set<SpreadsheetRow> loaded = Sets.sorted();
+
+        for (final SpreadsheetRowReference row : range) {
+            loaded.addAll(
+                    engine.loadRow(
+                            row,
+                            context
+                    ).rows()
+            );
+        }
+
+        return SpreadsheetDelta.EMPTY.setRows(loaded);
     }
 
     @Override
@@ -70,7 +82,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetRowReference reference,
+    SpreadsheetDelta patch(final SpreadsheetRowReferenceRange range,
                            final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
@@ -84,17 +96,23 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
         );
 
         // load all the cells for any unhidden rows....
-        Set<SpreadsheetCell> unhidden = Sets.sorted();
+        final Set<SpreadsheetCell> unhidden = Sets.sorted();
 
-        for (final SpreadsheetRow beforeRow : loaded.rows()) {
+        for (final SpreadsheetRow beforeRow : patched.rows()) {
+            final SpreadsheetRowReference reference = beforeRow.reference();
+
+            if (!range.testRow(reference)) {
+                throw new IllegalArgumentException("Patch rows: " + range + " includes invalid row " + reference);
+            }
+
             if (beforeRow.hidden()) {
-                final Optional<SpreadsheetRow> afterRow = patched.row(beforeRow.reference());
+                final Optional<SpreadsheetRow> afterRow = patched.row(reference);
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {
                     // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
                             this.loadCells(
-                                    window.setColumnReferenceRange(
-                                            window.columnReferenceRange()
+                                    window.setRowReferenceRange(
+                                            window.rowReferenceRange()
                                     )
                             )
                     );
@@ -105,19 +123,27 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
         return patched.setCells(unhidden);
     }
 
+    /**
+     * Saves all the {@link SpreadsheetRow rows} in the patched {@link SpreadsheetDelta}.
+     */
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetRowReference reference) {
-        final Optional<SpreadsheetRow> row = patched.row(reference);
+                          final SpreadsheetRowReferenceRange reference) {
+        final SpreadsheetEngine engine = this.engine;
+        final SpreadsheetEngineContext context = this.context;
 
-        if (!row.isPresent()) {
-            throw new IllegalArgumentException("Missing row " + reference);
+        final Set<SpreadsheetCell> cells = Sets.sorted();
+
+        for (final SpreadsheetRow row : patched.rows()) {
+            cells.addAll(
+                    engine.saveRow(
+                            row,
+                            context
+                    ).cells()
+            );
         }
 
-        return this.engine.saveRow(
-                row.get(),
-                this.context
-        );
+        return patched.setCells(cells);
     }
 
     @Override
