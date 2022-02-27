@@ -33,19 +33,63 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.tree.json.JsonNode;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetColumnFunction, SpreadsheetColumnReference> {
+public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetColumnFunction, SpreadsheetColumnReferenceRange> {
 
-    private final static SpreadsheetColumnReference REFERENCE = SpreadsheetExpressionReference.parseColumn("C");
-    private final static SpreadsheetCellRange WINDOW = SpreadsheetSelection.parseCellRange("B1:D3");
+    private final static SpreadsheetColumnReferenceRange RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
+    private final static SpreadsheetCellRange WINDOW = SpreadsheetSelection.parseCellRange("B2:E5");
+
+    @Test
+    public void testPatchColumnOutOfRangeFails() {
+        final JsonNode patch = marshall(
+                SpreadsheetDelta.EMPTY
+                        .setColumns(
+                                Sets.of(
+                                        SpreadsheetSelection.parseColumn("Z")
+                                                .column()
+                                )
+                        )
+        );
+
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
+                            new FakeHttpRequest() {
+                                @Override
+                                public RelativeUrl url() {
+                                    return Url.parseRelative("/column/" + RANGE + "?window=" + WINDOW);
+                                }
+                            },
+                            new FakeSpreadsheetEngine() {
+                                @Override
+                                public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference column,
+                                                                   final SpreadsheetEngineContext context) {
+                                    return SpreadsheetDelta.EMPTY;
+                                }
+
+
+                            },
+                            CONTEXT
+                    ).apply(patch);
+                });
+        this.checkEquals(
+                "Patch columns: C:D includes invalid column Z",
+                thrown.getMessage(),
+                "message"
+        );
+    }
 
     @Test
     public void testApply() {
@@ -55,9 +99,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
     @Test
     public void testApplySelectionQueryParameter() {
         this.applyAndCheck2(
-                "?selectionType=cell&selection=C2",
+                "?selectionType=cell&selection=C3",
                 Optional.of(
-                        SpreadsheetSelection.parseCell("C2")
+                        SpreadsheetSelection.parseCell("C3")
                                 .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
                 )
         );
@@ -65,51 +109,83 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
 
     private void applyAndCheck2(final String queryString,
                                 final Optional<SpreadsheetViewportSelection> viewportSelection) {
-        final SpreadsheetColumn column = REFERENCE.column()
+        final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
+                .column()
+                .setHidden(true);
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("C")
+                .column()
                 .setHidden(true);
 
         final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
                 .setColumns(
-                        Sets.of(column)
+                        Sets.of(
+                                c, d
+                        )
                 ).setWindow(
                         Optional.of(WINDOW)
                 );
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setColumns(
-                        Sets.of(column)
+                        Sets.of(
+                                c, d
+                        )
                 ).setSelection(viewportSelection)
                 .setWindow(
                         Optional.of(WINDOW)
                 );
+
+        final Set<SpreadsheetColumn> saved = Sets.ordered();
 
         this.applyAndCheck(
                 SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/column/" + REFERENCE + queryString);
+                                return Url.parseRelative("/column/" + RANGE + queryString);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
                             public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference columnReference,
                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(REFERENCE, columnReference, "reference");
-                                assertSame(CONTEXT, context, "context");
-
-                                return SpreadsheetDelta.EMPTY
-                                        .setColumns(
-                                                Sets.of(column)
-                                        );
+                                if (c.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
+                                            Sets.of(
+                                                    c.setHidden(false)
+                                            )
+                                    );
+                                }
+                                if (d.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
+                                            Sets.of(
+                                                    d.setHidden(false)
+                                            )
+                                    );
+                                }
+                                return SpreadsheetDelta.EMPTY;
                             }
 
                             @Override
                             public SpreadsheetDelta saveColumn(final SpreadsheetColumn c,
                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(column, c, "column");
-                                assertSame(CONTEXT, context, "context");
+                                checkEquals(
+                                        true,
+                                        c.hidden(),
+                                        () -> "saved columns should be hidden=" + c
+                                );
 
-                                return response;
+                                saved.add(c);
+
+                                return SpreadsheetDelta.EMPTY.setColumns(
+                                        Sets.of(c)
+                                );
+                            }
+
+                            @Override
+                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final SpreadsheetEngineContext context) {
+                                return SpreadsheetDelta.EMPTY;
                             }
                         },
                         CONTEXT
@@ -117,68 +193,112 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                 marshall(request),
                 marshall(response)
         );
+
+        this.checkEquals(
+                Sets.of(
+                        c, d
+                ),
+                saved,
+                "saved columns"
+        );
     }
 
     @Test
     public void testLoadsUnhiddenColumnCells() {
-        final SpreadsheetColumn column = REFERENCE.column();
+        final String queryString = "?selectionType=cell&selection=C3";
+
+        final Optional<SpreadsheetViewportSelection> viewportSelection = Optional.of(
+                SpreadsheetSelection.parseCell("C3")
+                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+        );
+
+        final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
+                .column()
+                .setHidden(true);
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("C")
+                .column()
+                .setHidden(true);
 
         final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
                 .setColumns(
-                        Sets.of(column)
-                ).setWindow(
-                        Optional.of(WINDOW)
-                );
-
-        final SpreadsheetCell c1 = REFERENCE.setRow(
-                SpreadsheetSelection.parseRow("1")
-        ).setFormula(
-                SpreadsheetFormula.EMPTY
-        );
-
-        final SpreadsheetCell c2 = REFERENCE.setRow(SpreadsheetSelection.parseRow("2"))
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                );
-
-        final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
-                .setColumns(
-                        Sets.of(column)
-                ).setCells(
                         Sets.of(
+                                c, d
                         )
                 ).setWindow(
                         Optional.of(WINDOW)
                 );
+
+        final SpreadsheetCell c3 = c.reference()
+                .setRow(SpreadsheetSelection.parseRow("3"))
+                .setFormula(
+                        SpreadsheetFormula.EMPTY.setText("=1")
+                );
+
+        final SpreadsheetCell d4 = d.reference()
+                .setRow(SpreadsheetSelection.parseRow("4"))
+                .setFormula(
+                        SpreadsheetFormula.EMPTY.setText("'D4")
+                );
+
+        final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
+                .setColumns(
+                        Sets.of(
+                                c, d
+                        )
+                ).setSelection(viewportSelection)
+                .setWindow(
+                        Optional.of(WINDOW)
+                ).setCells(
+                        Sets.of(
+                                c3, d4
+                        )
+                );
+
+        final Set<SpreadsheetColumn> saved = Sets.ordered();
 
         this.applyAndCheck(
                 SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/column/" + REFERENCE);
+                                return Url.parseRelative("/column/" + RANGE + queryString);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
                             public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference columnReference,
                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(REFERENCE, columnReference, "reference");
-                                assertSame(CONTEXT, context, "context");
-
-                                return SpreadsheetDelta.EMPTY
-                                        .setColumns(
-                                                Sets.of(column.setHidden(true))
-                                        );
+                                if (c.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
+                                            Sets.of(
+                                                    c.setHidden(false)
+                                            )
+                                    );
+                                }
+                                if (d.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
+                                            Sets.of(
+                                                    d.setHidden(false)
+                                            )
+                                    );
+                                }
+                                return SpreadsheetDelta.EMPTY;
                             }
 
                             @Override
                             public SpreadsheetDelta saveColumn(final SpreadsheetColumn c,
                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(column, c, "column");
-                                assertSame(CONTEXT, context, "context");
+                                checkEquals(
+                                        true,
+                                        c.hidden(),
+                                        () -> "saved columns should be hidden=" + c
+                                );
 
-                                return response;
+                                saved.add(c);
+
+                                return SpreadsheetDelta.EMPTY.setColumns(
+                                        Sets.of(c)
+                                );
                             }
 
                             @Override
@@ -190,7 +310,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
-                                                        c1, c2
+                                                        c3, d4
                                                 )
                                         );
                             }
@@ -199,6 +319,14 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                 ),
                 marshall(request),
                 marshall(response)
+        );
+
+        this.checkEquals(
+                Sets.of(
+                        c, d
+                ),
+                saved,
+                "saved columns"
         );
     }
 
