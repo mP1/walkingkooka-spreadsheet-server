@@ -112,7 +112,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
         final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
                 .column()
                 .setHidden(true);
-        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("C")
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("D")
                 .column()
                 .setHidden(true);
 
@@ -215,7 +215,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
         final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
                 .column()
                 .setHidden(true);
-        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("C")
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("D")
                 .column()
                 .setHidden(true);
 
