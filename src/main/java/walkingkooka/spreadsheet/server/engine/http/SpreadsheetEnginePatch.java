@@ -60,13 +60,13 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     public JsonNode apply(final JsonNode json) {
         final R reference = this.parseReference();
 
-        final SpreadsheetDelta delta = this.loadSpreadsheetDelta(reference);
+        final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(reference);
         final JsonNode patch = this.preparePatch(json);
 
         final SpreadsheetMetadata metadata = context.metadata();
 
         final SpreadsheetDelta patched = this.patch(
-                delta,
+                loaded,
                 patch,
                 metadata.jsonNodeUnmarshallContext()
         );
