@@ -70,10 +70,11 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetDelta delta,
+    SpreadsheetDelta patch(final SpreadsheetRowReference reference,
+                           final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
-        final SpreadsheetDelta patched = delta.patchRows(
+        final SpreadsheetDelta patched = loaded.patchRows(
                 patch,
                 context
         );
@@ -85,7 +86,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
         // load all the cells for any unhidden rows....
         Set<SpreadsheetCell> unhidden = Sets.sorted();
 
-        for (final SpreadsheetRow beforeRow : delta.rows()) {
+        for (final SpreadsheetRow beforeRow : loaded.rows()) {
             if (beforeRow.hidden()) {
                 final Optional<SpreadsheetRow> afterRow = patched.row(beforeRow.reference());
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {

@@ -76,10 +76,11 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetDelta delta,
+    SpreadsheetDelta patch(final SpreadsheetCellReference reference,
+                           final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
-        return delta.patchCells(
+        return loaded.patchCells(
                 patch,
                 context
         );

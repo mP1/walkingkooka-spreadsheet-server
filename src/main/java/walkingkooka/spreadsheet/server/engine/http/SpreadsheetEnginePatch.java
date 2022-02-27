@@ -63,9 +63,10 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
         final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(reference);
         final JsonNode patch = this.preparePatch(json);
 
-        final SpreadsheetMetadata metadata = context.metadata();
+        final SpreadsheetMetadata metadata = this.context.metadata();
 
         final SpreadsheetDelta patched = this.patch(
+                reference,
                 loaded,
                 patch,
                 metadata.jsonNodeUnmarshallContext()
@@ -113,7 +114,8 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
 
     abstract JsonNode preparePatch(final JsonNode delta);
 
-    abstract SpreadsheetDelta patch(final SpreadsheetDelta delta,
+    abstract SpreadsheetDelta patch(final R reference,
+                                    final SpreadsheetDelta loaded,
                                     final JsonNode patch,
                                     final JsonNodeUnmarshallContext context);
 
