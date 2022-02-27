@@ -130,12 +130,12 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Optional.of(WINDOW)
                 );
 
-        final SpreadsheetCell c1 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("A"))
+        final SpreadsheetCell a3 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("A"))
                 .setFormula(
                         SpreadsheetFormula.EMPTY
                 );
 
-        final SpreadsheetCell c2 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("B"))
+        final SpreadsheetCell b3 = REFERENCE.setColumn(SpreadsheetSelection.parseColumn("B"))
                 .setFormula(
                         SpreadsheetFormula.EMPTY
                 );
@@ -172,9 +172,9 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public SpreadsheetDelta saveRow(final SpreadsheetRow c,
+                            public SpreadsheetDelta saveRow(final SpreadsheetRow r,
                                                             final SpreadsheetEngineContext context) {
-                                checkEquals(row, c, "row");
+                                checkEquals(row, r, "row");
                                 assertSame(CONTEXT, context, "context");
 
                                 return response;
@@ -189,7 +189,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
-                                                        c1, c2
+                                                        a3, b3
                                                 )
                                         );
                             }
