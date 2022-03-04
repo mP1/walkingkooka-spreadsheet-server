@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Objects;
@@ -120,7 +121,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         try {
             return converter.apply(value);
         } catch (final Exception convertFailed) {
-            throw new IllegalArgumentException("Invalid value for parameter: " + parameter);
+            throw new IllegalArgumentException("Invalid query parameter " + parameter + "=" + CharSequences.quoteIfChars(value));
         }
     }
 

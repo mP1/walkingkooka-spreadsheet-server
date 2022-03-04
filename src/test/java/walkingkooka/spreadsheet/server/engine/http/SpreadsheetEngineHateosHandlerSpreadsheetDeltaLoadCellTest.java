@@ -266,6 +266,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
+    public void testHandleAllInvalidXOffsetParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("*")
+                ),
+                "Invalid query parameter xOffset=\"*\""
+        );
+    }
+
+    @Test
     public void testHandleAllMissingYOffsetParameterFails() {
         this.handleAllFails2(
                 Maps.of(
@@ -273,6 +284,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0")
                 ),
                 "Missing parameter \"yOffset\""
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidYOffsetParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("*")
+                ),
+                "Invalid query parameter yOffset=\"*\""
         );
     }
 
@@ -289,6 +312,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
+    public void testHandleAllInvalidWidthParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("*")
+                ),
+                "Invalid query parameter width=\"*\""
+        );
+    }
+
+    @Test
     public void testHandleAllMissingHeightParameterFails() {
         this.handleAllFails2(
                 Maps.of(
@@ -298,6 +334,20 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0")
                 ),
                 "Missing parameter \"height\""
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidHeightParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("*")
+                ),
+                "Invalid query parameter height=\"*\""
         );
     }
 
