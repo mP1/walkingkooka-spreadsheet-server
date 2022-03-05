@@ -125,7 +125,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
 
         this.handleRangeAndCheck(
                 handler,
-                b2.column().spreadsheetColumnRange(c3.column()).range(),
+                b2.column().columnRange(c3.column()).range(),
                 RESOURCE,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
