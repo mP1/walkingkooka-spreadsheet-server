@@ -92,7 +92,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows extends Spre
                 .get()
                 .setColumn(SpreadsheetColumnReference.MAX);
 
-        final SpreadsheetCellRange cellRange = lower.spreadsheetCellRange(upper);
+        final SpreadsheetCellRange cellRange = lower.cellRange(upper);
 
         return Optional.of(
                 this.prepareResponse(
