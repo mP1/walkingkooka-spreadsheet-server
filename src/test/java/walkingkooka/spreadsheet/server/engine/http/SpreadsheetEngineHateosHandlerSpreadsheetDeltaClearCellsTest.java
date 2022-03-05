@@ -111,7 +111,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
 
         this.handleRangeAndCheck(
                 handler,
-                a1.spreadsheetCellRange(c3).range(),
+                a1.cellRange(c3)
+                        .range(),
                 RESOURCE,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
