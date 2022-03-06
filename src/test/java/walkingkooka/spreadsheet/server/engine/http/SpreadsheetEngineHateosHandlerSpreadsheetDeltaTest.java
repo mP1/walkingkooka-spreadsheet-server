@@ -49,7 +49,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
     public void testSelectionPresentInputSpreadsheetDelta() {
         final Optional<SpreadsheetViewportSelection> selection = Optional.of(
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
 
         this.prepareResponseAndCheck(
@@ -83,7 +83,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
                 ),
                 Optional.of(
-                        selection.setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        selection.setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                 )
         );
     }
@@ -112,9 +112,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.toString())
                 ),
                 Optional.of(
-                        selection.setAnchor(
-                                Optional.of(anchor)
-                        )
+                        selection.setAnchor(anchor)
                 )
         );
     }

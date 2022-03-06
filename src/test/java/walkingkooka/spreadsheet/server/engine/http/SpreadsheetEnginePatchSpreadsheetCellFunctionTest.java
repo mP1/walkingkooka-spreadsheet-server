@@ -35,6 +35,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
@@ -57,7 +58,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 "?selectionType=cell&selection=Z99",
                 Optional.of(
                         SpreadsheetSelection.parseCell("Z99")
-                                .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                                .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                 )
         );
     }
