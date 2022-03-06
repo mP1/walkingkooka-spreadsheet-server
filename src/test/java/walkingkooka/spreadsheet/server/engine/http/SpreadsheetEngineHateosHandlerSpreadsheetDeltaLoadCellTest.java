@@ -410,7 +410,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "A9",
                 null,
                 SpreadsheetSelection.parseCell("A9")
-                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
     }
 
@@ -421,7 +421,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "A9:A99",
                 "TOP_LEFT",
                 SpreadsheetSelection.parseCellRange("A9:A99")
-                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.TOP_LEFT))
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
         );
     }
 
@@ -432,7 +432,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "B",
                 null,
                 SpreadsheetSelection.parseColumn("B")
-                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
     }
 
@@ -443,7 +443,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "B:D",
                 "LEFT",
                 SpreadsheetSelection.parseColumnRange("B:D")
-                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.LEFT))
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.LEFT)
         );
     }
 
@@ -454,7 +454,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "99",
                 null,
                 SpreadsheetSelection.parseRow("99")
-                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
     }
 
@@ -465,7 +465,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "98:99",
                 "TOP",
                 SpreadsheetSelection.parseRowRange("98:99")
-                        .setAnchor(Optional.of(SpreadsheetViewportSelectionAnchor.TOP))
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP)
         );
     }
 

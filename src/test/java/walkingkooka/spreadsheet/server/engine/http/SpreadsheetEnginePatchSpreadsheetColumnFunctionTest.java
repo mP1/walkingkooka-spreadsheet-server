@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Optional;
@@ -102,7 +103,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                 "?selectionType=cell&selection=C3",
                 Optional.of(
                         SpreadsheetSelection.parseCell("C3")
-                                .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                                .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                 )
         );
     }
@@ -209,7 +210,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
 
         final Optional<SpreadsheetViewportSelection> viewportSelection = Optional.of(
                 SpreadsheetSelection.parseCell("C3")
-                        .setAnchor(SpreadsheetViewportSelection.NO_ANCHOR)
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
 
         final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")

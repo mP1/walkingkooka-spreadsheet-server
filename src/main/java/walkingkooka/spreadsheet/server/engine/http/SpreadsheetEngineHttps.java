@@ -227,7 +227,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
         return Optional.ofNullable(
                 null != selection ?
-                        selection.setAnchor(anchor.isPresent() ? anchor : selection.defaultAnchor()) :
+                        selection.setAnchor(anchor.orElse(selection.defaultAnchor())) :
                         null
         );
     }
