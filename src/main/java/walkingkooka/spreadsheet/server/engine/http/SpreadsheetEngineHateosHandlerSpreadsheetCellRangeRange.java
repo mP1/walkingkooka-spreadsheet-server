@@ -56,7 +56,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange extends Spre
         return Optional.of(
                 this.engine.range(
                         viewport,
-                        Optional.empty(),
+                        SpreadsheetEngine.NO_SELECTION,
                         this.context
                 )
         );
