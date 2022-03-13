@@ -20,8 +20,11 @@ package walkingkooka.spreadsheet.server.engine.http;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -99,4 +102,32 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
 
     // @VisibleForTesting
     final static UrlParameterName COUNT = UrlParameterName.with("count");
+
+    /**
+     * Attempts to locate and perform any navigate on the given selection.
+     */
+    final Optional<SpreadsheetSelection> selection(final Optional<SpreadsheetDelta> input,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final Optional<SpreadsheetViewportSelection> viewportSelection = this.viewportSelection(
+                input,
+                parameters
+        );
+
+        // Optional.map not available in j2cl emul classlib.
+        return Optional.ofNullable(
+                viewportSelection.isPresent() ?
+                        viewportSelection.get().selection() :
+                        null
+        );
+    }
+
+    final Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
+                                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return SpreadsheetEngineHttps.viewportSelection(
+                input,
+                parameters,
+                this.engine,
+                this.context
+        );
+    }
 }

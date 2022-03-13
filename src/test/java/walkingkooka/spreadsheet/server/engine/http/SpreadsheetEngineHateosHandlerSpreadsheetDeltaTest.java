@@ -26,7 +26,10 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
@@ -120,7 +123,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final Optional<SpreadsheetViewportSelection> expected) {
-        final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(null, null) {
+        final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                                 final SpreadsheetEngineContext context) {
+                        return selection;
+                    }
+                },
+                SpreadsheetEngineContexts.fake()
+        ) {
 
             @Override
             public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> optional,

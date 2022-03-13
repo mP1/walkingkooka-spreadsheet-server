@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
@@ -208,15 +209,28 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * Checks the given {@link SpreadsheetDelta} and if selection is absent then checks the selection query parameter.
+     * CHecks if a {@link SpreadsheetViewportSelection} are present in the {@link SpreadsheetDelta} or parameters,
+     * honouring any navigation if present.
      */
     static Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
-                                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                    final SpreadsheetEngine engine,
+                                                                    final SpreadsheetEngineContext context) {
         Optional<SpreadsheetViewportSelection> viewportSelection = input.isPresent() ?
                 input.get().selection() :
                 Optional.empty();
         if (!viewportSelection.isPresent()) {
             viewportSelection = viewportSelection0(parameters);
+        }
+
+        // SpreadsheetViewportSelection read from input or parameters, present so perform navigate
+        if (viewportSelection.isPresent()) {
+            viewportSelection = Optional.of(
+                    engine.navigate(
+                            viewportSelection.get(),
+                            context
+                    )
+            );
         }
 
         return viewportSelection;
@@ -225,62 +239,25 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Attempts to read a {@link SpreadsheetViewportSelection} from the provided parameters.
      */
-    private static Optional<SpreadsheetViewportSelection> viewportSelection0(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    static Optional<SpreadsheetViewportSelection> viewportSelection0(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        SpreadsheetViewportSelection viewportSelection = null;
+
         final SpreadsheetSelection selection = selectionOrNull(parameters);
-        final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
-        return Optional.ofNullable(
-                null != selection ?
-                        selection.setAnchor(anchor.orElse(selection.defaultAnchor())) :
-                        null
-        );
-    }
+        if (null != selection) {
+            final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
+            viewportSelection = selection.setAnchor(
+                    anchor.orElse(selection.defaultAnchor())
+            );
 
-    /**
-     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
-     */
-    static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
-                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Optional<SpreadsheetCellRange> window = input.isPresent() ?
-                input.get().window() :
-                Optional.empty();
-        if (!window.isPresent()) {
-            window = window(parameters);
+            viewportSelection = viewportSelection.setNavigation(
+                    navigation(parameters)
+            );
         }
 
-        return window;
+        return Optional.ofNullable(viewportSelection);
     }
 
-    /**
-     * Returns the window taken from the query parameters if present.
-     */
-    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange window;
-
-        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
-        if (maybeWindow.isPresent()) {
-            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
-        } else {
-            window = null;
-        }
-
-        return Optional.ofNullable(window);
-    }
-
-    /**
-     * Adds support for passing the window as a url query parameter.
-     */
-    final static UrlParameterName WINDOW = UrlParameterName.with("window");
-
-    /**
-     * Returns the selection from the request parameters if one was present.
-     */
-    static Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return Optional.ofNullable(
-                selectionOrNull(parameters)
-        );
-    }
-
-    static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetSelection selection;
 
         final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
@@ -353,6 +330,62 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
+
+    /**
+     * Reads any navigation parameter that is present.
+     */
+    private static Optional<SpreadsheetViewportSelectionNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        SpreadsheetViewportSelectionNavigation navigation;
+        final Optional<String> maybeNavigation = SELECTION_NAVIGATION.firstParameterValue(parameters);
+        if (maybeNavigation.isPresent()) {
+            navigation = SpreadsheetViewportSelectionNavigation.valueOf(maybeNavigation.get());
+        } else {
+            navigation = null;
+        }
+        return Optional.ofNullable(navigation);
+    }
+
+    /**
+     * The {@link SpreadsheetViewportSelectionNavigation} in text form, eg "TOP_BOTTOM"
+     */
+    // @VisibleForTesting
+    final static UrlParameterName SELECTION_NAVIGATION = UrlParameterName.with("selectionNavigation");
+
+    /**
+     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
+     */
+    static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Optional<SpreadsheetCellRange> window = input.isPresent() ?
+                input.get().window() :
+                Optional.empty();
+        if (!window.isPresent()) {
+            window = window(parameters);
+        }
+
+        return window;
+    }
+
+    /**
+     * Returns the window taken from the query parameters if present.
+     */
+    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetCellRange window;
+
+        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
+        if (maybeWindow.isPresent()) {
+            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
+        } else {
+            window = null;
+        }
+
+        return Optional.ofNullable(window);
+    }
+
+    /**
+     * Adds support for passing the window as a url query parameter.
+     */
+    final static UrlParameterName WINDOW = UrlParameterName.with("window");
 
     /**
      * Stop creation.

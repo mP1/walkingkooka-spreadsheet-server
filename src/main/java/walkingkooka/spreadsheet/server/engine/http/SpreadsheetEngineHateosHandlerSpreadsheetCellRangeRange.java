@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Map;
 import java.util.Objects;
@@ -56,9 +57,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange extends Spre
         return Optional.of(
                 this.engine.range(
                         viewport,
-                        SpreadsheetEngineHttps.selection(parameters),
+                        this.selection(parameters),
                         this.context
                 )
+        );
+    }
+
+    private Optional<SpreadsheetSelection> selection(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return this.selection(
+                Optional.empty(),
+                parameters
         );
     }
 
