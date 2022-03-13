@@ -129,7 +129,10 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
         return selection.isPresent() ?
                 selection :
-                SpreadsheetEngineHttps.viewportSelection(this.request.routerParameters());
+                SpreadsheetEngineHttps.viewportSelection(
+                        Optional.empty(),
+                        this.request.routerParameters()
+                );
     }
 
     final SpreadsheetCellRange window(final SpreadsheetDelta delta) {
