@@ -120,6 +120,12 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
 
                                 return response;
                             }
+
+                            @Override
+                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                                         final SpreadsheetEngineContext context) {
+                                return selection;
+                            }
                         },
                         CONTEXT
                 ),

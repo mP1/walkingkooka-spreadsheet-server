@@ -542,6 +542,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                     final SpreadsheetEngineContext context) {
                                 return 0;
                             }
+
+                            @Override
+                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                                         final SpreadsheetEngineContext context) {
+                                return selection;
+                            }
                         },
                         this.engineContext()),
                 //range,

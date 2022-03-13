@@ -188,6 +188,12 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                                                               final SpreadsheetEngineContext context) {
                                 return SpreadsheetDelta.EMPTY;
                             }
+
+                            @Override
+                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                                         final SpreadsheetEngineContext context) {
+                                return selection;
+                            }
                         },
                         CONTEXT
                 ),
@@ -314,6 +320,12 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                                                         c3, d4
                                                 )
                                         );
+                            }
+
+                            @Override
+                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                                         final SpreadsheetEngineContext context) {
+                                return selection;
                             }
                         },
                         CONTEXT

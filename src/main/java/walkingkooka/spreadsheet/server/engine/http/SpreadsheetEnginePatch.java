@@ -127,12 +127,14 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     final SpreadsheetEngineContext context;
 
     private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
-        return selection.isPresent() ?
-                selection :
-                SpreadsheetEngineHttps.viewportSelection(
-                        Optional.empty(),
-                        this.request.routerParameters()
-                );
+        return SpreadsheetEngineHttps.viewportSelection(
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setSelection(selection)
+                ),
+                this.request.routerParameters(),
+                this.engine,
+                this.context
+        );
     }
 
     final SpreadsheetCellRange window(final SpreadsheetDelta delta) {

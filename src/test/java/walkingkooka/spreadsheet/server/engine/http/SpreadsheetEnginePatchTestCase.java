@@ -24,6 +24,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -31,6 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -52,7 +54,13 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
     }
 
     final static HttpRequest REQUEST = HttpRequests.fake();
-    final static SpreadsheetEngine ENGINE = SpreadsheetEngines.fake();
+    final static SpreadsheetEngine ENGINE = new FakeSpreadsheetEngine() {
+        @Override
+        public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
+                                                     final SpreadsheetEngineContext context) {
+            return selection;
+        }
+    };
     final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
         @Override
         public SpreadsheetMetadata metadata() {

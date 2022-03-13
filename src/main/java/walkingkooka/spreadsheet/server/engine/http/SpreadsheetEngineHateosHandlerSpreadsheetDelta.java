@@ -85,7 +85,12 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                                 parameters
                         )
                 )
-        ).setSelection(SpreadsheetEngineHttps.viewportSelection(in, parameters));
+        ).setSelection(
+                this.viewportSelection(
+                        in,
+                        parameters
+                )
+        );
     }
 
     /**
