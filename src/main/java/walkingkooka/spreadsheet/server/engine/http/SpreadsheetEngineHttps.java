@@ -216,13 +216,16 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 input.get().selection() :
                 Optional.empty();
         if (!viewportSelection.isPresent()) {
-            viewportSelection = viewportSelection(parameters);
+            viewportSelection = viewportSelection0(parameters);
         }
 
         return viewportSelection;
     }
 
-    static Optional<SpreadsheetViewportSelection> viewportSelection(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    /**
+     * Attempts to read a {@link SpreadsheetViewportSelection} from the provided parameters.
+     */
+    private static Optional<SpreadsheetViewportSelection> viewportSelection0(final Map<HttpRequestAttribute<?>, Object> parameters) {
         final SpreadsheetSelection selection = selectionOrNull(parameters);
         final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
         return Optional.ofNullable(
