@@ -419,7 +419,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "cell-range",
                 "A9:A99",
-                "TOP_LEFT",
+                SpreadsheetViewportSelectionAnchor.TOP_LEFT.kebabText(),
                 SpreadsheetSelection.parseCellRange("A9:A99")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
         );
@@ -441,7 +441,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "column-range",
                 "B:D",
-                "LEFT",
+                SpreadsheetViewportSelectionAnchor.LEFT.kebabText(),
                 SpreadsheetSelection.parseColumnRange("B:D")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.LEFT)
         );
@@ -463,7 +463,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "row-range",
                 "98:99",
-                "TOP",
+                SpreadsheetViewportSelectionAnchor.TOP.kebabText(),
                 SpreadsheetSelection.parseRowRange("98:99")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP)
         );
