@@ -318,7 +318,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         SpreadsheetViewportSelectionAnchor anchor;
         final Optional<String> maybeAnchor = SELECTION_ANCHOR.firstParameterValue(parameters);
         if (maybeAnchor.isPresent()) {
-            anchor = SpreadsheetViewportSelectionAnchor.valueOf(maybeAnchor.get());
+            anchor = SpreadsheetViewportSelectionAnchor.from(maybeAnchor.get());
         } else {
             anchor = null;
         }

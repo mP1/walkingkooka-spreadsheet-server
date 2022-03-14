@@ -112,7 +112,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                 Maps.of(
                         SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.toString())
+                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText())
                 ),
                 Optional.of(
                         selection.setAnchor(anchor)
