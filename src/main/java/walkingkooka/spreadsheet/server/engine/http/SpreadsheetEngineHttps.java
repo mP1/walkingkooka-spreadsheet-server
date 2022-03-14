@@ -338,7 +338,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         SpreadsheetViewportSelectionNavigation navigation;
         final Optional<String> maybeNavigation = SELECTION_NAVIGATION.firstParameterValue(parameters);
         if (maybeNavigation.isPresent()) {
-            navigation = SpreadsheetViewportSelectionNavigation.valueOf(maybeNavigation.get());
+            navigation = SpreadsheetViewportSelectionNavigation.from(maybeNavigation.get());
         } else {
             navigation = null;
         }
