@@ -322,7 +322,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
             try {
                 anchor = SpreadsheetViewportSelectionAnchor.from(text);
             } catch (final IllegalArgumentException cause) {
-                throw new IllegalArgumentException("Invalid anchor=" + CharSequences.quoteAndEscape(text));
+                throw new IllegalArgumentException("Invalid query parameter " + SELECTION_ANCHOR + "=" + CharSequences.quoteAndEscape(text));
             }
         } else {
             anchor = null;

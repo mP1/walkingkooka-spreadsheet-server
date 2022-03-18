@@ -994,7 +994,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 )
                         )
                 ),
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid anchor=\"!INVALID\""),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid query parameter selectionAnchor=\"!INVALID\""),
                 IllegalArgumentException.class.getSimpleName()
         );
     }
