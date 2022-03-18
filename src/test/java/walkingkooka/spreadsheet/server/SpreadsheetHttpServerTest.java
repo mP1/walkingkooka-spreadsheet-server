@@ -3379,6 +3379,33 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testLoadCellInvalidWindowQueryParameterBadRequest() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                )
+        );
+
+        // load the cells that fill the viewport
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/A1/force-recompute?window=!INVALID",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid query parameter window=\"!INVALID\""),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
     // save cell, save metadata, save cell..............................................................................
 
     @Test
