@@ -889,14 +889,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testSaveCellSelectionQueryParameterWithAnchor() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
-                "?selectionType=cell-range&selection=A1:B2&anchor=TOP_RIGHT",
+                "?selectionType=cell-range&selection=A1:B2&selectionAnchor=top-right",
                 "{\n" +
                         "  \"selection\": {\n" +
                         "    \"selection\": {\n" +
                         "      \"type\": \"spreadsheet-cell-range\",\n" +
                         "      \"value\": \"A1:B2\"\n" +
                         "    },\n" +
-                        "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
+                        "    \"anchor\": \"TOP_RIGHT\"\n" +
                         "  },\n" +
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
@@ -2956,7 +2956,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell-range&selection=A1:B2&anchor=BOTTOM_RIGHT",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell-range&selection=A1:B2&selectionAnchor=bottom-left",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -2967,7 +2967,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B2\"\n" +
                                 "    },\n" +
-                                "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
+                                "    \"anchor\": \"BOTTOM_LEFT\"\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
