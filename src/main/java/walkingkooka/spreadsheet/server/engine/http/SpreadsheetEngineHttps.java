@@ -318,7 +318,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         SpreadsheetViewportSelectionAnchor anchor;
         final Optional<String> maybeAnchor = SELECTION_ANCHOR.firstParameterValue(parameters);
         if (maybeAnchor.isPresent()) {
-            anchor = SpreadsheetViewportSelectionAnchor.from(maybeAnchor.get());
+            final String text = maybeAnchor.get();
+            try {
+                anchor = SpreadsheetViewportSelectionAnchor.from(text);
+            } catch (final IllegalArgumentException cause) {
+                throw new IllegalArgumentException("Invalid anchor=" + CharSequences.quoteAndEscape(text));
+            }
         } else {
             anchor = null;
         }
