@@ -896,7 +896,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "      \"type\": \"spreadsheet-cell-range\",\n" +
                         "      \"value\": \"A1:B2\"\n" +
                         "    },\n" +
-                        "    \"anchor\": \"TOP_LEFT\"\n" +
+                        "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
                         "  },\n" +
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
@@ -2967,7 +2967,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B2\"\n" +
                                 "    },\n" +
-                                "    \"anchor\": \"TOP_LEFT\"\n" +
+                                "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3110,7 +3110,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B2\"\n" +
                                 "    },\n" +
-                                "    \"anchor\": \"TOP_LEFT\"\n" +
+                                "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
