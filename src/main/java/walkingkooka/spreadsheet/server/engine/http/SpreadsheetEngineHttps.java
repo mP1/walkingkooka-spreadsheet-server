@@ -343,7 +343,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         SpreadsheetViewportSelectionNavigation navigation;
         final Optional<String> maybeNavigation = SELECTION_NAVIGATION.firstParameterValue(parameters);
         if (maybeNavigation.isPresent()) {
-            navigation = SpreadsheetViewportSelectionNavigation.from(maybeNavigation.get());
+            final String text = maybeNavigation.get();
+            try {
+                navigation = SpreadsheetViewportSelectionNavigation.from(text);
+            } catch (final IllegalArgumentException cause) {
+                throw new IllegalArgumentException("Invalid query parameter " + SELECTION_NAVIGATION + "=" + CharSequences.quoteAndEscape(text));
+            }
         } else {
             navigation = null;
         }
