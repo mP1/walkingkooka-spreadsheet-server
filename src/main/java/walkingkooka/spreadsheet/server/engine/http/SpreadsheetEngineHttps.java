@@ -39,6 +39,7 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 /**
@@ -315,19 +316,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
     private static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        SpreadsheetViewportSelectionAnchor anchor;
-        final Optional<String> maybeAnchor = SELECTION_ANCHOR.firstParameterValue(parameters);
-        if (maybeAnchor.isPresent()) {
-            final String text = maybeAnchor.get();
-            try {
-                anchor = SpreadsheetViewportSelectionAnchor.from(text);
-            } catch (final IllegalArgumentException cause) {
-                throw new IllegalArgumentException("Invalid query parameter " + SELECTION_ANCHOR + "=" + CharSequences.quoteAndEscape(text));
-            }
-        } else {
-            anchor = null;
-        }
-        return Optional.ofNullable(anchor);
+        return parseQueryParameter(
+                parameters,
+                SELECTION_ANCHOR,
+                SpreadsheetViewportSelectionAnchor::from
+        );
     }
 
     /**
@@ -340,19 +333,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      * Reads any navigation parameter that is present.
      */
     private static Optional<SpreadsheetViewportSelectionNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        SpreadsheetViewportSelectionNavigation navigation;
-        final Optional<String> maybeNavigation = SELECTION_NAVIGATION.firstParameterValue(parameters);
-        if (maybeNavigation.isPresent()) {
-            final String text = maybeNavigation.get();
-            try {
-                navigation = SpreadsheetViewportSelectionNavigation.from(text);
-            } catch (final IllegalArgumentException cause) {
-                throw new IllegalArgumentException("Invalid query parameter " + SELECTION_NAVIGATION + "=" + CharSequences.quoteAndEscape(text));
-            }
-        } else {
-            navigation = null;
-        }
-        return Optional.ofNullable(navigation);
+        return parseQueryParameter(
+                parameters,
+                SELECTION_NAVIGATION,
+                SpreadsheetViewportSelectionNavigation::from
+        );
     }
 
     /**
@@ -380,22 +365,37 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      * Returns the window taken from the query parameters if present.
      */
     static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange window;
-
-        final Optional<String> maybeWindow = WINDOW.firstParameterValue(parameters);
-        if (maybeWindow.isPresent()) {
-            window = SpreadsheetCellRange.parseCellRange(maybeWindow.get());
-        } else {
-            window = null;
-        }
-
-        return Optional.ofNullable(window);
+        return parseQueryParameter(
+                parameters,
+                WINDOW,
+                SpreadsheetCellRange::parseCellRange
+        );
     }
 
     /**
      * Adds support for passing the window as a url query parameter.
      */
     final static UrlParameterName WINDOW = UrlParameterName.with("window");
+
+    private static <T> Optional<T> parseQueryParameter(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final UrlParameterName queryParameter,
+                                                       final Function<String, T> parser) {
+        T parsed;
+
+        final Optional<String> maybe = queryParameter.firstParameterValue(parameters);
+        if (maybe.isPresent()) {
+            final String text = maybe.get();
+            try {
+                parsed = parser.apply(text);
+            } catch (final IllegalArgumentException cause) {
+                throw new IllegalArgumentException("Invalid query parameter " + queryParameter + "=" + CharSequences.quoteAndEscape(text));
+            }
+        } else {
+            parsed = null;
+        }
+
+        return Optional.ofNullable(parsed);
+    }
 
     /**
      * Stop creation.
