@@ -962,6 +962,44 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testSaveCellSelectionQueryParameterWithInvalidAnchorBadRequest() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1?selectionType=cell&selection=A1&selectionAnchor=!INVALID",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetSelection.parseCell("A1")
+                                                .setFormula(
+                                                        formula("=1")
+                                                )
+                                )
+                        )
+                ),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid anchor=\"!INVALID\""),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
+    @Test
     public void testCreateAndPatch() {
         final TestHttpServer server = this.startServer();
 
