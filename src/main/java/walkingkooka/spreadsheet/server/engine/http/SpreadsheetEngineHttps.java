@@ -324,7 +324,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * The {@link SpreadsheetViewportSelectionAnchor} in text form, eg "TOP_BOTTOM"
+     * The {@link SpreadsheetViewportSelectionAnchor} in text form, eg "top-bottom"
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
@@ -341,7 +341,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * The {@link SpreadsheetViewportSelectionNavigation} in text form, eg "TOP_BOTTOM"
+     * The {@link SpreadsheetViewportSelectionNavigation} in text form, eg "extend-right"
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION_NAVIGATION = UrlParameterName.with("selectionNavigation");
