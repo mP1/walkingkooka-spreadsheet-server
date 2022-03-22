@@ -544,9 +544,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
-                                                                         final SpreadsheetEngineContext context) {
-                                return selection;
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                                                                                   final SpreadsheetEngineContext context) {
+                                return Optional.of(selection);
                             }
                         },
                         this.engineContext()),
