@@ -190,9 +190,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
-                                                                         final SpreadsheetEngineContext context) {
-                                return selection;
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                                                                                   final SpreadsheetEngineContext context) {
+                                return Optional.of(selection);
                             }
                         },
                         CONTEXT
@@ -323,9 +323,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public SpreadsheetViewportSelection navigate(final SpreadsheetViewportSelection selection,
-                                                                         final SpreadsheetEngineContext context) {
-                                return selection;
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                                                                                   final SpreadsheetEngineContext context) {
+                                return Optional.of(selection);
                             }
                         },
                         CONTEXT

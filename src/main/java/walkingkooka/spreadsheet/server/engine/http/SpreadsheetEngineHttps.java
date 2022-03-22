@@ -226,11 +226,9 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
         // SpreadsheetViewportSelection read from input or parameters, present so perform navigate
         if (viewportSelection.isPresent()) {
-            viewportSelection = Optional.of(
-                    engine.navigate(
-                            viewportSelection.get(),
-                            context
-                    )
+            viewportSelection = engine.navigate(
+                    viewportSelection.get(),
+                    context
             );
         }
 
