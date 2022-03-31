@@ -69,7 +69,7 @@ public final class SpreadsheetMultiParseRequest {
     // Json.............................................................................................................
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return context.marshallWithTypeList(this.requests);
+        return context.marshallWithTypeCollection(this.requests);
     }
 
     static SpreadsheetMultiParseRequest unmarshall(final JsonNode node,

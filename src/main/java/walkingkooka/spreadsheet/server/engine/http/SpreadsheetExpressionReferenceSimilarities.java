@@ -175,7 +175,10 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
 
         final Set<SpreadsheetLabelMapping> labelMappings = this.labelMappings();
         if (!labelMappings.isEmpty()) {
-            children.add(context.marshallSet(labelMappings).setName(LABEL_MAPPINGS_PROPERTY));
+            children.add(
+                    context.marshallCollection(labelMappings)
+                            .setName(LABEL_MAPPINGS_PROPERTY)
+            );
         }
 
         return JsonNode.object()
