@@ -3751,7 +3751,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -3859,7 +3859,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -4101,7 +4101,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"deletedCells\": \"D4\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"E\": 100\n" +
                                 "  },\n" +
@@ -4338,7 +4338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"deletedCells\": \"D4\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"E\": 100\n" +
                                 "  },\n" +
@@ -4498,7 +4498,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"C3\"],\n" +
+                                "  \"deletedCells\": \"C3\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"B\": 100\n" +
                                 "  },\n" +
@@ -4775,7 +4775,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -4883,7 +4883,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -5128,7 +5128,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"deletedCells\": \"D4\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"D\": 100\n" +
                                 "  },\n" +
@@ -5366,7 +5366,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"D4\"],\n" +
+                                "  \"deletedCells\": \"D4\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"D\": 100\n" +
                                 "  },\n" +
@@ -5525,7 +5525,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"C3\"],\n" +
+                                "  \"deletedCells\": \"C3\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"C\": 100\n" +
                                 "  },\n" +
@@ -5629,7 +5629,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -5737,7 +5737,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -5900,7 +5900,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"B2\"],\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
@@ -6232,7 +6232,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": [\"B2\"]\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -6387,7 +6387,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
-                                "  \"deletedCells\": [\"B2\"],\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
                                 "  \"columnWidths\": {\n" +
                                 "    \"A\": 100\n" +
                                 "  },\n" +
