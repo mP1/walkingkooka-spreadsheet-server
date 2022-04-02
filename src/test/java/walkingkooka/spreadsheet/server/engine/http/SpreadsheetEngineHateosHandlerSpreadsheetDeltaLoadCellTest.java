@@ -556,9 +556,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                                 .setWindow(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCellRange("B1:C3")
-                                        )
+                                        SpreadsheetSelection.parseWindow("B1:C3")
                                 ).setSelection(
                                         Optional.ofNullable(viewportSelection)
                                 )

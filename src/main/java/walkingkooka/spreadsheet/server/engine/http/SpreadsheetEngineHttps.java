@@ -16,7 +16,6 @@
  */
 package walkingkooka.spreadsheet.server.engine.http;
 
-import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -38,13 +37,11 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -385,14 +382,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 parameters,
                 WINDOW,
                 SpreadsheetDelta.NO_WINDOW,
-                SpreadsheetEngineHttps::parseWindow
+                SpreadsheetSelection::parseWindow
         );
-    }
-
-    private static Set<SpreadsheetCellRange> parseWindow(final String text) {
-        return Arrays.stream(text.split(","))
-                .map(SpreadsheetSelection::parseCellRange)
-                .collect(Collectors.toCollection(Sets::sorted));
     }
 
     /**

@@ -6434,9 +6434,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                         .setHidden(true)
                                         )
                                 ).setWindow(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCellRange("A1:B2")
-                                        )
+                                        SpreadsheetSelection.parseWindow("A1:B2")
                                 )
                 ),
                 this.response(
