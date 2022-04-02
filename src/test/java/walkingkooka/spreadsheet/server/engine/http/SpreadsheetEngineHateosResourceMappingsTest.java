@@ -71,6 +71,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
@@ -549,7 +550,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                               final SpreadsheetEngineEvaluation evaluation,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;

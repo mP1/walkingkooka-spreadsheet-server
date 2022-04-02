@@ -137,21 +137,19 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
         );
     }
 
-    final SpreadsheetCellRange window(final SpreadsheetDelta delta) {
+    final Set<SpreadsheetCellRange> window(final SpreadsheetDelta delta) {
         return SpreadsheetEngineHttps.window(
                 Optional.of(delta),
                 this.request.routerParameters()
-        ).orElseThrow(
-                () -> new IllegalArgumentException("Missing required window")
         );
     }
 
     /**
      * Used to load all the cells within an unhidden column or row.
      */
-    final Set<SpreadsheetCell> loadCells(final SpreadsheetCellRange range) {
+    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRange> window) {
         return this.engine.loadCells(
-                range,
+                window,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 this.context
         ).cells();

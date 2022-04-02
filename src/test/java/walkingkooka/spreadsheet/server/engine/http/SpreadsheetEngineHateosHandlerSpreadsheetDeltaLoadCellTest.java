@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -143,7 +144,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
 
                     @Override
-                    public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
@@ -198,7 +199,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
 
                     @Override
-                    public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
@@ -240,9 +241,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1))
                                 .setWindow(
-                                        Optional.of(
-                                                window
-                                        )
+                                        Sets.of(window)
                                 )
                 )
         );
@@ -507,10 +506,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         EVALUATION,
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange r,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetSelection.cellRange(range), r, "range");
+                                checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
                                 checkEquals(EVALUATION, evaluation, "evaluation");
 
                                 return SpreadsheetDelta.EMPTY
@@ -557,7 +556,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                                 .setWindow(
-                                        Optional.of(
+                                        Sets.of(
                                                 SpreadsheetSelection.parseCellRange("B1:C3")
                                         )
                                 ).setSelection(

@@ -146,7 +146,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
         final SpreadsheetColumnReference column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
-        final Optional<SpreadsheetCellRange> window = this.window();
+        final Set<SpreadsheetCellRange> window = this.window();
 
         this.handleOneAndCheck(
                 this.createHandler(
@@ -181,7 +181,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
                 Maps.of(
                         SpreadsheetEngineHttps.WINDOW,
                         Lists.of(
-                                window.get().toString()
+                                window.iterator().next().toString()
                         )
                 ),
                 Optional.of(
