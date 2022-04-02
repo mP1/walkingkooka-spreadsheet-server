@@ -91,7 +91,7 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
                 context
         );
 
-        final SpreadsheetCellRange window = window(
+        final Set<SpreadsheetCellRange> window = window(
                 patched
         );
 
@@ -110,11 +110,7 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
                 if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
                     // column was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(
-                                    window.setRowReferenceRange(
-                                            window.rowReferenceRange()
-                                    )
-                            )
+                            this.loadCells(window)
                     );
                 }
             }

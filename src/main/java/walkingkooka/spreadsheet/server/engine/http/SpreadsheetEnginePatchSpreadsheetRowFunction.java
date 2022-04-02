@@ -91,7 +91,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
                 context
         );
 
-        final SpreadsheetCellRange window = window(
+        final Set<SpreadsheetCellRange> window = window(
                 patched
         );
 
@@ -110,11 +110,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {
                     // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(
-                                    window.setRowReferenceRange(
-                                            window.rowReferenceRange()
-                                    )
-                            )
+                            this.loadCells(window)
                     );
                 }
             }

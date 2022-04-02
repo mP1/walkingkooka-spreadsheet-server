@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.engine.http;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -177,7 +178,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 this.prepareResponse(
                         resource,
                         parameters,
-                        this.engine.loadCells(range, this.evaluation, this.context)
+                        this.engine.loadCells(
+                                Sets.of(range),
+                                this.evaluation,
+                                this.context
+                        )
                 )
         );
     }

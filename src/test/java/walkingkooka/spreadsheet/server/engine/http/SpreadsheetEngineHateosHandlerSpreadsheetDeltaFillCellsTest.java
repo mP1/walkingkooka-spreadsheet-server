@@ -40,6 +40,7 @@ import walkingkooka.tree.text.TextNode;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells,
         SpreadsheetCellReference> {
@@ -156,7 +157,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY
                 .setCells(Sets.of(unsaved1));
 
-        final Optional<SpreadsheetCellRange> window = this.window();
+        final Set<SpreadsheetCellRange> window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(

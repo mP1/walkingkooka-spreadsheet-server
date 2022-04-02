@@ -16,6 +16,7 @@
  */
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -37,10 +38,13 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -317,7 +321,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         return parseQueryParameter(
                 parameters,
                 SELECTION_ANCHOR,
-                SpreadsheetViewportSelectionAnchor::from
+                Optional.empty(),
+                SpreadsheetEngineHttps::parseAnchor
+        );
+    }
+
+    private static Optional<SpreadsheetViewportSelectionAnchor> parseAnchor(final String text) {
+        return Optional.of(
+                SpreadsheetViewportSelectionAnchor.from(text)
         );
     }
 
@@ -334,7 +345,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         return parseQueryParameter(
                 parameters,
                 SELECTION_NAVIGATION,
-                SpreadsheetViewportSelectionNavigation::from
+                SpreadsheetViewportSelection.NO_NAVIGATION,
+                SpreadsheetEngineHttps::parseNavigation
+        );
+    }
+
+    private static Optional<SpreadsheetViewportSelectionNavigation> parseNavigation(final String text) {
+        return Optional.of(
+                SpreadsheetViewportSelectionNavigation.from(text)
         );
     }
 
@@ -347,12 +365,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
      */
-    static Optional<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
-                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Optional<SpreadsheetCellRange> window = input.isPresent() ?
+    static Set<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
+                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+        Set<SpreadsheetCellRange> window = input.isPresent() ?
                 input.get().window() :
-                Optional.empty();
-        if (!window.isPresent()) {
+                SpreadsheetDelta.NO_WINDOW;
+        if (window.isEmpty()) {
             window = window(parameters);
         }
 
@@ -362,12 +380,19 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Returns the window taken from the query parameters if present.
      */
-    static Optional<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    static Set<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 WINDOW,
-                SpreadsheetCellRange::parseCellRange
+                SpreadsheetDelta.NO_WINDOW,
+                SpreadsheetEngineHttps::parseWindow
         );
+    }
+
+    private static Set<SpreadsheetCellRange> parseWindow(final String text) {
+        return Arrays.stream(text.split(","))
+                .map(SpreadsheetSelection::parseCellRange)
+                .collect(Collectors.toCollection(Sets::sorted));
     }
 
     /**
@@ -375,10 +400,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      */
     final static UrlParameterName WINDOW = UrlParameterName.with("window");
 
-    private static <T> Optional<T> parseQueryParameter(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                       final UrlParameterName queryParameter,
-                                                       final Function<String, T> parser) {
-        T parsed;
+    private static <T> T parseQueryParameter(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final UrlParameterName queryParameter,
+                                             final T empty,
+                                             final Function<String, T> parser) {
+        T parsed = empty;
 
         final Optional<String> maybe = queryParameter.firstParameterValue(parameters);
         if (maybe.isPresent()) {
@@ -388,11 +414,9 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
             } catch (final IllegalArgumentException cause) {
                 throw new IllegalArgumentException("Invalid query parameter " + queryParameter + "=" + CharSequences.quoteAndEscape(text));
             }
-        } else {
-            parsed = null;
         }
 
-        return Optional.ofNullable(parsed);
+        return parsed;
     }
 
     /**

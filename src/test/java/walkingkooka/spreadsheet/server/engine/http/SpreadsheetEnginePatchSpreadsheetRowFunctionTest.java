@@ -123,7 +123,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                                 row3, row4
                         )
                 ).setWindow(
-                        Optional.of(WINDOW)
+                        Sets.of(WINDOW)
                 );
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setRows(
@@ -132,7 +132,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         )
                 ).setSelection(viewportSelection)
                 .setWindow(
-                        Optional.of(WINDOW)
+                        Sets.of(WINDOW)
                 );
 
         final Set<SpreadsheetRow> saved = Sets.ordered();
@@ -183,7 +183,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
                                 return SpreadsheetDelta.EMPTY;
@@ -232,7 +232,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                                 row3, row4
                         )
                 ).setWindow(
-                        Optional.of(WINDOW)
+                        Sets.of(WINDOW)
                 );
 
         final SpreadsheetCell c3 = row3.reference()
@@ -254,7 +254,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         )
                 ).setSelection(viewportSelection)
                 .setWindow(
-                        Optional.of(WINDOW)
+                        Sets.of(WINDOW)
                 ).setCells(
                         Sets.of(
                                 c3, d4
@@ -309,10 +309,10 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetCellRange range,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(WINDOW, range, "window");
+                                assertEquals(Sets.of(WINDOW), range, "window");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
