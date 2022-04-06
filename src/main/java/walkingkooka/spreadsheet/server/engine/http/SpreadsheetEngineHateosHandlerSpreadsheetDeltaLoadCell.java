@@ -69,13 +69,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetCellReference home = firstParameterValueAndConvert(HOME, parameters, SpreadsheetCellReference::parseCell);
-
-        final double xOffset = firstDoubleParameterValue(X_OFFSET, parameters);
-        final double yOffset = firstDoubleParameterValue(Y_OFFSET, parameters);
-
-        final double width = firstDoubleParameterValue(WIDTH, parameters);
-        final double height = firstDoubleParameterValue(HEIGHT, parameters);
+        final SpreadsheetCellReference home = this.home(parameters);
+        final double xOffset = this.xOffset(parameters);
+        final double yOffset = this.yOffset(parameters);
+        final double width = this.width(parameters);
+        final double height = this.height(parameters);
 
         final Optional<SpreadsheetSelection> selection = this.selection(
                 resource,
@@ -102,11 +100,39 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         );
     }
 
+    private SpreadsheetCellReference home(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstParameterValueAndConvert(
+                HOME,
+                parameters,
+                SpreadsheetCellReference::parseCell
+        );
+    }
+
     // @VisibleForTesting
     final static UrlParameterName HOME = UrlParameterName.with("home");
+
+    private double xOffset(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstDoubleParameterValue(X_OFFSET, parameters);
+    }
+
     final static UrlParameterName X_OFFSET = UrlParameterName.with("xOffset");
+
+    private double yOffset(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstDoubleParameterValue(Y_OFFSET, parameters);
+    }
+
     final static UrlParameterName Y_OFFSET = UrlParameterName.with("yOffset");
+
+    private double width(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstDoubleParameterValue(WIDTH, parameters);
+    }
+
     final static UrlParameterName WIDTH = UrlParameterName.with("width");
+
+    private double height(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return firstDoubleParameterValue(HEIGHT, parameters);
+    }
+
     final static UrlParameterName HEIGHT = UrlParameterName.with("height");
 
     private static double firstDoubleParameterValue(final UrlParameterName parameter,
