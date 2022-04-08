@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -163,6 +164,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
+    }
+
+    @Override
+    SpreadsheetEngineContext engineContext() {
+        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
