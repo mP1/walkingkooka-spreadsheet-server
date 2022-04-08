@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -383,6 +384,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
+    }
+
+    @Override
+    SpreadsheetEngineContext engineContext() {
+        return SpreadsheetEngineContexts.fake();
     }
 
     private SpreadsheetDelta saved() {

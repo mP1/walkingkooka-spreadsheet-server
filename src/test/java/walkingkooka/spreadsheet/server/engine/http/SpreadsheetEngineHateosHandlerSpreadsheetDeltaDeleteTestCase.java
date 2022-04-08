@@ -23,6 +23,8 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 
 import java.util.Map;
@@ -60,6 +62,10 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteTestCa
 
     @Override final SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine();
+    }
+
+    @Override final SpreadsheetEngineContext engineContext() {
+        return SpreadsheetEngineContexts.fake();
     }
 
     @Override final public Optional<SpreadsheetDelta> resource() {

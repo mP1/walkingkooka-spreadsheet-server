@@ -27,19 +27,33 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
+import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
+import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
+import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -501,10 +515,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
             }
         }
 
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
                         EVALUATION,
                         new FakeSpreadsheetEngine() {
+
                             @Override
                             public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
@@ -548,8 +565,25 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 return Optional.of(selection);
                             }
                         },
-                        this.engineContext()),
-                //range,
+                        new FakeSpreadsheetEngineContext() {
+                            @Override
+                            public SpreadsheetMetadata metadata() {
+                                return SpreadsheetMetadata.EMPTY
+                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                                        .loadFromLocale();
+                            }
+
+                            @Override
+                            public SpreadsheetStoreRepository storeRepository() {
+                                return new FakeSpreadsheetStoreRepository() {
+                                    @Override
+                                    public SpreadsheetCellStore cells() {
+                                        return SpreadsheetCellStores.fake();
+                                    }
+                                };
+                            }
+                        }
+                ),
                 Optional.empty(),
                 parameters,
                 Optional.of(
@@ -559,6 +593,246 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                         SpreadsheetSelection.parseWindow("B1:C3")
                                 ).setSelection(
                                         Optional.ofNullable(viewportSelection)
+                                )
+                )
+        );
+    }
+
+    @Test
+    public void testHandleAllNoFrozenColumnRows() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                0, // frozenColumns
+                0, // frozenRows
+                "A1:D4", // range
+                "A1:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 C v v v
+    // 2 C v v v
+    // 3 C v v v
+    // 4 C v v v
+    @Test
+    public void testHandleAll1FrozenColumn() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                1, // frozenColumns
+                0, // frozenRows
+                "B1:D4", // range
+                "A1:A4,B1:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 C C v v
+    // 2 C C v v
+    // 3 C C v v
+    // 4 C C v v
+    @Test
+    public void testHandleAll2FrozenColumns() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                2, // frozenColumns
+                0, // frozenRows
+                "C1:D4", // range
+                "A1:B4,C1:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 R R R R
+    // 2 v v v v
+    // 3 v v v v
+    // 4 v v v v
+    @Test
+    public void testHandleAll1FrozenRow() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                0, // frozenColumns
+                1, // frozenRows
+                "A2:D4", // range
+                "A1:D1,A2:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 R R R R
+    // 2 R R R R
+    // 3 v v v v
+    // 4 v v v v
+    @Test
+    public void testHandleAll2FrozenRows() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                0, // frozenColumns
+                2, // frozenRows
+                "A3:D4", // range
+                "A1:D2,A3:D4" // window
+        );
+    }
+
+    @Test
+    public void testHandleAllOnlyFrozenColumnFrozenRow() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                4, // frozenColumns
+                3, // frozenRows
+                "throw", // range
+                "A1:D3" // window
+        );
+    }
+
+    //   A B C D
+    // 1 F R R R
+    // 2 C v v v
+    // 3 C v v v
+    // 4 C v v v
+    @Test
+    public void testHandleAll1FrozenColumn1FrozenRow() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                1, // frozenColumns
+                1, // frozenRows
+                "B2:D4", // range
+                "A1,B1:D1,A2:A4,B2:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 F R R R
+    // 2 F R R R
+    // 3 C v v v
+    // 4 C v v v
+    @Test
+    public void testHandleAll1FrozenColumn2FrozenRows() {
+        this.handleAllFilteredAndCheck(
+                "A1",
+                1, // frozenColumns
+                2, // frozenRows
+                "B3:D4", // range
+                "A1:A2,B1:D2,A3:A4,B3:D4" // window
+        );
+    }
+
+    //   A B C D
+    // 1 F R R R
+    // 2 C v v v
+    // 3 C v v v
+    // 4 C v v v
+    @Test
+    public void testHandleAll1FrozenColumn1FrozenRowDifferentHome() {
+        this.handleAllFilteredAndCheck(
+                "B2",
+                1, // frozenColumns
+                1, // frozenRows
+                "B2:D4", // range
+                "A1,B1:D1,A2:A4,B2:D4" // window
+        );
+    }
+
+    private void handleAllFilteredAndCheck(final String home,
+                                           final int frozenColumns,
+                                           final int frozenRows,
+                                           final String range,
+                                           final String window) {
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.X_OFFSET, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.Y_OFFSET, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("150"));
+
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
+
+        this.handleAllAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                        EVALUATION,
+                        new FakeSpreadsheetEngine() {
+
+                            @Override
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final SpreadsheetEngineContext context) {
+                                checkEquals(EVALUATION, evaluation, "evaluation");
+
+                                return SpreadsheetDelta.EMPTY;
+                            }
+
+                            @Override
+                            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
+                                                              final Optional<SpreadsheetSelection> selection,
+                                                              final SpreadsheetEngineContext context) {
+                                if(range.equals("throw")) {
+                                    throw new UnsupportedOperationException();
+                                }
+                                checkEquals(SpreadsheetDelta.NO_SELECTION, selection);
+
+                                return SpreadsheetSelection.parseCellRange(range);
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return 100;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 50;
+                            }
+
+                            @Override
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                                                                                   final SpreadsheetEngineContext context) {
+                                return Optional.of(selection);
+                            }
+                        },
+                        new FakeSpreadsheetEngineContext() {
+                            @Override
+                            public SpreadsheetMetadata metadata() {
+                                return SpreadsheetMetadata.EMPTY
+                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                                        .loadFromLocale()
+                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns-1)) : null)
+                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows-1)) : null);
+                            }
+
+                            @Override
+                            public SpreadsheetStoreRepository storeRepository() {
+                                return new FakeSpreadsheetStoreRepository() {
+                                    @Override
+                                    public SpreadsheetCellStore cells() {
+                                        return this.cells;
+                                    }
+
+                                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
+
+                                    @Override
+                                    public SpreadsheetColumnStore columns() {
+                                        return this.columns;
+                                    }
+
+                                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                                    @Override
+                                    public SpreadsheetRowStore rows() {
+                                        return this.rows;
+                                    }
+
+                                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
+                                };
+                            }
+                        }
+                ),
+                Optional.empty(),
+                parameters,
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setWindow(
+                                        SpreadsheetSelection.parseWindow(window)
                                 )
                 )
         );
@@ -664,6 +938,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 return 0;
             }
         };
+    }
+
+    @Override
+    SpreadsheetEngineContext engineContext() {
+        return SpreadsheetEngineContexts.fake();
     }
 
     private SpreadsheetDelta spreadsheetDelta() {

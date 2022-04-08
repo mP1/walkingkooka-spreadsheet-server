@@ -51,6 +51,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -69,6 +71,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -296,7 +299,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRouteCellGetLoadCellViewport() {
         this.routeCellAndCheck(
                 HttpMethod.GET,
-                "/cell/*?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
+                "/cell/*?home=A1&xOffset=0&yOffset=0&width=1000&height=700&includeFrozenColumnsRows=false",
                 HttpStatusCode.OK
         );
     }
@@ -305,7 +308,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRouteCellGetLoadCellViewportEvaluation() {
         this.routeCellAndCheck(
                 HttpMethod.GET,
-                "/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=1000&height=700",
+                "/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=1000&height=700&includeFrozenColumnsRows=false",
                 HttpStatusCode.OK
         );
     }
@@ -592,6 +595,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         labelStore.save(label123.mapping(a1));
 
         return new FakeSpreadsheetEngineContext() {
+
+            @Override
+            public SpreadsheetMetadata metadata() {
+                return SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                        .loadFromLocale();
+            }
+
             @Override
             public SpreadsheetStoreRepository storeRepository() {
                 return new FakeSpreadsheetStoreRepository() {

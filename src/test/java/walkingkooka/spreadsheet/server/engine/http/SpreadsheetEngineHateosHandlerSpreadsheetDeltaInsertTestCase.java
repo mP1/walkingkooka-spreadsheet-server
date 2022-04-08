@@ -22,6 +22,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 
@@ -36,9 +38,12 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCa
         super();
     }
 
-    @Override
-    final SpreadsheetEngine engine() {
+    @Override final SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
+    }
+
+    @Override final SpreadsheetEngineContext engineContext() {
+        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
