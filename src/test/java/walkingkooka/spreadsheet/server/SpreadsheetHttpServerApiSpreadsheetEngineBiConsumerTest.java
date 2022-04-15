@@ -328,7 +328,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     // range............................................................................................................
 
-    private final static String RANGE_URL = "/api/1/range/A1:0:0:100:200";
+    private final static String RANGE_URL = "/api/1/range/A1:100:200";
 
     @Test
     public void testRouteRangeGet() {

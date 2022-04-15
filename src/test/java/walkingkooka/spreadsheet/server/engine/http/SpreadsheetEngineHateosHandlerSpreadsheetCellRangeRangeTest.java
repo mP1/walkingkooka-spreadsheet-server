@@ -44,17 +44,18 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
 
     @Test
     public void testRangeCellReference() {
-        final SpreadsheetViewport viewport = SpreadsheetSelection.parseCell("B99").viewport(0, 0, 100, 20);
+        final SpreadsheetViewport viewport = SpreadsheetSelection.parseCell("B99")
+                .viewport(100, 20);
         final SpreadsheetCellRange range = SpreadsheetCellRange.parseCellRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetCellRange range(final SpreadsheetViewport v,
-                                                      final Optional<SpreadsheetSelection> s,
-                                                      final SpreadsheetEngineContext context) {
-                        checkEquals(viewport, v, "viewport");
-                        checkEquals(Optional.empty(), s, "selection");
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetCellRange range(final SpreadsheetViewport v,
+                                                              final Optional<SpreadsheetSelection> s,
+                                                              final SpreadsheetEngineContext context) {
+                                checkEquals(viewport, v, "viewport");
+                                checkEquals(Optional.empty(), s, "selection");
 
                         return range;
                     }
@@ -68,7 +69,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
 
     @Test
     public void testRangeLabel() {
-        final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:0:0:100:20");
+        final SpreadsheetViewport viewport = SpreadsheetViewport.parse("Label123:100:20");
         final SpreadsheetCellRange range = SpreadsheetCellRange.parseCellRange("B99:C102");
 
         this.handleOneAndCheck(this.createHandler(
@@ -121,7 +122,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRangeTest e
 
     @Override
     public SpreadsheetViewport id() {
-        return SpreadsheetSelection.parseCell("A1").viewport(0, 0, 100, 20);
+        return SpreadsheetSelection.parseCell("A1")
+                .viewport(100, 20);
     }
 
     @Override

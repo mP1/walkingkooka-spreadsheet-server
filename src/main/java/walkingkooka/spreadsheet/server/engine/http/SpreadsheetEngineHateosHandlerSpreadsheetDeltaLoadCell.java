@@ -81,8 +81,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         final Set<SpreadsheetCellRange> window =
                 this.ranges(
                         this.home(parameters),
-                        this.xOffset(parameters),
-                        this.yOffset(parameters),
                         this.width(parameters),
                         this.height(parameters),
                         this.selection(
@@ -120,18 +118,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     // @VisibleForTesting
     final static UrlParameterName HOME = UrlParameterName.with("home");
-
-    private double xOffset(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstDoubleParameterValue(X_OFFSET, parameters);
-    }
-
-    final static UrlParameterName X_OFFSET = UrlParameterName.with("xOffset");
-
-    private double yOffset(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstDoubleParameterValue(Y_OFFSET, parameters);
-    }
-
-    final static UrlParameterName Y_OFFSET = UrlParameterName.with("yOffset");
 
     private double width(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return firstDoubleParameterValue(WIDTH, parameters);
@@ -176,8 +162,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     }
 
     private Set<SpreadsheetCellRange> ranges(final SpreadsheetCellReference home,
-                                             final double xOffset,
-                                             final double yOffset,
                                              final double width,
                                              final double height,
                                              final Optional<SpreadsheetSelection> selection,
@@ -238,7 +222,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         SpreadsheetCellRange viewport = null;
         if (widthLeft > 0 && heightLeft > 0) {
             viewport = engine.range(
-                    SpreadsheetViewport.with(home, xOffset, yOffset, widthLeft, heightLeft),
+                    SpreadsheetViewport.with(home, widthLeft, heightLeft),
                     selection,
                     context
             );
