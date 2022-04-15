@@ -977,7 +977,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.range(null));
     }
 
-    private final static String RANGE_URL = "/range/A1:0:0:100:200";
+    private final static String RANGE_URL = "/range/A1:100:200";
 
     @Test
     public void testRouteRangeInvalidFails() {
