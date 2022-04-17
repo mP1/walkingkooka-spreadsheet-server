@@ -101,10 +101,6 @@ These end points are mostly used by the label management dialog.
 - GET /api/spreadsheet/$spreadsheet-id/parse  
   Support for the UI to parse text using numerous patterns into values.
 
-#### range
-
-- GET /api/spreadsheet/$spreadsheet-id/range/A1:0:0:150:25
-
 #### row
 
 Many of these are very closed mapped to the context menu that appears when row/rows are selected.

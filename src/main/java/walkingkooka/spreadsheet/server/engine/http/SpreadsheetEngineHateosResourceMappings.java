@@ -16,13 +16,11 @@
  */
 package walkingkooka.spreadsheet.server.engine.http;
 
-import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.net.http.server.hateos.HateosHandlers;
-import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -30,10 +28,8 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
-import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
@@ -308,33 +304,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     private final static LinkRelation<?> AFTER = LinkRelation.with("after");
     private final static LinkRelation<?> BEFORE = LinkRelation.with("before");
-
-    // range .........................................................................................................
-
-    public static HateosResourceMapping<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange, HateosResource<SpreadsheetViewport>> range(final HateosHandler<SpreadsheetViewport,
-            SpreadsheetCellRange,
-            SpreadsheetCellRange> handler) {
-        return HateosResourceMapping.with(
-                RANGE,
-                SpreadsheetEngineHateosResourceMappings::parseViewport,
-                SpreadsheetCellRange.class,
-                SpreadsheetCellRange.class,
-                RANGE_HATEOS_RESOURCE
-        ).set(LinkRelation.SELF, HttpMethod.GET, handler);
-    }
-
-    /**
-     * A {@link HateosResourceName} with <code>viewport</code>.
-     */
-    private static final HateosResourceName RANGE = HateosResourceName.with("range");
-
-    private static HateosResourceSelection<SpreadsheetViewport> parseViewport(final String selection) {
-        return HateosResourceSelection.one(
-                SpreadsheetViewport.parse(selection)
-        );
-    }
-
-    private static final Class<HateosResource<SpreadsheetViewport>> RANGE_HATEOS_RESOURCE = Cast.to(HateosResource.class);
 
     /**
      * Stop creation.

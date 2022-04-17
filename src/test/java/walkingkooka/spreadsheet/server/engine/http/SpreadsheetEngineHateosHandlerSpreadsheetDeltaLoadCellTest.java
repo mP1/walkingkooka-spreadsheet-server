@@ -313,14 +313,29 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllSelectionTypePresentAndMissingSelectionParameterFails() {
+    public void testHandleAllMissingIncludeFrozenColumnsRowsParameterFails() {
         this.handleAllFails2(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0")
                 ),
+                "Missing parameter \"includeFrozenColumnsRows\""
+        );
+    }
+
+    @Test
+    public void testHandleAllSelectionTypePresentAndMissingSelectionParameterFails() {
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"));
+
+        this.handleAllFails2(
+                parameters,
                 "Missing parameter \"selection\""
         );
     }
@@ -332,6 +347,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("unknownn?"));
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of("A1"));
 
@@ -480,9 +496,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
-                                                              final Optional<SpreadsheetSelection> s,
-                                                              final SpreadsheetEngineContext context) {
+                            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
+                                                                   final boolean includeFrozenColumnsRows,
+                                                                   final Optional<SpreadsheetSelection> s,
+                                                                   final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         SpreadsheetViewport.with(
                                                 SpreadsheetSelection.parseCell("B2"),
@@ -494,7 +511,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 );
                                 checkEquals(Optional.ofNullable(viewportSelection).map(SpreadsheetViewportSelection::selection), s, "selection");
 
-                                return SpreadsheetSelection.cellRange(range);
+                                return Sets.of(
+                                        SpreadsheetSelection.cellRange(range)
+                                );
                             }
 
                             @Override
@@ -570,115 +589,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "A1",
                 1, // frozenColumns
                 0, // frozenRows
-                "B1:D4", // range
+                "A1:A4,B1:D4", // range
                 "A1:A4,B1:D4" // window
-        );
-    }
-
-    //   A B C D
-    // 1 C C v v
-    // 2 C C v v
-    // 3 C C v v
-    // 4 C C v v
-    @Test
-    public void testHandleAll2FrozenColumns() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                2, // frozenColumns
-                0, // frozenRows
-                "C1:D4", // range
-                "A1:B4,C1:D4" // window
-        );
-    }
-
-    //   A B C D
-    // 1 R R R R
-    // 2 v v v v
-    // 3 v v v v
-    // 4 v v v v
-    @Test
-    public void testHandleAll1FrozenRow() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                0, // frozenColumns
-                1, // frozenRows
-                "A2:D4", // range
-                "A1:D1,A2:D4" // window
-        );
-    }
-
-    //   A B C D
-    // 1 R R R R
-    // 2 R R R R
-    // 3 v v v v
-    // 4 v v v v
-    @Test
-    public void testHandleAll2FrozenRows() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                0, // frozenColumns
-                2, // frozenRows
-                "A3:D4", // range
-                "A1:D2,A3:D4" // window
-        );
-    }
-
-    @Test
-    public void testHandleAllOnlyFrozenColumnFrozenRow() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                4, // frozenColumns
-                3, // frozenRows
-                "throw", // range
-                "A1:D3" // window
-        );
-    }
-
-    //   A B C D
-    // 1 F R R R
-    // 2 C v v v
-    // 3 C v v v
-    // 4 C v v v
-    @Test
-    public void testHandleAll1FrozenColumn1FrozenRow() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                1, // frozenColumns
-                1, // frozenRows
-                "B2:D4", // range
-                "A1,B1:D1,A2:A4,B2:D4" // window
-        );
-    }
-
-    //   A B C D
-    // 1 F R R R
-    // 2 F R R R
-    // 3 C v v v
-    // 4 C v v v
-    @Test
-    public void testHandleAll1FrozenColumn2FrozenRows() {
-        this.handleAllFilteredAndCheck(
-                "A1",
-                1, // frozenColumns
-                2, // frozenRows
-                "B3:D4", // range
-                "A1:A2,B1:D2,A3:A4,B3:D4" // window
-        );
-    }
-
-    //   A B C D
-    // 1 F R R R
-    // 2 C v v v
-    // 3 C v v v
-    // 4 C v v v
-    @Test
-    public void testHandleAll1FrozenColumn1FrozenRowDifferentHome() {
-        this.handleAllFilteredAndCheck(
-                "B2",
-                1, // frozenColumns
-                1, // frozenRows
-                "B2:D4", // range
-                "A1,B1:D1,A2:A4,B2:D4" // window
         );
     }
 
@@ -709,15 +621,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
-                                                              final Optional<SpreadsheetSelection> selection,
-                                                              final SpreadsheetEngineContext context) {
-                                if(range.equals("throw")) {
+                            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
+                                                                   final boolean includeFrozenColumnsRows,
+                                                                   final Optional<SpreadsheetSelection> selection,
+                                                                   final SpreadsheetEngineContext context) {
+                                if (range.equals("throw")) {
                                     throw new UnsupportedOperationException();
                                 }
                                 checkEquals(SpreadsheetDelta.NO_SELECTION, selection);
 
-                                return SpreadsheetSelection.parseCellRange(range);
+                                return SpreadsheetSelection.parseWindow(range);
                             }
 
                             @Override

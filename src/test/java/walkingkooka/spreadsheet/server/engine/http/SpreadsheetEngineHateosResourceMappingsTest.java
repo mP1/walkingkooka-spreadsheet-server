@@ -571,10 +571,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public SpreadsheetCellRange range(final SpreadsheetViewport viewport,
-                                              final Optional<SpreadsheetSelection> selection,
-                                              final SpreadsheetEngineContext context) {
-                return SpreadsheetCellRange.parseCellRange("B2:C3");
+            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
+                                                   final boolean includeFrozenColumnsRows,
+                                                   final Optional<SpreadsheetSelection> selection,
+                                                   final SpreadsheetEngineContext context) {
+                return Sets.of(
+                        SpreadsheetCellRange.parseCellRange("B2:C3")
+                );
             }
 
             @Override
@@ -967,53 +970,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         url,
                         ""
                 )
-        );
-    }
-
-    // range..........................................................................................................
-
-    @Test
-    public void testRangeNullHateosHandlerFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetEngineHateosResourceMappings.range(null));
-    }
-
-    private final static String RANGE_URL = "/range/A1:100:200";
-
-    @Test
-    public void testRouteRangeInvalidFails() {
-        this.routeRangeAndCheck(HttpMethod.GET, "/invalid/A1:100:200", HttpStatusCode.NOT_FOUND);
-    }
-
-    @Test
-    public void testRouteRangeGet() {
-        this.routeRangeAndCheck(HttpMethod.GET, RANGE_URL, HttpStatusCode.OK);
-    }
-
-    @Test
-    public void testRouteRangePostFails() {
-        this.routeRangeAndCheck(HttpMethod.POST, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
-    }
-
-    @Test
-    public void testRouteRangePutFails() {
-        this.routeRangeAndCheck(HttpMethod.PUT, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
-    }
-
-    @Test
-    public void testRouteRangeDeleteFails() {
-        this.routeRangeAndCheck(HttpMethod.DELETE, RANGE_URL, HttpStatusCode.METHOD_NOT_ALLOWED);
-    }
-
-    private void routeRangeAndCheck(final HttpMethod method,
-                                    final String url,
-                                    final HttpStatusCode statusCode) {
-        this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.range(SpreadsheetEngineHttps.range(this.engine(), this.engineContext())),
-                method,
-                url,
-                "",
-                statusCode,
-                null
         );
     }
 
