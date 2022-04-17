@@ -326,30 +326,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         this.routeAndCheck(HttpMethod.GET, "/api/1/label/" + LABEL, HttpStatusCode.OK);
     }
 
-    // range............................................................................................................
-
-    private final static String RANGE_URL = "/api/1/range/A1:100:200";
-
-    @Test
-    public void testRouteRangeGet() {
-        this.routeAndCheck(HttpMethod.GET, RANGE_URL, HttpStatusCode.OK);
-    }
-
-    @Test
-    public void testRouteRangePostFails() {
-        this.routeAndFail(HttpMethod.POST, RANGE_URL);
-    }
-
-    @Test
-    public void testRouteRangePutFails() {
-        this.routeAndFail(HttpMethod.PUT, RANGE_URL);
-    }
-
-    @Test
-    public void testRouteRangeDeleteFails() {
-        this.routeAndFail(HttpMethod.DELETE, RANGE_URL);
-    }
-
     private void routeAndCheck(final HttpMethod method,
                                final String url,
                                final HttpStatusCode statusCode) {

@@ -21,7 +21,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -161,14 +160,6 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell(final SpreadsheetEngine engine,
                                                                                                          final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell.with(engine, context);
-    }
-
-    /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange}
-     */
-    public static HateosHandler<SpreadsheetViewport, SpreadsheetCellRange, SpreadsheetCellRange> range(final SpreadsheetEngine engine,
-                                                                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetCellRangeRange.with(engine, context);
     }
 
     /**
