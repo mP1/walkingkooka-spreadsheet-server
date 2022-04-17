@@ -496,10 +496,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
-                                                                   final boolean includeFrozenColumnsRows,
-                                                                   final Optional<SpreadsheetSelection> s,
-                                                                   final SpreadsheetEngineContext context) {
+                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
+                                                                    final boolean includeFrozenColumnsRows,
+                                                                    final Optional<SpreadsheetSelection> s,
+                                                                    final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         SpreadsheetViewport.with(
                                                 SpreadsheetSelection.parseCell("B2"),
@@ -621,10 +621,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
-                                                                   final boolean includeFrozenColumnsRows,
-                                                                   final Optional<SpreadsheetSelection> selection,
-                                                                   final SpreadsheetEngineContext context) {
+                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
+                                                                    final boolean includeFrozenColumnsRows,
+                                                                    final Optional<SpreadsheetSelection> selection,
+                                                                    final SpreadsheetEngineContext context) {
                                 if (range.equals("throw")) {
                                     throw new UnsupportedOperationException();
                                 }

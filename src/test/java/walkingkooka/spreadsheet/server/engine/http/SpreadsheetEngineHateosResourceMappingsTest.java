@@ -571,10 +571,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public Set<SpreadsheetCellRange> range(final SpreadsheetViewport viewport,
-                                                   final boolean includeFrozenColumnsRows,
-                                                   final Optional<SpreadsheetSelection> selection,
-                                                   final SpreadsheetEngineContext context) {
+            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
+                                                    final boolean includeFrozenColumnsRows,
+                                                    final Optional<SpreadsheetSelection> selection,
+                                                    final SpreadsheetEngineContext context) {
                 return Sets.of(
                         SpreadsheetCellRange.parseCellRange("B2:C3")
                 );

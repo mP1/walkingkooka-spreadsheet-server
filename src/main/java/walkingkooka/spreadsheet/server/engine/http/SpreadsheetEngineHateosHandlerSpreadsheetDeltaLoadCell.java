@@ -95,7 +95,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     private Set<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> resource,
                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return this.engine.range(
+        return this.engine.window(
                 this.home(parameters)
                         .viewport(
                                 this.width(parameters),
