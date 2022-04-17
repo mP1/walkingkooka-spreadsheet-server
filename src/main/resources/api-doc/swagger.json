@@ -240,22 +240,6 @@
             }
           },
           {
-            "name": "xOffset",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "yOffset",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
             "name": "width",
             "in": "query",
             "required": true,
@@ -269,6 +253,38 @@
             "required": true,
             "schema": {
               "type": "integer"
+            }
+          },
+          {
+            "name": "includeFrozenColumnsRows",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "selectionType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cell",
+                "cell-range",
+                "column",
+                "column-range",
+                "row",
+                "row-range"
+              ]
+            }
+          },
+          {
+            "name": "selection",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -1224,56 +1240,6 @@
                 },
                 "examples": {
                   "application/json": "$MULTIPARSERESPONSE"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/spreadsheet/{spreadsheet-id}/range/{viewport}": {
-      "get": {
-        "tags": [
-          "cell"
-        ],
-        "operationId": "cell",
-        "summary": "Gets the dimensions as a cell-range that fits the given pixel rectangle.",
-        "parameters": [
-          {
-            "name": "spreadsheet-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "viewport",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "200 OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SpreadsheetDelta"
-                },
-                "examples": {
-                  "example": {
-                    "value": "$SPREADSHEETDELTA"
-                  }
                 }
               }
             }
