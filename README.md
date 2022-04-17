@@ -48,7 +48,8 @@ Most of these end points are used to fill the viewport or from actions such as s
 clicking a context menu command.
 
 - GET /api/spreadsheet/$spreadsheet-id/cell/*
-  /clear-value-error-skip-evaluate?home=A1&xOffset=0&yOffset=1&width=2&height=3&selectionType=cell-range&selection=A1:B2&selectionNavigation=extend-left  
+  /clear-value-error-skip-evaluate?home=A1&&width=2&height=3&includeFrozenColumnsRows=true&selectionType=cell-range&selection=A1:
+  B2&selectionNavigation=extend-left  
   Used by the UI to load just enough cells to fill the viewport.
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
