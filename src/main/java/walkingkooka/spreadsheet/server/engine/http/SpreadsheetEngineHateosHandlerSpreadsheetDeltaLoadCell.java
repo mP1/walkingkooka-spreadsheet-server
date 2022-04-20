@@ -102,7 +102,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                 this.height(parameters)
                         ),
                 this.includeFrozenColumnsRows(parameters),
-                this.selection(
+                this.focusedSelection(
                         resource,
                         parameters
                 ),
@@ -151,6 +151,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     }
 
     final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
+
+    private Optional<SpreadsheetSelection> focusedSelection(final Optional<SpreadsheetDelta> resource,
+                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return this.selection(resource, parameters)
+                .map(s -> s.focused(SpreadsheetEngineHttps.anchor(parameters).orElse(s.defaultAnchor())));
+    }
 
     private static <T> T firstParameterValueAndConvert(final UrlParameterName parameter,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
