@@ -509,8 +509,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                         viewport,
                                         "viewport"
                                 );
-                                checkEquals(Optional.ofNullable(viewportSelection).map(SpreadsheetViewportSelection::selection), s, "selection");
-
                                 return Sets.of(
                                         SpreadsheetSelection.cellRange(range)
                                 );

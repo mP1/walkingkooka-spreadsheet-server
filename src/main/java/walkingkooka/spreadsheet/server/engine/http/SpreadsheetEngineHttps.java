@@ -305,7 +305,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // @VisibleForTesting
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
-    private static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    /**
+     * Parses the anchor query parameter if one is present.
+     */
+    static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 SELECTION_ANCHOR,
