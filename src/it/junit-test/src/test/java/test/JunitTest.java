@@ -208,8 +208,7 @@ public class JunitTest {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
                                 functions(),
-                                functionContext(),
-                                CaseSensitivity.INSENSITIVE
+                                functionContext()
                         )
                 );
             }
@@ -226,6 +225,7 @@ public class JunitTest {
                         this.functions(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CaseSensitivity.INSENSITIVE,
                         this.metadata().converterContext()
                 );
             }

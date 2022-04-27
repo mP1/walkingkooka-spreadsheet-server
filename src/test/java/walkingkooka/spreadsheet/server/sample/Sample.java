@@ -195,8 +195,7 @@ public final class Sample {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
                                 functions(),
-                                functionContext(),
-                                CaseSensitivity.INSENSITIVE
+                                functionContext()
                         )
                 );
             }
@@ -213,6 +212,7 @@ public final class Sample {
                         this.functions(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CaseSensitivity.INSENSITIVE,
                         this.metadata().converterContext()
                 );
             }
