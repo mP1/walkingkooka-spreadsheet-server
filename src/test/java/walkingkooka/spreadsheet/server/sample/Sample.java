@@ -219,7 +219,6 @@ public final class Sample {
             private Function<ExpressionReference, Optional<Object>> references() {
                 return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
                         engine,
-                        this.storeRepository().labels(),
                         this
                 );
             }

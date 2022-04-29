@@ -232,7 +232,6 @@ public class JunitTest {
             private Function<ExpressionReference, Optional<Object>> references() {
                 return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
                         engine,
-                        this.storeRepository().labels(),
                         this
                 );
             }
