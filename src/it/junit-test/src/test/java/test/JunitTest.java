@@ -28,6 +28,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -222,6 +223,7 @@ public class JunitTest {
                 return ExpressionFunctionContexts.basic(
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
+                        SpreadsheetErrorKind::translate,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
                         CaseSensitivity.INSENSITIVE,
