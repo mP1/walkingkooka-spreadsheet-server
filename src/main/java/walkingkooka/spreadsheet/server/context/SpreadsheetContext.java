@@ -25,9 +25,9 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -52,7 +52,7 @@ public interface SpreadsheetContext extends Context {
     /**
      * Returns a {@link Function} which knows available functions for the given {@link SpreadsheetId}.
      */
-    Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id);
+    Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id);
 
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.

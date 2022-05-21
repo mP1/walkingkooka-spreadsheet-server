@@ -31,8 +31,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -79,7 +79,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         throw new UnsupportedOperationException();
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> idToFunctions(final SpreadsheetId id) {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> idToFunctions(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
