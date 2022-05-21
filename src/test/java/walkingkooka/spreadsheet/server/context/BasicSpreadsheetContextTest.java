@@ -71,8 +71,8 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -267,7 +267,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final LineEnding lineEnding,
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                            final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
@@ -971,7 +971,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         return metadata;
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
         return (f) -> {

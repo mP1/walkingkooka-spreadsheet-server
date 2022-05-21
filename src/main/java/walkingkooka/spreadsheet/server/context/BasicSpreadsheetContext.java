@@ -69,9 +69,9 @@ import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.util.MarshallUtils;
 
 import java.math.BigDecimal;
@@ -99,7 +99,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final LineEnding lineEnding,
                                         final Function<BigDecimal, Fraction> fractioner,
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                        final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                                        final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                         final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
@@ -134,7 +134,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final LineEnding lineEnding,
                                     final Function<BigDecimal, Fraction> fractioner,
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions,
+                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                     final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
@@ -162,11 +162,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     @Override
-    public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final SpreadsheetId id) {
+    public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {
         return this.spreadsheetIdFunctions.apply(id);
     }
 
-    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> spreadsheetIdFunctions;
+    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions;
 
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)
@@ -207,7 +207,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 this.spreadsheetMetadataStamper
         );
 
-        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.spreadsheetIdFunctions.apply(id);
+        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(

@@ -49,10 +49,10 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -85,7 +85,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final LineEnding lineEnding,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final Function<BigDecimal, Fraction> fractioner,
-                                             final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                             final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
@@ -126,7 +126,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final LineEnding lineEnding,
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final Function<BigDecimal, Fraction> fractioner,
-                                  final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions,
+                                  final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
@@ -242,7 +242,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
     private final Function<BigDecimal, Fraction> fractioner;
-    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> idToFunctions;
+    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions;
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;

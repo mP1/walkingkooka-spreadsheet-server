@@ -41,9 +41,9 @@ import walkingkooka.spreadsheet.server.context.http.SpreadsheetContextHttps;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -68,7 +68,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final LineEnding lineEnding,
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final Function<BigDecimal, Fraction> fractioner,
-                                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
+                                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                               final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
@@ -95,7 +95,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final LineEnding lineEnding,
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final Function<BigDecimal, Fraction> fractioner,
-                                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>>> functions,
+                                                          final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
