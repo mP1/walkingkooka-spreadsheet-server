@@ -67,13 +67,12 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.function.ExpressionEvaluationContexts;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -208,7 +207,13 @@ public class JunitTest {
                                    final Optional<SpreadsheetCell> cell) {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
-                                functionContext()
+                                EXPRESSION_NUMBER_KIND,
+                                this.functions(),
+                                SpreadsheetErrorKind::translate,
+                                this.references(),
+                                ExpressionEvaluationContexts.referenceNotFound(),
+                                CaseSensitivity.INSENSITIVE,
+                                this.metadata().converterContext()
                         )
                 );
             }
@@ -217,18 +222,6 @@ public class JunitTest {
                 return (n) -> {
                     throw new UnsupportedOperationException("unsupported function " + n);
                 };
-            }
-
-            private ExpressionEvaluationContext functionContext() {
-                return ExpressionEvaluationContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
-                        this.functions(),
-                        SpreadsheetErrorKind::translate,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CaseSensitivity.INSENSITIVE,
-                        this.metadata().converterContext()
-                );
             }
 
             private Function<ExpressionReference, Optional<Object>> references() {
