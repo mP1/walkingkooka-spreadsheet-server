@@ -75,6 +75,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.json.marshall.util.MarshallUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -83,6 +84,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * A {@link SpreadsheetContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
@@ -102,7 +104,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                        final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                        final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                        final Supplier<LocalDateTime> now) {
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(indentation, "indentation");
@@ -113,6 +116,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
         Objects.requireNonNull(contentTypeFactory, "contentTypeFactory");
+        Objects.requireNonNull(now, "now");
 
         return new BasicSpreadsheetContext(
                 base,
@@ -124,7 +128,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory
+                contentTypeFactory,
+                now
         );
     }
 
@@ -137,7 +142,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                    final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                    final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                    final Supplier<LocalDateTime> now) {
         super();
 
         this.base = base;
@@ -152,6 +158,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
         this.contentTypeFactory = contentTypeFactory;
+
+        this.now = now;
     }
 
     @Override
@@ -203,7 +211,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                SpreadsheetEngines.basic(metadata),
+                SpreadsheetEngines.basic(
+                        metadata,
+                        this.now
+                ),
                 this.spreadsheetMetadataStamper
         );
 
@@ -216,14 +227,15 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 engine,
                 fractioner,
                 repository,
-                this.base
+                this.base,
+                this.now
         );
 
         final AbsoluteUrl base = this.base;
         final UrlPath spreadsheetIdPath = base.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
-        return formatRouter(spreadsheetIdPath, context, metadata)
+        return formatRouter(spreadsheetIdPath, context, metadata, this.now)
                 .then(patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context))
                 .then(parseRouter(spreadsheetIdPath, context, metadata))
                 .then(
@@ -237,15 +249,25 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
+    private final Supplier<LocalDateTime> now;
 
     // format...........................................................................................................
 
     private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetId,
                                                                                                        final SpreadsheetEngineContext context,
-                                                                                                       final SpreadsheetMetadata metadata) {
+                                                                                                       final SpreadsheetMetadata metadata,
+                                                                                                       final Supplier<LocalDateTime> now) {
         return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(formatRouting(spreadsheetId).build(), formatHandler(context, metadata))
-                .router();
+                .add(
+                        formatRouting(
+                                spreadsheetId
+                        ).build(),
+                        formatHandler(
+                                context,
+                                metadata,
+                                now
+                        )
+                ).router();
     }
 
     private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetId) {
@@ -254,7 +276,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
-                                                                       final SpreadsheetMetadata metadata) {
+                                                                       final SpreadsheetMetadata metadata,
+                                                                       final Supplier<LocalDateTime> now) {
 
         return HttpRequestHttpResponseBiConsumers.methodNotAllowed(
                 HttpMethod.POST,
@@ -263,7 +286,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                 SpreadsheetMultiFormatRequest.class,
                                 metadata.jsonNodeUnmarshallContext(),
                                 metadata.jsonNodeMarshallContext(),
-                                SpreadsheetServerFormatters.multiFormatters(context)
+                                SpreadsheetServerFormatters.multiFormatters(
+                                        context,
+                                        now
+                                )
                         ),
                         BasicSpreadsheetContext::formatHandlerPostHandler
                 )

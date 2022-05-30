@@ -127,7 +127,8 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
                 urlPathFileServer(fileServerRoot),
                 jettyHttpServer(host, port),
                 JettyHttpServerSpreadsheetHttpServer::spreadsheetMetadataStamper,
-                SpreadsheetContexts::jsonHateosContentType
+                SpreadsheetContexts::jsonHateosContentType,
+                LocalDateTime::now
         );
         server.start();
     }
@@ -278,7 +279,11 @@ public final class JettyHttpServerSpreadsheetHttpServer implements PublicStaticH
         return (id) -> {
             SpreadsheetStoreRepository repository = idToRepository.get(id);
             if (null == repository) {
-                repository = SpreadsheetStoreRepositories.spreadsheetMetadataAwareSpreadsheetCellStore(id, repositoryFactory.get());
+                repository = SpreadsheetStoreRepositories.spreadsheetMetadataAwareSpreadsheetCellStore(
+                        id,
+                        repositoryFactory.get(),
+                        LocalDateTime::now
+                );
                 idToRepository.put(id, repository); // TODO add locks etc.
             }
             return repository;

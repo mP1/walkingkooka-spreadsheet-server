@@ -40,10 +40,12 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A handler that routes all spreadsheet API calls.
@@ -60,7 +62,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                    final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
                 base,
                 indentation,
@@ -69,7 +72,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 createMetadata,
                 idToFunctions,
                 idToStoreRepository,
-                spreadsheetMetadataStamper
+                spreadsheetMetadataStamper,
+                now
         );
     }
 
@@ -83,7 +87,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
-                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper) {
+                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                final Supplier<LocalDateTime> now) {
         super();
 
         this.baseUrl = base;
@@ -105,6 +110,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
 
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
+
+        this.now = now;
     }
 
     // Router...........................................................................................................
@@ -139,7 +146,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.idToFunctions,
                 this.idToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                SpreadsheetContexts::jsonHateosContentType
+                SpreadsheetContexts::jsonHateosContentType,
+                this.now
         ).httpRouter(id);
     }
 
@@ -162,6 +170,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
      * Updates the last-modified timestamp.
      */
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
+
+    private final Supplier<LocalDateTime> now;
 
     // toString.........................................................................................................
 

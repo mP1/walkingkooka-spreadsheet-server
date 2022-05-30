@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -35,15 +36,22 @@ import java.util.stream.Collectors;
  */
 final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> {
 
-    static SpreadsheetMultiFormatter with(final SpreadsheetEngineContext engineContext) {
+    static SpreadsheetMultiFormatter with(final SpreadsheetEngineContext engineContext,
+                                          final Supplier<LocalDateTime> now) {
         Objects.requireNonNull(engineContext, "engineContext");
+        Objects.requireNonNull(now, "now");
 
-        return new SpreadsheetMultiFormatter(engineContext);
+        return new SpreadsheetMultiFormatter(
+                engineContext,
+                now
+        );
     }
 
-    private SpreadsheetMultiFormatter(final SpreadsheetEngineContext engineContext) {
+    private SpreadsheetMultiFormatter(final SpreadsheetEngineContext engineContext,
+                                      final Supplier<LocalDateTime> now) {
         super();
         this.engineContext = engineContext;
+        this.now = now;
     }
 
     @Override
@@ -92,7 +100,7 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
                 formatted = format.format(
                         (LocalDateTime) value,
                         this.engineContext.metadata()
-                                .formatterContext()
+                                .formatterContext(this.now)
                 );
                 break;
             }
@@ -111,6 +119,8 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
     }
 
     private final SpreadsheetEngineContext engineContext;
+
+    private final Supplier<LocalDateTime> now;
 
     @Override
     public String toString() {

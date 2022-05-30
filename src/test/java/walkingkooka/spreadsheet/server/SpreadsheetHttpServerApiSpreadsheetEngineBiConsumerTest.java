@@ -438,7 +438,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 createMetadata(),
                 idToFunctions(),
                 idToStoreRepository(),
-                spreadsheetMetadataStamper()
+                spreadsheetMetadataStamper(),
+                LocalDateTime::now
         );
     }
 

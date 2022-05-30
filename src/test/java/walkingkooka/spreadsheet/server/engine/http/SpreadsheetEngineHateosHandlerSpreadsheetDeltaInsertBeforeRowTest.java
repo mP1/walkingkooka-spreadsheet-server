@@ -43,7 +43,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
     @Test
     public void testInsertBeforeRow() {
         final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
+                metadata,
+                NOW
+        );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
@@ -125,7 +128,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
     @Test
     public void testInsertBeforeRowRange() {
         final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
+                metadata,
+                NOW
+        );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
