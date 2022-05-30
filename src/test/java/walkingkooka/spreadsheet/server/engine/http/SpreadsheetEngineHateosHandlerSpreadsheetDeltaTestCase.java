@@ -31,8 +31,10 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
         I extends Comparable<I>>
@@ -40,6 +42,8 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         implements HateosHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta>,
         PredicateTesting,
         ToStringTesting<H> {
+
+    final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
     SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase() {
         super();

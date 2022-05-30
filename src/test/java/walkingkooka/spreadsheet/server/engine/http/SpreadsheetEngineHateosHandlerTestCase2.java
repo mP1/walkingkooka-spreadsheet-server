@@ -209,7 +209,8 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                                 ", rows: " + this.rows();
                     }
                 },
-                Url.parseAbsolute("http://example.com")
+                Url.parseAbsolute("http://example.com"),
+                LocalDateTime::now
         );
     }
 

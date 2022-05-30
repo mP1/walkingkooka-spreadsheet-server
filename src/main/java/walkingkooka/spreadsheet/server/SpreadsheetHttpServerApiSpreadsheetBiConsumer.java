@@ -46,6 +46,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -53,6 +54,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer}.
@@ -71,7 +73,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                              final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
                 baseUrl,
                 contentType,
@@ -82,7 +85,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 functions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory
+                contentTypeFactory,
+                now
         );
     }
 
@@ -98,7 +102,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                          final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                                          final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                          final Supplier<LocalDateTime> now) {
         super();
 
         this.baseUrl = baseUrl;
@@ -114,7 +119,8 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 functions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory
+                contentTypeFactory,
+                now
         );
 
         this.context = context;

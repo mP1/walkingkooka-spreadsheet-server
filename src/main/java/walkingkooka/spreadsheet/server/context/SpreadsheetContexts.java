@@ -33,10 +33,12 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class SpreadsheetContexts implements PublicStaticHelper {
 
@@ -52,7 +54,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                           final Supplier<LocalDateTime> now) {
         return BasicSpreadsheetContext.with(
                 base,
                 contentType,
@@ -63,7 +66,8 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory
+                contentTypeFactory,
+                now
         );
     }
 

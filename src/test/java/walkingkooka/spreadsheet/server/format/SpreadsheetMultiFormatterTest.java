@@ -25,6 +25,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
@@ -44,11 +45,14 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTestCase<SpreadsheetMultiFormatter>
         implements FunctionTesting<SpreadsheetMultiFormatter, SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> {
+
+    private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
     @Override
     public void testTypeNaming() {
@@ -56,18 +60,35 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
     }
 
     @Test
-    public void testWithNullSpreadsheetEngineContext() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetMultiFormatter.with(null));
+    public void testWithNullSpreadsheetEngineContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetMultiFormatter.with(
+                        null,
+                        NOW
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullNowFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetMultiFormatter.with(
+                        SpreadsheetEngineContexts.fake(),
+                        null
+                )
+        );
     }
 
     @Test
     public void testFormatUnknownValueFails() {
         this.applyAndCheck(SpreadsheetMultiFormatRequest.with(
-                Lists.of(
-                        SpreadsheetFormatRequest.with(
-                                "unknown1 ???",
-                                "unknown2 ???"
-                        )
+                        Lists.of(
+                                SpreadsheetFormatRequest.with(
+                                        "unknown1 ???",
+                                        "unknown2 ???"
+                                )
                 )
                 ),
                 SpreadsheetMultiFormatResponse.with(
@@ -206,14 +227,17 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                                                         DateTimeContexts.locale(
                                                                 Locale.ENGLISH,
                                                                 1900,
-                                                                20),
+                                                                20,
+                                                                NOW
+                                                        ),
                                                         DecimalNumberContexts.american(MathContext.DECIMAL32)
                                                 ),
                                                 ExpressionNumberKind.DOUBLE
                                         )
                                 ));
                     }
-                }
+                },
+                NOW
         );
     }
 

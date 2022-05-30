@@ -46,7 +46,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
     @Test
     public void testClearColumn() {
         final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
+                metadata,
+                NOW
+        );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns.with(
@@ -94,7 +97,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
     @Test
     public void testClearColumnRange() {
         final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(metadata);
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
+                metadata,
+                NOW
+        );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");

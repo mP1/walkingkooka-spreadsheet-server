@@ -6828,7 +6828,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this::fileServer,
                 this::server,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory);
+                this::contentTypeFactory,
+                LocalDateTime::now
+        );
         this.httpServer.start();
         return this.httpServer;
     }

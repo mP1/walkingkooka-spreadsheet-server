@@ -67,7 +67,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 this::idToFunctions,
                 this::idToStoreRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                LocalDateTime::now
         );
     }
 

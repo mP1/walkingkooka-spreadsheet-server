@@ -90,6 +90,7 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -100,6 +101,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     private final static LineEnding LINE_ENDING = LineEnding.NL;
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
+
+    private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
     @Test
     public void testWithNullBaseFails() {
@@ -113,7 +116,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -129,7 +133,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -145,7 +150,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -161,7 +167,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -177,7 +184,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -193,7 +201,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -209,7 +218,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -225,7 +235,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 null,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -241,7 +252,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 null,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 
@@ -257,6 +269,24 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
+                null,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullNowFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory,
                 null
         );
     }
@@ -270,7 +300,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                           final Supplier<LocalDateTime> now) {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetContext.with(
@@ -283,7 +314,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         spreadsheetIdFunctions,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
-                        contentTypeFactory
+                        contentTypeFactory,
+                        now
                 )
         );
     }
@@ -926,7 +958,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
-                this::contentTypeFactory
+                this::contentTypeFactory,
+                NOW
         );
     }
 

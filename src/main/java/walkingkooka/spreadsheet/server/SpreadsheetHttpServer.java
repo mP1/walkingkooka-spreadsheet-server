@@ -58,11 +58,13 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
@@ -90,7 +92,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                             final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                             final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                             final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServer(
                 scheme,
                 host,
@@ -104,7 +107,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 fileServer,
                 server,
                 spreadsheetMetadataStamper,
-                contentTypeFactory
+                contentTypeFactory,
+                now
         );
     }
 
@@ -131,7 +135,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                  final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory) {
+                                  final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                  final Supplier<LocalDateTime> now) {
         super();
 
         this.contentTypeJson = HateosContentType.json(
@@ -158,6 +163,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
         this.contentTypeFactory = contentTypeFactory;
+        this.now = now;
 
         final AbsoluteUrl base = Url.absolute(scheme,
                 AbsoluteUrl.NO_CREDENTIALS,
@@ -210,7 +216,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.idToFunctions,
                 this.idToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                this.contentTypeFactory
+                this.contentTypeFactory,
+                this.now
         );
     }
 
@@ -232,7 +239,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.createMetadata,
                 this.idToFunctions,
                 this.idToStoreRepository,
-                this.spreadsheetMetadataStamper
+                this.spreadsheetMetadataStamper,
+                this.now
         );
     }
 
@@ -248,6 +256,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
     private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router;
+
+    private final Supplier<LocalDateTime> now;
 
     // files............................................................................................................
 

@@ -20,15 +20,21 @@ package walkingkooka.spreadsheet.server.format;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
+import java.time.LocalDateTime;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class SpreadsheetServerFormatters implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetMultiFormatter}
      */
-    public static Function<SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> multiFormatters(final SpreadsheetEngineContext engineContext) {
-        return SpreadsheetMultiFormatter.with(engineContext);
+    public static Function<SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> multiFormatters(final SpreadsheetEngineContext engineContext,
+                                                                                                          final Supplier<LocalDateTime> now) {
+        return SpreadsheetMultiFormatter.with(
+                engineContext,
+                now
+        );
     }
 
     private SpreadsheetServerFormatters() {
