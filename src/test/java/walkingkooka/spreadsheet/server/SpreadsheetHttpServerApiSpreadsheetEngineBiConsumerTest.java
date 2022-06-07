@@ -86,7 +86,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
 
-    private final static String BASE_URL = "http://example.com";
+    private final static String BASE_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
 
     // format...........................................................................................................

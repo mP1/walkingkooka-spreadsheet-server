@@ -941,7 +941,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         final BasicSpreadsheetContext context = this.createContext();
         context.storeRepository(SpreadsheetId.with(111));
 
-        this.toStringAndCheck(context, "base=http://example.com/api987 contentType=JSON");
+        this.toStringAndCheck(context, "base=https://example.com/api987 contentType=JSON");
     }
 
     // SpreadsheetContext...............................................................................................
@@ -964,7 +964,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     private AbsoluteUrl base() {
-        return Url.parseAbsolute("http://example.com/api987");
+        return Url.parseAbsolute("https://example.com/api987");
     }
 
     private HateosContentType contentType() {

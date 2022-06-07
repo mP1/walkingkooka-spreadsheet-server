@@ -73,7 +73,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
     }
 
     private AbsoluteUrl baseUrl() {
-        return Url.parseAbsolute("http://example.com/api/api2");
+        return Url.parseAbsolute("https://example.com/api/api2");
     }
 
     private Fraction fractioner(final BigDecimal value) {
