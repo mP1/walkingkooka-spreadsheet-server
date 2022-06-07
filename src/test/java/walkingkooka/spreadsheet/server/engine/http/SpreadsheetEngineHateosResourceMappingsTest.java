@@ -82,7 +82,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassTesting2<SpreadsheetEngineHateosResourceMappings> {
 
-    private final static AbsoluteUrl URL = Url.parseAbsolute("http://example.com/");
+    private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
     private final static Indentation INDENTATION = Indentation.with("  ");
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
