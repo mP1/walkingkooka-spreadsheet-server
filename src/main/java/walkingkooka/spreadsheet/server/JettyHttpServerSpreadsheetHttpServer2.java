@@ -21,7 +21,7 @@ package walkingkooka.spreadsheet.server;
  * Runs {@link JettyHttpServerSpreadsheetHttpServer2#main} with some defaults.
  */
 public final class JettyHttpServerSpreadsheetHttpServer2 {
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
         JettyHttpServerSpreadsheetHttpServer.main(
                 new String[]{
                         "http",
