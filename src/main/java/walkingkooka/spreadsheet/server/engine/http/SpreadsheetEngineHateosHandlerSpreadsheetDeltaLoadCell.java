@@ -25,6 +25,7 @@ import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -41,7 +42,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCell(SpreadsheetCellReference, SpreadsheetEngineEvaluation, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCell(SpreadsheetCellReference, SpreadsheetEngineEvaluation, Set, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
 
@@ -133,6 +134,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     final static UrlParameterName HEIGHT = UrlParameterName.with("height");
 
+    /**
+     * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
+     */
+    final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
+
     private static double firstDoubleParameterValue(final UrlParameterName parameter,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
         return firstParameterValueAndConvert(
@@ -183,15 +189,20 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 this.prepareResponse(
                         resource,
                         parameters,
-                        this.loadCell(cell)
+                        this.loadCell(
+                                cell,
+                                deltaProperties(parameters)
+                        )
                 )
         );
     }
 
-    SpreadsheetDelta loadCell(final SpreadsheetCellReference reference) {
+    private SpreadsheetDelta loadCell(final SpreadsheetCellReference reference,
+                                      final Set<SpreadsheetDeltaProperties> deltaProperties) {
         return this.engine.loadCell(
                 reference,
                 this.evaluation,
+                deltaProperties,
                 this.context
         );
     }
@@ -220,12 +231,28 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 this.prepareResponse(
                         resource,
                         parameters,
-                        this.engine.loadCells(
+                        this.loadCells(
                                 window,
-                                this.evaluation,
-                                this.context
+                                deltaProperties(parameters)
                         )
                 )
+        );
+    }
+
+    private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> cells,
+                                       final Set<SpreadsheetDeltaProperties> deltaProperties) {
+        return this.engine.loadCells(
+                cells,
+                this.evaluation,
+                deltaProperties,
+                this.context
+        );
+    }
+
+    private static Set<SpreadsheetDeltaProperties> deltaProperties(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return SpreadsheetDeltaProperties.csv(
+                DELTA_PROPERTIES.firstParameterValue(parameters)
+                        .orElse(null)
         );
     }
 

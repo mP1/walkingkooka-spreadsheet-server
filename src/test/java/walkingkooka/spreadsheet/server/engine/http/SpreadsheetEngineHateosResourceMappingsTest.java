@@ -48,6 +48,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -555,6 +556,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             @Override
             public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                               final SpreadsheetEngineEvaluation evaluation,
+                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
             }

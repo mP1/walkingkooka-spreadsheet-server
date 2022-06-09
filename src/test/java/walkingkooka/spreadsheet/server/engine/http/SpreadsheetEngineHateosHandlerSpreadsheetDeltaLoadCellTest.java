@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -87,11 +88,35 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testLoadCell2() {
+    public void testLoadCellWithDeltaPropertiesCells() {
+        this.loadCellAndCheck(
+                "cells",
+                null // window
+        );
+    }
+
+    @Test
+    public void testLoadCellWithDeltaPropertiesCellsAndLabels() {
+        this.loadCellAndCheck(
+                "cells,labels",
+                null // window
+        );
+    }
+
+    private void loadCellAndCheck(final String deltaProperties,
+                                  final String window) {
         final SpreadsheetCellReference id = this.id();
 
         final double width = 50;
         final double height = 20;
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        if (null != deltaProperties) {
+            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES, Lists.of(deltaProperties));
+        }
+        if (null != window) {
+            parameters.put(SpreadsheetEngineHttps.WINDOW, Lists.of(window));
+        }
 
         this.handleOneAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -100,20 +125,26 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                             final Set<SpreadsheetDeltaProperties> dp,
                                                              final SpreadsheetEngineContext context) {
                                 assertSame(EVALUATION, evaluation, "evaluation");
+                                checkEquals(
+                                        SpreadsheetDeltaProperties.csv(deltaProperties),
+                                        dp,
+                                        "deltaProperties"
+                                );
                                 assertNotNull(context, "context");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(cells())
-                                .setLabels(labels());
-                    }
+                                        .setLabels(labels());
+                            }
 
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return width;
-                    }
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return width;
+                            }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
@@ -124,7 +155,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         this.engineContext()),
                 id,
                 Optional.empty(),
-                this.parameters(),
+                parameters,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cells())
@@ -160,6 +191,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     @Override
                     public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
                         assertNotNull(context, "context");
@@ -215,8 +247,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                     @Override
                     public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
                         assertSame(EVALUATION, evaluation, "evaluation");
+                        checkEquals(SpreadsheetDeltaProperties.ALL, deltaProperties, "deltaProperties");
                         assertNotNull(context, "context");
 
                         return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
@@ -372,6 +406,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 null,
                 null,
                 null,
+                null,
                 null
         );
     }
@@ -382,6 +417,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "cell",
                 "A9",
                 null,
+                null, // deltaProperties
                 SpreadsheetSelection.parseCell("A9")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
@@ -393,6 +429,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "cell-range",
                 "A9:A99",
                 SpreadsheetViewportSelectionAnchor.TOP_LEFT.kebabText(),
+                null, // deltaProperties
                 SpreadsheetSelection.parseCellRange("A9:A99")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
         );
@@ -403,7 +440,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "column",
                 "B",
-                null,
+                null, // anchor
+                null, // deltaProperties
                 SpreadsheetSelection.parseColumn("B")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
@@ -415,6 +453,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "column-range",
                 "B:D",
                 SpreadsheetViewportSelectionAnchor.LEFT.kebabText(),
+                null, // deltaProperties
                 SpreadsheetSelection.parseColumnRange("B:D")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.LEFT)
         );
@@ -425,7 +464,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFilteredAndCheck(
                 "row",
                 "99",
-                null,
+                null, // anchor
+                null, // deltaProperties
                 SpreadsheetSelection.parseRow("99")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
@@ -437,14 +477,38 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 "row-range",
                 "98:99",
                 SpreadsheetViewportSelectionAnchor.TOP.kebabText(),
+                null, // deltaProperties
                 SpreadsheetSelection.parseRowRange("98:99")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP)
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredCells() {
+        this.handleAllFilteredAndCheck(
+                null,
+                null,
+                null,
+                "cells",
+                null
+        );
+    }
+
+    @Test
+    public void testHandleAllFilteredCellsAndLabels() {
+        this.handleAllFilteredAndCheck(
+                null,
+                null,
+                null,
+                "cells,labels",
+                null
         );
     }
 
     private void handleAllFilteredAndCheck(final String selectionType,
                                            final String selectionText,
                                            final String anchor,
+                                           final String deltaProperties,
                                            final SpreadsheetViewportSelection viewportSelection) {
         // B1, B2, B3
         // C1, C2, C3
@@ -474,6 +538,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         }
 
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES,
+                Lists.of(deltaProperties)
+        );
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -483,9 +551,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
+                                                              final Set<SpreadsheetDeltaProperties> dp,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
                                 checkEquals(EVALUATION, evaluation, "evaluation");
+                                checkEquals(
+                                        SpreadsheetDeltaProperties.csv(deltaProperties),
+                                        dp,
+                                        "deltaProperties"
+                                );
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
@@ -612,6 +686,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
+                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(EVALUATION, evaluation, "evaluation");
 
@@ -773,9 +848,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
             @Override
             public SpreadsheetDelta loadCell(final SpreadsheetCellReference id,
                                              final SpreadsheetEngineEvaluation evaluation,
+                                             final Set<SpreadsheetDeltaProperties> deltaProperties,
                                              final SpreadsheetEngineContext context) {
                 Objects.requireNonNull(id, "id");
                 Objects.requireNonNull(evaluation, "evaluation");
+                Objects.requireNonNull(deltaProperties, "deltaProperties");
                 Objects.requireNonNull(context, "context");
 
                 checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");

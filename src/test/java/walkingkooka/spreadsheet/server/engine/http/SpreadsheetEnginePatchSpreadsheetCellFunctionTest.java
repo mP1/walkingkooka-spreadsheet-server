@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -40,6 +41,7 @@ import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -97,6 +99,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                             @Override
                             public SpreadsheetDelta loadCell(final SpreadsheetCellReference cellReference,
                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                             final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                              final SpreadsheetEngineContext context) {
                                 checkEquals(REFERENCE, cellReference, "reference");
                                 assertSame(CONTEXT, context, "context");
