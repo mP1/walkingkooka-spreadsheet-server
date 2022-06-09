@@ -17,8 +17,10 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -27,6 +29,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.Set;
 import java.util.function.UnaryOperator;
 
 /**
@@ -61,9 +64,15 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
         return this.engine.loadCell(
                 reference,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+                CELL_AND_LABELS,
                 this.context
         );
     }
+
+    private final static Set<SpreadsheetDeltaProperties> CELL_AND_LABELS = Sets.of(
+            SpreadsheetDeltaProperties.CELLS,
+            SpreadsheetDeltaProperties.LABELS
+    );
 
     @Override
     JsonNode preparePatch(final JsonNode delta) {

@@ -292,7 +292,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         };
     }
 
-    private final static String URL = "http://example.com/api";
+    private final static String URL = "https://example.com/api";
 
     private AbsoluteUrl base() {
         return AbsoluteUrl.parseAbsolute(URL);

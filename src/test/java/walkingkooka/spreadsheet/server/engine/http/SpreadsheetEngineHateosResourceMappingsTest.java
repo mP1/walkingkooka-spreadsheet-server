@@ -48,6 +48,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewport;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -82,7 +83,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassTesting2<SpreadsheetEngineHateosResourceMappings> {
 
-    private final static AbsoluteUrl URL = Url.parseAbsolute("http://example.com/");
+    private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
     private final static Indentation INDENTATION = Indentation.with("  ");
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
@@ -555,6 +556,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             @Override
             public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                               final SpreadsheetEngineEvaluation evaluation,
+                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
             }

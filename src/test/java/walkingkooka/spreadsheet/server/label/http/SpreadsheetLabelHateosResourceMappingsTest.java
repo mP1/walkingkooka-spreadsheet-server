@@ -61,7 +61,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTesting2<SpreadsheetLabelHateosResourceMappings> {
 
-    private final static AbsoluteUrl URL = Url.parseAbsolute("http://example.com/");
+    private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("label123");
