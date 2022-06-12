@@ -18,17 +18,12 @@
 package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.Map;
 import java.util.Objects;
@@ -72,60 +67,22 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     abstract String operation();
 
     /**
-     * Applies the windo if any was present on the input {@link SpreadsheetDelta} and also adds the {@link SpreadsheetDelta#columnWidths()} and
-     * {@link SpreadsheetDelta#rowHeights()}
+     * Applies the window if any was present on the input {@link SpreadsheetDelta}
      */
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetDelta out) {
-        return this.setColumnWidthsRowHeights(
-                out.setWindow(
-                        SpreadsheetEngineHttps.window(
-                                in,
-                                parameters
-                        )
+        return out.setWindow(
+                SpreadsheetEngineHttps.window(
+                        in,
+                        parameters
                 )
+
         ).setSelection(
                 this.viewportSelection(
                         in,
                         parameters
                 )
         );
-    }
-
-    /**
-     * Computes the widths and heights for all the columns and rows covered by the cells.
-     */
-    private SpreadsheetDelta setColumnWidthsRowHeights(final SpreadsheetDelta delta) {
-
-        final SpreadsheetEngine engine = this.engine;
-
-        final Map<SpreadsheetColumnReference, Double> columns = Maps.sorted();
-        final Map<SpreadsheetRowReference, Double> rows = Maps.sorted();
-
-        for (final SpreadsheetCell cell : delta.cells()) {
-            final SpreadsheetCellReference reference = cell.reference();
-
-            final SpreadsheetColumnReference column = reference.column()
-                    .setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if (false == columns.containsKey(column)) {
-                final double width = engine.columnWidth(column, this.context);
-                if (width > 0) {
-                    columns.put(column, width);
-                }
-            }
-
-            final SpreadsheetRowReference row = reference.row()
-                    .setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-            if (false == rows.containsKey(row)) {
-                final double height = engine.rowHeight(row, context);
-                if (height > 0) {
-                    rows.put(row, height);
-                }
-            }
-        }
-
-        return delta.setColumnWidths(columns)
-                .setRowHeights(rows);
     }
 }

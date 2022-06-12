@@ -32,9 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.text.TextNode;
 
@@ -111,18 +109,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                 checkEquals(toSpreadsheetCellRange(), t, "to");
                                 return deltaWithCell();
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
                         },
                         this.engineContext()),
                 this.range(),
@@ -130,15 +116,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                 parameters,
                 Optional.of(
                         this.deltaWithCell()
-                                .setColumnWidths(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseColumn("A"), COLUMN_WIDTH.pixelValue()
-                                        )
-                                ).setRowHeights(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseRow("99"), ROW_HEIGHT.pixelValue()
-                                        )
-                                )
                 )
         );
     }
@@ -184,18 +161,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                                 )
                                         );
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
                         },
                         this.engineContext()
                 ),
@@ -205,15 +170,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
-                                .setColumnWidths(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseColumn("A"), COLUMN_WIDTH.pixelValue()
-                                        )
-                                ).setRowHeights(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseRow("99"), ROW_HEIGHT.pixelValue()
-                                        )
-                                )
                                 .setWindow(window)
                 )
         );

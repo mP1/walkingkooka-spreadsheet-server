@@ -81,31 +81,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                                 return saved();
                             }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference c,
-                                              final SpreadsheetEngineContext context) {
-                        checkEquals(column, c);
-                        return COLUMN_WIDTH.pixelValue();
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference r,
-                                            final SpreadsheetEngineContext context) {
-                        checkEquals(row, r);
-                        return ROW_HEIGHT.pixelValue();
-                    }
-                }),
+                        }),
                 this.id(),
                 this.resource(),
                 this.parameters(),
-                Optional.of(this.saved()
-                        .setColumnWidths(
-                                Maps.of(column, COLUMN_WIDTH.pixelValue())
-                        )
-                        .setRowHeights(
-                                Maps.of(row, ROW_HEIGHT.pixelValue())
-                        )
+                Optional.of(
+                        this.saved()
                 )
         );
     }
@@ -154,20 +135,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                 .setWindow(window);
                     }
 
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        checkEquals(this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), column);
-                        return WIDTH;
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        checkEquals(this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE), row);
-                        return HEIGHT;
-                    }
-
                     private SpreadsheetCell cell() {
                         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell();
                     }
@@ -183,8 +150,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
-                                .setColumnWidths(Maps.of(SpreadsheetColumnReference.parseColumn("A"), WIDTH))
-                                .setRowHeights(Maps.of(SpreadsheetRowReference.parseRow("99"), HEIGHT))
                                 .setWindow(window)
                 )
         );
@@ -219,18 +184,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                                 return result;
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return WIDTH;
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return HEIGHT;
-                            }
                         }),
                 range.range(),
                 Optional.of(
@@ -239,18 +192,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 ),
                 this.parameters(),
                 Optional.of(
-                        result.setColumnWidths(
-                                Maps.of(
-                                        SpreadsheetSelection.parseColumn("B"), WIDTH,
-                                        SpreadsheetSelection.parseColumn("C"), WIDTH
-                                )
-                        ).setRowHeights(
-                                Maps.of(
-                                        SpreadsheetSelection.parseRow("2"), HEIGHT,
-                                        SpreadsheetSelection.parseRow("3"), HEIGHT,
-                                        SpreadsheetSelection.parseRow("4"), HEIGHT
-                                )
-                        )
+                        result
                 )
         );
     }
@@ -286,18 +228,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                                                 Sets.of(saved1, saved2, saved3)
                                         );
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return WIDTH;
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return HEIGHT;
-                            }
                         }),
                 range.range(),
                 Optional.of(
@@ -310,17 +240,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(saved1, saved2)
-                                ).setColumnWidths(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseColumn("B"), WIDTH
-                                        )
-                                ).setRowHeights(
-                                        Maps.of(
-                                                SpreadsheetSelection.parseRow("2"), HEIGHT,
-                                                SpreadsheetSelection.parseRow("3"), HEIGHT
-                                        )
-                                )
-                                .setWindow(window)
+                                ).setWindow(window)
                 )
         );
     }

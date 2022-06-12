@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 
 import java.util.Optional;
@@ -59,36 +58,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                                 checkEquals(1, count, "count");
                                 return SpreadsheetDelta.EMPTY.setCells(cells);
                             }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return COLUMN_WIDTH.pixelValue();
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        checkEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
-                        return ROW_HEIGHT.pixelValue();
-                    }
-                }),
+                        }),
                 row,
                 resource,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(cells)
-                                .setColumnWidths(
-                                        Maps.of(
-                                                SpreadsheetColumnReference.parseColumn("A"), COLUMN_WIDTH.pixelValue()
-                                        )
-                                )
-                                .setRowHeights(
-                                        Maps.of(
-                                                SpreadsheetRowReference.parseRow("99"), ROW_HEIGHT.pixelValue()
-                                        )
-                                )
                 )
         );
     }
@@ -113,19 +89,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                         checkEquals(SpreadsheetColumnOrRowReference.parseRow("2"), r, "row");
                         checkEquals(3, count, "count"); // 2, 3 & 4
                         return delta;
-                    }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        checkEquals(SpreadsheetRowReference.parseRow("99"), row, "row");
-                        return 0;
                     }
                 }),
                 range, // 3 inclusive
@@ -152,20 +115,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteRowsTest 
                                                                final SpreadsheetEngineContext context) {
                                 checkEquals(row, c, "row");
                                 checkEquals(1, count, "count");
-                                return SpreadsheetDelta.EMPTY.setCells(cells);
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return 0;
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference r,
-                                                    final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetRowReference.parseRow("99"), r);
-                                return 0;
+                                return SpreadsheetDelta.EMPTY.setCells(cells)
+                                        .setWindow(window);
                             }
                         }),
                 row,

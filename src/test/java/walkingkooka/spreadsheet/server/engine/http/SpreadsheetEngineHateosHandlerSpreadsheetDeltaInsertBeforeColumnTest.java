@@ -83,9 +83,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                 )
         );
 
-        final double width = COLUMN_WIDTH.pixelValue();
-        final double height = ROW_HEIGHT.pixelValue();
-
         final int count = 2;
 
         final SpreadsheetCellReference d3 = c3.addColumn(count);
@@ -107,12 +104,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         )
                                 ).setDeletedCells(
                                         Sets.of(c3, d4)
-                                )
-                                .setColumnWidths(
-                                        Maps.of(a1.column(), width, b2.column(), width, d3.column(), width, e4.column(), width)
-                                )
-                                .setRowHeights(
-                                        Maps.of(a1.row(), height, b2.row(), height, d3.row(), height, e4.row(), height)
+                                ).setColumnWidths(
+                                        columnWidths("A,B,C,D,E,F")
+                                ).setRowHeights(
+                                        rowHeights("1,2,3,4")
                                 )
                 )
         );
@@ -168,9 +163,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                 )
         );
 
-        final double width = COLUMN_WIDTH.pixelValue();
-        final double height = ROW_HEIGHT.pixelValue();
-
         final int count = 2;
 
         final SpreadsheetCellReference d3 = c3.addColumn(count);
@@ -192,12 +184,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         )
                                 ).setDeletedCells(
                                         Sets.of(c3, d4)
-                                )
-                                .setColumnWidths(
-                                        Maps.of(a1.column(), width, b2.column(), width, d3.column(), width, e4.column(), width)
-                                )
-                                .setRowHeights(
-                                        Maps.of(a1.row(), height, b2.row(), height, d3.row(), height, e4.row(), height)
+                                ).setColumnWidths(
+                                        columnWidths("A,B,C,D,E,F")
+                                ).setRowHeights(
+                                        rowHeights("1,2,3,4")
                                 )
                 )
         );

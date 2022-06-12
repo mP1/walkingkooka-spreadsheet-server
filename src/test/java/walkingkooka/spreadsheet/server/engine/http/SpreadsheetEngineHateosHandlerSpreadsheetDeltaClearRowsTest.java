@@ -83,10 +83,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
                 RESOURCE,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(a1, row1ColMax)
-                                )
+                        SpreadsheetDelta.EMPTY.setDeletedCells(
+                                Sets.of(a1, row1ColMax)
+                        ).setColumnWidths(
+                                columnWidths("A,XFD")
+                        ).setRowHeights(
+                                rowHeights("1")
+                        )
                 )
         );
 
@@ -139,10 +142,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
                 RESOURCE,
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(b2, c3)
-                                )
+                        SpreadsheetDelta.EMPTY.setDeletedCells(
+                                Sets.of(b2, c3)
+                        ).setColumnWidths(
+                                columnWidths("B,C")
+                        ).setRowHeights(
+                                rowHeights("2,3")
+                        )
                 )
         );
 
