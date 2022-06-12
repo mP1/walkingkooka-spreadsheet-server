@@ -139,18 +139,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                         .setCells(cells())
                                         .setLabels(labels());
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
-                                                      final SpreadsheetEngineContext context) {
-                                return width;
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return height;
-                            }
                         },
                         this.engineContext()),
                 id,
@@ -160,17 +148,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cells())
                                 .setLabels(this.labels())
-                                .setColumnWidths(
-                                        Maps.of(
-                                                SpreadsheetColumnReference.parseColumn("A"), width,
-                                                SpreadsheetColumnReference.parseColumn("Z"), width
-                                        )
-                                )
-                                .setRowHeights(
-                                        Maps.of(
-                                                SpreadsheetRowReference.parseRow("99"), height
-                                        )
-                                )
                 )
         );
     }
@@ -253,7 +230,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         checkEquals(SpreadsheetDeltaProperties.ALL, deltaProperties, "deltaProperties");
                         assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
+                        return SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(b1, b2, b3));
                     }
 
                     @Override
@@ -287,8 +265,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 ),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(b1))
-                                .setWindow(
+                                .setCells(
+                                        Sets.of(b1, b2)
+                                ).setWindow(
                                         Sets.of(window)
                                 )
                 )

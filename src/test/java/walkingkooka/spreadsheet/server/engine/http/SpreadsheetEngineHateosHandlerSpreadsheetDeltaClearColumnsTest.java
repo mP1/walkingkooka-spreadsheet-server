@@ -85,6 +85,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
                         SpreadsheetDelta.EMPTY
                                 .setDeletedCells(
                                         Sets.of(a1, a1048576)
+                                ).setColumnWidths(
+                                        columnWidths("A")
+                                ).setRowHeights(
+                                        rowHeights("1,1048576")
                                 )
                 )
         );
@@ -139,6 +143,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
                         SpreadsheetDelta.EMPTY
                                 .setDeletedCells(
                                         Sets.of(b2, c3)
+                                ).setColumnWidths(
+                                        columnWidths("B,C")
+                                ).setRowHeights(
+                                        rowHeights("2,3")
                                 )
                 )
         );

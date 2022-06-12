@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -29,7 +28,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
@@ -64,18 +62,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
 
                                 return returned;
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference c,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference r,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
                         },
                         this.engineContext()
                 ),
@@ -83,16 +69,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                 this.resource(),
                 this.parameters(),
                 Optional.of(
-                        returned.setColumnWidths(
-                                        Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
-                                        )
-                                )
-                                .setRowHeights(
-                                        Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
-                                        )
-                                )
+                        returned
                 )
         );
     }
@@ -124,18 +101,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
 
                                 return returned;
                             }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference c,
-                                                      final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH.pixelValue();
-                            }
-
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference r,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT.pixelValue();
-                            }
                         },
                         this.engineContext()
                 ),
@@ -143,16 +108,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterColu
                 this.resource(),
                 this.parameters(),
                 Optional.of(
-                        returned.setColumnWidths(
-                                        Maps.of(
-                                                cell.reference().column(), COLUMN_WIDTH.pixelValue()
-                                        )
-                                )
-                                .setRowHeights(
-                                        Maps.of(
-                                                cell.reference().row(), ROW_HEIGHT.pixelValue()
-                                        )
-                                )
+                        returned
                 )
         );
     }

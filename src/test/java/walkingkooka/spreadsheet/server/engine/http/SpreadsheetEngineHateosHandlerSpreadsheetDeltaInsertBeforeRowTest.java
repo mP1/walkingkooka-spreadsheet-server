@@ -83,9 +83,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                 )
         );
 
-        final double width = COLUMN_WIDTH.pixelValue();
-        final double height = ROW_HEIGHT.pixelValue();
-
         final int count = 2;
 
         final SpreadsheetCellReference c5 = c3.addRow(count);
@@ -109,10 +106,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                                         Sets.of(c3, d4)
                                 )
                                 .setColumnWidths(
-                                        Maps.of(a1.column(), width, b2.column(), width, c5.column(), width, d6.column(), width)
+                                        columnWidths("a,b,c,d")
                                 )
                                 .setRowHeights(
-                                        Maps.of(a1.row(), height, b2.row(), height, c5.row(), height, d6.row(), height)
+                                        rowHeights("1,2,3,4,5,6")
                                 )
                 )
         );
@@ -168,8 +165,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                 )
         );
 
-        final double width = COLUMN_WIDTH.pixelValue();
-        final double height = ROW_HEIGHT.pixelValue();
 
         final int count = 2;
 
@@ -194,10 +189,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                                         Sets.of(c3, d4)
                                 )
                                 .setColumnWidths(
-                                        Maps.of(a1.column(), width, b2.column(), width, c5.column(), width, d6.column(), width)
+                                        columnWidths("a,b,c,d")
                                 )
                                 .setRowHeights(
-                                        Maps.of(a1.row(), height, b2.row(), height, c5.row(), height, d6.row(), height)
+                                        rowHeights("1,2,3,4,5,6")
                                 )
                 )
         );

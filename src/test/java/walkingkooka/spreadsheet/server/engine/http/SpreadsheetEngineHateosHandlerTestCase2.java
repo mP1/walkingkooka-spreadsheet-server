@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine.http;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
@@ -34,7 +35,10 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetExpressionReferenceStore;
@@ -57,8 +61,10 @@ import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -92,7 +98,35 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
 
     final static Length<?> COLUMN_WIDTH = Length.parsePixels("100px");
 
+    static Map<SpreadsheetColumnReference, Double> columnWidths(final String columns) {
+        final Map<SpreadsheetColumnReference, Double> map = Maps.sorted();
+
+        Arrays.stream(columns.split(","))
+                .forEach(c ->
+                        map.put(
+                                SpreadsheetSelection.parseColumn(c),
+                                COLUMN_WIDTH.pixelValue()
+                        )
+                );
+
+        return map;
+    }
+
     final static Length<?> ROW_HEIGHT = Length.parsePixels("30px");
+
+    static Map<SpreadsheetRowReference, Double> rowHeights(final String rows) {
+        final Map<SpreadsheetRowReference, Double> map = Maps.sorted();
+
+        Arrays.stream(rows.split(","))
+                .forEach(r ->
+                        map.put(
+                                SpreadsheetSelection.parseRow(r),
+                                ROW_HEIGHT.pixelValue()
+                        )
+                );
+
+        return map;
+    }
 
     /**
      * Creates a {@link SpreadsheetMetadata} with id=1 and all the necessary required properties
