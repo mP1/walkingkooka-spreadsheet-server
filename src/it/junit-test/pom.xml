@@ -130,8 +130,6 @@
                                 <param>org.junit.jupiter:junit-jupiter-engine:*</param>
                                 <param>org.junit.platform:junit-platform-commons:*</param>
                                 <param>org.junit.jupiter:junit-jupiter-api:*</param>
-                                <param>walkingkooka:walkingkooka-net-header-apache-tika:*</param>
-                                <param>walkingkooka:walkingkooka-net-http-server-jetty:*</param>
                             </ignored-dependencies>
                             <javascript-source-required/>
 
