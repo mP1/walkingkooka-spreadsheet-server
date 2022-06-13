@@ -107,9 +107,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                   final String window) {
         final SpreadsheetCellReference id = this.id();
 
-        final double width = 50;
-        final double height = 20;
-
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         if (null != deltaProperties) {
             parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES, Lists.of(deltaProperties));
