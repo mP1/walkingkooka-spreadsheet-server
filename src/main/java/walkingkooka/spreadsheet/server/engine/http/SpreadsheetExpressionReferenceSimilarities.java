@@ -69,7 +69,8 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
 
         if (label.isPresent()) {
             final SpreadsheetLabelName label2 = label.get();
-            if (labelMappings.stream().filter(m -> m.label().equals(label2)).findFirst().isPresent()) {
+            if (labelMappings.stream()
+                    .anyMatch(m -> m.label().equals(label2))) {
                 throw new IllegalArgumentException("Label " + label2 + " present within mappings: " + labelMappings);
             }
         }
