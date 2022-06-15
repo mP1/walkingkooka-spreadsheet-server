@@ -41,9 +41,10 @@ public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements Funct
 
     @Test
     public void testWithNullLabelToCellFails() {
-        assertThrows(NullPointerException.class, () -> {
-            ParseCellOrLabelAndResolveLabelsFunction.with(null);
-        });
+        assertThrows(
+                NullPointerException.class, () ->
+                        ParseCellOrLabelAndResolveLabelsFunction.with(null)
+        );
     }
 
     @Test

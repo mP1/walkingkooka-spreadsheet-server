@@ -245,18 +245,20 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
                            final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
-        assertThrows(NullPointerException.class, () -> {
-            SpreadsheetEngineHateosResourceMappings.cell(
-                    clearCells,
-                    fillCells,
-                    loadCellClearValueErrorSkipEvaluate,
-                    loadCellSkipEvaluate,
-                    loadCellForceRecompute,
-                    loadCellComputeIfNecessary,
-                    saveCell,
-                    deleteCell,
-                    labelToCellReference);
-        });
+        assertThrows(
+                NullPointerException.class,
+                () ->
+                        SpreadsheetEngineHateosResourceMappings.cell(
+                                clearCells,
+                                fillCells,
+                                loadCellClearValueErrorSkipEvaluate,
+                                loadCellSkipEvaluate,
+                                loadCellForceRecompute,
+                                loadCellComputeIfNecessary,
+                                saveCell,
+                                deleteCell,
+                                labelToCellReference)
+        );
     }
 
     @Test
