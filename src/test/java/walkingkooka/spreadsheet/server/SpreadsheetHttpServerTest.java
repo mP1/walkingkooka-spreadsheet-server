@@ -7225,8 +7225,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.url()
                         .query()
                         .parameters()
-                        .entrySet()
-                        .forEach(e -> parameters.put(HttpRequestParameterName.with(e.getKey().value()), e.getValue()));
+                        .forEach((key, value) -> parameters.put(HttpRequestParameterName.with(key.value()), value));
 
                 return Maps.immutable(parameters);
             }
