@@ -54,7 +54,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
         if (path.isPresent()) {
             this.handle0();
         } else {
-            this.notFound();
+            this.notFound().accept(request, response);
         }
     }
 
@@ -112,7 +112,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
     }
 
     private BiConsumer<HttpRequest, HttpResponse> notFound() {
-        return (request, response) -> SpreadsheetHttpServer.notFound(this.request, this.response);
+        return (request, response) -> SpreadsheetHttpServer.notFound(request, response);
     }
 
     private final HttpRequest request;
