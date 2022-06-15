@@ -66,26 +66,25 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
 
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
-                            new FakeHttpRequest() {
-                                @Override
-                                public RelativeUrl url() {
-                                    return Url.parseRelative("/column/" + RANGE + "?window=" + WINDOW);
-                                }
-                            },
-                            new FakeSpreadsheetEngine() {
-                                @Override
-                                public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference column,
-                                                                   final SpreadsheetEngineContext context) {
-                                    return SpreadsheetDelta.EMPTY;
-                                }
+                () -> SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
+                        new FakeHttpRequest() {
+                            @Override
+                            public RelativeUrl url() {
+                                return Url.parseRelative("/column/" + RANGE + "?window=" + WINDOW);
+                            }
+                        },
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference column,
+                                                               final SpreadsheetEngineContext context) {
+                                return SpreadsheetDelta.EMPTY;
+                            }
 
 
-                            },
-                            CONTEXT
-                    ).apply(patch);
-                });
+                        },
+                        CONTEXT
+                ).apply(patch)
+        );
         this.checkEquals(
                 "Patch columns: C:D includes invalid column Z",
                 thrown.getMessage(),

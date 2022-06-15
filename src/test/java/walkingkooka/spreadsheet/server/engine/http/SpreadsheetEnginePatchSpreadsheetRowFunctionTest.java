@@ -66,26 +66,25 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
 
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    SpreadsheetEnginePatchSpreadsheetRowFunction.with(
-                            new FakeHttpRequest() {
-                                @Override
-                                public RelativeUrl url() {
-                                    return Url.parseRelative("/row/" + RANGE + "?window=" + WINDOW);
-                                }
-                            },
-                            new FakeSpreadsheetEngine() {
-                                @Override
-                                public SpreadsheetDelta loadRow(final SpreadsheetRowReference row,
-                                                                final SpreadsheetEngineContext context) {
-                                    return SpreadsheetDelta.EMPTY;
-                                }
+                () -> SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+                        new FakeHttpRequest() {
+                            @Override
+                            public RelativeUrl url() {
+                                return Url.parseRelative("/row/" + RANGE + "?window=" + WINDOW);
+                            }
+                        },
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta loadRow(final SpreadsheetRowReference row,
+                                                            final SpreadsheetEngineContext context) {
+                                return SpreadsheetDelta.EMPTY;
+                            }
 
 
-                            },
-                            CONTEXT
-                    ).apply(patch);
-                });
+                        },
+                        CONTEXT
+                ).apply(patch)
+        );
         this.checkEquals(
                 "Patch rows: 3:4 includes invalid row 999",
                 thrown.getMessage(),

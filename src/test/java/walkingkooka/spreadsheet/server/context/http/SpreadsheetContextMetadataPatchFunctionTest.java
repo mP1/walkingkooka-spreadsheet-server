@@ -88,16 +88,15 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
 
         final LoadStoreException thrown = assertThrows(
                 LoadStoreException.class,
-                () -> {
-                    SpreadsheetContextMetadataPatchFunction.with(ID, context)
-                            .apply(
-                                    JsonNode.object()
-                                            .set(
-                                                    JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                                                    JsonNode.string("NSWD")
-                                            )
-                            );
-                }
+                () -> SpreadsheetContextMetadataPatchFunction.with(ID, context)
+                        .apply(
+                                JsonNode.object()
+                                        .set(
+                                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                                                JsonNode.string("NSWD")
+                                        )
+                        )
+
         );
         this.checkEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
     }
