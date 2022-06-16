@@ -44,8 +44,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
     public void testInsertBeforeColumn() {
         final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata,
-                NOW
+                metadata
         );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
@@ -124,8 +123,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
     public void testInsertBeforeColumnRange() {
         final SpreadsheetMetadata metadata = this.metadata();
         final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata,
-                NOW
+                metadata
         );
         final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
