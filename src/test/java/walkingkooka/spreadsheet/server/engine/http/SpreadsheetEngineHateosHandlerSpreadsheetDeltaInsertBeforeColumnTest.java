@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -42,11 +41,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
 
     @Test
     public void testInsertBeforeColumn() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn.with(
                 engine,
@@ -121,11 +119,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
 
     @Test
     public void testInsertBeforeColumnRange() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn.with(
                 engine,
