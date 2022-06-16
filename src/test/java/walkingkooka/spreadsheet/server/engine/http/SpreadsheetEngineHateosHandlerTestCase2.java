@@ -128,34 +128,6 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
         return map;
     }
 
-    /**
-     * Creates a {@link SpreadsheetMetadata} with id=1 and all the necessary required properties
-     */
-    final SpreadsheetMetadata metadata() {
-        return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .loadFromLocale()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
-                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
-                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
-                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"))
-                .set(
-                        SpreadsheetMetadataPropertyName.STYLE,
-                        TextStyle.EMPTY
-                                .set(TextStylePropertyName.WIDTH, COLUMN_WIDTH)
-                                .set(TextStylePropertyName.HEIGHT, ROW_HEIGHT)
-                );
-    }
-
     abstract SpreadsheetEngine engine();
 
     abstract SpreadsheetEngineContext engineContext();
@@ -163,10 +135,9 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
     /**
      * Creates a {@link SpreadsheetEngineContext} with the provided engine and metadata with a limited {@link walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository}
      */
-    final SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine,
-                                                 final SpreadsheetMetadata metadata) {
+    final SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine) {
         return SpreadsheetEngineContexts.basic(
-                metadata,
+                this.metadata(),
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -246,6 +217,34 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 Url.parseAbsolute("https://example.com"),
                 LocalDateTime::now
         );
+    }
+
+    /**
+     * Creates a {@link SpreadsheetMetadata} with id=1 and all the necessary required properties
+     */
+    private SpreadsheetMetadata metadata() {
+        return SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+                .loadFromLocale()
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
+                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
+                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
+                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePatterns.parseTextFormatPattern("@"))
+                .set(
+                        SpreadsheetMetadataPropertyName.STYLE,
+                        TextStyle.EMPTY
+                                .set(TextStylePropertyName.WIDTH, COLUMN_WIDTH)
+                                .set(TextStylePropertyName.HEIGHT, ROW_HEIGHT)
+                );
     }
 
     /**

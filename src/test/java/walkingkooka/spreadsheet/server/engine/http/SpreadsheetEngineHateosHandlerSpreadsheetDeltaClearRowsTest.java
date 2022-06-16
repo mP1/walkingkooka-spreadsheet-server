@@ -29,7 +29,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -46,11 +45,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
     @Test
     public void testClearRow() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows.with(
                 engine,
@@ -99,11 +97,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
     @Test
     public void testClearRowRange() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");

@@ -208,17 +208,14 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
-        final SpreadsheetMetadata metadata = this.load(id);
-
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                SpreadsheetEngines.basic(
-                        metadata
-                ),
+                SpreadsheetEngines.basic(),
                 this.spreadsheetMetadataStamper
         );
 
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
+        final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,

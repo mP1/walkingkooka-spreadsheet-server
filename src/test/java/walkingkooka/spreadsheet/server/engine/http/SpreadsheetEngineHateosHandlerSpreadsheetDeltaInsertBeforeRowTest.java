@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -42,11 +41,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
 
     @Test
     public void testInsertBeforeRow() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
                 engine,
@@ -123,11 +121,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
 
     @Test
     public void testInsertBeforeRowRange() {
-        final SpreadsheetMetadata metadata = this.metadata();
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic(
-                metadata
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngineContext context = this.engineContext(
+                engine
         );
-        final SpreadsheetEngineContext context = this.engineContext(engine, metadata);
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(
                 engine,
