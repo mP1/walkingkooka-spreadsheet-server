@@ -212,8 +212,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
                 SpreadsheetEngines.basic(
-                        metadata,
-                        this.now
+                        metadata
                 ),
                 this.spreadsheetMetadataStamper
         );
