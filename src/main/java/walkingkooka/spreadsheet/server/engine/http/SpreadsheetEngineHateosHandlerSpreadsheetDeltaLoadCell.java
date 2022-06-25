@@ -113,9 +113,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     private SpreadsheetCellReference home(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return firstParameterValueAndConvert(
-                HOME,
-                parameters,
-                SpreadsheetCellReference::parseCell
+                HOME.firstParameterValueOrFail(parameters),
+                SpreadsheetCellReference::parseCell,
+                HOME
         );
     }
 
@@ -141,18 +141,29 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     private static double firstDoubleParameterValue(final UrlParameterName parameter,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstParameterValueAndConvert(
-                parameter,
-                parameters,
-                Double::parseDouble
+        final String text = parameter.firstParameterValueOrFail(parameters);
+        final double value = firstParameterValueAndConvert(
+                text,
+                Double::parseDouble,
+                parameter
         );
+        if (value <= 0) {
+            throw new IllegalArgumentException(
+                    "Invalid query parameter " +
+                            parameter +
+                            "=" +
+                            CharSequences.quoteIfChars(text) +
+                            " <= 0"
+            );
+        }
+        return value;
     }
 
     private boolean includeFrozenColumnsRows(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return firstParameterValueAndConvert(
-                INCLUDE_FROZEN_COLUMNS_ROWS,
-                parameters,
-                Boolean::parseBoolean
+                INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValueOrFail(parameters),
+                Boolean::parseBoolean,
+                INCLUDE_FROZEN_COLUMNS_ROWS
         );
     }
 
@@ -164,10 +175,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 .map(s -> s.focused(SpreadsheetEngineHttps.anchor(parameters).orElse(s.defaultAnchor())));
     }
 
-    private static <T> T firstParameterValueAndConvert(final UrlParameterName parameter,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                       final Function<String, T> converter) {
-        final String value = parameter.firstParameterValueOrFail(parameters);
+    private static <T> T firstParameterValueAndConvert(final String value,
+                                                       final Function<String, T> converter,
+                                                       final UrlParameterName parameter) {
         try {
             return converter.apply(value);
         } catch (final Exception convertFailed) {
