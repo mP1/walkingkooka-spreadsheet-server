@@ -300,11 +300,33 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllMissingHeightParameterFails() {
+    public void testHandleAllInvalidWidthParameterFails2() {
         this.handleAllFails2(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0")
+                ),
+                "Invalid query parameter width=\"0\" <= 0"
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidWidthParameterFails3() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("-1")
+                ),
+                "Invalid query parameter width=\"-1\" <= 0"
+        );
+    }
+
+    @Test
+    public void testHandleAllMissingHeightParameterFails() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123")
                 ),
                 "Missing parameter \"height\""
         );
@@ -315,10 +337,34 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFails2(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("*")
                 ),
                 "Invalid query parameter height=\"*\""
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidHeightParameterFails2() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0")
+                ),
+                "Invalid query parameter height=\"0\" <= 0"
+        );
+    }
+
+    @Test
+    public void testHandleAllInvalidHeightParameterFails3() {
+        this.handleAllFails2(
+                Maps.of(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("-1")
+                ),
+                "Invalid query parameter height=\"-1\" <= 0"
         );
     }
 
@@ -327,8 +373,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.handleAllFails2(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0")
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456")
                 ),
                 "Missing parameter \"includeFrozenColumnsRows\""
         );
@@ -339,8 +385,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"));
 
@@ -355,8 +401,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456"));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("unknownn?"));
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of("A1"));
