@@ -172,7 +172,23 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     private Optional<SpreadsheetSelection> focusedSelection(final Optional<SpreadsheetDelta> resource,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.selection(resource, parameters)
-                .map(s -> s.focused(SpreadsheetEngineHttps.anchor(parameters).orElse(s.defaultAnchor())));
+                .map(s -> this.focusedSelection0(
+                        s,
+                        parameters
+                ));
+    }
+
+    /**
+     * Special cases if the {@link SpreadsheetSelection}, because label doesnt actually know the viewport element
+     * being focused.
+     */
+    private SpreadsheetSelection focusedSelection0(final SpreadsheetSelection selection,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final SpreadsheetSelection nonLabel = this.context.resolveIfLabel(selection);
+        return nonLabel.focused(
+                SpreadsheetEngineHttps.anchor(parameters)
+                        .orElse(nonLabel.defaultAnchor())
+        );
     }
 
     private static <T> T firstParameterValueAndConvert(final String value,
