@@ -645,6 +645,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                     }
                                 };
                             }
+
+                            @Override
+                            public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                                return selection;
+                            }
                         }
                 ),
                 Optional.empty(),
