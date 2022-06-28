@@ -3607,7 +3607,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testThenSaveLabel() {
+    public void testSaveCellThenSaveLabel() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
