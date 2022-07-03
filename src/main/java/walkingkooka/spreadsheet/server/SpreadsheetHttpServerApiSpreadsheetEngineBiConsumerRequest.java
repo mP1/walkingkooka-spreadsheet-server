@@ -26,7 +26,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.SpreadsheetId;
 
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 /**
  * Handles dispatching a single request, extracting the spreadsheet id and then invoking the http service.
@@ -54,7 +53,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
         if (path.isPresent()) {
             this.handle0();
         } else {
-            this.notFound().accept(request, response);
+            SpreadsheetHttpServer.notFound(request, response);
         }
     }
 
@@ -92,7 +91,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
     private void handleSpreadsheetId0(final SpreadsheetId id) {
         this.handler.router(id)
                 .route(this.request.routerParameters())
-                .orElse(notFound())
+                .orElse(SpreadsheetHttpServer::notFound)
                 .accept(this.request, this.response);
     }
 
@@ -109,10 +108,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
         final HttpResponse response = this.response;
         response.setStatus(status.setMessage(message));
         response.addEntity(HttpEntity.EMPTY);
-    }
-
-    private BiConsumer<HttpRequest, HttpResponse> notFound() {
-        return (request, response) -> SpreadsheetHttpServer.notFound(request, response);
     }
 
     private final HttpRequest request;
