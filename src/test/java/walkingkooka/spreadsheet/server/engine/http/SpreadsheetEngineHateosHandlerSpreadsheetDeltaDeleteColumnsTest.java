@@ -49,7 +49,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            @SuppressWarnings("OptionalGetWithoutIsPresent")
                             public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
                                                                   final int count,
                                                                   final SpreadsheetEngineContext context) {
@@ -109,7 +108,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            @SuppressWarnings("OptionalGetWithoutIsPresent")
                             public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
                                                                   final int count,
                                                                   final SpreadsheetEngineContext context) {

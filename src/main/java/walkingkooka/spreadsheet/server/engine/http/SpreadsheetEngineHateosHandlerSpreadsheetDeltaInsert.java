@@ -68,7 +68,6 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsert<R extends Sp
     abstract SpreadsheetDelta insert(final R columnOrRow, final int count);
 
     @Override
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
