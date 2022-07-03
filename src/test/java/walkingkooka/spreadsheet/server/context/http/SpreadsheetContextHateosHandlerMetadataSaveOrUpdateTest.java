@@ -111,8 +111,6 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
                 IllegalArgumentException.class);
     }
 
-
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
     public void testHandleIdWithMetadataSaves() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
