@@ -152,7 +152,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     // handleRange.................................................................................................
 
     @Test
-    public void testBatchLoad() {
+    public void testLoadCellRange() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
@@ -205,7 +205,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testBatchLoadWithWindowParameter() {
+    public void testLoadCellRangeWithWindowParameter() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
@@ -274,13 +274,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     // handleAll........................................................................................................
 
     @Test
-    public void testHandleAllMissingHomeParameterFails() {
-        this.handleAllFails2(Maps.empty(), "Missing parameter \"home\"");
+    public void testLoadCellRangeMissingHomeParameterFails() {
+        this.loadCellRangeFails(Maps.empty(), "Missing parameter \"home\"");
     }
 
     @Test
-    public void testHandleAllMissingWidthParameterFails() {
-        this.handleAllFails2(
+    public void testLoadCellRangeMissingWidthParameterFails() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1")
                 ),
@@ -289,8 +289,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidWidthParameterFails() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidWidthParameterFails() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("*")
@@ -300,8 +300,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidWidthParameterFails2() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidWidthParameterFails2() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0")
@@ -311,8 +311,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidWidthParameterFails3() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidWidthParameterFails3() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("-1")
@@ -322,8 +322,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllMissingHeightParameterFails() {
-        this.handleAllFails2(
+    public void testLoadCellRangeMissingHeightParameterFails() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123")
@@ -333,8 +333,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidHeightParameterFails() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidHeightParameterFails() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
@@ -345,8 +345,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidHeightParameterFails2() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidHeightParameterFails2() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
@@ -357,8 +357,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllInvalidHeightParameterFails3() {
-        this.handleAllFails2(
+    public void testLoadCellRangeInvalidHeightParameterFails3() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
@@ -369,8 +369,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllMissingIncludeFrozenColumnsRowsParameterFails() {
-        this.handleAllFails2(
+    public void testLoadCellRangeMissingIncludeFrozenColumnsRowsParameterFails() {
+        this.loadCellRangeFails(
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
@@ -381,7 +381,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllSelectionTypePresentAndMissingSelectionParameterFails() {
+    public void testLoadCellRangeSelectionTypePresentAndMissingSelectionParameterFails() {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
@@ -390,14 +390,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"));
 
-        this.handleAllFails2(
+        this.loadCellRangeFails(
                 parameters,
                 "Missing parameter \"selection\""
         );
     }
 
     @Test
-    public void testHandleAllInvalidSelectionTypeParameterFails() {
+    public void testLoadCellRangeInvalidSelectionTypeParameterFails() {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
@@ -407,13 +407,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("unknownn?"));
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of("A1"));
 
-        this.handleAllFails2(
+        this.loadCellRangeFails(
                 parameters,
                 "Invalid parameter \"selectionType\" value \"A1\""
         );
     }
 
-    private void handleAllFails2(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
+    private void loadCellRangeFails(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
         final IllegalArgumentException thrown = this.handleAllFails(
                 Optional.empty(),
                 parameters,
@@ -423,8 +423,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredNone() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredNone() {
+        this.loadCellRangeFilteredAndCheck(
                 null,
                 null,
                 null,
@@ -434,8 +434,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredCell() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredCell() {
+        this.loadCellRangeFilteredAndCheck(
                 "cell",
                 "A9",
                 null,
@@ -446,8 +446,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredCellRange() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredCellRange() {
+        this.loadCellRangeFilteredAndCheck(
                 "cell-range",
                 "A9:A99",
                 SpreadsheetViewportSelectionAnchor.TOP_LEFT.kebabText(),
@@ -458,8 +458,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredColumn() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredColumn() {
+        this.loadCellRangeFilteredAndCheck(
                 "column",
                 "B",
                 null, // anchor
@@ -470,8 +470,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredColumnRange() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredColumnRange() {
+        this.loadCellRangeFilteredAndCheck(
                 "column-range",
                 "B:D",
                 SpreadsheetViewportSelectionAnchor.LEFT.kebabText(),
@@ -482,8 +482,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredRow() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredRow() {
+        this.loadCellRangeFilteredAndCheck(
                 "row",
                 "99",
                 null, // anchor
@@ -494,8 +494,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredrowRange() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredrowRange() {
+        this.loadCellRangeFilteredAndCheck(
                 "row-range",
                 "98:99",
                 SpreadsheetViewportSelectionAnchor.TOP.kebabText(),
@@ -506,8 +506,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredCells() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredCells() {
+        this.loadCellRangeFilteredAndCheck(
                 null,
                 null,
                 null,
@@ -517,8 +517,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllFilteredCellsAndLabels() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeFilteredCellsAndLabels() {
+        this.loadCellRangeFilteredAndCheck(
                 null,
                 null,
                 null,
@@ -527,11 +527,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         );
     }
 
-    private void handleAllFilteredAndCheck(final String selectionType,
-                                           final String selectionText,
-                                           final String anchor,
-                                           final String deltaProperties,
-                                           final SpreadsheetViewportSelection viewportSelection) {
+    private void loadCellRangeFilteredAndCheck(final String selectionType,
+                                               final String selectionText,
+                                               final String anchor,
+                                               final String deltaProperties,
+                                               final SpreadsheetViewportSelection viewportSelection) {
         // B1, B2, B3
         // C1, C2, C3
 
@@ -667,8 +667,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     @Test
-    public void testHandleAllNoFrozenColumnRows() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRangeNoFrozenColumnRows() {
+        this.loadCellRangeFilteredAndCheck(
                 "A1",
                 0, // frozenColumns
                 0, // frozenRows
@@ -683,8 +683,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     // 3 C v v v
     // 4 C v v v
     @Test
-    public void testHandleAll1FrozenColumn() {
-        this.handleAllFilteredAndCheck(
+    public void testLoadCellRange1FrozenColumn() {
+        this.loadCellRangeFilteredAndCheck(
                 "A1",
                 1, // frozenColumns
                 0, // frozenRows
@@ -693,11 +693,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         );
     }
 
-    private void handleAllFilteredAndCheck(final String home,
-                                           final int frozenColumns,
-                                           final int frozenRows,
-                                           final String range,
-                                           final String window) {
+    private void loadCellRangeFilteredAndCheck(final String home,
+                                               final int frozenColumns,
+                                               final int frozenRows,
+                                               final String range,
+                                               final String window) {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
