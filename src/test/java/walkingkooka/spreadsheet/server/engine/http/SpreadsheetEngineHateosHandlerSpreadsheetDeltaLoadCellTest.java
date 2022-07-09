@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
@@ -44,6 +45,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
@@ -795,6 +797,280 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setWindow(
                                         SpreadsheetSelection.parseWindow(window)
                                 )
+                )
+        );
+    }
+
+    // load cells navigation...........................................................................................
+
+    @Test
+    public void testLoadCellRangeNavigateCellLeft() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCell("B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.LEFT
+                                )
+                        ),
+                SpreadsheetSelection.parseCell("A2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellRight() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCell("B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.RIGHT
+                                )
+                        ),
+                SpreadsheetSelection.parseCell("C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateColumnLeft() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseColumn("C")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.LEFT
+                                )
+                        ),
+                SpreadsheetSelection.parseColumn("B")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateColumnDown() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseColumn("C")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.DOWN
+                                )
+                        ),
+                SpreadsheetSelection.parseColumn("C")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateRowDown() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseRow("3")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.DOWN
+                                )
+                        ),
+                SpreadsheetSelection.parseRow("4")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellExtendRight() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCell("B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
+                                )
+                        ),
+                SpreadsheetSelection.parseCellRange("B2:C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellExtendLeft() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCell("B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.EXTEND_LEFT
+                                )
+                        ),
+                SpreadsheetSelection.parseCellRange("A2:B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.BOTTOM_RIGHT)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellRangeExtendRight() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCellRange("A2:B2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
+                                )
+                        ),
+                SpreadsheetSelection.parseCellRange("A2:C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellRangeExtendRightBecomesCell() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCellRange("B2:C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_RIGHT)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
+                                )
+                        ),
+                SpreadsheetSelection.parseCell("C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigateCellRangeExtendUpBecomesCell() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                SpreadsheetSelection.parseCellRange("C1:C2")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
+                        .setNavigation(
+                                Optional.of(
+                                        SpreadsheetViewportSelectionNavigation.EXTEND_UP
+                                )
+                        ),
+                SpreadsheetSelection.parseCell("C1")
+                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+        );
+    }
+
+    private void loadCellRangeNavigateAndCheck(final String home,
+                                               final SpreadsheetViewportSelection viewportSelection,
+                                               final SpreadsheetViewportSelection expected) {
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("150"));
+        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+
+        final SpreadsheetSelection selection = viewportSelection.selection();
+        parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
+        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
+        parameters.put(SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of(viewportSelection.navigation().get().kebabText()));
+        parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(viewportSelection.anchor().kebabText()));
+
+        final Set<SpreadsheetCellRange> window = SpreadsheetSelection.parseWindow("A1:E5");
+
+        this.handleAllAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                        EVALUATION,
+                        new FakeSpreadsheetEngine() {
+
+                            @Override
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                              final SpreadsheetEngineContext context) {
+                                checkEquals(EVALUATION, evaluation, "evaluation");
+
+                                return SpreadsheetDelta.EMPTY;
+                            }
+
+                            @Override
+                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
+                                                                    final boolean includeFrozenColumnsRows,
+                                                                    final Optional<SpreadsheetSelection> selection,
+                                                                    final SpreadsheetEngineContext context) {
+                                return window;
+                            }
+
+                            @Override
+                            public double columnWidth(final SpreadsheetColumnReference column,
+                                                      final SpreadsheetEngineContext context) {
+                                return 100;
+                            }
+
+                            @Override
+                            public double rowHeight(final SpreadsheetRowReference row,
+                                                    final SpreadsheetEngineContext context) {
+                                return 50;
+                            }
+
+                            @Override
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection s,
+                                                                                   final SpreadsheetEngineContext context) {
+                                return SpreadsheetEngines.basic()
+                                        .navigate(s, context);
+                            }
+                        },
+                        new FakeSpreadsheetEngineContext() {
+                            @Override
+                            public SpreadsheetMetadata metadata() {
+                                return SpreadsheetMetadata.EMPTY
+                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                                        .loadFromLocale();
+                            }
+
+                            @Override
+                            public SpreadsheetStoreRepository storeRepository() {
+                                return new FakeSpreadsheetStoreRepository() {
+                                    @Override
+                                    public SpreadsheetCellStore cells() {
+                                        return this.cells;
+                                    }
+
+                                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
+
+                                    @Override
+                                    public SpreadsheetColumnStore columns() {
+                                        return this.columns;
+                                    }
+
+                                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                                    @Override
+                                    public SpreadsheetRowStore rows() {
+                                        return this.rows;
+                                    }
+
+                                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
+                                };
+                            }
+
+                            public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                                if(selection.isLabelName()) {
+                                    throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
+                                }
+                                return selection;
+                            }
+                        }
+                ),
+                Optional.empty(),
+                parameters,
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setSelection(
+                                        Optional.of(expected)
+                                ).setWindow(window)
                 )
         );
     }
