@@ -189,7 +189,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
 
     @Override
     public Range<SpreadsheetColumnReference> range() {
-        return SpreadsheetColumnReference.parseColumnRange(RANGE)
+        return SpreadsheetSelection.parseColumnRange(RANGE)
                 .range();
     }
 

@@ -190,7 +190,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
     @Override
     public Range<SpreadsheetRowReference> range() {
-        return SpreadsheetRowReference.parseRowRange(RANGE)
+        return SpreadsheetSelection.parseRowRange(RANGE)
                 .range();
     }
 

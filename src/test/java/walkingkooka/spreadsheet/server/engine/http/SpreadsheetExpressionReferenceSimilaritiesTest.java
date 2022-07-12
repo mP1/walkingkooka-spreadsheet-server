@@ -40,9 +40,9 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
         ClassTesting<SpreadsheetExpressionReferenceSimilarities>, JsonNodeMarshallingTesting<SpreadsheetExpressionReferenceSimilarities>, ToStringTesting<SpreadsheetExpressionReferenceSimilarities> {
 
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetSelection.parseCell("B2");
-    private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("Label123");
+    private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
     private final static SpreadsheetCellReference LABEL_REFERENCE = SpreadsheetSelection.parseCell("C3");
-    private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelName.labelName("Label234").mapping(LABEL_REFERENCE);
+    private final static SpreadsheetLabelMapping MAPPING = SpreadsheetSelection.labelName("Label234").mapping(LABEL_REFERENCE);
 
     @Test
     public void testWithNullReferenceFails() {
@@ -166,7 +166,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     public void testDifferentLabel() {
         this.checkNotEquals(SpreadsheetExpressionReferenceSimilarities.with(
                 Optional.of(SpreadsheetSelection.parseCell("Z99")),
-                Optional.of(SpreadsheetLabelName.labelName("DifferentLabel99")),
+                Optional.of(SpreadsheetSelection.labelName("DifferentLabel99")),
                 Sets.of(MAPPING)
         ));
     }
@@ -177,7 +177,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 SpreadsheetExpressionReferenceSimilarities.with(
                         Optional.of(REFERENCE),
                         Optional.of(LABEL),
-                        Sets.of(MAPPING, SpreadsheetLabelName.labelName("Label99").mapping(REFERENCE))
+                        Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(REFERENCE))
                 )
         );
     }
@@ -193,7 +193,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 SpreadsheetExpressionReferenceSimilarities.with(
                         Optional.of(REFERENCE),
                         Optional.of(LABEL),
-                        Sets.of(MAPPING, SpreadsheetLabelName.labelName("Label99").mapping(SpreadsheetSelection.parseCell("Z9")))
+                        Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(SpreadsheetSelection.parseCell("Z9")))
                 ),
                 "B2 Label123 Label234=C3, Label99=Z9"
         );

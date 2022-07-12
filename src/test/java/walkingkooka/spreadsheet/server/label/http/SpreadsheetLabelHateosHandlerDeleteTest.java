@@ -98,7 +98,7 @@ public final class SpreadsheetLabelHateosHandlerDeleteTest extends SpreadsheetLa
 
     @Override
     public SpreadsheetLabelName id() {
-        return SpreadsheetLabelName.labelName("label123");
+        return SpreadsheetSelection.labelName("label123");
     }
 
     @Override

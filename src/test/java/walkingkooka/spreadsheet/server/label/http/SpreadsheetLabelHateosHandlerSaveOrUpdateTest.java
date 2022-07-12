@@ -71,8 +71,8 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
 
     @Test
     public void testRename() {
-        final SpreadsheetLabelName oldLabelName = SpreadsheetLabelName.labelName("oldLabel1");
-        final SpreadsheetLabelName newLabelName = SpreadsheetLabelName.labelName("newLabel2");
+        final SpreadsheetLabelName oldLabelName = SpreadsheetSelection.labelName("oldLabel1");
+        final SpreadsheetLabelName newLabelName = SpreadsheetSelection.labelName("newLabel2");
         final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(this.mapping(oldLabelName));
@@ -93,8 +93,8 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
 
     @Test
     public void testRenameNewLabelReplacesAnother() {
-        final SpreadsheetLabelName oldLabelName = SpreadsheetLabelName.labelName("oldLabel1");
-        final SpreadsheetLabelName newLabelName = SpreadsheetLabelName.labelName("newLabel2");
+        final SpreadsheetLabelName oldLabelName = SpreadsheetSelection.labelName("oldLabel1");
+        final SpreadsheetLabelName newLabelName = SpreadsheetSelection.labelName("newLabel2");
         final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(this.mapping(oldLabelName));
@@ -133,7 +133,7 @@ public final class SpreadsheetLabelHateosHandlerSaveOrUpdateTest extends Spreads
 
     @Override
     public SpreadsheetLabelName id() {
-        return SpreadsheetLabelName.labelName("label123");
+        return SpreadsheetSelection.labelName("label123");
     }
 
     @Override

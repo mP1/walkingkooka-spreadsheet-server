@@ -107,7 +107,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
                 label,
                 2,
                 null,
-                SpreadsheetLabelName.labelName(label)
+                SpreadsheetSelection.labelName(label)
         );
     }
 
