@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -63,7 +64,7 @@ public final class SpreadsheetLabelHateosResourceMappings implements PublicStati
             if (text.isEmpty()) {
                 selection = HateosResourceSelection.none();
             } else {
-                selection = HateosResourceSelection.one(SpreadsheetLabelName.labelName(text));
+                selection = HateosResourceSelection.one(SpreadsheetSelection.labelName(text));
             }
 
             return selection;

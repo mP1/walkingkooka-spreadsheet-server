@@ -176,7 +176,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
 
     @Override
     public Range<SpreadsheetCellReference> range() {
-        return SpreadsheetCellReference.parseCellRange(RANGE)
+        return SpreadsheetSelection.parseCellRange(RANGE)
                 .range(); // url has TO
     }
 

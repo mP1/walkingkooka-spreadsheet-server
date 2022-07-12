@@ -272,7 +272,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
     @Override
     public Range<SpreadsheetCellReference> range() {
-        return SpreadsheetCellReference.parseCellRange("B2:D4")
+        return SpreadsheetSelection.parseCellRange("B2:D4")
                 .range();
     }
 

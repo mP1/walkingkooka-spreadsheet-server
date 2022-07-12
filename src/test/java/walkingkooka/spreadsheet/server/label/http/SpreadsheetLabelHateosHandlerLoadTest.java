@@ -80,7 +80,7 @@ public final class SpreadsheetLabelHateosHandlerLoadTest extends SpreadsheetLabe
 
     @Override
     public SpreadsheetLabelName id() {
-        return SpreadsheetLabelName.labelName("label123");
+        return SpreadsheetSelection.labelName("label123");
     }
 
     @Override

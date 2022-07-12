@@ -78,7 +78,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     }
 
     final SpreadsheetLabelName label() {
-        return SpreadsheetLabelName.labelName("Label1a");
+        return SpreadsheetSelection.labelName("Label1a");
     }
 
     final Set<SpreadsheetCellRange> window() {

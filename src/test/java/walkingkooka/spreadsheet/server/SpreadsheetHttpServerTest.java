@@ -2050,7 +2050,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
         );
 
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("ZZZ");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ZZZ");
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetLabelMapping mapping = label.mapping(cellReference);
 
@@ -3414,7 +3414,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
-        final SpreadsheetLabelName label123 = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label123.mapping(a1);
 
         server.handleAndCheck(
@@ -3580,7 +3580,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
-        final SpreadsheetLabelName label123 = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label123.mapping(a1);
 
         server.handleAndCheck(
@@ -3956,7 +3956,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
         );
 
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(SpreadsheetSelection.parseCell("A99"));
 
         server.handleAndCheck(
@@ -4895,7 +4895,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(reference);
 
         server.handleAndCheck(
@@ -4928,7 +4928,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(reference);
 
         server.handleAndCheck(
@@ -4973,7 +4973,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(reference);
 
         server.handleAndCheck(
@@ -5024,7 +5024,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
-        final SpreadsheetLabelName label = SpreadsheetLabelName.labelName("Label123");
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(reference);
 
         server.handleAndCheck(

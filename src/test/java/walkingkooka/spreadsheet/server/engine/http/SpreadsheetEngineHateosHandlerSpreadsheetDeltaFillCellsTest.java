@@ -210,7 +210,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
     @Override
     public Range<SpreadsheetCellReference> range() {
-        return SpreadsheetCellReference.parseCellRange(TO)
+        return SpreadsheetSelection.parseCellRange(TO)
                 .range(); // url has TO
     }
 

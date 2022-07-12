@@ -199,7 +199,7 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
 
     static {
         // force static initializers to run, preventing Json type name lookup failures.
-        SpreadsheetLabelName.labelName("Label").mapping(SpreadsheetSelection.parseCell("A1"));
+        SpreadsheetSelection.labelName("Label").mapping(SpreadsheetSelection.parseCell("A1"));
 
         JsonNodeContext.register(
                 JsonNodeContext.computeTypeName(SpreadsheetExpressionReferenceSimilarities.class),

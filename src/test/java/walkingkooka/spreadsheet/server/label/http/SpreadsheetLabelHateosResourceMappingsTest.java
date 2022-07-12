@@ -64,7 +64,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
     private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
-    private final static SpreadsheetLabelName LABEL = SpreadsheetLabelName.labelName("label123");
+    private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("label123");
     private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelMapping.with(
             LABEL,
             SpreadsheetSelection.parseCell("B2")
