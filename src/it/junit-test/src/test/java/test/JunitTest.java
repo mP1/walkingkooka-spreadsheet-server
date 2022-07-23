@@ -236,7 +236,7 @@ public class JunitTest {
             }
 
             private Function<ExpressionReference, Optional<Object>> references() {
-                return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceExpressionFunction(
+                return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceFunction(
                         engine,
                         this
                 );
