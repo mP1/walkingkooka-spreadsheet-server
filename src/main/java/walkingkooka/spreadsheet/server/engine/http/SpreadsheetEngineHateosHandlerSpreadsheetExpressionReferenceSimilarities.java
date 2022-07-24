@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -58,7 +58,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetCellReferenceOrLabelName cellOrLabel = parseCellOrLabelOrNull(text);
+        final SpreadsheetExpressionReference cellOrLabel = parseCellOrLabelOrNull(text);
         final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
                 text,
                 count(parameters)
@@ -77,8 +77,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
      * Attempts to parse the text into a {@link SpreadsheetCellReference} or {@link SpreadsheetLabelName} returning
      * null if that fails.
      */
-    private static SpreadsheetCellReferenceOrLabelName parseCellOrLabelOrNull(final String text) {
-        SpreadsheetCellReferenceOrLabelName cellOrLabel;
+    private static SpreadsheetExpressionReference parseCellOrLabelOrNull(final String text) {
+        SpreadsheetExpressionReference cellOrLabel;
         try {
             cellOrLabel = SpreadsheetSelection.parseCellOrLabel(text);
         } catch (final Exception invalid) {
