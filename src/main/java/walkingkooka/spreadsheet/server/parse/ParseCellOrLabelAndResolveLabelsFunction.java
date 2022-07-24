@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReferenceOrLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
@@ -43,7 +43,7 @@ final class ParseCellOrLabelAndResolveLabelsFunction implements Function<String,
 
     @Override
     public SpreadsheetCellReference apply(final String cellOrLabelText) {
-        final SpreadsheetCellReferenceOrLabelName cellOrLabel = SpreadsheetSelection.parseCellOrLabel(cellOrLabelText);
+        final SpreadsheetExpressionReference cellOrLabel = SpreadsheetSelection.parseCellOrLabel(cellOrLabelText);
 
         return cellOrLabel.isLabelName() ?
                 labelToCellReference.apply((SpreadsheetLabelName) cellOrLabel) :
