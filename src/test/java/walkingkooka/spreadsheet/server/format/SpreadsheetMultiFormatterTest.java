@@ -24,6 +24,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -34,6 +35,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.util.FunctionTesting;
@@ -53,6 +55,10 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
         implements FunctionTesting<SpreadsheetMultiFormatter, SpreadsheetMultiFormatRequest, SpreadsheetMultiFormatResponse> {
 
     private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
+
+    private final static Function<SpreadsheetSelection, SpreadsheetSelection> RESOLVE_IF_LABEL = (s) -> {
+        throw new UnsupportedOperationException();
+    };
 
     @Override
     public void testTypeNaming() {
@@ -217,24 +223,36 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                     public Optional<SpreadsheetText> format(final Object value,
                                                             final SpreadsheetFormatter formatter) {
                         return formatter.format(value,
-                                SpreadsheetFormatterContexts.basic(function(),
+                                SpreadsheetFormatterContexts.basic(
+                                        function(),
                                         function(),
                                         1,
                                         SpreadsheetFormatters.fake(),
-                                        ExpressionNumberConverterContexts.basic(Converters.collection(Lists.of(Converters.simple(), Converters.localDateLocalDateTime())),
-                                                ConverterContexts.basic(
-                                                        Converters.fake(),
-                                                        DateTimeContexts.locale(
-                                                                Locale.ENGLISH,
-                                                                1900,
-                                                                20,
-                                                                NOW
-                                                        ),
-                                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                        SpreadsheetConverterContexts.basic(
+                                                Converters.collection(
+                                                        Lists.of(
+                                                                Converters.simple(),
+                                                                Converters.localDateLocalDateTime()
+                                                        )
                                                 ),
-                                                ExpressionNumberKind.DOUBLE
+                                                RESOLVE_IF_LABEL,
+                                                ExpressionNumberConverterContexts.basic(
+                                                        Converters.fake(),
+                                                        ConverterContexts.basic(
+                                                                Converters.fake(),
+                                                                DateTimeContexts.locale(
+                                                                        Locale.ENGLISH,
+                                                                        1900,
+                                                                        20,
+                                                                        NOW
+                                                                ),
+                                                                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                                        ),
+                                                        ExpressionNumberKind.DOUBLE
+                                                )
                                         )
-                                ));
+                                )
+                        );
                     }
                 },
                 NOW
