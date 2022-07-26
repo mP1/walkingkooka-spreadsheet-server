@@ -100,7 +100,12 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
                 formatted = format.format(
                         (LocalDateTime) value,
                         this.engineContext.metadata()
-                                .formatterContext(this.now)
+                                .formatterContext(
+                                        this.now,
+                                        (s) -> {
+                                            throw new UnsupportedOperationException();
+                                        } // TODO SpreadsheetEngineContext.resolveIfLabel()
+                                )
                 );
                 break;
             }

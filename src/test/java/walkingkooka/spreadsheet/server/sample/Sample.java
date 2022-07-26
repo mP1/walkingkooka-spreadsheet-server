@@ -88,6 +88,10 @@ public final class Sample {
 
     private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
+    private final static Function<SpreadsheetSelection, SpreadsheetSelection> RESOLVE_IF_LABEL = (s) -> {
+        throw new UnsupportedOperationException();
+    };
+
     public static void main(final String[] args) {
         final SpreadsheetEngine engine = engine();
         final SpreadsheetEngineContext engineContext = engineContext(engine);
@@ -197,7 +201,10 @@ public final class Sample {
                                 formula,
                                 SpreadsheetParserContexts.basic(
                                         DateTimeContexts.fake(),
-                                        metadata.converterContext(NOW),
+                                        metadata.converterContext(
+                                                NOW,
+                                                RESOLVE_IF_LABEL
+                                        ),
                                         EXPRESSION_NUMBER_KIND,
                                         ',')
                         ) // TODO should fetch from metadata prop
@@ -215,7 +222,10 @@ public final class Sample {
                                 this.references(),
                                 ExpressionEvaluationContexts.referenceNotFound(),
                                 CaseSensitivity.INSENSITIVE,
-                                this.metadata().converterContext(NOW)
+                                this.metadata().converterContext(
+                                        NOW,
+                                        RESOLVE_IF_LABEL
+                                )
                         )
                 );
             }
@@ -252,7 +262,10 @@ public final class Sample {
 
                 return formatter.format(
                         value,
-                        metadata.formatterContext(NOW)
+                        metadata.formatterContext(
+                                NOW,
+                                RESOLVE_IF_LABEL
+                        )
                 );
             }
 
