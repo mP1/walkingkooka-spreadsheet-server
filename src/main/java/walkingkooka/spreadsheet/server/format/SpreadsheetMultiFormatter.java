@@ -96,15 +96,14 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
                 break;
             }
             if (pattern instanceof SpreadsheetLocaleDefaultDateTimeFormat) {
+                final SpreadsheetEngineContext engineContext = this.engineContext;
                 final SpreadsheetLocaleDefaultDateTimeFormat format = (SpreadsheetLocaleDefaultDateTimeFormat) pattern;
                 formatted = format.format(
                         (LocalDateTime) value,
-                        this.engineContext.metadata()
+                        engineContext.metadata()
                                 .formatterContext(
                                         this.now,
-                                        (s) -> {
-                                            throw new UnsupportedOperationException();
-                                        } // TODO SpreadsheetEngineContext.resolveIfLabel()
+                                        engineContext::resolveIfLabel
                                 )
                 );
                 break;
