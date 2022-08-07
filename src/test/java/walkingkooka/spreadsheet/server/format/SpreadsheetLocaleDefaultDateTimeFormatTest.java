@@ -83,13 +83,19 @@ public final class SpreadsheetLocaleDefaultDateTimeFormatTest extends Spreadshee
     }
 
     @Test
-    public void testFromJsonNodeNull() {
-        this.unmarshallAndCheck("null", SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE);
+    public void testUnmarshallNull() {
+        this.unmarshallAndCheck(
+                "null",
+                SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
+        );
     }
 
     @Test
-    public void testToJsonNode() {
-        this.marshallAndCheck(SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE, JsonNode.number(1));
+    public void testMarshall() {
+        this.marshallAndCheck(
+                SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE,
+                JsonNode.number(1)
+        );
     }
 
     @Override
