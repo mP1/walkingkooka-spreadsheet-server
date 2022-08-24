@@ -108,10 +108,12 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 ),
                 "{\n" +
                         "  \"cell-reference\": \"B2\",\n" +
-                        "  \"label-mappings\": [{\n" +
-                        "    \"label\": \"Label234\",\n" +
-                        "    \"reference\": \"C3\"\n" +
-                        "  }]\n" +
+                        "  \"label-mappings\": [\n" +
+                        "    {\n" +
+                        "      \"label\": \"Label234\",\n" +
+                        "      \"reference\": \"C3\"\n" +
+                        "    }\n" +
+                        "  ]\n" +
                         "}"
         );
     }
@@ -126,10 +128,12 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 ),
                 "{\n" +
                         "  \"label\": \"Label123\",\n" +
-                        "  \"label-mappings\": [{\n" +
-                        "    \"label\": \"Label234\",\n" +
-                        "    \"reference\": \"C3\"\n" +
-                        "  }]\n" +
+                        "  \"label-mappings\": [\n" +
+                        "    {\n" +
+                        "      \"label\": \"Label234\",\n" +
+                        "      \"reference\": \"C3\"\n" +
+                        "    }\n" +
+                        "  ]\n" +
                         "}"
         );
     }
@@ -145,10 +149,12 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 "{\n" +
                         "  \"cell-reference\": \"B2\",\n" +
                         "  \"label\": \"Label123\",\n" +
-                        "  \"label-mappings\": [{\n" +
-                        "    \"label\": \"Label234\",\n" +
-                        "    \"reference\": \"C3\"\n" +
-                        "  }]\n" +
+                        "  \"label-mappings\": [\n" +
+                        "    {\n" +
+                        "      \"label\": \"Label234\",\n" +
+                        "      \"reference\": \"C3\"\n" +
+                        "    }\n" +
+                        "  ]\n" +
                         "}"
         );
     }
