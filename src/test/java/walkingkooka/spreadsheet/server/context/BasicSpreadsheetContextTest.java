@@ -342,67 +342,81 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
-                        "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"=\",\n" +
-                        "                \"text\": \"=\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "            \"value\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"=\",\n" +
+                        "                  \"text\": \"=\"\n" +
+                        "                }\n" +
+                        "              },\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": [\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"1\",\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"1\",\n" +
+                        "                              \"text\": \"1\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"1\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"1\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": \"+\",\n" +
-                        "                    \"text\": \"+\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"2\",\n" +
+                        "                        \"value\": \"+\",\n" +
+                        "                        \"text\": \"+\"\n" +
+                        "                      }\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"2\",\n" +
+                        "                              \"text\": \"2\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"2\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"2\"\n" +
-                        "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1+2\"\n" +
+                        "                    }\n" +
+                        "                  ],\n" +
+                        "                  \"text\": \"1+2\"\n" +
+                        "                }\n" +
                         "              }\n" +
-                        "            }],\n" +
+                        "            ],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [{\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"1\"\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"1\"\n" +
+                        "              }\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"2\"\n" +
+                        "              }\n" +
                         "            }\n" +
-                        "          }, {\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"2\"\n" +
-                        "            }\n" +
-                        "          }]\n" +
+                        "          ]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
                         "          \"type\": \"expression-number\",\n" +
@@ -437,67 +451,81 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
-                        "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"=\",\n" +
-                        "                \"text\": \"=\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "            \"value\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"=\",\n" +
+                        "                  \"text\": \"=\"\n" +
+                        "                }\n" +
+                        "              },\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": [\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"1\",\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"1\",\n" +
+                        "                              \"text\": \"1\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"1\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"1\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": \"+\",\n" +
-                        "                    \"text\": \"+\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"2\",\n" +
+                        "                        \"value\": \"+\",\n" +
+                        "                        \"text\": \"+\"\n" +
+                        "                      }\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"2\",\n" +
+                        "                              \"text\": \"2\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"2\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"2\"\n" +
-                        "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1+2\"\n" +
+                        "                    }\n" +
+                        "                  ],\n" +
+                        "                  \"text\": \"1+2\"\n" +
+                        "                }\n" +
                         "              }\n" +
-                        "            }],\n" +
+                        "            ],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [{\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"1\"\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"1\"\n" +
+                        "              }\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"2\"\n" +
+                        "              }\n" +
                         "            }\n" +
-                        "          }, {\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"2\"\n" +
-                        "            }\n" +
-                        "          }]\n" +
+                        "          ]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
                         "          \"type\": \"expression-number\",\n" +
@@ -532,67 +560,81 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
-                        "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"=\",\n" +
-                        "                \"text\": \"=\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "            \"value\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"=\",\n" +
+                        "                  \"text\": \"=\"\n" +
+                        "                }\n" +
+                        "              },\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": [\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"1\",\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"1\",\n" +
+                        "                              \"text\": \"1\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"1\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"1\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": \"+\",\n" +
-                        "                    \"text\": \"+\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"2\",\n" +
+                        "                        \"value\": \"+\",\n" +
+                        "                        \"text\": \"+\"\n" +
+                        "                      }\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"2\",\n" +
+                        "                              \"text\": \"2\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"2\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"2\"\n" +
-                        "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1+2\"\n" +
+                        "                    }\n" +
+                        "                  ],\n" +
+                        "                  \"text\": \"1+2\"\n" +
+                        "                }\n" +
                         "              }\n" +
-                        "            }],\n" +
+                        "            ],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [{\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"1\"\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"1\"\n" +
+                        "              }\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"2\"\n" +
+                        "              }\n" +
                         "            }\n" +
-                        "          }, {\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"2\"\n" +
-                        "            }\n" +
-                        "          }]\n" +
+                        "          ]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
                         "          \"type\": \"expression-number\",\n" +
@@ -627,67 +669,81 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
-                        "            \"value\": [{\n" +
-                        "              \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": \"=\",\n" +
-                        "                \"text\": \"=\"\n" +
-                        "              }\n" +
-                        "            }, {\n" +
-                        "              \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"value\": [{\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "            \"value\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"=\",\n" +
+                        "                  \"text\": \"=\"\n" +
+                        "                }\n" +
+                        "              },\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": [\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"1\",\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"1\",\n" +
+                        "                              \"text\": \"1\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"1\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"1\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": \"+\",\n" +
-                        "                    \"text\": \"+\"\n" +
-                        "                  }\n" +
-                        "                }, {\n" +
-                        "                  \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                  \"value\": {\n" +
-                        "                    \"value\": [{\n" +
-                        "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
                         "                      \"value\": {\n" +
-                        "                        \"value\": \"2\",\n" +
+                        "                        \"value\": \"+\",\n" +
+                        "                        \"text\": \"+\"\n" +
+                        "                      }\n" +
+                        "                    },\n" +
+                        "                    {\n" +
+                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                        "                      \"value\": {\n" +
+                        "                        \"value\": [\n" +
+                        "                          {\n" +
+                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                        "                            \"value\": {\n" +
+                        "                              \"value\": \"2\",\n" +
+                        "                              \"text\": \"2\"\n" +
+                        "                            }\n" +
+                        "                          }\n" +
+                        "                        ],\n" +
                         "                        \"text\": \"2\"\n" +
                         "                      }\n" +
-                        "                    }],\n" +
-                        "                    \"text\": \"2\"\n" +
-                        "                  }\n" +
-                        "                }],\n" +
-                        "                \"text\": \"1+2\"\n" +
+                        "                    }\n" +
+                        "                  ],\n" +
+                        "                  \"text\": \"1+2\"\n" +
+                        "                }\n" +
                         "              }\n" +
-                        "            }],\n" +
+                        "            ],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
                         "        },\n" +
                         "        \"expression\": {\n" +
                         "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [{\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"1\"\n" +
+                        "          \"value\": [\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"1\"\n" +
+                        "              }\n" +
+                        "            },\n" +
+                        "            {\n" +
+                        "              \"type\": \"value-expression\",\n" +
+                        "              \"value\": {\n" +
+                        "                \"type\": \"expression-number\",\n" +
+                        "                \"value\": \"2\"\n" +
+                        "              }\n" +
                         "            }\n" +
-                        "          }, {\n" +
-                        "            \"type\": \"value-expression\",\n" +
-                        "            \"value\": {\n" +
-                        "              \"type\": \"expression-number\",\n" +
-                        "              \"value\": \"2\"\n" +
-                        "            }\n" +
-                        "          }]\n" +
+                        "          ]\n" +
                         "        },\n" +
                         "        \"value\": {\n" +
                         "          \"type\": \"expression-number\",\n" +
