@@ -1818,7 +1818,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchCell() {
+    public void testPatchCellWithFormula() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2009,6 +2009,185 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"formatted\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 002.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testPatchCellStyle() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // create cell with formula = 999
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseCell("A1")
+                                                        .setFormula(
+                                                                formula("=999")
+                                                        )
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=999\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"=\",\n" +
+                                "                  \"text\": \"=\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": [\n" +
+                                "                    {\n" +
+                                "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": \"999\",\n" +
+                                "                        \"text\": \"999\"\n" +
+                                "                      }\n" +
+                                "                    }\n" +
+                                "                  ],\n" +
+                                "                  \"text\": \"999\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"=999\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"type\": \"expression-number\",\n" +
+                                "            \"value\": \"999\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"999\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 999.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 30\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "     \"a1\": {\n" +
+                        "      \"style\": {\n" +
+                        "            \"color\": \"#123456\"\n" +
+                        "          }\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "}",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=999\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"=\",\n" +
+                                "                  \"text\": \"=\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-number-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": [\n" +
+                                "                    {\n" +
+                                "                      \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": \"999\",\n" +
+                                "                        \"text\": \"999\"\n" +
+                                "                      }\n" +
+                                "                    }\n" +
+                                "                  ],\n" +
+                                "                  \"text\": \"999\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"=999\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"type\": \"expression-number\",\n" +
+                                "            \"value\": \"999\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"999\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"style\": {\n" +
+                                "        \"color\": \"#123456\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text-style-node\",\n" +
+                                "        \"value\": {\n" +
+                                "          \"styles\": {\n" +
+                                "            \"color\": \"#123456\"\n" +
+                                "          },\n" +
+                                "          \"children\": [\n" +
+                                "            {\n" +
+                                "              \"type\": \"text\",\n" +
+                                "              \"value\": \"Number 999.000\"\n" +
+                                "            }\n" +
+                                "          ]\n" +
+                                "        }\n" +
                                 "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
