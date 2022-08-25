@@ -180,19 +180,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testCreateSpreadsheetWithTransactionIdHeader() {
-        final TestHttpServer server = this.startServer();
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
         this.checkNotEquals(
                 null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
@@ -202,19 +191,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testCreateThenLoadSpreadsheet() {
-        final TestHttpServer server = this.startServer();
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
         this.checkNotEquals(
                 null,
                 this.metadataStore.load(SpreadsheetId.with(1L)),
@@ -1028,22 +1006,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellSelectionQueryParameterWithInvalidAnchorBadRequest() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1066,22 +1029,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellSelectionQueryParameterWithInvalidSelectionNavigationBadRequest() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1104,20 +1052,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testCreateAndPatch() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
         this.checkNotEquals(
@@ -1220,22 +1155,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellThenSaveAnotherCellReferencingFirst() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1490,22 +1410,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellTwice() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1895,22 +1800,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchCellInvalidCellFails() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
@@ -1929,22 +1819,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchCell() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -2151,22 +2026,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellPatchCellUnknownLabelFails() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
@@ -2189,22 +2049,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellPatchCellLabel() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ZZZ");
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
@@ -2370,22 +2215,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchCellSelectionQueryParameter() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -2584,19 +2414,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewport() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3069,19 +2887,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionQueryParameters() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3217,19 +3023,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionQueryParametersWithAnchor() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3366,19 +3160,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionQueryParametersAnchorDefaulted() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3515,19 +3297,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionAndNavigationQueryParameters() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -3664,19 +3434,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionLabelAndNavigationQueryParameters() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
@@ -3840,19 +3598,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadViewportWithSelectionLabelAndNavigationUnchangedQueryParameters() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
         final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
@@ -4015,19 +3761,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLoadCellInvalidWindowQueryParameterBadRequest() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // load the cells that fill the viewport
         server.handleAndCheck(
@@ -4232,22 +3966,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellThenSaveLabel() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        initial
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label.mapping(SpreadsheetSelection.parseCell("A99"));
@@ -4269,22 +3988,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testCellReferenceGet() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        initial
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
 
@@ -4307,19 +4011,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearColumn() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -4424,19 +4116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearColumnRange() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -4541,19 +4221,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testColumnInsertAfter() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
         server.handleAndCheck(
@@ -4792,19 +4460,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testColumnInsertBefore() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
         server.handleAndCheck(
@@ -5046,19 +4702,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testColumnDeleteShiftsCell() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -5217,19 +4861,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLabelSave() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
@@ -5250,19 +4882,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLabelSaveAndLoad() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
@@ -5295,19 +4915,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLabelSaveAndResolveCellReference() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
@@ -5346,19 +4954,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testLabelDelete() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
@@ -5391,19 +4987,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearRow() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -5508,19 +5092,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearRowRange() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -5625,19 +5197,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testRowInsertAfter() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
         server.handleAndCheck(
@@ -5879,19 +5439,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testRowInsertBefore() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save a cell at C3
         server.handleAndCheck(
@@ -6133,19 +5681,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testRowDeleteShiftsCell() {
-        final TestHttpServer server = this.startServer();
-
-        final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
-
-        // create a new spreadsheet.
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(), initial)
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -6304,19 +5840,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearCell() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -6421,19 +5945,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testClearCellRange() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -6540,16 +6052,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testFillCell() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -6704,20 +6207,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testFillCellRepeatsFromRange() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // fill A1:B2 from A1
         server.handleAndCheck(HttpMethod.POST,
@@ -6955,19 +6445,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testFillThatClears() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata().set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -7059,17 +6537,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testFillCellWithSelectionQueryParameter() {
-        final TestHttpServer server = this.startServer();
-
-        // create spreadsheet
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))));
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
@@ -7232,22 +6700,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchColumn() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
@@ -7282,22 +6735,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellPatchColumn() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell A1
         server.handleAndCheck(
@@ -7425,22 +6863,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchRow() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
@@ -7472,22 +6895,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testSaveCellPatchRow() {
-        final TestHttpServer server = this.startServer();
-
-        server.handleAndCheck(
-                HttpMethod.POST,
-                "/api/spreadsheet/",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
-                                )
-                )
-        );
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell A1
         server.handleAndCheck(
@@ -7667,6 +7075,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
         this.httpServer.start();
         return this.httpServer;
+    }
+
+    private TestHttpServer startServerAndCreateEmptySpreadsheet() {
+        final TestHttpServer server = this.startServer();
+
+        // create spreadsheet
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(HttpStatusCode.OK.status(),
+                        this.createMetadata()
+                                .set(
+                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                        SpreadsheetId.with(1L)
+                                )
+                )
+        );
+        return server;
     }
 
     /**
