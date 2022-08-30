@@ -85,7 +85,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                         Sets.of(
                                 cell.setStyle(style)
                         )
-                ).setSelection(viewportSelection);
+                ).setViewportSelection(viewportSelection);
 
         this.applyAndCheck(
                 SpreadsheetEnginePatchSpreadsheetCellFunction.with(
@@ -125,9 +125,9 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(selection);
+                                return Optional.of(viewportSelection);
                             }
                         },
                         CONTEXT

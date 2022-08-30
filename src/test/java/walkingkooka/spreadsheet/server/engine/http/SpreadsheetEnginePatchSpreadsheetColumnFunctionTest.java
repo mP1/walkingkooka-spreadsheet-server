@@ -130,7 +130,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setSelection(viewportSelection)
+                ).setViewportSelection(viewportSelection)
                 .setWindow(
                         Sets.of(WINDOW)
                 );
@@ -191,9 +191,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(selection);
+                                return Optional.of(viewportSelection);
                             }
                         },
                         CONTEXT
@@ -253,7 +253,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setSelection(viewportSelection)
+                ).setViewportSelection(viewportSelection)
                 .setWindow(
                         Sets.of(WINDOW)
                 ).setCells(
@@ -325,9 +325,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(selection);
+                                return Optional.of(viewportSelection);
                             }
                         },
                         CONTEXT

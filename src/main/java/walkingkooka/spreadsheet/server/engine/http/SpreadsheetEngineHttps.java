@@ -210,8 +210,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                                     final SpreadsheetEngine engine,
                                                                     final SpreadsheetEngineContext context) {
         Optional<SpreadsheetViewportSelection> viewportSelection = input.isPresent() ?
-                input.get().selection() :
-                Optional.empty();
+                input.get().viewportSelection() :
+                SpreadsheetDelta.NO_VIEWPORT_SELECTION;
         if (!viewportSelection.isPresent()) {
             viewportSelection = viewportSelection0(parameters);
         }
