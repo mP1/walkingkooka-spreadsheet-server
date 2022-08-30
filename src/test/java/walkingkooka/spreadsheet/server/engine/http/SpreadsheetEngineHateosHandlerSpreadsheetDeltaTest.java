@@ -40,27 +40,27 @@ import java.util.Optional;
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 
     @Test
-    public void testSelectionAbsent() {
+    public void testViewportSelectionAbsent() {
         this.prepareResponseAndCheck(
                 Optional.of(SpreadsheetDelta.EMPTY),
                 HateosHandler.NO_PARAMETERS,
-                SpreadsheetDelta.NO_SELECTION
+                SpreadsheetDelta.NO_VIEWPORT_SELECTION
         );
     }
 
     @Test
-    public void testSelectionPresentInputSpreadsheetDelta() {
-        final Optional<SpreadsheetViewportSelection> selection = Optional.of(
+    public void testViewportSelectionPresentInputSpreadsheetDelta() {
+        final Optional<SpreadsheetViewportSelection> viewportSelection = Optional.of(
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
 
         this.prepareResponseAndCheck(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setSelection(selection)
+                        SpreadsheetDelta.EMPTY.setViewportSelection(viewportSelection)
                 ),
                 HateosHandler.NO_PARAMETERS,
-                selection
+                viewportSelection
         );
     }
 
@@ -126,9 +126,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
         final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                    public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                            final SpreadsheetEngineContext context) {
-                        return Optional.of(selection);
+                        return Optional.of(viewportSelection);
                     }
                 },
                 SpreadsheetEngineContexts.fake()
@@ -162,7 +162,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
         this.checkEquals(
                 expected,
-                response.selection(),
+                response.viewportSelection(),
                 () -> "input=" + input + " parameters=" + parameters
         );
     }

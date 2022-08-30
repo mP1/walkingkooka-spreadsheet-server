@@ -76,7 +76,11 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
         final SpreadsheetDelta saved =
                 this.save(patched, reference)
                         .setWindow(patched.window())
-                        .setSelection(this.selection(patched.selection()));
+                        .setViewportSelection(
+                                this.viewportSelection(
+                                        patched.viewportSelection()
+                                )
+                        );
 
         return metadata.jsonNodeMarshallContext()
                 .marshall(saved);
@@ -127,10 +131,10 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
 
-    private Optional<SpreadsheetViewportSelection> selection(final Optional<SpreadsheetViewportSelection> selection) {
+    private Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetViewportSelection> viewportSelection) {
         return SpreadsheetEngineHttps.viewportSelection(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setSelection(selection)
+                        SpreadsheetDelta.EMPTY.setViewportSelection(viewportSelection)
                 ),
                 this.request.routerParameters(),
                 this.engine,

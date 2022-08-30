@@ -625,9 +625,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(selection);
+                                return Optional.of(viewportSelection);
                             }
                         },
                         new FakeSpreadsheetEngineContext() {
@@ -661,7 +661,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                                 .setWindow(
                                         SpreadsheetSelection.parseWindow("B1:C3")
-                                ).setSelection(
+                                ).setViewportSelection(
                                         Optional.ofNullable(viewportSelection)
                                 )
                 )
@@ -730,7 +730,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 if (range.equals("throw")) {
                                     throw new UnsupportedOperationException();
                                 }
-                                checkEquals(SpreadsheetDelta.NO_SELECTION, selection);
+                                checkEquals(SpreadsheetDelta.NO_VIEWPORT_SELECTION, selection);
 
                                 return SpreadsheetSelection.parseWindow(range);
                             }
@@ -748,9 +748,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection selection,
+                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(selection);
+                                return Optional.of(viewportSelection);
                             }
                         },
                         new FakeSpreadsheetEngineContext() {
@@ -1068,7 +1068,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 parameters,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
-                                .setSelection(
+                                .setViewportSelection(
                                         Optional.of(expected)
                                 ).setWindow(window)
                 )

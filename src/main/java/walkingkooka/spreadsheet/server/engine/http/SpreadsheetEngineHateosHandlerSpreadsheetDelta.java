@@ -78,7 +78,7 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                         parameters
                 )
 
-        ).setSelection(
+        ).setViewportSelection(
                 this.viewportSelection(
                         in,
                         parameters
