@@ -55,7 +55,8 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
                 text,
                 l -> this.context.storeRepository()
                         .labels()
-                        .cellReferenceOrFail(l)
+                        .cellReferenceOrRangeOrFail(l)
+                        .toCellOrFail()
         );
     }
 
@@ -78,9 +79,10 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     JsonNode preparePatch(final JsonNode delta) {
         return SpreadsheetDelta.resolveCellLabels(
                 delta.objectOrFail(),
-                this.context.storeRepository()
+                (e) -> this.context.storeRepository()
                         .labels()
-                        ::cellReferenceOrFail
+                        .cellReferenceOrRangeOrFail(e)
+                        .toCellOrFail()
         );
     }
 
