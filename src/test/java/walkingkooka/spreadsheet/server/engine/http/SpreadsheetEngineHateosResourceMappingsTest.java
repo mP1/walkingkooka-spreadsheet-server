@@ -484,7 +484,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
-                        context.storeRepository().labels()::cellReferenceOrFail
+                        (e) -> context.storeRepository()
+                                .labels()
+                                .cellReferenceOrRangeOrFail(e)
+                                .toCellOrFail()
                 ),
                 method,
                 url,
@@ -509,7 +512,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
-                        context.storeRepository().labels()::cellReferenceOrFail
+                        (e) -> context.storeRepository()
+                                .labels()
+                                .cellReferenceOrRangeOrFail(e)
+                                .toCellOrFail()
                 ),
                 method,
                 url,

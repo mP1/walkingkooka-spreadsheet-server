@@ -51,7 +51,8 @@ final class SpreadsheetDeltaJsonCellLabelResolverBiFunction implements BiFunctio
     private JsonObject handleSpreadsheetDelta(final JsonObject object) {
         return SpreadsheetDelta.resolveCellLabels(
                 object,
-                this.store::cellReferenceOrFail
+                (e) -> this.store.cellReferenceOrRangeOrFail(e)
+                        .toCellOrFail()
         );
     }
 
