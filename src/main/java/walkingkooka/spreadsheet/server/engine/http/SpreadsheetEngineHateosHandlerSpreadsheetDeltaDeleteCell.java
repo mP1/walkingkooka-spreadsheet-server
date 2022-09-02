@@ -23,11 +23,9 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -53,39 +51,37 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCell extends Spr
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-        HateosHandler.checkResourceEmpty(resource);
-        HateosHandler.checkParameters(parameters);
 
-        return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        this.engine.deleteCell(
-                                cell,
-                                this.context
-                        )
-                )
+        return deleteCells(
+                resource,
+                parameters,
+                cell
         );
     }
 
     @Override
-    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> rangeOfCells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkRangeBounded(range, "range");
+        return deleteCells(
+                resource,
+                parameters,
+                SpreadsheetSelection.cellRange(rangeOfCells)
+        );
+    }
+
+    private Optional<SpreadsheetDelta> deleteCells(final Optional<SpreadsheetDelta> resource,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                   final SpreadsheetSelection cells) {
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
-
-        final SpreadsheetCellRange cellRange = SpreadsheetExpressionReference.cellRange(range);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
-                        this.engine.fillCells(
-                                Collections.emptyList(),
-                                cellRange,
-                                cellRange,
+                        this.engine.deleteCells(
+                                cells,
                                 this.context
                         )
                 )

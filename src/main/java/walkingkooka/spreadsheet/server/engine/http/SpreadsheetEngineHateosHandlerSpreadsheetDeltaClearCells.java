@@ -53,15 +53,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells extends Spr
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkCell(cell);
-        HateosHandler.checkResourceNotEmpty(resource);
-        HateosHandler.checkParameters(parameters);
 
-        return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        this.engine.deleteCell(cell, this.context)
-                )
+        return deleteCells(
+                resource,
+                parameters,
+                cell
         );
     }
 
@@ -69,7 +65,16 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells extends Spr
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> rangeOfCells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange range = SpreadsheetSelection.cellRange(rangeOfCells);
+        return deleteCells(
+                resource,
+                parameters,
+                SpreadsheetSelection.cellRange(rangeOfCells)
+        );
+    }
+
+    private Optional<SpreadsheetDelta> deleteCells(final Optional<SpreadsheetDelta> resource,
+                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                   final SpreadsheetSelection cells) {
         HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
@@ -77,10 +82,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells extends Spr
                 this.prepareResponse(
                         resource,
                         parameters,
-                        this.engine.fillCells(
-                                SpreadsheetDelta.NO_CELLS,
-                                range, // from is ignored because cells is empty.
-                                range,
+                        this.engine.deleteCells(
+                                cells,
                                 this.context
                         )
                 )

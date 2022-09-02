@@ -78,6 +78,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -570,13 +571,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public SpreadsheetDelta deleteCell(final SpreadsheetCellReference cell,
-                                               final SpreadsheetEngineContext context) {
+            public SpreadsheetDelta deleteCells(final SpreadsheetSelection selection,
+                                                final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY
                         .setDeletedCells(
-                                Sets.of(
-                                        cell
-                                )
+                                selection.toCellRangeOrFail()
+                                        .cellStream()
+                                        .collect(Collectors.toSet())
                         );
             }
 
