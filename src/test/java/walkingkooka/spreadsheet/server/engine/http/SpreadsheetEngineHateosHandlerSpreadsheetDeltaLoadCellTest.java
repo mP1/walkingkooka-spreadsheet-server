@@ -122,10 +122,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         EVALUATION,
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCell(final SpreadsheetCellReference cell,
-                                                             final SpreadsheetEngineEvaluation evaluation,
-                                                             final Set<SpreadsheetDeltaProperties> dp,
-                                                             final SpreadsheetEngineContext context) {
+                            public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final Set<SpreadsheetDeltaProperties> dp,
+                                                              final SpreadsheetEngineContext context) {
                                 assertSame(EVALUATION, evaluation, "evaluation");
                                 checkEquals(
                                         SpreadsheetDeltaProperties.csv(deltaProperties),
@@ -1149,16 +1149,20 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine() {
             @Override
-            public SpreadsheetDelta loadCell(final SpreadsheetCellReference id,
-                                             final SpreadsheetEngineEvaluation evaluation,
-                                             final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                             final SpreadsheetEngineContext context) {
-                Objects.requireNonNull(id, "id");
+            public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
+                                              final SpreadsheetEngineEvaluation evaluation,
+                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                              final SpreadsheetEngineContext context) {
+                Objects.requireNonNull(selection, "selection");
                 Objects.requireNonNull(evaluation, "evaluation");
                 Objects.requireNonNull(deltaProperties, "deltaProperties");
                 Objects.requireNonNull(context, "context");
 
-                checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(), id, "spreadsheetCellReference");
+                checkEquals(
+                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest.this.spreadsheetCellReference(),
+                        selection,
+                        "selection"
+                );
                 checkEquals(EVALUATION, evaluation, "evaluation");
                 checkNotEquals(null, context, "context");
 

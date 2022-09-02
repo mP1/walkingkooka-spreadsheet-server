@@ -223,7 +223,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     private SpreadsheetDelta loadCell(final SpreadsheetCellReference reference,
                                       final Set<SpreadsheetDeltaProperties> deltaProperties) {
-        return this.engine.loadCell(
+        return this.engine.loadCells(
                 reference,
                 this.evaluation,
                 deltaProperties,
