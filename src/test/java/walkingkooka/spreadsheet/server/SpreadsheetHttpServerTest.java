@@ -4287,7 +4287,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );
@@ -4392,7 +4394,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );
@@ -5263,7 +5267,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );
@@ -5368,7 +5374,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );
@@ -6116,7 +6124,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );
@@ -6221,7 +6231,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "{}",
+                        "{\n" +
+                                "  \"deletedCells\": \"B2\"\n" +
+                                "}",
                         DELTA
                 )
         );

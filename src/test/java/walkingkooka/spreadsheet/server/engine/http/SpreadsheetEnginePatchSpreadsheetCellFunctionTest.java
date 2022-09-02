@@ -97,11 +97,11 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCell(final SpreadsheetCellReference cellReference,
-                                                             final SpreadsheetEngineEvaluation evaluation,
-                                                             final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                             final SpreadsheetEngineContext context) {
-                                checkEquals(REFERENCE, cellReference, "reference");
+                            public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
+                                                              final SpreadsheetEngineEvaluation evaluation,
+                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                              final SpreadsheetEngineContext context) {
+                                checkEquals(REFERENCE, selection, "selection");
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY

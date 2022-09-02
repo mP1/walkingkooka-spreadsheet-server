@@ -62,7 +62,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
 
     @Override
     SpreadsheetDelta load(final SpreadsheetCellReference reference) {
-        return this.engine.loadCell(
+        return this.engine.loadCells(
                 reference,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 CELL_AND_LABELS,
