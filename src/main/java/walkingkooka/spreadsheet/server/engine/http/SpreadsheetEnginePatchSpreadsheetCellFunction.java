@@ -51,13 +51,9 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
 
     @Override
     SpreadsheetCellReference parseReference(final String text) {
-        return SpreadsheetSelection.parseCellOrLabelResolvingLabels(
-                text,
-                l -> this.context.storeRepository()
-                        .labels()
-                        .cellReferenceOrRangeOrFail(l)
-                        .toCellOrFail()
-        );
+        return this.context.resolveIfLabel(
+                SpreadsheetSelection.parseCellOrLabel(text)
+        ).toCellOrFail();
     }
 
     @Override

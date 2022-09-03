@@ -70,6 +70,11 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
         }
 
         @Override
+        public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+            return selection;
+        }
+
+        @Override
         public SpreadsheetStoreRepository storeRepository() {
             return new FakeSpreadsheetStoreRepository() {
                 @Override
