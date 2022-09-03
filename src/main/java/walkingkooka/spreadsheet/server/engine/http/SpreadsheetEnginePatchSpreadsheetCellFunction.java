@@ -24,7 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -35,7 +35,7 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEnginePatch<SpreadsheetCellReference> {
+final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEnginePatch<SpreadsheetCellRange> {
 
     static SpreadsheetEnginePatchSpreadsheetCellFunction with(final HttpRequest request,
                                                               final SpreadsheetEngine engine,
@@ -50,16 +50,16 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     }
 
     @Override
-    SpreadsheetCellReference parseReference(final String text) {
+    SpreadsheetCellRange parseReference(final String text) {
         return this.context.resolveIfLabel(
-                SpreadsheetSelection.parseCellOrLabel(text)
-        ).toCellOrFail();
+                SpreadsheetSelection.parseCellRangeOrLabel(text)
+        ).toCellRangeOrFail();
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetCellReference reference) {
+    SpreadsheetDelta load(final SpreadsheetCellRange cellRange) {
         return this.engine.loadCells(
-                reference,
+                cellRange,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 CELL_AND_LABELS,
                 this.context
@@ -83,7 +83,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetCellReference reference,
+    SpreadsheetDelta patch(final SpreadsheetCellRange cellRange,
                            final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
@@ -95,10 +95,9 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
 
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetCellReference reference) {
-        return this.engine.saveCell(
-                patched.cell(reference)
-                        .orElseThrow(() -> new IllegalStateException("Missing patched cell " + reference)),
+                          final SpreadsheetCellRange cellRange) {
+        return this.engine.saveCells(
+                patched.cells(),
                 this.context
         );
     }

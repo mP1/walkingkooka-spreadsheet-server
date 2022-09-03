@@ -25,6 +25,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetCellFormat;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -32,11 +33,15 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.text.FontStyle;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
@@ -45,80 +50,264 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetCellFunction, SpreadsheetCellReference> {
+public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetCellFunction, SpreadsheetCellRange> {
 
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetExpressionReference.parseCell("B2");
 
     @Test
-    public void testApply() {
-        this.applyAndCheck2("", Optional.empty());
+    public void testPatchCellReferenceWithCells() {
+        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetCell patch = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
+
+        final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
+        final SpreadsheetCell loaded = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
+                .setStyle(style);
+        final SpreadsheetCell saved = patch.setStyle(style);
+
+        this.applyAndCheck(
+                cellReference,
+                "", // queryString
+                this.marshall(
+                        SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(patch)
+                        )
+                ),
+                Sets.of(loaded),
+                Sets.of(saved),
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(saved)
+                        )
+        );
     }
 
     @Test
-    public void testApplySelectionQueryParameter() {
-        this.applyAndCheck2(
-                "?selectionType=cell&selection=Z99",
+    public void testPatchCellReferenceWithCellsAndQueryStringViewportSelection() {
+        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetCell patch = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
+
+        final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
+        final SpreadsheetCell loaded = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
+                .setStyle(style);
+        final SpreadsheetCell saved = patch.setStyle(style);
+
+        this.applyAndCheck(
+                cellReference,
+                "selectionType=cell&selection=Z99", // queryString
+                this.marshall(
+                        SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(patch)
+                        )
+                ),
+                Sets.of(loaded),
+                Sets.of(saved),
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(saved)
+                        ).setViewportSelection(
+                                Optional.of(
+                                        SpreadsheetSelection.parseCell("Z99")
+                                                .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                                )
+                        )
+        );
+    }
+
+    @Test
+    public void testPatchCellRangeWithCells() {
+        final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
+        final TextStyle styleB2 = TextStyle.EMPTY.set(
+                TextStylePropertyName.COLOR,
+                Color.parse("#222222")
+        );
+
+        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
+        final TextStyle styleC3 = TextStyle.EMPTY.set(
+                TextStylePropertyName.COLOR,
+                Color.parse("#333333")
+        );
+
+        final Set<SpreadsheetCell> loaded = Sets.of(
+                b2.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("='before b2")
+                ).setStyle(styleB2),
+                c3.setFormula(
+                        SpreadsheetFormula.EMPTY.setText("='before c3")
+                ).setStyle(styleC3)
+        );
+
+        final SpreadsheetCell patchB2 = b2.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='patched-b2")
+        );
+
+        final SpreadsheetCell patchC3 = c3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='patched-c3")
+        );
+
+        final Set<SpreadsheetCell> saved = Sets.of(
+                patchB2.setStyle(styleB2),
+                patchC3.setStyle(styleC3)
+        );
+
+        this.applyAndCheck(
+                SpreadsheetSelection.parseCellRange("A1:D4"),
+                "", // queryString
+                this.marshall(
+                        SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(
+                                        patchB2,
+                                        patchC3
+                                )
+                        )
+                ),
+                loaded,
+                saved,
+                SpreadsheetDelta.EMPTY
+                        .setCells(saved)
+        );
+    }
+
+    @Test
+    public void testPatchCellRangeWithFormat() {
+        final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
+        final SpreadsheetCell loadedB2 = b2.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='before b2")
+        ).setFormat(
                 Optional.of(
-                        SpreadsheetSelection.parseCell("Z99")
-                                .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        SpreadsheetCellFormat.with("format-before-b2")
                 )
         );
+
+        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
+        final SpreadsheetCellFormat formatC3 = SpreadsheetCellFormat.with("#format-before-c3");
+        final SpreadsheetCell loadedC3 = c3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='before c3")
+        ).setFormat(
+                Optional.of(
+                        SpreadsheetCellFormat.with("format-before-c3")
+                )
+        );
+
+        final Set<SpreadsheetCell> loaded = Sets.of(
+                loadedB2,
+                loadedC3
+        );
+
+        final SpreadsheetCellFormat patchedFormat = SpreadsheetCellFormat.with("#format-patched");
+
+        final Set<SpreadsheetCell> saved = Sets.of(
+                loadedB2.setFormat(
+                        Optional.of(patchedFormat)
+                ),
+                loadedC3.setFormat(
+                        Optional.of(patchedFormat)
+                )
+        );
+
+        this.applyAndCheck(
+                SpreadsheetSelection.parseCellRange("A1:D4"),
+                "", // queryString
+                JsonNode.object()
+                        .set(
+                                JsonPropertyName.with("format"),
+                                this.marshall(patchedFormat)
+                        ),
+                loaded,
+                saved,
+                SpreadsheetDelta.EMPTY
+                        .setCells(saved)
+        );
     }
 
     @Test
-    private void applyAndCheck2(final String queryString,
-                                final Optional<SpreadsheetViewportSelection> viewportSelection) {
-        final SpreadsheetCell cell = REFERENCE.setFormula(
-                SpreadsheetFormula.EMPTY
-                        .setText("=2")
+    public void testPatchCellRangeWithStyle() {
+        final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
+        final TextStyle styleB2 = TextStyle.EMPTY.set(
+                TextStylePropertyName.COLOR,
+                Color.parse("#222222")
+        );
+        final SpreadsheetCell loadedB2 = b2.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='before2")
+        ).setStyle(styleB2);
+
+        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
+        final TextStyle styleC3 = TextStyle.EMPTY.set(
+                TextStylePropertyName.COLOR,
+                Color.parse("#333333")
+        );
+        final SpreadsheetCell loadedC3 = c3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='before3")
+        ).setStyle(styleC3);
+
+        final Set<SpreadsheetCell> loaded = Sets.of(
+                loadedB2,
+                loadedC3
         );
 
-        final TextStyle style = TextStyle.EMPTY
-                .set(TextStylePropertyName.BACKGROUND_COLOR, Color.BLACK);
-
-        final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
+        final TextStyle patchedStyle = TextStyle.EMPTY
+                .set(
+                        TextStylePropertyName.FONT_STYLE,
+                        FontStyle.ITALIC
                 );
-        final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(
-                                cell.setStyle(style)
-                        )
-                ).setViewportSelection(viewportSelection);
 
+        final Set<SpreadsheetCell> saved = Sets.of(
+                loadedB2.setStyle(
+                        styleB2.merge(patchedStyle)
+                ),
+                loadedC3.setStyle(
+                        styleC3.merge(patchedStyle)
+                )
+        );
+
+        this.applyAndCheck(
+                SpreadsheetSelection.parseCellRange("A1:D4"),
+                "", // queryString
+                JsonNode.object()
+                        .set(
+                                JsonPropertyName.with("style"),
+                                this.marshall(patchedStyle)
+                        ),
+                loaded,
+                saved,
+                SpreadsheetDelta.EMPTY
+                        .setCells(saved)
+        );
+    }
+
+    private void applyAndCheck(final SpreadsheetSelection selection,
+                               final String queryString,
+                               final JsonNode request,
+                               final Set<SpreadsheetCell> loaded,
+                               final Set<SpreadsheetCell> saved,
+                               final SpreadsheetDelta response) {
         this.applyAndCheck(
                 SpreadsheetEnginePatchSpreadsheetCellFunction.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/cell/" + REFERENCE + queryString);
+                                return Url.parseRelative("/cell/" + selection + "?" + queryString);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
+                            public SpreadsheetDelta loadCells(final SpreadsheetSelection loadSelection,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(REFERENCE, selection, "selection");
+                                checkEquals(selection.toCellRangeOrFail(), loadSelection, "selection");
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY
-                                        .setCells(
-                                                Sets.of(
-                                                        cell.setFormula(
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("=-1")
-                                                        ).setStyle(style)
-                                                )
-                                        );
+                                        .setCells(loaded);
                             }
 
                             @Override
-                            public SpreadsheetDelta saveCell(final SpreadsheetCell c,
-                                                             final SpreadsheetEngineContext context) {
-                                checkEquals(cell.setStyle(style), c, "cell");
+                            public SpreadsheetDelta saveCells(final Set<SpreadsheetCell> cells,
+                                                              final SpreadsheetEngineContext context) {
+                                checkEquals(
+                                        saved,
+                                        cells,
+                                        "saved cells");
                                 assertSame(CONTEXT, context, "context");
 
                                 return response;
