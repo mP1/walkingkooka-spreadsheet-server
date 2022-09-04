@@ -1812,7 +1812,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  }\n" +
                         "}",
                 HttpStatusCode.BAD_REQUEST
-                        .setMessage("Unrecognized character '!' at (1,1) \"!\" expected (SpreadsheetColumnReference, SpreadsheetRowReference)"),
+                        .setMessage("Invalid character '!' at (1,1) \"!\" expected (SpreadsheetColumnReference, SpreadsheetRowReference)"),
                 ""
         );
     }
