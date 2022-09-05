@@ -1812,7 +1812,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  }\n" +
                         "}",
                 HttpStatusCode.BAD_REQUEST
-                        .setMessage("Invalid character '!' at (1,1) \"!\" expected cell"),
+                        .setMessage("Invalid character '!' at 0 in \"!\""),
                 ""
         );
     }
