@@ -178,34 +178,38 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 )
         );
 
-        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
-        final SpreadsheetCellFormat formatC3 = SpreadsheetCellFormat.with("#format-before-c3");
-        final SpreadsheetCell loadedC3 = c3.setFormula(
-                SpreadsheetFormula.EMPTY.setText("='before c3")
+        final SpreadsheetCellReference b3 = SpreadsheetSelection.parseCell("B3");
+        final SpreadsheetCell loadedB3 = b3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("='before b3")
         ).setFormat(
                 Optional.of(
-                        SpreadsheetCellFormat.with("format-before-c3")
+                        SpreadsheetCellFormat.with("format-before-b3")
                 )
         );
 
         final Set<SpreadsheetCell> loaded = Sets.of(
                 loadedB2,
-                loadedC3
+                loadedB3
         );
 
         final SpreadsheetCellFormat patchedFormat = SpreadsheetCellFormat.with("#format-patched");
 
         final Set<SpreadsheetCell> saved = Sets.of(
+                SpreadsheetSelection.parseCell("B1")
+                        .setFormula(SpreadsheetFormula.EMPTY)
+                        .setFormat(
+                                Optional.of(patchedFormat)
+                        ),
                 loadedB2.setFormat(
                         Optional.of(patchedFormat)
                 ),
-                loadedC3.setFormat(
+                loadedB3.setFormat(
                         Optional.of(patchedFormat)
                 )
         );
 
         this.applyAndCheck(
-                SpreadsheetSelection.parseCellRange("A1:D4"),
+                SpreadsheetSelection.parseCellRange("B1:B3"),
                 "", // queryString
                 JsonNode.object()
                         .set(
@@ -230,18 +234,18 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 SpreadsheetFormula.EMPTY.setText("='before2")
         ).setStyle(styleB2);
 
-        final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
-        final TextStyle styleC3 = TextStyle.EMPTY.set(
+        final SpreadsheetCellReference b3 = SpreadsheetSelection.parseCell("B3");
+        final TextStyle styleB3 = TextStyle.EMPTY.set(
                 TextStylePropertyName.COLOR,
                 Color.parse("#333333")
         );
-        final SpreadsheetCell loadedC3 = c3.setFormula(
+        final SpreadsheetCell loadedB3 = b3.setFormula(
                 SpreadsheetFormula.EMPTY.setText("='before3")
-        ).setStyle(styleC3);
+        ).setStyle(styleB3);
 
         final Set<SpreadsheetCell> loaded = Sets.of(
                 loadedB2,
-                loadedC3
+                loadedB3
         );
 
         final TextStyle patchedStyle = TextStyle.EMPTY
@@ -251,16 +255,19 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 );
 
         final Set<SpreadsheetCell> saved = Sets.of(
+                SpreadsheetSelection.parseCell("B1")
+                        .setFormula(SpreadsheetFormula.EMPTY)
+                        .setStyle(patchedStyle),
                 loadedB2.setStyle(
                         styleB2.merge(patchedStyle)
                 ),
-                loadedC3.setStyle(
-                        styleC3.merge(patchedStyle)
+                loadedB3.setStyle(
+                        styleB3.merge(patchedStyle)
                 )
         );
 
         this.applyAndCheck(
-                SpreadsheetSelection.parseCellRange("A1:D4"),
+                SpreadsheetSelection.parseCellRange("B1:B3"),
                 "", // queryString
                 JsonNode.object()
                         .set(

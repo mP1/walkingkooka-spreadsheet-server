@@ -88,6 +88,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
         return loaded.patchCells(
+                cellRange,
                 patch,
                 context
         );
