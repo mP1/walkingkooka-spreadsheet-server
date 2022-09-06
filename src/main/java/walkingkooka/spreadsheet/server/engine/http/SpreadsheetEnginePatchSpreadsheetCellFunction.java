@@ -50,7 +50,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     }
 
     @Override
-    SpreadsheetCellRange parseReference(final String text) {
+    SpreadsheetCellRange parseSelection(final String text) {
         return this.context.resolveIfLabel(
                 SpreadsheetSelection.parseCellRangeOrLabel(text)
         ).toCellRangeOrFail();

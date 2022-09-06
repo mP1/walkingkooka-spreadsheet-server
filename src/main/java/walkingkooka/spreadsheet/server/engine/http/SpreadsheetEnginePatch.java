@@ -42,7 +42,7 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
+abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
 
     SpreadsheetEnginePatch(final HttpRequest request,
                            final SpreadsheetEngine engine,
@@ -59,22 +59,22 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
 
     @Override
     public JsonNode apply(final JsonNode json) {
-        final R reference = this.parseReference();
+        final S selection = this.parseSelection();
 
-        final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(reference);
+        final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(selection);
         final JsonNode patch = this.preparePatch(json);
 
         final SpreadsheetMetadata metadata = this.context.metadata();
 
         final SpreadsheetDelta patched = this.patch(
-                reference,
+                selection,
                 loaded,
                 patch,
                 metadata.jsonNodeUnmarshallContext()
         );
 
         final SpreadsheetDelta saved =
-                this.save(patched, reference)
+                this.save(patched, selection)
                         .setWindow(patched.window())
                         .setViewportSelection(
                                 this.viewportSelection(
@@ -86,8 +86,8 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
                 .marshall(saved);
     }
 
-    private R parseReference() {
-        return this.parseReference(
+    private S parseSelection() {
+        return this.parseSelection(
                 this.request.url()
                         .path()
                         .name()
@@ -98,11 +98,11 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     /**
      * Parses the last part of the path into the {@link SpreadsheetSelection}.
      */
-    abstract R parseReference(final String text);
+    abstract S parseSelection(final String text);
 
-    private SpreadsheetDelta loadSpreadsheetDelta(final R reference) {
+    private SpreadsheetDelta loadSpreadsheetDelta(final S selectin) {
         try {
-            return this.load(reference);
+            return this.load(selectin);
         } catch (final LoadStoreException cause) {
             throw new HttpResponseHttpServerException(
                     HttpStatusCode.BAD_REQUEST
@@ -115,17 +115,17 @@ abstract class SpreadsheetEnginePatch<R extends SpreadsheetSelection> implements
     /**
      * Loads the cell, column or row
      */
-    abstract SpreadsheetDelta load(final R reference);
+    abstract SpreadsheetDelta load(final S reference);
 
     abstract JsonNode preparePatch(final JsonNode delta);
 
-    abstract SpreadsheetDelta patch(final R reference,
+    abstract SpreadsheetDelta patch(final S selection,
                                     final SpreadsheetDelta loaded,
                                     final JsonNode patch,
                                     final JsonNodeUnmarshallContext context);
 
     abstract SpreadsheetDelta save(final SpreadsheetDelta patched,
-                                   final R reference);
+                                   final S reference);
 
     final HttpRequest request;
     final SpreadsheetEngine engine;
