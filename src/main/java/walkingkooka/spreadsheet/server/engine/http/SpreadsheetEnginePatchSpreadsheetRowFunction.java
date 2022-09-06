@@ -53,7 +53,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
     }
 
     @Override
-    SpreadsheetRowReferenceRange parseReference(final String text) {
+    SpreadsheetRowReferenceRange parseSelection(final String text) {
         return SpreadsheetSelection.parseRowRange(text);
     }
 
@@ -124,7 +124,7 @@ final class SpreadsheetEnginePatchSpreadsheetRowFunction extends SpreadsheetEngi
      */
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetRowReferenceRange reference) {
+                          final SpreadsheetRowReferenceRange range) {
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
