@@ -53,16 +53,15 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
 
     @Test
     public void testPatchCellReferenceWithCells() {
-        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
-        final SpreadsheetCell patch = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
+        final SpreadsheetCell patch = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
-        final SpreadsheetCell loaded = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
+        final SpreadsheetCell loaded = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
                 .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.applyAndCheck(
-                cellReference,
+                CELL_REFERENCE_B2,
                 "", // queryString
                 this.marshall(
                         SpreadsheetDelta.EMPTY.setCells(
@@ -80,16 +79,15 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
 
     @Test
     public void testPatchCellReferenceWithCellsAndQueryStringViewportSelection() {
-        final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
-        final SpreadsheetCell patch = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
+        final SpreadsheetCell patch = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
-        final SpreadsheetCell loaded = cellReference.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
+        final SpreadsheetCell loaded = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
                 .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.applyAndCheck(
-                cellReference,
+                CELL_REFERENCE_B2,
                 "selectionType=cell&selection=Z99", // queryString
                 this.marshall(
                         SpreadsheetDelta.EMPTY.setCells(
@@ -106,6 +104,48 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                         SpreadsheetSelection.parseCell("Z99")
                                                 .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                                 )
+                        )
+        );
+    }
+
+    @Test
+    public void testPatchCellLabelWithCells() {
+        final SpreadsheetCell patch = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
+
+        final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
+        final SpreadsheetCell loaded = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
+                .setStyle(style);
+        final SpreadsheetCell saved = patch.setStyle(style);
+
+        final String patchString = this.marshall(
+                        SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(patch)
+                        )
+                ).toString()
+                .replace(
+                        CELL_REFERENCE_B2.toString(),
+                        LABELB2.toString()
+                );
+        this.checkEquals(
+                false,
+                patchString.contains("" + '"' + CELL_REFERENCE_B2 + '"'),
+                () -> "PATCH must not contain " + CELL_REFERENCE_B2 + "\n" + patchString
+        );
+        this.checkEquals(
+                true,
+                patchString.contains(LABELB2.toString()),
+                () -> "PATCH must contain " + LABELB2 + "\n" + patchString
+        );
+
+        this.applyAndCheck(
+                CELL_REFERENCE_B2,
+                "", // queryString
+                JsonNode.parse(patchString),
+                Sets.of(loaded),
+                Sets.of(saved),
+                SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(saved)
                         )
         );
     }
@@ -298,7 +338,11 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(selection.toCellRangeOrFail(), loadSelection, "selection");
+                                checkEquals(
+                                        selection.toCellRangeOrFail(),
+                                        loadSelection,
+                                        "selection"
+                                );
                                 assertSame(CONTEXT, context, "context");
 
                                 return SpreadsheetDelta.EMPTY
