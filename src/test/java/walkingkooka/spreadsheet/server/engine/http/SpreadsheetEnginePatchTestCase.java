@@ -30,10 +30,13 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.store.FakeSpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.tree.json.JsonNode;
@@ -53,6 +56,9 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
         super();
     }
 
+    final static SpreadsheetLabelName LABELB2 = SpreadsheetSelection.labelName("LabelB2");
+    final static SpreadsheetCellReference CELL_REFERENCE_B2 = SpreadsheetSelection.parseCell("B2");
+
     final static HttpRequest REQUEST = HttpRequests.fake();
     final static SpreadsheetEngine ENGINE = new FakeSpreadsheetEngine() {
         @Override
@@ -71,7 +77,14 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
 
         @Override
         public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-            return selection;
+            SpreadsheetSelection resolved = selection;
+            if (selection.isLabelName()) {
+                if (!LABELB2.equals(selection)) {
+                    throw new IllegalArgumentException("Unknown label " + selection);
+                }
+                resolved = CELL_REFERENCE_B2;
+            }
+            return resolved;
         }
 
         @Override
@@ -79,7 +92,16 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
             return new FakeSpreadsheetStoreRepository() {
                 @Override
                 public SpreadsheetLabelStore labels() {
-                    return SpreadsheetLabelStores.fake();
+                    return new FakeSpreadsheetLabelStore() {
+                        @Override
+                        public Optional<SpreadsheetLabelMapping> load(final SpreadsheetLabelName label) {
+                            return Optional.ofNullable(
+                                    LABELB2.equals(label) ?
+                                            LABELB2.mapping(CELL_REFERENCE_B2) :
+                                            null
+                            );
+                        }
+                    };
                 }
             };
         }
