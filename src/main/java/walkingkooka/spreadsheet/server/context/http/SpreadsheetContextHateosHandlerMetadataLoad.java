@@ -49,7 +49,13 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        return this.context.storeRepository(id).metadatas().load(id);
+        final Optional<SpreadsheetMetadata> loaded = this.context.storeRepository(id)
+                .metadatas()
+                .load(id);
+        if (!loaded.isPresent()) {
+            throw new IllegalStateException("Unable to load spreadsheet " + id);
+        }
+        return loaded;
     }
 
     @Override
