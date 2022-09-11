@@ -52,7 +52,32 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
     }
 
     @Test
-    public void testHandleLoad() {
+    public void testLoadUnknown404() {
+        final SpreadsheetId id = this.spreadsheetId();
+
+        this.handleOneFails(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
+                            @Override
+                            public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                                checkEquals(id, i, "spreadsheetId");
+                                return new FakeSpreadsheetStoreRepository() {
+                                    @Override
+                                    public SpreadsheetMetadataStore metadatas() {
+                                        return SpreadsheetMetadataStores.treeMap(); // empty
+                                    }
+                                };
+                            }
+                        }),
+                id,
+                Optional.empty(),
+                HateosHandler.NO_PARAMETERS,
+                IllegalStateException.class
+        );
+    }
+
+    @Test
+    public void testLoadExisting() {
         final SpreadsheetId id = this.spreadsheetId();
 
         final EmailAddress creatorEmail = EmailAddress.parse("creator@example.com");

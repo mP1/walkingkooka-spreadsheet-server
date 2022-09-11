@@ -146,7 +146,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testGetUnknownSpreadsheetNoContent() {
+    public void testGetUnknownSpreadsheetNotFound() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -154,7 +154,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/99",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.NO_CONTENT.status())
+                HttpStatusCode.NOT_FOUND.status()
+                        .setMessage("Unable to load spreadsheet 99"),
+                "Unable to load spreadsheet 99"
         );
     }
 
