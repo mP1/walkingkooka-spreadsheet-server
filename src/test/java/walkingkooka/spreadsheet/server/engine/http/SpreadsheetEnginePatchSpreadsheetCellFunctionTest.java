@@ -25,7 +25,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellFormat;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -33,6 +32,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -205,22 +206,22 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
     }
 
     @Test
-    public void testPatchCellRangeWithFormat() {
+    public void testPatchCellRangeWithFormatPattern() {
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell loadedB2 = b2.setFormula(
                 SpreadsheetFormula.EMPTY.setText("='before b2")
-        ).setFormat(
+        ).setFormatPattern(
                 Optional.of(
-                        SpreadsheetCellFormat.with("format-before-b2")
+                        SpreadsheetPattern.parseTextFormatPattern("\"format-before-b2\"")
                 )
         );
 
         final SpreadsheetCellReference b3 = SpreadsheetSelection.parseCell("B3");
         final SpreadsheetCell loadedB3 = b3.setFormula(
                 SpreadsheetFormula.EMPTY.setText("='before b3")
-        ).setFormat(
+        ).setFormatPattern(
                 Optional.of(
-                        SpreadsheetCellFormat.with("format-before-b3")
+                        SpreadsheetPattern.parseTextFormatPattern("\"format-before-b3\"")
                 )
         );
 
@@ -229,18 +230,18 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 loadedB3
         );
 
-        final SpreadsheetCellFormat patchedFormat = SpreadsheetCellFormat.with("#format-patched");
+        final SpreadsheetFormatPattern<?> patchedFormat = SpreadsheetPattern.parseTextFormatPattern("\"#format-patched\"");
 
         final Set<SpreadsheetCell> saved = Sets.of(
                 SpreadsheetSelection.parseCell("B1")
                         .setFormula(SpreadsheetFormula.EMPTY)
-                        .setFormat(
+                        .setFormatPattern(
                                 Optional.of(patchedFormat)
                         ),
-                loadedB2.setFormat(
+                loadedB2.setFormatPattern(
                         Optional.of(patchedFormat)
                 ),
-                loadedB3.setFormat(
+                loadedB3.setFormatPattern(
                         Optional.of(patchedFormat)
                 )
         );
@@ -250,8 +251,8 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 "", // queryString
                 JsonNode.object()
                         .set(
-                                JsonPropertyName.with("format"),
-                                this.marshall(patchedFormat)
+                                JsonPropertyName.with("format-pattern"),
+                                this.marshallWithType(patchedFormat)
                         ),
                 loaded,
                 saved,

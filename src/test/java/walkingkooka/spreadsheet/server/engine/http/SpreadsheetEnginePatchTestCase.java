@@ -148,6 +148,11 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
                 .marshall(object);
     }
 
+    final JsonNode marshallWithType(final Object object) {
+        return JsonNodeMarshallContexts.basic()
+                .marshallWithType(object);
+    }
+
     @Override
     public P createFunction() {
         return this.createFunction(
