@@ -87,7 +87,10 @@ public final class SpreadsheetFormatRequestTest extends SpreadsheetFormatterTest
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "1999-12-31 dd/mm/yyyy");
+        this.toStringAndCheck(
+                this.createObject(),
+                "1999-12-31 \"dd/mm/yyyy\""
+        );
     }
 
     @Override

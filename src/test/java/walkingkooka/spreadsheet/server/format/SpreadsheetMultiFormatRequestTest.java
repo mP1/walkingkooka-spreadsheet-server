@@ -70,7 +70,10 @@ public final class SpreadsheetMultiFormatRequestTest extends SpreadsheetFormatte
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "[1999-12-31 yyyy/mm/dd]");
+        this.toStringAndCheck(
+                this.createObject(),
+                "[1999-12-31 \"yyyy/mm/dd\"]"
+        );
     }
 
     @Override
