@@ -223,7 +223,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"'Hello123'\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -276,7 +275,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"2000/12/31\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-date-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -356,7 +354,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"2000/12/31 12:34\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-date-time-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -464,7 +461,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"123.456\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -530,7 +526,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"12:34\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-time-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -596,7 +591,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -671,7 +665,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -780,7 +773,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"'Hello123'\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -856,7 +848,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -939,7 +930,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -1179,7 +1169,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1300,7 +1289,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=4+A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1435,7 +1423,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1569,7 +1556,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=3+4\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1691,7 +1677,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=4+A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1844,7 +1829,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -1965,7 +1949,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2052,7 +2035,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=999\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2131,7 +2113,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=999\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2269,7 +2250,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2341,7 +2321,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'PatchedText123\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2419,7 +2398,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2546,7 +2524,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'PATCHED\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2618,7 +2595,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2741,7 +2717,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=4+A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2861,7 +2836,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1+2\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -2953,7 +2927,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    },\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=4+A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3091,7 +3064,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3154,7 +3126,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3227,7 +3198,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3291,7 +3261,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3364,7 +3333,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3428,7 +3396,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3501,7 +3468,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3565,7 +3531,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3653,7 +3618,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3723,7 +3687,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3817,7 +3780,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3886,7 +3848,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello'\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -3997,7 +3958,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4083,7 +4043,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4215,7 +4174,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4322,7 +4280,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4430,7 +4387,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=123\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4510,7 +4466,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4580,7 +4535,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"E4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4669,7 +4623,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=123\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4751,7 +4704,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4822,7 +4774,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"E4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4910,7 +4861,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -4980,7 +4930,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5195,7 +5144,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5302,7 +5250,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5410,7 +5357,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=123\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5492,7 +5438,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5563,7 +5508,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D5\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5652,7 +5596,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=123\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5734,7 +5677,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D4\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5805,7 +5747,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"D5\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=456\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5893,7 +5834,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C3\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -5962,7 +5902,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"C2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"1.25\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-number-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6052,7 +5991,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6159,7 +6097,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6268,7 +6205,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6334,7 +6270,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6423,7 +6358,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6473,7 +6407,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    },\n" +
                                 "    \"A2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6523,7 +6456,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    },\n" +
                                 "    \"B1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6573,7 +6505,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    },\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6661,7 +6592,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6759,7 +6689,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"B2\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6825,7 +6754,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"=1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -6951,7 +6879,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +
@@ -7111,7 +7038,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
-                                "        \"text\": \"'Hello A1\",\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-text-parser-token\",\n" +
                                 "          \"value\": {\n" +

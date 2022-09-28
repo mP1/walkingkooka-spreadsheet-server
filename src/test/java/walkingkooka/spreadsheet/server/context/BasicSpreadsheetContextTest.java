@@ -338,7 +338,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -447,7 +446,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -556,7 +554,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
@@ -665,7 +662,6 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"cells\": {\n" +
                         "    \"B2\": {\n" +
                         "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
                         "        \"token\": {\n" +
                         "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
                         "          \"value\": {\n" +
