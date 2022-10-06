@@ -2204,8 +2204,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  }\n" +
                         "}",
                 HttpStatusCode.NOT_FOUND
-                        .setMessage("Unknown Label: UnknownLabel123"),
-                "Unknown Label: UnknownLabel123"
+                        .setMessage("Label not found: UnknownLabel123"),
+                "Label not found: UnknownLabel123"
         );
     }
 
