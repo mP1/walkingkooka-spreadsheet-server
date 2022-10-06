@@ -295,7 +295,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 HttpMethod.GET,
                 "/cell/UnknownLabel123",
                 HttpStatusCode.BAD_REQUEST,
-                "Unknown Label: UnknownLabel123"
+                "Label not found: UnknownLabel123"
         );
     }
 
@@ -345,7 +345,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 HttpMethod.POST,
                 "/cell/UnknownLabel456",
                 HttpStatusCode.BAD_REQUEST,
-                "Unknown Label: UnknownLabel456"
+                "Label not found: UnknownLabel456"
         );
     }
 
@@ -378,7 +378,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 HttpMethod.DELETE,
                 "/cell/UnknownLabel789",
                 HttpStatusCode.BAD_REQUEST,
-                "Unknown Label: UnknownLabel789"
+                "Label not found: UnknownLabel789"
         );
     }
 
