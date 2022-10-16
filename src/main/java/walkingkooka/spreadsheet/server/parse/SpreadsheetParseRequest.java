@@ -32,10 +32,10 @@ import java.util.Objects;
 public final class SpreadsheetParseRequest {
 
     public static SpreadsheetParseRequest with(final String text, final String parser) {
-        Objects.requireNonNull(text, "text");
-        CharSequences.failIfNullOrEmpty(parser, "parser");
-
-        return new SpreadsheetParseRequest(text, parser);
+        return new SpreadsheetParseRequest(
+                Objects.requireNonNull(text, "text"),
+                CharSequences.failIfNullOrEmpty(parser, "parser")
+        );
     }
 
     private SpreadsheetParseRequest(final String text, final String parser) {
