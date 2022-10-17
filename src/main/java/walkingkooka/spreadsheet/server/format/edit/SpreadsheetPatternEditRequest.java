@@ -42,20 +42,20 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
 
     public static SpreadsheetPatternEditRequest with(final SpreadsheetPatternKind kind,
                                                      final String pattern,
-                                                     final List<String> samples) {
+                                                     final List<String> values) {
         return new SpreadsheetPatternEditRequest(
                 Objects.requireNonNull(kind, "kind"),
                 Objects.requireNonNull(pattern, "pattern"),
-                Objects.requireNonNull(samples, "samples")
+                Objects.requireNonNull(values, "values")
         );
     }
 
     private SpreadsheetPatternEditRequest(final SpreadsheetPatternKind kind,
                                           final String pattern,
-                                          final List<String> samples) {
+                                          final List<String> values) {
         this.kind = kind;
         this.pattern = pattern;
-        this.samples = Lists.immutable(samples);
+        this.values = Lists.immutable(values);
     }
 
     /**
@@ -77,20 +77,20 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
     private final String pattern;
 
     /**
-     * Getter that returns the values to be formatted and displayed as samples.
+     * Getter that returns the values to be formatted and displayed as values.
      */
-    public List<String> samples() {
-        return this.samples;
+    public List<String> values() {
+        return this.values;
     }
 
-    private final List<String> samples;
+    private final List<String> values;
 
     @Override
     public int hashCode() {
         return Objects.hash(
                 this.kind,
                 this.pattern,
-                this.samples
+                this.values
         );
     }
 
@@ -104,7 +104,7 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
     private boolean equals0(final SpreadsheetPatternEditRequest other) {
         return this.kind.equals(other.kind) &&
                 this.pattern.equals(other.pattern) &&
-                this.samples.equals(other.samples);
+                this.values.equals(other.values);
     }
 
     @Override
@@ -118,24 +118,24 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
                 .value(this.kind.typeName())
                 .enable(ToStringBuilderOption.QUOTE)
                 .value(this.pattern)
-                .value(this.samples);
+                .value(this.values);
     }
 
     // json.............................................................................................................
 
     private final static String KIND_STRING = "kind";
     private final static String PATTERN_STRING = "pattern";
-    private final static String SAMPLES_STRING = "samples";
+    private final static String VALUES_STRING = "values";
 
     final static JsonPropertyName KIND_PROPERTY = JsonPropertyName.with(KIND_STRING);
     final static JsonPropertyName PATTERN_PROPERTY = JsonPropertyName.with(PATTERN_STRING);
-    final static JsonPropertyName SAMPLES_PROPERTY = JsonPropertyName.with(SAMPLES_STRING);
+    final static JsonPropertyName VALUES_PROPERTY = JsonPropertyName.with(VALUES_STRING);
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
                 .set(KIND_PROPERTY, context.marshall(this.kind.typeName()))
                 .set(PATTERN_PROPERTY, context.marshall(this.pattern))
-                .set(SAMPLES_PROPERTY, context.marshallCollection(this.samples));
+                .set(VALUES_PROPERTY, context.marshallCollection(this.values));
     }
 
     static SpreadsheetPatternEditRequest unmarshall(final JsonNode json,
@@ -144,7 +144,7 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
 
         SpreadsheetPatternKind kind = null;
         String pattern = null;
-        List<String> samples = null;
+        List<String> values = null;
 
         for (final JsonNode child : json.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
@@ -160,8 +160,8 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
                             String.class
                     );
                     break;
-                case SAMPLES_STRING:
-                    samples = context.unmarshallList(
+                case VALUES_STRING:
+                    values = context.unmarshallList(
                             child,
                             String.class
                     );
@@ -178,11 +178,11 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
         if (null == pattern) {
             JsonNodeUnmarshallContext.requiredPropertyMissing(PATTERN_PROPERTY, json);
         }
-        if (null == samples) {
-            JsonNodeUnmarshallContext.requiredPropertyMissing(SAMPLES_PROPERTY, json);
+        if (null == values) {
+            JsonNodeUnmarshallContext.requiredPropertyMissing(VALUES_PROPERTY, json);
         }
 
-        return with(kind, pattern, samples);
+        return with(kind, pattern, values);
     }
 
     static {
@@ -206,8 +206,8 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
 
             printer.indent();
             {
-                for (final String sampleValue : this.samples) {
-                    printer.println(CharSequences.quoteAndEscape(sampleValue));
+                for (final String valuesValue : this.values) {
+                    printer.println(CharSequences.quoteAndEscape(valuesValue));
                 }
             }
 

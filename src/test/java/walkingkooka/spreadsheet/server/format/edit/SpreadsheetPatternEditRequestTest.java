@@ -33,9 +33,9 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
 
     private final static SpreadsheetPatternKind KIND = SpreadsheetPatternKind.DATE_PARSE_PATTERN;
     private final static String PATTERN = "pattern-123";
-    private final static List<String> SAMPLES = Lists.of(
-            "Sample1a",
-            "Sample2b"
+    private final static List<String> VALUES = Lists.of(
+            "Value1a",
+            "Value2b"
     );
 
     @Test
@@ -43,7 +43,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
         this.withFails(
                 null,
                 PATTERN,
-                SAMPLES
+                VALUES
         );
     }
 
@@ -52,12 +52,12 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
         this.withFails(
                 KIND,
                 null,
-                SAMPLES
+                VALUES
         );
     }
 
     @Test
-    public void testWithNullSamplesFails() {
+    public void testWithNullValuesFails() {
         this.withFails(
                 KIND,
                 PATTERN,
@@ -67,13 +67,13 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
 
     private void withFails(final SpreadsheetPatternKind kind,
                            final String pattern,
-                           final List<String> samples) {
+                           final List<String> values) {
         assertThrows(
                 NullPointerException.class,
                 () -> SpreadsheetPatternEditRequest.with(
                         kind,
                         pattern,
-                        samples
+                        values
                 )
         );
     }
@@ -83,12 +83,12 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
         this.withAndCheck(
                 KIND,
                 "",
-                SAMPLES
+                VALUES
         );
     }
 
     @Test
-    public void testWithEmptySamples() {
+    public void testWithEmptyValues() {
         this.withAndCheck(
                 KIND,
                 PATTERN,
@@ -98,16 +98,16 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
 
     private void withAndCheck(final SpreadsheetPatternKind kind,
                               final String pattern,
-                              final List<String> samples) {
+                              final List<String> values) {
         final SpreadsheetPatternEditRequest request = SpreadsheetPatternEditRequest.with(
                 kind,
                 pattern,
-                samples
+                values
         );
 
         this.checkEquals(kind, request.kind(), "kind");
         this.checkEquals(pattern, request.pattern(), "pattern");
-        this.checkEquals(samples, request.samples(), "samples");
+        this.checkEquals(values, request.values(), "values");
     }
 
     // treePrint........................................................................................................
@@ -118,8 +118,8 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                 this.createObject(),
                 "spreadsheet-date-parse-pattern\n" +
                         "  \"pattern-123\"\n" +
-                        "    \"Sample1a\"\n" +
-                        "    \"Sample2b\"\n"
+                        "    \"Value1a\"\n" +
+                        "    \"Value2b\"\n"
         );
     }
 
@@ -129,17 +129,17 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                 SpreadsheetPatternEditRequest.with(
                         KIND,
                         "",
-                        SAMPLES
+                        VALUES
                 ),
                 "spreadsheet-date-parse-pattern\n" +
                         "  \"\"\n" +
-                        "    \"Sample1a\"\n" +
-                        "    \"Sample2b\"\n"
+                        "    \"Value1a\"\n" +
+                        "    \"Value2b\"\n"
         );
     }
 
     @Test
-    public void testTreePrintEmptySamples() {
+    public void testTreePrintEmptyValues() {
         this.treePrintAndCheck(
                 SpreadsheetPatternEditRequest.with(
                         KIND,
@@ -159,13 +159,13 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                 SpreadsheetPatternEditRequest.with(
                         KIND,
                         "",
-                        SAMPLES
+                        VALUES
                 )
         );
     }
 
     @Test
-    public void testJsonRoundtripEmptySamples() {
+    public void testJsonRoundtripEmptyValues() {
         this.marshallRoundTripTwiceAndCheck(
                 SpreadsheetPatternEditRequest.with(
                         KIND,
@@ -183,7 +183,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                 SpreadsheetPatternEditRequest.with(
                         SpreadsheetPatternKind.DATE_FORMAT_PATTERN,
                         PATTERN,
-                        SAMPLES
+                        VALUES
                 )
         );
     }
@@ -194,19 +194,19 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                 SpreadsheetPatternEditRequest.with(
                         KIND,
                         "different-" + PATTERN,
-                        SAMPLES
+                        VALUES
                 )
         );
     }
 
     @Test
-    public void testDifferentSamples() {
+    public void testDifferentValues() {
         this.checkNotEquals(
                 SpreadsheetPatternEditRequest.with(
                         KIND,
                         PATTERN,
                         Lists.of(
-                                "Different-sample-1a"
+                                "Different-value-1a"
                         )
                 )
         );
@@ -216,7 +216,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
     public void testToString() {
         this.toStringAndCheck(
                 this.createObject(),
-                "spreadsheet-date-parse-pattern \"pattern-123\" \"Sample1a\", \"Sample2b\""
+                "spreadsheet-date-parse-pattern \"pattern-123\" \"Value1a\", \"Value2b\""
         );
     }
 
@@ -225,7 +225,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
         return SpreadsheetPatternEditRequest.with(
                 KIND,
                 PATTERN,
-                SAMPLES
+                VALUES
         );
     }
 
