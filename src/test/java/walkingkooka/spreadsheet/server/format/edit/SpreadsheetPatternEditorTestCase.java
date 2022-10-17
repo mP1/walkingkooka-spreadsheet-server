@@ -15,19 +15,14 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.ToStringTesting;
+import walkingkooka.reflect.ClassTesting;
 
-public final class SpreadsheetPatternEditorTokenKindTest extends SpreadsheetPatternEditorTestCase<SpreadsheetPatternEditorTokenKind> {
+public abstract class SpreadsheetPatternEditorTestCase<T> implements ClassTesting<T>, ToStringTesting<T> {
 
-    @Override
-    public Class<SpreadsheetPatternEditorTokenKind> type() {
-        return SpreadsheetPatternEditorTokenKind.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    SpreadsheetPatternEditorTestCase() {
+        super();
     }
 }

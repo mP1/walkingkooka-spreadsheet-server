@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
@@ -35,18 +35,18 @@ import java.util.Objects;
  * Represents a token within a pattern. The response to the service will parse a String into a {@link walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern}
  * and then return the individual tokens within the pattern for the UI to display and the user edit.
  */
-public final class SpreadsheetPatternEditorToken implements TreePrintable, UsesToStringBuilder {
+public final class SpreadsheetPatternEditToken implements TreePrintable, UsesToStringBuilder {
 
-    public static SpreadsheetPatternEditorToken with(final SpreadsheetPatternEditorTokenKind kind,
-                                                     final String pattern) {
-        return new SpreadsheetPatternEditorToken(
+    public static SpreadsheetPatternEditToken with(final SpreadsheetPatternEditTokenKind kind,
+                                                   final String pattern) {
+        return new SpreadsheetPatternEditToken(
                 Objects.requireNonNull(kind, "kind"),
                 CharSequences.failIfNullOrEmpty(pattern, "pattern")
         );
     }
 
-    private SpreadsheetPatternEditorToken(final SpreadsheetPatternEditorTokenKind kind,
-                                          final String pattern) {
+    private SpreadsheetPatternEditToken(final SpreadsheetPatternEditTokenKind kind,
+                                        final String pattern) {
         this.kind = kind;
         this.pattern = pattern;
     }
@@ -54,11 +54,11 @@ public final class SpreadsheetPatternEditorToken implements TreePrintable, UsesT
     /**
      * The pattern component type
      */
-    public SpreadsheetPatternEditorTokenKind kind() {
+    public SpreadsheetPatternEditTokenKind kind() {
         return this.kind;
     }
 
-    private final SpreadsheetPatternEditorTokenKind kind;
+    private final SpreadsheetPatternEditTokenKind kind;
 
     /**
      * Part of a larger pattern wholly represented by this token.
@@ -82,11 +82,11 @@ public final class SpreadsheetPatternEditorToken implements TreePrintable, UsesT
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof SpreadsheetPatternEditorToken &&
-                        this.equals0((SpreadsheetPatternEditorToken) other);
+                other instanceof SpreadsheetPatternEditToken &&
+                        this.equals0((SpreadsheetPatternEditToken) other);
     }
 
-    private boolean equals0(final SpreadsheetPatternEditorToken other) {
+    private boolean equals0(final SpreadsheetPatternEditToken other) {
         return this.kind.equals(other.kind) &&
                 this.pattern.equals(other.pattern);
     }
@@ -118,18 +118,18 @@ public final class SpreadsheetPatternEditorToken implements TreePrintable, UsesT
                 .set(PATTERN_PROPERTY, context.marshall(this.pattern));
     }
 
-    static SpreadsheetPatternEditorToken unmarshall(final JsonNode json,
-                                                    final JsonNodeUnmarshallContext context) {
+    static SpreadsheetPatternEditToken unmarshall(final JsonNode json,
+                                                  final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(json, "json");
 
-        SpreadsheetPatternEditorTokenKind kind = null;
+        SpreadsheetPatternEditTokenKind kind = null;
         String pattern = null;
 
         for (final JsonNode child : json.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
                 case KIND_STRING:
-                    kind = SpreadsheetPatternEditorTokenKind.valueOf(
+                    kind = SpreadsheetPatternEditTokenKind.valueOf(
                             child.stringOrFail()
                     );
                     break;
@@ -160,10 +160,10 @@ public final class SpreadsheetPatternEditorToken implements TreePrintable, UsesT
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetPatternEditorToken.class),
-                SpreadsheetPatternEditorToken::unmarshall,
-                SpreadsheetPatternEditorToken::marshall,
-                SpreadsheetPatternEditorToken.class
+                JsonNodeContext.computeTypeName(SpreadsheetPatternEditToken.class),
+                SpreadsheetPatternEditToken::unmarshall,
+                SpreadsheetPatternEditToken::marshall,
+                SpreadsheetPatternEditToken.class
         );
     }
 

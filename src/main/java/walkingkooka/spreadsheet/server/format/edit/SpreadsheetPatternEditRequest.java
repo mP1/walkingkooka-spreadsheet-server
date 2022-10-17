@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
@@ -38,21 +38,21 @@ import java.util.Objects;
  * A request from the UI that accepts a pattern as text with sample values as text. This will be tokenized and
  * the sample values formatted.
  */
-public final class SpreadsheetPatternEditorRequest implements TreePrintable, UsesToStringBuilder {
+public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesToStringBuilder {
 
-    public static SpreadsheetPatternEditorRequest with(final SpreadsheetPatternKind kind,
-                                                       final String pattern,
-                                                       final List<String> samples) {
-        return new SpreadsheetPatternEditorRequest(
+    public static SpreadsheetPatternEditRequest with(final SpreadsheetPatternKind kind,
+                                                     final String pattern,
+                                                     final List<String> samples) {
+        return new SpreadsheetPatternEditRequest(
                 Objects.requireNonNull(kind, "kind"),
                 Objects.requireNonNull(pattern, "pattern"),
                 Objects.requireNonNull(samples, "samples")
         );
     }
 
-    private SpreadsheetPatternEditorRequest(final SpreadsheetPatternKind kind,
-                                            final String pattern,
-                                            final List<String> samples) {
+    private SpreadsheetPatternEditRequest(final SpreadsheetPatternKind kind,
+                                          final String pattern,
+                                          final List<String> samples) {
         this.kind = kind;
         this.pattern = pattern;
         this.samples = Lists.immutable(samples);
@@ -97,11 +97,11 @@ public final class SpreadsheetPatternEditorRequest implements TreePrintable, Use
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof SpreadsheetPatternEditorRequest &&
-                        this.equals0((SpreadsheetPatternEditorRequest) other);
+                other instanceof SpreadsheetPatternEditRequest &&
+                        this.equals0((SpreadsheetPatternEditRequest) other);
     }
 
-    private boolean equals0(final SpreadsheetPatternEditorRequest other) {
+    private boolean equals0(final SpreadsheetPatternEditRequest other) {
         return this.kind.equals(other.kind) &&
                 this.pattern.equals(other.pattern) &&
                 this.samples.equals(other.samples);
@@ -138,8 +138,8 @@ public final class SpreadsheetPatternEditorRequest implements TreePrintable, Use
                 .set(SAMPLES_PROPERTY, context.marshallCollection(this.samples));
     }
 
-    static SpreadsheetPatternEditorRequest unmarshall(final JsonNode json,
-                                                      final JsonNodeUnmarshallContext context) {
+    static SpreadsheetPatternEditRequest unmarshall(final JsonNode json,
+                                                    final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(json, "json");
 
         SpreadsheetPatternKind kind = null;
@@ -189,10 +189,10 @@ public final class SpreadsheetPatternEditorRequest implements TreePrintable, Use
         SpreadsheetPatternKind.DATE_PARSE_PATTERN.toString();
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetPatternEditorRequest.class),
-                SpreadsheetPatternEditorRequest::unmarshall,
-                SpreadsheetPatternEditorRequest::marshall,
-                SpreadsheetPatternEditorRequest.class
+                JsonNodeContext.computeTypeName(SpreadsheetPatternEditRequest.class),
+                SpreadsheetPatternEditRequest::unmarshall,
+                SpreadsheetPatternEditRequest::marshall,
+                SpreadsheetPatternEditRequest.class
         );
     }
 
