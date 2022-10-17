@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -24,10 +24,10 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditorToken>
+public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditToken>
         implements TreePrintableTesting {
 
-    private final static SpreadsheetPatternEditorTokenKind KIND = SpreadsheetPatternEditorTokenKind.CONDITION;
+    private final static SpreadsheetPatternEditTokenKind KIND = SpreadsheetPatternEditTokenKind.CONDITION;
     private final static String PATTERN = "pattern-123";
 
     @Test
@@ -46,11 +46,11 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
         );
     }
 
-    private void withFails(final SpreadsheetPatternEditorTokenKind kind,
+    private void withFails(final SpreadsheetPatternEditTokenKind kind,
                            final String pattern) {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetPatternEditorToken.with(
+                () -> SpreadsheetPatternEditToken.with(
                         kind,
                         pattern
                 )
@@ -61,7 +61,7 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
     public void testWithEmptyPatternFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetPatternEditorToken.with(
+                () -> SpreadsheetPatternEditToken.with(
                         KIND,
                         ""
                 )
@@ -76,9 +76,9 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
         );
     }
 
-    private void withAndCheck(final SpreadsheetPatternEditorTokenKind kind,
+    private void withAndCheck(final SpreadsheetPatternEditTokenKind kind,
                               final String pattern) {
-        final SpreadsheetPatternEditorToken request = SpreadsheetPatternEditorToken.with(
+        final SpreadsheetPatternEditToken request = SpreadsheetPatternEditToken.with(
                 kind,
                 pattern
         );
@@ -103,8 +103,8 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
     @Test
     public void testDifferentKind() {
         this.checkNotEquals(
-                SpreadsheetPatternEditorToken.with(
-                        SpreadsheetPatternEditorTokenKind.AMPM_FULL,
+                SpreadsheetPatternEditToken.with(
+                        SpreadsheetPatternEditTokenKind.AMPM_FULL,
                         PATTERN
                 )
         );
@@ -113,7 +113,7 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
     @Test
     public void testDifferentPattern() {
         this.checkNotEquals(
-                SpreadsheetPatternEditorToken.with(
+                SpreadsheetPatternEditToken.with(
                         KIND,
                         "different-" + PATTERN
                 )
@@ -129,24 +129,24 @@ public final class SpreadsheetPatternEditorTokenTest extends SpreadsheetPatternE
     }
 
     @Override
-    public SpreadsheetPatternEditorToken createObject() {
-        return SpreadsheetPatternEditorToken.with(
+    public SpreadsheetPatternEditToken createObject() {
+        return SpreadsheetPatternEditToken.with(
                 KIND,
                 PATTERN
         );
     }
 
     @Override
-    public SpreadsheetPatternEditorToken unmarshall(final JsonNode json,
-                                                    final JsonNodeUnmarshallContext context) {
-        return SpreadsheetPatternEditorToken.unmarshall(
+    public SpreadsheetPatternEditToken unmarshall(final JsonNode json,
+                                                  final JsonNodeUnmarshallContext context) {
+        return SpreadsheetPatternEditToken.unmarshall(
                 json,
                 context
         );
     }
 
     @Override
-    public Class<SpreadsheetPatternEditorToken> type() {
-        return SpreadsheetPatternEditorToken.class;
+    public Class<SpreadsheetPatternEditToken> type() {
+        return SpreadsheetPatternEditToken.class;
     }
 }

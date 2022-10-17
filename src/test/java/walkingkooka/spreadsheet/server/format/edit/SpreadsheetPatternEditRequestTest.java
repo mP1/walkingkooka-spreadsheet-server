@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditorRequest>
+public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditRequest>
         implements TreePrintableTesting {
 
     private final static SpreadsheetPatternKind KIND = SpreadsheetPatternKind.DATE_PARSE_PATTERN;
@@ -70,7 +70,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
                            final List<String> samples) {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetPatternEditorRequest.with(
+                () -> SpreadsheetPatternEditRequest.with(
                         kind,
                         pattern,
                         samples
@@ -99,7 +99,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     private void withAndCheck(final SpreadsheetPatternKind kind,
                               final String pattern,
                               final List<String> samples) {
-        final SpreadsheetPatternEditorRequest request = SpreadsheetPatternEditorRequest.with(
+        final SpreadsheetPatternEditRequest request = SpreadsheetPatternEditRequest.with(
                 kind,
                 pattern,
                 samples
@@ -126,7 +126,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testTreePrintEmptyPattern() {
         this.treePrintAndCheck(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         "",
                         SAMPLES
@@ -141,7 +141,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testTreePrintEmptySamples() {
         this.treePrintAndCheck(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         PATTERN,
                         Lists.empty()
@@ -156,7 +156,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testJsonRoundtripEmptyPattern() {
         this.marshallRoundTripTwiceAndCheck(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         "",
                         SAMPLES
@@ -167,7 +167,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testJsonRoundtripEmptySamples() {
         this.marshallRoundTripTwiceAndCheck(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         PATTERN,
                         Lists.empty()
@@ -180,7 +180,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testDifferentKind() {
         this.checkNotEquals(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         SpreadsheetPatternKind.DATE_FORMAT_PATTERN,
                         PATTERN,
                         SAMPLES
@@ -191,7 +191,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testDifferentPattern() {
         this.checkNotEquals(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         "different-" + PATTERN,
                         SAMPLES
@@ -202,7 +202,7 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     @Test
     public void testDifferentSamples() {
         this.checkNotEquals(
-                SpreadsheetPatternEditorRequest.with(
+                SpreadsheetPatternEditRequest.with(
                         KIND,
                         PATTERN,
                         Lists.of(
@@ -221,8 +221,8 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     }
 
     @Override
-    public SpreadsheetPatternEditorRequest createObject() {
-        return SpreadsheetPatternEditorRequest.with(
+    public SpreadsheetPatternEditRequest createObject() {
+        return SpreadsheetPatternEditRequest.with(
                 KIND,
                 PATTERN,
                 SAMPLES
@@ -230,16 +230,16 @@ public final class SpreadsheetPatternEditorRequestTest extends SpreadsheetPatter
     }
 
     @Override
-    public SpreadsheetPatternEditorRequest unmarshall(final JsonNode json,
-                                                      final JsonNodeUnmarshallContext context) {
-        return SpreadsheetPatternEditorRequest.unmarshall(
+    public SpreadsheetPatternEditRequest unmarshall(final JsonNode json,
+                                                    final JsonNodeUnmarshallContext context) {
+        return SpreadsheetPatternEditRequest.unmarshall(
                 json,
                 context
         );
     }
 
     @Override
-    public Class<SpreadsheetPatternEditorRequest> type() {
-        return SpreadsheetPatternEditorRequest.class;
+    public Class<SpreadsheetPatternEditRequest> type() {
+        return SpreadsheetPatternEditRequest.class;
     }
 }

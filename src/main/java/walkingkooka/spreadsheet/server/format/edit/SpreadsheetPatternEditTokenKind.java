@@ -15,9 +15,9 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.format.editor;
+package walkingkooka.spreadsheet.server.format.edit;
 
-public enum SpreadsheetPatternEditorTokenKind {
+public enum SpreadsheetPatternEditTokenKind {
 
     // CONDITIONAL......................................................................................................
 
