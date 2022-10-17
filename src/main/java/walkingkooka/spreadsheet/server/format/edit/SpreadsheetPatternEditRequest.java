@@ -179,7 +179,7 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
             JsonNodeUnmarshallContext.requiredPropertyMissing(PATTERN_PROPERTY, json);
         }
         if (null == samples) {
-            JsonNodeUnmarshallContext.requiredPropertyMissing(PATTERN_PROPERTY, json);
+            JsonNodeUnmarshallContext.requiredPropertyMissing(SAMPLES_PROPERTY, json);
         }
 
         return with(kind, pattern, samples);
