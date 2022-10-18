@@ -19,6 +19,13 @@ package walkingkooka.spreadsheet.server.format.edit;
 
 public enum SpreadsheetPatternEditTokenKind {
 
+    // COLOR............................................................................................................
+
+    COLOR_NAME,
+
+    COLOR_NUMBER,
+
+
     // CONDITIONAL......................................................................................................
 
     CONDITION,
@@ -49,13 +56,19 @@ public enum SpreadsheetPatternEditTokenKind {
 
     // NUMBER...........................................................................................................
 
+    DIGIT,
+
     DIGIT_SPACE,
 
     DIGIT_ZERO,
 
+    CURRENCY_SYMBOL,
+
     DECIMAL_PLACE,
 
-    CURRENCY_SYMBOL,
+    EXPONENT,
+
+    FRACTION,
 
     PERCENT,
 
