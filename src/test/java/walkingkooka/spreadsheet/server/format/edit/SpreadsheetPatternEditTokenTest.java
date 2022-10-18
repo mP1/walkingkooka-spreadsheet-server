@@ -104,7 +104,7 @@ public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEdi
     public void testDifferentKind() {
         this.checkNotEquals(
                 SpreadsheetPatternEditToken.with(
-                        SpreadsheetPatternEditTokenKind.AMPM_FULL,
+                        SpreadsheetPatternEditTokenKind.AMPM_FULL_LOWER,
                         PATTERN
                 )
         );

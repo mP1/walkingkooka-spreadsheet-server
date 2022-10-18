@@ -98,7 +98,9 @@ public enum SpreadsheetPatternEditTokenKind {
 
     SECONDS_WITHOUT_LEADING_ZERO,
 
-    AMPM_FULL,
+    AMPM_FULL_LOWER,
+
+    AMPM_FULL_UPPER,
 
     AMPM_INITIAL_LOWER,
 
