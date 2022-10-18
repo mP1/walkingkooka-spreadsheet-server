@@ -90,4 +90,8 @@ public enum SpreadsheetPatternEditTokenKind {
     AMPM_INITIAL_LOWER,
 
     AMPM_INITIAL_UPPER,
+
+    // PARSE PATTERNS...................................................................................................
+
+    SEPARATOR,
 }
