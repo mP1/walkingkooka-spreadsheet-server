@@ -24,7 +24,7 @@ public final class SpreadsheetPatternEditTokenKindTest extends SpreadsheetPatter
 
     @Test
     public void testSetPattern() {
-        final SpreadsheetPatternEditTokenKind kind = SpreadsheetPatternEditTokenKind.AMPM_FULL;
+        final SpreadsheetPatternEditTokenKind kind = SpreadsheetPatternEditTokenKind.AMPM_FULL_LOWER;
         final String pattern = "#123";
 
         final SpreadsheetPatternEditToken token = kind.setPattern(pattern);
