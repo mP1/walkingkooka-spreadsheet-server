@@ -17,9 +17,20 @@
 
 package walkingkooka.spreadsheet.server.format.edit;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class SpreadsheetPatternEditTokenKindTest extends SpreadsheetPatternEditorTestCase<SpreadsheetPatternEditTokenKind> {
+
+    @Test
+    public void testSetPattern() {
+        final SpreadsheetPatternEditTokenKind kind = SpreadsheetPatternEditTokenKind.AMPM_FULL;
+        final String pattern = "#123";
+
+        final SpreadsheetPatternEditToken token = kind.setPattern(pattern);
+        this.checkEquals(kind, token.kind(), "kind");
+        this.checkEquals(pattern, token.pattern(), "pattern");
+    }
 
     @Override
     public Class<SpreadsheetPatternEditTokenKind> type() {
