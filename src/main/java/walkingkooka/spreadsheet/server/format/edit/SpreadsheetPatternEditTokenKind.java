@@ -106,5 +106,15 @@ public enum SpreadsheetPatternEditTokenKind {
 
     // PARSE PATTERNS...................................................................................................
 
-    SEPARATOR,
+    SEPARATOR;
+
+    /**
+     * Convenience factory that creates a {@link SpreadsheetPatternEditToken}
+     */
+    final SpreadsheetPatternEditToken setPattern(final String pattern) {
+        return SpreadsheetPatternEditToken.with(
+                this,
+                pattern
+        );
+    }
 }
