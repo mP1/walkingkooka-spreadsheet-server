@@ -791,6 +791,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                     return Url.parseRelative("/api987/123def/cell/B2/");
                 }
 
+                @SuppressWarnings("UnnecessaryBoxing")
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(

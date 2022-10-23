@@ -305,6 +305,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 return method;
             }
 
+            @SuppressWarnings("UnnecessaryBoxing")
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 final MediaType contentType = HateosContentType.JSON_CONTENT_TYPE;
