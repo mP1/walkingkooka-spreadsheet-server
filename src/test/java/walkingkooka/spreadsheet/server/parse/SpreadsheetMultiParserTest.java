@@ -109,7 +109,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         this.applyAndCheck2(
                 "hh:mm:ss",
                 SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
-                illegalArgumentException("Invalid character 'h' at (1,1) \"hh:mm:ss\" expected ([ CONDITION ], [{ DAY | MONTH_MINUTE | YEAR | DATE_DATETIME_TIME }], [{(SEPARATOR, [ CONDITION ], [{ DAY | MONTH_MINUTE | YEAR | DATE_DATETIME_TIME }])}], [SEPARATOR])")
+                illegalArgumentException("Invalid character 'h' at (1,1) \"hh:mm:ss\" expected ([ CONDITION ], GENERAL_OR_DATE, [{(SEPARATOR, [ CONDITION ], GENERAL_OR_DATE)}], [SEPARATOR])")
         );
     }
 
