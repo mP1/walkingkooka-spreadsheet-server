@@ -230,7 +230,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 loadedB3
         );
 
-        final SpreadsheetFormatPattern<?> patchedFormat = SpreadsheetPattern.parseTextFormatPattern("\"#format-patched\"");
+        final SpreadsheetFormatPattern patchedFormat = SpreadsheetPattern.parseTextFormatPattern("\"#format-patched\"");
 
         final Set<SpreadsheetCell> saved = Sets.of(
                 SpreadsheetSelection.parseCell("B1")
