@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.parse;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -99,19 +99,19 @@ final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequ
                 parsed = SpreadsheetFormatPattern.parseDateFormatPattern(text);
                 break;
             case SPREADSHEET_DATE_PARSERS:
-                parsed = SpreadsheetParsePatterns.parseDateParsePatterns(text);
+                parsed = SpreadsheetParsePattern.parseDateParsePatterns(text);
                 break;
             case SPREADSHEET_DATE_TIME_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseDateTimeFormatPattern(text);
                 break;
             case SPREADSHEET_DATE_TIME_PARSERS:
-                parsed = SpreadsheetParsePatterns.parseDateTimeParsePatterns(text);
+                parsed = SpreadsheetParsePattern.parseDateTimeParsePatterns(text);
                 break;
             case SPREADSHEET_NUMBER_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseNumberFormatPattern(text);
                 break;
             case SPREADSHEET_NUMBER_PARSERS:
-                parsed = SpreadsheetParsePatterns.parseNumberParsePatterns(text);
+                parsed = SpreadsheetParsePattern.parseNumberParsePatterns(text);
                 break;
             case SPREADSHEET_TEXT_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseTextFormatPattern(text);
@@ -120,7 +120,7 @@ final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequ
                 parsed = SpreadsheetFormatPattern.parseTimeFormatPattern(text);
                 break;
             case SPREADSHEET_TIME_PARSERS:
-                parsed = SpreadsheetParsePatterns.parseTimeParsePatterns(text);
+                parsed = SpreadsheetParsePattern.parseTimeParsePatterns(text);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown parser " + CharSequences.quoteAndEscape(parser));

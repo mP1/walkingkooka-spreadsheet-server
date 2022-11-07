@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePatterns;
+import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.util.FunctionTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,7 +52,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_DATE_FORMATTER,
-                SpreadsheetParsePatterns.parseDateFormatPattern(pattern));
+                SpreadsheetParsePattern.parseDateFormatPattern(pattern));
     }
 
     @Test
@@ -60,7 +60,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
-                SpreadsheetParsePatterns.parseDateParsePatterns(pattern));
+                SpreadsheetParsePattern.parseDateParsePatterns(pattern));
     }
 
 
@@ -69,7 +69,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "yyyy/mm/dd hh:mm";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_FORMATTER,
-                SpreadsheetParsePatterns.parseDateTimeFormatPattern(pattern));
+                SpreadsheetParsePattern.parseDateTimeFormatPattern(pattern));
     }
 
     @Test
@@ -77,7 +77,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSERS,
-                SpreadsheetParsePatterns.parseDateTimeParsePatterns(pattern));
+                SpreadsheetParsePattern.parseDateTimeParsePatterns(pattern));
     }
 
     @Test
@@ -85,7 +85,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "@ \"Hello\"";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_TEXT_FORMATTER,
-                SpreadsheetParsePatterns.parseTextFormatPattern(pattern));
+                SpreadsheetParsePattern.parseTextFormatPattern(pattern));
     }
 
     @Test
@@ -93,7 +93,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "hh:mm";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_TIME_FORMATTER,
-                SpreadsheetParsePatterns.parseTimeFormatPattern(pattern));
+                SpreadsheetParsePattern.parseTimeFormatPattern(pattern));
     }
 
     @Test
@@ -101,7 +101,7 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
         final String pattern = "hh:mm";
         this.applyAndCheck2(pattern,
                 SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS,
-                SpreadsheetParsePatterns.parseTimeParsePatterns(pattern));
+                SpreadsheetParsePattern.parseTimeParsePatterns(pattern));
     }
 
     @Test
