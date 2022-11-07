@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetParseRequestTest extends SpreadsheetParserTestCase2<SpreadsheetParseRequest> {
 
     private final static String TEXT = "yyyy/mm/ddd";
-    private final static String PARSER = SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS;
+    private final static String PARSER = SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER;
 
 
     @Test
@@ -77,7 +77,7 @@ public final class SpreadsheetParseRequestTest extends SpreadsheetParserTestCase
 
     @Test
     public void testJsonRoundtrip2() {
-        this.marshallRoundTripTwiceAndCheck(SpreadsheetParseRequest.with("hh:mm:ss", SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS));
+        this.marshallRoundTripTwiceAndCheck(SpreadsheetParseRequest.with("hh:mm:ss", SpreadsheetMultiParser.SPREADSHEET_TIME_PARSER));
     }
 
     @Override

@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditRequest>
         implements TreePrintableTesting {
 
-    private final static SpreadsheetPatternKind KIND = SpreadsheetPatternKind.DATE_PARSE_PATTERNS;
+    private final static SpreadsheetPatternKind KIND = SpreadsheetPatternKind.DATE_PARSE_PATTERN;
     private final static String PATTERN = "pattern-123";
     private final static List<String> VALUES = Lists.of(
             "Value1a",
@@ -116,7 +116,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
     public void testTreePrint() {
         this.treePrintAndCheck(
                 this.createObject(),
-                "spreadsheet-date-parse-patterns\n" +
+                "spreadsheet-date-parse-pattern\n" +
                         "  \"pattern-123\"\n" +
                         "    \"Value1a\"\n" +
                         "    \"Value2b\"\n"
@@ -131,7 +131,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                         "",
                         VALUES
                 ),
-                "spreadsheet-date-parse-patterns\n" +
+                "spreadsheet-date-parse-pattern\n" +
                         "  \"\"\n" +
                         "    \"Value1a\"\n" +
                         "    \"Value2b\"\n"
@@ -146,7 +146,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
                         PATTERN,
                         Lists.empty()
                 ),
-                "spreadsheet-date-parse-patterns\n" +
+                "spreadsheet-date-parse-pattern\n" +
                         "  \"pattern-123\"\n"
         );
     }
@@ -216,7 +216,7 @@ public final class SpreadsheetPatternEditRequestTest extends SpreadsheetPatternE
     public void testToString() {
         this.toStringAndCheck(
                 this.createObject(),
-                "spreadsheet-date-parse-patterns \"pattern-123\" \"Value1a\", \"Value2b\""
+                "spreadsheet-date-parse-pattern \"pattern-123\" \"Value1a\", \"Value2b\""
         );
     }
 
