@@ -60,12 +60,12 @@ public final class SpreadsheetMultiParseResponseTest extends SpreadsheetParserTe
                 SpreadsheetMultiParseResponse.with(
                         Lists.of(
                                 SpreadsheetFormatPattern.parseDateFormatPattern("dd:mm:yyyy"),
-                                SpreadsheetFormatPattern.parseDateParsePatterns("dd:mm:yyyy;dd:mm:yyyy"),
+                                SpreadsheetFormatPattern.parseDateParsePattern("dd:mm:yyyy;dd:mm:yyyy"),
                                 SpreadsheetFormatPattern.parseDateTimeFormatPattern("dd:mm:yyyy:hh:mm"),
-                                SpreadsheetFormatPattern.parseDateTimeParsePatterns("dd:mm:yyyy:hh:mm;dd:mm:yyyy:hh:mm"),
+                                SpreadsheetFormatPattern.parseDateTimeParsePattern("dd:mm:yyyy:hh:mm;dd:mm:yyyy:hh:mm"),
                                 SpreadsheetFormatPattern.parseTextFormatPattern("@@@"),
                                 SpreadsheetFormatPattern.parseTimeFormatPattern("hh:mm"),
-                                SpreadsheetFormatPattern.parseTimeParsePatterns("hh:mm:hh:mm")
+                                SpreadsheetFormatPattern.parseTimeParsePattern("hh:mm:hh:mm")
                         )
                 )
         );

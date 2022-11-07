@@ -45,12 +45,12 @@ public final class SpreadsheetMultiParseRequestTest extends SpreadsheetParserTes
                 SpreadsheetMultiParseRequest.with(
                         Lists.of(
                                 SpreadsheetParseRequest.with("dd:mm:yyyy", SpreadsheetMultiParser.SPREADSHEET_DATE_FORMATTER),
-                                SpreadsheetParseRequest.with("dd:mm:yyyy;dd:mm:yyyy", SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS),
+                                SpreadsheetParseRequest.with("dd:mm:yyyy;dd:mm:yyyy", SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER),
                                 SpreadsheetParseRequest.with("dd:mm:yyyy hh:mm", SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_FORMATTER),
-                                SpreadsheetParseRequest.with("dd:mm:yyyy hh:mm;dd:mm:yyyy hh:mm", SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSERS),
+                                SpreadsheetParseRequest.with("dd:mm:yyyy hh:mm;dd:mm:yyyy hh:mm", SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSER),
                                 SpreadsheetParseRequest.with("@@", SpreadsheetMultiParser.SPREADSHEET_TEXT_FORMATTER),
                                 SpreadsheetParseRequest.with("hh:mm;hh:mm", SpreadsheetMultiParser.SPREADSHEET_TIME_FORMATTER),
-                                SpreadsheetParseRequest.with("hh:mm", SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS)
+                                SpreadsheetParseRequest.with("hh:mm", SpreadsheetMultiParser.SPREADSHEET_TIME_PARSER)
                         )
                 )
         );
@@ -62,14 +62,14 @@ public final class SpreadsheetMultiParseRequestTest extends SpreadsheetParserTes
     public void testDifferentRequests() {
         this.checkNotEquals(SpreadsheetMultiParseRequest.with(
                 Lists.of(
-                        SpreadsheetParseRequest.with("different-text", SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSERS))
+                        SpreadsheetParseRequest.with("different-text", SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSER))
                 )
         );
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createObject(), "[\"yyyy-mm-ddd\" \"" + SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS + "\"]");
+        this.toStringAndCheck(this.createObject(), "[\"yyyy-mm-ddd\" \"" + SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER + "\"]");
     }
 
     @Override
@@ -80,7 +80,7 @@ public final class SpreadsheetMultiParseRequestTest extends SpreadsheetParserTes
     private SpreadsheetParseRequest request() {
         return SpreadsheetParseRequest.with(
                 "yyyy-mm-ddd",
-                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS
+                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER
         );
     }
 

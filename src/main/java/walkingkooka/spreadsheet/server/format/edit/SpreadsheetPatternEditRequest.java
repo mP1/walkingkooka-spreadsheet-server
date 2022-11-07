@@ -186,7 +186,7 @@ public final class SpreadsheetPatternEditRequest implements TreePrintable, UsesT
     }
 
     static {
-        SpreadsheetPatternKind.DATE_PARSE_PATTERNS.toString();
+        SpreadsheetPatternKind.DATE_PARSE_PATTERN.toString();
 
         JsonNodeContext.register(
                 JsonNodeContext.computeTypeName(SpreadsheetPatternEditRequest.class),

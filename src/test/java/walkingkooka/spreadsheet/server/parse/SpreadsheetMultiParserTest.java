@@ -59,8 +59,8 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
     public void testParseDateParser() {
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
-                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
-                SpreadsheetParsePattern.parseDateParsePatterns(pattern));
+                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER,
+                SpreadsheetParsePattern.parseDateParsePattern(pattern));
     }
 
 
@@ -76,8 +76,8 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
     public void testParseDateTimeParser() {
         final String pattern = "yyyy/mm/dd";
         this.applyAndCheck2(pattern,
-                SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSERS,
-                SpreadsheetParsePattern.parseDateTimeParsePatterns(pattern));
+                SpreadsheetMultiParser.SPREADSHEET_DATE_TIME_PARSER,
+                SpreadsheetParsePattern.parseDateTimeParsePattern(pattern));
     }
 
     @Test
@@ -100,15 +100,15 @@ public final class SpreadsheetMultiParserTest extends SpreadsheetParserTestCase<
     public void testParseTimeParser() {
         final String pattern = "hh:mm";
         this.applyAndCheck2(pattern,
-                SpreadsheetMultiParser.SPREADSHEET_TIME_PARSERS,
-                SpreadsheetParsePattern.parseTimeParsePatterns(pattern));
+                SpreadsheetMultiParser.SPREADSHEET_TIME_PARSER,
+                SpreadsheetParsePattern.parseTimeParsePattern(pattern));
     }
 
     @Test
     public void testParseFails() {
         this.applyAndCheck2(
                 "hh:mm:ss",
-                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSERS,
+                SpreadsheetMultiParser.SPREADSHEET_DATE_PARSER,
                 illegalArgumentException("Invalid character 'h' at (1,1) \"hh:mm:ss\" expected GENERAL_OR_DATE, [{ PATTERN_SEPARATOR, GENERAL_OR_DATE}], [ PATTERN_SEPARATOR ]")
         );
     }

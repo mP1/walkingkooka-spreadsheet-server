@@ -72,18 +72,18 @@ final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequ
     }
 
     final static String SPREADSHEET_DATE_FORMATTER = "spreadsheet-date-formatter";
-    final static String SPREADSHEET_DATE_PARSERS = "spreadsheet-date-parsers";
+    final static String SPREADSHEET_DATE_PARSER = "spreadsheet-date-parser";
 
     final static String SPREADSHEET_DATE_TIME_FORMATTER = "spreadsheet-date-time-formatter";
-    final static String SPREADSHEET_DATE_TIME_PARSERS = "spreadsheet-date-time-parsers";
+    final static String SPREADSHEET_DATE_TIME_PARSER = "spreadsheet-date-time-parser";
 
     final static String SPREADSHEET_NUMBER_FORMATTER = "spreadsheet-number-formatter";
-    final static String SPREADSHEET_NUMBER_PARSERS = "spreadsheet-number-parsers";
+    final static String SPREADSHEET_NUMBER_PARSER = "spreadsheet-number-parser";
 
     final static String SPREADSHEET_TEXT_FORMATTER = "spreadsheet-text-formatter";
 
     final static String SPREADSHEET_TIME_FORMATTER = "spreadsheet-time-formatter";
-    final static String SPREADSHEET_TIME_PARSERS = "spreadsheet-time-parsers";
+    final static String SPREADSHEET_TIME_PARSER = "spreadsheet-time-parser";
 
     /**
      * Handles the request returning the parsed value or throwing a {@link Exception} if parsing failed.
@@ -98,20 +98,20 @@ final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequ
             case SPREADSHEET_DATE_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseDateFormatPattern(text);
                 break;
-            case SPREADSHEET_DATE_PARSERS:
-                parsed = SpreadsheetParsePattern.parseDateParsePatterns(text);
+            case SPREADSHEET_DATE_PARSER:
+                parsed = SpreadsheetParsePattern.parseDateParsePattern(text);
                 break;
             case SPREADSHEET_DATE_TIME_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseDateTimeFormatPattern(text);
                 break;
-            case SPREADSHEET_DATE_TIME_PARSERS:
-                parsed = SpreadsheetParsePattern.parseDateTimeParsePatterns(text);
+            case SPREADSHEET_DATE_TIME_PARSER:
+                parsed = SpreadsheetParsePattern.parseDateTimeParsePattern(text);
                 break;
             case SPREADSHEET_NUMBER_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseNumberFormatPattern(text);
                 break;
-            case SPREADSHEET_NUMBER_PARSERS:
-                parsed = SpreadsheetParsePattern.parseNumberParsePatterns(text);
+            case SPREADSHEET_NUMBER_PARSER:
+                parsed = SpreadsheetParsePattern.parseNumberParsePattern(text);
                 break;
             case SPREADSHEET_TEXT_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseTextFormatPattern(text);
@@ -119,8 +119,8 @@ final class SpreadsheetMultiParser implements Function<SpreadsheetMultiParseRequ
             case SPREADSHEET_TIME_FORMATTER:
                 parsed = SpreadsheetFormatPattern.parseTimeFormatPattern(text);
                 break;
-            case SPREADSHEET_TIME_PARSERS:
-                parsed = SpreadsheetParsePattern.parseTimeParsePatterns(text);
+            case SPREADSHEET_TIME_PARSER:
+                parsed = SpreadsheetParsePattern.parseTimeParsePattern(text);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown parser " + CharSequences.quoteAndEscape(parser));
