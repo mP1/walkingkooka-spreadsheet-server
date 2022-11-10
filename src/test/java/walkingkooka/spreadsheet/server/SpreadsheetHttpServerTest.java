@@ -7180,7 +7180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 UrlScheme.HTTP,
                 HostAddress.with("example.com"),
                 IpPort.HTTP,
-                Indentation.with("  "),
+                Indentation.SPACES2,
                 LineEnding.NL,
                 createMetadata(this.createMetadata(), this.metadataStore),
                 fractioner(),

@@ -58,7 +58,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetContextHateosHandlersRouterTest extends SpreadsheetContextHateosHandlerTestCase<SpreadsheetContextHateosHandlersRouter> {
 
-    private final static Indentation INDENTATION = Indentation.with("  ");
+    private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.SYSTEM;
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 

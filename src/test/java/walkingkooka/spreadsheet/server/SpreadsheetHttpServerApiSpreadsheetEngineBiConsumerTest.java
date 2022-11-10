@@ -432,7 +432,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
                 Url.parseAbsolute(BASE_URL + "/api"),
                 //HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
-                Indentation.with("  "),
+                Indentation.SPACES2,
                 LineEnding.NL,
                 fractioner(),
                 createMetadata(),
