@@ -270,7 +270,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 URL,
                 contentType(),
                 Sets.of(mapping),
-                Indentation.with("  "),
+                Indentation.SPACES2,
                 LineEnding.NL
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),

@@ -60,7 +60,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
                 this.baseUrl(),
                 HateosContentType.json(JsonNodeUnmarshallContexts.fake(), JsonNodeMarshallContexts.fake()),
-                Indentation.with("  "),
+                Indentation.SPACES2,
                 LineEnding.NL,
                 this::defaultMetadata,
                 this::fractioner,
