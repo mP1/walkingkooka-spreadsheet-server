@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.format.edit;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.UsesToStringBuilder;
+import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParserTokenKind;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -37,7 +38,7 @@ import java.util.Objects;
  */
 public final class SpreadsheetPatternEditToken implements TreePrintable, UsesToStringBuilder {
 
-    public static SpreadsheetPatternEditToken with(final SpreadsheetPatternEditTokenKind kind,
+    public static SpreadsheetPatternEditToken with(final SpreadsheetFormatParserTokenKind kind,
                                                    final String pattern) {
         return new SpreadsheetPatternEditToken(
                 Objects.requireNonNull(kind, "kind"),
@@ -45,7 +46,7 @@ public final class SpreadsheetPatternEditToken implements TreePrintable, UsesToS
         );
     }
 
-    private SpreadsheetPatternEditToken(final SpreadsheetPatternEditTokenKind kind,
+    private SpreadsheetPatternEditToken(final SpreadsheetFormatParserTokenKind kind,
                                         final String pattern) {
         this.kind = kind;
         this.pattern = pattern;
@@ -54,11 +55,11 @@ public final class SpreadsheetPatternEditToken implements TreePrintable, UsesToS
     /**
      * The pattern component type
      */
-    public SpreadsheetPatternEditTokenKind kind() {
+    public SpreadsheetFormatParserTokenKind kind() {
         return this.kind;
     }
 
-    private final SpreadsheetPatternEditTokenKind kind;
+    private final SpreadsheetFormatParserTokenKind kind;
 
     /**
      * Part of a larger pattern wholly represented by this token.
@@ -122,14 +123,14 @@ public final class SpreadsheetPatternEditToken implements TreePrintable, UsesToS
                                                   final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(json, "json");
 
-        SpreadsheetPatternEditTokenKind kind = null;
+        SpreadsheetFormatParserTokenKind kind = null;
         String pattern = null;
 
         for (final JsonNode child : json.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
                 case KIND_STRING:
-                    kind = SpreadsheetPatternEditTokenKind.valueOf(
+                    kind = SpreadsheetFormatParserTokenKind.valueOf(
                             child.stringOrFail()
                     );
                     break;

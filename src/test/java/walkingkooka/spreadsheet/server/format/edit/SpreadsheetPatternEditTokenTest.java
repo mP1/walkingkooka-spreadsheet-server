@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.format.edit;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParserTokenKind;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -27,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEditorTestCase2<SpreadsheetPatternEditToken>
         implements TreePrintableTesting {
 
-    private final static SpreadsheetPatternEditTokenKind KIND = SpreadsheetPatternEditTokenKind.CONDITION;
+    private final static SpreadsheetFormatParserTokenKind KIND = SpreadsheetFormatParserTokenKind.CONDITION;
     private final static String PATTERN = "pattern-123";
 
     @Test
@@ -46,7 +47,7 @@ public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEdi
         );
     }
 
-    private void withFails(final SpreadsheetPatternEditTokenKind kind,
+    private void withFails(final SpreadsheetFormatParserTokenKind kind,
                            final String pattern) {
         assertThrows(
                 NullPointerException.class,
@@ -76,7 +77,7 @@ public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEdi
         );
     }
 
-    private void withAndCheck(final SpreadsheetPatternEditTokenKind kind,
+    private void withAndCheck(final SpreadsheetFormatParserTokenKind kind,
                               final String pattern) {
         final SpreadsheetPatternEditToken request = SpreadsheetPatternEditToken.with(
                 kind,
@@ -104,7 +105,7 @@ public final class SpreadsheetPatternEditTokenTest extends SpreadsheetPatternEdi
     public void testDifferentKind() {
         this.checkNotEquals(
                 SpreadsheetPatternEditToken.with(
-                        SpreadsheetPatternEditTokenKind.AMPM_FULL_LOWER,
+                        SpreadsheetFormatParserTokenKind.AMPM_FULL_LOWER,
                         PATTERN
                 )
         );

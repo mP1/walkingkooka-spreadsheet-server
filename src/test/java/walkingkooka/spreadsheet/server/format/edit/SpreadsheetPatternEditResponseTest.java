@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.format.edit;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.spreadsheet.format.parser.SpreadsheetFormatParserTokenKind;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -32,11 +33,11 @@ public final class SpreadsheetPatternEditResponseTest extends SpreadsheetPattern
 
     private final static List<SpreadsheetPatternEditToken> TOKENS = Lists.of(
             SpreadsheetPatternEditToken.with(
-                    SpreadsheetPatternEditTokenKind.DAY_NAME_FULL,
+                    SpreadsheetFormatParserTokenKind.DAY_NAME_FULL,
                     "ddddd"
             ),
             SpreadsheetPatternEditToken.with(
-                    SpreadsheetPatternEditTokenKind.MONTH_NAME_FULL,
+                    SpreadsheetFormatParserTokenKind.MONTH_NAME_FULL,
                     "mmmmm"
             )
     );
@@ -152,7 +153,7 @@ public final class SpreadsheetPatternEditResponseTest extends SpreadsheetPattern
                 SpreadsheetPatternEditResponse.with(
                         Lists.of(
                                 SpreadsheetPatternEditToken.with(
-                                        SpreadsheetPatternEditTokenKind.DIGIT_ZERO,
+                                        SpreadsheetFormatParserTokenKind.DIGIT_ZERO,
                                         "0"
                                 )
                         ),
