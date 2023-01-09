@@ -1,6 +1,0 @@
-#
-# Ignore because junit is not translatable yet.
-#
-*Testing.*
-
-
