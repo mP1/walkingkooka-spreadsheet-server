@@ -84,9 +84,15 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     final Set<SpreadsheetCellRange> window() {
         final SpreadsheetCellRange window = SpreadsheetExpressionReference.parseCellRange("A1:B99");
 
-        this.testTrue(window, this.cell().reference());
+        this.checkEquals(
+                true,
+                window.testCell(this.cell().reference())
+        );
 
-        this.testFalse(window, cellOutsideWindow().reference());
+        this.checkEquals(
+                false,
+                window.testCell(cellOutsideWindow().reference())
+        );
 
         return Sets.of(window);
     }
