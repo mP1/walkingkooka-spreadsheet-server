@@ -411,7 +411,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         this.loadCellRangeFails(
                 parameters,
-                "Invalid parameter \"selectionType\" value \"A1\""
+                "Invalid selectionType \"unknownn?\" value \"A1\""
         );
     }
 

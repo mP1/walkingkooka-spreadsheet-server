@@ -253,39 +253,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
         final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
         if (maybeSelectionType.isPresent()) {
-            final String selectionType = maybeSelectionType.get();
-            final String selectionText = SELECTION.firstParameterValueOrFail(parameters);
-
-            switch (selectionType) {
-                case "cell":
-                    selection = SpreadsheetSelection.parseCell(selectionText);
-                    break;
-                case "cell-range":
-                    selection = SpreadsheetSelection.parseCellRange(selectionText);
-                    break;
-                case "column":
-                    selection = SpreadsheetSelection.parseColumn(selectionText);
-                    break;
-                case "column-range":
-                    selection = SpreadsheetSelection.parseColumnRange(selectionText);
-                    break;
-                case "label":
-                    selection = SpreadsheetSelection.labelName(selectionText);
-                    break;
-                case "row":
-                    selection = SpreadsheetSelection.parseRow(selectionText);
-                    break;
-                case "row-range":
-                    selection = SpreadsheetSelection.parseRowRange(selectionText);
-                    break;
-                default:
-                    throw new IllegalArgumentException(
-                            "Invalid parameter " +
-                                    CharSequences.quoteAndEscape(SELECTION_TYPE.toString()) +
-                                    " value " +
-                                    CharSequences.quoteAndEscape(selectionText)
-                    );
-            }
+            selection = SpreadsheetSelection.parse(
+                    SELECTION.firstParameterValueOrFail(parameters),
+                    maybeSelectionType.get()
+            );
         } else {
             selection = null;
         }
