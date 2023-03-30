@@ -1102,7 +1102,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                              final String queryParameters,
                                                              final String responseJson) {
         if(!queryParameters.isEmpty()) {
-            UrlQueryString.with(queryParameters);
+            UrlQueryString.parse(queryParameters);
         }
         final TestHttpServer server = this.startServer();
 
