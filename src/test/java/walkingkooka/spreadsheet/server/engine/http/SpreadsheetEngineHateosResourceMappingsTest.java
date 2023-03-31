@@ -575,7 +575,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                                 final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY
                         .setDeletedCells(
-                                selection.toCellRangeOrFail()
+                                selection.toCellRange()
                                         .cellStream()
                                         .collect(Collectors.toSet())
                         );

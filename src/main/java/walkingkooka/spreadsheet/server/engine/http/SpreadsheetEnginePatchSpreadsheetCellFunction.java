@@ -53,7 +53,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
     SpreadsheetCellRange parseSelection(final String text) {
         return this.context.resolveIfLabel(
                 SpreadsheetSelection.parseCellRangeOrLabel(text)
-        ).toCellRangeOrFail();
+        ).toCellRange();
     }
 
     @Override
