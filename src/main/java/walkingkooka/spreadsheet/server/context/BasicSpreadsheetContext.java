@@ -415,7 +415,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 (e) -> context.storeRepository()
                         .labels()
                         .cellReferenceOrRangeOrFail(e)
-                        .toCellOrFail()
+                        .toCell()
         );
     }
 

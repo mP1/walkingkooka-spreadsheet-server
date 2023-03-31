@@ -78,7 +78,7 @@ final class SpreadsheetEnginePatchSpreadsheetCellFunction extends SpreadsheetEng
                 (e) -> this.context.storeRepository()
                         .labels()
                         .cellReferenceOrRangeOrFail(e)
-                        .toCellOrFail()
+                        .toCell()
         );
     }
 
