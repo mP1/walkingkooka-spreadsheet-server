@@ -488,7 +488,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
-                                .toCellOrFail()
+                                .toCell()
                 ),
                 method,
                 url,
@@ -516,7 +516,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
-                                .toCellOrFail()
+                                .toCell()
                 ),
                 method,
                 url,

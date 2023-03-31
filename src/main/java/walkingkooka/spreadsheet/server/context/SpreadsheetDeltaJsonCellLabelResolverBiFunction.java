@@ -52,7 +52,7 @@ final class SpreadsheetDeltaJsonCellLabelResolverBiFunction implements BiFunctio
         return SpreadsheetDelta.resolveCellLabels(
                 object,
                 (e) -> this.store.cellReferenceOrRangeOrFail(e)
-                        .toCellOrFail()
+                        .toCell()
         );
     }
 
