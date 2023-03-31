@@ -340,7 +340,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(
-                                        selection.toCellRangeOrFail(),
+                                        selection.toCellRange(),
                                         loadSelection,
                                         "selection"
                                 );
