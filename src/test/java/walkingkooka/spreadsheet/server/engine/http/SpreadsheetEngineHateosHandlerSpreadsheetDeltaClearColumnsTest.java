@@ -56,7 +56,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
 
         final SpreadsheetColumnReference a = SpreadsheetSelection.parseColumn("A");
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference a1048576 = SpreadsheetSelection.parseCell("A1048576");
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("b2");
 
@@ -102,7 +102,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
                 engine
         );
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
         final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");

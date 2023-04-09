@@ -47,7 +47,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
         SpreadsheetExpressionReferenceSimilarities,
         SpreadsheetExpressionReferenceSimilarities> implements ToStringTesting<SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities> {
 
-    private final static SpreadsheetCellReference A1 = SpreadsheetSelection.parseCell("A1");
+    private final static SpreadsheetCellReference A1 = SpreadsheetSelection.A1;
     private final static SpreadsheetCellReference B2 = SpreadsheetSelection.parseCell("B2");
     private final static SpreadsheetCellReference C3 = SpreadsheetSelection.parseCell("C3");
 

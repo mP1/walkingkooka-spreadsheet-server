@@ -602,7 +602,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     }
 
     private SpreadsheetEngineContext engineContext() {
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
