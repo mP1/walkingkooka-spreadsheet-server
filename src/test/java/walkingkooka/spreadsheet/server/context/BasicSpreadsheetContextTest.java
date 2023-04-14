@@ -954,7 +954,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
         repository.cells()
                 .save(
-                        SpreadsheetSelection.parseCell("A1")
+                        SpreadsheetSelection.A1
                                 .setFormula(
                                         SpreadsheetFormula.EMPTY
                                                 .setText("1+2")

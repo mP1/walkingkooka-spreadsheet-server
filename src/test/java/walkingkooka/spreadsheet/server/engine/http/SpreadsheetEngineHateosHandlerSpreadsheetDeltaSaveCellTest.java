@@ -267,7 +267,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
     @Override
     public SpreadsheetCellReference id() {
-        return SpreadsheetSelection.parseCell("A1");
+        return SpreadsheetSelection.A1;
     }
 
     @Override

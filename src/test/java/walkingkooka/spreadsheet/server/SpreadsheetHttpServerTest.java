@@ -1007,7 +1007,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("=1")
                                                 )
@@ -1030,7 +1030,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("=1")
                                                 )
@@ -1128,7 +1128,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula(formula)
                                                 )
@@ -1156,7 +1156,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("=1+2")
                                                 )
@@ -1410,7 +1410,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=1+2")
                                                         )
@@ -1543,7 +1543,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=3+4")
                                                         )
@@ -1816,7 +1816,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=1+2")
                                                         )
@@ -2022,7 +2022,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=999")
                                                         )
@@ -2385,7 +2385,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=1+2")
                                                         )
@@ -2582,7 +2582,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=1+2")
                                                         )
@@ -3051,7 +3051,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("'Hello'")
                                                         )
@@ -3185,7 +3185,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("'Hello'")
                                                         )
@@ -3320,7 +3320,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("'Hello'")
                                                         )
@@ -3455,7 +3455,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("'Hello'")
                                                         )
@@ -3582,7 +3582,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testLoadViewportWithSelectionLabelAndNavigationQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label123.mapping(a1);
 
@@ -3744,7 +3744,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testLoadViewportWithSelectionLabelAndNavigationUnchangedQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
         final SpreadsheetLabelMapping mapping = label123.mapping(a1);
 
@@ -3945,7 +3945,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("1.25")
                                                         )
@@ -6257,7 +6257,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("=1")
                                                 )
@@ -6345,7 +6345,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetDelta.EMPTY
                                 .setCells(
                                         Sets.of(
-                                                SpreadsheetSelection.parseCell("A1")
+                                                SpreadsheetSelection.A1
                                                         .setFormula(
                                                                 formula("=1")
                                                         )
@@ -6741,7 +6741,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("=1")
                                                 )
@@ -6866,7 +6866,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("'Hello A1")
                                                 )
@@ -7025,7 +7025,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(
-                                        SpreadsheetSelection.parseCell("A1")
+                                        SpreadsheetSelection.A1
                                                 .setFormula(
                                                         formula("'Hello A1")
                                                 )

@@ -124,7 +124,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest 
 
     @Override
     public SpreadsheetCellReference id() {
-        return SpreadsheetSelection.parseCell("A1");
+        return SpreadsheetSelection.A1;
     }
 
     @Override

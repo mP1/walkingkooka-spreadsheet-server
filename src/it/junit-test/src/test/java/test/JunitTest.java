@@ -101,7 +101,7 @@ public class JunitTest {
         final SpreadsheetEngineContext engineContext = engineContext(engine);
 
         engine.saveCell(
-                SpreadsheetSelection.parseCell("A1")
+                SpreadsheetSelection.A1
                         .setFormula(
                                 SpreadsheetFormula.EMPTY
                                         .setText("12+B2")

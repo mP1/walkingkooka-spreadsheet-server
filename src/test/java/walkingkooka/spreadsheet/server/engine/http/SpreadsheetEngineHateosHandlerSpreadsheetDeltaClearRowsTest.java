@@ -57,7 +57,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
 
         final SpreadsheetRowReference row1 = SpreadsheetSelection.parseRow("1");
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference row1ColMax = row1.setColumn(SpreadsheetColumnReference.MAX);
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("b2");
 
@@ -102,7 +102,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
                 engine
         );
 
-        final SpreadsheetCellReference a1 = SpreadsheetSelection.parseCell("A1");
+        final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCellReference c3 = SpreadsheetSelection.parseCell("C3");
         final SpreadsheetCellReference d4 = SpreadsheetSelection.parseCell("D4");
