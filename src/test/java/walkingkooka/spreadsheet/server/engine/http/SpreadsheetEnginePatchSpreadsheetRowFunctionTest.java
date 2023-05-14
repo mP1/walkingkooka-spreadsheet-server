@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetRow;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
@@ -50,7 +51,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetRowFunction, SpreadsheetRowReferenceRange> {
 
     private final static SpreadsheetRowReferenceRange RANGE = SpreadsheetExpressionReference.parseRowRange("3:4");
-    private final static SpreadsheetCellRange WINDOW = SpreadsheetSelection.parseCellRange("B2:E5");
+    private final static SpreadsheetViewportWindows WINDOW = SpreadsheetViewportWindows.parse("B2:E5");
 
     @Test
     public void testPatchRowOutOfRangeFails() {
@@ -122,18 +123,14 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Sets.of(
                                 row3, row4
                         )
-                ).setWindow(
-                        Sets.of(WINDOW)
-                );
+                ).setWindow(WINDOW);
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setRows(
                         Sets.of(
                                 row3, row4
                         )
                 ).setViewportSelection(viewportSelection)
-                .setWindow(
-                        Sets.of(WINDOW)
-                );
+                .setWindow(WINDOW);
 
         final Set<SpreadsheetRow> saved = Sets.ordered();
 
@@ -232,9 +229,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Sets.of(
                                 row3, row4
                         )
-                ).setWindow(
-                        Sets.of(WINDOW)
-                );
+                ).setWindow(WINDOW);
 
         final SpreadsheetCell c3 = row3.reference()
                 .setColumn(SpreadsheetSelection.parseColumn("C"))
@@ -254,9 +249,8 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                                 row3, row4
                         )
                 ).setViewportSelection(viewportSelection)
-                .setWindow(
-                        Sets.of(WINDOW)
-                ).setCells(
+                .setWindow(WINDOW)
+                .setCells(
                         Sets.of(
                                 c3, d4
                         )

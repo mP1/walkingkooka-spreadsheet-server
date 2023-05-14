@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewport;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -219,7 +220,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 EVALUATION,
                 new FakeSpreadsheetEngine() {
 
-
                     @Override
                     public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
@@ -267,7 +267,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setCells(
                                         Sets.of(b1, b2)
                                 ).setWindow(
-                                        Sets.of(window)
+                                        SpreadsheetViewportWindows.with(
+                                                Sets.of(window)
+                                        )
                                 )
                 )
         );
@@ -594,10 +596,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
-                                                                    final boolean includeFrozenColumnsRows,
-                                                                    final Optional<SpreadsheetSelection> s,
-                                                                    final SpreadsheetEngineContext context) {
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                                                                     final boolean includeFrozenColumnsRows,
+                                                                     final Optional<SpreadsheetSelection> s,
+                                                                     final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         SpreadsheetViewport.with(
                                                 SpreadsheetSelection.parseCell("B2"),
@@ -607,8 +609,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                         viewport,
                                         "viewport"
                                 );
-                                return Sets.of(
-                                        SpreadsheetSelection.cellRange(range)
+                                return SpreadsheetViewportWindows.with(Sets.of(
+                                                SpreadsheetSelection.cellRange(range)
+                                        )
                                 );
                             }
 
@@ -660,7 +663,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                                 .setWindow(
-                                        SpreadsheetSelection.parseWindow("B1:C3")
+                                        SpreadsheetViewportWindows.parse("B1:C3")
                                 ).setViewportSelection(
                                         Optional.ofNullable(viewportSelection)
                                 )
@@ -723,16 +726,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
-                                                                    final boolean includeFrozenColumnsRows,
-                                                                    final Optional<SpreadsheetSelection> selection,
-                                                                    final SpreadsheetEngineContext context) {
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                                                                     final boolean includeFrozenColumnsRows,
+                                                                     final Optional<SpreadsheetSelection> selection,
+                                                                     final SpreadsheetEngineContext context) {
                                 if (range.equals("throw")) {
                                     throw new UnsupportedOperationException();
                                 }
                                 checkEquals(SpreadsheetDelta.NO_VIEWPORT_SELECTION, selection);
 
-                                return SpreadsheetSelection.parseWindow(range);
+                                return SpreadsheetViewportWindows.parse(range);
                             }
 
                             @Override
@@ -795,7 +798,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setWindow(
-                                        SpreadsheetSelection.parseWindow(window)
+                                        SpreadsheetViewportWindows.parse(window)
                                 )
                 )
         );
@@ -978,7 +981,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of(viewportSelection.navigation().get().kebabText()));
         parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(viewportSelection.anchor().kebabText()));
 
-        final Set<SpreadsheetCellRange> window = SpreadsheetSelection.parseWindow("A1:E5");
+        final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:E5");
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -996,10 +999,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
-                                                                    final boolean includeFrozenColumnsRows,
-                                                                    final Optional<SpreadsheetSelection> selection,
-                                                                    final SpreadsheetEngineContext context) {
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                                                                     final boolean includeFrozenColumnsRows,
+                                                                     final Optional<SpreadsheetSelection> selection,
+                                                                     final SpreadsheetEngineContext context) {
                                 return window;
                             }
 

@@ -23,11 +23,11 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 
@@ -101,7 +101,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
         final SpreadsheetColumnReference column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
-        final Set<SpreadsheetCellRange> window = this.window();
+        final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(
                 this.createHandler(
@@ -123,7 +123,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteColumnsTe
                 Maps.of(
                         SpreadsheetEngineHttps.WINDOW,
                         Lists.of(
-                                window.iterator().next().toString()
+                                window.toString()
                         )
                 ),
                 Optional.of(

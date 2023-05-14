@@ -45,6 +45,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewport;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -582,13 +583,11 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public Set<SpreadsheetCellRange> window(final SpreadsheetViewport viewport,
-                                                    final boolean includeFrozenColumnsRows,
-                                                    final Optional<SpreadsheetSelection> selection,
-                                                    final SpreadsheetEngineContext context) {
-                return Sets.of(
-                        SpreadsheetCellRange.parseCellRange("B2:C3")
-                );
+            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                                                     final boolean includeFrozenColumnsRows,
+                                                     final Optional<SpreadsheetSelection> selection,
+                                                     final SpreadsheetEngineContext context) {
+                return SpreadsheetViewportWindows.parse("B2:C3");
             }
 
             @Override

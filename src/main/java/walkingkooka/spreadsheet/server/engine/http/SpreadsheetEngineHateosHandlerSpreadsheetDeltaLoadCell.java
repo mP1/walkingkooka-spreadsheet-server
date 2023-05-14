@@ -24,6 +24,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -40,7 +41,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCells(Set, SpreadsheetEngineEvaluation, Set, SpreadsheetEngineContext)}.
@@ -72,7 +72,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final Set<SpreadsheetCellRange> window = this.window(
+        final SpreadsheetViewportWindows window = this.window(
                 resource,
                 parameters
         );
@@ -82,21 +82,19 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         parametersAndWindow.put(
                 SpreadsheetEngineHttps.WINDOW,
                 Lists.of(
-                        window.stream()
-                                .map(Object::toString)
-                                .collect(Collectors.joining(","))
+                        window.toString()
                 )
         );
 
         return this.handleRange0(
-                window,
+                window.cellRanges(),
                 resource,
                 parametersAndWindow
         );
     }
 
-    private Set<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> resource,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private SpreadsheetViewportWindows window(final Optional<SpreadsheetDelta> resource,
+                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.engine.window(
                 this.home(parameters)
                         .viewport(

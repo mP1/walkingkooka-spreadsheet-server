@@ -21,6 +21,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -142,7 +143,7 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
         );
     }
 
-    final Set<SpreadsheetCellRange> window(final SpreadsheetDelta delta) {
+    final SpreadsheetViewportWindows window(final SpreadsheetDelta delta) {
         return SpreadsheetEngineHttps.window(
                 Optional.of(delta),
                 this.request.routerParameters()
