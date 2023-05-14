@@ -24,9 +24,8 @@ import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.predicate.PredicateTesting;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -81,20 +80,20 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
         return SpreadsheetSelection.labelName("Label1a");
     }
 
-    final Set<SpreadsheetCellRange> window() {
-        final SpreadsheetCellRange window = SpreadsheetExpressionReference.parseCellRange("A1:B99");
+    final SpreadsheetViewportWindows window() {
+        final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:B99");
 
         this.checkEquals(
                 true,
-                window.testCell(this.cell().reference())
+                window.test(this.cell().reference())
         );
 
         this.checkEquals(
                 false,
-                window.testCell(cellOutsideWindow().reference())
+                window.test(cellOutsideWindow().reference())
         );
 
-        return Sets.of(window);
+        return window;
     }
 
     final SpreadsheetCell cellOutsideWindow() {

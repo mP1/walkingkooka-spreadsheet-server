@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -39,7 +40,6 @@ import walkingkooka.tree.text.TextNode;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells,
         SpreadsheetCellReference> {
@@ -135,7 +135,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY
                 .setCells(Sets.of(unsaved1));
 
-        final Set<SpreadsheetCellRange> window = this.window();
+        final SpreadsheetViewportWindows window = this.window();
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(

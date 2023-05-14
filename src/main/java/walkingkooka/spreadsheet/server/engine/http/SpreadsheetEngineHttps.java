@@ -21,11 +21,11 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -38,7 +38,6 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
@@ -327,9 +326,9 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
      */
-    static Set<SpreadsheetCellRange> window(final Optional<SpreadsheetDelta> input,
-                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-        Set<SpreadsheetCellRange> window = input.isPresent() ?
+    static SpreadsheetViewportWindows window(final Optional<SpreadsheetDelta> input,
+                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
+        SpreadsheetViewportWindows window = input.isPresent() ?
                 input.get().window() :
                 SpreadsheetDelta.NO_WINDOW;
         if (window.isEmpty()) {
@@ -342,12 +341,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Returns the window taken from the query parameters if present.
      */
-    static Set<SpreadsheetCellRange> window(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    static SpreadsheetViewportWindows window(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 WINDOW,
                 SpreadsheetDelta.NO_WINDOW,
-                SpreadsheetSelection::parseWindow
+                SpreadsheetViewportWindows::parse
         );
     }
 

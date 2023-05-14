@@ -21,10 +21,10 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -91,7 +91,7 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
                 context
         );
 
-        final Set<SpreadsheetCellRange> window = window(
+        final SpreadsheetViewportWindows window = window(
                 patched
         );
 
@@ -110,7 +110,7 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
                 if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
                     // column was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(window)
+                            this.loadCells(window.cellRanges())
                     );
                 }
             }

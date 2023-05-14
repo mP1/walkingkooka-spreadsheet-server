@@ -27,6 +27,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -46,7 +47,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell,
@@ -118,7 +118,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
 
-        final Set<SpreadsheetCellRange> window = this.window();
+        final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(this.createHandler(
                 new FakeSpreadsheetEngine() {
@@ -208,7 +208,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell saved2 = unsaved2.setFormatted(Optional.of(TextNode.text("FORMATTED2")));
         final SpreadsheetCell saved3 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED3")));
 
-        final Set<SpreadsheetCellRange> window = this.window();
+        final SpreadsheetViewportWindows window = this.window();
 
         this.handleRangeAndCheck(
                 this.createHandler(

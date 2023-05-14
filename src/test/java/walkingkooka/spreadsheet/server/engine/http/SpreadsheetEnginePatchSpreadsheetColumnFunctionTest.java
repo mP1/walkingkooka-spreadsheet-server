@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
@@ -50,7 +51,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetColumnFunction, SpreadsheetColumnReferenceRange> {
 
     private final static SpreadsheetColumnReferenceRange RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
-    private final static SpreadsheetCellRange WINDOW = SpreadsheetSelection.parseCellRange("B2:E5");
+    private final static SpreadsheetCellRange CELL_RANGES = SpreadsheetSelection.parseCellRange("B2:E5");
+    private final static SpreadsheetViewportWindows WINDOW = SpreadsheetViewportWindows.with(
+            Sets.of(
+                    CELL_RANGES
+            )
+    );
 
     @Test
     public void testPatchColumnOutOfRangeFails() {
@@ -70,7 +76,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/column/" + RANGE + "?window=" + WINDOW);
+                                return Url.parseRelative("/column/" + RANGE + "?window=" + CELL_RANGES);
                             }
                         },
                         new FakeSpreadsheetEngine() {
@@ -122,18 +128,14 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setWindow(
-                        Sets.of(WINDOW)
-                );
+                ).setWindow(WINDOW);
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setColumns(
                         Sets.of(
                                 c, d
                         )
                 ).setViewportSelection(viewportSelection)
-                .setWindow(
-                        Sets.of(WINDOW)
-                );
+                .setWindow(WINDOW);
 
         final Set<SpreadsheetColumn> saved = Sets.ordered();
 
@@ -232,9 +234,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setWindow(
-                        Sets.of(WINDOW)
-                );
+                ).setWindow(WINDOW);
 
         final SpreadsheetCell c3 = c.reference()
                 .setRow(SpreadsheetSelection.parseRow("3"))
@@ -254,9 +254,8 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                                 c, d
                         )
                 ).setViewportSelection(viewportSelection)
-                .setWindow(
-                        Sets.of(WINDOW)
-                ).setCells(
+                .setWindow(WINDOW)
+                .setCells(
                         Sets.of(
                                 c3, d4
                         )
@@ -314,7 +313,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(Sets.of(WINDOW), range, "window");
+                                assertEquals(Sets.of(CELL_RANGES), range, "window");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(

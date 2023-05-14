@@ -57,6 +57,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -6836,7 +6837,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                         .setHidden(true)
                                         )
                                 ).setWindow(
-                                        SpreadsheetSelection.parseWindow("A1:B2")
+                                        SpreadsheetViewportWindows.parse("A1:B2")
                                 )
                 ),
                 this.response(
