@@ -117,7 +117,7 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                 ),
                 SpreadsheetMultiFormatResponse.with(
                         Lists.of(
-                                SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12")
+                                SpreadsheetText.with("1999/31/12")
                         )
                 )
         );
@@ -139,8 +139,8 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                 ),
                 SpreadsheetMultiFormatResponse.with(
                         Lists.of(
-                                SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
-                                SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/12/58")
+                                SpreadsheetText.with("1999/31/12"),
+                                SpreadsheetText.with("1999/12/58")
                         )
                 )
         );

@@ -116,7 +116,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         final SpreadsheetMultiFormatResponse spreadsheetMultiFormatResponse = SpreadsheetMultiFormatResponse.with(
                 Lists.of(
-                        SpreadsheetText.with(SpreadsheetText.WITHOUT_COLOR, "1999/31/12"),
+                        SpreadsheetText.with("1999/31/12"),
                         "31 December 1999, 12:58:59 pm"
                 )
         );
