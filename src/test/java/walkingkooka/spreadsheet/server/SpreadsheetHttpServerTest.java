@@ -395,7 +395,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "                }\n" +
                         "              },\n" +
                         "              {\n" +
-                        "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "                \"type\": \"spreadsheet-whitespace-parser-token\",\n" +
                         "                \"value\": {\n" +
                         "                  \"value\": \" \",\n" +
                         "                  \"text\": \" \"\n" +
