@@ -17,11 +17,9 @@
 
 package walkingkooka.spreadsheet.server.sample;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converters;
-import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColors;
@@ -39,7 +37,6 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -191,20 +188,14 @@ public final class Sample {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                return Cast.to(SpreadsheetParsers.expression()
+                return SpreadsheetParsers.expression()
                         .orFailIfCursorNotEmpty(ParserReporters.basic())
                         .parse(
                                 formula,
-                                SpreadsheetParserContexts.basic(
-                                        DateTimeContexts.fake(),
-                                        metadata.converterContext(
-                                                NOW,
-                                                RESOLVE_IF_LABEL
-                                        ),
-                                        EXPRESSION_NUMBER_KIND,
-                                        ',')
+                                metadata.parserContext(NOW)
                         ) // TODO should fetch from metadata prop
-                        .get());
+                        .get()
+                        .cast(SpreadsheetParserToken.class);
             }
 
             @Override
