@@ -196,20 +196,14 @@ public class TestGwtTest extends GWTTestCase {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                return Cast.to(SpreadsheetParsers.expression()
+                return SpreadsheetParsers.expression()
                         .orFailIfCursorNotEmpty(ParserReporters.basic())
                         .parse(
                                 formula,
-                                SpreadsheetParserContexts.basic(
-                                        DateTimeContexts.fake(),
-                                        metadata.converterContext(
-                                                NOW,
-                                                RESOLVE_IF_LABEL
-                                        ),
-                                        EXPRESSION_NUMBER_KIND,
-                                        ',')
+                                metadata.parserContext(NOW)
                         ) // TODO should fetch from metadata prop
-                        .get());
+                        .get()
+                        .cast(SpreadsheetParserToken.class);
             }
 
             @Override
