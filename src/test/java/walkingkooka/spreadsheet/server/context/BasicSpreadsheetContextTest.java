@@ -433,7 +433,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 1,\n" +
+                        "  \"maxRow\": 1\n" +
                         "}"
         );
     }
@@ -541,7 +543,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 1,\n" +
+                        "  \"maxRow\": 1\n" +
                         "}"
         );
     }
@@ -649,7 +653,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 1,\n" +
+                        "  \"maxRow\": 1\n" +
                         "}"
         );
     }
@@ -757,7 +763,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 1,\n" +
+                        "  \"maxRow\": 1\n" +
                         "}"
         );
     }
