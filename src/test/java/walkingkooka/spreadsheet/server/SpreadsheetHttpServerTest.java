@@ -128,6 +128,24 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
 
     @Test
+    public void testStop2() {
+        final SpreadsheetPattern p = SpreadsheetPattern.parseNumberFormatPattern(";###");
+        System.out.println(
+                p.treeToString(Indentation.SPACES2, LineEnding.SYSTEM)
+        );
+        Object pp = p;
+    }
+
+    @Test
+    public void testStop() {
+        final SpreadsheetPattern p = SpreadsheetPattern.parseNumberFormatPattern("[<0][red]###;$###");
+        System.out.println(
+                p.treeToString(Indentation.SPACES2, LineEnding.SYSTEM)
+        );
+        Object pp = p;
+    }
+
+    @Test
     public void testStartServer() {
         this.startServer();
     }
@@ -263,7 +281,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -342,7 +362,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -449,7 +471,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -514,7 +538,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -579,7 +605,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -653,7 +681,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -761,7 +791,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -813,7 +845,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
 
@@ -910,7 +944,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -992,7 +1028,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "  },\n" +
                         "  \"rowHeights\": {\n" +
                         "    \"1\": 30\n" +
-                        "  }\n" +
+                        "  },\n" +
+                        "  \"maxColumn\": 0,\n" +
+                        "  \"maxRow\": 0\n" +
                         "}"
         );
     }
@@ -1265,9 +1303,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA));
+                        DELTA
+                )
+        );
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1392,7 +1434,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -1519,9 +1563,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA));
+                        DELTA
+                )
+        );
 
         server.handleAndCheck(
                 HttpMethod.POST,
@@ -1652,9 +1700,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA));
+                        DELTA
+                )
+        );
 
         // create another cell in the first spreadsheet
         server.handleAndCheck(
@@ -1780,7 +1832,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA)
         );
@@ -1925,7 +1979,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2003,7 +2059,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2089,7 +2147,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2180,7 +2240,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2296,7 +2358,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -2367,7 +2431,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -2494,7 +2560,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2564,7 +2632,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -2691,7 +2761,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA)
         );
@@ -2820,7 +2892,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA)
         );
@@ -3033,6 +3107,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"1\": 30,\n" +
                                 "    \"2\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3104,9 +3180,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // load the cells that fill the viewport
@@ -3167,6 +3246,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3238,9 +3319,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // load the cells that fill the viewport
@@ -3302,6 +3386,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3373,9 +3459,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // load the cells that fill the viewport
@@ -3437,6 +3526,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3508,7 +3599,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA)
         );
@@ -3572,6 +3665,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3664,7 +3759,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA)
         );
@@ -3734,6 +3831,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -3826,7 +3925,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA)
         );
@@ -3895,6 +3996,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
                                 "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0,\n" +
                                 "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
@@ -4011,9 +4114,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // update metadata with a different decimal separator.
@@ -4096,7 +4202,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -4214,7 +4322,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -4234,7 +4344,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -4249,7 +4361,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -4320,7 +4434,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -4340,7 +4456,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -4355,7 +4473,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -4441,9 +4561,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         // save a cell at D4
@@ -4520,9 +4643,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         server.handleAndCheck(
@@ -4591,7 +4717,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 4,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -4677,7 +4805,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
                         DELTA
                 )
@@ -4758,7 +4888,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
                         DELTA
                 )
@@ -4830,7 +4962,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 4,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -4914,7 +5048,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
                         DELTA
                 )
@@ -4985,7 +5121,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -5184,7 +5322,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -5204,7 +5344,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -5219,7 +5361,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -5290,7 +5434,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -5310,7 +5456,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -5325,7 +5473,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -5411,7 +5561,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
                         DELTA
                 )
@@ -5492,7 +5644,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
                         DELTA
                 )
@@ -5564,7 +5718,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30,\n" +
                                 "    \"5\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 4\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -5650,7 +5806,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
                         DELTA
                 )
@@ -5731,7 +5889,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 3\n" +
                                 "}",
                         DELTA
                 )
@@ -5803,7 +5963,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"4\": 30,\n" +
                                 "    \"5\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 3,\n" +
+                                "  \"maxRow\": 4\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -5887,9 +6049,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 2\n" +
                                 "}",
-                        DELTA)
+                        DELTA
+                )
         );
 
         server.handleAndCheck(
@@ -5957,7 +6122,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30,\n" +
                                 "    \"3\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 2,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         SpreadsheetDelta.class.getSimpleName()
                 )
@@ -6031,7 +6198,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6051,7 +6220,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6066,7 +6237,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6137,7 +6310,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6157,7 +6332,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6172,7 +6349,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"deletedCells\": \"B2\"\n" +
+                                "  \"deletedCells\": \"B2\",\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6245,7 +6424,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6327,7 +6508,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30,\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6561,7 +6744,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30,\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6632,7 +6817,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6652,7 +6839,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6729,7 +6918,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 1,\n" +
+                                "  \"maxRow\": 1\n" +
                                 "}",
                         DELTA
                 )
@@ -6811,7 +7002,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30,\n" +
                                 "    \"2\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -6919,7 +7112,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )
@@ -7078,7 +7273,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"rowHeights\": {\n" +
                                 "    \"1\": 30\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"maxColumn\": 0,\n" +
+                                "  \"maxRow\": 0\n" +
                                 "}",
                         DELTA
                 )

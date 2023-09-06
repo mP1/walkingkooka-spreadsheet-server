@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumnTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn, SpreadsheetColumnReference> {
@@ -105,6 +106,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
+                                ).setMaxColumn(
+                                        OptionalInt.of(5)
+                                ).setMaxRow(
+                                        OptionalInt.of(3)
                                 )
                 )
         );
@@ -183,6 +188,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
+                                ).setMaxColumn(
+                                        OptionalInt.of(5)
+                                ).setMaxRow(
+                                        OptionalInt.of(3)
                                 )
                 )
         );
