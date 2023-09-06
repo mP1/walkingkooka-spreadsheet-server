@@ -128,24 +128,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
 
     @Test
-    public void testStop2() {
-        final SpreadsheetPattern p = SpreadsheetPattern.parseNumberFormatPattern(";###");
-        System.out.println(
-                p.treeToString(Indentation.SPACES2, LineEnding.SYSTEM)
-        );
-        Object pp = p;
-    }
-
-    @Test
-    public void testStop() {
-        final SpreadsheetPattern p = SpreadsheetPattern.parseNumberFormatPattern("[<0][red]###;$###");
-        System.out.println(
-                p.treeToString(Indentation.SPACES2, LineEnding.SYSTEM)
-        );
-        Object pp = p;
-    }
-
-    @Test
     public void testStartServer() {
         this.startServer();
     }
