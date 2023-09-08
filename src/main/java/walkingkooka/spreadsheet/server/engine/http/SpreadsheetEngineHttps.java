@@ -313,7 +313,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     private static Optional<SpreadsheetViewportSelectionNavigation> parseNavigation(final String text) {
         return Optional.of(
-                SpreadsheetViewportSelectionNavigation.from(text)
+                SpreadsheetViewportSelectionNavigation.parse(text)
         );
     }
 
