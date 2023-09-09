@@ -36,6 +36,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -302,18 +303,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Reads any navigation parameter that is present.
      */
-    private static Optional<SpreadsheetViewportSelectionNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static List<SpreadsheetViewportSelectionNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 SELECTION_NAVIGATION,
                 SpreadsheetViewportSelection.NO_NAVIGATION,
-                SpreadsheetEngineHttps::parseNavigation
-        );
-    }
-
-    private static Optional<SpreadsheetViewportSelectionNavigation> parseNavigation(final String text) {
-        return Optional.of(
-                SpreadsheetViewportSelectionNavigation.parse(text)
+                SpreadsheetViewportSelectionNavigation::parse
         );
     }
 
