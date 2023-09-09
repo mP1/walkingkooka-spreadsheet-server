@@ -240,7 +240,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                     anchor.orElse(selection.defaultAnchor())
             );
 
-            viewportSelection = viewportSelection.setNavigation(
+            viewportSelection = viewportSelection.setNavigations(
                     navigation(parameters)
             );
         }
