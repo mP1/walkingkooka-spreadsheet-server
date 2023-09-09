@@ -813,7 +813,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.LEFT
                                 )
                         ),
@@ -829,7 +829,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.RIGHT
                                 )
                         ),
@@ -845,7 +845,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseColumn("C")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.LEFT
                                 )
                         ),
@@ -861,7 +861,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseColumn("C")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.DOWN
                                 )
                         ),
@@ -877,7 +877,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseRow("3")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.DOWN
                                 )
                         ),
@@ -893,7 +893,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
                                 )
                         ),
@@ -909,7 +909,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.EXTEND_LEFT
                                 )
                         ),
@@ -925,7 +925,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCellRange("A2:B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
                                 )
                         ),
@@ -941,7 +941,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCellRange("B2:C2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_RIGHT)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.EXTEND_RIGHT
                                 )
                         ),
@@ -957,7 +957,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 SpreadsheetSelection.parseCellRange("C1:C2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.TOP_LEFT)
                         .setNavigation(
-                                Optional.of(
+                                Lists.of(
                                         SpreadsheetViewportSelectionNavigation.EXTEND_UP
                                 )
                         ),
@@ -978,7 +978,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetSelection selection = viewportSelection.selection();
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
-        parameters.put(SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of(viewportSelection.navigation().get().kebabText()));
+        parameters.put(
+                SpreadsheetEngineHttps.SELECTION_NAVIGATION,
+                Lists.of(
+                        SpreadsheetViewportSelection.SEPARATOR.toSeparatedString(
+                                viewportSelection.navigation(),
+                                SpreadsheetViewportSelectionNavigation::kebabText
+                        )
+                )
+        );
         parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(viewportSelection.anchor().kebabText()));
 
         final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:E5");
