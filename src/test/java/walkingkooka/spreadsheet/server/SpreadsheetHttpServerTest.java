@@ -3591,7 +3591,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell&selection=A1&selectionNavigation=extend-right&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell&selection=A1&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -3751,7 +3751,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=extend-right&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -3917,7 +3917,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=left&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=left+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
