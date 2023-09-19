@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
@@ -59,7 +59,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
         final SpreadsheetRowReference row1 = SpreadsheetSelection.parseRow("1");
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
-        final SpreadsheetCellReference row1ColMax = row1.setColumn(SpreadsheetColumnReference.MAX);
+        final SpreadsheetCellReference row1ColMax = row1.setColumn(
+                SpreadsheetReferenceKind.RELATIVE.lastColumn()
+        );
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("b2");
 
         final SpreadsheetCellStore cellStore = context.storeRepository()
