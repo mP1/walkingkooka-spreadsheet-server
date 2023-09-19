@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 
 import java.util.Collection;
 import java.util.Map;
@@ -86,11 +86,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns extends S
         final SpreadsheetCellReference lower = columns.lowerBound()
                 .value()
                 .get()
-                .setRow(SpreadsheetRowReference.MIN);
+                .setRow(SpreadsheetReferenceKind.RELATIVE.firstRow());
         final SpreadsheetCellReference upper = columns.upperBound()
                 .value()
                 .get()
-                .setRow(SpreadsheetRowReference.MAX);
+                .setRow(SpreadsheetReferenceKind.RELATIVE.lastRow());
 
         final SpreadsheetCellRange cellRange = lower.cellRange(upper);
 
