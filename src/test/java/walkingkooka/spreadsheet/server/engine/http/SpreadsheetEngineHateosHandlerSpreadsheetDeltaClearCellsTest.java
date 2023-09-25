@@ -76,10 +76,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCellsTest 
                                         columnWidths("A")
                                 ).setRowHeights(
                                         rowHeights("1")
-                                ).setMaxColumn(
-                                        OptionalInt.of(0)
-                                ).setMaxRow(
-                                        OptionalInt.of(0)
                                 )
                 )
         );
