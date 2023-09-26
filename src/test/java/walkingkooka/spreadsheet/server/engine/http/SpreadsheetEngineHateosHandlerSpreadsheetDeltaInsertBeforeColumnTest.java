@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.OptionalDouble;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumnTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn, SpreadsheetColumnReference> {
@@ -106,10 +106,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
-                                ).setMaxColumn(
-                                        OptionalInt.of(5)
-                                ).setMaxRow(
-                                        OptionalInt.of(3)
+                                ).setTotalWidth(
+                                        OptionalDouble.of(6 * COLUMN_WIDTH)
+                                ).setTotalHeight(
+                                        OptionalDouble.of(4 * ROW_HEIGHT)
                                 )
                 )
         );
@@ -188,10 +188,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
-                                ).setMaxColumn(
-                                        OptionalInt.of(5)
-                                ).setMaxRow(
-                                        OptionalInt.of(3)
+                                ).setTotalWidth(
+                                        OptionalDouble.of(6 * COLUMN_WIDTH)
+                                ).setTotalHeight(
+                                        OptionalDouble.of(4 * ROW_HEIGHT)
                                 )
                 )
         );
