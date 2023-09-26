@@ -96,7 +96,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
     abstract H createHandler(final SpreadsheetEngine engine,
                              final SpreadsheetEngineContext context);
 
-    final static Length<?> COLUMN_WIDTH = Length.parsePixels("100px");
+    final static double COLUMN_WIDTH = 100;
 
     static Map<SpreadsheetColumnReference, Double> columnWidths(final String columns) {
         final Map<SpreadsheetColumnReference, Double> map = Maps.sorted();
@@ -105,14 +105,14 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .forEach(c ->
                         map.put(
                                 SpreadsheetSelection.parseColumn(c),
-                                COLUMN_WIDTH.pixelValue()
+                                COLUMN_WIDTH
                         )
                 );
 
         return map;
     }
 
-    final static Length<?> ROW_HEIGHT = Length.parsePixels("30px");
+    final static double ROW_HEIGHT = 30;
 
     static Map<SpreadsheetRowReference, Double> rowHeights(final String rows) {
         final Map<SpreadsheetRowReference, Double> map = Maps.sorted();
@@ -121,7 +121,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .forEach(r ->
                         map.put(
                                 SpreadsheetSelection.parseRow(r),
-                                ROW_HEIGHT.pixelValue()
+                                ROW_HEIGHT
                         )
                 );
 
@@ -242,8 +242,8 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .set(
                         SpreadsheetMetadataPropertyName.STYLE,
                         TextStyle.EMPTY
-                                .set(TextStylePropertyName.WIDTH, COLUMN_WIDTH)
-                                .set(TextStylePropertyName.HEIGHT, ROW_HEIGHT)
+                                .set(TextStylePropertyName.WIDTH, Length.pixel(COLUMN_WIDTH))
+                                .set(TextStylePropertyName.HEIGHT, Length.pixel(ROW_HEIGHT))
                 );
     }
 

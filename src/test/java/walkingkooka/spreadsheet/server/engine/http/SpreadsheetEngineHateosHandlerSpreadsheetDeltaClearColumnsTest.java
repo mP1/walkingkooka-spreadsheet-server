@@ -36,7 +36,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.OptionalDouble;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns,
         SpreadsheetColumnReference> {
@@ -87,10 +87,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
                                         columnWidths("A")
                                 ).setRowHeights(
                                         rowHeights("1,1048576")
-                                ).setMaxColumn(
-                                        OptionalInt.of(1)
-                                ).setMaxRow(
-                                        OptionalInt.of(1)
+                                ).setTotalWidth(
+                                        OptionalDouble.of(2 * COLUMN_WIDTH)
+                                ).setTotalHeight(
+                                        OptionalDouble.of(2 * ROW_HEIGHT)
                                 )
                 )
         );
@@ -147,10 +147,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumnsTes
                                         columnWidths("B,C")
                                 ).setRowHeights(
                                         rowHeights("2,3")
-                                ).setMaxColumn(
-                                        OptionalInt.of(3)
-                                ).setMaxRow(
-                                        OptionalInt.of(3)
+                                ).setTotalWidth(
+                                        OptionalDouble.of(4 * COLUMN_WIDTH)
+                                ).setTotalHeight(
+                                        OptionalDouble.of(4 * ROW_HEIGHT)
                                 )
                 )
         );

@@ -434,8 +434,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  },\n" +
-                        "  \"maxColumn\": 1,\n" +
-                        "  \"maxRow\": 1\n" +
+                        "  \"totalWidth\": 200,\n" +
+                        "  \"totalHeight\": 60\n" +
                         "}"
         );
     }
@@ -544,8 +544,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  },\n" +
-                        "  \"maxColumn\": 1,\n" +
-                        "  \"maxRow\": 1\n" +
+                        "  \"totalWidth\": 200,\n" +
+                        "  \"totalHeight\": 60\n" +
                         "}"
         );
     }
@@ -654,8 +654,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  },\n" +
-                        "  \"maxColumn\": 1,\n" +
-                        "  \"maxRow\": 1\n" +
+                        "  \"totalWidth\": 200,\n" +
+                        "  \"totalHeight\": 60\n" +
                         "}"
         );
     }
@@ -764,8 +764,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "  \"rowHeights\": {\n" +
                         "    \"2\": 30\n" +
                         "  },\n" +
-                        "  \"maxColumn\": 1,\n" +
-                        "  \"maxRow\": 1\n" +
+                        "  \"totalWidth\": 200,\n" +
+                        "  \"totalHeight\": 60\n" +
                         "}"
         );
     }
