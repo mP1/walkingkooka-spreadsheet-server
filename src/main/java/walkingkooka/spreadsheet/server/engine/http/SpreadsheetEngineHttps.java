@@ -362,7 +362,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
             try {
                 parsed = parser.apply(text);
             } catch (final IllegalArgumentException cause) {
-                throw new IllegalArgumentException("Invalid query parameter " + queryParameter + "=" + CharSequences.quoteAndEscape(text));
+                throw new IllegalArgumentException(
+                        "Invalid query parameter " + queryParameter + "=" + CharSequences.quoteAndEscape(text),
+                        cause
+                );
             }
         }
 
