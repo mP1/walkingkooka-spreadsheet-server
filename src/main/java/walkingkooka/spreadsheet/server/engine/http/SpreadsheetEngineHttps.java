@@ -290,7 +290,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     private static Optional<SpreadsheetViewportSelectionAnchor> parseAnchor(final String text) {
         return Optional.of(
-                SpreadsheetViewportSelectionAnchor.from(text)
+                SpreadsheetViewportSelectionAnchor.parse(text)
         );
     }
 
