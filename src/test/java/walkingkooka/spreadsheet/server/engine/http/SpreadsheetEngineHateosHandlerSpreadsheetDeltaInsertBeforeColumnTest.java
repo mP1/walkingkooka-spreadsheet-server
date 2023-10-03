@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumnTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeColumn, SpreadsheetColumnReference> {
@@ -106,10 +106,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
-                                ).setTotalWidth(
-                                        OptionalDouble.of(6 * COLUMN_WIDTH)
-                                ).setTotalHeight(
-                                        OptionalDouble.of(4 * ROW_HEIGHT)
+                                ).setColumnCount(
+                                        OptionalInt.of(6)
+                                ).setRowCount(
+                                        OptionalInt.of(4)
                                 )
                 )
         );
@@ -188,10 +188,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeCol
                                         columnWidths("A,B,C,D,E,F")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4")
-                                ).setTotalWidth(
-                                        OptionalDouble.of(6 * COLUMN_WIDTH)
-                                ).setTotalHeight(
-                                        OptionalDouble.of(4 * ROW_HEIGHT)
+                                ).setColumnCount(
+                                        OptionalInt.of(6)
+                                ).setRowCount(
+                                        OptionalInt.of(4)
                                 )
                 )
         );
