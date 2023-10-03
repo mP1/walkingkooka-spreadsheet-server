@@ -37,7 +37,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRows,
         SpreadsheetRowReference> {
@@ -89,10 +89,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
                                 columnWidths("A,XFD")
                         ).setRowHeights(
                                 rowHeights("1")
-                        ).setTotalWidth(
-                                OptionalDouble.of(2 * COLUMN_WIDTH)
-                        ).setTotalHeight(
-                                OptionalDouble.of(2 * ROW_HEIGHT)
+                        ).setColumnCount(
+                                OptionalInt.of(2)
+                        ).setRowCount(
+                                OptionalInt.of(2)
                         )
                 )
         );
@@ -150,10 +150,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearRowsTest e
                                 columnWidths("B,C")
                         ).setRowHeights(
                                 rowHeights("2,3")
-                        ).setTotalWidth(
-                                OptionalDouble.of(4 * COLUMN_WIDTH)
-                        ).setTotalHeight(
-                                OptionalDouble.of(4 * ROW_HEIGHT)
+                        ).setColumnCount(
+                                OptionalInt.of(4)
+                        ).setRowCount(
+                                OptionalInt.of(4)
                         )
                 )
         );

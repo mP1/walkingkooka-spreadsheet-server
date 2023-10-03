@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRowTest extends
         SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow, SpreadsheetRowReference> {
@@ -107,10 +107,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                                         columnWidths("a,b,c,d")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4,5,6")
-                                ).setTotalWidth(
-                                        OptionalDouble.of(4 * COLUMN_WIDTH)
-                                ).setTotalHeight(
-                                        OptionalDouble.of(6 * ROW_HEIGHT)
+                                ).setColumnCount(
+                                        OptionalInt.of(4)
+                                ).setRowCount(
+                                        OptionalInt.of(6)
                                 )
                 )
         );
@@ -190,10 +190,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow
                                         columnWidths("a,b,c,d")
                                 ).setRowHeights(
                                         rowHeights("1,2,3,4,5,6")
-                                ).setTotalWidth(
-                                        OptionalDouble.of(4 * COLUMN_WIDTH)
-                                ).setTotalHeight(
-                                        OptionalDouble.of(6 * ROW_HEIGHT)
+                                ).setColumnCount(
+                                        OptionalInt.of(4)
+                                ).setRowCount(
+                                        OptionalInt.of(6)
                                 )
                 )
         );
