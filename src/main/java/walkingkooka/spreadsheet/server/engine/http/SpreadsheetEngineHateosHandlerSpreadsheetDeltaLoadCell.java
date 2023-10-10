@@ -97,7 +97,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
         return this.engine.window(
                 this.home(parameters)
-                        .viewport(
+                        .viewportRectangle(
                                 this.width(parameters),
                                 this.height(parameters)
                         ),

@@ -44,7 +44,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.SpreadsheetViewport;
+import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -583,7 +583,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
-            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
                                                      final boolean includeFrozenColumnsRows,
                                                      final Optional<SpreadsheetSelection> selection,
                                                      final SpreadsheetEngineContext context) {
