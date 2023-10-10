@@ -38,7 +38,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.tree.json.JsonNode;
 
@@ -115,7 +115,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
     }
 
     private void applyAndCheck2(final String queryString,
-                                final Optional<SpreadsheetViewportSelection> viewportSelection) {
+                                final Optional<SpreadsheetViewport> viewportSelection) {
         final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
                 .column()
                 .setHidden(true);
@@ -134,7 +134,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setViewportSelection(viewportSelection)
+                ).setViewport(viewportSelection)
                 .setWindow(WINDOW);
 
         final Set<SpreadsheetColumn> saved = Sets.ordered();
@@ -193,7 +193,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewportSelection);
                             }
@@ -217,7 +217,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
     public void testLoadsUnhiddenColumnCells() {
         final String queryString = "?selectionType=cell&selection=C3";
 
-        final Optional<SpreadsheetViewportSelection> viewportSelection = Optional.of(
+        final Optional<SpreadsheetViewport> viewportSelection = Optional.of(
                 SpreadsheetSelection.parseCell("C3")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
@@ -253,7 +253,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                         Sets.of(
                                 c, d
                         )
-                ).setViewportSelection(viewportSelection)
+                ).setViewport(viewportSelection)
                 .setWindow(WINDOW)
                 .setCells(
                         Sets.of(
@@ -324,7 +324,7 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewportSelection);
                             }

@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -77,9 +77,9 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
         final SpreadsheetDelta saved =
                 this.save(patched, selection)
                         .setWindow(patched.window())
-                        .setViewportSelection(
-                                this.viewportSelection(
-                                        patched.viewportSelection()
+                        .setViewport(
+                                this.viewport(
+                                        patched.viewport()
                                 )
                         );
 
@@ -132,10 +132,10 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
     final SpreadsheetEngine engine;
     final SpreadsheetEngineContext context;
 
-    private Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetViewportSelection> viewportSelection) {
-        return SpreadsheetEngineHttps.viewportSelection(
+    private Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetViewport> viewport) {
+        return SpreadsheetEngineHttps.viewport(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewportSelection(viewportSelection)
+                        SpreadsheetDelta.EMPTY.setViewport(viewport)
                 ),
                 this.request.routerParameters(),
                 this.engine,

@@ -34,7 +34,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.store.FakeSpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -62,7 +62,7 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
     final static HttpRequest REQUEST = HttpRequests.fake();
     final static SpreadsheetEngine ENGINE = new FakeSpreadsheetEngine() {
         @Override
-        public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+        public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                final SpreadsheetEngineContext context) {
             return Optional.of(viewportSelection);
         }

@@ -44,7 +44,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
@@ -535,7 +535,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final String selectionText,
                                                final String anchor,
                                                final String deltaProperties,
-                                               final SpreadsheetViewportSelection viewportSelection) {
+                                               final SpreadsheetViewport viewportSelection) {
         // B1, B2, B3
         // C1, C2, C3
 
@@ -628,7 +628,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewportSelection);
                             }
@@ -664,7 +664,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
                                 .setWindow(
                                         SpreadsheetViewportWindows.parse("B1:C3")
-                                ).setViewportSelection(
+                                ).setViewport(
                                         Optional.ofNullable(viewportSelection)
                                 )
                 )
@@ -751,7 +751,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewportSelection);
                             }
@@ -967,8 +967,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     }
 
     private void loadCellRangeNavigateAndCheck(final String home,
-                                               final SpreadsheetViewportSelection viewportSelection,
-                                               final SpreadsheetViewportSelection expected) {
+                                               final SpreadsheetViewport viewportSelection,
+                                               final SpreadsheetViewport expected) {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
         parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
@@ -981,7 +981,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(
                 SpreadsheetEngineHttps.SELECTION_NAVIGATION,
                 Lists.of(
-                        SpreadsheetViewportSelection.SEPARATOR.toSeparatedString(
+                        SpreadsheetViewport.SEPARATOR.toSeparatedString(
                                 viewportSelection.navigations(),
                                 SpreadsheetViewportSelectionNavigation::text
                         )
@@ -1027,7 +1027,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection s,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport s,
                                                                                    final SpreadsheetEngineContext context) {
                                 return SpreadsheetEngines.basic()
                                         .navigate(s, context);
@@ -1079,7 +1079,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 parameters,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
-                                .setViewportSelection(
+                                .setViewport(
                                         Optional.of(expected)
                                 ).setWindow(window)
                 )

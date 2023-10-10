@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.text.CharSequences;
 
 import java.util.Map;
@@ -170,7 +170,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
 
     private Optional<SpreadsheetSelection> focusedSelection(final Optional<SpreadsheetDelta> resource,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return this.viewportSelection(resource, parameters)
+        return this.viewport(resource, parameters)
                 .map(this::focusedSelection0);
     }
 
@@ -178,12 +178,12 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
      * Special cases if the {@link SpreadsheetSelection}, because label doesnt actually know the viewport element
      * being focused.
      */
-    private SpreadsheetSelection focusedSelection0(final SpreadsheetViewportSelection viewportSelection) {
-        final SpreadsheetSelection selection = viewportSelection.selection();
+    private SpreadsheetSelection focusedSelection0(final SpreadsheetViewport viewport) {
+        final SpreadsheetSelection selection = viewport.selection();
         final SpreadsheetSelection nonLabel = this.context.resolveIfLabel(selection);
 
         return nonLabel.focused(
-                viewportSelection.anchor()
+                viewport.anchor()
         );
     }
 
