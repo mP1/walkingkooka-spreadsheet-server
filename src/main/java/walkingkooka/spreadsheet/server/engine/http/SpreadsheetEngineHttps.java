@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
 import walkingkooka.text.CharSequences;
@@ -202,50 +202,51 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * CHecks if a {@link SpreadsheetViewportSelection} are present in the {@link SpreadsheetDelta} or parameters,
+     * CHecks if a {@link SpreadsheetViewport} are present in the {@link SpreadsheetDelta} or parameters,
      * honouring any navigation if present.
      */
-    static Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
-                                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                                    final SpreadsheetEngine engine,
-                                                                    final SpreadsheetEngineContext context) {
-        Optional<SpreadsheetViewportSelection> viewportSelection = input.isPresent() ?
-                input.get().viewportSelection() :
+    static Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetDelta> input,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngine engine,
+                                                  final SpreadsheetEngineContext context) {
+        Optional<SpreadsheetViewport> viewport = input.isPresent() ?
+                input.get()
+                        .viewport() :
                 SpreadsheetDelta.NO_VIEWPORT_SELECTION;
-        if (!viewportSelection.isPresent()) {
-            viewportSelection = viewportSelection0(parameters);
+        if (!viewport.isPresent()) {
+            viewport = viewport0(parameters);
         }
 
-        // SpreadsheetViewportSelection read from input or parameters, present so perform navigate
-        if (viewportSelection.isPresent()) {
-            viewportSelection = engine.navigate(
-                    viewportSelection.get(),
+        // SpreadsheetViewport read from input or parameters, present so perform navigate
+        if (viewport.isPresent()) {
+            viewport = engine.navigate(
+                    viewport.get(),
                     context
             );
         }
 
-        return viewportSelection;
+        return viewport;
     }
 
     /**
-     * Attempts to read a {@link SpreadsheetViewportSelection} from the provided parameters.
+     * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
      */
-    static Optional<SpreadsheetViewportSelection> viewportSelection0(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        SpreadsheetViewportSelection viewportSelection = null;
+    static Optional<SpreadsheetViewport> viewport0(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        SpreadsheetViewport viewport = null;
 
         final SpreadsheetSelection selection = selectionOrNull(parameters);
         if (null != selection) {
             final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
-            viewportSelection = selection.setAnchor(
+            viewport = selection.setAnchor(
                     anchor.orElse(selection.defaultAnchor())
             );
 
-            viewportSelection = viewportSelection.setNavigations(
+            viewport = viewport.setNavigations(
                     navigation(parameters)
             );
         }
 
-        return Optional.ofNullable(viewportSelection);
+        return Optional.ofNullable(viewport);
     }
 
     private static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
@@ -307,7 +308,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         return parseQueryParameter(
                 parameters,
                 SELECTION_NAVIGATION,
-                SpreadsheetViewportSelection.NO_NAVIGATION,
+                SpreadsheetViewport.NO_NAVIGATION,
                 SpreadsheetViewportSelectionNavigation::parse
         );
     }

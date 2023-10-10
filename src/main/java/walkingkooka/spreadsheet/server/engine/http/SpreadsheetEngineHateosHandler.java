@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.text.CharSequences;
 
 import java.util.List;
@@ -102,9 +102,9 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     // @VisibleForTesting
     final static UrlParameterName COUNT = UrlParameterName.with("count");
 
-    final Optional<SpreadsheetViewportSelection> viewportSelection(final Optional<SpreadsheetDelta> input,
-                                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return SpreadsheetEngineHttps.viewportSelection(
+    final Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetDelta> input,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return SpreadsheetEngineHttps.viewport(
                 input,
                 parameters,
                 this.engine,

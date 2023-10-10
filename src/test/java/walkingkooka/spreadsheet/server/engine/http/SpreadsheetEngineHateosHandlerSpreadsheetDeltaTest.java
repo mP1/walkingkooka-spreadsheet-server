@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 
 import java.util.Map;
@@ -50,14 +50,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
     @Test
     public void testViewportSelectionPresentInputSpreadsheetDelta() {
-        final Optional<SpreadsheetViewportSelection> viewportSelection = Optional.of(
+        final Optional<SpreadsheetViewport> viewportSelection = Optional.of(
                 SpreadsheetSelection.parseCell("B2")
                         .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
         );
 
         this.prepareResponseAndCheck(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewportSelection(viewportSelection)
+                        SpreadsheetDelta.EMPTY.setViewport(viewportSelection)
                 ),
                 HateosHandler.NO_PARAMETERS,
                 viewportSelection
@@ -122,11 +122,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final Optional<SpreadsheetViewportSelection> expected) {
+                                         final Optional<SpreadsheetViewport> expected) {
         final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                            final SpreadsheetEngineContext context) {
                         return Optional.of(viewportSelection);
                     }
@@ -162,7 +162,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
         this.checkEquals(
                 expected,
-                response.viewportSelection(),
+                response.viewport(),
                 () -> "input=" + input + " parameters=" + parameters
         );
     }

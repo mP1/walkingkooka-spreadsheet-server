@@ -856,7 +856,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "=\"Hello 123\"",
                 "?selectionType=cell&selection=A2",
                 "{\n" +
-                        "  \"viewportSelection\": {\n" +
+                        "  \"viewport\": {\n" +
                         "    \"selection\": {\n" +
                         "      \"type\": \"spreadsheet-cell-reference\",\n" +
                         "      \"value\": \"A2\"\n" +
@@ -939,7 +939,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "=\"Hello 123\"",
                 "?selectionType=cell-range&selection=A1:B2&selectionAnchor=top-right",
                 "{\n" +
-                        "  \"viewportSelection\": {\n" +
+                        "  \"viewport\": {\n" +
                         "    \"selection\": {\n" +
                         "      \"type\": \"spreadsheet-cell-range\",\n" +
                         "      \"value\": \"A1:B2\"\n" +
@@ -2567,7 +2567,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-reference\",\n" +
                                 "      \"value\": \"B2\"\n" +
@@ -3180,7 +3180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-reference\",\n" +
                                 "      \"value\": \"A1\"\n" +
@@ -3319,7 +3319,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B2\"\n" +
@@ -3459,7 +3459,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B2\"\n" +
@@ -3599,7 +3599,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B1\"\n" +
@@ -3760,7 +3760,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-range\",\n" +
                                 "      \"value\": \"A1:B1\"\n" +
@@ -3927,7 +3927,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-label-name\",\n" +
                                 "      \"value\": \"Label123\"\n" +
@@ -6856,7 +6856,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
-                                "  \"viewportSelection\": {\n" +
+                                "  \"viewport\": {\n" +
                                 "    \"selection\": {\n" +
                                 "      \"type\": \"spreadsheet-cell-reference\",\n" +
                                 "      \"value\": \"C3\"\n" +

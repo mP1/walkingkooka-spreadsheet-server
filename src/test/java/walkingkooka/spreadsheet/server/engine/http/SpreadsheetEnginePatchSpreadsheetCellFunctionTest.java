@@ -37,7 +37,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -100,7 +100,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                 SpreadsheetDelta.EMPTY
                         .setCells(
                                 Sets.of(saved)
-                        ).setViewportSelection(
+                        ).setViewport(
                                 Optional.of(
                                         SpreadsheetSelection.parseCell("Z99")
                                                 .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
@@ -363,7 +363,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewportSelection> navigate(final SpreadsheetViewportSelection viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewportSelection);
                             }
