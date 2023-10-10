@@ -25,7 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetViewport;
+import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -596,17 +596,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
                                                                      final boolean includeFrozenColumnsRows,
                                                                      final Optional<SpreadsheetSelection> s,
                                                                      final SpreadsheetEngineContext context) {
                                 checkEquals(
-                                        SpreadsheetViewport.with(
+                                        SpreadsheetViewportRectangle.with(
                                                 SpreadsheetSelection.parseCell("B2"),
                                                 33.0,
                                                 44.0
                                         ),
-                                        viewport,
+                                        viewportRectangle,
                                         "viewport"
                                 );
                                 return SpreadsheetViewportWindows.with(Sets.of(
@@ -726,7 +726,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
                                                                      final boolean includeFrozenColumnsRows,
                                                                      final Optional<SpreadsheetSelection> selection,
                                                                      final SpreadsheetEngineContext context) {
@@ -1007,7 +1007,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewport viewport,
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
                                                                      final boolean includeFrozenColumnsRows,
                                                                      final Optional<SpreadsheetSelection> selection,
                                                                      final SpreadsheetEngineContext context) {
