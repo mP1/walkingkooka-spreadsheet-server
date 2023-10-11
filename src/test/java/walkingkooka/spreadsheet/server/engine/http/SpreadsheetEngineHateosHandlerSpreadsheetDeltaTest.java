@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +52,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
     public void testViewportSelectionPresentInputSpreadsheetDelta() {
         final Optional<SpreadsheetViewport> viewportSelection = Optional.of(
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
 
         this.prepareResponseAndCheck(
@@ -86,7 +86,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
                 ),
                 Optional.of(
-                        selection.setAnchor(SpreadsheetViewportSelectionAnchor.NONE)
+                        selection.setAnchor(SpreadsheetViewportAnchor.NONE)
                 )
         );
     }
@@ -94,7 +94,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
     @Test
     public void testSelectionQueryParameters2() {
         final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
-        final SpreadsheetViewportSelectionAnchor anchor = SpreadsheetViewportSelectionAnchor.TOP_LEFT;
+        final SpreadsheetViewportAnchor anchor = SpreadsheetViewportAnchor.TOP_LEFT;
 
         this.prepareResponseAndCheck(
                 Optional.of(
