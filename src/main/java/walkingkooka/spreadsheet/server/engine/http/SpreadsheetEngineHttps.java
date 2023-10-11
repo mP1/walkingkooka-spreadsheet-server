@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionAnchor;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
@@ -236,7 +236,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
         final SpreadsheetSelection selection = selectionOrNull(parameters);
         if (null != selection) {
-            final Optional<SpreadsheetViewportSelectionAnchor> anchor = anchor(parameters);
+            final Optional<SpreadsheetViewportAnchor> anchor = anchor(parameters);
             viewport = selection.setAnchor(
                     anchor.orElse(selection.defaultAnchor())
             );
@@ -280,7 +280,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Parses the anchor query parameter if one is present.
      */
-    static Optional<SpreadsheetViewportSelectionAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    static Optional<SpreadsheetViewportAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 SELECTION_ANCHOR,
@@ -289,14 +289,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         );
     }
 
-    private static Optional<SpreadsheetViewportSelectionAnchor> parseAnchor(final String text) {
+    private static Optional<SpreadsheetViewportAnchor> parseAnchor(final String text) {
         return Optional.of(
-                SpreadsheetViewportSelectionAnchor.parse(text)
+                SpreadsheetViewportAnchor.parse(text)
         );
     }
 
     /**
-     * The {@link SpreadsheetViewportSelectionAnchor} in text form, eg "top-bottom"
+     * The {@link SpreadsheetViewportAnchor} in text form, eg "top-bottom"
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
