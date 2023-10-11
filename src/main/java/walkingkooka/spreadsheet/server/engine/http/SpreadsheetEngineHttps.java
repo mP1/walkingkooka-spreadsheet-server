@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportSelectionNavigation;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 
@@ -304,17 +304,17 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Reads any navigation parameter that is present.
      */
-    private static List<SpreadsheetViewportSelectionNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static List<SpreadsheetViewportNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parseQueryParameter(
                 parameters,
                 SELECTION_NAVIGATION,
                 SpreadsheetViewport.NO_NAVIGATION,
-                SpreadsheetViewportSelectionNavigation::parse
+                SpreadsheetViewportNavigation::parse
         );
     }
 
     /**
-     * The {@link SpreadsheetViewportSelectionNavigation} in text form, eg "extend-right"
+     * The {@link SpreadsheetViewportNavigation} in text form, eg "extend-right"
      */
     // @VisibleForTesting
     final static UrlParameterName SELECTION_NAVIGATION = UrlParameterName.with("selectionNavigation");
