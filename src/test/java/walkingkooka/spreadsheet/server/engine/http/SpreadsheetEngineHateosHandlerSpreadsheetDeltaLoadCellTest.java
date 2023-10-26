@@ -331,7 +331,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 null,
                 null, // deltaProperties
                 SpreadsheetSelection.parseCell("A9")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -355,7 +355,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 null, // anchor
                 null, // deltaProperties
                 SpreadsheetSelection.parseColumn("B")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -379,7 +379,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 null, // anchor
                 null, // deltaProperties
                 SpreadsheetSelection.parseRow("99")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -731,7 +731,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.leftColumn()
                 ),
                 SpreadsheetSelection.parseCell("A2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -745,7 +745,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.rightColumn()
                 ),
                 SpreadsheetSelection.parseCell("C2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -759,7 +759,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.leftColumn()
                 ),
                 SpreadsheetSelection.parseColumn("B")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -773,7 +773,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.downRow()
                 ),
                 SpreadsheetSelection.parseColumn("C")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -787,7 +787,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.downRow()
                 ),
                 SpreadsheetSelection.parseRow("4")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -843,7 +843,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.extendRightColumn()
                 ),
                 SpreadsheetSelection.parseCell("C2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
@@ -857,7 +857,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetViewportNavigation.extendUpRow()
                 ),
                 SpreadsheetSelection.parseCell("C1")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        .setDefaultAnchor()
         );
     }
 
