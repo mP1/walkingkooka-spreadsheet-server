@@ -250,6 +250,56 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     @Test
+    public void testViewportAndNavigateNoParametersNoDeltaIgnoresWindow() {
+        this.viewportAndNavigateAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.WINDOW, Lists.of("A1:B2")
+                ), // parameters
+                Optional.empty(), // delta
+                SpreadsheetEngines.fake(),
+                SpreadsheetEngineContexts.fake()
+        );
+    }
+
+    @Test
+    public void testViewportAndNavigateParametersPresentIgnoresWindow() {
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.A1
+                        .viewportRectangle(11, 22)
+                        .viewport()
+                        .setSelection(
+                                Optional.of(
+                                        SpreadsheetSelection.parseColumn("B")
+                                                .setDefaultAnchor()
+                                )
+                        )
+        );
+
+        this.viewportAndNavigateAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("column"),
+                        SpreadsheetEngineHttps.SELECTION, Lists.of("B"),
+                        SpreadsheetEngineHttps.WINDOW, Lists.of("Z9:Z10")
+                ),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setViewport(viewport)
+                ), // delta
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
+                                                                  final SpreadsheetEngineContext context) {
+                        return Optional.of(v);
+                    }
+                },
+                SpreadsheetEngineContexts.fake(),
+                viewport
+        );
+    }
+
+    @Test
     public void testViewportAndNavigateParametersPresent() {
         final Optional<SpreadsheetViewport> viewport = Optional.of(
                 SpreadsheetSelection.A1
