@@ -339,9 +339,9 @@ public final class SpreadsheetEnginePatchSpreadsheetColumnFunctionTest extends S
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                                                   final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                          final SpreadsheetEngineContext context) {
+                                return Optional.of(viewport);
                             }
                         },
                         CONTEXT

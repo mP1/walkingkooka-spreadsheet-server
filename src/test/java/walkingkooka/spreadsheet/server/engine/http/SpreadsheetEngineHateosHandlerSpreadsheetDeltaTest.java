@@ -122,9 +122,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
         final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(
                 new FakeSpreadsheetEngine() {
                     @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                                           final SpreadsheetEngineContext context) {
-                        return Optional.of(viewportSelection);
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                  final SpreadsheetEngineContext context) {
+                        return Optional.of(viewport);
                     }
                 },
                 SpreadsheetEngineContexts.fake()
