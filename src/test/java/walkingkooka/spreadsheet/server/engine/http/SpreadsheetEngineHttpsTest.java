@@ -188,6 +188,22 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     @Test
+    public void testWindowWithWindowIgnoresHome() {
+        final String windows = "A1:B2";
+
+        this.windowAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows),
+                        SpreadsheetEngineHttps.HOME, Lists.of("Z1")
+                ),
+                Optional.empty(),
+                SpreadsheetEngines.fake(),
+                SpreadsheetEngineContexts.fake(),
+                SpreadsheetViewportWindows.parse(windows)
+        );
+    }
+
+    @Test
     public void testWindowWithWindowIgnoresSelection() {
         final String windows = "A1:B2";
 
