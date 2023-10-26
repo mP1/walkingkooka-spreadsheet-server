@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -55,6 +56,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.text.Length;
+import walkingkooka.tree.text.TextStyle;
+import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.util.List;
 import java.util.Locale;
@@ -278,142 +282,24 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     // handleAll........................................................................................................
 
     @Test
-    public void testLoadCellRangeMissingHomeParameterFails() {
-        this.loadCellRangeFails(Maps.empty(), "Missing parameter \"home\"");
-    }
-
-    @Test
-    public void testLoadCellRangeMissingWidthParameterFails() {
+    public void testLoadCellRangeMissingWindowParametersFails() {
         this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1")
-                ),
-                "Missing parameter \"width\""
-        );
+                Maps.empty(),
+                "Missing: home, width, height, includeFrozenColumnsRows or window");
     }
 
     @Test
-    public void testLoadCellRangeInvalidWidthParameterFails() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("*")
-                ),
-                "Invalid query parameter width=\"*\""
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidWidthParameterFails2() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("0")
-                ),
-                "Invalid query parameter width=\"0\" <= 0"
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidWidthParameterFails3() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("-1")
-                ),
-                "Invalid query parameter width=\"-1\" <= 0"
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeMissingHeightParameterFails() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123")
-                ),
-                "Missing parameter \"height\""
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidHeightParameterFails() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("*")
-                ),
-                "Invalid query parameter height=\"*\""
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidHeightParameterFails2() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("0")
-                ),
-                "Invalid query parameter height=\"0\" <= 0"
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidHeightParameterFails3() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("-1")
-                ),
-                "Invalid query parameter height=\"-1\" <= 0"
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeMissingIncludeFrozenColumnsRowsParameterFails() {
-        this.loadCellRangeFails(
-                Maps.of(
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"),
-                        SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456")
-                ),
-                "Missing parameter \"includeFrozenColumnsRows\""
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeSelectionTypePresentAndMissingSelectionParameterFails() {
+    public void testLoadCellRangeInvalidHomeParameterFails() {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
-        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"));
+        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of("!Invalid"));
+        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("123"));
+        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("456"));
+        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
         this.loadCellRangeFails(
                 parameters,
-                "Missing parameter \"selection\""
-        );
-    }
-
-    @Test
-    public void testLoadCellRangeInvalidSelectionTypeParameterFails() {
-        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("A1"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("123"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("456"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
-        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("unknownn?"));
-        parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of("A1"));
-
-        this.loadCellRangeFails(
-                parameters,
-                "Invalid selectionType \"unknownn?\" value \"A1\""
+                "Invalid home=\"!Invalid\""
         );
     }
 
@@ -535,7 +421,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final String selectionText,
                                                final String anchor,
                                                final String deltaProperties,
-                                               final SpreadsheetViewport viewportSelection) {
+                                               final AnchoredSpreadsheetSelection expected) {
         // B1, B2, B3
         // C1, C2, C3
 
@@ -549,10 +435,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         final Range<SpreadsheetCellReference> range = this.range();
 
+        final SpreadsheetCellReference home = SpreadsheetSelection.parseCell("B2");
+        final int width = 33;
+        final int height = 44;
+
+
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of("B2"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("33"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("44"));
+        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home.toString()));
+        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + width));
+        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + height));
 
         if (null != selectionType) {
             parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selectionType));
@@ -563,7 +454,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
             }
         }
 
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES,
                 Lists.of(deltaProperties)
@@ -602,14 +493,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                                      final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         SpreadsheetViewportRectangle.with(
-                                                SpreadsheetSelection.parseCell("B2"),
-                                                33.0,
-                                                44.0
+                                                home,
+                                                width,
+                                                height
                                         ),
                                         viewportRectangle,
                                         "viewport"
                                 );
-                                return SpreadsheetViewportWindows.with(Sets.of(
+                                return SpreadsheetViewportWindows.with(
+                                        Sets.of(
                                                 SpreadsheetSelection.cellRange(range)
                                         )
                                 );
@@ -618,19 +510,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                                return 0;
+                                return COLUMN_WIDTH;
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
                                                     final SpreadsheetEngineContext context) {
-                                return 0;
+                                return ROW_HEIGHT;
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                                                   final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                          final SpreadsheetEngineContext context) {
+                                return Optional.of(viewport);
                             }
                         },
                         new FakeSpreadsheetEngineContext() {
@@ -665,7 +557,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 .setWindow(
                                         SpreadsheetViewportWindows.parse("B1:C3")
                                 ).setViewport(
-                                        Optional.ofNullable(viewportSelection)
+                                        Optional.of(
+                                                home.viewportRectangle(width, height)
+                                                        .viewport()
+                                                        .setSelection(
+                                                                Optional.ofNullable(expected)
+                                                        )
+                                        )
                                 )
                 )
         );
@@ -703,12 +601,20 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final int frozenRows,
                                                final String range,
                                                final String window) {
-        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("150"));
 
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
+        final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
+        final SpreadsheetCellRange viewportWindowRange = spreadsheetViewportWindows.last()
+                .get();
+
+        final double viewportWidth = viewportWindowRange.width() * COLUMN_WIDTH;
+        final double viewportHeight = viewportWindowRange.height() * ROW_HEIGHT;
+
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home));
+        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + viewportWidth));
+        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + viewportHeight));
+
+        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -741,19 +647,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             @Override
                             public double columnWidth(final SpreadsheetColumnReference column,
                                                       final SpreadsheetEngineContext context) {
-                                return 100;
+                                return COLUMN_WIDTH;
                             }
 
                             @Override
                             public double rowHeight(final SpreadsheetRowReference row,
                                                     final SpreadsheetEngineContext context) {
-                                return 50;
+                                return ROW_HEIGHT;
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                                                   final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                          final SpreadsheetEngineContext context) {
+                                return Optional.of(viewport);
                             }
                         },
                         new FakeSpreadsheetEngineContext() {
@@ -762,8 +668,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 return SpreadsheetMetadata.EMPTY
                                         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                                         .loadFromLocale()
-                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns-1)) : null)
-                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows-1)) : null);
+                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
+                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
                             }
 
                             @Override
@@ -797,8 +703,17 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 parameters,
                 Optional.of(
                         SpreadsheetDelta.EMPTY
+                                .setViewport(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseCell(home)
+                                                        .viewportRectangle(
+                                                                viewportWidth,
+                                                                viewportHeight
+                                                        ).viewport()
+                                        )
+                                )
                                 .setWindow(
-                                        SpreadsheetViewportWindows.parse(window)
+                                        spreadsheetViewportWindows
                                 )
                 )
         );
@@ -811,12 +726,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.leftColumn()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.leftColumn()
+                ),
                 SpreadsheetSelection.parseCell("A2")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -827,12 +740,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.rightColumn()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.rightColumn()
+                ),
                 SpreadsheetSelection.parseCell("C2")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -843,12 +754,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseColumn("C")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.leftColumn()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.leftColumn()
+                ),
                 SpreadsheetSelection.parseColumn("B")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -859,12 +768,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseColumn("C")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.downRow()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.downRow()
+                ),
                 SpreadsheetSelection.parseColumn("C")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -875,12 +782,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseRow("3")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.downRow()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.downRow()
+                ),
                 SpreadsheetSelection.parseRow("4")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -891,12 +796,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.extendRightColumn()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendRightColumn()
+                ),
                 SpreadsheetSelection.parseCellRange("B2:C2")
                         .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
         );
@@ -907,12 +810,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.extendLeftColumn()
-                                )
-                        ),
+                        .setDefaultAnchor(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendLeftColumn()
+                ),
                 SpreadsheetSelection.parseCellRange("A2:B2")
                         .setAnchor(SpreadsheetViewportAnchor.BOTTOM_RIGHT)
         );
@@ -923,12 +824,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCellRange("A2:B2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.extendRightColumn()
-                                )
-                        ),
+                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendRightColumn()
+                ),
                 SpreadsheetSelection.parseCellRange("A2:C2")
                         .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
         );
@@ -939,12 +838,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCellRange("B2:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_RIGHT)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.extendRightColumn()
-                                )
-                        ),
+                        .setAnchor(SpreadsheetViewportAnchor.TOP_RIGHT),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendRightColumn()
+                ),
                 SpreadsheetSelection.parseCell("C2")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
@@ -955,39 +852,44 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         this.loadCellRangeNavigateAndCheck(
                 "A1",
                 SpreadsheetSelection.parseCellRange("C1:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
-                        .setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.extendUpRow()
-                                )
-                        ),
+                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendUpRow()
+                ),
                 SpreadsheetSelection.parseCell("C1")
                         .setAnchor(SpreadsheetViewportAnchor.NONE)
         );
     }
 
     private void loadCellRangeNavigateAndCheck(final String home,
-                                               final SpreadsheetViewport viewportSelection,
-                                               final SpreadsheetViewport expected) {
-        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HOME, Lists.of(home));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.WIDTH, Lists.of("400")); // 4x3
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.HEIGHT, Lists.of("150"));
-        parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+                                               final AnchoredSpreadsheetSelection anchoredSpreadsheetSelection,
+                                               final List<SpreadsheetViewportNavigation> navigations,
+                                               final AnchoredSpreadsheetSelection expected) {
+        final int width = 400;
+        final int height = 150;
 
-        final SpreadsheetSelection selection = viewportSelection.selection();
+        final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
+        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home));
+        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + width)); // 4x3
+        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + height));
+        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+
+        final SpreadsheetSelection selection = anchoredSpreadsheetSelection.selection();
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
         parameters.put(
                 SpreadsheetEngineHttps.SELECTION_NAVIGATION,
                 Lists.of(
                         SpreadsheetViewport.SEPARATOR.toSeparatedString(
-                                viewportSelection.navigations(),
+                                navigations,
                                 SpreadsheetViewportNavigation::text
                         )
                 )
         );
-        parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(viewportSelection.anchor().kebabText()));
+        parameters.put(
+                SpreadsheetEngineHttps.SELECTION_ANCHOR,
+                Lists.of(anchoredSpreadsheetSelection.anchor().kebabText())
+        );
 
         final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:E5");
 
@@ -1028,7 +930,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
                             @Override
                             public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport s,
-                                                                                   final SpreadsheetEngineContext context) {
+                                                                          final SpreadsheetEngineContext context) {
                                 return SpreadsheetEngines.basic()
                                         .navigate(s, context);
                             }
@@ -1038,7 +940,19 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             public SpreadsheetMetadata metadata() {
                                 return SpreadsheetMetadata.EMPTY
                                         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                        .loadFromLocale();
+                                        .set(
+                                                SpreadsheetMetadataPropertyName.STYLE,
+                                                TextStyle.EMPTY
+                                                        .set(
+                                                                TextStylePropertyName.WIDTH,
+                                                                Length.pixel(COLUMN_WIDTH
+                                                                )
+                                                        )
+                                                        .set(
+                                                                TextStylePropertyName.HEIGHT,
+                                                                Length.pixel(ROW_HEIGHT)
+                                                        )
+                                        ).loadFromLocale();
                             }
 
                             @Override
@@ -1068,7 +982,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                             }
 
                             public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                                if(selection.isLabelName()) {
+                                if (selection.isLabelName()) {
                                     throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
                                 }
                                 return selection;
@@ -1080,7 +994,16 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setViewport(
-                                        Optional.of(expected)
+                                        Optional.of(
+                                                SpreadsheetSelection.parseCell(home)
+                                                        .viewportRectangle(
+                                                                width,
+                                                                height
+                                                        ).viewport()
+                                                        .setSelection(
+                                                                Optional.of(expected)
+                                                        )
+                                        )
                                 ).setWindow(window)
                 )
         );

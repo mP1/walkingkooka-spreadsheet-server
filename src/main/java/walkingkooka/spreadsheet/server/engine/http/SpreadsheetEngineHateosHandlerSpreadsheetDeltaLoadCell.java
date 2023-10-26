@@ -33,14 +33,11 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.text.CharSequences;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 
 /**
  * A {@link HateosHandler} that calls {@link SpreadsheetEngine#loadCells(Set, SpreadsheetEngineEvaluation, Set, SpreadsheetEngineContext)}.
@@ -72,9 +69,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetViewportWindows window = this.window(
-                resource,
-                parameters
+        final SpreadsheetViewportWindows window = SpreadsheetEngineHttps.notEmptyWindow(
+                parameters,
+                resource, // will always be empty
+                this.engine,
+                this.context
         );
 
         final Map<HttpRequestAttribute<?>, Object> parametersAndWindow = Maps.ordered();
@@ -93,109 +92,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         );
     }
 
-    private SpreadsheetViewportWindows window(final Optional<SpreadsheetDelta> resource,
-                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return this.engine.window(
-                this.home(parameters)
-                        .viewportRectangle(
-                                this.width(parameters),
-                                this.height(parameters)
-                        ),
-                this.includeFrozenColumnsRows(parameters),
-                this.focusedSelection(
-                        resource,
-                        parameters
-                ),
-                this.context
-        );
-    }
-
-    private SpreadsheetCellReference home(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstParameterValueAndConvert(
-                HOME.firstParameterValueOrFail(parameters),
-                SpreadsheetCellReference::parseCell,
-                HOME
-        );
-    }
-
-    // @VisibleForTesting
-    final static UrlParameterName HOME = UrlParameterName.with("home");
-
-    private double width(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstDoubleParameterValue(WIDTH, parameters);
-    }
-
-    final static UrlParameterName WIDTH = UrlParameterName.with("width");
-
-    private double height(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstDoubleParameterValue(HEIGHT, parameters);
-    }
-
-    final static UrlParameterName HEIGHT = UrlParameterName.with("height");
-
     /**
      * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
      */
     final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
-
-    private static double firstDoubleParameterValue(final UrlParameterName parameter,
-                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final String text = parameter.firstParameterValueOrFail(parameters);
-        final double value = firstParameterValueAndConvert(
-                text,
-                Double::parseDouble,
-                parameter
-        );
-        if (value <= 0) {
-            throw new IllegalArgumentException(
-                    "Invalid query parameter " +
-                            parameter +
-                            "=" +
-                            CharSequences.quoteIfChars(text) +
-                            " <= 0"
-            );
-        }
-        return value;
-    }
-
-    private boolean includeFrozenColumnsRows(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return firstParameterValueAndConvert(
-                INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValueOrFail(parameters),
-                Boolean::parseBoolean,
-                INCLUDE_FROZEN_COLUMNS_ROWS
-        );
-    }
-
-    final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
-
-    private Optional<SpreadsheetSelection> focusedSelection(final Optional<SpreadsheetDelta> resource,
-                                                            final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return this.viewport(resource, parameters)
-                .map(this::focusedSelection0);
-    }
-
-    /**
-     * Special cases if the {@link SpreadsheetSelection}, because label doesnt actually know the viewport element
-     * being focused.
-     */
-    private SpreadsheetSelection focusedSelection0(final SpreadsheetViewport viewport) {
-        final SpreadsheetSelection selection = viewport.selection();
-        final SpreadsheetSelection nonLabel = this.context.resolveIfLabel(selection);
-
-        return nonLabel.focused(
-                viewport.anchor()
-        );
-    }
-
-    private static <T> T firstParameterValueAndConvert(final String value,
-                                                       final Function<String, T> converter,
-                                                       final UrlParameterName parameter) {
-        try {
-            return converter.apply(value);
-        } catch (final Exception convertFailed) {
-            throw new IllegalArgumentException("Invalid query parameter " + parameter + "=" + CharSequences.quoteIfChars(value));
-        }
-    }
 
     // handleOne........................................................................................................
 

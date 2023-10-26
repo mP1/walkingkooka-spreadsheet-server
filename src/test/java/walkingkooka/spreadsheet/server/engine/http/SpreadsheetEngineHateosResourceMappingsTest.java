@@ -60,6 +60,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -304,7 +305,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRouteCellGetLoadCellViewport() {
         this.routeCellAndCheck(
                 HttpMethod.GET,
-                "/cell/*?home=A1&xOffset=0&yOffset=0&width=1000&height=700&includeFrozenColumnsRows=false",
+                "/cell/*?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
                 HttpStatusCode.OK
         );
     }
@@ -313,7 +314,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRouteCellGetLoadCellViewportEvaluation() {
         this.routeCellAndCheck(
                 HttpMethod.GET,
-                "/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=1000&height=700&includeFrozenColumnsRows=false",
+                "/cell/*/force-recompute?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
                 HttpStatusCode.OK
         );
     }
@@ -596,6 +597,17 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                               final SpreadsheetCellRange to,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
+            }
+
+            @Override
+            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                          final SpreadsheetEngineContext context) {
+                checkEquals(
+                        Lists.empty(),
+                        viewport.navigations(),
+                        "navigations"
+                );
+                return Optional.of(viewport);
             }
         };
     }

@@ -39,7 +39,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Optional;
@@ -101,10 +100,17 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
     @Test
     public void testApplySelectionQueryParameter() {
         this.applyAndCheck2(
-                "?selectionType=cell&selection=C3",
+                "?home=B2&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=C3&window=",
                 Optional.of(
-                        SpreadsheetSelection.parseCell("C3")
-                                .setAnchor(SpreadsheetViewportAnchor.NONE)
+                        SpreadsheetSelection.parseCell("B2")
+                                .viewportRectangle(WIDTH, HEIGHT)
+                                .viewport()
+                                .setSelection(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseCell("C3")
+                                                        .setDefaultAnchor()
+                                        )
+                                )
                 )
         );
     }
@@ -188,9 +194,9 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                                return Optional.of(viewport);
                             }
                         },
                         CONTEXT
@@ -210,11 +216,20 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
 
     @Test
     public void testLoadsUnhiddenRowCells() {
-        final String queryString = "?selectionType=cell&selection=C3";
+        final String queryString = "?home=B2&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=C3&window=";
 
-        final Optional<SpreadsheetViewport> viewportSelection = Optional.of(
-                SpreadsheetSelection.parseCell("C3")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.parseCell("B2")
+                        .viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                        ).viewport()
+                        .setSelection(
+                                Optional.of(
+                                        SpreadsheetSelection.parseCell("C3")
+                                                .setDefaultAnchor()
+                                )
+                        )
         );
 
         final SpreadsheetRow row3 = SpreadsheetSelection.parseRow("3")
@@ -248,7 +263,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Sets.of(
                                 row3, row4
                         )
-                ).setViewport(viewportSelection)
+                ).setViewport(viewport)
                 .setWindow(WINDOW)
                 .setCells(
                         Sets.of(
