@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -30,6 +29,7 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
@@ -40,7 +40,7 @@ import java.util.Optional;
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 
     @Test
-    public void testViewportSelectionAbsent() {
+    public void testViewportAbsent() {
         this.prepareResponseAndCheck(
                 Optional.of(SpreadsheetDelta.EMPTY),
                 HateosHandler.NO_PARAMETERS,
@@ -49,50 +49,34 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
     }
 
     @Test
-    public void testViewportSelectionPresentInputSpreadsheetDelta() {
-        final Optional<SpreadsheetViewport> viewportSelection = Optional.of(
-                SpreadsheetSelection.parseCell("B2")
-                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+    public void testViewportPresentInputSpreadsheetDelta() {
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.A1.viewportRectangle(
+                                100,
+                                30
+                        ).viewport()
+                        .setSelection(
+                                Optional.of(
+                                        SpreadsheetSelection.parseCell("B2")
+                                                .setDefaultAnchor()
+                                )
+                        )
         );
 
         this.prepareResponseAndCheck(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewportSelection)
+                        SpreadsheetDelta.EMPTY.setViewport(viewport)
                 ),
                 HateosHandler.NO_PARAMETERS,
-                viewportSelection
+                viewport
         );
     }
 
     @Test
     public void testSelectionQueryParameters() {
-        final SpreadsheetSelection selection = SpreadsheetSelection.parseCell("C3");
-
-        this.prepareResponseAndCheck(
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("Z9")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("=1+2")
-                                                        )
-                                        )
-                                )
-                ),
-                Maps.of(
-                        SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell")
-                ),
-                Optional.of(
-                        selection.setAnchor(SpreadsheetViewportAnchor.NONE)
-                )
-        );
-    }
-
-    @Test
-    public void testSelectionQueryParameters2() {
+        final SpreadsheetCellReference home = SpreadsheetSelection.parseCell("B2");
+        final int width = 23;
+        final int height = 45;
         final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
         final SpreadsheetViewportAnchor anchor = SpreadsheetViewportAnchor.TOP_LEFT;
 
@@ -109,13 +93,25 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                         )
                                 )
                 ),
-                Maps.of(
+                Map.of(
+                        SpreadsheetEngineHttps.HOME, Lists.of(home.toString()),
+                        SpreadsheetEngineHttps.WIDTH, Lists.of(String.valueOf(width)),
+                        SpreadsheetEngineHttps.HEIGHT, Lists.of(String.valueOf(height)),
                         SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText())
+                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
+                        SpreadsheetEngineHttps.WINDOW, Lists.of("")
                 ),
                 Optional.of(
-                        selection.setAnchor(anchor)
+                        home.viewportRectangle(
+                                        width,
+                                        height
+                                ).viewport()
+                                .setSelection(
+                                        Optional.of(
+                                                selection.setAnchor(anchor)
+                                        )
+                                )
                 )
         );
     }

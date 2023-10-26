@@ -74,14 +74,16 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                                            final SpreadsheetDelta out) {
         return out.setWindow(
                 SpreadsheetEngineHttps.window(
+                        parameters,
                         in,
-                        parameters
+                        this.engine,
+                        this.context
                 )
 
         ).setViewport(
                 this.viewport(
-                        in,
-                        parameters
+                        parameters,
+                        in
                 )
         );
     }

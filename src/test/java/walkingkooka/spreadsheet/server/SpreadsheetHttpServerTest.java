@@ -854,12 +854,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testSaveCellSelectionQueryParameter() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
-                "?selectionType=cell&selection=A2",
+                "?home=A1&width=1000&height=800&selectionType=cell&selection=A2&window=",
                 "{\n" +
                         "  \"viewport\": {\n" +
+                        "    \"rectangle\": \"A1:1000.0:800.0\",\n" +
                         "    \"selection\": {\n" +
-                        "      \"type\": \"spreadsheet-cell-reference\",\n" +
-                        "      \"value\": \"A2\"\n" +
+                        "      \"selection\": {\n" +
+                        "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                        "        \"value\": \"A2\"\n" +
+                        "      }\n" +
                         "    }\n" +
                         "  },\n" +
                         "  \"cells\": {\n" +
@@ -937,14 +940,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testSaveCellSelectionQueryParameterWithAnchor() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
-                "?selectionType=cell-range&selection=A1:B2&selectionAnchor=top-right",
+                "?home=A1&width=1000&height=600&selectionType=cell-range&selection=A1:B2&selectionAnchor=top-right&window=",
                 "{\n" +
                         "  \"viewport\": {\n" +
+                        "    \"rectangle\": \"A1:1000.0:600.0\",\n" +
                         "    \"selection\": {\n" +
-                        "      \"type\": \"spreadsheet-cell-range\",\n" +
-                        "      \"value\": \"A1:B2\"\n" +
-                        "    },\n" +
-                        "    \"anchor\": \"TOP_RIGHT\"\n" +
+                        "      \"selection\": {\n" +
+                        "        \"type\": \"spreadsheet-cell-range\",\n" +
+                        "        \"value\": \"A1:B2\"\n" +
+                        "      },\n" +
+                        "      \"anchor\": \"TOP_RIGHT\"\n" +
+                        "    }\n" +
                         "  },\n" +
                         "  \"cells\": {\n" +
                         "    \"A1\": {\n" +
@@ -1018,24 +1024,121 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testSaveCellSelectionQueryParameterWithInvalidHomeBadRequest() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1?home=!Invalid&width=1&height=2&window=",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
+                                )
+                ),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid home=\"!Invalid\""),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
+    @Test
+    public void testSaveCellSelectionQueryParameterWithInvalidWidthBadRequest() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1?home=A1&width=X&height=700&includeFrozenColumnsRows=true",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
+                                )
+                ),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid width=\"X\""),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
+    @Test
+    public void testSaveCellSelectionQueryParameterWithInvalidHeightBadRequest() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1?home=A1&width=1000&height=X&window=",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
+                                )
+                ),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid height=\"X\""),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
+    @Test
+    public void testSaveCellSelectionQueryParameterWithMissingHeightBadRequest() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1?home=A1&width=1000&window=",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
+                                )
+                ),
+                HttpStatusCode.BAD_REQUEST.setMessage("Missing: height"),
+                IllegalArgumentException.class.getSimpleName()
+        );
+    }
+
+    @Test
     public void testSaveCellSelectionQueryParameterWithInvalidAnchorBadRequest() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/A1?selectionType=cell&selection=A1&selectionAnchor=!INVALID",
+                "/api/spreadsheet/1/cell/A1?home=A123&width=111&height=222&selectionType=cell&selection=A1&selectionAnchor=!INVALID&window=",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        SpreadsheetSelection.A1
-                                                .setFormula(
-                                                        formula("=1")
-                                                )
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
                                 )
-                        )
                 ),
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid query parameter selectionAnchor=\"!INVALID\""),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid selectionAnchor=\"!INVALID\""),
                 IllegalArgumentException.class.getSimpleName()
         );
     }
@@ -1046,19 +1149,20 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/A1?selectionType=cell&selection=A1&selectionNavigation=!INVALID",
+                "/api/spreadsheet/1/cell/A1?home=A123&width=111&height=222&selectionType=cell&selection=A1&selectionNavigation=!INVALID&window=",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        SpreadsheetSelection.A1
-                                                .setFormula(
-                                                        formula("=1")
-                                                )
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=1")
+                                                        )
+                                        )
                                 )
-                        )
                 ),
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid query parameter selectionNavigation=\"!INVALID\""),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid selectionNavigation=\"!INVALID\""),
                 IllegalArgumentException.class.getSimpleName()
         );
     }
@@ -2553,7 +2657,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/cell/A1?selectionType=cell&selection=B2",
+                "/api/spreadsheet/1/cell/A1?home=A1&width=1000&height=600&selectionType=cell&selection=B2",
                 NO_HEADERS_TRANSACTION_ID,
                 "{\n" +
                         "  \"cells\": {\n" +
@@ -2568,9 +2672,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:1000.0:600.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-reference\",\n" +
-                                "      \"value\": \"B2\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "        \"value\": \"B2\"\n" +
+                                "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
@@ -2885,7 +2992,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -3174,16 +3281,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell&selection=A1&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-reference\",\n" +
-                                "      \"value\": \"A1\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "        \"value\": \"A1\"\n" +
+                                "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
@@ -3313,18 +3423,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell-range&selection=A1:B2&selectionAnchor=bottom-left&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell-range&selection=A1:B2&selectionAnchor=bottom-left&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-range\",\n" +
-                                "      \"value\": \"A1:B2\"\n" +
-                                "    },\n" +
-                                "    \"anchor\": \"BOTTOM_LEFT\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"value\": \"A1:B2\"\n" +
+                                "      },\n" +
+                                "      \"anchor\": \"BOTTOM_LEFT\"\n" +
+                                "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3453,18 +3566,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell-range&selection=A1:B2&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell-range&selection=A1:B2&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-range\",\n" +
-                                "      \"value\": \"A1:B2\"\n" +
-                                "    },\n" +
-                                "    \"anchor\": \"BOTTOM_RIGHT\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"value\": \"A1:B2\"\n" +
+                                "      },\n" +
+                                "      \"anchor\": \"BOTTOM_RIGHT\"\n" +
+                                "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3593,18 +3709,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=cell&selection=A1&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-range\",\n" +
-                                "      \"value\": \"A1:B1\"\n" +
-                                "    },\n" +
-                                "    \"anchor\": \"TOP_LEFT\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"value\": \"A1:B1\"\n" +
+                                "      },\n" +
+                                "      \"anchor\": \"TOP_LEFT\"\n" +
+                                "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3754,18 +3873,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-range\",\n" +
-                                "      \"value\": \"A1:B1\"\n" +
-                                "    },\n" +
-                                "    \"anchor\": \"TOP_LEFT\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"value\": \"A1:B1\"\n" +
+                                "      },\n" +
+                                "      \"anchor\": \"TOP_LEFT\"\n" +
+                                "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
@@ -3921,16 +4043,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&xOffset=0&yOffset=0&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=left+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=left+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-label-name\",\n" +
-                                "      \"value\": \"Label123\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-label-name\",\n" +
+                                "        \"value\": \"Label123\"\n" +
+                                "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +
@@ -4001,7 +4126,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/1/cell/A1/force-recompute?window=!INVALID",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid query parameter window=\"!INVALID\""),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid window=\"!INVALID\""),
                 IllegalArgumentException.class.getSimpleName()
         );
     }
@@ -6841,7 +6966,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/B2?selectionType=cell&selection=C3",
+                "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY
                         .setCells(
@@ -6857,9 +6982,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "{\n" +
                                 "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:900.0:700.0\",\n" +
                                 "    \"selection\": {\n" +
-                                "      \"type\": \"spreadsheet-cell-reference\",\n" +
-                                "      \"value\": \"C3\"\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                                "        \"value\": \"C3\"\n" +
+                                "      }\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  \"cells\": {\n" +

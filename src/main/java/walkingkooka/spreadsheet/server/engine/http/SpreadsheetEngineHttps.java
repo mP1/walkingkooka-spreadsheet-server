@@ -16,16 +16,19 @@
  */
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.build.MissingBuilder;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -40,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 /**
@@ -134,7 +138,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                                                                               final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertBeforeRow.with(engine, context);
     }
-    
+
     /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell}
      */
@@ -201,23 +205,26 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         );
     }
 
+    // query parameters................................................................................................
+
     /**
-     * CHecks if a {@link SpreadsheetViewport} are present in the {@link SpreadsheetDelta} or parameters,
+     * Checks if a {@link SpreadsheetViewport} are present in the {@link SpreadsheetDelta} or parameters,
      * honouring any navigation if present.
      */
-    static Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetDelta> input,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetEngine engine,
-                                                  final SpreadsheetEngineContext context) {
-        Optional<SpreadsheetViewport> viewport = input.isPresent() ?
-                input.get()
-                        .viewport() :
-                SpreadsheetDelta.NO_VIEWPORT_SELECTION;
-        if (!viewport.isPresent()) {
-            viewport = viewport0(parameters);
+    static Optional<SpreadsheetViewport> viewportAndNavigate(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                             final Optional<SpreadsheetDelta> delta,
+                                                             final SpreadsheetEngine engine,
+                                                             final SpreadsheetEngineContext context) {
+        // if viewport not present in parameters then get from SpreadsheetDelta
+        Optional<SpreadsheetViewport> viewport = viewport(parameters);
+        if (false == viewport.isPresent()) {
+            viewport = delta.isPresent() ?
+                    delta.get()
+                            .viewport() :
+                    SpreadsheetDelta.NO_VIEWPORT_SELECTION;
         }
 
-        // SpreadsheetViewport read from input or parameters, present so perform navigate
+        // SpreadsheetViewport read from delta or parameters, present so perform navigate
         if (viewport.isPresent()) {
             viewport = engine.navigate(
                     viewport.get(),
@@ -231,39 +238,277 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
      */
-    static Optional<SpreadsheetViewport> viewport0(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    // @VisibleForTesting
+    static Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final MissingBuilder missing = MissingBuilder.empty();
+
+        final Optional<String> home = HOME.firstParameterValue(parameters);
+        final Optional<String> width = WIDTH.firstParameterValue(parameters);
+        final Optional<String> height = HEIGHT.firstParameterValue(parameters);
+
+        missing.addIfEmpty(home, HOME.toString());
+        missing.addIfEmpty(width, WIDTH.toString());
+        missing.addIfEmpty(height, HEIGHT.toString());
+
+        final Optional<String> selectionType = SELECTION_TYPE.firstParameterValue(parameters);
+        final Optional<String> selectionString = SELECTION.firstParameterValue(parameters);
+        final Optional<String> anchor = SELECTION_ANCHOR.firstParameterValue(parameters); // optional
+        final Optional<String> navigations = SELECTION_NAVIGATION.firstParameterValue(parameters); // optional
+
         SpreadsheetViewport viewport = null;
 
-        final SpreadsheetSelection selection = selectionOrNull(parameters);
-        if (null != selection) {
-            final Optional<SpreadsheetViewportAnchor> anchor = anchor(parameters);
-            viewport = selection.setAnchor(
-                    anchor.orElse(selection.defaultAnchor())
-            );
+        if (home.isPresent() || width.isPresent() || height.isPresent() || selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
+            // selection present require home/width/height/selectionType/selection/ maybe anchor
+            if (selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
+                missing.addIfEmpty(selectionType, SELECTION_TYPE.toString());
+                missing.addIfEmpty(selectionString, SELECTION.toString());
 
-            viewport = viewport.setNavigations(
-                    navigation(parameters)
-            );
+                if (missing.missing() != 0) {
+                    throw new IllegalArgumentException(
+                            missingParameters(missing)
+                    );
+                }
+
+                viewport = viewportRectangle(
+                        home.get(),
+                        width.get(),
+                        height.get()
+                ).viewport()
+                        .setSelection(
+                                Optional.of(
+                                        selection(
+                                                selectionString.get(),
+                                                selectionType.get(),
+                                                anchor
+                                        )
+                                )
+                        );
+
+                if (navigations.isPresent()) {
+                    viewport = viewport.setNavigations(
+                            navigations(
+                                    navigations.get()
+                            )
+                    );
+                }
+
+            } else {
+                // require home/width/height
+                if (missing.missing() != 0) {
+                    throw new IllegalArgumentException(
+                            missingParameters(missing)
+                    );
+                }
+
+                // if any selectionType/selection/anchor/navigations error
+                final MissingBuilder notRequired = MissingBuilder.empty();
+                notRequired.addIfFalse(false == selectionType.isPresent(), SELECTION_TYPE.value());
+                notRequired.addIfFalse(false == selectionString.isPresent(), SELECTION.value());
+                notRequired.addIfFalse(false == anchor.isPresent(), SELECTION_ANCHOR.value());
+                notRequired.addIfFalse(false == navigations.isPresent(), SELECTION_NAVIGATION.value());
+
+                if (notRequired.missing() > 0) {
+                    throw new IllegalArgumentException(
+                            "Selection missing: " + notRequired.build()
+                    );
+                }
+
+                viewport = viewportRectangle(
+                        home.get(),
+                        width.get(),
+                        height.get()
+                ).viewport();
+            }
         }
 
         return Optional.ofNullable(viewport);
     }
 
-    private static SpreadsheetSelection selectionOrNull(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetSelection selection;
+    /**
+     * Tries to read the window from the parameters or the given {@link SpreadsheetDelta} throwing a {@link IllegalArgumentException}
+     * if both are missing a window.
+     */
+    static SpreadsheetViewportWindows notEmptyWindow(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                     final Optional<SpreadsheetDelta> delta,
+                                                     final SpreadsheetEngine engine,
+                                                     final SpreadsheetEngineContext context) {
+        return window0(
+                parameters,
+                delta,
+                engine,
+                context,
+                SpreadsheetEngineHttps::notEmptyWindowFail
+        );
+    }
 
-        final Optional<String> maybeSelectionType = SELECTION_TYPE.firstParameterValue(parameters);
-        if (maybeSelectionType.isPresent()) {
-            selection = SpreadsheetSelection.parse(
-                    SELECTION.firstParameterValueOrFail(parameters),
-                    maybeSelectionType.get()
+    private static SpreadsheetViewportWindows notEmptyWindowFail() {
+        final MissingBuilder missing = MissingBuilder.empty();
+        missing.add(HOME.toString());
+        missing.add(WIDTH.toString());
+        missing.add(HEIGHT.toString());
+        missing.add(INCLUDE_FROZEN_COLUMNS_ROWS.toString());
+
+        throw new IllegalArgumentException(
+                missingParameters(missing) + " or " + WINDOW
+        );
+    }
+
+    /**
+     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
+     */
+    static SpreadsheetViewportWindows window(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final Optional<SpreadsheetDelta> delta,
+                                             final SpreadsheetEngine engine,
+                                             final SpreadsheetEngineContext context) {
+        return window0(
+                parameters,
+                delta,
+                engine,
+                context,
+                () -> SpreadsheetViewportWindows.EMPTY
+        );
+    }
+
+    /**
+     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
+     */
+    private static SpreadsheetViewportWindows window0(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final Optional<SpreadsheetDelta> delta,
+                                                      final SpreadsheetEngine engine,
+                                                      final SpreadsheetEngineContext context,
+                                                      final Supplier<SpreadsheetViewportWindows> missingWindow) {
+        final SpreadsheetViewportWindows windows;
+
+        final Optional<String> windowsString = WINDOW.firstParameterValue(parameters);
+        if (windowsString.isPresent()) {
+            windows = parseWindow(
+                    windowsString.get()
             );
         } else {
-            selection = null;
+            final Optional<String> home = HOME.firstParameterValue(parameters);
+            final Optional<String> width = WIDTH.firstParameterValue(parameters);
+            final Optional<String> height = HEIGHT.firstParameterValue(parameters);
+            final Optional<String> includeFrozenColumnsRows = INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters);
+
+            if (home.isPresent() || width.isPresent() || height.isPresent() || includeFrozenColumnsRows.isPresent()) {
+                final MissingBuilder missing = MissingBuilder.empty();
+                missing.addIfEmpty(home, HOME.toString());
+                missing.addIfEmpty(width, WIDTH.toString());
+                missing.addIfEmpty(height, HEIGHT.toString());
+                missing.addIfEmpty(includeFrozenColumnsRows, INCLUDE_FROZEN_COLUMNS_ROWS.toString());
+
+                if (missing.missing() > 0) {
+                    throw new IllegalArgumentException(
+                            missingParameters(missing)
+                    );
+                }
+
+                windows = engine.window(
+                        viewportRectangle(
+                                home.get(),
+                                width.get(),
+                                height.get()
+                        ),
+                        Boolean.parseBoolean(includeFrozenColumnsRows.get()),
+                        SpreadsheetEngine.NO_SELECTION,
+                        context
+                );
+            } else {
+                if (false == delta.isPresent()) {
+                    windows = missingWindow.get();
+                } else {
+                    windows = delta.get()
+                            .window();
+                }
+            }
         }
 
-        return selection;
+        return windows;
     }
+
+    private static SpreadsheetViewportWindows parseWindow(final String value) {
+        return parseQueryParameter(
+                value,
+                WINDOW,
+                SpreadsheetViewportWindows::parse
+        );
+    }
+
+    /**
+     * Adds support for passing the window as a url query parameter.
+     */
+    final static UrlParameterName WINDOW = UrlParameterName.with("window");
+    final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
+
+    // helpers.........................................................................................................
+
+    private static SpreadsheetViewportRectangle viewportRectangle(final String home,
+                                                                  final String width,
+                                                                  final String height) {
+        return home(home)
+                .viewportRectangle(
+                        width(width),
+                        height(height)
+                );
+    }
+
+    private static SpreadsheetCellReference home(final String value) {
+        return parseQueryParameter(
+                value,
+                HOME,
+                SpreadsheetSelection::parseCell
+        );
+    }
+
+    // @VisibleForTesting
+    final static UrlParameterName HOME = UrlParameterName.with("home");
+
+    private static double height(final String value) {
+        return parseDoubleQueryParameter(
+                value,
+                HEIGHT
+        );
+    }
+
+    final static UrlParameterName HEIGHT = UrlParameterName.with("height");
+
+    private static double width(final String value) {
+        return parseDoubleQueryParameter(
+                value,
+                WIDTH
+        );
+    }
+
+    final static UrlParameterName WIDTH = UrlParameterName.with("width");
+
+    private static AnchoredSpreadsheetSelection selection(final String selection,
+                                                          final String type,
+                                                          final Optional<String> anchor) {
+        final SpreadsheetSelection spreadsheetSelection = SpreadsheetSelection.parse(
+                selection,
+                type
+        );
+
+        return spreadsheetSelection.setAnchor(
+                anchor.map(
+                        SpreadsheetEngineHttps::parseAnchor
+                ).orElse(spreadsheetSelection.defaultAnchor())
+        );
+    }
+
+    private static SpreadsheetViewportAnchor parseAnchor(final String text) {
+        return parseQueryParameter(
+                text,
+                SELECTION_ANCHOR,
+                SpreadsheetViewportAnchor::parse
+        );
+    }
+
+    /**
+     * The {@link SpreadsheetViewportAnchor} in text form, eg "top-bottom"
+     */
+    // @VisibleForTesting
+    final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
 
     /**
      * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
@@ -277,38 +522,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // @VisibleForTesting
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
-    /**
-     * Parses the anchor query parameter if one is present.
-     */
-    static Optional<SpreadsheetViewportAnchor> anchor(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static List<SpreadsheetViewportNavigation> navigations(final String value) {
         return parseQueryParameter(
-                parameters,
-                SELECTION_ANCHOR,
-                Optional.empty(),
-                SpreadsheetEngineHttps::parseAnchor
-        );
-    }
-
-    private static Optional<SpreadsheetViewportAnchor> parseAnchor(final String text) {
-        return Optional.of(
-                SpreadsheetViewportAnchor.parse(text)
-        );
-    }
-
-    /**
-     * The {@link SpreadsheetViewportAnchor} in text form, eg "top-bottom"
-     */
-    // @VisibleForTesting
-    final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
-
-    /**
-     * Reads any navigation parameter that is present.
-     */
-    private static List<SpreadsheetViewportNavigation> navigation(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return parseQueryParameter(
-                parameters,
+                value,
                 SELECTION_NAVIGATION,
-                SpreadsheetViewport.NO_NAVIGATION,
                 SpreadsheetViewportNavigation::parse
         );
     }
@@ -319,58 +536,62 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // @VisibleForTesting
     final static UrlParameterName SELECTION_NAVIGATION = UrlParameterName.with("selectionNavigation");
 
-    /**
-     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
-     */
-    static SpreadsheetViewportWindows window(final Optional<SpreadsheetDelta> input,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        SpreadsheetViewportWindows window = input.isPresent() ?
-                input.get().window() :
-                SpreadsheetDelta.NO_WINDOW;
-        if (window.isEmpty()) {
-            window = window(parameters);
+    private static double parseDoubleQueryParameter(final String text,
+                                                    final UrlParameterName parameterName) {
+        final double value;
+
+        try {
+            value = Double.parseDouble(text);
+        } catch (final IllegalArgumentException cause) {
+            throw invalidQueryParameter(
+                    text,
+                    parameterName,
+                    cause
+            );
         }
 
-        return window;
+        if (value <= 0) {
+            throw new IllegalArgumentException(
+                    invalidQueryParameterMessage(text, parameterName) + " <= 0"
+            );
+        }
+
+        return value;
     }
 
-    /**
-     * Returns the window taken from the query parameters if present.
-     */
-    static SpreadsheetViewportWindows window(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return parseQueryParameter(
-                parameters,
-                WINDOW,
-                SpreadsheetDelta.NO_WINDOW,
-                SpreadsheetViewportWindows::parse
+    private static <T> T parseQueryParameter(final String text,
+                                             final UrlParameterName queryParameter,
+                                             final Function<String, T> parser) {
+        try {
+            return parser.apply(text);
+        } catch (final IllegalArgumentException cause) {
+            throw invalidQueryParameter(
+                    text,
+                    queryParameter,
+                    cause
+            );
+        }
+    }
+
+    private static IllegalArgumentException invalidQueryParameter(final String text,
+                                                                  final UrlParameterName parameter,
+                                                                  final Throwable cause) {
+        return new IllegalArgumentException(
+                invalidQueryParameterMessage(
+                        text,
+                        parameter
+                ),
+                cause
         );
     }
 
-    /**
-     * Adds support for passing the window as a url query parameter.
-     */
-    final static UrlParameterName WINDOW = UrlParameterName.with("window");
+    private static String invalidQueryParameterMessage(final String text,
+                                                       final UrlParameterName parameter) {
+        return "Invalid " + parameter + "=" + CharSequences.quoteAndEscape(text);
+    }
 
-    private static <T> T parseQueryParameter(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final UrlParameterName queryParameter,
-                                             final T empty,
-                                             final Function<String, T> parser) {
-        T parsed = empty;
-
-        final Optional<String> maybe = queryParameter.firstParameterValue(parameters);
-        if (maybe.isPresent()) {
-            final String text = maybe.get();
-            try {
-                parsed = parser.apply(text);
-            } catch (final IllegalArgumentException cause) {
-                throw new IllegalArgumentException(
-                        "Invalid query parameter " + queryParameter + "=" + CharSequences.quoteAndEscape(text),
-                        cause
-                );
-            }
-        }
-
-        return parsed;
+    private static String missingParameters(final MissingBuilder missing) {
+        return "Missing: " + missing.build();
     }
 
     /**

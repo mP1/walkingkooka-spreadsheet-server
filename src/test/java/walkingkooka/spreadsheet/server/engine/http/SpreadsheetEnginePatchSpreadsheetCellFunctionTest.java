@@ -89,7 +89,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
 
         this.applyAndCheck(
                 CELL_REFERENCE_B2,
-                "selectionType=cell&selection=Z99", // queryString
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=Z99", // queryString
                 this.marshall(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
@@ -102,8 +102,16 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                 Sets.of(saved)
                         ).setViewport(
                                 Optional.of(
-                                        SpreadsheetSelection.parseCell("Z99")
-                                                .setAnchor(SpreadsheetViewportAnchor.NONE)
+                                        SpreadsheetSelection.A1.viewportRectangle(
+                                                        WIDTH,
+                                                        HEIGHT
+                                                ).viewport()
+                                                .setSelection(
+                                                        Optional.of(
+                                                                SpreadsheetSelection.parseCell("Z99")
+                                                                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                                                        )
+                                                )
                                 )
                         )
         );

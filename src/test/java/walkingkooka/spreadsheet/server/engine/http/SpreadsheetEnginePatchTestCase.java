@@ -56,6 +56,10 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
         super();
     }
 
+    final static double WIDTH = 1000;
+
+    final static double HEIGHT = 600;
+
     final static SpreadsheetLabelName LABELB2 = SpreadsheetSelection.labelName("LabelB2");
     final static SpreadsheetCellReference CELL_REFERENCE_B2 = SpreadsheetSelection.parseCell("B2");
 
