@@ -172,7 +172,6 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         );
     }
 
-
     @Test
     public void testWindowWithWindowParameter() {
         final String windows = "A1:B2";
@@ -180,6 +179,24 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         this.windowAndCheck(
                 Maps.of(
                         SpreadsheetEngineHttps.WINDOW, Lists.of(windows)
+                ),
+                Optional.empty(),
+                SpreadsheetEngines.fake(),
+                SpreadsheetEngineContexts.fake(),
+                SpreadsheetViewportWindows.parse(windows)
+        );
+    }
+
+    @Test
+    public void testWindowWithWindowIgnoresSelection() {
+        final String windows = "A1:B2";
+
+        this.windowAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows),
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
+                        SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
+                        SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of("left column")
                 ),
                 Optional.empty(),
                 SpreadsheetEngines.fake(),
