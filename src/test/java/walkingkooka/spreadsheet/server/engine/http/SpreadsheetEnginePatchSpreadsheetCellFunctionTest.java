@@ -38,7 +38,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.text.FontStyle;
@@ -109,7 +108,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                                 .setSelection(
                                                         Optional.of(
                                                                 SpreadsheetSelection.parseCell("Z99")
-                                                                        .setAnchor(SpreadsheetViewportAnchor.NONE)
+                                                                        .setDefaultAnchor()
                                                         )
                                                 )
                                 )
