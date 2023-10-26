@@ -66,9 +66,9 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
     final static HttpRequest REQUEST = HttpRequests.fake();
     final static SpreadsheetEngine ENGINE = new FakeSpreadsheetEngine() {
         @Override
-        public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                               final SpreadsheetEngineContext context) {
-            return Optional.of(viewportSelection);
+        public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                      final SpreadsheetEngineContext context) {
+            return Optional.of(viewport);
         }
     };
     final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {

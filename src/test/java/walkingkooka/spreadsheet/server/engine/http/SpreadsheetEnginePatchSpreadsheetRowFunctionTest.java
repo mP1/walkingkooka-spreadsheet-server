@@ -116,7 +116,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
     }
 
     private void applyAndCheck2(final String queryString,
-                                final Optional<SpreadsheetViewport> viewportSelection) {
+                                final Optional<SpreadsheetViewport> viewport) {
         final SpreadsheetRow row3 = SpreadsheetSelection.parseRow("3")
                 .row()
                 .setHidden(true);
@@ -135,7 +135,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         Sets.of(
                                 row3, row4
                         )
-                ).setViewport(viewportSelection)
+                ).setViewport(viewport)
                 .setWindow(WINDOW);
 
         final Set<SpreadsheetRow> saved = Sets.ordered();
@@ -334,9 +334,9 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
-                                                                                   final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                          final SpreadsheetEngineContext context) {
+                                return Optional.of(viewport);
                             }
                         },
                         CONTEXT

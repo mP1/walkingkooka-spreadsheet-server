@@ -79,7 +79,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
     }
 
     @Test
-    public void testPatchCellReferenceWithCellsAndQueryStringViewportSelection() {
+    public void testPatchCellReferenceWithCellsAndQueryStringViewport() {
         final SpreadsheetCell patch = CELL_REFERENCE_B2.setFormula(SpreadsheetFormula.EMPTY.setText("='patched"));
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
@@ -371,9 +371,9 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                             }
 
                             @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewportSelection,
+                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
                                                                                    final SpreadsheetEngineContext context) {
-                                return Optional.of(viewportSelection);
+                                return Optional.of(viewport);
                             }
                         },
                         CONTEXT
