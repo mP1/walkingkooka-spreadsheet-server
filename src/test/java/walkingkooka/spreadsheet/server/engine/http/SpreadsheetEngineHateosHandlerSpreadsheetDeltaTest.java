@@ -44,7 +44,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
         this.prepareResponseAndCheck(
                 Optional.of(SpreadsheetDelta.EMPTY),
                 HateosHandler.NO_PARAMETERS,
-                SpreadsheetDelta.NO_VIEWPORT_SELECTION
+                SpreadsheetDelta.NO_VIEWPORT
         );
     }
 
