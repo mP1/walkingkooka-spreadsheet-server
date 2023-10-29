@@ -221,7 +221,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
             viewport = delta.isPresent() ?
                     delta.get()
                             .viewport() :
-                    SpreadsheetDelta.NO_VIEWPORT_SELECTION;
+                    SpreadsheetDelta.NO_VIEWPORT;
         }
 
         // SpreadsheetViewport read from delta or parameters, present so perform navigate

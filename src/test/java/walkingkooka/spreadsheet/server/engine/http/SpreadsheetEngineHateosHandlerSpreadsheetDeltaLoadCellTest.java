@@ -639,7 +639,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 if (range.equals("throw")) {
                                     throw new UnsupportedOperationException();
                                 }
-                                checkEquals(SpreadsheetDelta.NO_VIEWPORT_SELECTION, selection);
+                                checkEquals(SpreadsheetDelta.NO_VIEWPORT, selection);
 
                                 return SpreadsheetViewportWindows.parse(range);
                             }
