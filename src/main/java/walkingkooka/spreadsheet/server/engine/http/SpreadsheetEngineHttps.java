@@ -253,7 +253,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         final Optional<String> selectionType = SELECTION_TYPE.firstParameterValue(parameters);
         final Optional<String> selectionString = SELECTION.firstParameterValue(parameters);
         final Optional<String> anchor = SELECTION_ANCHOR.firstParameterValue(parameters); // optional
-        final Optional<String> navigations = SELECTION_NAVIGATION.firstParameterValue(parameters); // optional
+        final Optional<String> navigations = NAVIGATION.firstParameterValue(parameters); // optional
 
         SpreadsheetViewport viewport = null;
 
@@ -305,7 +305,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 notRequired.addIfFalse(false == selectionType.isPresent(), SELECTION_TYPE.value());
                 notRequired.addIfFalse(false == selectionString.isPresent(), SELECTION.value());
                 notRequired.addIfFalse(false == anchor.isPresent(), SELECTION_ANCHOR.value());
-                notRequired.addIfFalse(false == navigations.isPresent(), SELECTION_NAVIGATION.value());
+                notRequired.addIfFalse(false == navigations.isPresent(), NAVIGATION.value());
 
                 if (notRequired.missing() > 0) {
                     throw new IllegalArgumentException(
@@ -525,7 +525,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static List<SpreadsheetViewportNavigation> navigations(final String value) {
         return parseQueryParameter(
                 value,
-                SELECTION_NAVIGATION,
+                NAVIGATION,
                 SpreadsheetViewportNavigation::parse
         );
     }
@@ -534,7 +534,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      * The {@link SpreadsheetViewportNavigation} in text form, eg "extend-right"
      */
     // @VisibleForTesting
-    final static UrlParameterName SELECTION_NAVIGATION = UrlParameterName.with("selectionNavigation");
+    final static UrlParameterName NAVIGATION = UrlParameterName.with("navigation");
 
     private static double parseDoubleQueryParameter(final String text,
                                                     final UrlParameterName parameterName) {
