@@ -260,9 +260,6 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         if (home.isPresent() || width.isPresent() || height.isPresent() || selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
             // selection present require home/width/height/selectionType/selection/ maybe anchor
             if (selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
-                missing.addIfEmpty(selectionType, SELECTION_TYPE.toString());
-                missing.addIfEmpty(selectionString, SELECTION.toString());
-
                 if (missing.missing() != 0) {
                     throw new IllegalArgumentException(
                             missingParameters(missing)
@@ -273,16 +270,32 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                         home.get(),
                         width.get(),
                         height.get()
-                ).viewport()
-                        .setSelection(
-                                Optional.of(
-                                        selection(
-                                                selectionString.get(),
-                                                selectionType.get(),
-                                                anchor
-                                        )
-                                )
-                        );
+                ).viewport();
+
+                {
+                    missing.addIfEmpty(selectionType, SELECTION_TYPE.toString());
+                    missing.addIfEmpty(selectionString, SELECTION.toString());
+
+                    switch (missing.missing()) {
+                        case 0:
+                            viewport = viewport.setSelection(
+                                    Optional.of(
+                                            selection(
+                                                    selectionString.get(),
+                                                    selectionType.get(),
+                                                    anchor
+                                            )
+                                    )
+                            );
+                            break;
+                        case 1:
+                            throw new IllegalArgumentException(
+                                    missingParameters(missing)
+                            );
+                        default:
+                            break;
+                    }
+                }
 
                 if (navigations.isPresent()) {
                     viewport = viewport.setNavigations(
