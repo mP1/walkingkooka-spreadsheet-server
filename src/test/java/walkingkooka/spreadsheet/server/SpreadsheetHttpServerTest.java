@@ -1144,12 +1144,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellSelectionQueryParameterWithInvalidSelectionNavigationBadRequest() {
+    public void testSaveCellSelectionQueryParameterWithInvalidNavigationBadRequest() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/cell/A1?home=A123&width=111&height=222&selectionType=cell&selection=A1&selectionNavigation=!INVALID&window=",
+                "/api/spreadsheet/1/cell/A1?home=A123&width=111&height=222&selectionType=cell&selection=A1&navigation=!INVALID&window=",
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(
                         SpreadsheetDelta.EMPTY
@@ -1162,7 +1162,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 )
                 ),
-                HttpStatusCode.BAD_REQUEST.setMessage("Invalid selectionNavigation=\"!INVALID\""),
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid navigation=\"!INVALID\""),
                 IllegalArgumentException.class.getSimpleName()
         );
     }
@@ -3709,7 +3709,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=cell&selection=A1&navigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -3873,7 +3873,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=extend-right+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&navigation=extend-right+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
@@ -4043,7 +4043,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // load the cells that fill the viewport
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&selectionNavigation=left+column&includeFrozenColumnsRows=false",
+                "/api/spreadsheet/1/cell/*/force-recompute?home=A1&width=200&height=60&selectionType=label&selection=Label123&navigation=left+column&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(

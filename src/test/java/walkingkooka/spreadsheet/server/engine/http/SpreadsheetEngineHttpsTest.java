@@ -212,7 +212,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.WINDOW, Lists.of(windows),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
                         SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of("left column")
+                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
                 ),
                 Optional.empty(),
                 SpreadsheetEngines.fake(),
@@ -357,7 +357,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
                         SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of("left column")
+                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
                 ),
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setViewport(viewport)
@@ -495,7 +495,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.HOME, Lists.of("A1"),
                         SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
                         SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of("left")
+                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left")
                 ),
                 "Missing: selectionType, selection"
         );
@@ -622,7 +622,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     @Test
-    public void testViewportSelectionNavigation() {
+    public void testViewportNavigation() {
         this.viewportAndCheck(
                 Maps.of(
                         SpreadsheetEngineHttps.HOME, Lists.of("A123"),
@@ -630,7 +630,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
                         SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.SELECTION_NAVIGATION, Lists.of("left column")
+                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
                 ),
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)

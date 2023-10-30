@@ -878,7 +878,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
         parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
         parameters.put(
-                SpreadsheetEngineHttps.SELECTION_NAVIGATION,
+                SpreadsheetEngineHttps.NAVIGATION,
                 Lists.of(
                         SpreadsheetViewport.SEPARATOR.toSeparatedString(
                                 navigations,
