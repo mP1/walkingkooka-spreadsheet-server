@@ -337,7 +337,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     @Test
-    public void testViewportAndNavigateParametersPresentWithNavigation() {
+    public void testViewportAndNavigateWithSelectionAndNavigation() {
         final Optional<SpreadsheetViewport> viewport = Optional.of(
                 SpreadsheetSelection.A1
                         .viewportRectangle(11, 22)
@@ -374,6 +374,63 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 SpreadsheetEngineContexts.fake(),
                 Optional.of(
                         viewport.get()
+                                .setNavigations(SpreadsheetViewport.NO_NAVIGATION)
+                )
+        );
+    }
+
+    @Test
+    public void testViewportAndNavigateWithNavigation() {
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.A1
+                        .viewportRectangle(11, 22)
+                        .viewport()
+        );
+
+        this.viewportAndNavigateAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
+                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("down 123px")
+                ),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setViewport(viewport)
+                ), // delta
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
+                                                                  final SpreadsheetEngineContext context) {
+                        checkEquals(
+                                viewport.get()
+                                        .setNavigations(
+                                                Lists.of(
+                                                        SpreadsheetViewportNavigation.downPixel(123)
+                                                )
+                                        ),
+                                v,
+                                "navigation viewport"
+                        );
+
+                        return Optional.of(
+                                v.setSelection(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseRow("4")
+                                                        .setDefaultAnchor()
+                                        )
+                                ).setNavigations(SpreadsheetViewport.NO_NAVIGATION)
+                        );
+                    }
+                },
+                SpreadsheetEngineContexts.fake(),
+                Optional.of(
+                        viewport.get()
+                                .setSelection(
+                                        Optional.of(
+                                                SpreadsheetSelection.parseRow("4")
+                                                        .setDefaultAnchor()
+                                        )
+                                )
                                 .setNavigations(SpreadsheetViewport.NO_NAVIGATION)
                 )
         );
@@ -485,19 +542,6 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.WIDTH, Lists.of("1")
                 ),
                 "Missing: height"
-        );
-    }
-
-    @Test
-    public void testViewportNavigationPresentFails() {
-        this.viewportFails(
-                Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left")
-                ),
-                "Missing: selectionType, selection"
         );
     }
 
