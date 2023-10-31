@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.build.MissingBuilder;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -33,7 +34,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -69,26 +72,55 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetViewportWindows window = SpreadsheetEngineHttps.notEmptyWindow(
+        // compute window including navigation.
+        final Optional<SpreadsheetViewport> maybeViewport = this.viewport(
                 parameters,
-                resource, // will always be empty
-                this.engine,
-                this.context
+                resource,
+                true // includeNavigation
         );
 
-        final Map<HttpRequestAttribute<?>, Object> parametersAndWindow = Maps.ordered();
-        parametersAndWindow.putAll(parameters);
-        parametersAndWindow.put(
-                SpreadsheetEngineHttps.WINDOW,
+        if (false == maybeViewport.isPresent()) {
+            throw new IllegalArgumentException(MISSING_VIEWPORT);
+        }
+
+        final SpreadsheetViewport viewport = maybeViewport.get();
+
+        final SpreadsheetEngine engine = this.engine;
+        final SpreadsheetEngineContext context = this.context;
+        final Optional<SpreadsheetViewport> navigatedViewport = engine.navigate(
+                viewport,
+                context
+        );
+
+        final SpreadsheetViewportWindows window = this.engine.window(
+                viewport.rectangle(),
+                true, // includeFrozenColumnsRows,
+                SpreadsheetEngine.NO_SELECTION, // no selection
+                context
+        );
+
+        final Map<HttpRequestAttribute<?>, Object> parametersWindowAndDelta = Maps.sorted();
+        parametersWindowAndDelta.put(SpreadsheetEngineHttps.WINDOW,
                 Lists.of(
                         window.toString()
                 )
         );
 
+        final Optional<List<String>> delta = DELTA_PROPERTIES.parameterValue(parameters);
+        if (delta.isPresent()) {
+            parametersWindowAndDelta.put(
+                    DELTA_PROPERTIES,
+                    delta.get()
+            );
+        }
+
         return this.handleRange0(
                 window.cellRanges(),
                 resource,
-                parametersAndWindow
+                navigatedViewport,
+                Maps.immutable(
+                        parametersWindowAndDelta
+                )
         );
     }
 
@@ -96,6 +128,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
      * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
      */
     final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
+
+    final static String MISSING_VIEWPORT = "Missing: " +
+            MissingBuilder.empty()
+                    .add(SpreadsheetEngineHttps.HOME.value())
+                    .add(SpreadsheetEngineHttps.WIDTH.value())
+                    .add(SpreadsheetEngineHttps.HEIGHT.value())
+                    .add(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS.value())
+                    .build();
 
     // handleOne........................................................................................................
 
@@ -142,12 +182,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         return this.handleRange0(
                 Sets.of(SpreadsheetSelection.cellRange(cells)),
                 resource,
+                Optional.empty(), // no viewport ignore query parameters
                 parameters
         );
     }
 
     private Optional<SpreadsheetDelta> handleRange0(final Set<SpreadsheetCellRange> window,
                                                     final Optional<SpreadsheetDelta> resource,
+                                                    final Optional<SpreadsheetViewport> viewport,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
         return Optional.ofNullable(
                 this.prepareResponse(
@@ -156,7 +198,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                         this.loadCells(
                                 window,
                                 deltaProperties(parameters)
-                        )
+                        ).setViewport(viewport)
                 )
         );
     }

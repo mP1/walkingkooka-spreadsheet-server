@@ -79,12 +79,6 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                         this.engine,
                         this.context
                 )
-
-        ).setViewport(
-                this.viewport(
-                        parameters,
-                        in
-                )
         );
     }
 }

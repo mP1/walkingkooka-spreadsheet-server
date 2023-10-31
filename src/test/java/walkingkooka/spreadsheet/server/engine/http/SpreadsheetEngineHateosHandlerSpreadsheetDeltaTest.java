@@ -25,10 +25,10 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
@@ -40,16 +40,54 @@ import java.util.Optional;
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends SpreadsheetEngineHateosHandlerTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDelta<?>> {
 
     @Test
-    public void testViewportAbsent() {
+    public void testPrepareResponseViewportAbsent() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
         this.prepareResponseAndCheck(
-                Optional.of(SpreadsheetDelta.EMPTY),
+                Optional.of(delta),
                 HateosHandler.NO_PARAMETERS,
-                SpreadsheetDelta.NO_VIEWPORT
+                delta,
+                delta
         );
     }
 
     @Test
-    public void testViewportPresentInputSpreadsheetDelta() {
+    public void testPrepareResponseViewportWithoutSelectionIgnored() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.A1.viewportRectangle(
+                        100,
+                        30
+                ).viewport()
+        );
+
+        this.prepareResponseAndCheck(
+                Optional.of(
+                        delta.setViewport(viewport)
+                ),
+                HateosHandler.NO_PARAMETERS,
+                delta,
+                delta
+        );
+    }
+
+    @Test
+    public void testPrepareResponseViewportWithSelectionIgnored() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
         final Optional<SpreadsheetViewport> viewport = Optional.of(
                 SpreadsheetSelection.A1.viewportRectangle(
                                 100,
@@ -65,20 +103,64 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
 
         this.prepareResponseAndCheck(
                 Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
+                        delta.setViewport(viewport)
                 ),
                 HateosHandler.NO_PARAMETERS,
-                viewport
+                delta,
+                delta
         );
     }
 
     @Test
-    public void testSelectionQueryParameters() {
+    public void testPrepareResponseWindowParameter() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
+        final Optional<SpreadsheetViewport> viewport = Optional.of(
+                SpreadsheetSelection.A1.viewportRectangle(
+                                100,
+                                30
+                        ).viewport()
+                        .setSelection(
+                                Optional.of(
+                                        SpreadsheetSelection.parseCell("B2")
+                                                .setDefaultAnchor()
+                                )
+                        )
+        );
+
+        final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
+
+        this.prepareResponseAndCheck(
+                Optional.of(
+                        delta.setViewport(viewport)
+                ),
+                Map.of(
+                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
+                ),
+                delta,
+                delta.setWindow(windows)
+        );
+    }
+
+    @Test
+    public void testPrepareResponseWindowIgnoresSelectionQueryParameters() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
         final SpreadsheetCellReference home = SpreadsheetSelection.parseCell("B2");
         final int width = 23;
         final int height = 45;
         final SpreadsheetSelection selection = SpreadsheetSelection.parseCellRange("C3:D4");
         final SpreadsheetViewportAnchor anchor = SpreadsheetViewportAnchor.TOP_LEFT;
+
+        final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
 
         this.prepareResponseAndCheck(
                 Optional.of(
@@ -100,33 +182,56 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                         SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
                         SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell-range"),
                         SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
-                        SpreadsheetEngineHttps.WINDOW, Lists.of("")
+                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
                 ),
+                delta,
+                delta.setWindow(windows)
+        );
+    }
+
+    @Test
+    public void testPrepareResponseWindowIgnoresInvalidSelectionQueryParameters() {
+        final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
+                Sets.of(
+                        SpreadsheetSelection.A1
+                )
+        );
+
+        final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
+
+        this.prepareResponseAndCheck(
                 Optional.of(
-                        home.viewportRectangle(
-                                        width,
-                                        height
-                                ).viewport()
-                                .setSelection(
-                                        Optional.of(
-                                                selection.setAnchor(anchor)
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseCell("Z9")
+                                                        .setFormula(
+                                                                SpreadsheetFormula.EMPTY
+                                                                        .setText("=1+2")
+                                                        )
                                         )
                                 )
-                )
+                ),
+                Map.of(
+                        SpreadsheetEngineHttps.HOME, Lists.of("!invalidhome"),
+                        SpreadsheetEngineHttps.WIDTH, Lists.of("!invalid-width"),
+                        SpreadsheetEngineHttps.HEIGHT, Lists.of("!invalid height"),
+                        SpreadsheetEngineHttps.SELECTION, Lists.of("!invalid selection"),
+                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("!invalid selection type"),
+                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
+                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
+                ),
+                delta,
+                delta.setWindow(windows)
         );
     }
 
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final Optional<SpreadsheetViewport> expected) {
+                                         final SpreadsheetDelta output,
+                                         final SpreadsheetDelta expected) {
         final SpreadsheetDelta response = new SpreadsheetEngineHateosHandlerSpreadsheetDelta<Integer>(
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
-                                                                  final SpreadsheetEngineContext context) {
-                        return Optional.of(viewport);
-                    }
-                },
+                SpreadsheetEngines.fake(),
                 SpreadsheetEngineContexts.fake()
         ) {
 
@@ -154,11 +259,15 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
             String operation() {
                 throw new UnsupportedOperationException();
             }
-        }.prepareResponse(input, parameters, SpreadsheetDelta.EMPTY);
+        }.prepareResponse(
+                input,
+                parameters,
+                output
+        );
 
         this.checkEquals(
                 expected,
-                response.viewport(),
+                response,
                 () -> "input=" + input + " parameters=" + parameters
         );
     }

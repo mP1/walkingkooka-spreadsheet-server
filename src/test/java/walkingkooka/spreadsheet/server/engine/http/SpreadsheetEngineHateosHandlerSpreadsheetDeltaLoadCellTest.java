@@ -285,7 +285,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     public void testLoadCellRangeMissingWindowParametersFails() {
         this.loadCellRangeFails(
                 Maps.empty(),
-                "Missing: home, width, height, includeFrozenColumnsRows or window");
+                "Missing: home, width, height, includeFrozenColumnsRows");
     }
 
     @Test

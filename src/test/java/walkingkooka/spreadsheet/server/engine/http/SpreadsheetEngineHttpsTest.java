@@ -237,272 +237,6 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         );
     }
 
-    // viewportAndNavigate.............................................................................................
-
-    @Test
-    public void testViewportAndNavigateNoParametersNoDelta() {
-        this.viewportAndNavigateAndCheck(
-                Maps.empty(), // parameters
-                Optional.empty(), // delta
-                SpreadsheetEngines.fake(),
-                SpreadsheetEngineContexts.fake()
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateNoParametersNoDeltaIgnoresWindow() {
-        this.viewportAndNavigateAndCheck(
-                Maps.of(
-                        SpreadsheetEngineHttps.WINDOW, Lists.of("A1:B2")
-                ), // parameters
-                Optional.empty(), // delta
-                SpreadsheetEngines.fake(),
-                SpreadsheetEngineContexts.fake()
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateParametersPresentIgnoresWindow() {
-        final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1
-                        .viewportRectangle(11, 22)
-                        .viewport()
-                        .setSelection(
-                                Optional.of(
-                                        SpreadsheetSelection.parseColumn("B")
-                                                .setDefaultAnchor()
-                                )
-                        )
-        );
-
-        this.viewportAndNavigateAndCheck(
-                Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("column"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("B"),
-                        SpreadsheetEngineHttps.WINDOW, Lists.of("Z9:Z10")
-                ),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ), // delta
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
-                                                                  final SpreadsheetEngineContext context) {
-                        return Optional.of(v);
-                    }
-                },
-                SpreadsheetEngineContexts.fake(),
-                viewport
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateParametersPresent() {
-        final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1
-                        .viewportRectangle(11, 22)
-                        .viewport()
-                        .setSelection(
-                                Optional.of(
-                                        SpreadsheetSelection.parseColumn("B")
-                                                .setDefaultAnchor()
-                                )
-                        )
-        );
-
-        this.viewportAndNavigateAndCheck(
-                Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("column"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("B")
-                ),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ), // delta
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
-                                                                  final SpreadsheetEngineContext context) {
-                        return Optional.of(v);
-                    }
-                },
-                SpreadsheetEngineContexts.fake(),
-                viewport
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateWithSelectionAndNavigation() {
-        final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1
-                        .viewportRectangle(11, 22)
-                        .viewport()
-                        .setSelection(
-                                Optional.of(
-                                        SpreadsheetSelection.parseRow("3")
-                                                .setDefaultAnchor()
-                                )
-                        )
-        );
-
-        this.viewportAndNavigateAndCheck(
-                Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
-                ),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ), // delta
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
-                                                                  final SpreadsheetEngineContext context) {
-                        return Optional.of(
-                                v.setNavigations(SpreadsheetViewport.NO_NAVIGATION)
-                        );
-                    }
-                },
-                SpreadsheetEngineContexts.fake(),
-                Optional.of(
-                        viewport.get()
-                                .setNavigations(SpreadsheetViewport.NO_NAVIGATION)
-                )
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateWithNavigation() {
-        final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1
-                        .viewportRectangle(11, 22)
-                        .viewport()
-        );
-
-        this.viewportAndNavigateAndCheck(
-                Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("down 123px")
-                ),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ), // delta
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
-                                                                  final SpreadsheetEngineContext context) {
-                        checkEquals(
-                                viewport.get()
-                                        .setNavigations(
-                                                Lists.of(
-                                                        SpreadsheetViewportNavigation.downPixel(123)
-                                                )
-                                        ),
-                                v,
-                                "navigation viewport"
-                        );
-
-                        return Optional.of(
-                                v.setSelection(
-                                        Optional.of(
-                                                SpreadsheetSelection.parseRow("4")
-                                                        .setDefaultAnchor()
-                                        )
-                                ).setNavigations(SpreadsheetViewport.NO_NAVIGATION)
-                        );
-                    }
-                },
-                SpreadsheetEngineContexts.fake(),
-                Optional.of(
-                        viewport.get()
-                                .setSelection(
-                                        Optional.of(
-                                                SpreadsheetSelection.parseRow("4")
-                                                        .setDefaultAnchor()
-                                        )
-                                )
-                                .setNavigations(SpreadsheetViewport.NO_NAVIGATION)
-                )
-        );
-    }
-
-    @Test
-    public void testViewportAndNavigateNoParameterDelta() {
-        final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1.viewportRectangle(100, 200)
-                        .viewport()
-        );
-
-        this.viewportAndNavigateAndCheck(
-                Maps.empty(), // parameters
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ), // delta
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport v,
-                                                                  final SpreadsheetEngineContext context) {
-                        return Optional.of(v);
-                    }
-                },
-                SpreadsheetEngineContexts.fake(),
-                viewport
-        );
-    }
-
-    private void viewportAndNavigateAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final Optional<SpreadsheetDelta> delta,
-                                             final SpreadsheetEngine engine,
-                                             final SpreadsheetEngineContext context) {
-        this.viewportAndNavigateAndCheck(
-                parameters,
-                delta,
-                engine,
-                context,
-                Optional.empty()
-        );
-    }
-
-    private void viewportAndNavigateAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final Optional<SpreadsheetDelta> delta,
-                                             final SpreadsheetEngine engine,
-                                             final SpreadsheetEngineContext context,
-                                             final SpreadsheetViewport expected) {
-        this.viewportAndNavigateAndCheck(
-                parameters,
-                delta,
-                engine,
-                context,
-                Optional.of(expected)
-        );
-    }
-
-    private void viewportAndNavigateAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final Optional<SpreadsheetDelta> delta,
-                                             final SpreadsheetEngine engine,
-                                             final SpreadsheetEngineContext context,
-                                             final Optional<SpreadsheetViewport> expected) {
-        this.checkEquals(
-                expected,
-                SpreadsheetEngineHttps.viewportAndNavigate(
-                        parameters,
-                        delta,
-                        engine,
-                        context
-                )
-        );
-    }
-
     // viewport.........................................................................................................
 
     @Test
@@ -676,6 +410,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                         SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
                         SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
                 ),
+                true, // includeNavigation
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
                         .viewport()
@@ -694,9 +429,22 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
     private void viewportFails(final Map<HttpRequestAttribute<?>, Object> parameters,
                                final String expected) {
+        this.viewportFails(
+                parameters,
+                false, // includeNavigation
+                expected
+        );
+    }
+
+    private void viewportFails(final Map<HttpRequestAttribute<?>, Object> parameters,
+                               final boolean includeNavigation,
+                               final String expected) {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.viewport(parameters)
+                () -> SpreadsheetEngineHttps.viewport(
+                        parameters,
+                        includeNavigation
+                )
         );
 
         this.checkEquals(
@@ -708,6 +456,15 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     private void viewportAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters) {
         this.viewportAndCheck(
                 parameters,
+                false // includeNavigation,
+        );
+    }
+
+    private void viewportAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                  final boolean includeNavigation) {
+        this.viewportAndCheck(
+                parameters,
+                includeNavigation,
                 Optional.empty()
         );
     }
@@ -716,15 +473,30 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                   final SpreadsheetViewport viewport) {
         this.viewportAndCheck(
                 parameters,
+                false, // includeNavigation,
+                viewport
+        );
+    }
+
+    private void viewportAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                  final boolean includeNavigation,
+                                  final SpreadsheetViewport viewport) {
+        this.viewportAndCheck(
+                parameters,
+                includeNavigation,
                 Optional.of(viewport)
         );
     }
 
     private void viewportAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                  final boolean includeNavigation,
                                   final Optional<SpreadsheetViewport> viewport) {
         this.checkEquals(
                 viewport,
-                SpreadsheetEngineHttps.viewport(parameters)
+                SpreadsheetEngineHttps.viewport(
+                        parameters,
+                        includeNavigation
+                )
         );
     }
 

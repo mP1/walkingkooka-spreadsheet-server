@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 /**
@@ -208,38 +207,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // query parameters................................................................................................
 
     /**
-     * Checks if a {@link SpreadsheetViewport} are present in the {@link SpreadsheetDelta} or parameters,
-     * honouring any navigation if present.
-     */
-    static Optional<SpreadsheetViewport> viewportAndNavigate(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                             final Optional<SpreadsheetDelta> delta,
-                                                             final SpreadsheetEngine engine,
-                                                             final SpreadsheetEngineContext context) {
-        // if viewport not present in parameters then get from SpreadsheetDelta
-        Optional<SpreadsheetViewport> viewport = viewport(parameters);
-        if (false == viewport.isPresent()) {
-            viewport = delta.isPresent() ?
-                    delta.get()
-                            .viewport() :
-                    SpreadsheetDelta.NO_VIEWPORT;
-        }
-
-        // SpreadsheetViewport read from delta or parameters, present so perform navigate
-        if (viewport.isPresent()) {
-            viewport = engine.navigate(
-                    viewport.get(),
-                    context
-            );
-        }
-
-        return viewport;
-    }
-
-    /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
      */
     // @VisibleForTesting
-    static Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public static Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                         final boolean includeNavigation) {
         final MissingBuilder missing = MissingBuilder.empty();
 
         final Optional<String> home = HOME.firstParameterValue(parameters);
@@ -253,7 +225,9 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         final Optional<String> selectionType = SELECTION_TYPE.firstParameterValue(parameters);
         final Optional<String> selectionString = SELECTION.firstParameterValue(parameters);
         final Optional<String> anchor = SELECTION_ANCHOR.firstParameterValue(parameters); // optional
-        final Optional<String> navigations = NAVIGATION.firstParameterValue(parameters); // optional
+        final Optional<String> navigations = includeNavigation ?
+                NAVIGATION.firstParameterValue(parameters)
+                : Optional.empty(); // optional
 
         SpreadsheetViewport viewport = null;
 
@@ -338,58 +312,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * Tries to read the window from the parameters or the given {@link SpreadsheetDelta} throwing a {@link IllegalArgumentException}
-     * if both are missing a window.
-     */
-    static SpreadsheetViewportWindows notEmptyWindow(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                     final Optional<SpreadsheetDelta> delta,
-                                                     final SpreadsheetEngine engine,
-                                                     final SpreadsheetEngineContext context) {
-        return window0(
-                parameters,
-                delta,
-                engine,
-                context,
-                SpreadsheetEngineHttps::notEmptyWindowFail
-        );
-    }
-
-    private static SpreadsheetViewportWindows notEmptyWindowFail() {
-        final MissingBuilder missing = MissingBuilder.empty();
-        missing.add(HOME.toString());
-        missing.add(WIDTH.toString());
-        missing.add(HEIGHT.toString());
-        missing.add(INCLUDE_FROZEN_COLUMNS_ROWS.toString());
-
-        throw new IllegalArgumentException(
-                missingParameters(missing) + " or " + WINDOW
-        );
-    }
-
-    /**
      * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
      */
     static SpreadsheetViewportWindows window(final Map<HttpRequestAttribute<?>, Object> parameters,
                                              final Optional<SpreadsheetDelta> delta,
                                              final SpreadsheetEngine engine,
                                              final SpreadsheetEngineContext context) {
-        return window0(
-                parameters,
-                delta,
-                engine,
-                context,
-                () -> SpreadsheetViewportWindows.EMPTY
-        );
-    }
-
-    /**
-     * Retrieves the window from any present {@link SpreadsheetDelta} and then tries the parameters.
-     */
-    private static SpreadsheetViewportWindows window0(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                      final Optional<SpreadsheetDelta> delta,
-                                                      final SpreadsheetEngine engine,
-                                                      final SpreadsheetEngineContext context,
-                                                      final Supplier<SpreadsheetViewportWindows> missingWindow) {
         final SpreadsheetViewportWindows windows;
 
         final Optional<String> windowsString = WINDOW.firstParameterValue(parameters);
@@ -401,7 +329,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
             final Optional<String> home = HOME.firstParameterValue(parameters);
             final Optional<String> width = WIDTH.firstParameterValue(parameters);
             final Optional<String> height = HEIGHT.firstParameterValue(parameters);
-            final Optional<String> includeFrozenColumnsRows = INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters);
+            final Optional<String> includeFrozenColumnsRows = includeFrozenColumnsRows(parameters);
 
             if (home.isPresent() || width.isPresent() || height.isPresent() || includeFrozenColumnsRows.isPresent()) {
                 final MissingBuilder missing = MissingBuilder.empty();
@@ -422,13 +350,13 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                 width.get(),
                                 height.get()
                         ),
-                        Boolean.parseBoolean(includeFrozenColumnsRows.get()),
+                        includeFrozenColumnsRows(includeFrozenColumnsRows.get()),
                         SpreadsheetEngine.NO_SELECTION,
                         context
                 );
             } else {
                 if (false == delta.isPresent()) {
-                    windows = missingWindow.get();
+                    windows = SpreadsheetViewportWindows.EMPTY;
                 } else {
                     windows = delta.get()
                             .window();
@@ -451,9 +379,18 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      * Adds support for passing the window as a url query parameter.
      */
     final static UrlParameterName WINDOW = UrlParameterName.with("window");
+
+    private static Optional<String> includeFrozenColumnsRows(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters);
+    }
+
     final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
 
     // helpers.........................................................................................................
+
+    private static boolean includeFrozenColumnsRows(final String value) {
+        return Boolean.parseBoolean(value);
+    }
 
     private static SpreadsheetViewportRectangle viewportRectangle(final String home,
                                                                   final String width,
