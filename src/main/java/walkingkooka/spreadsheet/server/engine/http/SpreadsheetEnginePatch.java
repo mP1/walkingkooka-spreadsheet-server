@@ -133,14 +133,13 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
     final SpreadsheetEngineContext context;
 
     private Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetViewport> viewport) {
-        return SpreadsheetEngineHttps.viewportAndNavigate(
-                this.request.routerParameters(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setViewport(viewport)
-                ),
-                this.engine,
-                this.context
+        Optional<SpreadsheetViewport> result = SpreadsheetEngineHttps.viewport(
+                this.request.routerParameters()
         );
+        if (false == result.isPresent()) {
+            result = viewport;
+        }
+        return result;
     }
 
     final SpreadsheetViewportWindows window(final SpreadsheetDelta delta) {
