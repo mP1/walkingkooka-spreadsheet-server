@@ -134,7 +134,8 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
 
     private Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetViewport> viewport) {
         Optional<SpreadsheetViewport> result = SpreadsheetEngineHttps.viewport(
-                this.request.routerParameters()
+                this.request.routerParameters(),
+                false // includeNavigation
         );
         if (false == result.isPresent()) {
             result = viewport;

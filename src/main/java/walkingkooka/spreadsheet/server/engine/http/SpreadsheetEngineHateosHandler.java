@@ -103,12 +103,16 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     final static UrlParameterName COUNT = UrlParameterName.with("count");
 
     final Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                 final Optional<SpreadsheetDelta> delta) {
-        return SpreadsheetEngineHttps.viewportAndNavigate(
+                                                 final Optional<SpreadsheetDelta> delta,
+                                                 final boolean includeNavigation) {
+        Optional<SpreadsheetViewport> viewport = SpreadsheetEngineHttps.viewport(
                 parameters,
-                delta,
-                this.engine,
-                this.context
+                includeNavigation
         );
+        if (false == viewport.isPresent()) {
+            viewport = delta.flatMap(SpreadsheetDelta::viewport);
+        }
+
+        return viewport;
     }
 }
