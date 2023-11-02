@@ -93,7 +93,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         );
 
         final SpreadsheetViewportWindows window = this.engine.window(
-                viewport.rectangle(),
+                navigatedViewport.orElse(viewport)
+                        .rectangle(),
                 true, // includeFrozenColumnsRows,
                 SpreadsheetEngine.NO_SELECTION, // no selection
                 context

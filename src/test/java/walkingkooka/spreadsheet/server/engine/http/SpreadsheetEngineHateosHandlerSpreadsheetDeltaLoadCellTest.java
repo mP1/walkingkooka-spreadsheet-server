@@ -865,6 +865,58 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final AnchoredSpreadsheetSelection anchoredSpreadsheetSelection,
                                                final List<SpreadsheetViewportNavigation> navigations,
                                                final AnchoredSpreadsheetSelection expected) {
+        this.loadCellRangeNavigateAndCheck(
+                home,
+                Optional.of(
+                    anchoredSpreadsheetSelection
+                ),
+                navigations,
+                "A1:E5",
+                home, // expected home
+                Optional.of(expected) // expected selection
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigationRightPixelsWithSelection() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                Optional.of(
+                SpreadsheetSelection.parseCellRange("C1:C2")
+                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+                ),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendRightPixel(401)
+                ),
+                "F1:J5", // window
+                "F1", // expectedHome
+                Optional.of(
+                SpreadsheetSelection.parseCellRange("C1:H2")
+                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+                )// expected selection
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeNavigationRightPixels() {
+        this.loadCellRangeNavigateAndCheck(
+                "A1",
+                Optional.empty(),
+                Lists.of(
+                        SpreadsheetViewportNavigation.extendRightPixel(401)
+                ),
+                "F1:J5", // window
+                "F1", // expectedHome
+                Optional.empty()// expected selection
+        );
+    }
+
+    private void loadCellRangeNavigateAndCheck(final String home,
+                                               final Optional<AnchoredSpreadsheetSelection> anchoredSpreadsheetSelection,
+                                               final List<SpreadsheetViewportNavigation> navigations,
+                                               final String window,
+                                               final String expectedHome,
+                                               final Optional<AnchoredSpreadsheetSelection> expectedSelection) {
         final int width = 400;
         final int height = 150;
 
@@ -874,9 +926,21 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + height));
         parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
-        final SpreadsheetSelection selection = anchoredSpreadsheetSelection.selection();
-        parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
-        parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
+        if(anchoredSpreadsheetSelection.isPresent()) {
+            final SpreadsheetSelection selection = anchoredSpreadsheetSelection.get()
+                    .selection();
+            parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
+            parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
+            parameters.put(
+                    SpreadsheetEngineHttps.SELECTION_ANCHOR,
+                    Lists.of(
+                            anchoredSpreadsheetSelection.get()
+                                    .anchor()
+                                    .kebabText()
+                    )
+            );
+
+        }
         parameters.put(
                 SpreadsheetEngineHttps.NAVIGATION,
                 Lists.of(
@@ -886,12 +950,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         )
                 )
         );
-        parameters.put(
-                SpreadsheetEngineHttps.SELECTION_ANCHOR,
-                Lists.of(anchoredSpreadsheetSelection.anchor().kebabText())
-        );
 
-        final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:E5");
+        final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
 
         this.handleAllAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -913,7 +973,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                                      final boolean includeFrozenColumnsRows,
                                                                      final Optional<SpreadsheetSelection> selection,
                                                                      final SpreadsheetEngineContext context) {
-                                return window;
+                                return spreadsheetViewportWindows;
                             }
 
                             @Override
@@ -995,16 +1055,14 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         SpreadsheetDelta.EMPTY
                                 .setViewport(
                                         Optional.of(
-                                                SpreadsheetSelection.parseCell(home)
+                                                SpreadsheetSelection.parseCell(expectedHome)
                                                         .viewportRectangle(
                                                                 width,
                                                                 height
                                                         ).viewport()
-                                                        .setSelection(
-                                                                Optional.of(expected)
-                                                        )
+                                                        .setSelection(expectedSelection)
                                         )
-                                ).setWindow(window)
+                                ).setWindow(spreadsheetViewportWindows)
                 )
         );
     }
