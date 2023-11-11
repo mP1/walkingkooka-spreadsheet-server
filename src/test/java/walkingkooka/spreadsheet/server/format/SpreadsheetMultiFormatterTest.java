@@ -215,7 +215,7 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                         return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                                 .loadFromLocale()
-                                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"));
+                                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN);
 
                     }
 
