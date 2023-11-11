@@ -475,7 +475,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.parseTextFormatPattern("@"));
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN);
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
         metadataStore.save(metadata);
