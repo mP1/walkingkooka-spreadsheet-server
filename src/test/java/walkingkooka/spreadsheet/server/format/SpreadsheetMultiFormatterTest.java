@@ -226,7 +226,8 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                                 SpreadsheetFormatterContexts.basic(
                                         function(),
                                         function(),
-                                        1,
+                                        1, // cellCharacterWidth
+                                        8, // generalNumberFormatDigitCount
                                         SpreadsheetFormatters.fake(),
                                         SpreadsheetConverterContexts.basic(
                                                 Converters.collection(
