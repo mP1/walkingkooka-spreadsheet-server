@@ -235,6 +235,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
                 .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+                .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                 .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
