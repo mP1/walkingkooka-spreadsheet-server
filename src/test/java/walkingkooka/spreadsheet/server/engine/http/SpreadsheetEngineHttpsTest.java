@@ -48,7 +48,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
     @Test
     public void testWindowHomeMissingHomeFails() {
-        this.windowsFails(
+        this.windowFails(
                 Maps.of(
                         SpreadsheetEngineHttps.WIDTH, Lists.of("111"),
                         SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
@@ -60,7 +60,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
     @Test
     public void testWindowHomeMissingWidthFails() {
-        this.windowsFails(
+        this.windowFails(
                 Maps.of(
                         SpreadsheetEngineHttps.HOME, Lists.of("A1"),
                         SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
@@ -72,7 +72,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
     @Test
     public void testWindowHomeMissingHeightFails() {
-        this.windowsFails(
+        this.windowFails(
                 Maps.of(
                         SpreadsheetEngineHttps.HOME, Lists.of("A1"),
                         SpreadsheetEngineHttps.WIDTH, Lists.of("22"),
@@ -85,7 +85,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
     @Test
     public void testWindowHomeMissingWidthHeightIncludeFails() {
-        this.windowsFails(
+        this.windowFails(
                 Maps.of(
                         SpreadsheetEngineHttps.HOME, Lists.of("A1")
                 ),
@@ -93,8 +93,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         );
     }
 
-    private void windowsFails(final Map<HttpRequestAttribute<?>, Object> parameters,
-                              final String expected) {
+    private void windowFails(final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final String expected) {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
                 () -> SpreadsheetEngineHttps.window(
