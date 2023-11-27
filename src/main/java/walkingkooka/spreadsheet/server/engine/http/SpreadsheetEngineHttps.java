@@ -41,6 +41,7 @@ import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -212,6 +213,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // @VisibleForTesting
     public static Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                          final boolean includeNavigation) {
+        checkParameters(parameters);
+
         final MissingBuilder missing = MissingBuilder.empty();
 
         final Optional<String> home = HOME.firstParameterValue(parameters);
@@ -318,6 +321,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                              final Optional<SpreadsheetDelta> delta,
                                              final SpreadsheetEngine engine,
                                              final SpreadsheetEngineContext context) {
+        checkParameters(parameters);
+        Objects.requireNonNull(delta, "delta");
+        Objects.requireNonNull(engine, "engine");
+        Objects.requireNonNull(context, "context");
+
         final SpreadsheetViewportWindows windows;
 
         final Optional<String> windowsString = WINDOW.firstParameterValue(parameters);
@@ -373,6 +381,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 WINDOW,
                 SpreadsheetViewportWindows::parse
         );
+    }
+
+    private static Map<HttpRequestAttribute<?>, Object> checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return Objects.requireNonNull(parameters, "parameters");
     }
 
     /**

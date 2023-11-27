@@ -47,6 +47,61 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     // viewportAndNavigate.............................................................................................
 
     @Test
+    public void testWindowsNullParametersFails() {
+        this.windowFails(
+                null,
+                Optional.empty(),
+                SpreadsheetEngines.fake(),
+                SpreadsheetEngineContexts.fake()
+        );
+    }
+
+    @Test
+    public void testWindowsNullDeltaFails() {
+        this.windowFails(
+                Maps.empty(),
+                null,
+                SpreadsheetEngines.fake(),
+                SpreadsheetEngineContexts.fake()
+        );
+    }
+
+    @Test
+    public void testWindowsNullEngineFails() {
+        this.windowFails(
+                Maps.empty(),
+                Optional.empty(),
+                null,
+                SpreadsheetEngineContexts.fake()
+        );
+    }
+
+    @Test
+    public void testWindowsNullContextFails() {
+        this.windowFails(
+                Maps.empty(),
+                Optional.empty(),
+                SpreadsheetEngines.fake(),
+                null
+        );
+    }
+
+    private void windowFails(final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final Optional<SpreadsheetDelta> delta,
+                             final SpreadsheetEngine engine,
+                             final SpreadsheetEngineContext context) {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.window(
+                        parameters,
+                        delta,
+                        engine,
+                        context
+                )
+        );
+    }
+
+    @Test
     public void testWindowHomeMissingHomeFails() {
         this.windowFails(
                 Maps.of(
@@ -238,6 +293,17 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     // viewport.........................................................................................................
+
+    @Test
+    public void testViewportNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.viewport(
+                        null, // parameters
+                        false // includeNavigations
+                )
+        );
+    }
 
     @Test
     public void testViewportEmpty() {
