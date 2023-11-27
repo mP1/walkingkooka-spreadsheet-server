@@ -26,14 +26,20 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.tree.expression.Expression;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -43,6 +49,96 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHttpsTest implements ClassTesting2<SpreadsheetEngineHttps>,
         PublicStaticHelperTesting<SpreadsheetEngineHttps> {
+
+    // query...........................................................................................................
+
+    @Test
+    public void testQueryNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.query(
+                        null,
+                        SpreadsheetEngineContexts.fake()
+                )
+        );
+    }
+
+    @Test
+    public void testQueryNullContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.query(
+                        Maps.empty(),
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testQueryParameterMissing() {
+        this.queryAndCheck(
+                Maps.empty(),
+                SpreadsheetEngineContexts.fake(),
+                Optional.empty()
+        );
+    }
+
+    @Test
+    public void testQueryParameterPresent() {
+        final String query = "=true()";
+        final SpreadsheetParserToken token = SpreadsheetParserToken.functionName(
+                SpreadsheetFunctionName.with("true"),
+                "true"
+        );
+        final Optional<Expression> expression = Optional.of(
+                Expression.value(true)
+        );
+
+        this.queryAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.QUERY,
+                        Lists.of(query)
+                ),
+                new FakeSpreadsheetEngineContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+
+                        checkEquals(
+                                query,
+                                begin.textBetween()
+                                        .toString()
+                        );
+
+                        return token;
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken t) {
+                        checkEquals(
+                                token,
+                                t
+                        );
+                        return expression;
+                    }
+                },
+                expression
+        );
+    }
+
+    private void queryAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                               final SpreadsheetEngineContext context,
+                               final Optional<Expression> expected) {
+        this.checkEquals(
+                expected,
+                SpreadsheetEngineHttps.query(
+                        parameters,
+                        context
+                ),
+                () -> parameters.toString()
+        );
+    }
 
     // viewportAndNavigate.............................................................................................
 
