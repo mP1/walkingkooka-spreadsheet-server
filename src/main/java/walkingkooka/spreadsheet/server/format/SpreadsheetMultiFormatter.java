@@ -100,7 +100,7 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
                 final SpreadsheetLocaleDefaultDateTimeFormat format = (SpreadsheetLocaleDefaultDateTimeFormat) pattern;
                 formatted = format.format(
                         (LocalDateTime) value,
-                        engineContext.metadata()
+                        engineContext.spreadsheetMetadata()
                                 .formatterContext(
                                         this.now,
                                         engineContext::resolveIfLabel

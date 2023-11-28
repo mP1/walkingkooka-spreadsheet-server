@@ -190,7 +190,7 @@ public class TestGwtTest extends GWTTestCase {
         return new FakeSpreadsheetEngineContext() {
 
             @Override
-            public SpreadsheetMetadata metadata() {
+            public SpreadsheetMetadata spreadsheetMetadata() {
                 return metadata;
             }
 
