@@ -194,7 +194,7 @@ public class JunitTest {
         return new FakeSpreadsheetEngineContext() {
 
             @Override
-            public SpreadsheetMetadata metadata() {
+            public SpreadsheetMetadata spreadsheetMetadata() {
                 return metadata;
             }
 

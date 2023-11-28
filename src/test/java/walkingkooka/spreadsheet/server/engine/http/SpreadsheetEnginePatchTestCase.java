@@ -72,12 +72,6 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
         }
     };
     final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
-        @Override
-        public SpreadsheetMetadata metadata() {
-            return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                    .loadFromLocale();
-        }
 
         @Override
         public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
@@ -89,6 +83,13 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
                 resolved = CELL_REFERENCE_B2;
             }
             return resolved;
+        }
+
+        @Override
+        public SpreadsheetMetadata spreadsheetMetadata() {
+            return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
+                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+                    .loadFromLocale();
         }
 
         @Override

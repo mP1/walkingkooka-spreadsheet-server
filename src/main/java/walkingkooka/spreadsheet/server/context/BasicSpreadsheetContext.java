@@ -361,7 +361,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         return HateosResourceMapping.router(
                 base.setPath(base.path().append(UrlPathName.with(id.toString()))),
-                this.contentTypeFactory.apply(context.metadata(), labelStore),
+                this.contentTypeFactory.apply(
+                        context.spreadsheetMetadata(),
+                        labelStore
+                ),
                 Sets.of(
                         cell,
                         cellReference,

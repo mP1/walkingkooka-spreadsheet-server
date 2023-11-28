@@ -211,7 +211,7 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                 new FakeSpreadsheetEngineContext() {
 
                     @Override
-                    public SpreadsheetMetadata metadata() {
+                    public SpreadsheetMetadata spreadsheetMetadata() {
                         return SpreadsheetMetadata.NON_LOCALE_DEFAULTS
                                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                                 .loadFromLocale()

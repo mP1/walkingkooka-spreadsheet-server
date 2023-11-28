@@ -527,7 +527,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         new FakeSpreadsheetEngineContext() {
                             @Override
-                            public SpreadsheetMetadata metadata() {
+                            public SpreadsheetMetadata spreadsheetMetadata() {
                                 return SpreadsheetMetadata.EMPTY
                                         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                                         .loadFromLocale();
@@ -664,7 +664,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         new FakeSpreadsheetEngineContext() {
                             @Override
-                            public SpreadsheetMetadata metadata() {
+                            public SpreadsheetMetadata spreadsheetMetadata() {
                                 return SpreadsheetMetadata.EMPTY
                                         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                                         .loadFromLocale()
@@ -997,7 +997,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         },
                         new FakeSpreadsheetEngineContext() {
                             @Override
-                            public SpreadsheetMetadata metadata() {
+                            public SpreadsheetMetadata spreadsheetMetadata() {
                                 return SpreadsheetMetadata.EMPTY
                                         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                                         .set(

@@ -65,7 +65,7 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
         final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(selection);
         final JsonNode patch = this.preparePatch(json);
 
-        final SpreadsheetMetadata metadata = this.context.metadata();
+        final SpreadsheetMetadata metadata = this.context.spreadsheetMetadata();
 
         final SpreadsheetDelta patched = this.patch(
                 selection,

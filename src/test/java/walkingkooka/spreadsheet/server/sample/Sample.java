@@ -183,7 +183,7 @@ public final class Sample {
         return new FakeSpreadsheetEngineContext() {
 
             @Override
-            public SpreadsheetMetadata metadata() {
+            public SpreadsheetMetadata spreadsheetMetadata() {
                 return metadata;
             }
 
@@ -210,10 +210,11 @@ public final class Sample {
                                 this.references(),
                                 ExpressionEvaluationContexts.referenceNotFound(),
                                 CaseSensitivity.INSENSITIVE,
-                                this.metadata().converterContext(
-                                        NOW,
-                                        RESOLVE_IF_LABEL
-                                )
+                                this.spreadsheetMetadata()
+                                        .converterContext(
+                                                NOW,
+                                                RESOLVE_IF_LABEL
+                                        )
                         )
                 );
             }
