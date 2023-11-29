@@ -116,7 +116,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         if (null != deltaProperties) {
-            parameters.put(SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES, Lists.of(deltaProperties));
+            parameters.put(
+                    SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                    Lists.of(deltaProperties)
+            );
         }
         if (null != window) {
             parameters.put(SpreadsheetEngineHttps.WINDOW, Lists.of(window));
@@ -456,7 +459,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
         parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(
-                SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.DELTA_PROPERTIES,
+                SpreadsheetEngineHttps.DELTA_PROPERTIES,
                 Lists.of(deltaProperties)
         );
 
