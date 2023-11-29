@@ -140,7 +140,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         );
     }
 
-    // viewportAndNavigate.............................................................................................
+    // window...........................................................................................................
 
     @Test
     public void testWindowsNullParametersFails() {
