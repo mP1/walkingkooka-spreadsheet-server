@@ -37,6 +37,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
@@ -208,6 +210,29 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // query parameters................................................................................................
 
     /**
+     * Attempt to locate a query parameter and then parse it into an {@link Expression}.
+     */
+    public static Optional<Expression> query(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final SpreadsheetEngineContext context) {
+        checkParameters(parameters);
+        checkContext(context);
+
+        return QUERY.firstParameterValue(parameters)
+                .flatMap(query -> parseQuery(query, context));
+    }
+
+    final static UrlParameterName QUERY = UrlParameterName.with("query");
+
+    private static Optional<Expression> parseQuery(final String query,
+                                                   final SpreadsheetEngineContext context) {
+        return context.toExpression(
+                context.parseFormula(
+                        TextCursors.charSequence(query)
+                )
+        );
+    }
+
+    /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
      */
     // @VisibleForTesting
@@ -324,7 +349,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         checkParameters(parameters);
         Objects.requireNonNull(delta, "delta");
         Objects.requireNonNull(engine, "engine");
-        Objects.requireNonNull(context, "context");
+        checkContext(context);
 
         final SpreadsheetViewportWindows windows;
 
@@ -385,6 +410,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     private static Map<HttpRequestAttribute<?>, Object> checkParameters(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return Objects.requireNonNull(parameters, "parameters");
+    }
+
+    private static SpreadsheetEngineContext checkContext(final SpreadsheetEngineContext context) {
+        return Objects.requireNonNull(context, "context");
     }
 
     /**
