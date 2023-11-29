@@ -18,16 +18,20 @@
 package walkingkooka.spreadsheet.server.engine.http;
 
 import walkingkooka.collect.Range;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
@@ -67,17 +71,40 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
     abstract String operation();
 
     /**
-     * Applies the window if any was present on the input {@link SpreadsheetDelta}
+     * Applies the query and window if any was present on the input {@link SpreadsheetDelta}
      */
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetDelta out) {
-        return out.setWindow(
+        final SpreadsheetEngine engine = this.engine;
+        final SpreadsheetEngineContext context = this.context;
+
+        final Optional<Expression> maybeExpression = SpreadsheetEngineHttps.query(
+                parameters,
+                context
+        );
+
+        SpreadsheetDelta result = out;
+
+        if (maybeExpression.isPresent()) {
+            result = out.setMatchedCells(
+                    engine.filterCells(
+                                    out.cells(),
+                                    maybeExpression.get(),
+                                    context
+                            ).stream()
+                            .map(
+                                    SpreadsheetCell::reference
+                            ).collect(Collectors.toCollection(Sets::ordered))
+            );
+        }
+
+        return result.setWindow(
                 SpreadsheetEngineHttps.window(
                         parameters,
                         in,
-                        this.engine,
-                        this.context
+                        engine,
+                        context
                 )
         );
     }
