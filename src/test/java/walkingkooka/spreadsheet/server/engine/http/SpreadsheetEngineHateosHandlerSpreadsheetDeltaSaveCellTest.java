@@ -72,8 +72,6 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     @Test
     public void testHandleSaveCell() {
         final SpreadsheetCell cell = this.cell();
-        final SpreadsheetColumnReference column = this.cell().reference().column().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
-        final SpreadsheetRowReference row = this.cell().reference().row().setReferenceKind(SpreadsheetReferenceKind.RELATIVE);
 
         this.handleOneAndCheck(
                 this.createHandler(
@@ -88,7 +86,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                                 return saved();
                             }
-                        }),
+                        }
+                ),
                 this.id(),
                 this.resource(),
                 this.parameters(),
@@ -207,25 +206,23 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
         final SpreadsheetViewportWindows window = this.window();
 
-        this.handleOneAndCheck(this.createHandler(
-                new FakeSpreadsheetEngine() {
-                    @Override
-                    public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
-                                                     final SpreadsheetEngineContext context) {
-                        Objects.requireNonNull(context, "context");
+        this.handleOneAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
+                                                             final SpreadsheetEngineContext context) {
+                                Objects.requireNonNull(context, "context");
 
-                        checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
-                        checkNotEquals(null, context, "context");
+                                checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
+                                checkNotEquals(null, context, "context");
 
-                        return SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(saved1, saved2))
-                                .setWindow(window);
-                    }
-
-                    private SpreadsheetCell cell() {
-                        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell();
-                    }
-                }),
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(Sets.of(saved1, saved2))
+                                        .setWindow(window);
+                            }
+                        }
+                ),
                 this.id(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
