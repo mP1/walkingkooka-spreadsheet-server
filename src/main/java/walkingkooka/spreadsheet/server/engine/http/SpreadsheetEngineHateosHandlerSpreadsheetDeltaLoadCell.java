@@ -22,7 +22,6 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -107,10 +106,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 )
         );
 
-        final Optional<List<String>> delta = DELTA_PROPERTIES.parameterValue(parameters);
+        final Optional<List<String>> delta = SpreadsheetEngineHttps.DELTA_PROPERTIES.parameterValue(parameters);
         if (delta.isPresent()) {
             parametersWindowAndDelta.put(
-                    DELTA_PROPERTIES,
+                    SpreadsheetEngineHttps.DELTA_PROPERTIES,
                     delta.get()
             );
         }
@@ -124,11 +123,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 )
         );
     }
-
-    /**
-     * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
-     */
-    final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
 
     final static String MISSING_VIEWPORT = "Missing: " +
             MissingBuilder.empty()
@@ -154,7 +148,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                         parameters,
                         this.loadCell(
                                 cell,
-                                deltaProperties(parameters)
+                                SpreadsheetEngineHttps.deltaProperties(parameters)
                         )
                 )
         );
@@ -198,7 +192,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                         parameters,
                         this.loadCells(
                                 window,
-                                deltaProperties(parameters)
+                                SpreadsheetEngineHttps.deltaProperties(parameters)
                         ).setViewport(viewport)
                 )
         );
@@ -211,13 +205,6 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 this.evaluation,
                 deltaProperties,
                 this.context
-        );
-    }
-
-    private static Set<SpreadsheetDeltaProperties> deltaProperties(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return SpreadsheetDeltaProperties.csv(
-                DELTA_PROPERTIES.firstParameterValue(parameters)
-                        .orElse(null)
         );
     }
 
