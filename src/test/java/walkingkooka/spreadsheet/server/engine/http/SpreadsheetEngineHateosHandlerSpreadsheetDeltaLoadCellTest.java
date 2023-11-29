@@ -36,8 +36,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -56,6 +58,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
@@ -66,6 +71,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -98,7 +104,10 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     public void testLoadCellWithDeltaPropertiesCells() {
         this.loadCellAndCheck(
                 "cells",
-                null // window
+                null, // window
+                null, // query
+                SpreadsheetDelta.EMPTY
+                        .setCells(this.cells())
         );
     }
 
@@ -106,12 +115,34 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
     public void testLoadCellWithDeltaPropertiesCellsAndLabels() {
         this.loadCellAndCheck(
                 "cells,labels",
-                null // window
+                null, // window
+                null, // query
+                SpreadsheetDelta.EMPTY
+                        .setCells(this.cells())
+                        .setLabels(this.labels())
+        );
+    }
+
+    @Test
+    public void testLoadCellWithDeltaPropertiesCellsAndQuery() {
+        this.loadCellAndCheck(
+                "cells",
+                null, // window
+                "=true()", // query
+                SpreadsheetDelta.EMPTY
+                        .setCells(this.cells())
+                        .setMatchedCells(
+                                cells().stream()
+                                        .map(SpreadsheetCell::reference)
+                                        .collect(Collectors.toSet())
+                        )
         );
     }
 
     private void loadCellAndCheck(final String deltaProperties,
-                                  final String window) {
+                                  final String window,
+                                  final String query,
+                                  final SpreadsheetDelta expected) {
         final SpreadsheetCellReference id = this.id();
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
@@ -123,6 +154,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         }
         if (null != window) {
             parameters.put(SpreadsheetEngineHttps.WINDOW, Lists.of(window));
+        }
+        if (null != query) {
+            parameters.put(SpreadsheetEngineHttps.QUERY, Lists.of(query));
         }
 
         this.handleOneAndCheck(
@@ -142,20 +176,50 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                 );
                                 assertNotNull(context, "context");
 
-                                return SpreadsheetDelta.EMPTY
-                                        .setCells(cells())
-                                        .setLabels(labels());
+                                SpreadsheetDelta result = SpreadsheetDelta.EMPTY;
+                                if (dp.contains(SpreadsheetDeltaProperties.CELLS)) {
+                                    result = result.setCells(cells());
+                                }
+                                if (dp.contains(SpreadsheetDeltaProperties.LABELS)) {
+                                    result = result.setLabels(labels());
+                                }
+
+                                return result;
+                            }
+
+                            @Override
+                            public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                                    final Expression expression,
+                                                                    final SpreadsheetEngineContext context) {
+                                return cells;
                             }
                         },
-                        this.engineContext()),
+                        new FakeSpreadsheetEngineContext() {
+                            @Override
+                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                                final TextCursorSavePoint begin = formula.save();
+                                formula.end();
+                                final String text = begin.textBetween()
+                                        .toString();
+                                checkEquals("=true()", text);
+                                return SpreadsheetParserToken.functionName(
+                                        SpreadsheetFunctionName.with("true"),
+                                        text
+                                );
+                            }
+
+                            @Override
+                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                                return Optional.of(
+                                        Expression.value(true)
+                                );
+                            }
+                        }
+                ),
                 id,
                 Optional.empty(),
                 parameters,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(this.cells())
-                                .setLabels(this.labels())
-                )
+                Optional.of(expected)
         );
     }
 

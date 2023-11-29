@@ -29,17 +29,23 @@ import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -47,6 +53,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         extends SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell,
@@ -109,6 +116,86 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
                 ),
                 this.parameters(),
                 IllegalArgumentException.class);
+    }
+
+    @Test
+    public void testHandleSaveWithQuery() {
+        final SpreadsheetCell unsaved1 = this.cell();
+
+        final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
+        final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
+
+        final SpreadsheetViewportWindows window = this.window();
+        final String query = "=true()";
+
+        this.handleOneAndCheck(
+                SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell.with(
+                        new FakeSpreadsheetEngine() {
+                            @Override
+                            public SpreadsheetDelta saveCell(final SpreadsheetCell cell,
+                                                             final SpreadsheetEngineContext context) {
+                                Objects.requireNonNull(context, "context");
+
+                                checkEquals(SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest.this.cell(), cell, "cell");
+                                checkNotEquals(null, context, "context");
+
+                                return SpreadsheetDelta.EMPTY
+                                        .setCells(Sets.of(saved1, saved2))
+                                        .setWindow(window);
+                            }
+
+                            @Override
+                            public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                                    final Expression expression,
+                                                                    final SpreadsheetEngineContext context) {
+                                return cells;
+                            }
+                        },
+                        new FakeSpreadsheetEngineContext() {
+                            @Override
+                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                                final TextCursorSavePoint begin = formula.save();
+                                formula.end();
+                                final String text = begin.textBetween()
+                                        .toString();
+                                checkEquals(query, text);
+                                return SpreadsheetParserToken.functionName(
+                                        SpreadsheetFunctionName.with("true"),
+                                        text
+                                );
+                            }
+
+                            @Override
+                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                                return Optional.of(
+                                        Expression.value(true)
+                                );
+                            }
+                        }
+                ),
+                this.id(),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(unsaved1))
+                                .setWindow(window)
+                ),
+                Maps.of(
+                        SpreadsheetEngineHttps.QUERY,
+                        Lists.of(query)
+                ),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(saved1)
+                                ).setMatchedCells(
+                                        Sets.of(
+                                                saved1.reference()
+                                        )
+                                )
+                                .setWindow(window)
+                )
+        );
     }
 
     @Test
