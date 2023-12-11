@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.engine.http;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
@@ -159,10 +160,14 @@ abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements
         return this.engine.loadCells(
                 window,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-                SpreadsheetDeltaProperties.ALL,
+                CELLS,
                 this.context
         ).cells();
     }
+
+    private final static Set<SpreadsheetDeltaProperties> CELLS = Sets.of(
+            SpreadsheetDeltaProperties.CELLS
+    );
 
     @Override
     public final String toString() {
