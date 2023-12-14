@@ -254,6 +254,21 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         );
     }
 
+    // valueType parameters.............................................................................................
+
+    /**
+     * Attempt to locate a value-type parameter and then parse it into an {@link String}.
+     */
+    public static Optional<String> valueType(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final SpreadsheetEngineContext context) {
+        checkParameters(parameters);
+        checkContext(context);
+
+        return VALUE_TYPE.firstParameterValue(parameters);
+    }
+
+    final static UrlParameterName VALUE_TYPE = UrlParameterName.with("value-type");
+    
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
      */
