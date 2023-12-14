@@ -22,6 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -84,12 +85,18 @@ abstract class SpreadsheetEngineHateosHandlerSpreadsheetDelta<I extends Comparab
                 context
         );
 
+        final Optional<String> maybeValueType = SpreadsheetEngineHttps.valueType(
+                parameters,
+                context
+        );
+
         SpreadsheetDelta result = out;
 
         if (maybeExpression.isPresent()) {
             result = out.setMatchedCells(
                     engine.filterCells(
                                     out.cells(),
+                                    maybeValueType.orElse(SpreadsheetValueType.ANY),
                                     maybeExpression.get(),
                                     context
                             ).stream()
