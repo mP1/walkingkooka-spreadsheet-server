@@ -247,12 +247,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                    final SpreadsheetEngineContext context) {
         return parseQueryParameter(
                 query,
-                QUERY,
                 (t) -> context.toExpression(
                         context.parseFormula(
                                 TextCursors.charSequence(query)
                         )
-                )
+                ),
+                QUERY
         );
     }
 
@@ -444,8 +444,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static SpreadsheetViewportWindows parseWindow(final String value) {
         return parseQueryParameter(
                 value,
-                WINDOW,
-                SpreadsheetViewportWindows::parse
+                SpreadsheetViewportWindows::parse,
+                WINDOW
         );
     }
 
@@ -487,8 +487,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static SpreadsheetCellReference home(final String value) {
         return parseQueryParameter(
                 value,
-                HOME,
-                SpreadsheetSelection::parseCell
+                SpreadsheetSelection::parseCell,
+                HOME
         );
     }
 
@@ -531,8 +531,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static SpreadsheetViewportAnchor parseAnchor(final String text) {
         return parseQueryParameter(
                 text,
-                SELECTION_ANCHOR,
-                SpreadsheetViewportAnchor::parse
+                SpreadsheetViewportAnchor::parse,
+                SELECTION_ANCHOR
         );
     }
 
@@ -557,8 +557,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static List<SpreadsheetViewportNavigation> navigations(final String value) {
         return parseQueryParameter(
                 value,
-                NAVIGATION,
-                SpreadsheetViewportNavigation::parse
+                SpreadsheetViewportNavigation::parse,
+                NAVIGATION
         );
     }
 
@@ -592,8 +592,8 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     private static <T> T parseQueryParameter(final String text,
-                                             final UrlParameterName queryParameter,
-                                             final Function<String, T> parser) {
+                                             final Function<String, T> parser,
+                                             final UrlParameterName queryParameter) {
         try {
             return parser.apply(text);
         } catch (final IllegalArgumentException cause) {
