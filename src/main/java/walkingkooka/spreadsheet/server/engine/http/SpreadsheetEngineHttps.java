@@ -243,16 +243,20 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 .flatMap(query -> parseQuery(query, context));
     }
 
-    final static UrlParameterName QUERY = UrlParameterName.with("query");
-
     private static Optional<Expression> parseQuery(final String query,
                                                    final SpreadsheetEngineContext context) {
-        return context.toExpression(
-                context.parseFormula(
-                        TextCursors.charSequence(query)
+        return parseQueryParameter(
+                query,
+                QUERY,
+                (t) -> context.toExpression(
+                        context.parseFormula(
+                                TextCursors.charSequence(query)
+                        )
                 )
         );
     }
+
+    final static UrlParameterName QUERY = UrlParameterName.with("query");
 
     // valueType parameters.............................................................................................
 
