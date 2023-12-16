@@ -303,11 +303,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         if (home.isPresent() || width.isPresent() || height.isPresent() || selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
             // selection present require home/width/height/selectionType/selection/ maybe anchor
             if (selectionType.isPresent() || selectionString.isPresent() || anchor.isPresent() || navigations.isPresent()) {
-                if (missing.missing() != 0) {
-                    throw new IllegalArgumentException(
-                            missingParameters(missing)
-                    );
-                }
+                failIfMissing(missing);
 
                 viewport = viewportRectangle(
                         home.get(),
@@ -350,11 +346,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
             } else {
                 // require home/width/height
-                if (missing.missing() != 0) {
-                    throw new IllegalArgumentException(
-                            missingParameters(missing)
-                    );
-                }
+                failIfMissing(missing);
 
                 // if any selectionType/selection/anchor/navigations error
                 final MissingBuilder notRequired = MissingBuilder.empty();
@@ -412,11 +404,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 missing.addIfEmpty(height, HEIGHT.toString());
                 missing.addIfEmpty(includeFrozenColumnsRows, INCLUDE_FROZEN_COLUMNS_ROWS.toString());
 
-                if (missing.missing() > 0) {
-                    throw new IllegalArgumentException(
-                            missingParameters(missing)
-                    );
-                }
+                failIfMissing(missing);
 
                 windows = engine.window(
                         viewportRectangle(
@@ -614,6 +602,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static String invalidQueryParameterMessage(final String text,
                                                        final UrlParameterName parameter) {
         return "Invalid " + parameter + "=" + CharSequences.quoteAndEscape(text);
+    }
+
+    private static void failIfMissing(final MissingBuilder missing) {
+        if (missing.missing() > 0) {
+            throw new IllegalArgumentException(
+                    missingParameters(missing)
+            );
+        }
     }
 
     private static String missingParameters(final MissingBuilder missing) {
