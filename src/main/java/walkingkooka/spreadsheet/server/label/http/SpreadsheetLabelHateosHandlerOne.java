@@ -25,7 +25,7 @@ import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import java.util.Map;
 import java.util.Optional;
 
-abstract class SpreadsheetLabelHateosHandlerOne extends SpreadsheetLabelHateosHandler2 {
+abstract class SpreadsheetLabelHateosHandlerOne extends SpreadsheetLabelHateosHandler {
 
     SpreadsheetLabelHateosHandlerOne(final SpreadsheetLabelStore store) {
         super(store);
