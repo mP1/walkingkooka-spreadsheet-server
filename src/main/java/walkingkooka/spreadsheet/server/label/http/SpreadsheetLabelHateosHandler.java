@@ -17,12 +17,17 @@
 
 package walkingkooka.spreadsheet.server.label.http;
 
+import walkingkooka.collect.Range;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 abstract class SpreadsheetLabelHateosHandler implements HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> {
 
@@ -33,6 +38,37 @@ abstract class SpreadsheetLabelHateosHandler implements HateosHandler<Spreadshee
     SpreadsheetLabelHateosHandler(final SpreadsheetLabelStore store) {
         super();
         this.store = store;
+    }
+
+    @Override
+    public final Optional<SpreadsheetLabelMapping> handleAll(final Optional<SpreadsheetLabelMapping> resource,
+                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        return Optional.empty();
+    }
+
+    @Override
+    public final Optional<SpreadsheetLabelMapping> handleList(final List<SpreadsheetLabelName> list,
+                                                              final Optional<SpreadsheetLabelMapping> resource,
+                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkList(list);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        return Optional.empty();
+    }
+
+    @Override
+    public final Optional<SpreadsheetLabelMapping> handleRange(final Range<SpreadsheetLabelName> range,
+                                                               final Optional<SpreadsheetLabelMapping> resource,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkRange(range);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        return Optional.empty();
     }
 
     final SpreadsheetLabelStore store;

@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * A {@link HateosHandler} that attempts to create/save or update a {@link SpreadsheetLabelMapping}.
  */
-final class SpreadsheetLabelHateosHandlerSaveOrUpdate extends SpreadsheetLabelHateosHandler2 {
+final class SpreadsheetLabelHateosHandlerSaveOrUpdate extends SpreadsheetLabelHateosHandler {
 
     static SpreadsheetLabelHateosHandlerSaveOrUpdate with(final SpreadsheetLabelStore store) {
         checkStore(store);
