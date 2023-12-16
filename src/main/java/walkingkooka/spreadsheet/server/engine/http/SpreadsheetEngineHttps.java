@@ -570,17 +570,11 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     private static double parseDoubleQueryParameter(final String text,
                                                     final UrlParameterName parameterName) {
-        final double value;
-
-        try {
-            value = Double.parseDouble(text);
-        } catch (final IllegalArgumentException cause) {
-            throw invalidQueryParameter(
-                    text,
-                    parameterName,
-                    cause
-            );
-        }
+        final double value = parseQueryParameter(
+                text,
+                Double::parseDouble,
+                parameterName
+        );
 
         if (value <= 0) {
             throw new IllegalArgumentException(
