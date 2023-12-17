@@ -89,7 +89,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 Maps.of(
                         SpreadsheetEngineHttps.CELL_RANGE_PATH,
                         Lists.of(
-                                SpreadsheetCellRangePath.TDLR.toString()
+                                "tdlr"
                         )
                 ),
                 SpreadsheetCellRangePath.TDLR
@@ -102,7 +102,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 Maps.of(
                         SpreadsheetEngineHttps.CELL_RANGE_PATH,
                         Lists.of(
-                                SpreadsheetCellRangePath.RLBU.toString()
+                                "rlbu"
                         )
                 ),
                 SpreadsheetCellRangePath.RLBU
