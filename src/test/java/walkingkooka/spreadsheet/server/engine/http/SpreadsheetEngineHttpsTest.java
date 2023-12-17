@@ -309,6 +309,113 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 () -> parameters.toString()
         );
     }
+
+    // offset properties...................................................................................................
+
+    @Test
+    public void testOffsetNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.offset(
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testOffsetNegativeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHttps.offset(
+                        Maps.of(
+                                SpreadsheetEngineHttps.OFFSET,
+                                Lists.of("-1")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testOffsetDecimalPointFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHttps.offset(
+                        Maps.of(
+                                SpreadsheetEngineHttps.OFFSET,
+                                Lists.of("23.0")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testOffsetMissing() {
+        this.offsetAndCheck(
+                Maps.empty()
+        );
+    }
+
+    @Test
+    public void testOffsetEmpty() {
+        this.offsetAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.OFFSET,
+                        Lists.of()
+                )
+        );
+    }
+
+    @Test
+    public void testOffsetZero() {
+        this.offsetAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.OFFSET,
+                        Lists.of(
+                                "0"
+                        )
+                ),
+                0
+        );
+    }
+
+    @Test
+    public void testOffsetOne() {
+        this.offsetAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.OFFSET,
+                        Lists.of(
+                                "1"
+                        )
+                ),
+                1
+        );
+    }
+
+    private void offsetAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        this.offsetAndCheck(
+                parameters,
+                Optional.empty()
+        );
+    }
+
+    private void offsetAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final int expected) {
+        this.offsetAndCheck(
+                parameters,
+                Optional.of(expected)
+        );
+    }
+
+    private void offsetAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final Optional<Integer> expected) {
+        this.checkEquals(
+                expected,
+                SpreadsheetEngineHttps.offset(
+                        parameters
+                ),
+                () -> parameters.toString()
+        );
+    }
     
     // query...........................................................................................................
 

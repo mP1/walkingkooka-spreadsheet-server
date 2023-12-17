@@ -269,6 +269,25 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     final static UrlParameterName MAX = UrlParameterName.with("max");
 
+    // offset parameter....................................................................................................
+
+    /**
+     * Attempt to locate a offset parameter and then parse it into an {@link Integer}.
+     */
+    public static Optional<Integer> offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkParameters(parameters);
+
+        return OFFSET.firstParameterValue(parameters)
+                .map(
+                        s -> parseIntegerQueryParameter(
+                                s,
+                                OFFSET
+                        )
+                );
+    }
+
+    final static UrlParameterName OFFSET = UrlParameterName.with("offset");
+
     // query parameters................................................................................................
 
     /**
