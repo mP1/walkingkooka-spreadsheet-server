@@ -140,7 +140,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 b2, // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of("" + path),
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
                         SpreadsheetEngineHttps.OFFSET, Lists.of("" + offset),
                         SpreadsheetEngineHttps.MAX, Lists.of("" + max),
                         SpreadsheetEngineHttps.VALUE_TYPE, Lists.of("" + valueType),
@@ -225,7 +225,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of("" + path),
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
                         SpreadsheetEngineHttps.OFFSET, Lists.of("" + offset),
                         SpreadsheetEngineHttps.MAX, Lists.of("" + max),
                         SpreadsheetEngineHttps.VALUE_TYPE, Lists.of("" + valueType),
@@ -310,7 +310,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of("" + path),
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
                         SpreadsheetEngineHttps.OFFSET, Lists.of("" + offset),
                         SpreadsheetEngineHttps.MAX, Lists.of("" + max),
                         SpreadsheetEngineHttps.VALUE_TYPE, Lists.of("" + valueType),
