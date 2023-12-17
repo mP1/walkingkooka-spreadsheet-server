@@ -250,6 +250,25 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
      */
     final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
 
+    // max parameter....................................................................................................
+
+    /**
+     * Attempt to locate a max parameter and then parse it into an {@link Integer}.
+     */
+    public static Optional<Integer> max(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkParameters(parameters);
+
+        return MAX.firstParameterValue(parameters)
+                .map(
+                        s -> parseIntegerQueryParameter(
+                                s,
+                                MAX
+                        )
+                );
+    }
+
+    final static UrlParameterName MAX = UrlParameterName.with("max");
+
     // query parameters................................................................................................
 
     /**
@@ -588,6 +607,23 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         if (value <= 0) {
             throw new IllegalArgumentException(
                     invalidQueryParameterMessage(text, parameterName) + " <= 0"
+            );
+        }
+
+        return value;
+    }
+
+    private static int parseIntegerQueryParameter(final String text,
+                                                  final UrlParameterName parameterName) {
+        final int value = parseQueryParameter(
+                text,
+                Integer::parseInt,
+                parameterName
+        );
+
+        if (value < 0) {
+            throw new IllegalArgumentException(
+                    invalidQueryParameterMessage(text, parameterName) + " < 0"
             );
         }
 
