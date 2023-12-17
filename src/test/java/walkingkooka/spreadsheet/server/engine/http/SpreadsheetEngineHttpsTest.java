@@ -36,6 +36,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
@@ -53,6 +54,87 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetEngineHttpsTest implements ClassTesting2<SpreadsheetEngineHttps>,
         PublicStaticHelperTesting<SpreadsheetEngineHttps> {
 
+    // cell-range-path properties.......................................................................................
+
+    @Test
+    public void testCellRangePathNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.cellRangePath(
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testCellRangePathMissing() {
+        this.cellRangePathAndCheck(
+                Maps.empty()
+        );
+    }
+
+    @Test
+    public void testCellRangePathEmpty() {
+        this.cellRangePathAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        Lists.of()
+                )
+        );
+    }
+
+    @Test
+    public void testCellRangePathLrtd() {
+        this.cellRangePathAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        Lists.of(
+                                SpreadsheetCellRangePath.TDLR.toString()
+                        )
+                ),
+                SpreadsheetCellRangePath.TDLR
+        );
+    }
+
+    @Test
+    public void testCellRangePathRlbu() {
+        this.cellRangePathAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        Lists.of(
+                                SpreadsheetCellRangePath.RLBU.toString()
+                        )
+                ),
+                SpreadsheetCellRangePath.RLBU
+        );
+    }
+
+    private void cellRangePathAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        this.cellRangePathAndCheck(
+                parameters,
+                Optional.empty()
+        );
+    }
+
+    private void cellRangePathAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                       final SpreadsheetCellRangePath expected) {
+        this.cellRangePathAndCheck(
+                parameters,
+                Optional.of(expected)
+        );
+    }
+
+    private void cellRangePathAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                       final Optional<SpreadsheetCellRangePath> expected) {
+        this.checkEquals(
+                expected,
+                SpreadsheetEngineHttps.cellRangePath(
+                        parameters
+                ),
+                () -> parameters.toString()
+        );
+    }
+    
     // delta properties................................................................................................
 
     @Test

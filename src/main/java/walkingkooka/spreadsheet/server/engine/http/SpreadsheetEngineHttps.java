@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -208,6 +209,26 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 context
         );
     }
+
+    // cell-range-path parameters.......................................................................................
+
+    /**
+     * Attempt to locate a path parameter and then parse it into an {@link SpreadsheetCellRangePath}.
+     */
+    public static Optional<SpreadsheetCellRangePath> cellRangePath(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        checkParameters(parameters);
+
+        return CELL_RANGE_PATH.firstParameterValue(parameters)
+                .map(
+                        s -> parseQueryParameter(
+                                s,
+                                SpreadsheetCellRangePath::valueOf,
+                                CELL_RANGE_PATH
+                        )
+                );
+    }
+
+    final static UrlParameterName CELL_RANGE_PATH = UrlParameterName.with("cell-range-path");
 
     // delta properties parameters.....................................................................................
 
