@@ -54,6 +54,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
             SpreadsheetDelta,
             SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
@@ -63,6 +64,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                   final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         Objects.requireNonNull(clearCells, "clearCells");
         Objects.requireNonNull(fillCells, "fillCells");
+        Objects.requireNonNull(findCells, "findCells");
         Objects.requireNonNull(loadCellClearValueErrorSkipEvaluate, "loadCellClearValueErrorSkipEvaluate");
         Objects.requireNonNull(loadCellSkipEvaluate, "loadCellSkipEvaluate");
         Objects.requireNonNull(loadCellForceRecompute, "loadCellForceRecompute");
@@ -124,10 +126,16 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         );
 
         // cell/fill POST...............................................................................................
-        return cell.set(
+        cell = cell.set(
                 FILL,
                 HttpMethod.POST,
                 fillCells
+        );
+
+        return cell.set(
+                FIND,
+                HttpMethod.GET,
+                findCells
         );
     }
 
@@ -202,6 +210,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * A {@link LinkRelation} with <code>fill</code>.
      */
     private static final LinkRelation<?> FILL = LinkRelation.with("fill");
+
+    /**
+     * A {@link LinkRelation} with <code>find</code>.
+     */
+    private static final LinkRelation<?> FIND = LinkRelation.with("find");
 
     // cellReference....................................................................................................
 

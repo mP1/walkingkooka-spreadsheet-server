@@ -90,10 +90,13 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
+    private final static int DEFAULT_MAX = 999;
+
     // cell.............................................................................................................
 
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> CLEAR_CELLS = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FILL_CELLS = HateosHandlers.fake();
+    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FIND_CELLS = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_CLEAR = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_SKIP = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_FORCE = HateosHandlers.fake();
@@ -109,6 +112,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 null,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -123,6 +127,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testCellNullFillCellsFails() {
         this.cellFails(
                 CLEAR_CELLS,
+                null,
+                FIND_CELLS,
+                LOAD_CELL_CLEAR,
+                LOAD_CELL_SKIP,
+                LOAD_CELL_FORCE,
+                LOAD_CELL_COMPUTE_IF,
+                SAVE_CELL,
+                DELETE_CELL,
+                LABEL_TO_CELL_REFERENCE
+        );
+    }
+
+    @Test
+    public void testCellNullFindCellsFails() {
+        this.cellFails(
+                CLEAR_CELLS,
+                FILL_CELLS,
                 null,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
@@ -139,6 +160,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 null,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -154,6 +176,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 null,
                 LOAD_CELL_FORCE,
@@ -169,6 +192,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 null,
@@ -184,6 +208,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -199,6 +224,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -214,6 +240,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -229,6 +256,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.cellFails(
                 CLEAR_CELLS,
                 FILL_CELLS,
+                FIND_CELLS,
                 LOAD_CELL_CLEAR,
                 LOAD_CELL_SKIP,
                 LOAD_CELL_FORCE,
@@ -241,6 +269,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     private void cellFails(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
@@ -254,13 +283,15 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHateosResourceMappings.cell(
                                 clearCells,
                                 fillCells,
+                                findCells,
                                 loadCellClearValueErrorSkipEvaluate,
                                 loadCellSkipEvaluate,
                                 loadCellForceRecompute,
                                 loadCellComputeIfNecessary,
                                 saveCell,
                                 deleteCell,
-                                labelToCellReference)
+                                labelToCellReference
+                        )
         );
     }
 
@@ -481,6 +512,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 SpreadsheetEngineHateosResourceMappings.cell(
                         SpreadsheetEngineHttps.clearCells(engine, context),
                         SpreadsheetEngineHttps.fillCells(engine, context),
+                        SpreadsheetEngineHttps.findCells(DEFAULT_MAX, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
@@ -509,6 +541,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 SpreadsheetEngineHateosResourceMappings.cell(
                         SpreadsheetEngineHttps.clearCells(engine, context),
                         SpreadsheetEngineHttps.fillCells(engine, context),
+                        SpreadsheetEngineHttps.findCells(DEFAULT_MAX, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),

@@ -105,6 +105,19 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells}
+     */
+    public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells(final int defaultMax,
+                                                                                                        final SpreadsheetEngine engine,
+                                                                                                        final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells.with(
+                defaultMax,
+                engine,
+                context
+        );
+    }
+
+    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities}
      */
     public static HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities(final SpreadsheetEngine engine,

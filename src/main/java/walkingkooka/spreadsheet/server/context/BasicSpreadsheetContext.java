@@ -237,6 +237,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 .then(
                         this.cellColumnRowViewportRouter(
                                 id,
+                                100, // defaultMax
                                 engine,
                                 context
                         )
@@ -342,9 +343,14 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
+                                                                                                               final int defaultMax,
                                                                                                                final SpreadsheetEngine engine,
                                                                                                                final SpreadsheetEngineContext context) {
-        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(engine, context);
+        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
+                defaultMax,
+                engine,
+                context
+        );
 
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
 
@@ -377,11 +383,18 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         );
     }
 
-    private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final SpreadsheetEngine engine,
+    private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final int defaultMax,
+                                                                                                                             final SpreadsheetEngine engine,
                                                                                                                              final SpreadsheetEngineContext context) {
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells = SpreadsheetEngineHttps.clearCells(engine, context);
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHttps.fillCells(engine, context);
+
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells = SpreadsheetEngineHttps.findCells(
+                defaultMax,
+                engine,
+                context
+        );
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.SKIP_EVALUATE,
@@ -409,6 +422,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         return SpreadsheetEngineHateosResourceMappings.cell(
                 clearCells,
                 fillCells,
+                findCells,
                 loadCellClearValueErrorSkipEvaluate,
                 loadCellSkipEvaluate,
                 loadCellForceRecompute,
