@@ -203,6 +203,113 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
         );
     }
 
+    // max properties...................................................................................................
+
+    @Test
+    public void testMaxNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHttps.max(
+                        null
+                )
+        );
+    }
+
+    @Test
+    public void testMaxNegativeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHttps.max(
+                        Maps.of(
+                                SpreadsheetEngineHttps.MAX,
+                                Lists.of("-1")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testMaxDecimalPointFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetEngineHttps.max(
+                        Maps.of(
+                                SpreadsheetEngineHttps.MAX,
+                                Lists.of("23.0")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testMaxMissing() {
+        this.maxAndCheck(
+                Maps.empty()
+        );
+    }
+
+    @Test
+    public void testMaxEmpty() {
+        this.maxAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.MAX,
+                        Lists.of()
+                )
+        );
+    }
+
+    @Test
+    public void testMaxZero() {
+        this.maxAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.MAX,
+                        Lists.of(
+                                "0"
+                        )
+                ),
+                0
+        );
+    }
+
+    @Test
+    public void testMaxOne() {
+        this.maxAndCheck(
+                Maps.of(
+                        SpreadsheetEngineHttps.MAX,
+                        Lists.of(
+                                "1"
+                        )
+                ),
+                1
+        );
+    }
+
+    private void maxAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        this.maxAndCheck(
+                parameters,
+                Optional.empty()
+        );
+    }
+
+    private void maxAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final int expected) {
+        this.maxAndCheck(
+                parameters,
+                Optional.of(expected)
+        );
+    }
+
+    private void maxAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
+                             final Optional<Integer> expected) {
+        this.checkEquals(
+                expected,
+                SpreadsheetEngineHttps.max(
+                        parameters
+                ),
+                () -> parameters.toString()
+        );
+    }
+    
     // query...........................................................................................................
 
     @Test
