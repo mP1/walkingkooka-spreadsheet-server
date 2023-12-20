@@ -111,7 +111,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                         "  \"label-mappings\": [\n" +
                         "    {\n" +
                         "      \"label\": \"Label234\",\n" +
-                        "      \"reference\": \"C3\"\n" +
+                        "      \"target\": \"C3\"\n" +
                         "    }\n" +
                         "  ]\n" +
                         "}"
@@ -131,7 +131,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                         "  \"label-mappings\": [\n" +
                         "    {\n" +
                         "      \"label\": \"Label234\",\n" +
-                        "      \"reference\": \"C3\"\n" +
+                        "      \"target\": \"C3\"\n" +
                         "    }\n" +
                         "  ]\n" +
                         "}"
@@ -152,7 +152,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                         "  \"label-mappings\": [\n" +
                         "    {\n" +
                         "      \"label\": \"Label234\",\n" +
-                        "      \"reference\": \"C3\"\n" +
+                        "      \"target\": \"C3\"\n" +
                         "    }\n" +
                         "  ]\n" +
                         "}"
