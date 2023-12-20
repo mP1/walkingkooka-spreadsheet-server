@@ -2197,7 +2197,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"ZZZ\",\n" +
-                                "      \"reference\": \"B2\"\n" +
+                                "      \"target\": \"B2\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
@@ -2270,7 +2270,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"ZZZ\",\n" +
-                                "      \"reference\": \"B2\"\n" +
+                                "      \"target\": \"B2\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
@@ -3614,7 +3614,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"Label123\",\n" +
-                                "      \"reference\": \"A1\"\n" +
+                                "      \"target\": \"A1\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
@@ -3689,7 +3689,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"Label123\",\n" +
-                                "      \"reference\": \"A1\"\n" +
+                                "      \"target\": \"A1\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
@@ -3784,7 +3784,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"Label123\",\n" +
-                                "      \"reference\": \"A1\"\n" +
+                                "      \"target\": \"A1\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
@@ -3858,7 +3858,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"labels\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"Label123\",\n" +
-                                "      \"reference\": \"A1\"\n" +
+                                "      \"target\": \"A1\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"columnWidths\": {\n" +
