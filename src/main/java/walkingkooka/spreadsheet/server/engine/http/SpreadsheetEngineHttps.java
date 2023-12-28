@@ -235,7 +235,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                 .map(
                         s -> parseQueryParameter(
                                 s,
-                                SpreadsheetCellRangePath::fromCamelCase,
+                                SpreadsheetCellRangePath::fromKebabCase,
                                 CELL_RANGE_PATH
                         )
                 );
