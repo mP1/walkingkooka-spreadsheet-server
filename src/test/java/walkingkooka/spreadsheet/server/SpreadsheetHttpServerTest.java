@@ -6876,6 +6876,90 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // find cells.......................................................................................................
+
+    @Test
+    public void testFindCellsNonBooleanQuery() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(SpreadsheetDelta.EMPTY
+                        .setCells(
+                                Sets.of(
+                                        SpreadsheetSelection.parseCell("B2")
+                                                .setFormula(
+                                                        formula("'Hello")
+                                                )
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"B2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"'\",\n" +
+                                "                  \"text\": \"'\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"Hello\",\n" +
+                                "                  \"text\": \"Hello\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"'Hello\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Hello\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Hello\"\n" +
+                                "      },\n" +
+                                "      \"formatted\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Hello\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"B\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 30\n" +
+                                "  },\n" +
+                                "  \"columnCount\": 2,\n" +
+                                "  \"rowCount\": 2\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/B2/find?query=%3D1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage("Expected boolean result but got 1"),
+                RuntimeException.class.getSimpleName()
+        );
+    }
+
     // column...........................................................................................................
 
     @Test
