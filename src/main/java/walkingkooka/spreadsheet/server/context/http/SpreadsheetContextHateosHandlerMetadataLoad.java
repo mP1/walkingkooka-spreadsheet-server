@@ -22,6 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
+import walkingkooka.store.LoadStoreException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -53,7 +54,7 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
                 .metadatas()
                 .load(id);
         if (!loaded.isPresent()) {
-            throw new IllegalStateException("Unable to load spreadsheet " + id);
+            throw new LoadStoreException("Unable to load spreadsheet " + id);
         }
         return loaded;
     }

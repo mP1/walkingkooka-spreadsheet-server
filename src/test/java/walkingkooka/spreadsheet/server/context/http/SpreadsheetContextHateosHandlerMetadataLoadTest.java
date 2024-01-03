@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.store.LoadStoreException;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -72,7 +73,7 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 id,
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                IllegalStateException.class
+                LoadStoreException.class
         );
     }
 
