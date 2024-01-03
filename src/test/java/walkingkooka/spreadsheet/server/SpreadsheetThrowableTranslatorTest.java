@@ -23,6 +23,7 @@ import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.store.LoadStoreException;
+import walkingkooka.text.CharSequences;
 import walkingkooka.util.FunctionTesting;
 
 public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting<SpreadsheetThrowableTranslator, Throwable, HttpStatus>,
@@ -45,6 +46,16 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         this.applyAndCheck(
                 new LoadStoreException(message + "\n678"),
                 HttpStatusCode.NOT_FOUND.setMessage(message)
+        );
+    }
+
+    @Test
+    public void testRuntimeException() {
+        final String message = "Expected boolean result but got " + CharSequences.quoteIfChars("=1");
+
+        this.applyAndCheck(
+                new RuntimeException(message),
+                HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage(message)
         );
     }
 
