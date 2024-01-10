@@ -54,7 +54,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
@@ -66,6 +65,7 @@ import walkingkooka.spreadsheet.server.label.http.SpreadsheetLabelHateosResource
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
 import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;

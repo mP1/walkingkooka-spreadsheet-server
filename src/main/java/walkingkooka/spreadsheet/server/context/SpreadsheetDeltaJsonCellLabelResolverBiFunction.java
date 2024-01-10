@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 

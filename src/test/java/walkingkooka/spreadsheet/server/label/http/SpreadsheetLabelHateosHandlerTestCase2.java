@@ -22,7 +22,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
