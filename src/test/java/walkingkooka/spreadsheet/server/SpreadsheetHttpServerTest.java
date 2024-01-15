@@ -6955,8 +6955,46 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/1/cell/B2/find?query=%3D1",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage("Expected boolean result but got 1"),
-                RuntimeException.class.getSimpleName()
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                        "  \"cells\": {\n" +
+                        "    \"B2\": {\n" +
+                        "      \"formula\": {\n" +
+                        "        \"token\": {\n" +
+                        "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                        "          \"value\": {\n" +
+                        "            \"value\": [\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"'\",\n" +
+                        "                  \"text\": \"'\"\n" +
+                        "                }\n" +
+                        "              },\n" +
+                        "              {\n" +
+                        "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                        "                \"value\": {\n" +
+                        "                  \"value\": \"Hello\",\n" +
+                        "                  \"text\": \"Hello\"\n" +
+                        "                }\n" +
+                        "              }\n" +
+                        "            ],\n" +
+                        "            \"text\": \"'Hello\"\n" +
+                        "          }\n" +
+                        "        },\n" +
+                        "        \"expression\": {\n" +
+                        "          \"type\": \"value-expression\",\n" +
+                        "          \"value\": \"Hello\"\n" +
+                        "        },\n" +
+                        "        \"value\": \"Hello\"\n" +
+                        "      },\n" +
+                        "      \"formatted\": {\n" +
+                        "        \"type\": \"text\",\n" +
+                        "        \"value\": \"Text Hello\"\n" +
+                        "      }\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}"
         );
     }
 

@@ -91,8 +91,10 @@ final class SpreadsheetMultiFormatter implements Function<SpreadsheetMultiFormat
 
             if (pattern instanceof HasSpreadsheetFormatter) {
                 final HasSpreadsheetFormatter hasSpreadsheetFormatter = (HasSpreadsheetFormatter) pattern;
-                formatted = this.engineContext.format(value, hasSpreadsheetFormatter.formatter())
-                        .orElseThrow(() -> this.formatFail(value, pattern));
+                formatted = this.engineContext.formatValue(
+                        value,
+                        hasSpreadsheetFormatter.formatter()
+                ).orElseThrow(() -> this.formatFail(value, pattern));
                 break;
             }
             if (pattern instanceof SpreadsheetLocaleDefaultDateTimeFormat) {
