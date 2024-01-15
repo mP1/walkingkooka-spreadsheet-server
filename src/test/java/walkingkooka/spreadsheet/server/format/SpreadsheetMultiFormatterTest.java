@@ -220,8 +220,8 @@ public final class SpreadsheetMultiFormatterTest extends SpreadsheetFormatterTes
                     }
 
                     @Override
-                    public Optional<SpreadsheetText> format(final Object value,
-                                                            final SpreadsheetFormatter formatter) {
+                    public Optional<SpreadsheetText> formatValue(final Object value,
+                                                                 final SpreadsheetFormatter formatter) {
                         return formatter.format(value,
                                 SpreadsheetFormatterContexts.basic(
                                         function(),
