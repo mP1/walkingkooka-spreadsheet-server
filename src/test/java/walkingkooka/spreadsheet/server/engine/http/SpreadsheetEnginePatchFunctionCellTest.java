@@ -49,7 +49,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetCellFunction, SpreadsheetCellRange> {
+public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionCell, SpreadsheetCellRange> {
 
     @Test
     public void testPatchCellReferenceWithCells() {
@@ -333,7 +333,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
                                final Set<SpreadsheetCell> saved,
                                final SpreadsheetDelta response) {
         this.applyAndCheck(
-                SpreadsheetEnginePatchSpreadsheetCellFunction.with(
+                SpreadsheetEnginePatchFunctionCell.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
@@ -391,10 +391,10 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
     }
 
     @Override
-    public SpreadsheetEnginePatchSpreadsheetCellFunction createFunction(final HttpRequest request,
-                                                                        final SpreadsheetEngine engine,
-                                                                        final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchSpreadsheetCellFunction.with(
+    public SpreadsheetEnginePatchFunctionCell createFunction(final HttpRequest request,
+                                                             final SpreadsheetEngine engine,
+                                                             final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchFunctionCell.with(
                 request,
                 engine,
                 context
@@ -402,7 +402,7 @@ public final class SpreadsheetEnginePatchSpreadsheetCellFunctionTest extends Spr
     }
 
     @Override
-    public Class<SpreadsheetEnginePatchSpreadsheetCellFunction> type() {
-        return SpreadsheetEnginePatchSpreadsheetCellFunction.class;
+    public Class<SpreadsheetEnginePatchFunctionCell> type() {
+        return SpreadsheetEnginePatchFunctionCell.class;
     }
 }

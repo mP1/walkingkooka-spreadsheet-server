@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class SpreadsheetEnginePatchTest implements ClassTesting<SpreadsheetEnginePatch<?>> {
+public final class SpreadsheetEnginePatchFunctionTest implements ClassTesting<SpreadsheetEnginePatchFunction<?>> {
 
     @Override
-    public Class<SpreadsheetEnginePatch<?>> type() {
-        return Cast.to(SpreadsheetEnginePatch.class);
+    public Class<SpreadsheetEnginePatchFunction<?>> type() {
+        return Cast.to(SpreadsheetEnginePatchFunction.class);
     }
 
     @Override
