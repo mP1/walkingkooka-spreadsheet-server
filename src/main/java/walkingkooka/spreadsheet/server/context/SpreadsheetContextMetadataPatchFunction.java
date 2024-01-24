@@ -15,12 +15,11 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.store.LoadStoreException;
 import walkingkooka.tree.json.JsonNode;
 

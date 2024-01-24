@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -23,7 +23,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
 import java.util.Locale;
 import java.util.Map;

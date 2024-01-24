@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;

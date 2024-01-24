@@ -15,14 +15,13 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
 public abstract class SpreadsheetContextHateosHandlerTestCase<T>
         implements ClassTesting<T>,

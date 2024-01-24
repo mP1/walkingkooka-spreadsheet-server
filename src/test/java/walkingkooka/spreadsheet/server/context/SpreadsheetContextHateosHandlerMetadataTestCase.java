@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 
 import java.time.LocalDateTime;
 import java.util.List;
