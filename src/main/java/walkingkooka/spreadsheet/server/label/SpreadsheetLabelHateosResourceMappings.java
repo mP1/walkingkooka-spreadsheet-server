@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.label.http;
+package walkingkooka.spreadsheet.server.label;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;

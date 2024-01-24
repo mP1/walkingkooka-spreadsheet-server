@@ -15,14 +15,14 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label.http;
+package walkingkooka.spreadsheet.server.label;
 
-public final class SpreadsheetLabelHateosHandlerOneTest extends SpreadsheetLabelHateosHandlerTestCase<SpreadsheetLabelHateosHandlerOne> {
+public final class SpreadsheetLabelHateosHandlerTest extends SpreadsheetLabelHateosHandlerTestCase<SpreadsheetLabelHateosHandler> {
 
     // ClassTesting......................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosHandlerOne> type() {
-        return SpreadsheetLabelHateosHandlerOne.class;
+    public Class<SpreadsheetLabelHateosHandler> type() {
+        return SpreadsheetLabelHateosHandler.class;
     }
 }
