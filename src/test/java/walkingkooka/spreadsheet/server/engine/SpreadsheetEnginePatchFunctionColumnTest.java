@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -51,7 +52,7 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
 
     private final static SpreadsheetColumnReferenceRange RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
     private final static SpreadsheetCellRange CELL_RANGES = SpreadsheetSelection.parseCellRange("B2:E5");
-    private final static SpreadsheetViewportWindows WINDOW = SpreadsheetViewportWindows.with(
+    private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.with(
             Sets.of(
                     CELL_RANGES
             )
@@ -99,7 +100,11 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
 
     @Test
     public void testApply() {
-        this.applyAndCheck2("", Optional.empty());
+        this.applyAndCheck2(
+                "", // queryString
+                Optional.empty(), // viewport
+                SpreadsheetViewportWindows.EMPTY
+        );
     }
 
     @Test
@@ -117,12 +122,14 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                                                         .setDefaultAnchor()
                                         )
                                 )
-                )
+                ),
+                SpreadsheetViewportWindows.EMPTY
         );
     }
 
     private void applyAndCheck2(final String queryString,
-                                final Optional<SpreadsheetViewport> viewport) {
+                                final Optional<SpreadsheetViewport> viewport,
+                                final SpreadsheetViewportWindows windows) {
         final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
                 .column()
                 .setHidden(true);
@@ -135,14 +142,14 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                         Sets.of(
                                 c, d
                         )
-                ).setWindow(WINDOW);
+                ).setWindow(windows);
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
                 .setColumns(
                         Sets.of(
                                 c, d
                         )
                 ).setViewport(viewport)
-                .setWindow(WINDOW);
+                .setWindow(windows);
 
         final Set<SpreadsheetColumn> saved = Sets.ordered();
 
@@ -222,7 +229,7 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
 
     @Test
     public void testLoadsUnhiddenColumnCells() {
-        final String queryString = "?home=A1&width=1000&height=500&selectionType=cell&selection=C3&window=";
+        final String queryString = "?home=A1&width=1000&height=500&selectionType=cell&selection=C3&includeFrozenColumnsRows=false";
 
         final Optional<SpreadsheetViewport> viewport = Optional.of(
                 SpreadsheetSelection.A1.viewportRectangle(
@@ -249,7 +256,9 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                         Sets.of(
                                 c, d
                         )
-                ).setWindow(WINDOW);
+                ).setWindow(
+                        SpreadsheetViewportWindows.parse("A1:Z999") // ignored because of query parameters
+                );
 
         final SpreadsheetCell c3 = c.reference()
                 .setRow(SpreadsheetSelection.parseRow("3"))
@@ -269,7 +278,7 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                                 c, d
                         )
                 ).setViewport(viewport)
-                .setWindow(WINDOW)
+                .setWindow(WINDOWS)
                 .setCells(
                         Sets.of(
                                 c3, d4
@@ -342,6 +351,14 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                             public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
                                                                           final SpreadsheetEngineContext context) {
                                 return Optional.of(viewport);
+                            }
+
+                            @Override
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
+                                                                     final boolean includeFrozenColumnsRows,
+                                                                     final Optional<SpreadsheetSelection> selection,
+                                                                     final SpreadsheetEngineContext context) {
+                                return WINDOWS;
                             }
                         },
                         CONTEXT

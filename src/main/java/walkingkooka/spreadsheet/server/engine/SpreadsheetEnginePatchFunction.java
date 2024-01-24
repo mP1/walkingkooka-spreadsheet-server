@@ -66,7 +66,8 @@ abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> im
         final SpreadsheetDelta loaded = this.loadSpreadsheetDelta(selection);
         final JsonNode patch = this.preparePatch(json);
 
-        final SpreadsheetMetadata metadata = this.context.spreadsheetMetadata();
+        final SpreadsheetEngineContext context = this.context;
+        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         final SpreadsheetDelta patched = this.patch(
                 selection,
@@ -84,8 +85,17 @@ abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> im
                                 )
                         );
 
+        // honour any window or "query" url query parameters.
+        final SpreadsheetDelta prepareResponse = SpreadsheetEngineHttps.prepareResponse(
+                Optional.empty(), // no input SpreadsheetDelta
+                this.request.routerParameters(),
+                saved,
+                this.engine,
+                context
+        );
+
         return metadata.jsonNodeMarshallContext()
-                .marshall(saved);
+                .marshall(prepareResponse);
     }
 
     private S parseSelection() {
