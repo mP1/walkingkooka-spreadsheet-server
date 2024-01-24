@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.label.http;
+package walkingkooka.spreadsheet.server.label;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;

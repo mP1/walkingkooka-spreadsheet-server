@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label.http;
+package walkingkooka.spreadsheet.server.label;
 
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
