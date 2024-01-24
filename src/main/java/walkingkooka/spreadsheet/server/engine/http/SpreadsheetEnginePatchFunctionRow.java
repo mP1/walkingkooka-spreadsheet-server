@@ -20,13 +20,13 @@ package walkingkooka.spreadsheet.server.engine.http;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetColumn;
+import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -38,42 +38,42 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetEnginePatch<SpreadsheetColumnReferenceRange> {
+final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunction<SpreadsheetRowReferenceRange> {
 
-    static SpreadsheetEnginePatchSpreadsheetColumnFunction with(final HttpRequest request,
-                                                                final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
-        return new SpreadsheetEnginePatchSpreadsheetColumnFunction(request, engine, context);
+    static SpreadsheetEnginePatchFunctionRow with(final HttpRequest request,
+                                                  final SpreadsheetEngine engine,
+                                                  final SpreadsheetEngineContext context) {
+        return new SpreadsheetEnginePatchFunctionRow(request, engine, context);
     }
 
-    private SpreadsheetEnginePatchSpreadsheetColumnFunction(final HttpRequest request,
-                                                            final SpreadsheetEngine engine,
-                                                            final SpreadsheetEngineContext context) {
+    private SpreadsheetEnginePatchFunctionRow(final HttpRequest request,
+                                              final SpreadsheetEngine engine,
+                                              final SpreadsheetEngineContext context) {
         super(request, engine, context);
     }
 
     @Override
-    SpreadsheetColumnReferenceRange parseSelection(final String text) {
-        return SpreadsheetSelection.parseColumnRange(text);
+    SpreadsheetRowReferenceRange parseSelection(final String text) {
+        return SpreadsheetSelection.parseRowRange(text);
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetColumnReferenceRange range) {
+    SpreadsheetDelta load(final SpreadsheetRowReferenceRange range) {
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
-        final Set<SpreadsheetColumn> loaded = Sets.sorted();
+        final Set<SpreadsheetRow> loaded = Sets.sorted();
 
-        for (final SpreadsheetColumnReference column : range) {
+        for (final SpreadsheetRowReference row : range) {
             loaded.addAll(
-                    engine.loadColumn(
-                            column,
+                    engine.loadRow(
+                            row,
                             context
-                    ).columns()
+                    ).rows()
             );
         }
 
-        return SpreadsheetDelta.EMPTY.setColumns(loaded);
+        return SpreadsheetDelta.EMPTY.setRows(loaded);
     }
 
     @Override
@@ -82,11 +82,11 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetColumnReferenceRange range,
+    SpreadsheetDelta patch(final SpreadsheetRowReferenceRange range,
                            final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
-        final SpreadsheetDelta patched = loaded.patchColumns(
+        final SpreadsheetDelta patched = loaded.patchRows(
                 patch,
                 context
         );
@@ -95,20 +95,20 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
                 patched
         );
 
-        // load all the cells for any unhidden columns....
+        // load all the cells for any unhidden rows....
         final Set<SpreadsheetCell> unhidden = Sets.sorted();
 
-        for (final SpreadsheetColumn beforeColumn : patched.columns()) {
-            final SpreadsheetColumnReference reference = beforeColumn.reference();
+        for (final SpreadsheetRow beforeRow : patched.rows()) {
+            final SpreadsheetRowReference reference = beforeRow.reference();
 
-            if (!range.testColumn(reference)) {
-                throw new IllegalArgumentException("Patch columns: " + range + " includes invalid column " + reference);
+            if (!range.testRow(reference)) {
+                throw new IllegalArgumentException("Patch rows: " + range + " includes invalid row " + reference);
             }
 
-            if (beforeColumn.hidden()) {
-                final Optional<SpreadsheetColumn> afterColumn = patched.column(reference);
-                if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
-                    // column was hidden now shown, load all the cells within that window.
+            if (beforeRow.hidden()) {
+                final Optional<SpreadsheetRow> afterRow = patched.row(reference);
+                if (!afterRow.isPresent() || !afterRow.get().hidden()) {
+                    // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
                             this.loadCells(window.cellRanges())
                     );
@@ -120,20 +120,20 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
     }
 
     /**
-     * Saves all the {@link SpreadsheetColumn columns} in the patched {@link SpreadsheetDelta}.
+     * Saves all the {@link SpreadsheetRow rows} in the patched {@link SpreadsheetDelta}.
      */
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetColumnReferenceRange range) {
+                          final SpreadsheetRowReferenceRange range) {
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
         final Set<SpreadsheetCell> cells = Sets.sorted();
 
-        for (final SpreadsheetColumn column : patched.columns()) {
+        for (final SpreadsheetRow row : patched.rows()) {
             cells.addAll(
-                    engine.saveColumn(
-                            column,
+                    engine.saveRow(
+                            row,
                             context
                     ).cells()
             );
@@ -144,6 +144,6 @@ final class SpreadsheetEnginePatchSpreadsheetColumnFunction extends SpreadsheetE
 
     @Override
     String toStringPrefix() {
-        return "Patch column: ";
+        return "Patch row: ";
     }
 }

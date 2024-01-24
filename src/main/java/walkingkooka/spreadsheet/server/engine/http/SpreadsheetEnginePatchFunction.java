@@ -44,11 +44,11 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-abstract class SpreadsheetEnginePatch<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
+abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
 
-    SpreadsheetEnginePatch(final HttpRequest request,
-                           final SpreadsheetEngine engine,
-                           final SpreadsheetEngineContext context) {
+    SpreadsheetEnginePatchFunction(final HttpRequest request,
+                                   final SpreadsheetEngine engine,
+                                   final SpreadsheetEngineContext context) {
         super();
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(engine, "engine");

@@ -48,11 +48,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEnginePatch<R>, R extends SpreadsheetSelection> implements ClassTesting<P>,
+public abstract class SpreadsheetEnginePatchFunctionTestCase<P extends SpreadsheetEnginePatchFunction<R>, R extends SpreadsheetSelection> implements ClassTesting<P>,
         FunctionTesting<P, JsonNode, JsonNode>,
         ToStringTesting<P> {
 
-    SpreadsheetEnginePatchTestCase() {
+    SpreadsheetEnginePatchFunctionTestCase() {
         super();
     }
 
@@ -174,5 +174,15 @@ public abstract class SpreadsheetEnginePatchTestCase<P extends SpreadsheetEngine
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public final String typeNamePrefix() {
+        return SpreadsheetEnginePatchFunction.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

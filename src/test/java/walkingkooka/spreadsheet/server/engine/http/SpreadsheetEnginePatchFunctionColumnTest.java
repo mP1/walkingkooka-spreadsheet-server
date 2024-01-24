@@ -24,8 +24,8 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -34,9 +34,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.tree.json.JsonNode;
@@ -47,36 +47,41 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends SpreadsheetEnginePatchTestCase<SpreadsheetEnginePatchSpreadsheetRowFunction, SpreadsheetRowReferenceRange> {
+public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionColumn, SpreadsheetColumnReferenceRange> {
 
-    private final static SpreadsheetRowReferenceRange RANGE = SpreadsheetExpressionReference.parseRowRange("3:4");
-    private final static SpreadsheetViewportWindows WINDOW = SpreadsheetViewportWindows.parse("B2:E5");
+    private final static SpreadsheetColumnReferenceRange RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
+    private final static SpreadsheetCellRange CELL_RANGES = SpreadsheetSelection.parseCellRange("B2:E5");
+    private final static SpreadsheetViewportWindows WINDOW = SpreadsheetViewportWindows.with(
+            Sets.of(
+                    CELL_RANGES
+            )
+    );
 
     @Test
-    public void testPatchRowOutOfRangeFails() {
+    public void testPatchColumnOutOfRangeFails() {
         final JsonNode patch = marshall(
                 SpreadsheetDelta.EMPTY
-                        .setRows(
+                        .setColumns(
                                 Sets.of(
-                                        SpreadsheetSelection.parseRow("999")
-                                                .row()
+                                        SpreadsheetSelection.parseColumn("Z")
+                                                .column()
                                 )
                         )
         );
 
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+                () -> SpreadsheetEnginePatchFunctionColumn.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/row/" + RANGE + "?window=" + WINDOW);
+                                return Url.parseRelative("/column/" + RANGE + "?window=" + CELL_RANGES);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadRow(final SpreadsheetRowReference row,
-                                                            final SpreadsheetEngineContext context) {
+                            public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference column,
+                                                               final SpreadsheetEngineContext context) {
                                 return SpreadsheetDelta.EMPTY;
                             }
 
@@ -86,7 +91,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                 ).apply(patch)
         );
         this.checkEquals(
-                "Patch rows: 3:4 includes invalid row 999",
+                "Patch columns: C:D includes invalid column Z",
                 thrown.getMessage(),
                 "message"
         );
@@ -100,11 +105,12 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
     @Test
     public void testApplySelectionQueryParameter() {
         this.applyAndCheck2(
-                "?home=B2&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=C3&window=",
+                "?home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=C3&window=",
                 Optional.of(
-                        SpreadsheetSelection.parseCell("B2")
-                                .viewportRectangle(WIDTH, HEIGHT)
-                                .viewport()
+                        SpreadsheetSelection.A1.viewportRectangle(
+                                        WIDTH,
+                                        HEIGHT
+                                ).viewport()
                                 .setSelection(
                                         Optional.of(
                                                 SpreadsheetSelection.parseCell("C3")
@@ -117,52 +123,52 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
 
     private void applyAndCheck2(final String queryString,
                                 final Optional<SpreadsheetViewport> viewport) {
-        final SpreadsheetRow row3 = SpreadsheetSelection.parseRow("3")
-                .row()
+        final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
+                .column()
                 .setHidden(true);
-        final SpreadsheetRow row4 = SpreadsheetSelection.parseRow("4")
-                .row()
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("D")
+                .column()
                 .setHidden(true);
 
         final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
-                .setRows(
+                .setColumns(
                         Sets.of(
-                                row3, row4
+                                c, d
                         )
                 ).setWindow(WINDOW);
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
-                .setRows(
+                .setColumns(
                         Sets.of(
-                                row3, row4
+                                c, d
                         )
                 ).setViewport(viewport)
                 .setWindow(WINDOW);
 
-        final Set<SpreadsheetRow> saved = Sets.ordered();
+        final Set<SpreadsheetColumn> saved = Sets.ordered();
 
         this.applyAndCheck(
-                SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+                SpreadsheetEnginePatchFunctionColumn.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/row/" + RANGE + queryString);
+                                return Url.parseRelative("/column/" + RANGE + queryString);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadRow(final SpreadsheetRowReference rowReference,
-                                                            final SpreadsheetEngineContext context) {
-                                if (row3.reference().equalsIgnoreReferenceKind(rowReference)) {
-                                    return SpreadsheetDelta.EMPTY.setRows(
+                            public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference columnReference,
+                                                               final SpreadsheetEngineContext context) {
+                                if (c.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
                                             Sets.of(
-                                                    row3.setHidden(false)
+                                                    c.setHidden(false)
                                             )
                                     );
                                 }
-                                if (row4.reference().equalsIgnoreReferenceKind(rowReference)) {
-                                    return SpreadsheetDelta.EMPTY.setRows(
+                                if (d.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
                                             Sets.of(
-                                                    row4.setHidden(false)
+                                                    d.setHidden(false)
                                             )
                                     );
                                 }
@@ -170,17 +176,17 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public SpreadsheetDelta saveRow(final SpreadsheetRow c,
-                                                            final SpreadsheetEngineContext context) {
+                            public SpreadsheetDelta saveColumn(final SpreadsheetColumn c,
+                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         true,
                                         c.hidden(),
-                                        () -> "saved rows should be hidden=" + c
+                                        () -> "saved columns should be hidden=" + c
                                 );
 
                                 saved.add(c);
 
-                                return SpreadsheetDelta.EMPTY.setRows(
+                                return SpreadsheetDelta.EMPTY.setColumns(
                                         Sets.of(c)
                                 );
                             }
@@ -207,22 +213,21 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
 
         this.checkEquals(
                 Sets.of(
-                        row3, row4
+                        c, d
                 ),
                 saved,
-                "saved rows"
+                "saved columns"
         );
     }
 
     @Test
-    public void testLoadsUnhiddenRowCells() {
-        final String queryString = "?home=B2&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=C3&window=";
+    public void testLoadsUnhiddenColumnCells() {
+        final String queryString = "?home=A1&width=1000&height=500&selectionType=cell&selection=C3&window=";
 
         final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.parseCell("B2")
-                        .viewportRectangle(
-                                WIDTH,
-                                HEIGHT
+                SpreadsheetSelection.A1.viewportRectangle(
+                                1000,
+                                500
                         ).viewport()
                         .setSelection(
                                 Optional.of(
@@ -232,36 +237,36 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         )
         );
 
-        final SpreadsheetRow row3 = SpreadsheetSelection.parseRow("3")
-                .row()
+        final SpreadsheetColumn c = SpreadsheetSelection.parseColumn("C")
+                .column()
                 .setHidden(true);
-        final SpreadsheetRow row4 = SpreadsheetSelection.parseRow("4")
-                .row()
+        final SpreadsheetColumn d = SpreadsheetSelection.parseColumn("D")
+                .column()
                 .setHidden(true);
 
         final SpreadsheetDelta request = SpreadsheetDelta.EMPTY
-                .setRows(
+                .setColumns(
                         Sets.of(
-                                row3, row4
+                                c, d
                         )
                 ).setWindow(WINDOW);
 
-        final SpreadsheetCell c3 = row3.reference()
-                .setColumn(SpreadsheetSelection.parseColumn("C"))
+        final SpreadsheetCell c3 = c.reference()
+                .setRow(SpreadsheetSelection.parseRow("3"))
                 .setFormula(
                         SpreadsheetFormula.EMPTY.setText("=1")
                 );
 
-        final SpreadsheetCell d4 = row4.reference()
-                .setColumn(SpreadsheetSelection.parseColumn("D"))
+        final SpreadsheetCell d4 = d.reference()
+                .setRow(SpreadsheetSelection.parseRow("4"))
                 .setFormula(
                         SpreadsheetFormula.EMPTY.setText("'D4")
                 );
 
         final SpreadsheetDelta response = SpreadsheetDelta.EMPTY
-                .setRows(
+                .setColumns(
                         Sets.of(
-                                row3, row4
+                                c, d
                         )
                 ).setViewport(viewport)
                 .setWindow(WINDOW)
@@ -271,31 +276,31 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                         )
                 );
 
-        final Set<SpreadsheetRow> saved = Sets.ordered();
+        final Set<SpreadsheetColumn> saved = Sets.ordered();
 
         this.applyAndCheck(
-                SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+                SpreadsheetEnginePatchFunctionColumn.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
-                                return Url.parseRelative("/row/" + RANGE + queryString);
+                                return Url.parseRelative("/column/" + RANGE + queryString);
                             }
                         },
                         new FakeSpreadsheetEngine() {
                             @Override
-                            public SpreadsheetDelta loadRow(final SpreadsheetRowReference rowReference,
-                                                            final SpreadsheetEngineContext context) {
-                                if (row3.reference().equalsIgnoreReferenceKind(rowReference)) {
-                                    return SpreadsheetDelta.EMPTY.setRows(
+                            public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference columnReference,
+                                                               final SpreadsheetEngineContext context) {
+                                if (c.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
                                             Sets.of(
-                                                    row3.setHidden(false)
+                                                    c.setHidden(false)
                                             )
                                     );
                                 }
-                                if (row4.reference().equalsIgnoreReferenceKind(rowReference)) {
-                                    return SpreadsheetDelta.EMPTY.setRows(
+                                if (d.reference().equalsIgnoreReferenceKind(columnReference)) {
+                                    return SpreadsheetDelta.EMPTY.setColumns(
                                             Sets.of(
-                                                    row4.setHidden(false)
+                                                    d.setHidden(false)
                                             )
                                     );
                                 }
@@ -303,17 +308,17 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                             }
 
                             @Override
-                            public SpreadsheetDelta saveRow(final SpreadsheetRow c,
-                                                            final SpreadsheetEngineContext context) {
+                            public SpreadsheetDelta saveColumn(final SpreadsheetColumn c,
+                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(
                                         true,
                                         c.hidden(),
-                                        () -> "saved rows should be hidden=" + c
+                                        () -> "saved columns should be hidden=" + c
                                 );
 
                                 saved.add(c);
 
-                                return SpreadsheetDelta.EMPTY.setRows(
+                                return SpreadsheetDelta.EMPTY.setColumns(
                                         Sets.of(c)
                                 );
                             }
@@ -323,7 +328,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(Sets.of(WINDOW), range, "window");
+                                assertEquals(Sets.of(CELL_RANGES), range, "window");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
@@ -347,10 +352,10 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
 
         this.checkEquals(
                 Sets.of(
-                        row3, row4
+                        c, d
                 ),
                 saved,
-                "saved rows"
+                "saved columns"
         );
     }
 
@@ -359,15 +364,15 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
     public void testToString() {
         this.toStringAndCheck(
                 this.createFunction(),
-                "Patch row: " + REQUEST + " " + ENGINE + " " + CONTEXT
+                "Patch column: " + REQUEST + " " + ENGINE + " " + CONTEXT
         );
     }
 
     @Override
-    public SpreadsheetEnginePatchSpreadsheetRowFunction createFunction(final HttpRequest request,
-                                                                       final SpreadsheetEngine engine,
-                                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+    public SpreadsheetEnginePatchFunctionColumn createFunction(final HttpRequest request,
+                                                               final SpreadsheetEngine engine,
+                                                               final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchFunctionColumn.with(
                 request,
                 engine,
                 context
@@ -375,7 +380,7 @@ public final class SpreadsheetEnginePatchSpreadsheetRowFunctionTest extends Spre
     }
 
     @Override
-    public Class<SpreadsheetEnginePatchSpreadsheetRowFunction> type() {
-        return SpreadsheetEnginePatchSpreadsheetRowFunction.class;
+    public Class<SpreadsheetEnginePatchFunctionColumn> type() {
+        return SpreadsheetEnginePatchFunctionColumn.class;
     }
 }

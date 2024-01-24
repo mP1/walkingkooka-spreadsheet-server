@@ -185,12 +185,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchSpreadsheetCellFunction}
+     * {@see SpreadsheetEnginePatchFunctionCell}
      */
     public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,
                                                     final SpreadsheetEngine engine,
                                                     final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchSpreadsheetCellFunction.with(
+        return SpreadsheetEnginePatchFunctionCell.with(
                 request,
                 engine,
                 context
@@ -198,12 +198,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchSpreadsheetColumnFunction}
+     * {@see SpreadsheetEnginePatchFunctionColumn}
      */
     public static UnaryOperator<JsonNode> patchColumn(final HttpRequest request,
                                                       final SpreadsheetEngine engine,
                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchSpreadsheetColumnFunction.with(
+        return SpreadsheetEnginePatchFunctionColumn.with(
                 request,
                 engine,
                 context
@@ -211,12 +211,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchSpreadsheetRowFunction}
+     * {@see SpreadsheetEnginePatchFunctionRow}
      */
     public static UnaryOperator<JsonNode> patchRow(final HttpRequest request,
                                                    final SpreadsheetEngine engine,
                                                    final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchSpreadsheetRowFunction.with(
+        return SpreadsheetEnginePatchFunctionRow.with(
                 request,
                 engine,
                 context
