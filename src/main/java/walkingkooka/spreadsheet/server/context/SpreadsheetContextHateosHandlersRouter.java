@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package walkingkooka.spreadsheet.server.context.http;
+package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
