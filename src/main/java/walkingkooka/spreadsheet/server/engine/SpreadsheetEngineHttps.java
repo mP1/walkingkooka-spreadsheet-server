@@ -17,11 +17,14 @@
 package walkingkooka.spreadsheet.server.engine;
 
 import walkingkooka.build.MissingBuilder;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -50,6 +53,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * A collection of factory methods to create various {@link HateosHandler}.
@@ -703,6 +707,51 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     private static String missingParameters(final MissingBuilder missing) {
         return "Missing: " + missing.build();
+    }
+
+    /**
+     * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.
+     */
+    static SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
+                                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                                            final SpreadsheetDelta out,
+                                            final SpreadsheetEngine engine,
+                                            final SpreadsheetEngineContext context) {
+
+        final Optional<Expression> maybeExpression = SpreadsheetEngineHttps.query(
+                parameters,
+                context
+        );
+
+        final Optional<String> maybeValueType = SpreadsheetEngineHttps.valueType(
+                parameters,
+                context
+        );
+
+        SpreadsheetDelta result = out;
+
+        if (maybeExpression.isPresent()) {
+            result = out.setMatchedCells(
+                    engine.filterCells(
+                                    out.cells(),
+                                    maybeValueType.orElse(SpreadsheetValueType.ANY),
+                                    maybeExpression.get(),
+                                    context
+                            ).stream()
+                            .map(
+                                    SpreadsheetCell::reference
+                            ).collect(Collectors.toCollection(Sets::ordered))
+            );
+        }
+
+        return result.setWindow(
+                SpreadsheetEngineHttps.window(
+                        parameters,
+                        in,
+                        engine,
+                        context
+                )
+        );
     }
 
     /**
