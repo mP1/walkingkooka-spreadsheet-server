@@ -71,7 +71,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
-import walkingkooka.spreadsheet.server.engine.http.SpreadsheetExpressionReferenceSimilarities;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
