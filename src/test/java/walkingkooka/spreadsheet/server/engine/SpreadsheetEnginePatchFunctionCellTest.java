@@ -26,6 +26,8 @@ import walkingkooka.net.http.server.FakeHttpRequest;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
+import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
+import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
@@ -50,6 +52,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionCell, SpreadsheetCellRange> {
+
+    private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.parse("A1:Z99");
 
     @Test
     public void testPatchCellReferenceWithCells() {
@@ -88,7 +92,7 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
 
         this.applyAndCheck(
                 CELL_REFERENCE_B2,
-                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=Z99", // queryString
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=Z99&includeFrozenColumnsRows=true", // queryString
                 this.marshall(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
@@ -112,7 +116,7 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                                                         )
                                                 )
                                 )
-                        )
+                        ).setWindow(WINDOWS)
         );
     }
 
@@ -373,6 +377,13 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                             public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
                                                                                    final SpreadsheetEngineContext context) {
                                 return Optional.of(viewport);
+                            }
+
+                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
+                                                                     final boolean includeFrozenColumnsRows,
+                                                                     final Optional<SpreadsheetSelection> selection,
+                                                                     final SpreadsheetEngineContext context) {
+                                return WINDOWS;
                             }
                         },
                         CONTEXT

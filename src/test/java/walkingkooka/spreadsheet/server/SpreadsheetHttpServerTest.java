@@ -2417,7 +2417,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.PATCH,
-                "/api/spreadsheet/1/cell/A1?home=A1&width=1000&height=600&selectionType=cell&selection=B2",
+                "/api/spreadsheet/1/cell/A1?home=A1&width=1000&height=600&selectionType=cell&selection=B2&includeFrozenColumnsRows=false",
                 NO_HEADERS_TRANSACTION_ID,
                 "{\n" +
                         "  \"cells\": {\n" +
@@ -2484,7 +2484,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"1\": 30\n" +
                                 "  },\n" +
                                 "  \"columnCount\": 1,\n" +
-                                "  \"rowCount\": 1\n" +
+                                "  \"rowCount\": 1,\n" +
+                                "  \"window\": \"A1:J20\"\n" +
                                 "}",
                         DELTA
                 )
@@ -7016,6 +7017,38 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                         .column()
                                                         .setHidden(true)
                                         )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"columns\": {\n" +
+                                "    \"A\": {\n" +
+                                "      \"hidden\": true\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testPatchColumnWithWindow() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/column/A",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setColumns(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseColumn("A")
+                                                        .column()
+                                                        .setHidden(true)
+                                        )
                                 ).setWindow(
                                         SpreadsheetViewportWindows.parse("A1:B2")
                                 )
@@ -7027,8 +7060,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"A\": {\n" +
                                 "      \"hidden\": true\n" +
                                 "    }\n" +
-                                "  },\n" +
-                                "  \"window\": \"A1:B2\"\n" +
+                                "  }\n" +
                                 "}",
                         DELTA
                 )
@@ -7128,7 +7160,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"A\": {\n" +
                                 "      \"hidden\": true\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1:B2\"\n" +
                                 "}",
                         DELTA
                 )
@@ -7155,7 +7188,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"A\": {\n" +
                                 "      \"hidden\": false\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1\"\n" +
                                 "}",
                         DELTA
                 )
@@ -7166,6 +7200,38 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testPatchRow() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.PATCH,
+                "/api/spreadsheet/1/row/1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setRows(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseRow("1")
+                                                        .row()
+                                                        .setHidden(true)
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"rows\": {\n" +
+                                "    \"1\": {\n" +
+                                "      \"hidden\": true\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    @Test
+    public void testPatchRowWithWindow() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -7189,7 +7255,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"1\": {\n" +
                                 "      \"hidden\": true\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1\"\n" +
                                 "}",
                         DELTA
                 )
@@ -7289,7 +7356,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"1\": {\n" +
                                 "      \"hidden\": true\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1\"\n" +
                                 "}",
                         DELTA
                 )
@@ -7316,7 +7384,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"1\": {\n" +
                                 "      \"hidden\": false\n" +
                                 "    }\n" +
-                                "  }\n" +
+                                "  },\n" +
+                                "  \"window\": \"A1\"\n" +
                                 "}",
                         DELTA
                 )
