@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -275,6 +276,107 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3))
+                )
+        );
+    }
+
+    @Test
+    public void testLoadCellRangeWithQuery() {
+        final SpreadsheetCell b1 = this.b1();
+        final SpreadsheetCell b2 = this.b2();
+        final SpreadsheetCell b3 = this.b3();
+
+        final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
+
+
+                    @Override
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                      final SpreadsheetEngineContext context) {
+                        assertSame(EVALUATION, evaluation, "evaluation");
+                        assertNotNull(context, "context");
+
+                        return SpreadsheetDelta.EMPTY.setCells(
+                                Sets.of(
+                                        b1,
+                                        b2,
+                                        b3
+                                )
+                        );
+                    }
+
+                    @Override
+                    public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                            final String valueType,
+                                                            final Expression expression,
+                                                            final SpreadsheetEngineContext context) {
+                        return cells.stream()
+                                .filter(b1::equals)
+                                .collect(Collectors.toSet());
+                    }
+
+                    @Override
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
+                        return 0;
+                    }
+
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
+                        return 0;
+                    }
+
+                    @Override
+                    public String toString() {
+                        return "loadCells";
+                    }
+                },
+                new FakeSpreadsheetEngineContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("true"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(
+                                Expression.value(true)
+                        );
+                    }
+                }
+        );
+        this.handleRangeAndCheck(
+                handler,
+                this.range(),
+                this.collectionResource(),
+                Maps.of(
+                        UrlParameterName.with("query"),
+                        Lists.of(
+                                "query=true()"
+                        )
+                ),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                b1, b2, b3
+                                        )
+                                ).setMatchedCells(
+                                        Sets.of(
+                                                b1.reference()
+                                        )
+                                )
                 )
         );
     }

@@ -35,7 +35,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -99,27 +98,21 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
                 context
         );
 
-        final Map<HttpRequestAttribute<?>, Object> parametersWindowAndDelta = Maps.sorted();
-        parametersWindowAndDelta.put(SpreadsheetEngineHttps.WINDOW,
+        // copy all the parameters plus the resolved window, which will be used by prepareResponse.
+        final Map<HttpRequestAttribute<?>, Object> parametersPlusWindow = Maps.ordered();
+        parametersPlusWindow.putAll(parameters);
+        parametersPlusWindow.put(SpreadsheetEngineHttps.WINDOW,
                 Lists.of(
                         window.toString()
                 )
         );
-
-        final Optional<List<String>> delta = SpreadsheetEngineHttps.DELTA_PROPERTIES.parameterValue(parameters);
-        if (delta.isPresent()) {
-            parametersWindowAndDelta.put(
-                    SpreadsheetEngineHttps.DELTA_PROPERTIES,
-                    delta.get()
-            );
-        }
 
         return this.handleRange0(
                 window.cellRanges(),
                 resource,
                 navigatedViewport,
                 Maps.immutable(
-                        parametersWindowAndDelta
+                        parametersPlusWindow
                 )
         );
     }
