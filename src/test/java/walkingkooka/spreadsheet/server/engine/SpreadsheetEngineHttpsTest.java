@@ -897,7 +897,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
                         .viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseColumn("B")
                                                 .setDefaultAnchor()
@@ -919,7 +919,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
                         .viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseColumn("B")
                                                 .setDefaultAnchor()
@@ -943,7 +943,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
                         .viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseRow("3")
                                                 .setDefaultAnchor()

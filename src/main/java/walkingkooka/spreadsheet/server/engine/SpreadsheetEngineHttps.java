@@ -393,7 +393,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
                     switch (missing.missing()) {
                         case 0:
-                            viewport = viewport.setSelection(
+                            viewport = viewport.setAnchoredSelection(
                                     Optional.of(
                                             selection(
                                                     selectionString.get(),

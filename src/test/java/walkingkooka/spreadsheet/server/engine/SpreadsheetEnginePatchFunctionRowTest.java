@@ -110,7 +110,7 @@ public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEngi
                         SpreadsheetSelection.parseCell("B2")
                                 .viewportRectangle(WIDTH, HEIGHT)
                                 .viewport()
-                                .setSelection(
+                                .setAnchoredSelection(
                                         Optional.of(
                                                 SpreadsheetSelection.parseCell("C3")
                                                         .setDefaultAnchor()
@@ -233,7 +233,7 @@ public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEngi
                                 WIDTH,
                                 HEIGHT
                         ).viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseCell("C3")
                                                 .setDefaultAnchor()
