@@ -93,7 +93,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                 100,
                                 30
                         ).viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseCell("B2")
                                                 .setDefaultAnchor()
@@ -124,7 +124,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTest extends Sp
                                 100,
                                 30
                         ).viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseCell("B2")
                                                 .setDefaultAnchor()

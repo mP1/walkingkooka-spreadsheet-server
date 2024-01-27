@@ -116,7 +116,7 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                                         WIDTH,
                                         HEIGHT
                                 ).viewport()
-                                .setSelection(
+                                .setAnchoredSelection(
                                         Optional.of(
                                                 SpreadsheetSelection.parseCell("C3")
                                                         .setDefaultAnchor()
@@ -236,7 +236,7 @@ public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetE
                                 1000,
                                 500
                         ).viewport()
-                        .setSelection(
+                        .setAnchoredSelection(
                                 Optional.of(
                                         SpreadsheetSelection.parseCell("C3")
                                                 .setDefaultAnchor()

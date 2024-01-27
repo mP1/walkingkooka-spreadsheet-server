@@ -2433,7 +2433,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:1000.0:600.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-reference\",\n" +
                                 "        \"value\": \"B2\"\n" +
@@ -3050,7 +3050,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-reference\",\n" +
                                 "        \"value\": \"A1\"\n" +
@@ -3192,7 +3192,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-range\",\n" +
                                 "        \"value\": \"A1:B2\"\n" +
@@ -3335,7 +3335,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-range\",\n" +
                                 "        \"value\": \"A1:B2\"\n" +
@@ -3478,7 +3478,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-range\",\n" +
                                 "        \"value\": \"A1:B1\"\n" +
@@ -3642,7 +3642,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-cell-range\",\n" +
                                 "        \"value\": \"A1:B1\"\n" +
@@ -3812,7 +3812,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"viewport\": {\n" +
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
-                                "    \"selection\": {\n" +
+                                "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
                                 "        \"type\": \"spreadsheet-label-name\",\n" +
                                 "        \"value\": \"Label123\"\n" +

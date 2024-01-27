@@ -730,7 +730,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                         Optional.of(
                                                 home.viewportRectangle(width, height)
                                                         .viewport()
-                                                        .setSelection(
+                                                        .setAnchoredSelection(
                                                                 Optional.ofNullable(expected)
                                                         )
                                         )
@@ -1086,7 +1086,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final List<SpreadsheetViewportNavigation> navigations,
                                                final String window,
                                                final String expectedHome,
-                                               final Optional<AnchoredSpreadsheetSelection> expectedSelection) {
+                                               final Optional<AnchoredSpreadsheetSelection> expectedAnchoredSelection) {
         final int width = 400;
         final int height = 150;
 
@@ -1230,7 +1230,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                                 width,
                                                                 height
                                                         ).viewport()
-                                                        .setSelection(expectedSelection)
+                                                        .setAnchoredSelection(expectedAnchoredSelection)
                                         )
                                 ).setWindow(spreadsheetViewportWindows)
                 )

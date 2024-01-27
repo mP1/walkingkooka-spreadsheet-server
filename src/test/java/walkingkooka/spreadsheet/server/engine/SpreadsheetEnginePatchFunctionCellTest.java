@@ -109,7 +109,7 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                                                         WIDTH,
                                                         HEIGHT
                                                 ).viewport()
-                                                .setSelection(
+                                                .setAnchoredSelection(
                                                         Optional.of(
                                                                 SpreadsheetSelection.parseCell("Z99")
                                                                         .setDefaultAnchor()
