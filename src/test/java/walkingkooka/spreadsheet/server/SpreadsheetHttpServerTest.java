@@ -6084,36 +6084,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY),
                 this.response(
-                        HttpStatusCode.OK.status(),
-                        "{\n" +
-                                "  \"deletedCells\": \"B2\",\n" +
-                                "  \"columnWidths\": {\n" +
-                                "    \"B\": 100\n" +
-                                "  },\n" +
-                                "  \"rowHeights\": {\n" +
-                                "    \"2\": 30\n" +
-                                "  },\n" +
-                                "  \"columnCount\": 0,\n" +
-                                "  \"rowCount\": 0\n" +
-                                "}",
-                        DELTA
-                )
-        );
-
-        // GET deleted cell should return nothing.
-        server.handleAndCheck(
-                HttpMethod.GET,
-                "/api/spreadsheet/1/cell/B2",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        "{\n" +
-                                "  \"deletedCells\": \"B2\",\n" +
-                                "  \"columnCount\": 0,\n" +
-                                "  \"rowCount\": 0\n" +
-                                "}",
-                        DELTA
+                        HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
                 )
         );
     }
@@ -6196,36 +6167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(SpreadsheetDelta.EMPTY),
                 this.response(
-                        HttpStatusCode.OK.status(),
-                        "{\n" +
-                                "  \"deletedCells\": \"B2\",\n" +
-                                "  \"columnWidths\": {\n" +
-                                "    \"B\": 100\n" +
-                                "  },\n" +
-                                "  \"rowHeights\": {\n" +
-                                "    \"2\": 30\n" +
-                                "  },\n" +
-                                "  \"columnCount\": 0,\n" +
-                                "  \"rowCount\": 0\n" +
-                                "}",
-                        DELTA
-                )
-        );
-
-        // GET deleted cell should return nothing.
-        server.handleAndCheck(
-                HttpMethod.GET,
-                "/api/spreadsheet/1/cell/B2",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        "{\n" +
-                                "  \"deletedCells\": \"B2\",\n" +
-                                "  \"columnCount\": 0,\n" +
-                                "  \"rowCount\": 0\n" +
-                                "}",
-                        DELTA
+                        HttpStatusCode.BAD_REQUEST.setMessage("Unknown link relation \"clear\"")
                 )
         );
     }

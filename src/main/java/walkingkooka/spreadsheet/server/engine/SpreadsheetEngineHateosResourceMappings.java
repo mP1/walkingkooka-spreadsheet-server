@@ -52,8 +52,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetCellReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+            SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
@@ -62,7 +61,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
                                   final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
-        Objects.requireNonNull(clearCells, "clearCells");
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(findCells, "findCells");
         Objects.requireNonNull(loadCellClearValueErrorSkipEvaluate, "loadCellClearValueErrorSkipEvaluate");
@@ -117,13 +115,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                     HttpMethod.GET,
                     loadCell);
         }
-
-        // cell/clearPOST...............................................................................................
-        cell = cell.set(
-                CLEAR,
-                HttpMethod.POST,
-                clearCells
-        );
 
         // cell/fill POST...............................................................................................
         cell = cell.set(
