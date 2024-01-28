@@ -60,8 +60,6 @@ clicking a context menu command.
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
 - DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
-- POST /api/spreadsheet/$spreadsheet-id/cell/A1/clear
-- POST /api/spreadsheet/$spreadsheet-id/cell/A1:B2/clear
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill  
   input includes region of cells to be the fill content  
   This has many purposes including functionality such as filling a range, pasting previously copied cells etc.
