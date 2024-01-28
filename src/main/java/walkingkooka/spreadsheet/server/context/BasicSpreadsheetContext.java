@@ -386,8 +386,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final int defaultMax,
                                                                                                                              final SpreadsheetEngine engine,
                                                                                                                              final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells = SpreadsheetEngineHttps.clearCells(engine, context);
-
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHttps.fillCells(engine, context);
 
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells = SpreadsheetEngineHttps.findCells(
@@ -420,7 +418,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cell(
-                clearCells,
                 fillCells,
                 findCells,
                 loadCellClearValueErrorSkipEvaluate,

@@ -61,14 +61,6 @@ import java.util.stream.Collectors;
 public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells}
-     */
-    public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> clearCells(final SpreadsheetEngine engine,
-                                                                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearCells.with(engine, context);
-    }
-
-    /**
      * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns}
      */
     public static HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns(final SpreadsheetEngine engine,
