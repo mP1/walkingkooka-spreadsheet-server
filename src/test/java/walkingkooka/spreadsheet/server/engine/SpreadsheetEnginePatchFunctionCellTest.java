@@ -50,10 +50,42 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionCell, SpreadsheetCellRange> {
 
     private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.parse("A1:Z99");
+
+    @Test
+    public void testPatchCellWithPatchCellsOutsideCellRangeFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> this.applyAndCheck(
+                        SpreadsheetSelection.A1,
+                        "", // queryString
+                        this.marshall(
+                                marshall(
+                                        SpreadsheetDelta.EMPTY
+                                                .setCells(
+                                                        Sets.of(
+                                                                SpreadsheetSelection.parseCell("A2")
+                                                                        .setFormula(
+                                                                                SpreadsheetFormula.EMPTY.setText("=1")
+                                                                        )
+                                                        )
+                                                )
+                                )
+                        ),
+                        Sets.of(),
+                        Sets.of(),
+                        SpreadsheetDelta.EMPTY
+                )
+        );
+        this.checkEquals(
+                thrown.getMessage(),
+                "Patch includes cells A2 outside A1"
+        );
+    }
 
     @Test
     public void testPatchCellReferenceWithCells() {
