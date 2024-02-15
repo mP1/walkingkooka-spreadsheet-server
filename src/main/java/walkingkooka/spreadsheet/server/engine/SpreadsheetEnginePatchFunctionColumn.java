@@ -101,8 +101,8 @@ final class SpreadsheetEnginePatchFunctionColumn extends SpreadsheetEnginePatchF
         for (final SpreadsheetColumn beforeColumn : patched.columns()) {
             final SpreadsheetColumnReference reference = beforeColumn.reference();
 
-            if (!range.testColumn(reference)) {
-                throw new IllegalArgumentException("Patch columns: " + range + " includes invalid column " + reference);
+            if (false == range.testColumn(reference)) {
+                throw new IllegalArgumentException("Patch columns: " + range.toStringMaybeStar() + " includes invalid column " + reference);
             }
 
             if (beforeColumn.hidden()) {

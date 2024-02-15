@@ -101,8 +101,8 @@ final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunc
         for (final SpreadsheetRow beforeRow : patched.rows()) {
             final SpreadsheetRowReference reference = beforeRow.reference();
 
-            if (!range.testRow(reference)) {
-                throw new IllegalArgumentException("Patch rows: " + range + " includes invalid row " + reference);
+            if (false == range.testRow(reference)) {
+                throw new IllegalArgumentException("Patch rows: " + range.toStringMaybeStar() + " includes invalid row " + reference);
             }
 
             if (beforeRow.hidden()) {
