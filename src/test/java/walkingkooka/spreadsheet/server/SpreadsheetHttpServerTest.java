@@ -6403,7 +6403,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
                                 "    },\n" +
-                                "    \"A2\": {\n" +
+                                "    \"B1\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
@@ -6452,7 +6452,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
                                 "    },\n" +
-                                "    \"B1\": {\n" +
+                                "    \"A2\": {\n" +
                                 "      \"formula\": {\n" +
                                 "        \"token\": {\n" +
                                 "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
