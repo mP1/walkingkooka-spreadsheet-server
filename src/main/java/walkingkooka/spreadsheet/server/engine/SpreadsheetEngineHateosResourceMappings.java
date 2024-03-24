@@ -37,7 +37,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -188,7 +187,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      */
     private static SpreadsheetCellReference parseSelectionAndResolveLabels0(final String cellOrLabelText,
                                                                             final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
-        return SpreadsheetServerParsers.parseCellOrLabelAndResolveLabels(labelToCellReference)
+        return ParseCellOrLabelAndResolveLabelsFunction.with(labelToCellReference)
                 .apply(cellOrLabelText);
     }
 
