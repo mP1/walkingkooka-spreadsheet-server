@@ -2,11 +2,9 @@ package test;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converters;
-import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.j2cl.locale.LocaleAware;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -19,23 +17,23 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.FakeSpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
-import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
+import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -93,7 +91,7 @@ public class TestGwtTest extends GWTTestCase {
                 SpreadsheetSelection.A1
                         .setFormula(
                                 SpreadsheetFormula.EMPTY
-                                        .setText("12+B2")
+                                        .setText("=12+B2")
                         ),
                 engineContext
         );
@@ -102,7 +100,7 @@ public class TestGwtTest extends GWTTestCase {
                 SpreadsheetSelection.parseCell("B2")
                         .setFormula(
                                 SpreadsheetFormula.EMPTY
-                                        .setText("34")
+                                        .setText("=34")
                         ),
                 engineContext
         );
@@ -148,6 +146,7 @@ public class TestGwtTest extends GWTTestCase {
                     .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
+                    .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
                     .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
@@ -196,14 +195,27 @@ public class TestGwtTest extends GWTTestCase {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                return SpreadsheetParsers.expression()
-                        .orFailIfCursorNotEmpty(ParserReporters.basic())
+                return SpreadsheetParsers.valueOrExpression(
+                                metadata.parser()
+                        ).orFailIfCursorNotEmpty(ParserReporters.basic())
                         .parse(
                                 formula,
                                 metadata.parserContext(NOW)
                         ) // TODO should fetch from metadata prop
                         .get()
                         .cast(SpreadsheetParserToken.class);
+            }
+
+            @Override
+            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                return token.toExpression(
+                        new FakeSpreadsheetExpressionEvaluationContext() {
+                            @Override
+                            public ExpressionNumberKind expressionNumberKind() {
+                                return EXPRESSION_NUMBER_KIND;
+                            }
+                        }
+                );
             }
 
             @Override
@@ -217,10 +229,11 @@ public class TestGwtTest extends GWTTestCase {
                                 this.references(),
                                 ExpressionEvaluationContexts.referenceNotFound(),
                                 CaseSensitivity.INSENSITIVE,
-                                this.metadata().converterContext(
-                                        NOW,
-                                        RESOLVE_IF_LABEL
-                                )
+                                this.spreadsheetMetadata()
+                                        .converterContext(
+                                                NOW,
+                                                RESOLVE_IF_LABEL
+                                        )
                         )
                 );
             }
@@ -232,15 +245,15 @@ public class TestGwtTest extends GWTTestCase {
             }
 
             private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-                return SpreadsheetEngines.expressionEvaluationContextExpressionReferenceFunction(
+                return SpreadsheetEngines.expressionReferenceFunction(
                         engine,
                         this
                 );
             }
 
             @Override
-            public Optional<SpreadsheetText> format(final Object value,
-                                                    final SpreadsheetFormatter formatter) {
+            public Optional<SpreadsheetText> formatValue(final Object value,
+                                                         final SpreadsheetFormatter formatter) {
                 checkEquals(false, value instanceof Optional, "Value must not be optional" + value);
 
                 return formatter.format(
@@ -250,6 +263,11 @@ public class TestGwtTest extends GWTTestCase {
                                 RESOLVE_IF_LABEL
                         )
                 );
+            }
+
+            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
+                                                  final Optional<SpreadsheetFormatter> formatter) {
+                return cell;
             }
 
             @Override
