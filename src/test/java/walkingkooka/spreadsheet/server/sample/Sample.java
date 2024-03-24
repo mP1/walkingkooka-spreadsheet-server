@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.expression.FakeSpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -93,7 +94,7 @@ public final class Sample {
                 SpreadsheetSelection.A1
                         .setFormula(
                                 SpreadsheetFormula.EMPTY
-                                        .setText("12+B2")
+                                        .setText("=12+B2")
                         ),
                 engineContext
         );
@@ -102,7 +103,7 @@ public final class Sample {
                 SpreadsheetSelection.parseCell("B2")
                         .setFormula(
                                 SpreadsheetFormula.EMPTY
-                                        .setText("34")
+                                        .setText("=34")
                         ),
                 engineContext
         );
@@ -189,14 +190,27 @@ public final class Sample {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                return SpreadsheetParsers.expression()
-                        .orFailIfCursorNotEmpty(ParserReporters.basic())
+                return SpreadsheetParsers.valueOrExpression(
+                                metadata.parser()
+                        ).orFailIfCursorNotEmpty(ParserReporters.basic())
                         .parse(
                                 formula,
                                 metadata.parserContext(NOW)
                         ) // TODO should fetch from metadata prop
                         .get()
                         .cast(SpreadsheetParserToken.class);
+            }
+
+            @Override
+            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                return token.toExpression(
+                        new FakeSpreadsheetExpressionEvaluationContext() {
+                            @Override
+                            public ExpressionNumberKind expressionNumberKind() {
+                                return EXPRESSION_NUMBER_KIND;
+                            }
+                        }
+                );
             }
 
             @Override
@@ -244,6 +258,11 @@ public final class Sample {
                                 RESOLVE_IF_LABEL
                         )
                 );
+            }
+
+            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
+                                                  final Optional<SpreadsheetFormatter> formatter) {
+                return cell;
             }
 
             @Override
