@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.Url;
@@ -39,9 +38,6 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetText;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -51,13 +47,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
-import walkingkooka.spreadsheet.server.format.SpreadsheetFormatRequest;
-import walkingkooka.spreadsheet.server.format.SpreadsheetLocaleDefaultDateTimeFormat;
-import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
-import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetParseRequest;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -75,7 +64,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -88,81 +76,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     private final static String BASE_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
-
-    // format...........................................................................................................
-
-    @Test
-    public void testFormat() {
-        final SpreadsheetMultiFormatRequest spreadsheetMultiFormatRequest = SpreadsheetMultiFormatRequest.with(
-                Lists.of(
-                        SpreadsheetFormatRequest.with(
-                                LocalDate.of(1999, 12, 31),
-                                SpreadsheetFormatPattern.parseDateFormatPattern("yyyy/dd/mm")
-                        ),
-                        SpreadsheetFormatRequest.with(
-                                LocalDateTime.of(1999, 12, 31, 12, 58, 59),
-                                SpreadsheetLocaleDefaultDateTimeFormat.INSTANCE
-                        )
-                )
-        );
-
-        final HttpRequest httpRequest = this.request(
-                HttpMethod.POST,
-                "/api/1/format",
-                toJsonString(spreadsheetMultiFormatRequest));
-        final HttpResponse httpResponse = HttpResponses.recording();
-
-        this.handleRequest(httpRequest, httpResponse);
-
-        final SpreadsheetMultiFormatResponse spreadsheetMultiFormatResponse = SpreadsheetMultiFormatResponse.with(
-                Lists.of(
-                        SpreadsheetText.with("1999/31/12"),
-                        "31 December 1999, 12:58:59 pm"
-                )
-        );
-
-        this.checkHttpResponse(httpResponse,
-                HttpStatusCode.OK.status(),
-                spreadsheetMultiFormatResponse
-        );
-    }
-
-    // parse.............................................................................................................
-
-    @Test
-    public void testParse() {
-        final String pattern = "yyyy/mm/dd";
-
-        final SpreadsheetMultiParseRequest spreadsheetMultiParseRequest = SpreadsheetMultiParseRequest.with(
-                Lists.of(
-                        SpreadsheetParseRequest.with(
-                                pattern,
-                                "spreadsheet-date-formatter" // @see MultiParser.SPREADSHEET_DATE_FORMATTER
-                        )
-                )
-        );
-
-        final HttpRequest httpRequest = this.request(
-                HttpMethod.POST,
-                "/api/1/parse",
-                toJsonString(spreadsheetMultiParseRequest));
-        final HttpResponse httpResponse = HttpResponses.recording();
-
-        this.handleRequest(httpRequest, httpResponse);
-
-        final SpreadsheetMultiParseResponse spreadsheetMultiParseResponse = SpreadsheetMultiParseResponse.with(
-                Lists.of(
-                        SpreadsheetParsePattern.parseDateFormatPattern(pattern)
-                )
-        );
-
-        this.checkHttpResponse(
-                httpResponse,
-                HttpStatusCode.OK.status(),
-                spreadsheetMultiParseResponse
-        );
-    }
-
 
     // cell.............................................................................................................
 

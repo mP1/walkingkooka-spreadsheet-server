@@ -57,14 +57,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
-import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatRequest;
-import walkingkooka.spreadsheet.server.format.SpreadsheetMultiFormatResponse;
-import walkingkooka.spreadsheet.server.format.SpreadsheetServerFormatters;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseRequest;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetMultiParseResponse;
-import walkingkooka.spreadsheet.server.parse.SpreadsheetServerParsers;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -72,7 +66,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.json.marshall.util.MarshallUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -231,9 +224,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final UrlPath spreadsheetIdPath = base.path().
                 append(UrlPathName.with(id.hateosLinkId()));
 
-        return formatRouter(spreadsheetIdPath, context, metadata, this.now)
-                .then(patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context))
-                .then(parseRouter(spreadsheetIdPath, context, metadata))
+        return patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context)
                 .then(
                         this.cellColumnRowViewportRouter(
                                 id,
@@ -247,100 +238,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
     private final Supplier<LocalDateTime> now;
-
-    // format...........................................................................................................
-
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> formatRouter(final UrlPath spreadsheetId,
-                                                                                                       final SpreadsheetEngineContext context,
-                                                                                                       final SpreadsheetMetadata metadata,
-                                                                                                       final Supplier<LocalDateTime> now) {
-        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(
-                        formatRouting(
-                                spreadsheetId
-                        ).build(),
-                        formatHandler(
-                                context,
-                                metadata,
-                                now
-                        )
-                ).router();
-    }
-
-    private static HttpRequestAttributeRouting formatRouting(final UrlPath spreadsheetId) {
-        return formatOrParseRouting(spreadsheetId,
-                "format");
-    }
-
-    private static BiConsumer<HttpRequest, HttpResponse> formatHandler(final SpreadsheetEngineContext context,
-                                                                       final SpreadsheetMetadata metadata,
-                                                                       final Supplier<LocalDateTime> now) {
-
-        return HttpRequestHttpResponseBiConsumers.methodNotAllowed(
-                HttpMethod.POST,
-                JsonHttpRequestHttpResponseBiConsumers.json(
-                        MarshallUtils.mapper(
-                                SpreadsheetMultiFormatRequest.class,
-                                metadata.jsonNodeUnmarshallContext(),
-                                metadata.jsonNodeMarshallContext(),
-                                SpreadsheetServerFormatters.multiFormatters(
-                                        context,
-                                        now
-                                )
-                        ),
-                        BasicSpreadsheetContext::formatHandlerPostHandler
-                )
-        );
-    }
-
-    private static HttpEntity formatHandlerPostHandler(final HttpEntity entity) {
-        return entity.addHeader(
-                JsonHttpRequestHttpResponseBiConsumers.X_CONTENT_TYPE_NAME, SpreadsheetMultiFormatResponse.class.getSimpleName()
-        );
-    }
-
-    // parse............................................................................................................
-
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> parseRouter(final UrlPath spreadsheetId,
-                                                                                                      final SpreadsheetEngineContext context,
-                                                                                                      final SpreadsheetMetadata metadata) {
-        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
-                .add(parseRouting(spreadsheetId).build(), parseHandler(context, metadata))
-                .router();
-    }
-
-    private static HttpRequestAttributeRouting parseRouting(final UrlPath spreadsheetId) {
-        return formatOrParseRouting(spreadsheetId,
-                "parse");
-    }
-
-    private static BiConsumer<HttpRequest, HttpResponse> parseHandler(final SpreadsheetEngineContext context,
-                                                                      final SpreadsheetMetadata metadata) {
-        return HttpRequestHttpResponseBiConsumers.methodNotAllowed(
-                HttpMethod.POST,
-                JsonHttpRequestHttpResponseBiConsumers.json(
-                        MarshallUtils.mapper(
-                                SpreadsheetMultiParseRequest.class,
-                                metadata.jsonNodeUnmarshallContext(),
-                                metadata.jsonNodeMarshallContext(),
-                                SpreadsheetServerParsers.multiParsers(context)
-                        ),
-                        BasicSpreadsheetContext::parseHandlerPostHandler
-                )
-        );
-    }
-
-    private static HttpEntity parseHandlerPostHandler(final HttpEntity entity) {
-        return entity.addHeader(
-                JsonHttpRequestHttpResponseBiConsumers.X_CONTENT_TYPE_NAME, SpreadsheetMultiParseResponse.class.getSimpleName()
-        );
-    }
-
-    private static HttpRequestAttributeRouting formatOrParseRouting(final UrlPath spreadsheetId,
-                                                                    final String formatOrParse) {
-        return HttpRequestAttributeRouting.empty()
-                .path(spreadsheetId.append(UrlPathName.with(formatOrParse)));
-    }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
                                                                                                                final int defaultMax,
