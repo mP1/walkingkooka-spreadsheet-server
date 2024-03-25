@@ -423,7 +423,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "          \"value\": \"3\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
@@ -534,7 +534,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "          \"value\": \"3\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
@@ -645,7 +645,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "          \"value\": \"3\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
@@ -756,7 +756,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "          \"value\": \"3\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +

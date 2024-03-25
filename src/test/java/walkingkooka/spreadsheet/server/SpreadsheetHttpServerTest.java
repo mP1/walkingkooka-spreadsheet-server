@@ -253,7 +253,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "        },\n" +
                         "        \"value\": \"Hello123'\"\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Text Hello123'\"\n" +
                         "      }\n" +
@@ -335,7 +335,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "          \"value\": \"2000-12-31\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Date 2000/12/31\"\n" +
                         "      }\n" +
@@ -445,7 +445,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "          \"value\": \"2000-12-31T12:34\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"DateTime 2000/12/31 12:34\"\n" +
                         "      }\n" +
@@ -513,7 +513,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "          \"value\": \"123.456\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 123.456\"\n" +
                         "      }\n" +
@@ -581,7 +581,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "          \"value\": \"12:34\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Time 12:34\"\n" +
                         "      }\n" +
@@ -658,7 +658,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "        },\n" +
                         "        \"value\": \"Hello 123\"\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Text Hello 123\"\n" +
                         "      }\n" +
@@ -769,7 +769,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "          \"value\": \"3\"\n" +
                         "        }\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
@@ -824,7 +824,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "        },\n" +
                         "        \"value\": \"Hello123'\"\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Text Hello123'\"\n" +
                         "      }\n" +
@@ -918,7 +918,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "        },\n" +
                         "        \"value\": \"Hello 123\"\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Text Hello 123\"\n" +
                         "      }\n" +
@@ -1148,7 +1148,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -1280,7 +1280,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"7\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
@@ -1410,7 +1410,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -1548,7 +1548,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"7\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
@@ -1681,7 +1681,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"7\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
@@ -1830,7 +1830,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -1911,7 +1911,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"2\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 002.000\"\n" +
                                 "      }\n" +
@@ -2000,7 +2000,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"999\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 999.000\"\n" +
                                 "      }\n" +
@@ -2084,7 +2084,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"style\": {\n" +
                                 "        \"color\": \"#123456\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text-style-node\",\n" +
                                 "        \"value\": {\n" +
                                 "          \"styles\": {\n" +
@@ -2207,7 +2207,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -2281,7 +2281,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"PatchedText123\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text PatchedText123\"\n" +
                                 "      }\n" +
@@ -2417,7 +2417,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -2493,7 +2493,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"PATCHED\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text PATCHED\"\n" +
                                 "      }\n" +
@@ -2624,7 +2624,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -2756,7 +2756,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"7\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
@@ -2871,7 +2871,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"3\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 003.000\"\n" +
                                 "      }\n" +
@@ -2970,7 +2970,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"7\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 007.000\"\n" +
                                 "      }\n" +
@@ -3047,7 +3047,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3116,7 +3116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3191,7 +3191,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3261,7 +3261,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3336,7 +3336,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3406,7 +3406,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3481,7 +3481,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3551,7 +3551,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3641,7 +3641,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3717,7 +3717,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3813,7 +3813,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -3888,7 +3888,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello'\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello'\"\n" +
                                 "      }\n" +
@@ -4014,7 +4014,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.250\"\n" +
                                 "      }\n" +
@@ -4103,7 +4103,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001,250\"\n" +
                                 "      }\n" +
@@ -4224,7 +4224,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -4337,7 +4337,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -4465,7 +4465,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"123\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 123.000\"\n" +
                                 "      }\n" +
@@ -4548,7 +4548,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -4621,7 +4621,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -4712,7 +4712,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"123\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 123.000\"\n" +
                                 "      }\n" +
@@ -4796,7 +4796,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -4869,7 +4869,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -4958,7 +4958,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.250\"\n" +
                                 "      }\n" +
@@ -5030,7 +5030,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.250\"\n" +
                                 "      }\n" +
@@ -5234,7 +5234,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -5347,7 +5347,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -5475,7 +5475,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"123\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 123.000\"\n" +
                                 "      }\n" +
@@ -5559,7 +5559,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -5632,7 +5632,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -5723,7 +5723,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"123\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 123.000\"\n" +
                                 "      }\n" +
@@ -5807,7 +5807,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -5880,7 +5880,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"456\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 456.000\"\n" +
                                 "      }\n" +
@@ -5969,7 +5969,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.250\"\n" +
                                 "      }\n" +
@@ -6041,7 +6041,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1.25\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.250\"\n" +
                                 "      }\n" +
@@ -6120,7 +6120,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -6204,7 +6204,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -6290,7 +6290,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -6372,7 +6372,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6463,7 +6463,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6513,7 +6513,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6563,7 +6563,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6613,7 +6613,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6689,7 +6689,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -6785,7 +6785,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -6867,7 +6867,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "          \"value\": \"1\"\n" +
                                 "        }\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Number 001.000\"\n" +
                                 "      }\n" +
@@ -6946,7 +6946,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello\"\n" +
                                 "      }\n" +
@@ -7004,7 +7004,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "        },\n" +
                         "        \"value\": \"Hello\"\n" +
                         "      },\n" +
-                        "      \"formatted\": {\n" +
+                        "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
                         "        \"value\": \"Text Hello\"\n" +
                         "      }\n" +
@@ -7136,7 +7136,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello A1\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello A1\"\n" +
                                 "      }\n" +
@@ -7333,7 +7333,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "        },\n" +
                                 "        \"value\": \"Hello A1\"\n" +
                                 "      },\n" +
-                                "      \"formatted\": {\n" +
+                                "      \"formatted-value\": {\n" +
                                 "        \"type\": \"text\",\n" +
                                 "        \"value\": \"Text Hello A1\"\n" +
                                 "      }\n" +

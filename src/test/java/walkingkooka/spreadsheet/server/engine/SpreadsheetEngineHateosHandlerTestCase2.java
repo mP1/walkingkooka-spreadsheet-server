@@ -273,6 +273,6 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                                 )
                         )
                         .setValue(Optional.of(text))
-        ).setFormatted(Optional.of(Text.text(text)));
+        ).setFormattedValue(Optional.of(Text.text(text)));
     }
 }
