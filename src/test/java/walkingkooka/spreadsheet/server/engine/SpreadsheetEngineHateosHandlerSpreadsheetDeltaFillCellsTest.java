@@ -123,7 +123,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
     @Test
     public void testFillFiltered() {
         final SpreadsheetCell unsaved1 = this.cell();
-        final SpreadsheetCell saved1 = unsaved1.setFormatted(
+        final SpreadsheetCell saved1 = unsaved1.setFormattedValue(
                 Optional.of(
                         TextNode.text("FORMATTED 1")
                 )
@@ -153,7 +153,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                                         .setCells(
                                                 Sets.of(saved1,
                                                         cellOutsideWindow()
-                                                                .setFormatted(
+                                                                .setFormattedValue(
                                                                         Optional.of(
                                                                                 TextNode.text("FORMATTED 2")
                                                                         )

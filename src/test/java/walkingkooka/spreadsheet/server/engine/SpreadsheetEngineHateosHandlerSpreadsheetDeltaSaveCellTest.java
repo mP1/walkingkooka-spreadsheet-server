@@ -118,8 +118,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     public void testHandleSaveWithQuery() {
         final SpreadsheetCell unsaved1 = this.cell();
 
-        final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
-        final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
+        final SpreadsheetCell saved1 = unsaved1.setFormattedValue(Optional.of(TextNode.text("FORMATTED1")));
+        final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
 
         final SpreadsheetViewportWindows window = this.window();
         final String query = "=true()";
@@ -199,8 +199,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     public void testHandleSaveWithWindowFilter() {
         final SpreadsheetCell unsaved1 = this.cell();
 
-        final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
-        final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED2")));
+        final SpreadsheetCell saved1 = unsaved1.setFormattedValue(Optional.of(TextNode.text("FORMATTED1")));
+        final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
 
         final SpreadsheetViewportWindows window = this.window();
 
@@ -286,9 +286,9 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
         final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
 
-        final SpreadsheetCell saved1 = unsaved1.setFormatted(Optional.of(TextNode.text("FORMATTED1")));
-        final SpreadsheetCell saved2 = unsaved2.setFormatted(Optional.of(TextNode.text("FORMATTED2")));
-        final SpreadsheetCell saved3 = this.cellOutsideWindow().setFormatted(Optional.of(TextNode.text("FORMATTED3")));
+        final SpreadsheetCell saved1 = unsaved1.setFormattedValue(Optional.of(TextNode.text("FORMATTED1")));
+        final SpreadsheetCell saved2 = unsaved2.setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
+        final SpreadsheetCell saved3 = this.cellOutsideWindow().setFormattedValue(Optional.of(TextNode.text("FORMATTED3")));
 
         final SpreadsheetViewportWindows window = this.window();
 
