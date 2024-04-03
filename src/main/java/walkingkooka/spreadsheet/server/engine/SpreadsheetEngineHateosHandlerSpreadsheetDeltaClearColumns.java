@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that uses {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRange, SpreadsheetCellRange, SpreadsheetEngineContext)} to
+ * A {@link HateosHandler} that uses {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRangeReference, SpreadsheetCellRangeReference, SpreadsheetEngineContext)} to
  * clear a column or range of columns
  */
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetColumnReference> {
@@ -92,7 +92,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaClearColumns extends S
                 .get()
                 .setRow(SpreadsheetReferenceKind.RELATIVE.lastRow());
 
-        final SpreadsheetCellRange cellRange = lower.cellRange(upper);
+        final SpreadsheetCellRangeReference cellRange = lower.cellRange(upper);
 
         return Optional.of(
                 this.prepareResponse(

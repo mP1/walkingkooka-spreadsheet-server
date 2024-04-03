@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.store.LoadStoreException;
@@ -166,7 +166,7 @@ abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> im
     /**
      * Used to load all the cells within an unhidden column or row.
      */
-    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRange> window) {
+    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRangeReference> window) {
         return this.engine.loadCells(
                 window,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,

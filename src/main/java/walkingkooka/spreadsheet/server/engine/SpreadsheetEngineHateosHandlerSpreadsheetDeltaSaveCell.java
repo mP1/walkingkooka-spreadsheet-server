@@ -24,7 +24,7 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
@@ -78,7 +78,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetSelection.cellRange(range);
+        final SpreadsheetCellRangeReference spreadsheetCellRangeReference = SpreadsheetSelection.cellRange(range);
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
@@ -88,8 +88,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCell extends Sprea
                         parameters,
                         this.engine.fillCells(
                                 delta.cells(),
-                                spreadsheetCellRange,
-                                spreadsheetCellRange,
+                                spreadsheetCellRangeReference,
+                                spreadsheetCellRangeReference,
                                 this.context
                         )
                 )

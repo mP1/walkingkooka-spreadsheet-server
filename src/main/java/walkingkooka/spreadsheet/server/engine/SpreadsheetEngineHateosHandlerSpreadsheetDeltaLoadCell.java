@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
@@ -175,7 +175,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         );
     }
 
-    private Optional<SpreadsheetDelta> handleRange0(final Set<SpreadsheetCellRange> window,
+    private Optional<SpreadsheetDelta> handleRange0(final Set<SpreadsheetCellRangeReference> window,
                                                     final Optional<SpreadsheetDelta> resource,
                                                     final Optional<SpreadsheetViewport> viewport,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
@@ -191,7 +191,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
         );
     }
 
-    private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> cells,
+    private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> cells,
                                        final Set<SpreadsheetDeltaProperties> deltaProperties) {
         return this.engine.loadCells(
                 cells,

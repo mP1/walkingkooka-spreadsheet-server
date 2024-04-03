@@ -55,7 +55,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -569,7 +569,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                               final SpreadsheetEngineEvaluation evaluation,
                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                               final SpreadsheetEngineContext context) {
@@ -597,8 +597,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
             @Override
             public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                              final SpreadsheetCellRange from,
-                                              final SpreadsheetCellRange to,
+                                              final SpreadsheetCellRangeReference from,
+                                              final SpreadsheetCellRangeReference to,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
             }

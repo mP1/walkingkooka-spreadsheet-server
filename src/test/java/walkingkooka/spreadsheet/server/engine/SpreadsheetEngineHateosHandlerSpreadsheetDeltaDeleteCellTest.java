@@ -28,7 +28,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -85,7 +85,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaDeleteCellTest 
                             @Override
                             public SpreadsheetDelta deleteCells(final SpreadsheetSelection s,
                                                                 final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetCellRange.cellRange(range), s, "selection");
+                                checkEquals(SpreadsheetCellRangeReference.cellRange(range), s, "selection");
                                 return SpreadsheetDelta.EMPTY
                                         .setDeletedCells(
                                                 Sets.of(cell)

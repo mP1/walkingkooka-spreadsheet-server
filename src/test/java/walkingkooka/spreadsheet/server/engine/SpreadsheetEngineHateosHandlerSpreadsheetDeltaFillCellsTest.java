@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -46,13 +46,13 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
     @Test
     public void testFillFromParameterMissing() {
-        this.handleRangeAndCheck2(this.parameters(), this.toSpreadsheetCellRange());
+        this.handleRangeAndCheck2(this.parameters(), this.toSpreadsheetCellRangeReference());
     }
 
     @Test
     public void testFillFromParameterEmptyFails() {
         this.handleRangeFails(
-                this.toSpreadsheetCellRange().range(),
+                this.toSpreadsheetCellRangeReference().range(),
                 this.collectionResource(),
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.empty()
@@ -63,7 +63,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
     @Test
     public void testFillFromParameterInvalidFails() {
         this.handleRangeFails(
-                this.toSpreadsheetCellRange().range(),
+                this.toSpreadsheetCellRangeReference().range(),
                 this.collectionResource(),
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of("!INVALID")
@@ -78,7 +78,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of(TO)
                 ),
-                this.toSpreadsheetCellRange()
+                this.toSpreadsheetCellRangeReference()
         );
     }
 
@@ -88,12 +88,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                 Maps.of(
                         SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.FROM, Lists.of(TO, FROM)
                 ),
-                this.toSpreadsheetCellRange()
+                this.toSpreadsheetCellRangeReference()
         );
     }
 
     private void handleRangeAndCheck2(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                      final SpreadsheetCellRange from) {
+                                      final SpreadsheetCellRangeReference from) {
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells.with(
                         new FakeSpreadsheetEngine() {
@@ -101,12 +101,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                             @Override
                             @SuppressWarnings("OptionalGetWithoutIsPresent")
                             public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                              final SpreadsheetCellRange f,
-                                                              final SpreadsheetCellRange t,
+                                                              final SpreadsheetCellRangeReference f,
+                                                              final SpreadsheetCellRangeReference t,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(collectionResource().get().cells(), cells, "cells");
                                 checkEquals(from, f, "from");
-                                checkEquals(toSpreadsheetCellRange(), t, "to");
+                                checkEquals(toSpreadsheetCellRangeReference(), t, "to");
                                 return deltaWithCell();
                             }
                         },
@@ -130,7 +130,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
         );
 
         final Range<SpreadsheetCellReference> range = this.range();
-        final SpreadsheetCellRange spreadsheetCellRange = SpreadsheetSelection.cellRange(range);
+        final SpreadsheetCellRangeReference spreadsheetCellRangeReference = SpreadsheetSelection.cellRange(range);
 
         final SpreadsheetDelta resource = SpreadsheetDelta.EMPTY
                 .setCells(Sets.of(unsaved1));
@@ -143,12 +143,12 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
 
                             @Override
                             public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                              final SpreadsheetCellRange from,
-                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetCellRangeReference from,
+                                                              final SpreadsheetCellRangeReference to,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(resource.cells(), cells, "cells");
-                                checkEquals(spreadsheetCellRange, from, "from");
-                                checkEquals(spreadsheetCellRange, to, "to");
+                                checkEquals(spreadsheetCellRangeReference, from, "from");
+                                checkEquals(spreadsheetCellRangeReference, to, "to");
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(saved1,
@@ -214,7 +214,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCellsTest e
                 .range(); // url has TO
     }
 
-    private SpreadsheetCellRange toSpreadsheetCellRange() {
+    private SpreadsheetCellRangeReference toSpreadsheetCellRangeReference() {
         return SpreadsheetExpressionReference.parseCellRange(TO);
     }
 

@@ -42,7 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
@@ -239,7 +239,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
@@ -292,7 +292,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
@@ -387,7 +387,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
 
-        final SpreadsheetCellRange window = b1.reference()
+        final SpreadsheetCellRangeReference window = b1.reference()
                 .toCellRange();
 
         final SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell handler = SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell.with(
@@ -395,7 +395,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                                       final SpreadsheetEngineEvaluation evaluation,
                                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
@@ -636,7 +636,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> dp,
                                                               final SpreadsheetEngineContext context) {
@@ -773,7 +773,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                                                final String window) {
 
         final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
-        final SpreadsheetCellRange viewportWindowRange = spreadsheetViewportWindows.last()
+        final SpreadsheetCellRangeReference viewportWindowRange = spreadsheetViewportWindows.last()
                 .get();
 
         final double viewportWidth = viewportWindowRange.width() * COLUMN_WIDTH;
@@ -792,7 +792,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
@@ -1129,7 +1129,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> r,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
@@ -1289,7 +1289,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCellTest
 
     @Override
     public Range<SpreadsheetCellReference> range() {
-        return SpreadsheetCellRange.parseCellRange("B1:C3").range();
+        return SpreadsheetCellRangeReference.parseCellRange("B1:C3").range();
     }
 
     @Override

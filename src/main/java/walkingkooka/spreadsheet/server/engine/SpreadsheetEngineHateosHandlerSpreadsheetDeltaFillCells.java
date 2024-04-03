@@ -24,7 +24,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRange, SpreadsheetCellRange, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRangeReference, SpreadsheetCellRangeReference, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta2<SpreadsheetCellReference> {
 
@@ -65,11 +65,11 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> to,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final SpreadsheetCellRange range = SpreadsheetSelection.cellRange(to);
+        final SpreadsheetCellRangeReference range = SpreadsheetSelection.cellRange(to);
         final SpreadsheetDelta delta = HateosHandler.checkResourceNotEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetCellRange from = FROM.parameterValue(parameters)
+        final SpreadsheetCellRangeReference from = FROM.parameterValue(parameters)
                 .map(SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells::mapFirstStringValue)
                 .orElse(range);
 
@@ -87,7 +87,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFillCells extends Spre
         );
     }
 
-    private static SpreadsheetCellRange mapFirstStringValue(final List<String> values) {
+    private static SpreadsheetCellRangeReference mapFirstStringValue(final List<String> values) {
         return values.stream()
                 .limit(1)
                 .map(SpreadsheetExpressionReference::parseCellRange)

@@ -24,8 +24,8 @@ import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRangePath;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.Expression;
@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosHandler} that calls {@link SpreadsheetEngine#findCells(SpreadsheetCellRange, SpreadsheetCellRangePath, int, int, String, Expression, SpreadsheetEngineContext)}.
+ * A {@link HateosHandler} that calls {@link SpreadsheetEngine#findCells(SpreadsheetCellRangeReference, SpreadsheetCellRangeReferencePath, int, int, String, Expression, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<SpreadsheetCellReference> {
 
@@ -99,7 +99,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells extends Spre
         );
     }
 
-    private Optional<SpreadsheetDelta> findCells(final SpreadsheetCellRange cells,
+    private Optional<SpreadsheetDelta> findCells(final SpreadsheetCellRangeReference cells,
                                                  final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResourceEmpty(resource);
@@ -107,7 +107,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells extends Spre
 
         final SpreadsheetEngineContext context = this.context;
 
-        final Optional<SpreadsheetCellRangePath> path = SpreadsheetEngineHttps.cellRangePath(parameters);
+        final Optional<SpreadsheetCellRangeReferencePath> path = SpreadsheetEngineHttps.cellRangePath(parameters);
         final Optional<Integer> offset = SpreadsheetEngineHttps.offset(parameters);
         final Optional<Integer> max = SpreadsheetEngineHttps.max(parameters);
         final Optional<String> valueType = SpreadsheetEngineHttps.valueType(parameters, context);
@@ -128,7 +128,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells extends Spre
         );
     }
 
-    final static SpreadsheetCellRangePath DEFAULT_CELL_RANGE_PATH = SpreadsheetCellRangePath.LRTD;
+    final static SpreadsheetCellRangeReferencePath DEFAULT_CELL_RANGE_PATH = SpreadsheetCellRangeReferencePath.LRTD;
 
     final static Integer DEFAULT_OFFSET = 0;
 
