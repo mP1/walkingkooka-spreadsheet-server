@@ -26,8 +26,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
@@ -75,7 +75,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaInsertAfterRowT
 
     @Test
     public void testRowRange() {
-        final SpreadsheetRowReferenceRange range = SpreadsheetSelection.parseRowRange("3:5");
+        final SpreadsheetRowRangeReference range = SpreadsheetSelection.parseRowRange("3:5");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
                 .setFormula(

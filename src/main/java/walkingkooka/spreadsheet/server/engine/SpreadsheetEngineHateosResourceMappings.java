@@ -31,11 +31,11 @@ import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Objects;
@@ -263,7 +263,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName COLUMN = HateosResourceName.with("column");
 
     private static HateosResourceSelection<SpreadsheetColumnReference> parseColumn(final String selection) {
-        final SpreadsheetColumnReferenceRange parsed = SpreadsheetSelection.parseColumnRange(selection);
+        final SpreadsheetColumnRangeReference parsed = SpreadsheetSelection.parseColumnRange(selection);
 
         return parsed.isSingle() ?
                 HateosResourceSelection.one(parsed.begin()) :
@@ -298,7 +298,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static final HateosResourceName ROW = HateosResourceName.with("row");
 
     private static HateosResourceSelection<SpreadsheetRowReference> parseRow(final String selection) {
-        final SpreadsheetRowReferenceRange parsed = SpreadsheetSelection.parseRowRange(selection);
+        final SpreadsheetRowRangeReference parsed = SpreadsheetSelection.parseRowRange(selection);
 
         return parsed.isSingle() ?
                 HateosResourceSelection.one(parsed.begin()) :
