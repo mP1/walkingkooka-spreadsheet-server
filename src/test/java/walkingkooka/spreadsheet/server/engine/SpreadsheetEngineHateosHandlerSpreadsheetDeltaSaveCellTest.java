@@ -37,7 +37,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.cursor.TextCursor;
@@ -243,7 +243,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
     public void testHandleCollectionBatchSaves() {
         final SpreadsheetCell b2 = this.cell("B2", "1");
         final SpreadsheetCell c3 = this.cell("C3", "2");
-        final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(b2.reference(), c3.reference()));
+        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.fromCells(Lists.of(b2.reference(), c3.reference()));
 
         final SpreadsheetCell d4 = this.cell("C4", "3");
         final SpreadsheetDelta result = SpreadsheetDelta.EMPTY
@@ -257,8 +257,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                             @Override
                             public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                              final SpreadsheetCellRange from,
-                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetCellRangeReference from,
+                                                              final SpreadsheetCellRangeReference to,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(Sets.of(b2, c3), new LinkedHashSet<>(cells), "cells");
                                 checkEquals(range, from, "from");
@@ -284,7 +284,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
         final SpreadsheetCell unsaved1 = this.cell("B2", "1");
         final SpreadsheetCell unsaved2 = this.cell("B3", "2");
 
-        final SpreadsheetCellRange range = SpreadsheetCellRange.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
+        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
 
         final SpreadsheetCell saved1 = unsaved1.setFormattedValue(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = unsaved2.setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
@@ -298,8 +298,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSaveCellTest
 
                             @Override
                             public SpreadsheetDelta fillCells(final Collection<SpreadsheetCell> cells,
-                                                              final SpreadsheetCellRange from,
-                                                              final SpreadsheetCellRange to,
+                                                              final SpreadsheetCellRangeReference from,
+                                                              final SpreadsheetCellRangeReference to,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(Sets.of(unsaved1, unsaved2), new LinkedHashSet<>(cells), "cells");
                                 checkEquals(range, from, "from");

@@ -3222,7 +3222,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
-                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
                                 "        \"value\": \"A1:B2\"\n" +
                                 "      },\n" +
                                 "      \"anchor\": \"BOTTOM_LEFT\"\n" +
@@ -3367,7 +3367,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
-                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
                                 "        \"value\": \"A1:B2\"\n" +
                                 "      },\n" +
                                 "      \"anchor\": \"BOTTOM_RIGHT\"\n" +
@@ -3512,7 +3512,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
-                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
                                 "        \"value\": \"A1:B1\"\n" +
                                 "      },\n" +
                                 "      \"anchor\": \"TOP_LEFT\"\n" +
@@ -3678,7 +3678,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                                 "    \"anchoredSelection\": {\n" +
                                 "      \"selection\": {\n" +
-                                "        \"type\": \"spreadsheet-cell-range\",\n" +
+                                "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
                                 "        \"value\": \"A1:B1\"\n" +
                                 "      },\n" +
                                 "      \"anchor\": \"TOP_LEFT\"\n" +

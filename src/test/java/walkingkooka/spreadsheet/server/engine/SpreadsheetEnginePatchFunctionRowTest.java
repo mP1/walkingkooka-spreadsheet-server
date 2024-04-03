@@ -34,7 +34,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -195,7 +195,7 @@ public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEngi
                             }
 
                             @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
@@ -328,7 +328,7 @@ public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEngi
                             }
 
                             @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRange> range,
+                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {

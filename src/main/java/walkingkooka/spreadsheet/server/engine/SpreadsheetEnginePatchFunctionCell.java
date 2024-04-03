@@ -24,7 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -35,7 +35,7 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFunction<SpreadsheetCellRange> {
+final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFunction<SpreadsheetCellRangeReference> {
 
     static SpreadsheetEnginePatchFunctionCell with(final HttpRequest request,
                                                    final SpreadsheetEngine engine,
@@ -50,14 +50,14 @@ final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFun
     }
 
     @Override
-    SpreadsheetCellRange parseSelection(final String text) {
+    SpreadsheetCellRangeReference parseSelection(final String text) {
         return this.context.resolveIfLabel(
                 SpreadsheetSelection.parseCellRangeOrLabel(text)
         ).toCellRange();
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetCellRange cellRange) {
+    SpreadsheetDelta load(final SpreadsheetCellRangeReference cellRange) {
         return this.engine.loadCells(
                 cellRange,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
@@ -83,7 +83,7 @@ final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFun
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetCellRange cellRange,
+    SpreadsheetDelta patch(final SpreadsheetCellRangeReference cellRange,
                            final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
@@ -96,7 +96,7 @@ final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFun
 
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetCellRange cellRange) {
+                          final SpreadsheetCellRangeReference cellRange) {
         return this.engine.saveCells(
                 patched.cells(),
                 this.context

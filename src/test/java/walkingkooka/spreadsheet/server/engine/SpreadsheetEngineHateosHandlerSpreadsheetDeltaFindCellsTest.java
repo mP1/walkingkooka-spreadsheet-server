@@ -34,8 +34,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRangePath;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.cursor.TextCursor;
@@ -66,7 +66,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
         );
     }
 
-    private final static SpreadsheetCellRangePath PATH = SpreadsheetCellRangePath.LRTD;
+    private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
     private final static int OFFSET = 12;
     private final static int MAX = 34;
     private final static String VALUE_TYPE = "test-value-type";
@@ -87,7 +87,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 b2Cell
         );
 
-        final SpreadsheetCellRangePath path = PATH;
+        final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int max = MAX;
         final String valueType = VALUE_TYPE;
@@ -99,8 +99,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRange r,
-                                                                  final SpreadsheetCellRangePath p,
+                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
+                                                                  final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
                                                                   final int m,
                                                                   final String v,
@@ -171,8 +171,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 c3Cell
         );
 
-        final SpreadsheetCellRange range = b2.cellRange(c3);
-        final SpreadsheetCellRangePath path = PATH;
+        final SpreadsheetCellRangeReference range = b2.cellRange(c3);
+        final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int max = MAX;
         final String valueType = VALUE_TYPE;
@@ -184,8 +184,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRange r,
-                                                                  final SpreadsheetCellRangePath p,
+                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
+                                                                  final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
                                                                   final int m,
                                                                   final String v,
@@ -256,8 +256,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 c3Cell
         );
 
-        final SpreadsheetCellRange range = SpreadsheetSelection.ALL_CELLS;
-        final SpreadsheetCellRangePath path = PATH;
+        final SpreadsheetCellRangeReference range = SpreadsheetSelection.ALL_CELLS;
+        final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
         final int max = MAX;
         final String valueType = VALUE_TYPE;
@@ -269,8 +269,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRange r,
-                                                                  final SpreadsheetCellRangePath p,
+                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
+                                                                  final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
                                                                   final int m,
                                                                   final String v,
@@ -341,7 +341,7 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                 c3Cell
         );
 
-        final SpreadsheetCellRange range = b2.cellRange(c3);
+        final SpreadsheetCellRangeReference range = b2.cellRange(c3);
 
         this.handleRangeAndCheck(
                 SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells.with(
@@ -349,8 +349,8 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCellsTest e
                         new FakeSpreadsheetEngine() {
 
                             @Override
-                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRange r,
-                                                                  final SpreadsheetCellRangePath p,
+                            public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
+                                                                  final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
                                                                   final int m,
                                                                   final String v,

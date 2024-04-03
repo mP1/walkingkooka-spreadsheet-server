@@ -36,7 +36,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRangePath;
+import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
@@ -92,7 +92,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                 "tdlr"
                         )
                 ),
-                SpreadsheetCellRangePath.TDLR
+                SpreadsheetCellRangeReferencePath.TDLR
         );
     }
 
@@ -105,7 +105,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                 "rlbu"
                         )
                 ),
-                SpreadsheetCellRangePath.RLBU
+                SpreadsheetCellRangeReferencePath.RLBU
         );
     }
 
@@ -117,7 +117,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     private void cellRangePathAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                       final SpreadsheetCellRangePath expected) {
+                                       final SpreadsheetCellRangeReferencePath expected) {
         this.cellRangePathAndCheck(
                 parameters,
                 Optional.of(expected)
@@ -125,7 +125,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     }
 
     private void cellRangePathAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                       final Optional<SpreadsheetCellRangePath> expected) {
+                                       final Optional<SpreadsheetCellRangeReferencePath> expected) {
         this.checkEquals(
                 expected,
                 SpreadsheetEngineHttps.cellRangePath(
