@@ -25,8 +25,8 @@ import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -38,7 +38,7 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunction<SpreadsheetRowReferenceRange> {
+final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunction<SpreadsheetRowRangeReference> {
 
     static SpreadsheetEnginePatchFunctionRow with(final HttpRequest request,
                                                   final SpreadsheetEngine engine,
@@ -53,12 +53,12 @@ final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunc
     }
 
     @Override
-    SpreadsheetRowReferenceRange parseSelection(final String text) {
+    SpreadsheetRowRangeReference parseSelection(final String text) {
         return SpreadsheetSelection.parseRowRange(text);
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetRowReferenceRange range) {
+    SpreadsheetDelta load(final SpreadsheetRowRangeReference range) {
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 
@@ -82,7 +82,7 @@ final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunc
     }
 
     @Override
-    SpreadsheetDelta patch(final SpreadsheetRowReferenceRange range,
+    SpreadsheetDelta patch(final SpreadsheetRowRangeReference range,
                            final SpreadsheetDelta loaded,
                            final JsonNode patch,
                            final JsonNodeUnmarshallContext context) {
@@ -124,7 +124,7 @@ final class SpreadsheetEnginePatchFunctionRow extends SpreadsheetEnginePatchFunc
      */
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetRowReferenceRange range) {
+                          final SpreadsheetRowRangeReference range) {
         final SpreadsheetEngine engine = this.engine;
         final SpreadsheetEngineContext context = this.context;
 

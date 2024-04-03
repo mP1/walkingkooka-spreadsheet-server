@@ -35,8 +35,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
@@ -48,9 +48,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionColumn, SpreadsheetColumnReferenceRange> {
+public final class SpreadsheetEnginePatchFunctionColumnTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionColumn, SpreadsheetColumnRangeReference> {
 
-    private final static SpreadsheetColumnReferenceRange RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
+    private final static SpreadsheetColumnRangeReference RANGE = SpreadsheetExpressionReference.parseColumnRange("C:D");
     private final static SpreadsheetCellRange CELL_RANGES = SpreadsheetSelection.parseCellRange("B2:E5");
     private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.with(
             Sets.of(

@@ -36,8 +36,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.reference.SpreadsheetRowReferenceRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.tree.json.JsonNode;
@@ -48,9 +48,9 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionRow, SpreadsheetRowReferenceRange> {
+public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionRow, SpreadsheetRowRangeReference> {
 
-    private final static SpreadsheetRowReferenceRange RANGE = SpreadsheetExpressionReference.parseRowRange("3:4");
+    private final static SpreadsheetRowRangeReference RANGE = SpreadsheetExpressionReference.parseRowRange("3:4");
     private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.parse("B2:E5");
 
     @Test
