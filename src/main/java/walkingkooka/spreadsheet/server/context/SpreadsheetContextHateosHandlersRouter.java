@@ -71,12 +71,14 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                                                                        final Indentation indentation,
                                                                                        final LineEnding lineEnding,
                                                                                        final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                                                                                       final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
                                                                                        final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(createAndSaveMetadata, "createAndSaveMetadata");
+        Objects.requireNonNull(deleteMetadata, "deleteMetadata");
         Objects.requireNonNull(loadMetadata, "loadMetadata");
 
         // metadata GET, POST...........................................................................................
@@ -91,7 +93,9 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                         SpreadsheetMetadata.class,
                                         SpreadsheetMetadataList.class,
                                         SpreadsheetMetadata.class
-                                ).set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
+                                )
+                                .set(METADATA_LINK_RELATION, HttpMethod.DELETE, deleteMetadata)
+                                .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.PATCH, HateosHandlers.fake())
                 ),

@@ -136,6 +136,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 indentation,
                 lineEnding,
                 SpreadsheetContextHttps.saveOrUpdateMetadata(context),
+                SpreadsheetContextHttps.deleteMetadata(context),
                 SpreadsheetContextHttps.loadMetadata(context)
         );
     }

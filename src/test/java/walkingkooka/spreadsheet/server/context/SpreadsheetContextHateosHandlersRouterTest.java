@@ -27,6 +27,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -70,6 +71,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 INDENTATION,
                 LINE_ENDING,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 this.loadMetadata());
     }
 
@@ -81,6 +83,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 INDENTATION,
                 LINE_ENDING,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 this.loadMetadata()
         );
     }
@@ -93,6 +96,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 null,
                 LINE_ENDING,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 this.loadMetadata()
         );
     }
@@ -105,6 +109,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 INDENTATION,
                 null,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 this.loadMetadata()
         );
     }
@@ -116,6 +121,20 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 this.contentType(),
                 INDENTATION,
                 LINE_ENDING,
+                null,
+                this.deleteMetadata(),
+                this.loadMetadata()
+        );
+    }
+
+    @Test
+    public void testWithNullDeleteMetadataHandlerFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
+                this.createAndSaveMetadata(),
                 null,
                 this.loadMetadata()
         );
@@ -129,6 +148,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 INDENTATION,
                 LINE_ENDING,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 null
         );
     }
@@ -138,6 +158,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
                            final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         assertThrows(
                 NullPointerException.class,
@@ -147,6 +168,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                         indentation,
                         lineEnding,
                         createAndSaveMetadata,
+                        deleteMetadata,
                         loadMetadata
                 )
         );
@@ -215,17 +237,20 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     }
 
     @Test
-    public void testHandleMetadataDelete() {
-        this.routeAndFail(HttpMethod.DELETE,
-                URL + "/spreadsheet/12ef",
-                HttpStatusCode.METHOD_NOT_ALLOWED);
-    }
-
-    @Test
     public void testRouteGetUnknownFails() {
         this.routeAndFail(HttpMethod.GET,
                 URL + "/unknown?",
                 HttpStatusCode.NOT_FOUND);
+    }
+
+    @Test
+    public void testHandleMetadataDelete() {
+        this.routeAndCheck(
+                HttpMethod.DELETE,
+                URL + "/spreadsheet/12ef",
+                HttpStatusCode.NO_CONTENT,
+                ""
+        );
     }
 
     private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router() {
@@ -235,6 +260,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 INDENTATION,
                 LINE_ENDING,
                 this.createAndSaveMetadata(),
+                this.deleteMetadata(),
                 this.loadMetadata()
         );
     }
@@ -252,8 +278,15 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
-            this.checkEquals(responseBody,
-                    response.entities().get(0).bodyText());
+
+            final List<HttpEntity> responseEntities = response.entities();
+            this.checkEquals(
+                    responseBody,
+                    responseEntities.isEmpty() ?
+                            "" :
+                            responseEntities.get(0)
+                                    .bodyText()
+            );
         }
     }
 
@@ -348,6 +381,18 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId())
                                 .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("saved@example.com"))
                 );
+            }
+        };
+    }
+
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata() {
+        return new FakeHateosHandler<>() {
+
+            @Override
+            public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
+                                                           final Optional<SpreadsheetMetadata> resource,
+                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                return Optional.empty();
             }
         };
     }

@@ -39,6 +39,13 @@ import java.util.function.UnaryOperator;
 public final class SpreadsheetContextHttps implements PublicStaticHelper {
 
     /**
+     * {@see SpreadsheetContextHateosHandlerMetadataDelete}
+     */
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosHandlerMetadataDelete.with(context);
+    }
+
+    /**
      * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
      */
     public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> saveOrUpdateMetadata(final SpreadsheetContext context) {
@@ -68,6 +75,7 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
                                                                                                 final Indentation indentation,
                                                                                                 final LineEnding lineEnding,
                                                                                                 final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
                                                                                                 final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         return SpreadsheetContextHateosHandlersRouter.with(
                 baseUrl,
@@ -75,6 +83,7 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
                 indentation,
                 lineEnding,
                 createAndSaveMetadata,
+                deleteMetadata,
                 loadMetadata
         );
     }
