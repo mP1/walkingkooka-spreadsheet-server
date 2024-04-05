@@ -7452,7 +7452,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 IpPort.HTTP,
                 Indentation.SPACES2,
                 LineEnding.NL,
-                createMetadata(this.createMetadata(), this.metadataStore),
+                createMetadata(
+                        this.createMetadata(),
+                        this.metadataStore
+                ),
+                this.metadataStore,
                 fractioner(),
                 idToFunctions(),
                 this.idToRepository,

@@ -45,6 +45,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -86,6 +87,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                             final SpreadsheetMetadataStore metadataStore,
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
@@ -101,6 +103,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 indentation,
                 lineEnding,
                 createMetadata,
+                metadataStore,
                 fractioner,
                 idToFunctions,
                 idToStoreRepository,
@@ -129,6 +132,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                  final SpreadsheetMetadataStore metadataStore,
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
@@ -149,6 +153,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.lineEnding = lineEnding;
 
         this.createMetadata = createMetadata;
+        this.metadataStore = metadataStore;
+
         this.fractioner = fractioner;
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
@@ -212,6 +218,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.indentation,
                 this.lineEnding,
                 this.createMetadata,
+                this.metadataStore,
                 this.fractioner,
                 this.idToFunctions,
                 this.idToStoreRepository,
@@ -237,6 +244,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.lineEnding,
                 this.fractioner,
                 this.createMetadata,
+                this.metadataStore,
                 this.idToFunctions,
                 this.idToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -249,6 +257,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final LineEnding lineEnding;
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
+
+    private final SpreadsheetMetadataStore metadataStore;
+
     private final Function<BigDecimal, Fraction> fractioner;
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions;
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;

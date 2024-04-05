@@ -99,6 +99,9 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
+
+    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
+
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
 
@@ -113,6 +116,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -130,6 +134,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -147,6 +152,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -164,6 +170,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -181,6 +188,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 null,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -197,6 +205,25 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 INDENTATION,
                 LINE_ENDING,
                 this::fractioner,
+                null,
+                METADATA_STORE,
+                this::spreadsheetIdFunctions,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullMetadataStoreFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
                 null,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
@@ -215,6 +242,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -232,6 +260,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 null,
                 this::spreadsheetMetadataStamper,
@@ -249,6 +278,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 null,
@@ -266,6 +296,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -283,6 +314,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -297,6 +329,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final LineEnding lineEnding,
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                           final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -311,6 +344,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         lineEnding,
                         fractioner,
                         createMetadata,
+                        metadataStore,
                         spreadsheetIdFunctions,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
@@ -1020,6 +1054,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 LINE_ENDING,
                 this::fractioner,
                 this::createMetadata,
+                METADATA_STORE,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
