@@ -49,6 +49,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
@@ -94,6 +95,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final LineEnding lineEnding,
                                         final Function<BigDecimal, Fraction> fractioner,
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                        final SpreadsheetMetadataStore metadataStore,
                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -105,6 +107,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
+        Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
@@ -118,6 +121,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 lineEnding,
                 fractioner,
                 createMetadata,
+                metadataStore,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
@@ -132,6 +136,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final LineEnding lineEnding,
                                     final Function<BigDecimal, Fraction> fractioner,
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                    final SpreadsheetMetadataStore metadataStore,
                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -147,6 +152,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         this.fractioner = fractioner;
         this.createMetadata = createMetadata;
+        this.metadataStore = metadataStore;
         this.spreadsheetIdFunctions = spreadsheetIdFunctions;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
@@ -161,6 +167,13 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
+
+    @Override
+    public SpreadsheetMetadataStore metadataStore() {
+        return this.metadataStore;
+    }
+
+    private final SpreadsheetMetadataStore metadataStore;
 
     @Override
     public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {

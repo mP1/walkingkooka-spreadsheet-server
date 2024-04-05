@@ -34,6 +34,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContextHttps;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
@@ -69,6 +70,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Indentation indentation,
                                                               final LineEnding lineEnding,
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                              final SpreadsheetMetadataStore metadataStore,
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
@@ -81,6 +83,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 indentation,
                 lineEnding,
                 createMetadata,
+                metadataStore,
                 fractioner,
                 functions,
                 idToStoreRepository,
@@ -98,6 +101,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Indentation indentation,
                                                           final LineEnding lineEnding,
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                          final SpreadsheetMetadataStore metadataStore,
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
@@ -116,6 +120,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 lineEnding,
                 fractioner,
                 createMetadata,
+                metadataStore,
                 functions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,

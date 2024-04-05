@@ -349,6 +349,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 LineEnding.NL,
                 fractioner(),
                 createMetadata(),
+                this.metadataStore,
                 idToFunctions(),
                 idToStoreRepository(),
                 spreadsheetMetadataStamper(),
@@ -368,6 +369,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
         };
     }
+
+    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
     private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions() {
         return (i) ->
@@ -390,8 +393,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN);
 
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-        metadataStore.save(metadata);
+        this.metadataStore.save(metadata);
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
         labelStore.save(LABEL.mapping(SpreadsheetSelection.parseCell("Z99")));

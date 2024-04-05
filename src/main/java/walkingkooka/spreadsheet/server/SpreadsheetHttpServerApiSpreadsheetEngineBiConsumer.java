@@ -27,6 +27,7 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -60,6 +61,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final LineEnding lineEnding,
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                                    final SpreadsheetMetadataStore metadataStore,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -70,6 +72,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 lineEnding,
                 fractioner,
                 createMetadata,
+                metadataStore,
                 idToFunctions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -85,6 +88,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final LineEnding lineEnding,
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                                final SpreadsheetMetadataStore metadataStore,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                                 final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -98,6 +102,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         this.fractioner = fractioner;
 
         this.createMetadata = createMetadata;
+        this.metadataStore = metadataStore;
+
         this.idToFunctions = idToFunctions;
         this.idToStoreRepository = idToStoreRepository;
 
@@ -143,6 +149,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.lineEnding,
                 this.fractioner,
                 this.createMetadata,
+                this.metadataStore,
                 this.idToFunctions,
                 this.idToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -158,6 +165,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     private final Function<BigDecimal, Fraction> fractioner;
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
+
+    private final SpreadsheetMetadataStore metadataStore;
 
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions;
 

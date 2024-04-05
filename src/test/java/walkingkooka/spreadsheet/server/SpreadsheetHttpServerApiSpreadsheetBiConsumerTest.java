@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -63,6 +64,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 Indentation.SPACES2,
                 LineEnding.NL,
                 this::defaultMetadata,
+                SpreadsheetMetadataStores.fake(),
                 this::fractioner,
                 this::idToFunctions,
                 this::idToStoreRepository,

@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -51,6 +52,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final LineEnding lineEnding,
                                            final Function<BigDecimal, Fraction> fractioner,
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                           final SpreadsheetMetadataStore metadataStore,
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -63,6 +65,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 lineEnding,
                 fractioner,
                 createMetadata,
+                metadataStore,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
