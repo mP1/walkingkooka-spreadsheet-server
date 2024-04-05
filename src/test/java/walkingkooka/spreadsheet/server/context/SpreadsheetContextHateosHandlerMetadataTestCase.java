@@ -107,7 +107,7 @@ public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends 
     }
 
     @Override
-    public final Optional<SpreadsheetMetadata> collectionResource() {
+    public final Optional<SpreadsheetMetadataList> collectionResource() {
         return Optional.empty();
     }
 

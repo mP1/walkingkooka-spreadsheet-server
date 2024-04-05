@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetContextHateosHandlerTestCase2<H extends SpreadsheetContextHateosHandlerMetadata>
         extends SpreadsheetContextHateosHandlerTestCase<H>
-        implements HateosHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> {
+        implements HateosHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> {
 
     SpreadsheetContextHateosHandlerTestCase2() {
         super();
