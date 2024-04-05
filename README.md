@@ -28,7 +28,7 @@ A swagger-ui is available at:
 A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 
 - GET /api/spreadsheet/*
-- GET /api/spreadsheet/$spreadsheet-id1,spreadsheet-id2
+- GET /api/spreadsheet/$spreadsheet-id1,spreadsheet-id2?from=0&count=10
 - GET /api/spreadsheet/$spreadsheet-id
 - POST /api/spreadsheet/  
   expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any provided `Locale`.

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -77,13 +78,37 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
+        final int from = FROM.firstParameterValue(parameters)
+                .map(Integer::parseInt)
+                .orElse(0);
+        final int count = COUNT.firstParameterValue(parameters)
+                .map(Integer::parseInt)
+                .orElse(DEFAULT_COUNT);
+
         final SpreadsheetMetadataList all = SpreadsheetMetadataList.empty();
         all.addAll(
-                this.context.metadataStore().all()
+                this.context.metadataStore()
+                        .values(
+                                from,
+                                Math.min(
+                                        MAX_COUNT,
+                                        count
+                                )
+                        )
         );
 
         return Optional.of(all);
     }
+
+    // @VisibleForTesting
+    final static UrlParameterName FROM = UrlParameterName.with("from");
+
+    // @VisibleForTesting
+    final static UrlParameterName COUNT = UrlParameterName.with("count");
+
+    private final static int DEFAULT_COUNT = 20;
+
+    private final static int MAX_COUNT = 40;
 
     @Override
     public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> list,
