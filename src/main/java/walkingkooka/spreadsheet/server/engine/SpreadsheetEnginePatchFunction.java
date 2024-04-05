@@ -32,7 +32,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -115,7 +115,7 @@ abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> im
     private SpreadsheetDelta loadSpreadsheetDelta(final S selectin) {
         try {
             return this.load(selectin);
-        } catch (final LoadStoreException cause) {
+        } catch (final MissingStoreException cause) {
             throw new HttpResponseHttpServerException(
                     HttpStatusCode.BAD_REQUEST
                             .setMessage(cause.getMessage()),

@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 
 import java.util.function.Function;
 
@@ -42,7 +42,7 @@ final class SpreadsheetThrowableTranslator implements Function<Throwable, HttpSt
 
     @Override
     public HttpStatus apply(final Throwable throwable) {
-        return throwable instanceof LoadStoreException ?
+        return throwable instanceof MissingStoreException ?
                 HttpStatusCode.NOT_FOUND.setMessage(
                         HttpStatus.firstLineOfText(throwable.getMessage())
                 ) :

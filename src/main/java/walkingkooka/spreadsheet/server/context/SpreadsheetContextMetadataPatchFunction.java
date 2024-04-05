@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server.context;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Objects;
@@ -63,8 +63,8 @@ final class SpreadsheetContextMetadataPatchFunction implements UnaryOperator<Jso
             );
             return saved.jsonNodeMarshallContext()
                     .marshall(saved);
-        } catch (final LoadStoreException cause) {
-            throw new LoadStoreException("Unable to load spreadsheet with id=" + id);
+        } catch (final MissingStoreException cause) {
+            throw new MissingStoreException("Unable to load spreadsheet with id=" + id);
         }
     }
 

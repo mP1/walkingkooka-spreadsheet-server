@@ -22,7 +22,7 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 import walkingkooka.text.CharSequences;
 import walkingkooka.util.FunctionTesting;
 
@@ -30,21 +30,21 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         ClassTesting<SpreadsheetThrowableTranslator> {
 
     @Test
-    public void testLoadStoreExceptionFileNotFound() {
+    public void testMissingStoreExceptionFileNotFound() {
         final String message = "Load failed 12345";
 
         this.applyAndCheck(
-                new LoadStoreException(message),
+                new MissingStoreException(message),
                 HttpStatusCode.NOT_FOUND.setMessage(message)
         );
     }
 
     @Test
-    public void testLoadStoreExceptionFileNotFoundMultiline() {
+    public void testMissingStoreExceptionFileNotFoundMultiline() {
         final String message = "Load failed 12345";
 
         this.applyAndCheck(
-                new LoadStoreException(message + "\n678"),
+                new MissingStoreException(message + "\n678"),
                 HttpStatusCode.NOT_FOUND.setMessage(message)
         );
     }
