@@ -166,6 +166,26 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     }
 
     @Test
+    public void testHandleMetadataLoadGetAll() {
+        this.routeAndCheck(
+                HttpMethod.GET,
+                URL + "/spreadsheet/*?from=0&count=5",
+                HttpStatusCode.OK,
+                "[\n" +
+                        "  {\n" +
+                        "    \"spreadsheet-id\": \"1\",\n" +
+                        "    \"creator\": \"loaded@example.com\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"spreadsheet-id\": \"2\",\n" +
+                        "    \"creator\": \"loaded@example.com\"\n" +
+                        "  }\n" +
+                        "]"
+        );
+    }
+
+
+    @Test
     public void testHandleMetadataCreatePost() {
         this.routeAndCheck(HttpMethod.POST,
                 URL + "/spreadsheet/",
@@ -342,6 +362,26 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                         SpreadsheetMetadata.EMPTY
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, spreadsheetId())
                                 .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("load@example.com"))
+                );
+            }
+
+            @Override
+            public Optional<SpreadsheetMetadataList> handleAll(final Optional<SpreadsheetMetadataList> resource,
+                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
+                final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
+                list.add(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com"))
+                );
+                list.add(
+                        SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2))
+                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com"))
+                );
+
+                return Optional.of(
+                        list
                 );
             }
         };
