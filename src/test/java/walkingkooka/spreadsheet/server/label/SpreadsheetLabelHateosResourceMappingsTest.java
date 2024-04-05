@@ -172,7 +172,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 HttpMethod.POST,
                 URL + "/label/",
                 toJson(MAPPING),
-                HttpStatusCode.OK,
+                HttpStatusCode.CREATED,
                 toJson(MAPPING)
         );
 
@@ -191,7 +191,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 HttpMethod.POST,
                 URL + "/label/",
                 toJson(MAPPING),
-                HttpStatusCode.OK,
+                HttpStatusCode.CREATED,
                 toJson(MAPPING)
         );
 

@@ -211,7 +211,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
     public void testHandleMetadataCreatePost() {
         this.routeAndCheck(HttpMethod.POST,
                 URL + "/spreadsheet/",
-                HttpStatusCode.OK,
+                HttpStatusCode.CREATED,
                 "{\n" +
                         "  \"spreadsheet-id\": \"12ef\",\n" +
                         "  \"creator\": \"created@example.com\"\n" +
