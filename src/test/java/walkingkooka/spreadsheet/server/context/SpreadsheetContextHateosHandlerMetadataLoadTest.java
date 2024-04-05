@@ -18,6 +18,8 @@
 package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -128,6 +130,78 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 ),
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
+                Optional.of(list)
+        );
+    }
+
+    @Test
+    public void testLoadAllCountMissingFrom() {
+        final SpreadsheetMetadata metadata1 = metadata(1);
+        final SpreadsheetMetadata metadata2 = metadata(2);
+        final SpreadsheetMetadata metadata3 = metadata(3);
+        final SpreadsheetMetadata metadata4 = metadata(4);
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        store.save(metadata1);
+        store.save(metadata2);
+        store.save(metadata3);
+        store.save(metadata4);
+
+        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
+        list.add(metadata1);
+        list.add(metadata2);
+
+        this.handleAllAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
+                            @Override
+                            public SpreadsheetMetadataStore metadataStore() {
+                                return store;
+                            }
+                        }
+                ),
+                Optional.empty(),
+                Maps.of(
+                        SpreadsheetContextHateosHandlerMetadataLoad.COUNT,
+                        Lists.of("2")
+                ),
+                Optional.of(list)
+        );
+    }
+
+    @Test
+    public void testLoadAllFromAndCount() {
+        final SpreadsheetMetadata metadata1 = metadata(1);
+        final SpreadsheetMetadata metadata2 = metadata(2);
+        final SpreadsheetMetadata metadata3 = metadata(3);
+        final SpreadsheetMetadata metadata4 = metadata(4);
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        store.save(metadata1);
+        store.save(metadata2);
+        store.save(metadata3);
+        store.save(metadata4);
+
+        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
+        list.add(metadata2);
+        list.add(metadata3);
+
+        this.handleAllAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
+                            @Override
+                            public SpreadsheetMetadataStore metadataStore() {
+                                return store;
+                            }
+                        }
+                ),
+                Optional.empty(),
+                Maps.of(
+                        SpreadsheetContextHateosHandlerMetadataLoad.FROM,
+                        Lists.of("1"),
+                        SpreadsheetContextHateosHandlerMetadataLoad.COUNT,
+                        Lists.of("2")
+                ),
                 Optional.of(list)
         );
     }
