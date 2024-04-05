@@ -80,11 +80,6 @@ Many of these are very closed mapped to the context menu that appears when colum
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
 
-#### format
-
-- POST /api/spreadsheet/$spreadsheet-id/format  
-  Support for the UI to format various value types using numerous pattern formats.
-
 #### label
 
 These end points are mostly used by the label management dialog.
@@ -94,11 +89,6 @@ These end points are mostly used by the label management dialog.
 - POST /api/spreadsheet/$spreadsheet-id/label  
   Used by the UI to create a new label to cell or cell-range
 - POST /api/spreadsheet/$spreadsheet-id/label/$label-name
-
-#### parse
-
-- GET /api/spreadsheet/$spreadsheet-id/parse  
-  Support for the UI to parse text using numerous patterns into values.
 
 #### row
 
