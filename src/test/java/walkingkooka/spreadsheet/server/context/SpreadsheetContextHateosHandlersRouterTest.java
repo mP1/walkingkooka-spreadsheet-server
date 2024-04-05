@@ -137,8 +137,8 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                            final HateosContentType contentType,
                            final Indentation indentation,
                            final LineEnding lineEnding,
-                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
-                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         assertThrows(
                 NullPointerException.class,
                 () -> SpreadsheetContextHateosHandlersRouter.with(
@@ -307,7 +307,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 JsonNodeMarshallContexts.basic());
     }
 
-    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata() {
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata() {
         return new FakeHateosHandler<>() {
             @Override
             public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
@@ -332,7 +332,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         };
     }
 
-    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata() {
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata() {
         return new FakeHateosHandler<>() {
             @Override
             public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,

@@ -32,6 +32,7 @@ import walkingkooka.store.LoadStoreException;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends SpreadsheetContextHateosHandlerMetadataTestCase<SpreadsheetContextHateosHandlerMetadataLoad> {
 
@@ -76,20 +77,8 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
 
     @Test
     public void testLoadExisting() {
-        final SpreadsheetId id = this.spreadsheetId();
-
-        final EmailAddress creatorEmail = EmailAddress.parse("creator@example.com");
-        final LocalDateTime createDateTime = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
-        final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
-        final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
-
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
-                .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
+        final SpreadsheetId id = SpreadsheetId.with(111);
+        final SpreadsheetMetadata metadata = this.metadata(id.value());
 
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         store.save(metadata);
@@ -113,6 +102,77 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(metadata)
         );
+    }
+
+    @Test
+    public void testLoadAll() {
+        final SpreadsheetMetadata metadata1 = metadata(111);
+        final SpreadsheetMetadata metadata2 = metadata(222);
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        store.save(metadata1);
+        store.save(metadata2);
+
+        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
+        list.add(metadata1);
+        list.add(metadata2);
+
+        this.handleAllAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
+                            @Override
+                            public SpreadsheetMetadataStore metadataStore() {
+                                return store;
+                            }
+                        }
+                ),
+                Optional.empty(),
+                HateosHandler.NO_PARAMETERS,
+                Optional.of(list)
+        );
+    }
+
+    @Test
+    public void testLoadList() {
+        final SpreadsheetMetadata metadata1 = metadata(111);
+        final SpreadsheetMetadata metadata2 = metadata(222);
+        final SpreadsheetMetadata metadata3 = metadata(333);
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        store.save(metadata1);
+        store.save(metadata2);
+        store.save(metadata3);
+
+        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
+        list.add(metadata1);
+        list.add(metadata3);
+
+        this.handleListAndCheck(
+                this.createHandler(
+                        new FakeSpreadsheetContext() {
+                            @Override
+                            public SpreadsheetMetadataStore metadataStore() {
+                                return store;
+                            }
+                        }
+                ),
+                list.stream()
+                        .map(m -> m.id().get())
+                        .collect(Collectors.toList()),
+                Optional.empty(),
+                HateosHandler.NO_PARAMETERS,
+                Optional.of(list)
+        );
+    }
+
+    private SpreadsheetMetadata metadata(final long id) {
+        return SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified-by@example.com"))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
     }
 
     // toString.........................................................................................................

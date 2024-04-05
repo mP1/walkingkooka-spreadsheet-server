@@ -17,22 +17,17 @@
 
 package walkingkooka.spreadsheet.server.context;
 
-import walkingkooka.collect.Range;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.store.Store;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A {@link HateosHandler} that requires a {@link Store metadata}.
  */
-abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> {
+abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> {
 
     /**
      * Checks required factory method parameters are not null.
@@ -44,38 +39,6 @@ abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<
     SpreadsheetContextHateosHandlerMetadata(final SpreadsheetContext context) {
         super();
         this.context = context;
-    }
-
-    @Override
-    public final Optional<SpreadsheetMetadata> handleAll(final Optional<SpreadsheetMetadata> resource,
-                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkResource(resource);
-        HateosHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<SpreadsheetMetadata> handleList(final List<SpreadsheetId> list,
-                                                    final Optional<SpreadsheetMetadata> resource,
-                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkList(list);
-        HateosHandler.checkResource(resource);
-        HateosHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
-    }
-
-
-    @Override
-    public final Optional<SpreadsheetMetadata> handleRange(final Range<SpreadsheetId> range,
-                                                           final Optional<SpreadsheetMetadata> resource,
-                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(range);
-        HateosHandler.checkResource(resource);
-        HateosHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
     }
 
     final SpreadsheetContext context;

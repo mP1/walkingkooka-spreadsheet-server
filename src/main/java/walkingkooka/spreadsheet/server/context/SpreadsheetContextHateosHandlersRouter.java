@@ -70,8 +70,8 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                                                                        final HateosContentType contentType,
                                                                                        final Indentation indentation,
                                                                                        final LineEnding lineEnding,
-                                                                                       final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
-                                                                                       final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
+                                                                                       final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                                                                                       final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(indentation, "indentation");
@@ -81,16 +81,17 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
 
         // metadata GET, POST...........................................................................................
 
-        return HateosResourceMapping.router(baseUrl,
+        return HateosResourceMapping.router(
+                baseUrl,
                 contentType,
                 Sets.of(
                         HateosResourceMapping.with(
                                         SPREADSHEET,
                                         SpreadsheetContextHateosHandlersRouter::parse,
                                         SpreadsheetMetadata.class,
-                                        SpreadsheetMetadata.class,
-                                        SpreadsheetMetadata.class)
-                                .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
+                                        SpreadsheetMetadataList.class,
+                                        SpreadsheetMetadata.class
+                                ).set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)
                                 .set(METADATA_LINK_RELATION, HttpMethod.PATCH, HateosHandlers.fake())
                 ),

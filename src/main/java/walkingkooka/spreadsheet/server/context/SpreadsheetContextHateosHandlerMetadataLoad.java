@@ -17,12 +17,15 @@
 
 package walkingkooka.spreadsheet.server.context;
 
+import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.store.LoadStoreException;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -61,6 +64,51 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
     @Override
     public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleAll(final Optional<SpreadsheetMetadataList> resource,
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        final SpreadsheetMetadataList all = SpreadsheetMetadataList.empty();
+        all.addAll(
+                this.context.metadataStore().all()
+        );
+
+        return Optional.of(all);
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> list,
+                                                        final Optional<SpreadsheetMetadataList> resource,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkList(list);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        final SpreadsheetMetadataList all = SpreadsheetMetadataList.empty();
+        final SpreadsheetMetadataStore store = this.context.metadataStore();
+
+        for (final SpreadsheetId id : list) {
+            store.load(id)
+                    .ifPresent(all::add);
+        }
+
+        return Optional.of(all);
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleRange(final Range<SpreadsheetId> range,
+                                                         final Optional<SpreadsheetMetadataList> resource,
+                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkRange(range);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

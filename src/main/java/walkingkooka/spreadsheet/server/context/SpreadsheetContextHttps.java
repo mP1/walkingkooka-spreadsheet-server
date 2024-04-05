@@ -41,14 +41,14 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> saveOrUpdateMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> saveOrUpdateMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
     }
 
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataLoad}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
     }
 
@@ -67,8 +67,8 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
                                                                                                 final HateosContentType contentType,
                                                                                                 final Indentation indentation,
                                                                                                 final LineEnding lineEnding,
-                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> createAndSaveMetadata,
-                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadata> loadMetadata) {
+                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         return SpreadsheetContextHateosHandlersRouter.with(
                 baseUrl,
                 contentType,

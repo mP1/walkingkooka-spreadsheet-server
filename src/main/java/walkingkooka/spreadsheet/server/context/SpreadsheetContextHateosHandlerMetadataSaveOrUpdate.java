@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.context;
 
+import walkingkooka.collect.Range;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -24,6 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -91,6 +93,38 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {
         return language.value().get(0).value().locale();
+    }
+
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleAll(final Optional<SpreadsheetMetadataList> resource,
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> list,
+                                                        final Optional<SpreadsheetMetadataList> resource,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkList(list);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetMetadataList> handleRange(final Range<SpreadsheetId> range,
+                                                         final Optional<SpreadsheetMetadataList> resource,
+                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+        HateosHandler.checkRange(range);
+        HateosHandler.checkResource(resource);
+        HateosHandler.checkParameters(parameters);
+
+        throw new UnsupportedOperationException();
     }
 
     @Override
