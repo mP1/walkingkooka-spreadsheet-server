@@ -170,7 +170,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
                 )
@@ -1005,7 +1005,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.createMetadata()
                                 .set(
                                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
@@ -1433,7 +1433,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
+                this.response(HttpStatusCode.CREATED.status(),
                         this.createMetadata()
                                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2L))
                 )
@@ -3585,7 +3585,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -3757,7 +3757,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -3945,7 +3945,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         initial
                 )
         );
@@ -5067,7 +5067,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -5088,7 +5088,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -5121,7 +5121,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -5160,7 +5160,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 toJson(mapping),
                 this.response(
-                        HttpStatusCode.OK.status(),
+                        HttpStatusCode.CREATED.status(),
                         this.toJson(mapping),
                         SpreadsheetLabelMapping.class.getSimpleName()
                 )
@@ -7479,7 +7479,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "/api/spreadsheet/",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
-                this.response(HttpStatusCode.OK.status(),
+                this.response(
+                        HttpStatusCode.CREATED.status(),
                         this.createMetadata()
                                 .set(
                                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
