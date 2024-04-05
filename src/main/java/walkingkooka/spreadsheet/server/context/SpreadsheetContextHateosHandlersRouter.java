@@ -102,12 +102,20 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
 
     private static HateosResourceSelection<SpreadsheetId> parse(final String text) {
         try {
-            HateosResourceSelection<SpreadsheetId> selection;
+            final HateosResourceSelection<SpreadsheetId> selection;
 
-            if (text.isEmpty()) {
-                selection = HateosResourceSelection.none();
-            } else {
-                selection = HateosResourceSelection.one(SpreadsheetId.parse(text));
+            switch (text) {
+                case "":
+                    selection = HateosResourceSelection.none();
+                    break;
+                case "*":
+                    selection = HateosResourceSelection.all();
+                    break;
+                default:
+                    selection = HateosResourceSelection.one(
+                            SpreadsheetId.parse(text)
+                    );
+                    break;
             }
 
             return selection;
