@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -73,7 +73,7 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 id,
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                LoadStoreException.class
+                MissingStoreException.class
         );
     }
 

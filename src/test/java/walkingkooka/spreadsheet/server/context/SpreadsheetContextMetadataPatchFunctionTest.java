@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.store.LoadStoreException;
+import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -83,8 +83,8 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
             }
         };
 
-        final LoadStoreException thrown = assertThrows(
-                LoadStoreException.class,
+        final MissingStoreException thrown = assertThrows(
+                MissingStoreException.class,
                 () -> SpreadsheetContextMetadataPatchFunction.with(ID, context)
                         .apply(
                                 JsonNode.object()
