@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Payload for lists of {@link SpreadsheetMetadata}.
  */
-final class SpreadsheetMetadataList extends ArrayList<SpreadsheetMetadata> {
+public final class SpreadsheetMetadataList extends ArrayList<SpreadsheetMetadata> {
 
     static {
         JsonNodeContext.register(

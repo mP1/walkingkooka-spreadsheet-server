@@ -112,6 +112,6 @@ public final class SpreadsheetMetadataListTest implements ClassTesting<Spreadshe
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }
