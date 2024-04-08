@@ -59,7 +59,7 @@ public final class SpreadsheetMetadataList extends ArrayList<SpreadsheetMetadata
     /**
      * Factory that creates an empty {@link SpreadsheetMetadataList}.
      */
-    static SpreadsheetMetadataList empty() {
+    public static SpreadsheetMetadataList empty() {
         return new SpreadsheetMetadataList();
     }
 
