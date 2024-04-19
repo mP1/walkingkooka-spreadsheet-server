@@ -23,6 +23,9 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparators;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -66,6 +69,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
+                this::spreadsheetIdNameToComparator,
                 this::idToFunctions,
                 this::idToStoreRepository,
                 this::spreadsheetMetadataStamper,
@@ -80,6 +84,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
 
     private Fraction fractioner(final BigDecimal value) {
         throw new UnsupportedOperationException();
+    }
+
+    private Function<SpreadsheetComparatorName, SpreadsheetComparator<?>> spreadsheetIdNameToComparator(final SpreadsheetId id) {
+        return SpreadsheetComparators.nameToSpreadsheetComparator();
     }
 
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> idToFunctions(final SpreadsheetId id) {
