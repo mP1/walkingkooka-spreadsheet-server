@@ -42,6 +42,8 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetRow;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -96,6 +98,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final Function<BigDecimal, Fraction> fractioner,
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                         final SpreadsheetMetadataStore metadataStore,
+                                        final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparators,
                                         final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -108,6 +111,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(metadataStore, "metadataStore");
+        Objects.requireNonNull(spreadsheetIdNameToComparators, "spreadsheetIdNameToComparators");
         Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
@@ -122,6 +126,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdNameToComparators,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
@@ -137,6 +142,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final Function<BigDecimal, Fraction> fractioner,
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                     final SpreadsheetMetadataStore metadataStore,
+                                    final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparators,
                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -153,6 +159,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         this.fractioner = fractioner;
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
+
+        this.spreadsheetIdNameToComparators = spreadsheetIdNameToComparators;
         this.spreadsheetIdFunctions = spreadsheetIdFunctions;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
@@ -174,6 +182,13 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private final SpreadsheetMetadataStore metadataStore;
+
+    @Override
+    public Function<SpreadsheetComparatorName, SpreadsheetComparator<?>> nameToComparators(final SpreadsheetId id) {
+        return this.spreadsheetIdNameToComparators.apply(id);
+    }
+
+    private final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparators;
 
     @Override
     public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {
@@ -219,12 +234,15 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 this.spreadsheetMetadataStamper
         );
 
+        final Function<SpreadsheetComparatorName, SpreadsheetComparator<?>> nameToComparators = this.spreadsheetIdNameToComparators.apply(id);
+
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.spreadsheetIdFunctions.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
+                nameToComparators,
                 functions,
                 engine,
                 fractioner,

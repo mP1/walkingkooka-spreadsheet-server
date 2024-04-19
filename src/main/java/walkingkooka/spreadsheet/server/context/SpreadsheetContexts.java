@@ -22,6 +22,8 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -53,6 +55,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<BigDecimal, Fraction> fractioner,
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                            final SpreadsheetMetadataStore metadataStore,
+                                           final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparators,
                                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -66,6 +69,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdNameToComparators,
                 spreadsheetIdFunctions,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,

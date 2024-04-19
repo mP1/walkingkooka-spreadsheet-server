@@ -33,6 +33,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
@@ -72,6 +74,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final SpreadsheetMetadataStore metadataStore,
                                                               final Function<BigDecimal, Fraction> fractioner,
+                                                              final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -85,6 +88,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 createMetadata,
                 metadataStore,
                 fractioner,
+                spreadsheetIdNameToComparator,
                 functions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -103,6 +107,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final SpreadsheetMetadataStore metadataStore,
                                                           final Function<BigDecimal, Fraction> fractioner,
+                                                          final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -121,6 +126,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdNameToComparator,
                 functions,
                 idToStoreRepository,
                 spreadsheetMetadataStamper,
