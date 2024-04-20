@@ -181,6 +181,14 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCell}
+     */
+    public static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells(final SpreadsheetEngine engine,
+                                                                                                        final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCells.with(engine, context);
+    }
+
+    /**
      * {@see SpreadsheetEnginePatchFunctionCell}
      */
     public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,

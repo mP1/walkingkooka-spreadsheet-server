@@ -59,6 +59,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                                   final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
+                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
                                   final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(findCells, "findCells");
@@ -68,6 +69,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         Objects.requireNonNull(loadCellComputeIfNecessary, "loadCellComputeIfNecessary");
         Objects.requireNonNull(saveCell, "saveCell");
         Objects.requireNonNull(deleteCell, "deleteCell");
+        Objects.requireNonNull(sortCells, "sortCells");
         Objects.requireNonNull(labelToCellReference, "labelToCellReference");
 
         // cell GET, POST...............................................................................................
@@ -115,18 +117,26 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                     loadCell);
         }
 
-        // cell/fill POST...............................................................................................
+        // cell/fill/find/sort POST...............................................................................................
         cell = cell.set(
                 FILL,
                 HttpMethod.POST,
                 fillCells
         );
 
-        return cell.set(
+        cell = cell.set(
                 FIND,
                 HttpMethod.GET,
                 findCells
         );
+
+        cell = cell.set(
+                SORT,
+                HttpMethod.GET,
+                sortCells
+        );
+
+        return cell;
     }
 
     /**
@@ -205,6 +215,11 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * A {@link LinkRelation} with <code>find</code>.
      */
     private static final LinkRelation<?> FIND = LinkRelation.with("find");
+
+    /**
+     * A {@link LinkRelation} with <code>sort</code>.
+     */
+    private static final LinkRelation<?> SORT = LinkRelation.with("sort");
 
     // cellReference....................................................................................................
 
