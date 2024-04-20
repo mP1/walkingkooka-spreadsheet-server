@@ -36,9 +36,8 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparators;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -353,7 +352,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 fractioner(),
                 createMetadata(),
                 this.metadataStore,
-                spreadsheetIdNameToComparator(),
+                spreadsheetIdSpreadsheetComparatorProvider(),
                 spreadsheetSpreadsheetSpreadsheetIdToFunctions(),
                 idToStoreRepository(),
                 spreadsheetMetadataStamper(),
@@ -376,8 +375,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-    private Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator() {
-        return (id) -> SpreadsheetComparators.nameToSpreadsheetComparator();
+    private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider() {
+        return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
     private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetSpreadsheetSpreadsheetIdToFunctions() {

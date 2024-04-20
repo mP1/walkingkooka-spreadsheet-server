@@ -33,8 +33,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
@@ -74,7 +73,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                               final SpreadsheetMetadataStore metadataStore,
                                                               final Function<BigDecimal, Fraction> fractioner,
-                                                              final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
+                                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -88,7 +87,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 createMetadata,
                 metadataStore,
                 fractioner,
-                spreadsheetIdNameToComparator,
+                spreadsheetIdSpreadsheetComparatorProvider,
                 spreadsheetIdToExpressionFunctions,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -107,7 +106,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                           final SpreadsheetMetadataStore metadataStore,
                                                           final Function<BigDecimal, Fraction> fractioner,
-                                                          final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
+                                                          final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -126,7 +125,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 fractioner,
                 createMetadata,
                 metadataStore,
-                spreadsheetIdNameToComparator,
+                spreadsheetIdSpreadsheetComparatorProvider,
                 spreadsheetIdToExpressionFunctions,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,

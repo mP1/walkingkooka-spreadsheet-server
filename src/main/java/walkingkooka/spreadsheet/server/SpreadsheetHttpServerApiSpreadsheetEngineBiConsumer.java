@@ -26,8 +26,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
@@ -64,7 +63,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                     final SpreadsheetMetadataStore metadataStore,
-                                                                    final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
+                                                                    final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                                     final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions,
                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -76,7 +75,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 fractioner,
                 createMetadata,
                 metadataStore,
-                spreadsheetIdNameToComparator,
+                spreadsheetIdSpreadsheetComparatorProvider,
                 spreadsheetIdToFunctions,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -93,7 +92,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                 final SpreadsheetMetadataStore metadataStore,
-                                                                final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
+                                                                final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                                 final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions,
                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                 final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -109,7 +108,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
-        this.spreadsheetIdNameToComparator = spreadsheetIdNameToComparator;
+        this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
         this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
@@ -156,7 +155,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
-                this.spreadsheetIdNameToComparator,
+                this.spreadsheetIdSpreadsheetComparatorProvider,
                 this.spreadsheetIdToFunctions,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -175,7 +174,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private final SpreadsheetMetadataStore metadataStore;
 
-    private final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator;
+    private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider;
 
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions;
 
