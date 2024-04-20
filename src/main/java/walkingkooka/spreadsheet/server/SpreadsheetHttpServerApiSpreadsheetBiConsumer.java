@@ -76,7 +76,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                               final Function<BigDecimal, Fraction> fractioner,
                                                               final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                                               final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
-                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                               final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                                               final Supplier<LocalDateTime> now) {
@@ -90,7 +90,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 fractioner,
                 spreadsheetIdNameToComparator,
                 functions,
-                idToStoreRepository,
+                spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,
                 now
@@ -109,7 +109,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                                                           final Function<BigDecimal, Fraction> fractioner,
                                                           final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
-                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                                           final Supplier<LocalDateTime> now) {
@@ -128,7 +128,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 metadataStore,
                 spreadsheetIdNameToComparator,
                 functions,
-                idToStoreRepository,
+                spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,
                 now
