@@ -88,34 +88,34 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final IpPort port,
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
+                                             final Supplier<LocalDateTime> now,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
+                                             final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                             final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                             final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
-                                             final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
-                                             final Supplier<LocalDateTime> now) {
+                                             final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                                             final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
         return new SpreadsheetHttpServer(
                 scheme,
                 host,
                 port,
                 indentation,
                 lineEnding,
+                now,
                 createMetadata,
                 metadataStore,
+                spreadsheetMetadataStamper,
                 fractioner,
                 spreadsheetIdNameToComparator,
                 spreadsheetIdToExpressionFunctions,
                 spreadsheetIdToStoreRepository,
-                fileServer,
-                server,
-                spreadsheetMetadataStamper,
                 contentTypeFactory,
-                now
+                fileServer,
+                server
         );
     }
 
@@ -135,17 +135,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final IpPort port,
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
+                                  final Supplier<LocalDateTime> now,
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final SpreadsheetMetadataStore metadataStore,
+                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                   final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                  final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                  final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
-                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                   final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
-                                  final Supplier<LocalDateTime> now) {
+                                  final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                                  final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
         super();
 
         this.contentTypeJson = HateosContentType.json(
@@ -154,11 +154,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
                         MathContext.DECIMAL32
                 ),
                 JsonNodeMarshallContexts.basic()); // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/42
+        this.contentTypeFactory = contentTypeFactory;
+
         this.indentation = indentation;
         this.lineEnding = lineEnding;
+        this.now = now;
 
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
+        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
         this.fractioner = fractioner;
 
@@ -175,9 +179,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                         SpreadsheetThrowableTranslator.INSTANCE
                 )
         );
-        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
-        this.contentTypeFactory = contentTypeFactory;
-        this.now = now;
 
         final AbsoluteUrl base = Url.absolute(scheme,
                 AbsoluteUrl.NO_CREDENTIALS,
@@ -270,13 +271,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final SpreadsheetMetadataStore metadataStore;
 
+    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
+
     private final Function<BigDecimal, Fraction> fractioner;
 
     private final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator;
 
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions;
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
-    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
     private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router;
