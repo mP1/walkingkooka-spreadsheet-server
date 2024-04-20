@@ -7461,7 +7461,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 fractioner(),
                 spreadsheetIdSpreadsheetComparatorProvider(),
                 spreadsheetIdToExpressionFunctions(),
-                this.idToRepository,
+                this.spreadsheetIdToRepository,
                 this::contentTypeFactory,
                 this::fileServer,
                 this::server
@@ -7538,19 +7538,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository = idToRepository(Maps.concurrent(),
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
             storeRepositorySupplier(this.metadataStore));
 
     /**
      * Retrieves from the cache or lazily creates a {@link SpreadsheetStoreRepository} for the given {@link SpreadsheetId}.
      */
-    static Function<SpreadsheetId, SpreadsheetStoreRepository> idToRepository(final Map<SpreadsheetId, SpreadsheetStoreRepository> idToRepository,
+    static Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository(final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                               final Supplier<SpreadsheetStoreRepository> repositoryFactory) {
         return (id) -> {
-            SpreadsheetStoreRepository repository = idToRepository.get(id);
+            SpreadsheetStoreRepository repository = spreadsheetIdToRepository.get(id);
             if (null == repository) {
                 repository = repositoryFactory.get();
-                idToRepository.put(id, repository); // TODO add locks etc.
+                spreadsheetIdToRepository.put(id, repository); // TODO add locks etc.
             }
             return repository;
         };
