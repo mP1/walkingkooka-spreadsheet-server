@@ -7460,7 +7460,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this::spreadsheetMetadataStamper,
                 fractioner(),
                 spreadsheetIdSpreadsheetComparatorProvider(),
-                idToFunctions(),
+                spreadsheetIdToExpressionFunctions(),
                 this.idToRepository,
                 this::contentTypeFactory,
                 this::fileServer,
@@ -7524,7 +7524,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
-    private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions() {
+    private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions() {
         return SpreadsheetHttpServerTest::functions;
     }
 
