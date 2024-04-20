@@ -353,7 +353,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 createMetadata(),
                 this.metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider(),
-                spreadsheetSpreadsheetSpreadsheetIdToFunctions(),
+                spreadsheetIdToExpressionFunctions(),
                 idToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 LocalDateTime::now
@@ -379,7 +379,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetSpreadsheetSpreadsheetIdToFunctions() {
+    private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions() {
         return (i) ->
                 (n) -> {
                     throw new UnsupportedOperationException();
