@@ -69,7 +69,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::idToFunctions,
+                this::spreadsheetIdToExpressionFunctions,
                 this::idToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -89,7 +89,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         return SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> idToFunctions(final SpreadsheetId id) {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> spreadsheetIdToExpressionFunctions(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
