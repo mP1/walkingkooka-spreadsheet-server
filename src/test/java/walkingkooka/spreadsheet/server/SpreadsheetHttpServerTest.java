@@ -7452,20 +7452,20 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 IpPort.HTTP,
                 Indentation.SPACES2,
                 LineEnding.NL,
+                LocalDateTime::now,
                 createMetadata(
                         this.createMetadata(),
                         this.metadataStore
                 ),
                 this.metadataStore,
+                this::spreadsheetMetadataStamper,
                 fractioner(),
                 spreadsheetIdNameToComparator(),
                 idToFunctions(),
                 this.idToRepository,
-                this::fileServer,
-                this::server,
-                this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
-                LocalDateTime::now
+                this::fileServer,
+                this::server
         );
         this.httpServer.start();
         return this.httpServer;
