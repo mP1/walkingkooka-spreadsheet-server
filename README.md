@@ -57,6 +57,7 @@ clicking a context menu command.
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
 - GET /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
+- GET /api/spreadsheet/$spreadsheet-id/cell/A1:B2/sort?comparators=A=day-of-month;B=month-of-year
 - PATCH /api/spreadsheet/$spreadsheet-id/cell/A1  
   The UI uses this to update individual properties of a cell, such as updating the formula text
 - POST /api/spreadsheet/$spreadsheet-id/cell/A1

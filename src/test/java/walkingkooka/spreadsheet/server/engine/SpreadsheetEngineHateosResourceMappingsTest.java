@@ -46,6 +46,7 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
+import walkingkooka.spreadsheet.compare.SpreadsheetCellSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -103,6 +104,8 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosHandlers.fake();
     private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosHandlers.fake();
+
+    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SORT_CELLS = HateosHandlers.fake();
     private final static Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL_REFERENCE = (l) -> {
         throw new UnsupportedOperationException();
     };
@@ -118,6 +121,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -133,6 +137,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -148,6 +153,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -163,6 +169,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -178,6 +185,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -193,6 +201,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 null,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -208,6 +217,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 null,
                 DELETE_CELL,
+                SORT_CELLS,
                 LABEL_TO_CELL_REFERENCE
         );
     }
@@ -222,6 +232,23 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_FORCE,
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
+                null,
+                SORT_CELLS,
+                LABEL_TO_CELL_REFERENCE
+        );
+    }
+
+    @Test
+    public void testCellNullSortCellsFails() {
+        this.cellFails(
+                FILL_CELLS,
+                FIND_CELLS,
+                LOAD_CELL_CLEAR,
+                LOAD_CELL_SKIP,
+                LOAD_CELL_FORCE,
+                LOAD_CELL_COMPUTE_IF,
+                SAVE_CELL,
+                DELETE_CELL,
                 null,
                 LABEL_TO_CELL_REFERENCE
         );
@@ -238,6 +265,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 LOAD_CELL_COMPUTE_IF,
                 SAVE_CELL,
                 DELETE_CELL,
+                SORT_CELLS,
                 null
         );
     }
@@ -250,6 +278,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
                            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
+                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
                            final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         assertThrows(
                 NullPointerException.class,
@@ -263,6 +292,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                 loadCellComputeIfNecessary,
                                 saveCell,
                                 deleteCell,
+                                sortCells,
                                 labelToCellReference
                         )
         );
@@ -319,6 +349,15 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeCellAndCheck(
                 HttpMethod.GET,
                 "/cell/*/force-recompute?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testRouteCellGetSortCells() {
+        this.routeCellAndCheck(
+                HttpMethod.GET,
+                "/cell/A1:C3/sort?comparators=A=day-of-month;B=month-of-year;C=year",
                 HttpStatusCode.OK
         );
     }
@@ -491,6 +530,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
+                        SpreadsheetEngineHttps.sortCells(engine, context),
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
@@ -519,6 +559,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
                         SpreadsheetEngineHttps.saveCell(engine, context),
                         SpreadsheetEngineHttps.deleteCell(engine, context),
+                        SpreadsheetEngineHttps.sortCells(engine, context),
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
@@ -601,6 +642,18 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                               final SpreadsheetCellRangeReference to,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
+            }
+
+            @Override
+            public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
+                                              final List<SpreadsheetCellSpreadsheetComparatorNames> comparatorNames,
+                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY.setCells(
+                        Sets.of(
+                                SpreadsheetSelection.A1.setFormula(SpreadsheetFormula.EMPTY.setText("=1+2"))
+                        )
+                );
             }
 
             @Override

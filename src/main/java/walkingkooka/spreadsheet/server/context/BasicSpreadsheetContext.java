@@ -344,6 +344,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         );
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHttps.saveCell(engine, context);
         final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
+        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCell = SpreadsheetEngineHttps.deleteCell(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cell(
                 fillCells,
@@ -354,6 +355,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 loadCellComputeIfNecessary,
                 saveCell,
                 deleteCell,
+                sortCell,
                 (e) -> context.storeRepository()
                         .labels()
                         .cellReferenceOrRangeOrFail(e)
