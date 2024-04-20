@@ -65,8 +65,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                     final SpreadsheetMetadataStore metadataStore,
                                                                     final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
-                                                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
-                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions,
+                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                     final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
@@ -77,8 +77,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 createMetadata,
                 metadataStore,
                 spreadsheetIdNameToComparator,
-                idToFunctions,
-                idToStoreRepository,
+                spreadsheetIdToFunctions,
+                spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 now
         );
@@ -94,8 +94,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                 final SpreadsheetMetadataStore metadataStore,
                                                                 final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
-                                                                final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions,
-                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                                                final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions,
+                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                 final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                 final Supplier<LocalDateTime> now) {
         super();
@@ -110,8 +110,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
         this.metadataStore = metadataStore;
 
         this.spreadsheetIdNameToComparator = spreadsheetIdNameToComparator;
-        this.idToFunctions = idToFunctions;
-        this.idToStoreRepository = idToStoreRepository;
+        this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
+        this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         int spreadsheetIdPathComponent = 0;
 
@@ -157,8 +157,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
                 this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdNameToComparator,
-                this.idToFunctions,
-                this.idToStoreRepository,
+                this.spreadsheetIdToFunctions,
+                this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 SpreadsheetContexts::jsonHateosContentType,
                 this.now
@@ -177,12 +177,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
 
     private final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator;
 
-    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions;
+    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToFunctions;
 
     /**
      * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.
      */
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
 
     /**
      * Updates the last-modified timestamp.
