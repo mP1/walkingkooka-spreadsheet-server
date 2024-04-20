@@ -70,7 +70,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 this::fractioner,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdToExpressionFunctions,
-                this::idToStoreRepository,
+                this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
                 LocalDateTime::now
@@ -97,7 +97,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         throw new UnsupportedOperationException();
     }
 
-    private SpreadsheetStoreRepository idToStoreRepository(final SpreadsheetId id) {
+    private SpreadsheetStoreRepository spreadsheetIdToStoreRepository(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
