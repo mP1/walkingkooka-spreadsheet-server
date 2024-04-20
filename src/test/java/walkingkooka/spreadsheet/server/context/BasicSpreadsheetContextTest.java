@@ -46,9 +46,8 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparators;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -120,7 +119,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -139,7 +138,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -158,7 +157,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -177,7 +176,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -196,7 +195,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -215,7 +214,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 null,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -234,7 +233,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 null,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -244,7 +243,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     @Test
-    public void testWithNullSpreadsheetIdNameToComparatorFails() {
+    public void testWithNullSpreadsheetIdSpreadsheetComparatorProviderFails() {
         this.withFails(
                 this.base(),
                 this.contentType(),
@@ -272,7 +271,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 null,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -291,7 +290,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 null,
                 this::spreadsheetMetadataStamper,
@@ -310,7 +309,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 null,
@@ -329,7 +328,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -348,7 +347,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -364,7 +363,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
-                           final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
+                           final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                            final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -380,7 +379,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         fractioner,
                         createMetadata,
                         metadataStore,
-                        spreadsheetIdNameToComparator,
+                        spreadsheetIdSpreadsheetComparatorProvider,
                         spreadsheetIdFunctions,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
@@ -1091,7 +1090,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdNameToComparator,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdFunctions,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -1141,10 +1140,10 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         return metadata;
     }
 
-    private Function<SpreadsheetComparatorName, SpreadsheetComparator<?>> spreadsheetIdNameToComparator(final SpreadsheetId spreadsheetId) {
+    private SpreadsheetComparatorProvider spreadsheetIdSpreadsheetComparatorProvider(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return SpreadsheetComparators.nameToSpreadsheetComparator();
+        return SpreadsheetComparatorProviders.builtIn();
     }
 
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {

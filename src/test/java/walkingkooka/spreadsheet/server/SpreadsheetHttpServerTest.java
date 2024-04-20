@@ -56,9 +56,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparators;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -7460,7 +7459,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.metadataStore,
                 this::spreadsheetMetadataStamper,
                 fractioner(),
-                spreadsheetIdNameToComparator(),
+                spreadsheetIdSpreadsheetComparatorProvider(),
                 idToFunctions(),
                 this.idToRepository,
                 this::contentTypeFactory,
@@ -7521,8 +7520,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         };
     }
 
-    private static Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator() {
-        return (id) -> SpreadsheetComparators.nameToSpreadsheetComparator();
+    private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider() {
+        return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
     private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> idToFunctions() {
