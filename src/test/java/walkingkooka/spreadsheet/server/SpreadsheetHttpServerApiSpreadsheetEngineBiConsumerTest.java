@@ -354,7 +354,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 this.metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider(),
                 spreadsheetIdToExpressionFunctions(),
-                idToStoreRepository(),
+                spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 LocalDateTime::now
         );
@@ -386,7 +386,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 };
     }
 
-    private Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository() {
+    private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
         final EmailAddress user = EmailAddress.parse("user@example.com");
         final LocalDateTime now = LocalDateTime.now();
 
