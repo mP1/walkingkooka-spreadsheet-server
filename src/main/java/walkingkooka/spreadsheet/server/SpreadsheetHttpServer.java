@@ -93,7 +93,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                              final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
-                                             final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                             final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -110,7 +110,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 fractioner,
                 spreadsheetIdNameToComparator,
                 spreadsheetIdToExpressionFunctions,
-                idToStoreRepository,
+                spreadsheetIdToStoreRepository,
                 fileServer,
                 server,
                 spreadsheetMetadataStamper,
@@ -140,7 +140,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator,
                                   final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions,
-                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository,
+                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server,
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -164,7 +164,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.spreadsheetIdNameToComparator = spreadsheetIdNameToComparator;
         this.spreadsheetIdToExpressionFunctions = spreadsheetIdToExpressionFunctions;
-        this.idToStoreRepository = idToStoreRepository;
+        this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.server = server.apply(
                 HttpRequestHttpResponseBiConsumers.stacktraceDumping(
@@ -230,7 +230,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.fractioner,
                 this.spreadsheetIdNameToComparator,
                 this.spreadsheetIdToExpressionFunctions,
-                this.idToStoreRepository,
+                this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.contentTypeFactory,
                 this.now
@@ -256,7 +256,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.spreadsheetIdNameToComparator,
                 this.spreadsheetIdToExpressionFunctions,
-                this.idToStoreRepository,
+                this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.now
         );
@@ -275,7 +275,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetId, Function<SpreadsheetComparatorName, SpreadsheetComparator<?>>> spreadsheetIdNameToComparator;
 
     private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions;
-    private final Function<SpreadsheetId, SpreadsheetStoreRepository> idToStoreRepository;
+    private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
