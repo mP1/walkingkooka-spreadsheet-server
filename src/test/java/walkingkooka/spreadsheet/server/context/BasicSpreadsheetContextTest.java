@@ -1161,7 +1161,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     private SpreadsheetStoreRepository spreadsheetIdToRepository(final SpreadsheetId id) {
         Objects.requireNonNull(id, "id");
 
-        SpreadsheetStoreRepository repository = this.idToRepositories.get(id);
+        SpreadsheetStoreRepository repository = this.spreadsheetIdToRepository.get(id);
 
         if (null == repository) {
             final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
@@ -1210,13 +1210,13 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                     SpreadsheetRowStores.treeMap(),
                     SpreadsheetUserStores.treeMap()
             );
-            this.idToRepositories.put(id, repository);
+            this.spreadsheetIdToRepository.put(id, repository);
         }
 
         return repository;
     }
 
-    private final Map<SpreadsheetId, SpreadsheetStoreRepository> idToRepositories = Maps.sorted();
+    private final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = Maps.sorted();
 
     private void checkSpreadsheetId(final SpreadsheetId id) {
         Objects.requireNonNull(id, "spreadsheetId");
