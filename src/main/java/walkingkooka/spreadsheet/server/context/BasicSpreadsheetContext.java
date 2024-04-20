@@ -211,16 +211,16 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id) {
         SpreadsheetContext.checkId(id);
 
-        Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter = this.idToHateosRouter.get(id);
+        Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter = this.spreadsheetIdToHateosRouter.get(id);
         if (null == hateosRouter) {
             hateosRouter = this.createHttpRouter(id);
 
-            this.idToHateosRouter.put(id, hateosRouter);
+            this.spreadsheetIdToHateosRouter.put(id, hateosRouter);
         }
         return hateosRouter;
     }
 
-    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> idToHateosRouter = Maps.sorted();
+    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> spreadsheetIdToHateosRouter = Maps.sorted();
 
     /**
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
