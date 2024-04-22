@@ -21,7 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.spreadsheet.compare.SpreadsheetCellSpreadsheetComparatorNames;
+import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -112,9 +112,9 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCells extends Spre
         );
     }
 
-    private static List<SpreadsheetCellSpreadsheetComparatorNames> comparators(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    private static List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return COMPARATORS.firstParameterValue(parameters)
-                .map(SpreadsheetCellSpreadsheetComparatorNames::parseList)
+                .map(SpreadsheetColumnOrRowSpreadsheetComparatorNames::parseList)
                 .orElseThrow(() -> new IllegalArgumentException("Missing required " + COMPARATORS));
     }
 

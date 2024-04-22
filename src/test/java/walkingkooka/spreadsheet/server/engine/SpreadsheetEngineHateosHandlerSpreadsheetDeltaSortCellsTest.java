@@ -25,7 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
-import walkingkooka.spreadsheet.compare.SpreadsheetCellSpreadsheetComparatorNames;
+import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
@@ -62,11 +62,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCellsTest e
 
                             @Override
                             public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetCellSpreadsheetComparatorNames> c,
+                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(cell.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetCellSpreadsheetComparatorNames.parseList(comparators), c);
+                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
                         },
@@ -96,11 +96,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCellsTest e
 
                             @Override
                             public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetCellSpreadsheetComparatorNames> c,
+                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(cell.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetCellSpreadsheetComparatorNames.parseList(comparators), c);
+                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
                         },
@@ -145,11 +145,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCellsTest e
 
                             @Override
                             public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetCellSpreadsheetComparatorNames> c,
+                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetCellSpreadsheetComparatorNames.parseList(comparators), c);
+                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
                         },
@@ -193,11 +193,11 @@ public final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCellsTest e
 
                             @Override
                             public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetCellSpreadsheetComparatorNames> c,
+                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
                                 checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetCellSpreadsheetComparatorNames.parseList(comparators), c);
+                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
                         },
