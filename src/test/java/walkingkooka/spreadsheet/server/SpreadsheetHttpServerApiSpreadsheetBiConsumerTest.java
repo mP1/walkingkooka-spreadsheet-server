@@ -33,9 +33,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -44,7 +42,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetBiConsumer> {
 
@@ -69,7 +66,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdToExpressionFunctions,
+                this::spreadsheetIdToExpressionFunctionProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -89,7 +86,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
         return SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> spreadsheetIdToExpressionFunctions(final SpreadsheetId id) {
+    private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

@@ -59,12 +59,10 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
@@ -229,7 +227,7 @@ public class JunitTest {
                 return node.toValue(
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
-                                this.functions(),
+                                ExpressionFunctionProviders.fake()::function,
                                 SpreadsheetErrorKind::translate,
                                 this.references(),
                                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -241,12 +239,6 @@ public class JunitTest {
                                         )
                         )
                 );
-            }
-
-            private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-                return (n) -> {
-                    throw new UnsupportedOperationException("unsupported function " + n);
-                };
             }
 
             private Function<ExpressionReference, Optional<Optional<Object>>> references() {
@@ -270,8 +262,9 @@ public class JunitTest {
                 );
             }
 
-            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
-                                                  final Optional<SpreadsheetFormatter> formatter) {
+            @Override
+            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
+                                                       final Optional<SpreadsheetFormatter> formatter) {
                 return cell;
             }
 

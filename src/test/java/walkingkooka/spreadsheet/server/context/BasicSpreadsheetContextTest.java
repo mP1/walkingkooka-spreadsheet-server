@@ -71,11 +71,9 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -120,7 +118,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -139,7 +137,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -158,7 +156,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -177,7 +175,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -196,7 +194,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -215,7 +213,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -234,7 +232,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 null,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -253,7 +251,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 null,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -291,7 +289,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 null,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -310,7 +308,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 null,
                 this::contentTypeFactory,
@@ -329,7 +327,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 null,
@@ -348,7 +346,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -364,7 +362,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
+                           final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                            final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -380,7 +378,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         createMetadata,
                         metadataStore,
                         spreadsheetIdSpreadsheetComparatorProvider,
-                        spreadsheetIdFunctions,
+                        spreadsheetIdExpressionFunctionProvider,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
                         contentTypeFactory,
@@ -390,8 +388,12 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     @Test
-    public void testFunctions() {
-        this.checkNotEquals(null, this.createContext().functions(this.spreadsheetId()));
+    public void testExpressionFunctionProvider() {
+        this.checkNotEquals(
+                null,
+                this.createContext()
+                        .expressionFunctionProvider(this.spreadsheetId())
+        );
     }
 
     @Test
@@ -1091,7 +1093,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdFunctions,
+                this::spreadsheetIdExpressionFunctionProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -1146,12 +1148,10 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
         return SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> spreadsheetIdFunctions(final SpreadsheetId spreadsheetId) {
+    private ExpressionFunctionProvider spreadsheetIdExpressionFunctionProvider(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return (f) -> {
-            throw new UnknownExpressionFunctionException(f);
-        };
+        return ExpressionFunctionProviders.fake();
     }
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
