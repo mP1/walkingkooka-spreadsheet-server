@@ -29,9 +29,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 
 import java.math.BigDecimal;
@@ -55,7 +53,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                            final SpreadsheetMetadataStore metadataStore,
                                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
-                                           final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
+                                           final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                            final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -69,7 +67,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToComparatorProvider,
-                spreadsheetIdFunctions,
+                spreadsheetIdExpressionFunctionProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,

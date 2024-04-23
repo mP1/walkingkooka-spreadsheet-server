@@ -34,8 +34,12 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
     }
 
     @Test
-    default void testFunctionsNullSpreadsheetIdFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().functions(null));
+    default void testExpressionFunctionProviderNullSpreadsheetIdFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .expressionFunctionProvider(null)
+        );
     }
 
     @Test

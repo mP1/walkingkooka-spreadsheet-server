@@ -26,14 +26,11 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class FakeSpreadsheetContext implements SpreadsheetContext {
 
@@ -53,7 +50,7 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {
+    public ExpressionFunctionProvider expressionFunctionProvider(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

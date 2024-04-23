@@ -65,9 +65,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -98,7 +96,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                         final SpreadsheetMetadataStore metadataStore,
                                         final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
-                                        final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
+                                        final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                         final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -111,7 +109,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToComparatorProvider, "spreadsheetIdToComparatorProvider");
-        Objects.requireNonNull(spreadsheetIdFunctions, "spreadsheetIdFunctions");
+        Objects.requireNonNull(spreadsheetIdExpressionFunctionProvider, "spreadsheetIdExpressionFunctionProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
         Objects.requireNonNull(contentTypeFactory, "contentTypeFactory");
@@ -126,7 +124,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToComparatorProvider,
-                spreadsheetIdFunctions,
+                spreadsheetIdExpressionFunctionProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,
@@ -142,7 +140,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                     final SpreadsheetMetadataStore metadataStore,
                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
-                                    final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions,
+                                    final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                     final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -160,7 +158,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         this.metadataStore = metadataStore;
 
         this.spreadsheetIdToComparatorProvider = spreadsheetIdToComparatorProvider;
-        this.spreadsheetIdFunctions = spreadsheetIdFunctions;
+        this.spreadsheetIdExpressionFunctionProvider = spreadsheetIdExpressionFunctionProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
         this.contentTypeFactory = contentTypeFactory;
@@ -190,11 +188,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider;
 
     @Override
-    public Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {
-        return this.spreadsheetIdFunctions.apply(id);
+    public ExpressionFunctionProvider expressionFunctionProvider(final SpreadsheetId id) {
+        return this.spreadsheetIdExpressionFunctionProvider.apply(id);
     }
 
-    private final Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdFunctions;
+    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider;
 
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)
@@ -235,7 +233,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetComparatorProvider spreadsheetComparatorProvider = this.spreadsheetIdToComparatorProvider.apply(id);
 
-        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.spreadsheetIdFunctions.apply(id);
+        final ExpressionFunctionProvider functions = this.spreadsheetIdExpressionFunctionProvider.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 

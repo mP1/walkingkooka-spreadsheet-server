@@ -84,10 +84,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -7460,7 +7458,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this::spreadsheetMetadataStamper,
                 fractioner(),
                 spreadsheetIdSpreadsheetComparatorProvider(),
-                spreadsheetIdToExpressionFunctions(),
+                spreadsheetIdToExpressionFunctionProvider(),
                 this.spreadsheetIdToRepository,
                 this::contentTypeFactory,
                 this::fileServer,
@@ -7524,17 +7522,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
-    private static Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions() {
-        return SpreadsheetHttpServerTest::functions;
-    }
-
-    /**
-     * TODO Implement a real function lookup, that only exposes functions that are enabled for a single spreadsheet.
-     */
-    private static Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final SpreadsheetId id) {
-        return (n) -> {
-            throw new UnknownExpressionFunctionException(n);
-        };
+    private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
+        return (id) -> ExpressionFunctionProviders.fake();
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

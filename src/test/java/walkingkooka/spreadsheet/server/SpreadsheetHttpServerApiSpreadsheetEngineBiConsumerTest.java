@@ -60,9 +60,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.math.BigDecimal;
@@ -353,7 +352,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
                 createMetadata(),
                 this.metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider(),
-                spreadsheetIdToExpressionFunctions(),
+                spreadsheetIdToExpressionFunctionProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 LocalDateTime::now
@@ -379,11 +378,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<SpreadsheetId, Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>>> spreadsheetIdToExpressionFunctions() {
-        return (i) ->
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                };
+    private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
+        return (i) -> ExpressionFunctionProviders.fake();
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {

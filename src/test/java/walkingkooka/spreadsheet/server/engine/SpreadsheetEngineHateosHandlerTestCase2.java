@@ -55,6 +55,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -140,9 +141,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
         return SpreadsheetEngineContexts.basic(
                 this.metadata(),
                 SpreadsheetComparatorProviders.builtIn(),
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
+                ExpressionFunctionProviders.fake(),
                 engine,
                 (b) -> {
                     throw new UnsupportedOperationException();
