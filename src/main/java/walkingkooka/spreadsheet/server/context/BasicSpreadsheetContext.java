@@ -42,6 +42,8 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetRow;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -56,6 +58,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetComparatorInfoList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
@@ -254,7 +257,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         return patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context)
                 .then(
-                        this.cellColumnRowViewportRouter(
+                        this.cellColumnComparatorRowViewportRouter(
                                 id,
                                 100, // defaultMax
                                 engine,
@@ -267,10 +270,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
     private final Supplier<LocalDateTime> now;
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnRowViewportRouter(final SpreadsheetId id,
-                                                                                                               final int defaultMax,
-                                                                                                               final SpreadsheetEngine engine,
-                                                                                                               final SpreadsheetEngineContext context) {
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnComparatorRowViewportRouter(final SpreadsheetId id,
+                                                                                                                         final int defaultMax,
+                                                                                                                         final SpreadsheetEngine engine,
+                                                                                                                         final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
                 defaultMax,
                 engine,
@@ -280,6 +283,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(engine, context);
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
+
+        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
 
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
@@ -300,6 +305,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                         cell,
                         cellReference,
                         column,
+                        comparator,
                         label,
                         row
                 ),
@@ -510,6 +516,20 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 deleteColumns,
                 insertAfterColumns,
                 insertBeforeColumns
+        );
+    }
+
+    public static HateosResourceMapping<SpreadsheetComparatorName,
+            SpreadsheetComparatorInfo,
+            SpreadsheetComparatorInfoList,
+            SpreadsheetComparatorInfo> comparator(final SpreadsheetEngine engine,
+                                                  final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
+                engine,
+                context
+        );
+        return SpreadsheetEngineHateosResourceMappings.comparator(
+                loadSpreadsheetComparators
         );
     }
 

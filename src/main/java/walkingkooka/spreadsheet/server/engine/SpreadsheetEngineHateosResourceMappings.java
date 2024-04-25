@@ -28,6 +28,8 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -37,6 +39,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -284,6 +287,48 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 HateosResourceSelection.one(parsed.begin()) :
                 HateosResourceSelection.range(parsed.range());
     }
+
+    // comparator.......................................................................................................
+
+    public static HateosResourceMapping<SpreadsheetComparatorName,
+            SpreadsheetComparatorInfo,
+            SpreadsheetComparatorInfoList,
+            SpreadsheetComparatorInfo> comparator(final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList> loadSpreadsheetComparators) {
+        Objects.requireNonNull(loadSpreadsheetComparators, "loadSpreadsheetComparators");
+
+        // comparator GET...............................................................................................
+
+        HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList,
+                SpreadsheetComparatorInfo> comparator = HateosResourceMapping.with(
+                        COMPARATOR,
+                        SpreadsheetEngineHateosResourceMappings::parseComparatorSelection,
+                        SpreadsheetComparatorInfo.class, // valueType
+                        SpreadsheetComparatorInfoList.class, // collectionType
+                        SpreadsheetComparatorInfo.class// resourceType
+                )
+                .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetComparators);
+
+        return comparator;
+    }
+
+    private static HateosResourceSelection<SpreadsheetComparatorName> parseComparatorSelection(final String text) {
+        final HateosResourceSelection<SpreadsheetComparatorName> selection;
+
+        switch (text.length()) {
+            case 0:
+                selection = HateosResourceSelection.all();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid selection " + CharSequences.quoteAndEscape(text));
+        }
+
+        return selection;
+    }
+
+    /**
+     * A {@link HateosResourceName} with <code>comparator</code>.
+     */
+    private static final HateosResourceName COMPARATOR = HateosResourceName.with("comparator");
 
     // row..............................................................................................................
 

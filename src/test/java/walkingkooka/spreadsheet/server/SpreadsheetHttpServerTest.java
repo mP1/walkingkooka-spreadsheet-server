@@ -56,6 +56,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -72,6 +74,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetComparatorInfoList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
@@ -5170,6 +5173,97 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    // comparators......................................................................................................
+
+    private final static SpreadsheetComparatorInfo INFO1 = SpreadsheetComparatorInfo.with(
+            Url.parseAbsolute("https://example.com/1"),
+            SpreadsheetComparatorName.with("comparator-1")
+    );
+
+    private final static SpreadsheetComparatorInfo INFO2 = SpreadsheetComparatorInfo.with(
+            Url.parseAbsolute("https://example.com/2"),
+            SpreadsheetComparatorName.with("comparator-2")
+    );
+
+    @Test
+    public void testComparators() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/comparator",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/date\",\n" +
+                                "    \"name\": \"date\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/date-time\",\n" +
+                                "    \"name\": \"date-time\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/day-of-month\",\n" +
+                                "    \"name\": \"day-of-month\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/day-of-week\",\n" +
+                                "    \"name\": \"day-of-week\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/hour-of-am-pm\",\n" +
+                                "    \"name\": \"hour-of-am-pm\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/hour-of-day\",\n" +
+                                "    \"name\": \"hour-of-day\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/minute-of-hour\",\n" +
+                                "    \"name\": \"minute-of-hour\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/month-of-year\",\n" +
+                                "    \"name\": \"month-of-year\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/nano-of-second\",\n" +
+                                "    \"name\": \"nano-of-second\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/number\",\n" +
+                                "    \"name\": \"number\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/seconds-of-minute\",\n" +
+                                "    \"name\": \"seconds-of-minute\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/text\",\n" +
+                                "    \"name\": \"text\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/text-case-insensitive\",\n" +
+                                "    \"name\": \"text-case-insensitive\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/time\",\n" +
+                                "    \"name\": \"time\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/year\",\n" +
+                                "    \"name\": \"year\"\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetComparatorInfoList.class.getSimpleName()
                 )
         );
     }
