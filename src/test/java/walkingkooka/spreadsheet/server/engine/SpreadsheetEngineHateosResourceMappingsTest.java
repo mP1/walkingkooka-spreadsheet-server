@@ -47,6 +47,8 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -693,6 +695,18 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                     }
                 };
             }
+
+            // required by GET comparators
+
+            @Override
+            public Set<SpreadsheetComparatorInfo> spreadsheetComparatorInfos() {
+                return Sets.of(
+                        SpreadsheetComparatorInfo.with(
+                                Url.parseAbsolute("https://example.com/comparator-1"),
+                                SpreadsheetComparatorName.with("comparator-1")
+                        )
+                );
+            }
         };
     }
 
@@ -871,6 +885,62 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         url,
                         ""
                 )
+        );
+    }
+
+    // comparator.......................................................................................................
+
+    @Test
+    public void testComparatorNullLoadFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.comparator(null)
+        );
+    }
+
+    @Test
+    public void testComparatorsLoadGet() {
+        this.routeComparatorAndCheck(
+                HttpMethod.GET,
+                "/comparator",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testComparatorsLoadPost() {
+        this.routeComparatorAndCheck(
+                HttpMethod.POST,
+                "/comparator",
+                HttpStatusCode.METHOD_NOT_ALLOWED
+        );
+    }
+
+    private void routeComparatorAndCheck(final HttpMethod method,
+                                         final String url,
+                                         final HttpStatusCode statusCode) {
+        this.routeComparatorAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeComparatorAndCheck(final HttpMethod method,
+                                         final String url,
+                                         final String body,
+                                         final HttpStatusCode statusCode) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+        this.routeAndCheck(
+                SpreadsheetEngineHateosResourceMappings.comparator(
+                        SpreadsheetEngineHttps.loadSpreadsheetComparators(engine, context)
+                ),
+                method,
+                url,
+                body,
+                statusCode
         );
     }
 

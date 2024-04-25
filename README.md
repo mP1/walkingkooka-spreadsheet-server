@@ -83,6 +83,12 @@ Many of these are very closed mapped to the context menu that appears when colum
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A
 - DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
 
+#### comparators
+
+These end points may be used to work with available SpreadsheetComparator(s)
+
+- GET /api/spreadsheet/$spreadsheet-id/comparator
+
 #### label
 
 These end points are mostly used by the label management dialog.
