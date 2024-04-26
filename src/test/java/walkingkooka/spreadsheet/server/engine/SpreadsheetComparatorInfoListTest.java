@@ -19,7 +19,7 @@
 package walkingkooka.spreadsheet.server.engine;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.ListTesting2;
+import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.Url;
 import walkingkooka.reflect.ClassTesting;
@@ -33,7 +33,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetComparatorInfoListTest implements ListTesting2<SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo>,
+public final class SpreadsheetComparatorInfoListTest implements ImmutableListTesting<SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo>,
         ClassTesting<SpreadsheetComparatorInfoList>,
         JsonNodeMarshallingTesting<SpreadsheetComparatorInfoList> {
 
@@ -197,5 +197,27 @@ public final class SpreadsheetComparatorInfoListTest implements ListTesting2<Spr
     @Override
     public SpreadsheetComparatorInfoList createJsonNodeMarshallingValue() {
         return this.createList();
+    }
+
+    // ImmutableList....................................................................................................
+
+    @Test
+    public void testSwap() {
+        this.swapAndCheck(
+                SpreadsheetComparatorInfoList.with(
+                        Lists.of(
+                                INFO1,
+                                INFO2
+                        )
+                ),
+                1,
+                0,
+                SpreadsheetComparatorInfoList.with(
+                        Lists.of(
+                                INFO2,
+                                INFO1
+                        )
+                )
+        );
     }
 }
