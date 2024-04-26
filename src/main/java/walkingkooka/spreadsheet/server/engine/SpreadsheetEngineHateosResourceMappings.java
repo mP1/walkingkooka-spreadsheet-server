@@ -40,6 +40,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -330,6 +333,49 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      */
     private static final HateosResourceName COMPARATOR = HateosResourceName.with("comparator");
 
+
+    // expression-function..............................................................................................
+
+    public static HateosResourceMapping<FunctionExpressionName,
+            ExpressionFunctionInfo,
+            ExpressionFunctionInfoList,
+            ExpressionFunctionInfo> expressionFunction(final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> loadSpreadsheetExpressionFunctions) {
+        Objects.requireNonNull(loadSpreadsheetExpressionFunctions, "loadSpreadsheetExpressionFunctions");
+
+        // function GET...............................................................................................
+
+        HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList,
+                ExpressionFunctionInfo> function = HateosResourceMapping.with(
+                        FUNCTION,
+                        SpreadsheetEngineHateosResourceMappings::parseFunctionSelection,
+                        ExpressionFunctionInfo.class, // valueType
+                        ExpressionFunctionInfoList.class, // collectionType
+                        ExpressionFunctionInfo.class// resourceType
+                )
+                .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetExpressionFunctions);
+
+        return function;
+    }
+
+    private static HateosResourceSelection<FunctionExpressionName> parseFunctionSelection(final String text) {
+        final HateosResourceSelection<FunctionExpressionName> selection;
+
+        switch (text.length()) {
+            case 0:
+                selection = HateosResourceSelection.all();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid selection " + CharSequences.quoteAndEscape(text));
+        }
+
+        return selection;
+    }
+
+    /**
+     * A {@link HateosResourceName} with <code>expression-function</code>.
+     */
+    private static final HateosResourceName FUNCTION = HateosResourceName.with("expression-function");
+    
     // row..............................................................................................................
 
     public static HateosResourceMapping<SpreadsheetRowReference,

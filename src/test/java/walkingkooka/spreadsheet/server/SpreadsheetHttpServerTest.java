@@ -87,8 +87,11 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
+import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -101,6 +104,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -5268,6 +5272,41 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // expression-function.............................................................................................
+
+    @Test
+    public void testExpressionFunction() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/expression-function",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"type\": \"expression-function-info\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"url\": \"https://example.com/expression-function-1\",\n" +
+                                "      \"name\": \"ExpressionFunction1\"\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"expression-function-info\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"url\": \"https://example.com/expression-function-2\",\n" +
+                                "      \"name\": \"ExpressionFunction2\"\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "]",
+                        ExpressionFunctionInfoList.class.getSimpleName()
+                )
+        );
+    }
+
     // row...........................................................................................................
 
     @Test
@@ -7617,7 +7656,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
-        return (id) -> ExpressionFunctionProviders.fake();
+        return (id) -> new FakeExpressionFunctionProvider() {
+            @Override
+            public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
+                return Sets.of(
+                        ExpressionFunctionInfo.with(
+                                Url.parseAbsolute("https://example.com/expression-function-1"),
+                                FunctionExpressionName.with("ExpressionFunction1")
+                        ),
+                        ExpressionFunctionInfo.with(
+                                Url.parseAbsolute("https://example.com/expression-function-2"),
+                                FunctionExpressionName.with("ExpressionFunction2")
+                        )
+                );
+            }
+        };
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
