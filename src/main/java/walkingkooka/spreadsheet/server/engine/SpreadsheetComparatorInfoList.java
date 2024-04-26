@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
+import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.tree.json.JsonNode;
@@ -32,7 +33,8 @@ import java.util.Objects;
  * An immutable {@link List} that only exists so marshalling the list from {@link SpreadsheetEngineHateosHandlerSpreadsheetComparators}
  * does not include type info for each element.
  */
-public final class SpreadsheetComparatorInfoList extends AbstractList<SpreadsheetComparatorInfo> {
+public final class SpreadsheetComparatorInfoList extends AbstractList<SpreadsheetComparatorInfo>
+        implements ImmutableList<SpreadsheetComparatorInfo> {
 
     static SpreadsheetComparatorInfoList with(final List<SpreadsheetComparatorInfo> infos) {
         return infos instanceof SpreadsheetComparatorInfoList ?
@@ -85,5 +87,15 @@ public final class SpreadsheetComparatorInfoList extends AbstractList<Spreadshee
                 SpreadsheetComparatorInfoList::marshall,
                 SpreadsheetComparatorInfoList.class
         );
+    }
+
+    // ImmutableList....................................................................................................
+
+    @Override
+    public ImmutableList<SpreadsheetComparatorInfo> setElements(final List<SpreadsheetComparatorInfo> infos) {
+        final ImmutableList<SpreadsheetComparatorInfo> copy = with(infos);
+        return this.equals(copy) ?
+                this :
+                copy;
     }
 }
