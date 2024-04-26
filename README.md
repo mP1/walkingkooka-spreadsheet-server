@@ -89,6 +89,12 @@ These end points may be used to work with available SpreadsheetComparator(s)
 
 - GET /api/spreadsheet/$spreadsheet-id/comparator
 
+#### expression function(s)
+
+These end points may be used to work with available ExpressionFuntion(s)
+
+- GET /api/spreadsheet/$spreadsheet-id/expression-function
+
 #### label
 
 These end points are mostly used by the label management dialog.

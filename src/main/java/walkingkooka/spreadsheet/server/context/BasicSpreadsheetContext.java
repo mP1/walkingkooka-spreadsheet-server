@@ -68,6 +68,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.math.BigDecimal;
@@ -257,7 +260,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         return patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context)
                 .then(
-                        this.cellColumnComparatorRowViewportRouter(
+                        this.cellColumnComparatorExpressionFunctionRowViewportRouter(
                                 id,
                                 100, // defaultMax
                                 engine,
@@ -270,10 +273,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
     private final Supplier<LocalDateTime> now;
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnComparatorRowViewportRouter(final SpreadsheetId id,
-                                                                                                                         final int defaultMax,
-                                                                                                                         final SpreadsheetEngine engine,
-                                                                                                                         final SpreadsheetEngineContext context) {
+    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnComparatorExpressionFunctionRowViewportRouter(final SpreadsheetId id,
+                                                                                                                                           final int defaultMax,
+                                                                                                                                           final SpreadsheetEngine engine,
+                                                                                                                                           final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
                 defaultMax,
                 engine,
@@ -285,6 +288,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
+
+        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
 
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
@@ -306,6 +311,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                         cellReference,
                         column,
                         comparator,
+                        expressionFunction,
                         label,
                         row
                 ),
@@ -532,6 +538,25 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 loadSpreadsheetComparators
         );
     }
+
+
+    // expression-function..............................................................................................
+
+    public static HateosResourceMapping<FunctionExpressionName,
+            ExpressionFunctionInfo,
+            ExpressionFunctionInfoList,
+            ExpressionFunctionInfo> expressionFunction(final SpreadsheetEngine engine,
+                                                       final SpreadsheetEngineContext context) {
+        final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
+                engine,
+                context
+        );
+        return SpreadsheetEngineHateosResourceMappings.expressionFunction(
+                loadSpreadsheetExpressionFunction
+        );
+    }
+
+    // label............................................................................................................
 
     private static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label(final SpreadsheetLabelStore store) {
 

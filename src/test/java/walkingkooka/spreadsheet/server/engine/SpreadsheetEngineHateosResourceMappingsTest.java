@@ -71,6 +71,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -707,6 +709,20 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         )
                 );
             }
+
+            @Override
+            public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
+                return Sets.of(
+                        ExpressionFunctionInfo.with(
+                                Url.parseAbsolute("https://example.com/expression-function-1"),
+                                FunctionExpressionName.with("ExpressionFunction1")
+                        ),
+                        ExpressionFunctionInfo.with(
+                                Url.parseAbsolute("https://example.com/expression-function-2"),
+                                FunctionExpressionName.with("ExpressionFunction2")
+                        )
+                );
+            }
         };
     }
 
@@ -936,6 +952,66 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         this.routeAndCheck(
                 SpreadsheetEngineHateosResourceMappings.comparator(
                         SpreadsheetEngineHttps.loadSpreadsheetComparators(engine, context)
+                ),
+                method,
+                url,
+                body,
+                statusCode
+        );
+    }
+
+    // expressionFunction.......................................................................................................
+
+    @Test
+    public void testExpressionFunctionNullLoadFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.expressionFunction(null)
+        );
+    }
+
+    @Test
+    public void testExpressionFunctionsLoadGet() {
+        this.routeExpressionFunctionAndCheck(
+                HttpMethod.GET,
+                "/expression-function",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testExpressionFunctionsLoadPost() {
+        this.routeExpressionFunctionAndCheck(
+                HttpMethod.POST,
+                "/expression-function",
+                HttpStatusCode.METHOD_NOT_ALLOWED
+        );
+    }
+
+    private void routeExpressionFunctionAndCheck(final HttpMethod method,
+                                                 final String url,
+                                                 final HttpStatusCode statusCode) {
+        this.routeExpressionFunctionAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeExpressionFunctionAndCheck(final HttpMethod method,
+                                                 final String url,
+                                                 final String body,
+                                                 final HttpStatusCode statusCode) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+
+        this.routeAndCheck(
+                SpreadsheetEngineHateosResourceMappings.expressionFunction(
+                        SpreadsheetEngineHttps.loadExpressionFunctions(
+                                engine,
+                                context
+                        )
                 ),
                 method,
                 url,
