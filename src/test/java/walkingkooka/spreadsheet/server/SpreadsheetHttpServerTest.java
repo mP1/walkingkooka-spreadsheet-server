@@ -56,8 +56,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -5182,16 +5180,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     // comparators......................................................................................................
-
-    private final static SpreadsheetComparatorInfo INFO1 = SpreadsheetComparatorInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            SpreadsheetComparatorName.with("comparator-1")
-    );
-
-    private final static SpreadsheetComparatorInfo INFO2 = SpreadsheetComparatorInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            SpreadsheetComparatorName.with("comparator-2")
-    );
 
     @Test
     public void testComparators() {
