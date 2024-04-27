@@ -79,8 +79,6 @@ public final class SpreadsheetComparatorInfoList extends AbstractList<Spreadshee
     }
 
     static {
-        Lists.registerImmutableType(SpreadsheetComparatorInfoList.class);
-
         JsonNodeContext.register(
                 JsonNodeContext.computeTypeName(SpreadsheetComparatorInfoList.class),
                 SpreadsheetComparatorInfoList::unmarshall,
