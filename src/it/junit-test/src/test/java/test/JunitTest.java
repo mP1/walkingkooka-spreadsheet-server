@@ -23,7 +23,6 @@ import org.junit.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converters;
-import walkingkooka.j2cl.locale.LocaleAware;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColors;
@@ -44,6 +43,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParsers;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolver;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
@@ -84,9 +85,7 @@ public class JunitTest {
 
     private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
-    private final static Function<SpreadsheetSelection, SpreadsheetSelection> RESOLVE_IF_LABEL = (s) -> {
-        throw new UnsupportedOperationException();
-    };
+    private final static SpreadsheetLabelNameResolver LABEL_NAME_RESOLVER = SpreadsheetLabelNameResolvers.fake();
 
     @Test
     public void testMetadataNonLocaleDefaults() {
@@ -235,7 +234,7 @@ public class JunitTest {
                                 this.spreadsheetMetadata()
                                         .converterContext(
                                                 NOW,
-                                                RESOLVE_IF_LABEL
+                                                LABEL_NAME_RESOLVER
                                         )
                         )
                 );
@@ -257,14 +256,13 @@ public class JunitTest {
                         value,
                         metadata.formatterContext(
                                 NOW,
-                                RESOLVE_IF_LABEL
+                                LABEL_NAME_RESOLVER
                         )
                 );
             }
 
-            @Override
-            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
-                                                       final Optional<SpreadsheetFormatter> formatter) {
+            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
+                                                  final Optional<SpreadsheetFormatter> formatter) {
                 return cell;
             }
 
