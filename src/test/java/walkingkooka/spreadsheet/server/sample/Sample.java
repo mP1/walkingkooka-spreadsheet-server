@@ -252,8 +252,9 @@ public final class Sample {
                 );
             }
 
-            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
-                                                  final Optional<SpreadsheetFormatter> formatter) {
+            @Override
+            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
+                                                       final Optional<SpreadsheetFormatter> formatter) {
                 return cell;
             }
 
