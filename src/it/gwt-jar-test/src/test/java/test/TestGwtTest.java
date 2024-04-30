@@ -256,11 +256,11 @@ public class TestGwtTest extends GWTTestCase {
                 );
             }
 
-            public SpreadsheetCell formatAndStyle(final SpreadsheetCell cell,
-                                                  final Optional<SpreadsheetFormatter> formatter) {
+            @Override
+            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
+                                                       final Optional<SpreadsheetFormatter> formatter) {
                 return cell;
             }
-
             @Override
             public SpreadsheetStoreRepository storeRepository() {
                 return this.storeRepository;
