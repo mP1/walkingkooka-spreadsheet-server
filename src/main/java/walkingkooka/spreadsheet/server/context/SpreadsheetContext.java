@@ -52,6 +52,11 @@ public interface SpreadsheetContext extends Context {
     SpreadsheetMetadata createMetadata(final Optional<Locale> locale);
 
     /**
+     * Saves the given {@link SpreadsheetMetadata}.
+     */
+    SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata);
+
+    /**
      * Returns the {@link SpreadsheetMetadataStore}.
      */
     SpreadsheetMetadataStore metadataStore();

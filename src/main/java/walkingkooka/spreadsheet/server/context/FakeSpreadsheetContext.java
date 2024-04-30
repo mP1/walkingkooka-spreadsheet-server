@@ -40,6 +40,11 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
+    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetMetadataStore metadataStore() {
         throw new UnsupportedOperationException();
     }

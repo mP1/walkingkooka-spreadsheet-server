@@ -21,6 +21,7 @@ package walkingkooka.spreadsheet.server.context;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.reflect.TypeNameTesting;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,6 +32,35 @@ public interface SpreadsheetContextTesting<C extends SpreadsheetContext> extends
     @Test
     default void testCreateMetadataNullLocaleFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().createMetadata(null));
+    }
+
+    @Test
+    default void testSaveMetadataNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext().saveMetadata(null)
+        );
+    }
+
+    @Test
+    default void testSaveMetadataMissingSpreadsheetIdFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.createContext()
+                        .saveMetadata(
+                                SpreadsheetMetadata.EMPTY
+                        )
+        );
+    }
+
+    default void saveMetadataAndCheck(final SpreadsheetContext context,
+                                      final SpreadsheetMetadata metadata,
+                                      final SpreadsheetMetadata expected) {
+        this.checkEquals(
+                expected,
+                context.saveMetadata(metadata),
+                () -> "saveMetadata " + metadata
+        );
     }
 
     @Test

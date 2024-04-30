@@ -52,6 +52,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -178,6 +179,17 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     }
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
+
+    @Override
+    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+        Objects.requireNonNull(metadata, "metadata");
+
+        // metadata must have id
+        return this.storeRepository(
+                        metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
+                ).metadatas()
+                .save(metadata);
+    }
 
     @Override
     public SpreadsheetMetadataStore metadataStore() {
