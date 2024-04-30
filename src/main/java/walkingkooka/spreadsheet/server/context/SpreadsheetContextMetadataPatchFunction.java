@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
 
@@ -51,15 +50,16 @@ final class SpreadsheetContextMetadataPatchFunction implements UnaryOperator<Jso
         final SpreadsheetId id = this.id;
 
         try {
-            final SpreadsheetMetadataStore store = this.context.storeRepository(id)
-                    .metadatas();
-
-            final SpreadsheetMetadata loadAndPatched = store.loadOrFail(id);
-            final SpreadsheetMetadata saved = store.save(loadAndPatched
-                    .patch(
+            final SpreadsheetContext context = this.context;
+            final SpreadsheetMetadata loadAndPatched = context.storeRepository(id)
+                    .metadatas()
+                    .loadOrFail(id);
+            final SpreadsheetMetadata saved = context.saveMetadata(
+                    loadAndPatched
+                            .patch(
                             json,
                             loadAndPatched.jsonNodeUnmarshallContext()
-                    )
+                            )
             );
             return saved.jsonNodeMarshallContext()
                     .marshall(saved);
