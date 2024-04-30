@@ -54,11 +54,14 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetComparatorInfoList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
@@ -184,11 +187,40 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
         Objects.requireNonNull(metadata, "metadata");
 
+        final SpreadsheetStoreRepository repo = this.storeRepository(
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
+        );
+
+        SpreadsheetMetadata saved = metadata;
+        {
+            final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
+
+            final Optional<SpreadsheetViewport> maybeViewport = metadata.get(propertyName);
+            if (maybeViewport.isPresent()) {
+                // if a selection is present and is a label that does not exist clear it.
+
+                final SpreadsheetViewport viewport = maybeViewport.get();
+                final Optional<AnchoredSpreadsheetSelection> maybeAnchored = viewport.anchoredSelection();
+                if (maybeAnchored.isPresent()) {
+                    final AnchoredSpreadsheetSelection anchored = maybeAnchored.get();
+                    final SpreadsheetSelection selection = anchored.selection();
+                    if (selection.isLabelName()) {
+
+                        final SpreadsheetLabelStore labelStore = repo.labels();
+                        if (false == labelStore.load(selection.toLabelName()).isPresent()) {
+                            saved = saved.set(
+                                    propertyName,
+                                    viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
         // metadata must have id
-        return this.storeRepository(
-                        metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
-                ).metadatas()
-                .save(metadata);
+        return repo.metadatas()
+                .save(saved);
     }
 
     @Override

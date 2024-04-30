@@ -46,6 +46,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -56,7 +57,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
@@ -1071,6 +1074,136 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     private void countAndCheck(final Store<?, ?> store, final int count) {
         this.checkEquals(count, store.count(), () -> "" + store.all());
     }
+
+    // saveMetadata.....................................................................................................
+
+    @Test
+    public void testSaveMetadata() {
+        final BasicSpreadsheetContext context = this.createContext();
+
+        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+
+        final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
+        final SpreadsheetName name = SpreadsheetName.with("Spreadsheet234");
+
+        final SpreadsheetMetadata updated = metadata.set(
+                propertyName,
+                name
+        );
+
+        final SpreadsheetMetadata saved = context.saveMetadata(updated);
+
+        this.checkEquals(
+                updated,
+                saved
+        );
+    }
+
+    @Test
+    public void testSaveMetadataViewportSelectionCell() {
+        final BasicSpreadsheetContext context = this.createContext();
+
+        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+
+        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
+        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
+                SpreadsheetSelection.parseCell("B2")
+                        .viewportRectangle(
+                                123,
+                                456
+                        )
+        ).setAnchoredSelection(
+                Optional.of(SpreadsheetSelection.A1.setDefaultAnchor())
+        );
+
+        final SpreadsheetMetadata updated = metadata.set(
+                propertyName,
+                viewport
+        );
+
+        final SpreadsheetMetadata saved = context.saveMetadata(updated);
+
+        this.checkEquals(
+                updated,
+                saved
+        );
+    }
+
+    @Test
+    public void testSaveMetadataViewportSelectionUnknownLabelCleared() {
+        final BasicSpreadsheetContext context = this.createContext();
+
+        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
+
+        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
+        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
+                SpreadsheetSelection.parseCell("B2")
+                        .viewportRectangle(
+                                123,
+                                456
+                        )
+        ).setAnchoredSelection(
+                Optional.of(label.setDefaultAnchor())
+        );
+
+        final SpreadsheetMetadata updated = metadata.set(
+                propertyName,
+                viewport
+        );
+
+        final SpreadsheetMetadata saved = context.saveMetadata(updated);
+
+        this.checkEquals(
+                updated.set(
+                        propertyName,
+                        viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
+                ),
+                saved
+        );
+    }
+
+    @Test
+    public void testSaveMetadataViewportSelectionExistingLabel() {
+        final BasicSpreadsheetContext context = this.createContext();
+
+        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+
+        final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ExistingLabel123");
+        context.storeRepository(metadata.id().get())
+                .labels()
+                .save(label.mapping(SpreadsheetSelection.A1));
+
+        final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
+        final SpreadsheetViewport viewport = SpreadsheetViewport.with(
+                SpreadsheetSelection.parseCell("B2")
+                        .viewportRectangle(
+                                123,
+                                456
+                        )
+        ).setAnchoredSelection(
+                Optional.of(label.setDefaultAnchor())
+        );
+
+        final SpreadsheetMetadata updated = metadata.set(
+                propertyName,
+                viewport
+        );
+
+        final SpreadsheetMetadata saved = context.saveMetadata(updated);
+
+        this.checkEquals(
+                updated,
+                saved
+        );
+    }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
