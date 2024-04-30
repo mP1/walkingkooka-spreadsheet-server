@@ -117,6 +117,12 @@ public final class SpreadsheetContextMetadataPatchFunctionTest implements Functi
         );
 
         final SpreadsheetContext context = new FakeSpreadsheetContext() {
+
+            @Override
+            public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                return metadata;
+            }
+
             @Override
             public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
                 checkEquals(ID, id, "id");
