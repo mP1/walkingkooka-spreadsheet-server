@@ -24,6 +24,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
 import java.util.List;
 import java.util.Locale;
@@ -53,17 +54,25 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
-        return Optional.of(this.saveMetadata(id, resource));
+        return Optional.of(
+                this.saveMetadata(
+                        id,
+                        HateosHandler.checkResourceNotEmpty(resource)
+                )
+        );
     }
 
     /**
      * The request included an {@link SpreadsheetId} and should also have a {@link SpreadsheetMetadata} this will update the store.
      */
     private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
-                                             final Optional<SpreadsheetMetadata> metadata) {
-        HateosHandler.checkResourceNotEmpty(metadata);
+                                             final SpreadsheetMetadata metadata) {
+        final SpreadsheetId metadataId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+        if (false == id.equals(metadataId)) {
+            throw new IllegalArgumentException("Resource id " + id + " does not match metadata id" + metadataId);
+        }
 
-        return this.context.storeRepository(id).metadatas().save(metadata.get());
+        return this.context.saveMetadata(metadata);
     }
 
     @Override
