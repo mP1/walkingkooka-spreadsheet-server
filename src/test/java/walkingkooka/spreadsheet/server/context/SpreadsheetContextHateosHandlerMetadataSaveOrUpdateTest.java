@@ -28,8 +28,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -114,15 +112,10 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
         final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         final SpreadsheetContextHateosHandlerMetadataSaveOrUpdate handler = SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(
                 new FakeSpreadsheetContext() {
+
                     @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        checkEquals(spreadsheetId(), i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return store;
-                            }
-                        };
+                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                        return metadata;
                     }
                 }
         );
@@ -130,13 +123,13 @@ public final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdateTest exten
         final SpreadsheetId id = this.id();
         final SpreadsheetMetadata metadata = this.metadata();
 
-        this.handleOneAndCheck(handler,
+        this.handleOneAndCheck(
+                handler,
                 id,
                 Optional.of(metadata),
                 this.parameters(),
-                Optional.of(metadata));
-
-        this.checkEquals(Optional.of(metadata), store.load(id), () -> "store missing id=" + id);
+                Optional.of(metadata)
+        );
     }
 
     // toString.........................................................................................................
