@@ -57,7 +57,7 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
     }
 
     /**
-     * The request included an id and should also have a {@link SpreadsheetMetadata} this will update the store.
+     * The request included an {@link SpreadsheetId} and should also have a {@link SpreadsheetMetadata} this will update the store.
      */
     private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
                                              final Optional<SpreadsheetMetadata> metadata) {
