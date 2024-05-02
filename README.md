@@ -27,14 +27,15 @@ A swagger-ui is available at:
 
 A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
 
-- GET /api/spreadsheet/*
-- GET /api/spreadsheet/$spreadsheet-id1,spreadsheet-id2?from=0&count=10
-- GET /api/spreadsheet/$spreadsheet-id
-- POST /api/spreadsheet/  
+- **GET** /api/spreadsheet/*
+- **GET** /api/spreadsheet/$spreadsheet-id1,spreadsheet-id2?from=0&count=10
+- **GET** /api/spreadsheet/$spreadsheet-id
+- **POST** /api/spreadsheet/  
   expects no BODY, creates a Spreadsheet with `SpreadsheetMetadata` with defaults using any provided `Locale`.
-- POST /api/spreadsheet/$spreadsheet-id [TODO PUT](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/504)  
+- **POST**
+  /api/spreadsheet/$spreadsheet-id [TODO PUT](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/504)  
   requires a BODY to update existing `SpreadsheetMetadata.`
-- PATCH /api/spreadsheet/$spreadsheet-id  
+- **PATCH** /api/spreadsheet/$spreadsheet-id  
   Used to update an existing `SpreadsheetMetadata`, name or individual global settings for a spreadsheet.
 
 ### Engine
@@ -49,21 +50,21 @@ output is always a `SpreadsheetDelta` in JSON form, where necessary.
 Most of these end points are used to fill the viewport or from actions such as selecting a cell or cell-range and then
 clicking a context menu command.
 
-- GET /api/spreadsheet/$spreadsheet-id/cell/*
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/*
   /clear-value-error-skip-evaluate?home=A1&&width=2&height=3&includeFrozenColumnsRows=true&selectionType=cell-range&selection=A1:
   B2&selectionNavigation=extend-left&properties="*"  
   Used by the UI to load just enough cells to fill the viewport.
-- GET /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
-- GET /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
-- GET /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
-- GET /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
-- GET /api/spreadsheet/$spreadsheet-id/cell/A1:B2/sort?comparators=A=day-of-month;B=month-of-year
-- PATCH /api/spreadsheet/$spreadsheet-id/cell/A1  
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/clear-value-error-skip-evaluate
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/skip-evaluate
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/force-recompute
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/compute-if-necessary
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1:B2/sort?comparators=A=day-of-month;B=month-of-year
+- **PATCH** /api/spreadsheet/$spreadsheet-id/cell/A1  
   The UI uses this to update individual properties of a cell, such as updating the formula text
-- POST /api/spreadsheet/$spreadsheet-id/cell/A1
-- DELETE /api/spreadsheet/$spreadsheet-id/cell/A1
-- DELETE /api/spreadsheet/$spreadsheet-id/cell/A1:B2
-- POST /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill  
+- **POST** /api/spreadsheet/$spreadsheet-id/cell/A1
+- **DELETE** /api/spreadsheet/$spreadsheet-id/cell/A1
+- **DELETE** /api/spreadsheet/$spreadsheet-id/cell/A1:B2
+- **POST** /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill  
   input includes region of cells to be the fill content  
   This has many purposes including functionality such as filling a range, pasting previously copied cells etc.
 
@@ -71,54 +72,54 @@ clicking a context menu command.
 
 Many of these are very closed mapped to the context menu that appears when column/columns are selected.
 
-- PATCH /api/spreadsheet/$spreadsheet-id/column/A
-- POST /api/spreadsheet/$spreadsheet-id/column/A/clear  
+- **PATCH** /api/spreadsheet/$spreadsheet-id/column/A
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A/clear  
   Used by the UI to clear or erase all cells within the selected column/columns.
-- POST /api/spreadsheet/$spreadsheet-id/column/A:B/clear
-- POST /api/spreadsheet/$spreadsheet-id/column/A/before?count=1  
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A:B/clear
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A/before?count=1  
   Used by the UI to insert one or more columns before the given column
-- POST /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
-- POST /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
-- POST /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
-- DELETE /api/spreadsheet/$spreadsheet-id/column/A
-- DELETE /api/spreadsheet/$spreadsheet-id/column/A:B
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A:B/before?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A/after?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/column/A:B/after?count=1
+- **DELETE** /api/spreadsheet/$spreadsheet-id/column/A
+- **DELETE** /api/spreadsheet/$spreadsheet-id/column/A:B
 
 #### comparators
 
 These end points may be used to work with available SpreadsheetComparator(s)
 
-- GET /api/spreadsheet/$spreadsheet-id/comparator
+- **GET** /api/spreadsheet/$spreadsheet-id/comparator
 
 #### expression function(s)
 
 These end points may be used to work with available ExpressionFuntion(s)
 
-- GET /api/spreadsheet/$spreadsheet-id/expression-function
+- **GET** /api/spreadsheet/$spreadsheet-id/expression-function
 
 #### label
 
 These end points are mostly used by the label management dialog.
 
-- DELETE /api/spreadsheet/$spreadsheet-id/label/$label-name
-- GET /api/spreadsheet/$spreadsheet-id/label/$label-name
-- POST /api/spreadsheet/$spreadsheet-id/label  
+- **DELETE** /api/spreadsheet/$spreadsheet-id/label/$label-name
+- **GET** /api/spreadsheet/$spreadsheet-id/label/$label-name
+- **POST** /api/spreadsheet/$spreadsheet-id/label  
   Used by the UI to create a new label to cell or cell-range
-- POST /api/spreadsheet/$spreadsheet-id/label/$label-name
+- **POST** /api/spreadsheet/$spreadsheet-id/label/$label-name
 
 #### row
 
 Many of these are very closed mapped to the context menu that appears when row/rows are selected.
 
-- PATCH /api/spreadsheet/$spreadsheet-id/row/1
-- POST /api/spreadsheet/$spreadsheet-id/row/1
-- POST /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
-- POST /api/spreadsheet/$spreadsheet-id/row/1:2/after?count=1
-- POST /api/spreadsheet/$spreadsheet-id/row/1/before?count=1
-- POST /api/spreadsheet/$spreadsheet-id/row/1:2/before?count=1
-- POST /api/spreadsheet/$spreadsheet-id/row/1/clear
-- POST /api/spreadsheet/$spreadsheet-id/row/1:3/clear
-- DELETE /api/spreadsheet/$spreadsheet-id/row/1
-- DELETE /api/spreadsheet/$spreadsheet-id/row/1:2
+- **PATCH** /api/spreadsheet/$spreadsheet-id/row/1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1/after?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1:2/after?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1/before?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1:2/before?count=1
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1/clear
+- **POST** /api/spreadsheet/$spreadsheet-id/row/1:3/clear
+- **DELETE** /api/spreadsheet/$spreadsheet-id/row/1
+- **DELETE** /api/spreadsheet/$spreadsheet-id/row/1:2
 
 #### url / query string parameters
 
