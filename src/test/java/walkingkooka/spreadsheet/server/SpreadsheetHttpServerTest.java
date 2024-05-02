@@ -937,6 +937,251 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // sort.............................................................................................................
+
+    @Test
+    public void testSort() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("'Zebra'")
+                                                        )
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Zebra'\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"'\",\n" +
+                                "                  \"text\": \"'\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"Zebra'\",\n" +
+                                "                  \"text\": \"Zebra'\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"'Zebra'\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Zebra'\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Zebra'\"\n" +
+                                "      },\n" +
+                                "      \"formatted-value\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Zebra'\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 50\n" +
+                                "  },\n" +
+                                "  \"columnCount\": 1,\n" +
+                                "  \"rowCount\": 1\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // create another cell on the second row.
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A2",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.parseCell("A2")
+                                                        .setFormula(
+                                                                formula("'Avacado'")
+                                                        )
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Avacado'\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"'\",\n" +
+                                "                  \"text\": \"'\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"Avacado'\",\n" +
+                                "                  \"text\": \"Avacado'\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"'Avacado'\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Avacado'\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Avacado'\"\n" +
+                                "      },\n" +
+                                "      \"formatted-value\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Avacado'\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"2\": 50\n" +
+                                "  },\n" +
+                                "  \"columnCount\": 1,\n" +
+                                "  \"rowCount\": 2\n" +
+                                "}",
+                        DELTA
+                )
+        );
+
+        // sort the two cells created, they should be swapped by the sort
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/cell/A1:B2/sort?comparators=A=text",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Avacado'\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"'\",\n" +
+                                "                  \"text\": \"'\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"Avacado'\",\n" +
+                                "                  \"text\": \"Avacado'\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"'Avacado'\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Avacado'\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Avacado'\"\n" +
+                                "      },\n" +
+                                "      \"formatted-value\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Avacado'\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    \"A2\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"'Zebra'\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-text-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"'\",\n" +
+                                "                  \"text\": \"'\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"Zebra'\",\n" +
+                                "                  \"text\": \"Zebra'\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"'Zebra'\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"value-expression\",\n" +
+                                "          \"value\": \"Zebra'\"\n" +
+                                "        },\n" +
+                                "        \"value\": \"Zebra'\"\n" +
+                                "      },\n" +
+                                "      \"formatted-value\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Text Zebra'\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 50,\n" +
+                                "    \"2\": 50\n" +
+                                "  },\n" +
+                                "  \"columnCount\": 1,\n" +
+                                "  \"rowCount\": 2\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    // patch............................................................................................................
+
     @Test
     public void testCreateAndPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
