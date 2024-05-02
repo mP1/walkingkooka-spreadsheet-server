@@ -153,7 +153,8 @@ main UI thread
 
 ## offline mode
 
-The switch to offline mode means the React application simply replaces the Jetty servlet container, rather than using
+The switch to offline mode means the [application](https://github.com/mP1/walkingkooka-spreadsheet-dominokit) simply
+replaces the Jetty servlet container, rather than using
 the browser's fetch object to communicate via http to a Jetty server, the request is serialized and posted to a
 webworker. The webworker hosts the same java server code translated to javascript.
 
