@@ -43,6 +43,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigationList;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
@@ -652,7 +653,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     private static List<SpreadsheetViewportNavigation> navigations(final String value) {
         return parseQueryParameter(
                 value,
-                SpreadsheetViewportNavigation::parse,
+                SpreadsheetViewportNavigationList::parse,
                 NAVIGATION
         );
     }
