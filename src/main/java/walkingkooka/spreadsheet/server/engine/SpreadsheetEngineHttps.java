@@ -52,7 +52,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
 import walkingkooka.tree.json.JsonNode;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -650,7 +649,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     // @VisibleForTesting
     final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
-    private static List<SpreadsheetViewportNavigation> navigations(final String value) {
+    private static SpreadsheetViewportNavigationList navigations(final String value) {
         return parseQueryParameter(
                 value,
                 SpreadsheetViewportNavigationList::parse,

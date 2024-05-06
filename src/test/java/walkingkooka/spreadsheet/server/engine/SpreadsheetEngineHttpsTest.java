@@ -40,6 +40,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
+import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigationList;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -949,8 +950,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                                 .setDefaultAnchor()
                                 )
                         ).setNavigations(
-                                Lists.of(
-                                        SpreadsheetViewportNavigation.leftColumn()
+                                SpreadsheetViewportNavigationList.with(
+                                        Lists.of(
+                                                SpreadsheetViewportNavigation.leftColumn()
+                                        )
                                 )
                         )
         );
