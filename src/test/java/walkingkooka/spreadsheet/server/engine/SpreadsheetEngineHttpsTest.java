@@ -950,10 +950,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                                 .setDefaultAnchor()
                                 )
                         ).setNavigations(
-                                SpreadsheetViewportNavigationList.with(
-                                        Lists.of(
-                                                SpreadsheetViewportNavigation.leftColumn()
-                                        )
+                                SpreadsheetViewportNavigationList.EMPTY.concat(
+                                        SpreadsheetViewportNavigation.leftColumn()
                                 )
                         )
         );
