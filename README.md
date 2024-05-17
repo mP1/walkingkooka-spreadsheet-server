@@ -5,9 +5,11 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/mP1/walkingkooka-spreadsheet-server.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mP1/walkingkooka-spreadsheet-server/alerts/)
 [![J2CL compatible](https://img.shields.io/badge/J2CL-compatible-brightgreen.svg)](https://github.com/mP1/j2cl-central)
 
+This module registers service end points that
+call [SpreadsheetEngine](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngine.java)
+services belonging to [walkingkooka-spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet). Each module contains
+minimal logic and is mostly concerned with unmarshalling/marshalling parameters and invoking the service.
 
-The http server for [walkingkooka-spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet). It includes a router
-and some handlers for spreadsheet services.
 
 ## REST
 
