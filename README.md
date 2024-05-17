@@ -45,7 +45,9 @@ Note all payloads are in `JSON` form.
 ### Engine
 
 A collection of end points that support manipulating cells, columns and rows and similar functionality. All input and
-output is always a `SpreadsheetDelta` in JSON form, where necessary.
+output is always
+a [SpreadsheetDelta](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetDelta.java)
+in JSON form, where necessary.
 
 
 
