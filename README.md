@@ -27,7 +27,9 @@ A swagger-ui is available at:
 
 ### Context
 
-A collection of end points that return a `SpreadsheetMetadata`, in JSON form.
+A collection of end points that support CRUD operations
+on [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java).
+Note all payloads are in `JSON` form.
 
 - **GET** /api/spreadsheet/*
 - **GET** /api/spreadsheet/$spreadsheet-id1,spreadsheet-id2?from=0&count=10
