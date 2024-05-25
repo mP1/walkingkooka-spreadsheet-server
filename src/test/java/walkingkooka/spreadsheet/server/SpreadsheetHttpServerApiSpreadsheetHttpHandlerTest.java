@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
@@ -41,9 +42,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
-public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetBiConsumer> {
+public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetHttpHandler> {
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 34);
 
@@ -56,8 +56,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
 
     // helper...........................................................................................................
 
-    private SpreadsheetHttpServerApiSpreadsheetBiConsumer handler() {
-        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
+    private SpreadsheetHttpServerApiSpreadsheetHttpHandler handler() {
+        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
                 this.baseUrl(),
                 HateosContentType.json(JsonNodeUnmarshallContexts.fake(), JsonNodeMarshallContexts.fake()),
                 Indentation.SPACES2,
@@ -113,8 +113,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetBiConsumer> type() {
-        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetHttpHandler> type() {
+        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.class;
     }
 
     // TypeNameTesting..................................................................................................
@@ -126,6 +126,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetBiConsumerTest extends Spr
 
     @Override
     public String typeNameSuffix() {
-        return BiConsumer.class.getSimpleName();
+        return HttpHandler.class.getSimpleName();
     }
 }

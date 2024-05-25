@@ -32,6 +32,7 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
@@ -83,7 +84,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -1223,7 +1223,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+        final Optional<HttpHandler> possible = HateosResourceMapping.router(
                         URL,
                         contentType(),
                         Sets.of(mapping),
@@ -1236,7 +1236,11 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 () -> method + " " + URL + url);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
-            possible.get().accept(request, response);
+            possible.get()
+                    .handle(
+                            request,
+                            response
+                    );
             this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status code: " + request + " " + response + "\n" + possible);
@@ -1253,7 +1257,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                                final String url,
                                final String requestBody) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+        final Optional<HttpHandler> possible = HateosResourceMapping.router(
                 URL,
                 contentType(),
                 Sets.of(mapping),
@@ -1265,7 +1269,10 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 () -> method + " " + URL + url);
         final HttpResponse response = HttpResponses.recording();
         possible.get()
-                .accept(request, response);
+                .handle(
+                        request,
+                        response
+                );
         return response;
     }
 

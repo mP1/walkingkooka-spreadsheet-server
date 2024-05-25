@@ -33,10 +33,11 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
-import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
@@ -61,7 +62,6 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -95,7 +95,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                             final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
+                                             final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
                 scheme,
                 host,
@@ -142,7 +142,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                                  final Function<BiConsumer<HttpRequest, HttpResponse>, HttpServer> server) {
+                                  final Function<HttpHandler, HttpServer> server) {
         super();
 
         this.contentTypeJson = HateosContentType.json(
@@ -168,8 +168,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.server = server.apply(
-                HttpRequestHttpResponseBiConsumers.stacktraceDumping(
-                        HttpRequestHttpResponseBiConsumers.headerCopy(
+                HttpHandlers.stacktraceDumping(
+                        HttpHandlers.headerCopy(
                                 Sets.of(TRANSACTION_ID),
                                 this::handler
                         ),
@@ -187,7 +187,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         final UrlPath api = UrlPath.parse(API);
         final UrlPath spreadsheet = UrlPath.parse(SPREADSHEET);
 
-        this.router = RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(this.spreadsheetRouting(api).build(), this.spreadsheetHandler(base.setPath(api)))
                 .add(this.spreadsheetEngineRouting(spreadsheet).build(), this.spreadsheetEngineHandler(base.setPath(spreadsheet)))
                 .add(this.fileServerRouting().build(), this.fileServerHandler(UrlPath.ROOT, fileServer))
@@ -202,7 +202,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.router.route(
                         request.routerParameters()
                 ).orElse(SpreadsheetHttpServer::notFound)
-                .accept(request, response);
+                .handle(
+                        request,
+                        response
+                );
     }
 
     // mappings.........................................................................................................
@@ -217,8 +220,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .path(path);
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> spreadsheetHandler(final AbsoluteUrl api) {
-        return SpreadsheetHttpServerApiSpreadsheetBiConsumer.with(
+    private HttpHandler spreadsheetHandler(final AbsoluteUrl api) {
+        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
                 api,
                 this.contentTypeJson,
                 this.indentation,
@@ -244,8 +247,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .path(path.append(WILDCARD).append(WILDCARD));
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> spreadsheetEngineHandler(final AbsoluteUrl url) {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
+    private HttpHandler spreadsheetEngineHandler(final AbsoluteUrl url) {
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
                 url,
                 this.indentation,
                 this.lineEnding,
@@ -278,7 +281,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
-    private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router;
+    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
 
     private final Supplier<LocalDateTime> now;
 
@@ -292,10 +295,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .path(UrlPath.parse("/*"));
     }
 
-    private BiConsumer<HttpRequest, HttpResponse> fileServerHandler(final UrlPath baseUrlPath,
-                                                                    final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
-        return HttpRequestHttpResponseBiConsumers.webFile(baseUrlPath.normalize(),
-                fileServer);
+    private HttpHandler fileServerHandler(final UrlPath baseUrlPath,
+                                          final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+        return HttpHandlers.webFile(
+                baseUrlPath.normalize(),
+                fileServer
+        );
     }
 
     // HttpServer.......................................................................................................

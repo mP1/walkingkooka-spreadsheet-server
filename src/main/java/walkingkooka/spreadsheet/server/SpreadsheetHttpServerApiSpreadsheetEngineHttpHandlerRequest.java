@@ -30,17 +30,17 @@ import java.util.Optional;
 /**
  * Handles dispatching a single request, extracting the spreadsheet id and then invoking the http service.
  */
-final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
+final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
-    static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest with(final HttpRequest request,
-                                                                           final HttpResponse response,
-                                                                           final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer engine) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest(request, response, engine);
+    static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest with(final HttpRequest request,
+                                                                            final HttpResponse response,
+                                                                            final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
+        return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(request, response, engine);
     }
 
-    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest(final HttpRequest request,
-                                                                       final HttpResponse response,
-                                                                       final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer handler) {
+    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(final HttpRequest request,
+                                                                        final HttpResponse response,
+                                                                        final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler) {
         super();
         this.request = request;
         this.response = response;
@@ -92,7 +92,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
         this.handler.router(id)
                 .route(this.request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
-                .accept(this.request, this.response);
+                .handle(
+                        this.request,
+                        this.response
+                );
     }
 
     /**
@@ -112,7 +115,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest {
 
     private final HttpRequest request;
     private final HttpResponse response;
-    private final SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer handler;
+    private final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler handler;
 
     // String...........................................................................................................
 

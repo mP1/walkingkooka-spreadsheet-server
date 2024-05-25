@@ -27,11 +27,12 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
+import walkingkooka.net.http.json.JsonHttpHandlers;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
-import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -83,7 +84,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -256,10 +256,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
      * Lazily creates a {@link Router} using the {@link SpreadsheetId} to a cache.
      */
     @Override
-    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
         SpreadsheetContext.checkId(id);
 
-        Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter = this.spreadsheetIdToHateosRouter.get(id);
+        Router<HttpRequestAttribute<?>, HttpHandler> hateosRouter = this.spreadsheetIdToHateosRouter.get(id);
         if (null == hateosRouter) {
             hateosRouter = this.createHttpRouter(id);
 
@@ -268,12 +268,12 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         return hateosRouter;
     }
 
-    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>> spreadsheetIdToHateosRouter = Maps.sorted();
+    private final Map<SpreadsheetId, Router<HttpRequestAttribute<?>, HttpHandler>> spreadsheetIdToHateosRouter = Maps.sorted();
 
     /**
      * Factory that creates a {@link Router} for the given {@link SpreadsheetId spreadsheet}.
      */
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> createHttpRouter(final SpreadsheetId id) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
@@ -317,10 +317,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
     private final Supplier<LocalDateTime> now;
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> cellColumnComparatorExpressionFunctionRowViewportRouter(final SpreadsheetId id,
-                                                                                                                                           final int defaultMax,
-                                                                                                                                           final SpreadsheetEngine engine,
-                                                                                                                                           final SpreadsheetEngineContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnComparatorExpressionFunctionRowViewportRouter(final SpreadsheetId id,
+                                                                                                                 final int defaultMax,
+                                                                                                                 final SpreadsheetEngine engine,
+                                                                                                                 final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
                 defaultMax,
                 engine,
@@ -418,11 +418,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     // patch............................................................................................................
 
-    private static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> patchRouter(final UrlPath spreadsheetId,
+    private static Router<HttpRequestAttribute<?>, HttpHandler> patchRouter(final UrlPath spreadsheetId,
                                                                                                       final MediaType contentType,
                                                                                                       final SpreadsheetEngine engine,
                                                                                                       final SpreadsheetEngineContext context) {
-        return RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+        return RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
                         patchCellRouterPredicates(spreadsheetId),
                         (request, response) -> patchCellHandler(request, response, contentType, engine, context)
@@ -454,11 +454,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                          final SpreadsheetEngineContext context) {
         // PATCH
         // content type = JSON
-        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+        HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
-                HttpRequestHttpResponseBiConsumers.contentType(
+                HttpHandlers.contentType(
                         contentType,
-                        JsonHttpRequestHttpResponseBiConsumers.json(
+                        JsonHttpHandlers.json(
                                 (json) -> SpreadsheetEngineHttps.patchCell(
                                         request,
                                         engine,
@@ -467,7 +467,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                 BasicSpreadsheetContext::patchPost
                         )
                 )
-        ).accept(request, response);
+        ).handle(
+                request,
+                response
+        );
     }
 
     private static Map<HttpRequestAttribute<?>, Predicate<?>> patchColumnRouterPredicates(final UrlPath path) {
@@ -486,11 +489,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                            final SpreadsheetEngineContext context) {
         // PATCH
         // content type = JSON
-        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+        HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
-                HttpRequestHttpResponseBiConsumers.contentType(
+                HttpHandlers.contentType(
                         contentType,
-                        JsonHttpRequestHttpResponseBiConsumers.json(
+                        JsonHttpHandlers.json(
                                 (json) -> SpreadsheetEngineHttps.patchColumn(
                                         request,
                                         engine,
@@ -499,7 +502,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                 BasicSpreadsheetContext::patchPost
                         )
                 )
-        ).accept(request, response);
+        ).handle(
+                request,
+                response
+        );
     }
 
     private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRowRouterPredicates(final UrlPath path) {
@@ -518,11 +524,11 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final SpreadsheetEngineContext context) {
         // PATCH
         // content type = JSON
-        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+        HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
-                HttpRequestHttpResponseBiConsumers.contentType(
+                HttpHandlers.contentType(
                         contentType,
-                        JsonHttpRequestHttpResponseBiConsumers.json(
+                        JsonHttpHandlers.json(
                                 (json) -> SpreadsheetEngineHttps.patchRow(
                                         request,
                                         engine,
@@ -531,7 +537,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                 BasicSpreadsheetContext::patchPost
                         )
                 )
-        ).accept(request, response);
+        ).handle(
+                request,
+                response
+        );
     }
 
     private static HttpEntity patchPost(final HttpEntity response) {

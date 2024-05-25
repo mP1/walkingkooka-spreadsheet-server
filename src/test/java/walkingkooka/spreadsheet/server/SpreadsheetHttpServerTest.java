@@ -44,6 +44,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
@@ -103,7 +104,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -7988,7 +7988,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     /**
      * Initializes the test {@link HttpServer}.
      */
-    private HttpServer server(final BiConsumer<HttpRequest, HttpResponse> handler) {
+    private HttpServer server(final HttpHandler handler) {
         this.checkNotEquals(null, handler, "handler");
         this.httpServer.setHandler(handler);
         return this.httpServer;
@@ -8017,7 +8017,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             super();
         }
 
-        void setHandler(final BiConsumer<HttpRequest, HttpResponse> handler) {
+        void setHandler(final HttpHandler handler) {
             this.handler = handler;
         }
 
@@ -8079,13 +8079,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Assertions.fail("Server not running");
             }
             final HttpResponse response = HttpResponses.recording();
-            this.handler.accept(request, response);
+            this.handler.handle(
+                    request,
+                    response
+            );
             checkNotEquals(null, response.status(), "status not set");
             return response;
         }
 
         private boolean started;
-        private BiConsumer<HttpRequest, HttpResponse> handler;
+        private HttpHandler handler;
 
         @Override
         public String toString() {

@@ -20,12 +20,12 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.FakeHttpRequest;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequestTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> {
 
     @Test
     public void testToString() {
         final String toString = "Request 123";
-        this.toStringAndCheck(SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.with(new FakeHttpRequest() {
+        this.toStringAndCheck(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(new FakeHttpRequest() {
                                                                                                   @Override
                                                                                                   public String toString() {
                                                                                                       return toString;
@@ -39,15 +39,15 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequestTes
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest> type() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> type() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNamePrefix() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class.getSimpleName();
     }
 
     @Override

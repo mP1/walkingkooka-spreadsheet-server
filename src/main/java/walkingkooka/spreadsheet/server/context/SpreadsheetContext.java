@@ -18,9 +18,8 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.Context;
-import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
@@ -34,7 +33,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
@@ -74,7 +72,7 @@ public interface SpreadsheetContext extends Context {
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id);
+    Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id);
 
     /**
      * Factory that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}

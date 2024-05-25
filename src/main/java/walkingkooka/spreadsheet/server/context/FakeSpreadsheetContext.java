@@ -17,9 +17,8 @@
 
 package walkingkooka.spreadsheet.server.context;
 
-import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
@@ -30,7 +29,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 public class FakeSpreadsheetContext implements SpreadsheetContext {
 
@@ -60,7 +58,7 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
     }
 
     @Override
-    public Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> httpRouter(final SpreadsheetId id) {
+    public Router<HttpRequestAttribute<?>, HttpHandler> httpRouter(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 
