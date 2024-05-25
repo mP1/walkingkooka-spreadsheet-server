@@ -17,9 +17,8 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.http.server.HttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -30,7 +29,6 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
 
-import java.util.function.BiConsumer;
 import java.util.function.UnaryOperator;
 
 /**
@@ -70,13 +68,13 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetContextHateosHandlersRouter}
      */
-    public static Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final AbsoluteUrl baseUrl,
-                                                                                                final HateosContentType contentType,
-                                                                                                final Indentation indentation,
-                                                                                                final LineEnding lineEnding,
-                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
-                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
-                                                                                                final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
+    public static Router<HttpRequestAttribute<?>, HttpHandler> router(final AbsoluteUrl baseUrl,
+                                                                      final HateosContentType contentType,
+                                                                      final Indentation indentation,
+                                                                      final LineEnding lineEnding,
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
         return SpreadsheetContextHateosHandlersRouter.with(
                 baseUrl,
                 contentType,

@@ -32,6 +32,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
@@ -53,7 +54,6 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -253,7 +253,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         );
     }
 
-    private Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router() {
+    private Router<HttpRequestAttribute<?>, HttpHandler> router() {
         return SpreadsheetContextHateosHandlersRouter.with(
                 this.base(),
                 this.contentType(),
@@ -270,11 +270,15 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                                final HttpStatusCode statusCode,
                                final String responseBody) {
         final HttpRequest request = this.request(method, url);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
+        final Optional<HttpHandler> possible = this.route(request);
         this.checkNotEquals(Optional.empty(), possible);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
-            possible.get().accept(request, response);
+            possible.get()
+                    .handle(
+                            request,
+                            response
+                    );
             this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
@@ -294,17 +298,21 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                               final String url,
                               final HttpStatusCode statusCode) {
         final HttpRequest request = this.request(method, url);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = this.route(request);
+        final Optional<HttpHandler> possible = this.route(request);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
-            possible.get().accept(request, response);
+            possible.get()
+                    .handle(
+                            request,
+                            response
+                    );
             this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);
         }
     }
 
-    private Optional<BiConsumer<HttpRequest, HttpResponse>> route(final HttpRequest request) {
+    private Optional<HttpHandler> route(final HttpRequest request) {
         return this.router().route(request.routerParameters());
     }
 

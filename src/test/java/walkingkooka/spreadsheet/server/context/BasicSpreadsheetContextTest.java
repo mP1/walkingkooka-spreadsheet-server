@@ -35,6 +35,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
@@ -90,7 +91,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -855,7 +855,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
 
         final MediaType contentType = HateosContentType.JSON_CONTENT_TYPE;
 
-        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
+        final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = cellReference
@@ -905,12 +905,15 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 }
             };
 
-            final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
+            final Optional<HttpHandler> mapped = router.route(request.routerParameters());
             this.checkNotEquals(Optional.empty(), mapped, "request " + request.routerParameters());
 
             final HttpResponse response = HttpResponses.recording();
-            @SuppressWarnings("OptionalGetWithoutIsPresent") final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
-            consumer.accept(request, response);
+            @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler httpHandler = mapped.get();
+            httpHandler.handle(
+                    request,
+                    response
+            );
         }
 
         // load cell back
@@ -946,13 +949,16 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 }
             };
 
-            final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
+            final Optional<HttpHandler> mapped = router.route(request.routerParameters());
             this.checkNotEquals(Optional.empty(), mapped, "request " + request.parameters());
 
             final HttpResponse response = HttpResponses.recording();
             //noinspection OptionalGetWithoutIsPresent
-            final BiConsumer<HttpRequest, HttpResponse> consumer = mapped.get();
-            consumer.accept(request, response);
+            final HttpHandler httpHandler = mapped.get();
+            httpHandler.handle(
+                    request,
+                    response
+            );
 
             final HttpResponse expected = HttpResponses.recording();
             expected.setStatus(HttpStatusCode.OK.status());
@@ -963,7 +969,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                     .setBodyText(expectedBody)
                     .setContentLength());
 
-            this.checkEquals(expected, response, () -> "consumer: " + consumer + ", request: " + request);
+            this.checkEquals(expected, response, () -> "consumer: " + httpHandler + ", request: " + request);
         }
     }
 
@@ -971,7 +977,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     public void testHateosRouterAndRouteInvalidRequest() {
         final BasicSpreadsheetContext context = this.createContext();
         final SpreadsheetId id = this.spreadsheetId();
-        final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router = context.httpRouter(id);
+        final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
 
         final HttpRequest request = new TestHttpRequest() {
             @Override
@@ -999,7 +1005,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             }
         };
 
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> mapped = router.route(request.routerParameters());
+        final Optional<HttpHandler> mapped = router.route(request.routerParameters());
         this.checkEquals(
                 Optional.empty(),
                 mapped,

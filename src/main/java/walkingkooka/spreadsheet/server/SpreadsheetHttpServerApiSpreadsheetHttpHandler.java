@@ -22,11 +22,12 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.json.JsonHttpRequestHttpResponseBiConsumers;
+import walkingkooka.net.http.json.JsonHttpHandlers;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlers;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
-import walkingkooka.net.http.server.HttpRequestHttpResponseBiConsumers;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
@@ -50,34 +51,33 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer}.
+ * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler}.
  */
-final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetBiConsumer} handler.
+     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetBiConsumer with(final AbsoluteUrl baseUrl,
-                                                              final HateosContentType contentType,
-                                                              final Indentation indentation,
-                                                              final LineEnding lineEnding,
-                                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                              final SpreadsheetMetadataStore metadataStore,
-                                                              final Function<BigDecimal, Fraction> fractioner,
-                                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                              final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
-                                                              final Supplier<LocalDateTime> now) {
-        return new SpreadsheetHttpServerApiSpreadsheetBiConsumer(
+    static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl baseUrl,
+                                                               final HateosContentType contentType,
+                                                               final Indentation indentation,
+                                                               final LineEnding lineEnding,
+                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                               final SpreadsheetMetadataStore metadataStore,
+                                                               final Function<BigDecimal, Fraction> fractioner,
+                                                               final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                               final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                               final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                               final Supplier<LocalDateTime> now) {
+        return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
                 baseUrl,
                 contentType,
                 indentation,
@@ -97,19 +97,19 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetBiConsumer(final AbsoluteUrl baseUrl,
-                                                          final HateosContentType contentType,
-                                                          final Indentation indentation,
-                                                          final LineEnding lineEnding,
-                                                          final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                          final SpreadsheetMetadataStore metadataStore,
-                                                          final Function<BigDecimal, Fraction> fractioner,
-                                                          final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                          final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                                          final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                          final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                          final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
-                                                          final Supplier<LocalDateTime> now) {
+    private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl baseUrl,
+                                                           final HateosContentType contentType,
+                                                           final Indentation indentation,
+                                                           final LineEnding lineEnding,
+                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                           final SpreadsheetMetadataStore metadataStore,
+                                                           final Function<BigDecimal, Fraction> fractioner,
+                                                           final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                           final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                           final Supplier<LocalDateTime> now) {
         super();
 
         this.baseUrl = baseUrl;
@@ -144,21 +144,24 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
         );
     }
 
-    // BiConsumer.......................................................................................................
+    // HttpHandler......................................................................................................
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
-        RouteMappings.<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>>empty()
+        RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
                         patchRouterPredicates(),
-                        this::patchRequestResponseBiConsumer
+                        this::patchRequestResponseHttpHandler
                 )
                 .router()
                 .then(this.hateosRouter)
                 .route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
-                .accept(request, response);
+                .handle(
+                        request,
+                        response
+                );
     }
 
     // patch
@@ -170,23 +173,26 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
                 .build();
     }
 
-    private void patchRequestResponseBiConsumer(final HttpRequest request,
-                                                final HttpResponse response) {
+    private void patchRequestResponseHttpHandler(final HttpRequest request,
+                                                 final HttpResponse response) {
         // PATCH
         // content type = JSON
-        HttpRequestHttpResponseBiConsumers.methodNotAllowed(
+        HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
-                HttpRequestHttpResponseBiConsumers.contentType(
+                HttpHandlers.contentType(
                         this.contentType.contentType(),
-                        JsonHttpRequestHttpResponseBiConsumers.json(
+                        JsonHttpHandlers.json(
                                 (json) -> SpreadsheetContextHttps.patch(
                                         SpreadsheetId.parse(request.url().path().name().value()),
                                         context
                                 ).apply(json),
-                                SpreadsheetHttpServerApiSpreadsheetBiConsumer::patchPost
+                                SpreadsheetHttpServerApiSpreadsheetHttpHandler::patchPost
                         )
                 )
-        ).accept(request, response);
+        ).handle(
+                request,
+                response
+        );
     }
 
     private final HateosContentType contentType;
@@ -200,10 +206,7 @@ final class SpreadsheetHttpServerApiSpreadsheetBiConsumer implements BiConsumer<
 
     private final SpreadsheetContext context;
 
-    /**
-     * A {@link Function} that creates a default metadata with the given {@link Locale}.
-     */
-    private final Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> hateosRouter;
+    private final Router<HttpRequestAttribute<?>, HttpHandler> hateosRouter;
 
     // toString.........................................................................................................
 

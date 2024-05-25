@@ -31,6 +31,7 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
@@ -55,7 +56,6 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -266,7 +266,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                                 final HttpStatusCode statusCode,
                                 final String responseBody) {
         final HttpRequest request = this.request(method, url, requestBody);
-        final Optional<BiConsumer<HttpRequest, HttpResponse>> possible = HateosResourceMapping.router(
+        final Optional<HttpHandler> possible = HateosResourceMapping.router(
                 URL,
                 contentType(),
                 Sets.of(mapping),
@@ -278,7 +278,11 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 () -> method + " " + url);
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
-            possible.get().accept(request, response);
+            possible.get()
+                    .handle(
+                            request,
+                            response
+                    );
             this.checkEquals(statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
                     () -> "status " + request + " " + response + "\n" + possible);

@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
@@ -43,30 +44,29 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
  * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiConsumer<HttpRequest, HttpResponse> {
+final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer} handler.
+     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer with(final AbsoluteUrl base,
-                                                                    final Indentation indentation,
-                                                                    final LineEnding lineEnding,
-                                                                    final Function<BigDecimal, Fraction> fractioner,
-                                                                    final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                                    final SpreadsheetMetadataStore metadataStore,
-                                                                    final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                                    final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
-                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                    final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                                    final Supplier<LocalDateTime> now) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(
+    static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final AbsoluteUrl base,
+                                                                     final Indentation indentation,
+                                                                     final LineEnding lineEnding,
+                                                                     final Function<BigDecimal, Fraction> fractioner,
+                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                                     final SpreadsheetMetadataStore metadataStore,
+                                                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                                     final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                     final Supplier<LocalDateTime> now) {
+        return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
                 base,
                 indentation,
                 lineEnding,
@@ -84,17 +84,17 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer(final AbsoluteUrl base,
-                                                                final Indentation indentation,
-                                                                final LineEnding lineEnding,
-                                                                final Function<BigDecimal, Fraction> fractioner,
-                                                                final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
-                                                                final SpreadsheetMetadataStore metadataStore,
-                                                                final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                                final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
-                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                                final Supplier<LocalDateTime> now) {
+    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final AbsoluteUrl base,
+                                                                 final Indentation indentation,
+                                                                 final LineEnding lineEnding,
+                                                                 final Function<BigDecimal, Fraction> fractioner,
+                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                                                                 final SpreadsheetMetadataStore metadataStore,
+                                                                 final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                                 final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                 final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                                 final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                 final Supplier<LocalDateTime> now) {
         super();
 
         this.baseUrl = base;
@@ -126,19 +126,22 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer implements BiCon
     // Router...........................................................................................................
 
     @Override
-    public void accept(final HttpRequest request,
+    public void handle(final HttpRequest request,
                        final HttpResponse response) {
-        SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest.with(request, response, this)
-                .handle();
+        SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
+                request,
+                response,
+                this
+        ).handle();
     }
 
-    // shared with SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerRequest
+    // shared with SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest
     final int spreadsheetIdPathComponent;
 
     /**
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
-    Router<HttpRequestAttribute<?>, BiConsumer<HttpRequest, HttpResponse>> router(final SpreadsheetId id) {
+    Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
         return SpreadsheetContexts.basic(
                 this.baseUrl,
                 HateosContentType.json(

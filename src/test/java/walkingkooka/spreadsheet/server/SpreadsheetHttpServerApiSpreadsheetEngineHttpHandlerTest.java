@@ -30,6 +30,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
@@ -68,12 +69,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> {
 
     private final static String BASE_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
@@ -311,11 +311,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     private void handleRequest(final HttpRequest request,
                                final HttpResponse response) {
-        this.createBiConsumer()
+        this.createHttpHandler()
                 .router(SpreadsheetId.with(1L))
                 .route(request.routerParameters())
                 .get()
-                .accept(request, response);
+                .handle(
+                        request,
+                        response
+                );
     }
 
     private void checkHttpResponse(final HttpResponse httpResponse,
@@ -337,13 +340,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiConsumer(), BASE_URL + "/api");
+        this.toStringAndCheck(this.createHttpHandler(), BASE_URL + "/api");
     }
 
     // helpers..........................................................................................................
 
-    private SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer createBiConsumer() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.with(
+    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
                 Url.parseAbsolute(BASE_URL + "/api"),
                 //HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 Indentation.SPACES2,
@@ -429,19 +432,19 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineBiConsumerTest exten
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer> type() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> type() {
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class;
     }
 
     // TypeNameTesting..................................................................................................
 
     @Override
     public String typeNamePrefix() {
-        return SpreadsheetHttpServerApiSpreadsheetEngineBiConsumer.class.getSimpleName();
+        return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class.getSimpleName();
     }
 
     @Override
     public String typeNameSuffix() {
-        return BiConsumer.class.getSimpleName();
+        return HttpHandler.class.getSimpleName();
     }
 }
