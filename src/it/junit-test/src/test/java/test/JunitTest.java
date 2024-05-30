@@ -65,6 +65,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.text.Length;
+import walkingkooka.tree.text.TextNode;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
@@ -248,8 +249,8 @@ public class JunitTest {
             }
 
             @Override
-            public Optional<SpreadsheetText> formatValue(final Object value,
-                                                         final SpreadsheetFormatter formatter) {
+            public Optional<TextNode> formatValue(final Object value,
+                                                  final SpreadsheetFormatter formatter) {
                 checkEquals(false, value instanceof Optional, "Value must not be optional" + value);
 
                 return formatter.format(
