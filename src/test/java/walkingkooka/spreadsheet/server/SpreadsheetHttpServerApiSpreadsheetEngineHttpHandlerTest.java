@@ -404,7 +404,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN);
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
 
         this.metadataStore.save(metadata);
 
