@@ -297,7 +297,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetComparatorProvider spreadsheetComparatorProvider = this.spreadsheetIdToComparatorProvider.apply(id);
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = this.spreadsheetIdToFormatterProvider.apply(id);
 
-        final ExpressionFunctionProvider functions = this.spreadsheetIdToExpressionFunctionProvider.apply(id);
+        final ExpressionFunctionProvider expressionFunctionProvider = this.spreadsheetIdToExpressionFunctionProvider.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 
@@ -305,7 +305,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 metadata,
                 spreadsheetComparatorProvider,
                 spreadsheetFormatterProvider,
-                functions,
+                expressionFunctionProvider,
                 engine,
                 fractioner,
                 repository,
