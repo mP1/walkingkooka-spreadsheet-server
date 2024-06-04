@@ -248,7 +248,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                 .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMAT_PATTERN, SpreadsheetParsePattern.parseTextFormatPattern("@"))
+                .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetParsePattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector())
                 .set(
                         SpreadsheetMetadataPropertyName.STYLE,
                         TextStyle.EMPTY
