@@ -293,7 +293,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     }
 
     @Test
-    public void testWithNullSpreadsheetIdFunctionsFails() {
+    public void testWithNullSpreadsheetIdExpressionFunctionProviderFails() {
         this.withFails(
                 this.base(),
                 this.contentType(),
