@@ -22,6 +22,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -49,6 +50,11 @@ public class FakeSpreadsheetContext implements SpreadsheetContext {
 
     @Override
     public SpreadsheetComparatorProvider comparatorProvider(final SpreadsheetId id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetFormatterProvider formatterProvider(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

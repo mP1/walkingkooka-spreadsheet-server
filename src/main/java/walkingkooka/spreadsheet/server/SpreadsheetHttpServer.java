@@ -46,6 +46,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -91,6 +92,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                             final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                              final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -108,6 +110,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 spreadsheetMetadataStamper,
                 fractioner,
                 spreadsheetIdSpreadsheetComparatorProvider,
+                spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
                 spreadsheetIdToStoreRepository,
                 contentTypeFactory,
@@ -138,6 +141,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                   final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -164,6 +168,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.fractioner = fractioner;
 
         this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
+        this.spreadsheetIdSpreadsheetFormatterProvider = spreadsheetIdSpreadsheetFormatterProvider;
         this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
@@ -230,6 +235,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.fractioner,
                 this.spreadsheetIdSpreadsheetComparatorProvider,
+                this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -256,6 +262,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdSpreadsheetComparatorProvider,
+                this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -276,6 +283,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<BigDecimal, Fraction> fractioner;
 
     private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider;
+
+    private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider;
 
     private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider;
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;

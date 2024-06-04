@@ -41,6 +41,8 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -355,6 +357,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 createMetadata(),
                 this.metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider(),
+                spreadsheetIdSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
@@ -379,6 +382,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider() {
         return (id) -> SpreadsheetComparatorProviders.builtIn();
+    }
+
+    private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider() {
+        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern();
     }
 
     private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {

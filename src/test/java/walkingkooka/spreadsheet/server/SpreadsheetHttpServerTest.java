@@ -60,6 +60,8 @@ import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -7824,6 +7826,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this::spreadsheetMetadataStamper,
                 fractioner(),
                 spreadsheetIdSpreadsheetComparatorProvider(),
+                spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
                 this.spreadsheetIdToRepository,
                 this::contentTypeFactory,
@@ -7888,6 +7891,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
+    private static Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
+        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+    }
+    
     private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
         return (id) -> new FakeExpressionFunctionProvider() {
             @Override

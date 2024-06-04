@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -53,6 +54,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                            final SpreadsheetMetadataStore metadataStore,
                                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
+                                           final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                            final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -67,6 +69,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToComparatorProvider,
+                spreadsheetIdToFormatterProvider,
                 spreadsheetIdExpressionFunctionProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
