@@ -108,7 +108,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final SpreadsheetMetadataStore metadataStore,
                                         final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                         final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
-                                        final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
+                                        final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                         final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -122,7 +122,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToComparatorProvider, "spreadsheetIdToComparatorProvider");
         Objects.requireNonNull(spreadsheetIdToFormatterProvider, "spreadsheetIdToFormatterProvider");
-        Objects.requireNonNull(spreadsheetIdExpressionFunctionProvider, "spreadsheetIdExpressionFunctionProvider");
+        Objects.requireNonNull(spreadsheetIdToExpressionFunctionProvider, "spreadsheetIdToExpressionFunctionProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
         Objects.requireNonNull(contentTypeFactory, "contentTypeFactory");
@@ -138,7 +138,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 metadataStore,
                 spreadsheetIdToComparatorProvider,
                 spreadsheetIdToFormatterProvider,
-                spreadsheetIdExpressionFunctionProvider,
+                spreadsheetIdToExpressionFunctionProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,
@@ -155,7 +155,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final SpreadsheetMetadataStore metadataStore,
                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                     final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
-                                    final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider,
+                                    final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                     final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -174,7 +174,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         this.spreadsheetIdToComparatorProvider = spreadsheetIdToComparatorProvider;
         this.spreadsheetIdToFormatterProvider = spreadsheetIdToFormatterProvider;
-        this.spreadsheetIdExpressionFunctionProvider = spreadsheetIdExpressionFunctionProvider;
+        this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
         this.contentTypeFactory = contentTypeFactory;
@@ -252,10 +252,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     @Override
     public ExpressionFunctionProvider expressionFunctionProvider(final SpreadsheetId id) {
-        return this.spreadsheetIdExpressionFunctionProvider.apply(id);
+        return this.spreadsheetIdToExpressionFunctionProvider.apply(id);
     }
 
-    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdExpressionFunctionProvider;
+    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider;
 
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)
@@ -297,7 +297,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetComparatorProvider spreadsheetComparatorProvider = this.spreadsheetIdToComparatorProvider.apply(id);
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = this.spreadsheetIdToFormatterProvider.apply(id);
 
-        final ExpressionFunctionProvider functions = this.spreadsheetIdExpressionFunctionProvider.apply(id);
+        final ExpressionFunctionProvider functions = this.spreadsheetIdToExpressionFunctionProvider.apply(id);
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 
