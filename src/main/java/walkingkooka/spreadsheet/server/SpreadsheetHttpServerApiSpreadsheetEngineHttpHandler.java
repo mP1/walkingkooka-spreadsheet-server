@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
@@ -62,6 +63,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                                     final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                                      final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -74,6 +76,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 createMetadata,
                 metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider,
+                spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToFunctions,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -91,6 +94,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                                 final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -107,6 +111,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.metadataStore = metadataStore;
 
         this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
+        this.spreadsheetIdSpreadsheetFormatterProvider = spreadsheetIdSpreadsheetFormatterProvider;
         this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
@@ -157,6 +162,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdSpreadsheetComparatorProvider,
+                this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToFunctions,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -176,6 +182,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final SpreadsheetMetadataStore metadataStore;
 
     private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider;
+
+    private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider;
 
     private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions;
 

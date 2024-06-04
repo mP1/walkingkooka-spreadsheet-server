@@ -26,6 +26,8 @@ import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -66,6 +68,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
+                this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
@@ -84,6 +87,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
 
     private SpreadsheetComparatorProvider spreadsheetIdSpreadsheetComparatorProvider(final SpreadsheetId id) {
         return SpreadsheetComparatorProviders.builtIn();
+    }
+
+    private SpreadsheetFormatterProvider spreadsheetIdSpreadsheetFormatterProvider(final SpreadsheetId id) {
+        return SpreadsheetFormatterProviders.spreadsheetFormatPattern();
     }
 
     private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId id) {

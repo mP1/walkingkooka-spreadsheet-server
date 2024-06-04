@@ -35,6 +35,7 @@ import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
@@ -72,6 +73,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final SpreadsheetMetadataStore metadataStore,
                                                                final Function<BigDecimal, Fraction> fractioner,
                                                                final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                               final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                                final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -86,6 +88,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 metadataStore,
                 fractioner,
                 spreadsheetIdSpreadsheetComparatorProvider,
+                spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -105,6 +108,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final SpreadsheetMetadataStore metadataStore,
                                                            final Function<BigDecimal, Fraction> fractioner,
                                                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
+                                                           final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                            final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -124,6 +128,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 createMetadata,
                 metadataStore,
                 spreadsheetIdSpreadsheetComparatorProvider,
+                spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,

@@ -25,6 +25,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -63,6 +65,11 @@ public interface SpreadsheetContext extends Context {
      * Returns a {@link Function} which knows the available {@link SpreadsheetComparator} by {@link SpreadsheetComparatorName}.
      */
     SpreadsheetComparatorProvider comparatorProvider(final SpreadsheetId id);
+
+    /**
+     * Returns a {@link Function} which knows the available {@link SpreadsheetFormatterProvider} by {@link SpreadsheetFormatterName}.
+     */
+    SpreadsheetFormatterProvider formatterProvider(final SpreadsheetId id);
 
     /**
      * Returns a {@link ExpressionFunctionProvider} for the given {@link SpreadsheetId}.
