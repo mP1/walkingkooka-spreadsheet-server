@@ -34,7 +34,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -249,22 +249,24 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
     }
 
     @Test
-    public void testPatchCellRangeWithFormatPattern() {
+    public void testPatchCellRangeWithFormatter() {
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell loadedB2 = b2.setFormula(
                 SpreadsheetFormula.EMPTY.setText("='before b2")
-        ).setFormatPattern(
+        ).setFormatter(
                 Optional.of(
                         SpreadsheetPattern.parseTextFormatPattern("\"format-before-b2\"")
+                                .spreadsheetFormatterSelector()
                 )
         );
 
         final SpreadsheetCellReference b3 = SpreadsheetSelection.parseCell("B3");
         final SpreadsheetCell loadedB3 = b3.setFormula(
                 SpreadsheetFormula.EMPTY.setText("='before b3")
-        ).setFormatPattern(
+        ).setFormatter(
                 Optional.of(
                         SpreadsheetPattern.parseTextFormatPattern("\"format-before-b3\"")
+                                .spreadsheetFormatterSelector()
                 )
         );
 
@@ -273,19 +275,20 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                 loadedB3
         );
 
-        final SpreadsheetFormatPattern patchedFormat = SpreadsheetPattern.parseTextFormatPattern("\"#format-patched\"");
+        final SpreadsheetFormatterSelector patchedFormatter = SpreadsheetPattern.parseTextFormatPattern("\"#format-patched\"")
+                .spreadsheetFormatterSelector();
 
         final Set<SpreadsheetCell> saved = Sets.of(
                 SpreadsheetSelection.parseCell("B1")
                         .setFormula(SpreadsheetFormula.EMPTY)
-                        .setFormatPattern(
-                                Optional.of(patchedFormat)
+                        .setFormatter(
+                                Optional.of(patchedFormatter)
                         ),
-                loadedB2.setFormatPattern(
-                        Optional.of(patchedFormat)
+                loadedB2.setFormatter(
+                        Optional.of(patchedFormatter)
                 ),
-                loadedB3.setFormatPattern(
-                        Optional.of(patchedFormat)
+                loadedB3.setFormatter(
+                        Optional.of(patchedFormatter)
                 )
         );
 
@@ -294,8 +297,8 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                 "", // queryString
                 JsonNode.object()
                         .set(
-                                JsonPropertyName.with("format-pattern"),
-                                this.marshallWithType(patchedFormat)
+                                JsonPropertyName.with("formatter"),
+                                this.marshall(patchedFormatter)
                         ),
                 loaded,
                 saved,
