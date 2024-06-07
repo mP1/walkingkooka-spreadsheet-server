@@ -89,8 +89,6 @@ public class JunitTest {
 
     private final static SpreadsheetLabelNameResolver LABEL_NAME_RESOLVER = SpreadsheetLabelNameResolvers.fake();
 
-    private final static SpreadsheetFormatterProvider SPREADSHEET_FORMATTER_PROVIDER = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
-
     @Test
     public void testMetadataNonLocaleDefaults() {
         Assert.assertNotEquals(null, SpreadsheetMetadata.NON_LOCALE_DEFAULTS);
@@ -191,6 +189,7 @@ public class JunitTest {
     }
 
     private static SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine) {
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
         final SpreadsheetMetadata metadata = metadata();
         return new FakeSpreadsheetEngineContext() {
 
@@ -237,7 +236,7 @@ public class JunitTest {
                                 CaseSensitivity.INSENSITIVE,
                                 this.spreadsheetMetadata()
                                         .converterContext(
-                                                SPREADSHEET_FORMATTER_PROVIDER,
+                                                spreadsheetFormatterProvider,
                                                 NOW,
                                                 LABEL_NAME_RESOLVER
                                         )
@@ -260,7 +259,7 @@ public class JunitTest {
                 return formatter.format(
                         value,
                         metadata.formatterContext(
-                                SPREADSHEET_FORMATTER_PROVIDER,
+                                spreadsheetFormatterProvider,
                                 NOW,
                                 LABEL_NAME_RESOLVER
                         )
