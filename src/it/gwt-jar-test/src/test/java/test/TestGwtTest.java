@@ -82,8 +82,6 @@ public class TestGwtTest extends GWTTestCase {
 
     private final static SpreadsheetLabelNameResolver LABEL_NAME_RESOLVER = SpreadsheetLabelNameResolvers.fake();
 
-    private final static SpreadsheetFormatterProvider SPREADSHEET_FORMATTER_PROVIDER = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
-
     public void testWithCellReference() {
         final SpreadsheetEngine engine = engine();
         final SpreadsheetEngineContext engineContext = engineContext(engine);
@@ -186,6 +184,7 @@ public class TestGwtTest extends GWTTestCase {
     }
 
     private static SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine) {
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
         final SpreadsheetMetadata metadata = metadata();
         return new FakeSpreadsheetEngineContext() {
 
@@ -232,7 +231,7 @@ public class TestGwtTest extends GWTTestCase {
                                 CaseSensitivity.INSENSITIVE,
                                 this.spreadsheetMetadata()
                                         .converterContext(
-                                                SPREADSHEET_FORMATTER_PROVIDER,
+                                                spreadsheetFormatterProvider,
                                                 NOW,
                                                 LABEL_NAME_RESOLVER
                                         )
@@ -255,7 +254,7 @@ public class TestGwtTest extends GWTTestCase {
                 return formatter.format(
                         value,
                         metadata.formatterContext(
-                                SPREADSHEET_FORMATTER_PROVIDER,
+                                spreadsheetFormatterProvider,
                                 NOW,
                                 LABEL_NAME_RESOLVER
                         )
