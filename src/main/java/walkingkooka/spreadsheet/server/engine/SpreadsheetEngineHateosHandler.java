@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * An abstract {@link HateosHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
@@ -56,10 +57,10 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     }
 
     @Override
-    public final Optional<C> handleList(final List<I> ids,
+    public final Optional<C> handleMany(final Set<I> ids,
                                         final Optional<C> resource,
                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkIdList(ids);
+        HateosHandler.checkManyIds(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

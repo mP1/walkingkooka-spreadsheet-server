@@ -26,10 +26,10 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A {@link HateosHandler} that invokes {@link SpreadsheetContext#createMetadata(Optional)}
@@ -115,10 +115,10 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
     }
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> ids,
+    public Optional<SpreadsheetMetadataList> handleMany(final Set<SpreadsheetId> ids,
                                                         final Optional<SpreadsheetMetadataList> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkIdList(ids);
+        HateosHandler.checkManyIds(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

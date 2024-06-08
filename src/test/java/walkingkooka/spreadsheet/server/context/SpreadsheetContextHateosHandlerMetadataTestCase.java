@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
@@ -27,10 +28,10 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends SpreadsheetContextHateosHandlerMetadata>
         extends SpreadsheetContextHateosHandlerTestCase2<H> {
@@ -47,8 +48,9 @@ public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends 
     }
 
     @Test
-    public final void testHandleListFails() {
-        this.handleListFails(this.list(),
+    public final void testHandleManyFails() {
+        this.handleManyFails(
+                this.manyIds(),
                 this.collectionResource(),
                 this.parameters(),
                 UnsupportedOperationException.class);
@@ -73,8 +75,8 @@ public abstract class SpreadsheetContextHateosHandlerMetadataTestCase<H extends 
     }
 
     @Override
-    public final List<SpreadsheetId> list() {
-        return List.of(this.spreadsheetId());
+    public final Set<SpreadsheetId> manyIds() {
+        return Sets.of(this.spreadsheetId());
     }
 
     @Override

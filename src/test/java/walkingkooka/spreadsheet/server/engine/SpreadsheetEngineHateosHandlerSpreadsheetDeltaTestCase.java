@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.engine;
 
 import walkingkooka.ToStringTesting;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.hateos.HateosHandlerTesting;
 import walkingkooka.predicate.PredicateTesting;
@@ -30,7 +29,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
-import java.util.List;
 import java.util.Set;
 
 public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H extends SpreadsheetEngineHateosHandlerSpreadsheetDelta<I>,
@@ -97,7 +95,7 @@ public abstract class SpreadsheetEngineHateosHandlerSpreadsheetDeltaTestCase<H e
     }
 
     @Override
-    public List<I> list() {
-        return Lists.of(this.id());
+    public Set<I> manyIds() {
+        return Sets.of(this.id());
     }
 }

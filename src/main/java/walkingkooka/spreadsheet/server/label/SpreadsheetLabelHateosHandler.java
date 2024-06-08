@@ -24,10 +24,10 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 abstract class SpreadsheetLabelHateosHandler implements HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> {
 
@@ -50,10 +50,10 @@ abstract class SpreadsheetLabelHateosHandler implements HateosHandler<Spreadshee
     }
 
     @Override
-    public final Optional<SpreadsheetLabelMapping> handleList(final List<SpreadsheetLabelName> ids,
+    public final Optional<SpreadsheetLabelMapping> handleMany(final Set<SpreadsheetLabelName> ids,
                                                               final Optional<SpreadsheetLabelMapping> resource,
                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkIdList(ids);
+        HateosHandler.checkManyIds(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

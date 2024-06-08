@@ -23,9 +23,9 @@ import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A {@link HateosHandler} that handles deletions.
@@ -76,10 +76,10 @@ final class SpreadsheetContextHateosHandlerMetadataDelete extends SpreadsheetCon
     }
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> ids,
+    public Optional<SpreadsheetMetadataList> handleMany(final Set<SpreadsheetId> ids,
                                                         final Optional<SpreadsheetMetadataList> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkIdList(ids);
+        HateosHandler.checkManyIds(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

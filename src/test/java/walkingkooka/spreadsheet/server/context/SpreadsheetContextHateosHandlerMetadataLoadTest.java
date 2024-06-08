@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.context;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -221,7 +222,7 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         list.add(metadata1);
         list.add(metadata3);
 
-        this.handleListAndCheck(
+        this.handleManyAndCheck(
                 this.createHandler(
                         new FakeSpreadsheetContext() {
                             @Override
@@ -232,7 +233,7 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 ),
                 list.stream()
                         .map(m -> m.id().get())
-                        .collect(Collectors.toList()),
+                        .collect(Collectors.toCollection(Sets::sorted)),
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
                 Optional.of(list)
