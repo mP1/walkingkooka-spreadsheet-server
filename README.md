@@ -98,7 +98,7 @@ These end points may be used to work with available SpreadsheetComparator(s)
 
 #### expression function(s)
 
-These end points may be used to work with available ExpressionFuntion(s)
+These end points may be used to work with available ExpressionFunction(s)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/expression-function
 
