@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -28,25 +29,26 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class SpreadsheetMetadataListTest implements ClassTesting<SpreadsheetMetadataList>,
-        JsonNodeMarshallingTesting<SpreadsheetMetadataList>,
+public final class SpreadsheetMetadataSetTest implements ClassTesting<SpreadsheetMetadataSet>,
+        JsonNodeMarshallingTesting<SpreadsheetMetadataSet>,
         SpreadsheetMetadataTesting {
 
     @Test
     public void testMarshallEmpty() {
         this.marshallAndCheck(
-                SpreadsheetMetadataList.empty(),
+                SpreadsheetMetadataSet.with(Sets.empty()),
                 JsonNode.array()
         );
     }
 
     @Test
     public void testMarshallNotEmpty() {
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(SpreadsheetMetadata.EMPTY);
+        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
+                Sets.of(SpreadsheetMetadata.EMPTY)
+        );
 
         this.marshallAndCheck(
-                list,
+                set,
                 JsonNode.array()
                         .appendChild(
                                 JsonNode.object()
@@ -56,16 +58,17 @@ public final class SpreadsheetMetadataListTest implements ClassTesting<Spreadshe
 
     @Test
     public void testMarshallNotEmpty2() {
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(
-                SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SpreadsheetId.with(1)
+        final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
+                Sets.of(
+                        SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SpreadsheetId.with(1)
+                        )
                 )
         );
 
         this.marshallAndCheck(
-                list,
+                set,
                 "[\n" +
                         "  {\n" +
                         "    \"spreadsheet-id\": \"1\"\n" +
@@ -77,37 +80,35 @@ public final class SpreadsheetMetadataListTest implements ClassTesting<Spreadshe
     // json............................................................................................................
 
     @Override
-    public SpreadsheetMetadataList unmarshall(final JsonNode node,
-                                              final JsonNodeUnmarshallContext context) {
-        return SpreadsheetMetadataList.unmarshall(
+    public SpreadsheetMetadataSet unmarshall(final JsonNode node,
+                                             final JsonNodeUnmarshallContext context) {
+        return SpreadsheetMetadataSet.unmarshall(
                 node,
                 context
         );
     }
 
     @Override
-    public SpreadsheetMetadataList createJsonNodeMarshallingValue() {
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(
-                SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SpreadsheetId.with(1)
+    public SpreadsheetMetadataSet createJsonNodeMarshallingValue() {
+        return SpreadsheetMetadataSet.with(
+                Sets.of(
+                        SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SpreadsheetId.with(1)
+                        ),
+                        SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                SpreadsheetId.with(2)
+                        )
                 )
         );
-        list.add(
-                SpreadsheetMetadata.EMPTY.set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SpreadsheetId.with(2)
-                )
-        );
-        return list;
     }
 
     // Class............................................................................................................
 
     @Override
-    public Class<SpreadsheetMetadataList> type() {
-        return SpreadsheetMetadataList.class;
+    public Class<SpreadsheetMetadataSet> type() {
+        return SpreadsheetMetadataSet.class;
     }
 
     @Override
