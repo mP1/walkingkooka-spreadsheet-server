@@ -5523,18 +5523,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "[\n" +
                                 "  {\n" +
-                                "    \"type\": \"expression-function-info\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"url\": \"https://example.com/expression-function-1\",\n" +
-                                "      \"name\": \"ExpressionFunction1\"\n" +
-                                "    }\n" +
+                                "    \"url\": \"https://example.com/expression-function-1\",\n" +
+                                "    \"name\": \"ExpressionFunction1\"\n" +
                                 "  },\n" +
                                 "  {\n" +
-                                "    \"type\": \"expression-function-info\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"url\": \"https://example.com/expression-function-2\",\n" +
-                                "      \"name\": \"ExpressionFunction2\"\n" +
-                                "    }\n" +
+                                "    \"url\": \"https://example.com/expression-function-2\",\n" +
+                                "    \"name\": \"ExpressionFunction2\"\n" +
                                 "  }\n" +
                                 "]",
                         ExpressionFunctionInfoSet.class.getSimpleName()
