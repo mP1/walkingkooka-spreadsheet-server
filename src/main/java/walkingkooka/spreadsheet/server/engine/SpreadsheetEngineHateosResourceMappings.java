@@ -42,7 +42,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -338,18 +338,18 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     public static HateosResourceMapping<FunctionExpressionName,
             ExpressionFunctionInfo,
-            ExpressionFunctionInfoList,
-            ExpressionFunctionInfo> expressionFunction(final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> loadSpreadsheetExpressionFunctions) {
+            ExpressionFunctionInfoSet,
+            ExpressionFunctionInfo> expressionFunction(final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunctions) {
         Objects.requireNonNull(loadSpreadsheetExpressionFunctions, "loadSpreadsheetExpressionFunctions");
 
         // function GET...............................................................................................
 
-        HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList,
+        HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet,
                 ExpressionFunctionInfo> function = HateosResourceMapping.with(
                         FUNCTION,
                         SpreadsheetEngineHateosResourceMappings::parseFunctionSelection,
                         ExpressionFunctionInfo.class, // valueType
-                        ExpressionFunctionInfoList.class, // collectionType
+                        ExpressionFunctionInfoSet.class, // collectionType
                         ExpressionFunctionInfo.class// resourceType
                 )
                 .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetExpressionFunctions);

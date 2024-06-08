@@ -90,7 +90,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
@@ -5537,7 +5537,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    }\n" +
                                 "  }\n" +
                                 "]",
-                        ExpressionFunctionInfoList.class.getSimpleName()
+                        ExpressionFunctionInfoSet.class.getSimpleName()
                 )
         );
     }

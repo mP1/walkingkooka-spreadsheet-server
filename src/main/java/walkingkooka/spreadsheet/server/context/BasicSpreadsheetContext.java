@@ -76,7 +76,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.math.BigDecimal;
@@ -348,7 +348,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
 
-        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
+        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
 
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
@@ -612,10 +612,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     public static HateosResourceMapping<FunctionExpressionName,
             ExpressionFunctionInfo,
-            ExpressionFunctionInfoList,
+            ExpressionFunctionInfoSet,
             ExpressionFunctionInfo> expressionFunction(final SpreadsheetEngine engine,
                                                        final SpreadsheetEngineContext context) {
-        final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
+        final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
                 engine,
                 context
         );
