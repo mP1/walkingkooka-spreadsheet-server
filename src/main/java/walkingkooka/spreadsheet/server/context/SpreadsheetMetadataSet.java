@@ -85,13 +85,11 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     // @VisibleForTesting
     static SpreadsheetMetadataSet unmarshall(final JsonNode node,
                                              final JsonNodeUnmarshallContext context) {
-        final Set<SpreadsheetMetadata> copy = Sets.sorted(HateosResource.comparator());
-        copy.addAll(
+        return with(
                 context.unmarshallSet(
                         node,
                         SpreadsheetMetadata.class
                 )
         );
-        return new SpreadsheetMetadataSet(copy);
     }
 }
