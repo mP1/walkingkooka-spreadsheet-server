@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.context;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.http.server.hateos.HateosResourceSetTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -26,12 +27,24 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class SpreadsheetMetadataSetTest implements ClassTesting<SpreadsheetMetadataSet>,
-        JsonNodeMarshallingTesting<SpreadsheetMetadataSet>,
-        SpreadsheetMetadataTesting {
+public final class SpreadsheetMetadataSetTest implements HateosResourceSetTesting<SpreadsheetMetadataSet, SpreadsheetMetadata, SpreadsheetId>,
+        SpreadsheetMetadataTesting,
+        ClassTesting<SpreadsheetMetadataSet> {
+
+    // Set..............................................................................................................
+
+    @Override
+    public SpreadsheetMetadataSet createSet() {
+        return SpreadsheetMetadataSet.with(
+                Sets.of(
+                        SpreadsheetMetadataTesting.METADATA_EN_AU
+                )
+        );
+    }
+
+    // json.............................................................................................................
 
     @Test
     public void testMarshallEmpty() {

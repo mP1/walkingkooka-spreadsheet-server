@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.context;
 
+import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -54,7 +55,9 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
 
     @Override
     public Iterator<SpreadsheetMetadata> iterator() {
-        return this.metadatas.iterator();
+        return Iterators.readOnly(
+                this.metadatas.iterator()
+        );
     }
 
     @Override
