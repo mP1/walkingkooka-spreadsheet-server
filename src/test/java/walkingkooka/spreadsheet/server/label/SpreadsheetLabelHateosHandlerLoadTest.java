@@ -19,8 +19,8 @@ package walkingkooka.spreadsheet.server.label;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
@@ -29,9 +29,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public final class SpreadsheetLabelHateosHandlerLoadTest extends SpreadsheetLabelHateosHandlerTestCase2<SpreadsheetLabelHateosHandlerLoad> {
 
@@ -84,8 +84,8 @@ public final class SpreadsheetLabelHateosHandlerLoadTest extends SpreadsheetLabe
     }
 
     @Override
-    public List<SpreadsheetLabelName> list() {
-        return Lists.of(this.id());
+    public Set<SpreadsheetLabelName> manyIds() {
+        return Sets.of(this.id());
     }
 
     @Override

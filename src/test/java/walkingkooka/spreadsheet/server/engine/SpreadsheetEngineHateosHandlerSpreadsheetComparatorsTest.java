@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -110,8 +109,8 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetComparatorsTest extends Sp
     }
 
     @Override
-    public List<SpreadsheetComparatorName> list() {
-        return Lists.of(
+    public Set<SpreadsheetComparatorName> manyIds() {
+        return Sets.of(
                 INFO1.name(),
                 INFO2.name()
         );

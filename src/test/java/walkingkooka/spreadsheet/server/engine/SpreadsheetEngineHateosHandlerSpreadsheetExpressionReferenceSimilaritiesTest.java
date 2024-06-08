@@ -38,9 +38,9 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilaritiesTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilarities,
         String,
@@ -230,8 +230,8 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilar
     }
 
     @Override
-    public List<String> list() {
-        return Lists.of("B2");
+    public Set<String> manyIds() {
+        return Sets.of("B2");
     }
 
     @Override
