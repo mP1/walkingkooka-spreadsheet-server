@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.context;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -157,9 +158,9 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                            final HateosContentType contentType,
                            final Indentation indentation,
                            final LineEnding lineEnding,
-                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
-                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
-                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata,
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata,
+                           final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata) {
         assertThrows(
                 NullPointerException.class,
                 () -> SpreadsheetContextHateosHandlersRouter.with(
@@ -368,7 +369,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
                 JsonNodeMarshallContexts.basic());
     }
 
-    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata() {
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata() {
         return new FakeHateosHandler<>() {
             @Override
             public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
@@ -393,7 +394,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         };
     }
 
-    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata() {
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata() {
         return new FakeHateosHandler<>() {
 
             @Override
@@ -405,7 +406,7 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
         };
     }
 
-    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata() {
+    private HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata() {
         return new FakeHateosHandler<>() {
             @Override
             public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
@@ -419,22 +420,19 @@ public final class SpreadsheetContextHateosHandlersRouterTest extends Spreadshee
             }
 
             @Override
-            public Optional<SpreadsheetMetadataList> handleAll(final Optional<SpreadsheetMetadataList> resource,
+            public Optional<SpreadsheetMetadataSet> handleAll(final Optional<SpreadsheetMetadataSet> resource,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-                final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-                list.add(
-                        SpreadsheetMetadata.EMPTY
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com"))
-                );
-                list.add(
-                        SpreadsheetMetadata.EMPTY
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2))
-                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com"))
-                );
-
                 return Optional.of(
-                        list
+                        SpreadsheetMetadataSet.with(
+                                Sets.of(
+                                        SpreadsheetMetadata.EMPTY
+                                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+                                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com")),
+                                        SpreadsheetMetadata.EMPTY
+                                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(2))
+                                                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("loaded@example.com"))
+                                )
+                        )
                 );
             }
         };

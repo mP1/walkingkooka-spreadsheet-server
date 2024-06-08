@@ -116,10 +116,6 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         store.save(metadata1);
         store.save(metadata2);
 
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(metadata1);
-        list.add(metadata2);
-
         this.handleAllAndCheck(
                 this.createHandler(
                         new FakeSpreadsheetContext() {
@@ -131,7 +127,14 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                 ),
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(list)
+                Optional.of(
+                        SpreadsheetMetadataSet.with(
+                                Sets.of(
+                                        metadata1,
+                                        metadata2
+                                )
+                        )
+                )
         );
     }
 
@@ -148,10 +151,6 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         store.save(metadata3);
         store.save(metadata4);
 
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(metadata1);
-        list.add(metadata2);
-
         this.handleAllAndCheck(
                 this.createHandler(
                         new FakeSpreadsheetContext() {
@@ -166,7 +165,14 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                         SpreadsheetContextHateosHandlerMetadataLoad.COUNT,
                         Lists.of("2")
                 ),
-                Optional.of(list)
+                Optional.of(
+                        SpreadsheetMetadataSet.with(
+                                Sets.of(
+                                        metadata1,
+                                        metadata2
+                                )
+                        )
+                )
         );
     }
 
@@ -182,10 +188,6 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         store.save(metadata2);
         store.save(metadata3);
         store.save(metadata4);
-
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(metadata2);
-        list.add(metadata3);
 
         this.handleAllAndCheck(
                 this.createHandler(
@@ -203,7 +205,14 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                         SpreadsheetContextHateosHandlerMetadataLoad.COUNT,
                         Lists.of("2")
                 ),
-                Optional.of(list)
+                Optional.of(
+                        SpreadsheetMetadataSet.with(
+                                Sets.of(
+                                        metadata2,
+                                        metadata3
+                                )
+                        )
+                )
         );
     }
 
@@ -218,9 +227,12 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
         store.save(metadata2);
         store.save(metadata3);
 
-        final SpreadsheetMetadataList list = SpreadsheetMetadataList.empty();
-        list.add(metadata1);
-        list.add(metadata3);
+        final SpreadsheetMetadataSet all = SpreadsheetMetadataSet.with(
+                Sets.of(
+                        metadata1,
+                        metadata3
+                )
+        );
 
         this.handleManyAndCheck(
                 this.createHandler(
@@ -231,12 +243,12 @@ public final class SpreadsheetContextHateosHandlerMetadataLoadTest extends Sprea
                             }
                         }
                 ),
-                list.stream()
+                all.stream()
                         .map(m -> m.id().get())
                         .collect(Collectors.toCollection(Sets::sorted)),
                 Optional.empty(),
                 HateosHandler.NO_PARAMETERS,
-                Optional.of(list)
+                Optional.of(all)
         );
     }
 

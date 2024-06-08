@@ -68,9 +68,9 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                                              final HateosContentType contentType,
                                                              final Indentation indentation,
                                                              final LineEnding lineEnding,
-                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
-                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
-                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
+                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata,
+                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata,
+                                                             final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata) {
         Objects.requireNonNull(baseUrl, "baseUrl");
         Objects.requireNonNull(contentType, "contentType");
         Objects.requireNonNull(indentation, "indentation");
@@ -89,7 +89,7 @@ final class SpreadsheetContextHateosHandlersRouter implements StaticHelper {
                                         SPREADSHEET,
                                         SpreadsheetContextHateosHandlersRouter::parse,
                                         SpreadsheetMetadata.class,
-                                        SpreadsheetMetadataList.class,
+                                        SpreadsheetMetadataSet.class,
                                         SpreadsheetMetadata.class
                                 )
                                 .set(METADATA_LINK_RELATION, HttpMethod.DELETE, deleteMetadata)

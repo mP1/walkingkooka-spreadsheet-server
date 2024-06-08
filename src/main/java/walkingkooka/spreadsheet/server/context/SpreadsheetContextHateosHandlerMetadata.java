@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * A {@link HateosHandler} that requires a {@link Store metadata}.
  */
-abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> {
+abstract class SpreadsheetContextHateosHandlerMetadata implements HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> {
 
     /**
      * Checks required factory method parameters are not null.

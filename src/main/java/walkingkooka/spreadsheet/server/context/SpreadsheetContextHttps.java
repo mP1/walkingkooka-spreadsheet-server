@@ -39,21 +39,21 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataDelete}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataDelete.with(context);
     }
 
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> saveOrUpdateMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> saveOrUpdateMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
     }
 
     /**
      * {@see SpreadsheetContextHateosHandlerMetadataLoad}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata(final SpreadsheetContext context) {
+    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata(final SpreadsheetContext context) {
         return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
     }
 
@@ -72,9 +72,9 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
                                                                       final HateosContentType contentType,
                                                                       final Indentation indentation,
                                                                       final LineEnding lineEnding,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> createAndSaveMetadata,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> deleteMetadata,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataList> loadMetadata) {
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata,
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata,
+                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata) {
         return SpreadsheetContextHateosHandlersRouter.with(
                 baseUrl,
                 contentType,
