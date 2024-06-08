@@ -56,10 +56,10 @@ abstract class SpreadsheetEngineHateosHandler<I extends Comparable<I>, V, C> imp
     }
 
     @Override
-    public final Optional<C> handleList(final List<I> list,
+    public final Optional<C> handleList(final List<I> ids,
                                         final Optional<C> resource,
                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkList(list);
+        HateosHandler.checkIdList(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

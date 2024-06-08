@@ -50,10 +50,10 @@ abstract class SpreadsheetLabelHateosHandler implements HateosHandler<Spreadshee
     }
 
     @Override
-    public final Optional<SpreadsheetLabelMapping> handleList(final List<SpreadsheetLabelName> list,
+    public final Optional<SpreadsheetLabelMapping> handleList(final List<SpreadsheetLabelName> ids,
                                                               final Optional<SpreadsheetLabelMapping> resource,
                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkList(list);
+        HateosHandler.checkIdList(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
@@ -61,10 +61,10 @@ abstract class SpreadsheetLabelHateosHandler implements HateosHandler<Spreadshee
     }
 
     @Override
-    public final Optional<SpreadsheetLabelMapping> handleRange(final Range<SpreadsheetLabelName> range,
+    public final Optional<SpreadsheetLabelMapping> handleRange(final Range<SpreadsheetLabelName> labels,
                                                                final Optional<SpreadsheetLabelMapping> resource,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(range);
+        HateosHandler.checkIdRange(labels);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

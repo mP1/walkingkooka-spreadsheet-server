@@ -160,15 +160,15 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaLoadCell extends Sprea
     private final SpreadsheetEngineEvaluation evaluation;
 
     @Override
-    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
+    public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> ids,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(cells);
+        HateosHandler.checkIdRange(ids);
         HateosHandler.checkResourceEmpty(resource);
         HateosHandler.checkParameters(parameters);
 
         return this.handleRange0(
-                Sets.of(SpreadsheetSelection.cellRange(cells)),
+                Sets.of(SpreadsheetSelection.cellRange(ids)),
                 resource,
                 Optional.empty(), // no viewport ignore query parameters
                 parameters

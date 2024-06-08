@@ -79,7 +79,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends Spreads
     public Optional<SpreadsheetComparatorInfoList> handleRange(final Range<SpreadsheetComparatorName> nameRange,
                                                                final Optional<SpreadsheetComparatorInfoList> infos,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(nameRange);
+        HateosHandler.checkIdRange(nameRange);
         HateosHandler.checkResource(infos);
         HateosHandler.checkParameters(parameters);
 

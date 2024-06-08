@@ -115,10 +115,10 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
     }
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> list,
+    public Optional<SpreadsheetMetadataList> handleList(final List<SpreadsheetId> ids,
                                                         final Optional<SpreadsheetMetadataList> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkList(list);
+        HateosHandler.checkIdList(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
@@ -126,10 +126,10 @@ final class SpreadsheetContextHateosHandlerMetadataSaveOrUpdate extends Spreadsh
     }
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleRange(final Range<SpreadsheetId> range,
+    public Optional<SpreadsheetMetadataList> handleRange(final Range<SpreadsheetId> ids,
                                                          final Optional<SpreadsheetMetadataList> resource,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(range);
+        HateosHandler.checkIdRange(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

@@ -101,7 +101,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetExpressionReferenceSimilari
     public Optional<SpreadsheetExpressionReferenceSimilarities> handleRange(final Range<String> range,
                                                                             final Optional<SpreadsheetExpressionReferenceSimilarities> resource,
                                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(range);
+        HateosHandler.checkIdRange(range);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 

@@ -80,7 +80,7 @@ final class SpreadsheetEngineHateosHandlerExpressionFunctions extends Spreadshee
     public Optional<ExpressionFunctionInfoList> handleRange(final Range<FunctionExpressionName> nameRange,
                                                             final Optional<ExpressionFunctionInfoList> infos,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(nameRange);
+        HateosHandler.checkIdRange(nameRange);
         HateosHandler.checkResource(infos);
         HateosHandler.checkParameters(parameters);
 
