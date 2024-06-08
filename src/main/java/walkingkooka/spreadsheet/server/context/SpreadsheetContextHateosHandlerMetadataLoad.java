@@ -18,9 +18,11 @@
 package walkingkooka.spreadsheet.server.context;
 
 import walkingkooka.collect.Range;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -73,7 +75,7 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
 
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleAll(final Optional<SpreadsheetMetadataList> resource,
+    public Optional<SpreadsheetMetadataSet> handleAll(final Optional<SpreadsheetMetadataSet> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
@@ -85,7 +87,7 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
                 .map(Integer::parseInt)
                 .orElse(DEFAULT_COUNT);
 
-        final SpreadsheetMetadataList all = SpreadsheetMetadataList.empty();
+        final Set<SpreadsheetMetadata> all = Sets.sorted(HateosResource.comparator());
         all.addAll(
                 this.context.metadataStore()
                         .values(
@@ -97,7 +99,9 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
                         )
         );
 
-        return Optional.of(all);
+        return Optional.of(
+                SpreadsheetMetadataSet.with(all)
+        );
     }
 
     // @VisibleForTesting
@@ -111,14 +115,14 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
     private final static int MAX_COUNT = 40;
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleMany(final Set<SpreadsheetId> ids,
-                                                        final Optional<SpreadsheetMetadataList> resource,
+    public Optional<SpreadsheetMetadataSet> handleMany(final Set<SpreadsheetId> ids,
+                                                       final Optional<SpreadsheetMetadataSet> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkManyIds(ids);
         HateosHandler.checkResource(resource);
         HateosHandler.checkParameters(parameters);
 
-        final SpreadsheetMetadataList all = SpreadsheetMetadataList.empty();
+        final Set<SpreadsheetMetadata> all = Sets.sorted(HateosResource.comparator());
         final SpreadsheetMetadataStore store = this.context.metadataStore();
 
         for (final SpreadsheetId id : ids) {
@@ -126,12 +130,14 @@ final class SpreadsheetContextHateosHandlerMetadataLoad extends SpreadsheetConte
                     .ifPresent(all::add);
         }
 
-        return Optional.of(all);
+        return Optional.of(
+                SpreadsheetMetadataSet.with(all)
+        );
     }
 
     @Override
-    public Optional<SpreadsheetMetadataList> handleRange(final Range<SpreadsheetId> ids,
-                                                         final Optional<SpreadsheetMetadataList> resource,
+    public Optional<SpreadsheetMetadataSet> handleRange(final Range<SpreadsheetId> ids,
+                                                        final Optional<SpreadsheetMetadataSet> resource,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkIdRange(ids);
         HateosHandler.checkResource(resource);
