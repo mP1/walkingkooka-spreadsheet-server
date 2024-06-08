@@ -49,7 +49,7 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -250,7 +250,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * {@see SpreadsheetEngineHateosHandlerExpressionFunctions}
      */
-    public static HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> loadExpressionFunctions(final SpreadsheetEngine engine,
+    public static HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadExpressionFunctions(final SpreadsheetEngine engine,
                                                                                                                                     final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosHandlerExpressionFunctions.with(
                 engine,

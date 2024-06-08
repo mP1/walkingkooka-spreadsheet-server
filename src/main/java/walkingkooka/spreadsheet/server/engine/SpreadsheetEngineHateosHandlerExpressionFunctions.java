@@ -24,17 +24,16 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoList;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Provides a single end point to retrieve ALL the {@link ExpressionFunctionInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetEngineHateosHandlerExpressionFunctions extends SpreadsheetEngineHateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoList> {
+final class SpreadsheetEngineHateosHandlerExpressionFunctions extends SpreadsheetEngineHateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> {
 
     static SpreadsheetEngineHateosHandlerExpressionFunctions with(final SpreadsheetEngine engine,
                                                                   final SpreadsheetEngineContext context) {
@@ -51,16 +50,14 @@ final class SpreadsheetEngineHateosHandlerExpressionFunctions extends Spreadshee
     }
 
     @Override
-    public Optional<ExpressionFunctionInfoList> handleAll(final Optional<ExpressionFunctionInfoList> infos,
+    public Optional<ExpressionFunctionInfoSet> handleAll(final Optional<ExpressionFunctionInfoSet> infos,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResourceEmpty(infos);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(
-                ExpressionFunctionInfoList.with(
+                ExpressionFunctionInfoSet.with(
                         this.context.expressionFunctionInfos()
-                                .stream()
-                                .collect(Collectors.toList())
                 )
         );
     }
@@ -77,8 +74,8 @@ final class SpreadsheetEngineHateosHandlerExpressionFunctions extends Spreadshee
     }
 
     @Override
-    public Optional<ExpressionFunctionInfoList> handleRange(final Range<FunctionExpressionName> nameRange,
-                                                            final Optional<ExpressionFunctionInfoList> infos,
+    public Optional<ExpressionFunctionInfoSet> handleRange(final Range<FunctionExpressionName> nameRange,
+                                                           final Optional<ExpressionFunctionInfoSet> infos,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkIdRange(nameRange);
         HateosHandler.checkResource(infos);
