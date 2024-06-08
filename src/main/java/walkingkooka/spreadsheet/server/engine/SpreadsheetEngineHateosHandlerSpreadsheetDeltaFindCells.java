@@ -90,7 +90,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaFindCells extends Spre
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(cells);
+        HateosHandler.checkIdRange(cells);
 
         return this.findCells(
                 SpreadsheetSelection.cellRange(cells),

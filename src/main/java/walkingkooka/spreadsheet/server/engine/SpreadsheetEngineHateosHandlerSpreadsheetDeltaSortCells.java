@@ -87,7 +87,7 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetDeltaSortCells extends Spre
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosHandler.checkRange(cells);
+        HateosHandler.checkIdRange(cells);
 
         return this.sortCells(
                 SpreadsheetSelection.cellRange(cells),
