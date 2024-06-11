@@ -303,9 +303,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
-                spreadsheetComparatorProvider,
-                spreadsheetFormatterProvider,
-                expressionFunctionProvider,
+                metadata.spreadsheetComparatorProvider(spreadsheetComparatorProvider),
+                metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider),
+                metadata.expressionFunctionProvider(expressionFunctionProvider),
                 engine,
                 fractioner,
                 repository,
