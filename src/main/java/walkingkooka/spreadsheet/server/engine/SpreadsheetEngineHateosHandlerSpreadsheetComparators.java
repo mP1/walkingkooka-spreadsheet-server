@@ -21,19 +21,19 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHandler;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Provides a single end point to retrieve ALL the {@link SpreadsheetComparatorInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends SpreadsheetEngineHateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList> {
+final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends SpreadsheetEngineHateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> {
 
     static SpreadsheetEngineHateosHandlerSpreadsheetComparators with(final SpreadsheetEngine engine,
                                                                      final SpreadsheetEngineContext context) {
@@ -50,16 +50,14 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends Spreads
     }
 
     @Override
-    public Optional<SpreadsheetComparatorInfoList> handleAll(final Optional<SpreadsheetComparatorInfoList> infos,
+    public Optional<SpreadsheetComparatorInfoSet> handleAll(final Optional<SpreadsheetComparatorInfoSet> infos,
                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkResourceEmpty(infos);
         HateosHandler.checkParameters(parameters);
 
         return Optional.of(
-                SpreadsheetComparatorInfoList.with(
+                SpreadsheetComparatorInfoSet.with(
                         this.context.spreadsheetComparatorInfos()
-                                .stream()
-                                .collect(Collectors.toList())
                 )
         );
     }
@@ -76,8 +74,8 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends Spreads
     }
 
     @Override
-    public Optional<SpreadsheetComparatorInfoList> handleRange(final Range<SpreadsheetComparatorName> nameRange,
-                                                               final Optional<SpreadsheetComparatorInfoList> infos,
+    public Optional<SpreadsheetComparatorInfoSet> handleRange(final Range<SpreadsheetComparatorName> nameRange,
+                                                              final Optional<SpreadsheetComparatorInfoSet> infos,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
         HateosHandler.checkIdRange(nameRange);
         HateosHandler.checkResource(infos);

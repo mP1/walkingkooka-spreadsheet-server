@@ -20,12 +20,12 @@ package walkingkooka.spreadsheet.server.engine;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -39,7 +39,7 @@ import java.util.Set;
 public class SpreadsheetEngineHateosHandlerSpreadsheetComparatorsTest extends SpreadsheetEngineHateosHandlerTestCase2<SpreadsheetEngineHateosHandlerSpreadsheetComparators,
         SpreadsheetComparatorName,
         SpreadsheetComparatorInfo,
-        SpreadsheetComparatorInfoList> implements ToStringTesting<SpreadsheetEngineHateosHandlerSpreadsheetComparators> {
+        SpreadsheetComparatorInfoSet> implements ToStringTesting<SpreadsheetEngineHateosHandlerSpreadsheetComparators> {
 
     private final static SpreadsheetComparatorInfo INFO1 = SpreadsheetComparatorInfo.with(
             Url.parseAbsolute("https://example.com/1"),
@@ -65,8 +65,8 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetComparatorsTest extends Sp
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
                 Optional.of(
-                        SpreadsheetComparatorInfoList.with(
-                                Lists.of(
+                        SpreadsheetComparatorInfoSet.with(
+                                Sets.of(
                                         INFO1,
                                         INFO2
                                 )
@@ -129,7 +129,7 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetComparatorsTest extends Sp
     }
 
     @Override
-    public Optional<SpreadsheetComparatorInfoList> collectionResource() {
+    public Optional<SpreadsheetComparatorInfoSet> collectionResource() {
         return Optional.empty();
     }
 
