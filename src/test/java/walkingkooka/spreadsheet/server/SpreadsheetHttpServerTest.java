@@ -61,6 +61,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -5503,6 +5504,47 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  }\n" +
                                 "]",
                         SpreadsheetComparatorInfoSet.class.getSimpleName()
+                )
+        );
+    }
+
+    // formatters......................................................................................................
+
+    @Test
+    public void testFormatters() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/formatter",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern\",\n" +
+                                "    \"name\": \"date-format-pattern\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern\",\n" +
+                                "    \"name\": \"date-time-format-pattern\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern\",\n" +
+                                "    \"name\": \"number-format-pattern\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern\",\n" +
+                                "    \"name\": \"text-format-pattern\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern\",\n" +
+                                "    \"name\": \"time-format-pattern\"\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetFormatterInfoSet.class.getSimpleName()
                 )
         );
     }
