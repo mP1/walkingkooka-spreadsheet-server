@@ -31,7 +31,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -86,10 +86,10 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetDeltaJsonCellLabelResolverBiFunction}
+     * {@see SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor}
      */
-    public static BiFunction<JsonNode, Class<?>, JsonNode> spreadsheetDeltaJsonCellLabelResolver(final SpreadsheetLabelStore store) {
-        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.with(store);
+    public static JsonNodeUnmarshallContextPreProcessor spreadsheetDeltaJsonCellLabelResolver(final SpreadsheetLabelStore store) {
+        return SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor.with(store);
     }
 
     /**

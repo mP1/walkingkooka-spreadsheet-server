@@ -21,21 +21,21 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Objects;
-import java.util.function.BiFunction;
 
 /**
  * A function that resolves labels within a JSON payload if it contains a {@link SpreadsheetDelta}.
  */
-final class SpreadsheetDeltaJsonCellLabelResolverBiFunction implements BiFunction<JsonNode, Class<?>, JsonNode> {
+final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor implements JsonNodeUnmarshallContextPreProcessor {
 
-    static SpreadsheetDeltaJsonCellLabelResolverBiFunction with(final SpreadsheetLabelStore store) {
+    static SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor with(final SpreadsheetLabelStore store) {
         Objects.requireNonNull(store, "store");
-        return new SpreadsheetDeltaJsonCellLabelResolverBiFunction(store);
+        return new SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor(store);
     }
 
-    private SpreadsheetDeltaJsonCellLabelResolverBiFunction(final SpreadsheetLabelStore store) {
+    private SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor(final SpreadsheetLabelStore store) {
         super();
         this.store = store;
     }

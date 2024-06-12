@@ -31,7 +31,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.util.BiFunctionTesting;
 
-public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverBiFunction,
+public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessorTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor,
         JsonNode,
         Class<?>,
         JsonNode> {
@@ -195,17 +195,17 @@ public final class SpreadsheetDeltaJsonCellLabelResolverBiFunctionTest implement
     }
 
     @Override
-    public SpreadsheetDeltaJsonCellLabelResolverBiFunction createBiFunction() {
+    public SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor createBiFunction() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         store.save(LABEL1.mapping(CELL1));
         store.save(LABEL2.mapping(CELL2));
 
-        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.with(store);
+        return SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor.with(store);
     }
 
     @Override
-    public Class<SpreadsheetDeltaJsonCellLabelResolverBiFunction> type() {
-        return SpreadsheetDeltaJsonCellLabelResolverBiFunction.class;
+    public Class<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor> type() {
+        return SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor.class;
     }
 }
