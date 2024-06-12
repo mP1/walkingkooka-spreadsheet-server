@@ -25,7 +25,7 @@ A swagger-ui is available at:
   present [TODO](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/480)
 - To examine the JSON form examining tests will be required.
 
-### Context
+### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
 
 A collection of end points that support CRUD operations
 on [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java).
@@ -42,16 +42,14 @@ Note all payloads are in `JSON` form.
 - **PATCH** /api/spreadsheet/$spreadsheet-id  
   Used to update an existing `SpreadsheetMetadata`, name or individual global settings for a spreadsheet.
 
-### Engine
+### [Engine](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngine.java)
 
 A collection of end points that support manipulating cells, columns and rows and similar functionality. All input and
 output is always
 a [SpreadsheetDelta](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetDelta.java)
 in JSON form, where necessary.
 
-
-
-#### cell
+#### [Cell](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetCell.java)
 
 Most of these end points are used to fill the viewport or from actions such as selecting a cell or cell-range and then
 clicking a context menu command.
@@ -74,7 +72,7 @@ clicking a context menu command.
   input includes region of cells to be the fill content  
   This has many purposes including functionality such as filling a range, pasting previously copied cells etc.
 
-#### column
+#### [Column](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetColumn.java)
 
 Many of these are very closed mapped to the context menu that appears when column/columns are selected.
 
@@ -90,26 +88,28 @@ Many of these are very closed mapped to the context menu that appears when colum
 - **DELETE** /api/spreadsheet/$spreadsheet-id/column/A
 - **DELETE** /api/spreadsheet/$spreadsheet-id/column/A:B
 
-#### comparators
+#### [Comparator](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetComparator.java)
 
-These end points may be used to work with available SpreadsheetComparator(s)
+These end points may be used to work with
+available [SpreadsheetComparatorInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetComparatorInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/comparator
 
-#### formatters
+#### [Formatter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatter.java)
 
-These end points may be used to work with available `SpreadsheetFormatter(s)`
+These end points may be used to work with
+available [SpreadsheetFormatterInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatterInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/formatter
--
 
-#### expression function(s)
+#### [Expression function](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
-These end points may be used to work with available ExpressionFunction(s)
+These end points may be used to work with
+available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-expression-function-provider/blob/master/src/main/java/walkingkooka/tree/expression/function/provider/ExpressionFunctionInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/expression-function
 
-#### label
+#### [Label](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/SpreadsheetLabelName.java)
 
 These end points are mostly used by the label management dialog.
 
@@ -119,7 +119,7 @@ These end points are mostly used by the label management dialog.
   Used by the UI to create a new label to cell or cell-range
 - **POST** /api/spreadsheet/$spreadsheet-id/label/$label-name
 
-#### row
+#### [Row](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
 
 Many of these are very closed mapped to the context menu that appears when row/rows are selected.
 
