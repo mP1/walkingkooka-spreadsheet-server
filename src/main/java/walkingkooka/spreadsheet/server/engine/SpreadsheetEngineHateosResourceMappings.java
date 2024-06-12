@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
@@ -295,18 +296,18 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
 
     public static HateosResourceMapping<SpreadsheetComparatorName,
             SpreadsheetComparatorInfo,
-            SpreadsheetComparatorInfoList,
-            SpreadsheetComparatorInfo> comparator(final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList> loadSpreadsheetComparators) {
+            SpreadsheetComparatorInfoSet,
+            SpreadsheetComparatorInfo> comparator(final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators) {
         Objects.requireNonNull(loadSpreadsheetComparators, "loadSpreadsheetComparators");
 
         // comparator GET...............................................................................................
 
-        HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList,
+        HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet,
                 SpreadsheetComparatorInfo> comparator = HateosResourceMapping.with(
                         COMPARATOR,
                         SpreadsheetEngineHateosResourceMappings::parseComparatorSelection,
                         SpreadsheetComparatorInfo.class, // valueType
-                        SpreadsheetComparatorInfoList.class, // collectionType
+                        SpreadsheetComparatorInfoSet.class, // collectionType
                         SpreadsheetComparatorInfo.class// resourceType
                 )
                 .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetComparators);

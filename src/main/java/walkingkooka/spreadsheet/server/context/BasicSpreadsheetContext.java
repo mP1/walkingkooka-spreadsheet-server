@@ -44,6 +44,7 @@ import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -64,7 +65,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetComparatorInfoList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
@@ -346,7 +346,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
-        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
+        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
 
         final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
 
@@ -595,10 +595,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     public static HateosResourceMapping<SpreadsheetComparatorName,
             SpreadsheetComparatorInfo,
-            SpreadsheetComparatorInfoList,
+            SpreadsheetComparatorInfoSet,
             SpreadsheetComparatorInfo> comparator(final SpreadsheetEngine engine,
                                                   final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoList> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
+        final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
                 engine,
                 context
         );
