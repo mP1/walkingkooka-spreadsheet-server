@@ -35,6 +35,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -246,7 +249,20 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         );
     }
 
-    // comparators......................................................................................................
+    // formatters......................................................................................................
+
+    /**
+     * {@see SpreadsheetEngineHateosHandlerSpreadsheetFormatters}
+     */
+    public static HateosHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters(final SpreadsheetEngine engine,
+                                                                                                                                           final SpreadsheetEngineContext context) {
+        return SpreadsheetEngineHateosHandlerSpreadsheetFormatters.with(
+                engine,
+                context
+        );
+    }
+
+    // functions........................................................................................................
 
     /**
      * {@see SpreadsheetEngineHateosHandlerExpressionFunctions}

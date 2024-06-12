@@ -53,6 +53,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -348,6 +351,8 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
 
+        final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo> formatter = formatter(engine, context);
+
         final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
 
         final SpreadsheetLabelStore labelStore = context.storeRepository()
@@ -369,8 +374,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                         cell,
                         cellReference,
                         column,
-                        comparator,
-                        expressionFunction,
+                        comparator, // /comparator
+                        formatter, // formatter
+                        expressionFunction, // function
                         label,
                         row
                 ),
@@ -607,6 +613,21 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         );
     }
 
+    // formatter........................................................................................................
+
+    public static HateosResourceMapping<SpreadsheetFormatterName,
+            SpreadsheetFormatterInfo,
+            SpreadsheetFormatterInfoSet,
+            SpreadsheetFormatterInfo> formatter(final SpreadsheetEngine engine,
+                                                final SpreadsheetEngineContext context) {
+        final HateosHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters = SpreadsheetEngineHttps.loadSpreadsheetFormatters(
+                engine,
+                context
+        );
+        return SpreadsheetEngineHateosResourceMappings.formatter(
+                loadSpreadsheetFormatters
+        );
+    }
 
     // expression-function..............................................................................................
 

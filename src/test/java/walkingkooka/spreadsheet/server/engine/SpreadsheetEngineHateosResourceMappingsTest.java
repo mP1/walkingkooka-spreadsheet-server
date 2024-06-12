@@ -57,6 +57,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -711,6 +713,16 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
             }
 
             @Override
+            public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
+                return Sets.of(
+                        SpreadsheetFormatterInfo.with(
+                                Url.parseAbsolute("https://example.com/formatter-1"),
+                                SpreadsheetFormatterName.with("formatter-1")
+                        )
+                );
+            }
+
+            @Override
             public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
                 return Sets.of(
                         ExpressionFunctionInfo.with(
@@ -960,6 +972,62 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
+    // formatter........................................................................................................
+
+    @Test
+    public void testFormatterNullLoadFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.formatter(null)
+        );
+    }
+
+    @Test
+    public void testFormattersLoadGet() {
+        this.routeFormatterAndCheck(
+                HttpMethod.GET,
+                "/formatter",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testFormattersLoadPost() {
+        this.routeFormatterAndCheck(
+                HttpMethod.POST,
+                "/formatter",
+                HttpStatusCode.METHOD_NOT_ALLOWED
+        );
+    }
+
+    private void routeFormatterAndCheck(final HttpMethod method,
+                                        final String url,
+                                        final HttpStatusCode statusCode) {
+        this.routeFormatterAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeFormatterAndCheck(final HttpMethod method,
+                                        final String url,
+                                        final String body,
+                                        final HttpStatusCode statusCode) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+        this.routeAndCheck(
+                SpreadsheetEngineHateosResourceMappings.formatter(
+                        SpreadsheetEngineHttps.loadSpreadsheetFormatters(engine, context)
+                ),
+                method,
+                url,
+                body,
+                statusCode
+        );
+    }
+    
     // expressionFunction.......................................................................................................
 
     @Test

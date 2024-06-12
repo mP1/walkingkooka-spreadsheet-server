@@ -96,6 +96,13 @@ These end points may be used to work with available SpreadsheetComparator(s)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/comparator
 
+#### formatters
+
+These end points may be used to work with available `SpreadsheetFormatter(s)`
+
+- **GET** /api/spreadsheet/$spreadsheet-id/formatter
+-
+
 #### expression function(s)
 
 These end points may be used to work with available ExpressionFunction(s)
