@@ -57,6 +57,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -75,9 +76,11 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -1334,7 +1337,13 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
     private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return ExpressionFunctionProviders.fake();
+        return ExpressionFunctionProviders.basic(
+                Url.parseAbsolute("https://example.com/functions"),
+                CaseSensitivity.INSENSITIVE,
+                Sets.of(
+                        ExpressionFunctions.typeName()
+                )
+        );
     }
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
@@ -1352,7 +1361,8 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
             final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
             final LocalDateTime now = LocalDateTime.now();
 
-            metadataStore.save(SpreadsheetMetadata.EMPTY
+            metadataStore.save(
+                    SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
                     .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
                     .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)

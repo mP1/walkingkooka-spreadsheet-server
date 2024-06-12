@@ -61,8 +61,10 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -389,7 +391,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
-        return (i) -> ExpressionFunctionProviders.fake();
+        return (i) -> ExpressionFunctionProviders.basic(
+                Url.parseAbsolute("https://example.com/functions"),
+                CaseSensitivity.INSENSITIVE,
+                Sets.of(
+                        ExpressionFunctions.typeName()
+                )
+        );
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
