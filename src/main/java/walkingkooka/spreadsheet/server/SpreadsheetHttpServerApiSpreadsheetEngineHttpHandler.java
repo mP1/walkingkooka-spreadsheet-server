@@ -63,10 +63,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<BigDecimal, Fraction> fractioner,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
-                                                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                                     final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
+                                                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
+                                                                     final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                                                      final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
-                                                                     final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
+                                                                     final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                      final Supplier<LocalDateTime> now) {
@@ -77,10 +77,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 fractioner,
                 createMetadata,
                 metadataStore,
-                spreadsheetIdSpreadsheetComparatorProvider,
-                spreadsheetIdSpreadsheetFormatterProvider,
+                spreadsheetIdToSpreadsheetComparatorProvider,
+                spreadsheetIdToSpreadsheetFormatterProvider,
                 spreadsheetIdToFunctions,
-                spreadsheetIdSpreadsheetParserProvider,
+                spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 now
@@ -96,10 +96,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<BigDecimal, Fraction> fractioner,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
-                                                                 final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
-                                                                 final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
+                                                                 final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
+                                                                 final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
-                                                                 final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
+                                                                 final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                  final Supplier<LocalDateTime> now) {
@@ -114,10 +114,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
-        this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
-        this.spreadsheetIdSpreadsheetFormatterProvider = spreadsheetIdSpreadsheetFormatterProvider;
+        this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
+        this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
         this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
-        this.spreadsheetIdSpreadsheetParserProvider = spreadsheetIdSpreadsheetParserProvider;
+        this.spreadsheetIdToSpreadsheetParserProvider = spreadsheetIdToSpreadsheetParserProvider;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         int spreadsheetIdPathComponent = 0;
@@ -166,10 +166,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
-                this.spreadsheetIdSpreadsheetComparatorProvider,
-                this.spreadsheetIdSpreadsheetFormatterProvider,
+                this.spreadsheetIdToSpreadsheetComparatorProvider,
+                this.spreadsheetIdToSpreadsheetFormatterProvider,
                 this.spreadsheetIdToFunctions,
-                this.spreadsheetIdSpreadsheetParserProvider,
+                this.spreadsheetIdToSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 SpreadsheetContexts::jsonHateosContentType,
@@ -187,13 +187,13 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
     private final SpreadsheetMetadataStore metadataStore;
 
-    private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider;
+    private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider;
 
-    private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider;
+    private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider;
 
     private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions;
 
-    private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider;
+    private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider;
 
     /**
      * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.

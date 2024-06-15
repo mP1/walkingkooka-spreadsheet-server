@@ -7863,7 +7863,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.metadataStore,
                 this::spreadsheetMetadataStamper,
                 fractioner(),
-                spreadsheetIdSpreadsheetComparatorProvider(),
+                spreadsheetIdToSpreadsheetComparatorProvider(),
                 spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
                 spreadsheetIdToSpreadsheetParserProvider(),
@@ -7926,7 +7926,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         };
     }
 
-    private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider() {
+    private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 

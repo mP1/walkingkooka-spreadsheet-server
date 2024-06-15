@@ -360,10 +360,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 fractioner(),
                 createMetadata(),
                 this.metadataStore,
-                spreadsheetIdSpreadsheetComparatorProvider(),
-                spreadsheetIdSpreadsheetFormatterProvider(),
+                spreadsheetIdToSpreadsheetComparatorProvider(),
+                spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
-                spreadsheetIdSpreadsheetParserProvider(),
+                spreadsheetIdToSpreadsheetParserProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 LocalDateTime::now
@@ -385,11 +385,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-    private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider() {
+    private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
         return (id) -> SpreadsheetComparatorProviders.builtIn();
     }
 
-    private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider() {
+    private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
         return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern();
     }
 
@@ -403,7 +403,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
         );
     }
 
-    private Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider() {
+    private Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
         return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern();
     }
 
