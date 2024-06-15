@@ -28,6 +28,8 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -70,6 +72,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -95,6 +98,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
 
     private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
+    }
+
+    private SpreadsheetParserProvider spreadsheetIdSpreadsheetParserProvider(final SpreadsheetId id) {
+        return SpreadsheetParserProviders.spreadsheetParsePattern();
     }
 
     private SpreadsheetMetadata defaultMetadata(final Optional<Locale> locale) {

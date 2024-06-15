@@ -27,6 +27,8 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserName;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -76,6 +78,11 @@ public interface SpreadsheetContext extends Context {
      */
     ExpressionFunctionProvider expressionFunctionProvider(final SpreadsheetId id);
 
+    /**
+     * Returns a {@link Function} which knows the available {@link SpreadsheetParserProvider} by {@link SpreadsheetParserName}.
+     */
+    SpreadsheetParserProvider parserProvider(final SpreadsheetId id);
+    
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */

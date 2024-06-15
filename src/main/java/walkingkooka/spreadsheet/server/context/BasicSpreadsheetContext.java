@@ -57,6 +57,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -112,6 +113,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                         final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                         final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                         final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                        final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToParserProvider,
                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                         final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -126,6 +128,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         Objects.requireNonNull(spreadsheetIdToComparatorProvider, "spreadsheetIdToComparatorProvider");
         Objects.requireNonNull(spreadsheetIdToFormatterProvider, "spreadsheetIdToFormatterProvider");
         Objects.requireNonNull(spreadsheetIdToExpressionFunctionProvider, "spreadsheetIdToExpressionFunctionProvider");
+        Objects.requireNonNull(spreadsheetIdToParserProvider, "spreadsheetIdToParserProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
         Objects.requireNonNull(contentTypeFactory, "contentTypeFactory");
@@ -142,6 +145,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 spreadsheetIdToComparatorProvider,
                 spreadsheetIdToFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
+                spreadsheetIdToParserProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,
@@ -159,6 +163,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                     final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                     final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                     final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                    final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToParserProvider,
                                     final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                     final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -178,6 +183,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         this.spreadsheetIdToComparatorProvider = spreadsheetIdToComparatorProvider;
         this.spreadsheetIdToFormatterProvider = spreadsheetIdToFormatterProvider;
         this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
+        this.spreadsheetIdToParserProvider = spreadsheetIdToParserProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
         this.contentTypeFactory = contentTypeFactory;
@@ -266,6 +272,13 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 .loadOrFail(id);
     }
 
+    @Override
+    public SpreadsheetParserProvider parserProvider(final SpreadsheetId id) {
+        return this.spreadsheetIdToParserProvider.apply(id);
+    }
+
+    final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToParserProvider;
+    
     // hateosRouter.....................................................................................................
 
     /**
@@ -299,8 +312,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final SpreadsheetComparatorProvider spreadsheetComparatorProvider = this.spreadsheetIdToComparatorProvider.apply(id);
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = this.spreadsheetIdToFormatterProvider.apply(id);
-
         final ExpressionFunctionProvider expressionFunctionProvider = this.spreadsheetIdToExpressionFunctionProvider.apply(id);
+        final SpreadsheetParserProvider spreadsheetParserProvider = this.spreadsheetIdToParserProvider.apply(id);
+
         final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 
@@ -309,6 +323,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 metadata.spreadsheetComparatorProvider(spreadsheetComparatorProvider),
                 metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider),
                 metadata.expressionFunctionProvider(expressionFunctionProvider),
+                metadata.spreadsheetParserProvider(spreadsheetParserProvider),
                 engine,
                 fractioner,
                 repository,

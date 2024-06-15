@@ -24,6 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -56,6 +57,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                            final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                            final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                           final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToParserProvider,
                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                            final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -71,6 +73,7 @@ public final class SpreadsheetContexts implements PublicStaticHelper {
                 spreadsheetIdToComparatorProvider,
                 spreadsheetIdToFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
+                spreadsheetIdToParserProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 contentTypeFactory,

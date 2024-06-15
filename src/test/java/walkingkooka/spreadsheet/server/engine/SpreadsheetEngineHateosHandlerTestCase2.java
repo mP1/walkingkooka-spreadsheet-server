@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -150,6 +151,7 @@ public abstract class SpreadsheetEngineHateosHandlerTestCase2<H extends Spreadsh
                 SpreadsheetComparatorProviders.builtIn(),
                 SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
                 ExpressionFunctionProviders.fake(),
+                SpreadsheetParserProviders.spreadsheetParsePattern(),
                 engine,
                 (b) -> {
                     throw new UnsupportedOperationException();

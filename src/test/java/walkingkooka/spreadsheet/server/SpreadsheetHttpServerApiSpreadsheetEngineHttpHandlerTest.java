@@ -43,6 +43,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -361,6 +363,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 spreadsheetIdSpreadsheetComparatorProvider(),
                 spreadsheetIdSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
+                spreadsheetIdSpreadsheetParserProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 LocalDateTime::now
@@ -398,6 +401,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                         ExpressionFunctions.typeName()
                 )
         );
+    }
+
+    private Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider() {
+        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern();
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
