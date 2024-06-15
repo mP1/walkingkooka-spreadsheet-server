@@ -54,6 +54,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -128,6 +130,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -148,6 +151,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -168,6 +172,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -188,6 +193,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -208,6 +214,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -228,6 +235,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -248,6 +256,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -268,6 +277,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 null,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -288,6 +298,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 null,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -307,6 +318,28 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 METADATA_STORE,
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
+                null,
+                this::spreadsheetIdSpreadsheetParserProvider,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                this::contentTypeFactory,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetIdSpreadsheetParserProviderFails() {
+        this.withFails(
+                this.base(),
+                this.contentType(),
+                INDENTATION,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
+                METADATA_STORE,
+                this::spreadsheetIdSpreadsheetComparatorProvider,
+                this::spreadsheetIdSpreadsheetFormatterProvider,
+                this::spreadsheetIdToExpressionFunctionProvider,
                 null,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -329,6 +362,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
                 null,
+                this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
                 NOW
@@ -348,6 +382,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 null,
                 this::contentTypeFactory,
@@ -368,6 +403,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 null,
@@ -388,6 +424,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -405,6 +442,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                            final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                            final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                            final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                           final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                            final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
@@ -422,6 +460,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         spreadsheetIdSpreadsheetComparatorProvider,
                         spreadsheetIdSpreadsheetFormatterProvider,
                         spreadsheetIdToExpressionFunctionProvider,
+                        spreadsheetIdSpreadsheetParserProvider,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
                         contentTypeFactory,
@@ -1274,6 +1313,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                 this::spreadsheetIdSpreadsheetComparatorProvider,
                 this::spreadsheetIdSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdSpreadsheetParserProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -1344,6 +1384,12 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         ExpressionFunctions.typeName()
                 )
         );
+    }
+
+    private SpreadsheetParserProvider spreadsheetIdSpreadsheetParserProvider(final SpreadsheetId spreadsheetId) {
+        this.checkSpreadsheetId(spreadsheetId);
+
+        return SpreadsheetParserProviders.spreadsheetParsePattern();
     }
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {

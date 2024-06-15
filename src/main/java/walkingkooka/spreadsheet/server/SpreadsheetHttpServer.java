@@ -47,6 +47,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -94,6 +95,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                              final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                              final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                             final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -112,6 +114,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 spreadsheetIdSpreadsheetComparatorProvider,
                 spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
+                spreadsheetIdSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 contentTypeFactory,
                 fileServer,
@@ -143,6 +146,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                   final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                   final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
+                                  final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -170,6 +174,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
         this.spreadsheetIdSpreadsheetFormatterProvider = spreadsheetIdSpreadsheetFormatterProvider;
         this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
+        this.spreadsheetIdSpreadsheetParserProvider = spreadsheetIdSpreadsheetParserProvider;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.server = server.apply(
@@ -237,6 +242,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdSpreadsheetComparatorProvider,
                 this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
+                this.spreadsheetIdSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.contentTypeFactory,
@@ -264,6 +270,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdSpreadsheetComparatorProvider,
                 this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
+                this.spreadsheetIdSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.now
@@ -287,6 +294,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider;
 
     private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider;
+
+    private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider;
+
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 

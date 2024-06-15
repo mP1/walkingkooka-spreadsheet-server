@@ -29,6 +29,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
@@ -65,6 +66,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                                      final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                     final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                      final Supplier<LocalDateTime> now) {
@@ -78,6 +80,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 spreadsheetIdSpreadsheetComparatorProvider,
                 spreadsheetIdSpreadsheetFormatterProvider,
                 spreadsheetIdToFunctions,
+                spreadsheetIdSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 now
@@ -96,6 +99,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdSpreadsheetComparatorProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider,
                                                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                 final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                  final Supplier<LocalDateTime> now) {
@@ -113,6 +117,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.spreadsheetIdSpreadsheetComparatorProvider = spreadsheetIdSpreadsheetComparatorProvider;
         this.spreadsheetIdSpreadsheetFormatterProvider = spreadsheetIdSpreadsheetFormatterProvider;
         this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
+        this.spreadsheetIdSpreadsheetParserProvider = spreadsheetIdSpreadsheetParserProvider;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         int spreadsheetIdPathComponent = 0;
@@ -164,6 +169,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.spreadsheetIdSpreadsheetComparatorProvider,
                 this.spreadsheetIdSpreadsheetFormatterProvider,
                 this.spreadsheetIdToFunctions,
+                this.spreadsheetIdSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 SpreadsheetContexts::jsonHateosContentType,
@@ -186,6 +192,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdSpreadsheetFormatterProvider;
 
     private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions;
+
+    private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdSpreadsheetParserProvider;
 
     /**
      * A {@link Function} that returns a {@link SpreadsheetStoreRepository} for a given {@link SpreadsheetId}.
