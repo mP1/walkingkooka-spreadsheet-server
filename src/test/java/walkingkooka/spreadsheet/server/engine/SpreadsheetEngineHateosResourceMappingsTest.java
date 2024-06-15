@@ -59,6 +59,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetParserName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -735,6 +737,16 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                         )
                 );
             }
+
+            @Override
+            public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
+                return Sets.of(
+                        SpreadsheetParserInfo.with(
+                                Url.parseAbsolute("https://example.com/parser-1"),
+                                SpreadsheetParserName.with("parser-1")
+                        )
+                );
+            }
         };
     }
 
@@ -1088,6 +1100,62 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
+    // parser...........................................................................................................
+
+    @Test
+    public void testParserNullLoadFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetEngineHateosResourceMappings.parser(null)
+        );
+    }
+
+    @Test
+    public void testParsersLoadGet() {
+        this.routeParserAndCheck(
+                HttpMethod.GET,
+                "/parser",
+                HttpStatusCode.OK
+        );
+    }
+
+    @Test
+    public void testParsersLoadPost() {
+        this.routeParserAndCheck(
+                HttpMethod.POST,
+                "/parser",
+                HttpStatusCode.METHOD_NOT_ALLOWED
+        );
+    }
+
+    private void routeParserAndCheck(final HttpMethod method,
+                                     final String url,
+                                     final HttpStatusCode statusCode) {
+        this.routeParserAndCheck(
+                method,
+                url,
+                "",
+                statusCode
+        );
+    }
+
+    private void routeParserAndCheck(final HttpMethod method,
+                                     final String url,
+                                     final String body,
+                                     final HttpStatusCode statusCode) {
+        final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineContext context = this.engineContext();
+        this.routeAndCheck(
+                SpreadsheetEngineHateosResourceMappings.parser(
+                        SpreadsheetEngineHttps.loadSpreadsheetParsers(engine, context)
+                ),
+                method,
+                url,
+                body,
+                statusCode
+        );
+    }
+    
     // row...........................................................................................................
 
     @Test
