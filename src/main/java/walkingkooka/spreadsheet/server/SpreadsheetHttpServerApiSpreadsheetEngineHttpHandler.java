@@ -65,7 +65,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                                                     final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                     final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctions,
                                                                      final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -79,7 +79,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 metadataStore,
                 spreadsheetIdToSpreadsheetComparatorProvider,
                 spreadsheetIdToSpreadsheetFormatterProvider,
-                spreadsheetIdToFunctions,
+                spreadsheetIdToExpressionFunctions,
                 spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -98,7 +98,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                                                 final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions,
+                                                                 final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctions,
                                                                  final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -116,7 +116,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
         this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
-        this.spreadsheetIdToFunctions = spreadsheetIdToFunctions;
+        this.spreadsheetIdToExpressionFunctions = spreadsheetIdToExpressionFunctions;
         this.spreadsheetIdToSpreadsheetParserProvider = spreadsheetIdToSpreadsheetParserProvider;
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
@@ -168,7 +168,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetComparatorProvider,
                 this.spreadsheetIdToSpreadsheetFormatterProvider,
-                this.spreadsheetIdToFunctions,
+                this.spreadsheetIdToExpressionFunctions,
                 this.spreadsheetIdToSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -191,7 +191,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
     private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider;
 
-    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToFunctions;
+    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctions;
 
     private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider;
 
