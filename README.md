@@ -119,6 +119,13 @@ These end points are mostly used by the label management dialog.
   Used by the UI to create a new label to cell or cell-range
 - **POST** /api/spreadsheet/$spreadsheet-id/label/$label-name
 
+#### [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java)
+
+These end points may be used to work with
+available [SpreadsheetParserInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetParserInfoSet.java)
+
+- **GET** /api/spreadsheet/$spreadsheet-id/parser
+
 #### [Row](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
 
 Many of these are very closed mapped to the context menu that appears when row/rows are selected.
