@@ -36,6 +36,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
+import walkingkooka.spreadsheet.format.SpreadsheetParserName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -420,6 +423,48 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
      * A {@link HateosResourceName} with <code>expression-function</code>.
      */
     private static final HateosResourceName FUNCTION = HateosResourceName.with("expression-function");
+
+    // parser...........................................................................................................
+
+    public static HateosResourceMapping<SpreadsheetParserName,
+            SpreadsheetParserInfo,
+            SpreadsheetParserInfoSet,
+            SpreadsheetParserInfo> parser(final HateosHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers) {
+        Objects.requireNonNull(loadSpreadsheetParsers, "loadSpreadsheetParsers");
+
+        // GET /parser..................................................................................................
+
+        HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet,
+                SpreadsheetParserInfo> parser = HateosResourceMapping.with(
+                        PARSER,
+                        SpreadsheetEngineHateosResourceMappings::parseParserSelection,
+                        SpreadsheetParserInfo.class, // valueType
+                        SpreadsheetParserInfoSet.class, // collectionType
+                        SpreadsheetParserInfo.class// resourceType
+                )
+                .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetParsers);
+
+        return parser;
+    }
+
+    private static HateosResourceSelection<SpreadsheetParserName> parseParserSelection(final String text) {
+        final HateosResourceSelection<SpreadsheetParserName> selection;
+
+        switch (text.length()) {
+            case 0:
+                selection = HateosResourceSelection.all();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid parser selection " + CharSequences.quoteAndEscape(text));
+        }
+
+        return selection;
+    }
+
+    /**
+     * A {@link HateosResourceName} with <code>parser</code>.
+     */
+    private static final HateosResourceName PARSER = HateosResourceName.with("parser");
     
     // row..............................................................................................................
 
