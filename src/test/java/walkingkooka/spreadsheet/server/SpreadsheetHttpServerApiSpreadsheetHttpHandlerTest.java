@@ -69,10 +69,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
-                this::spreadsheetIdSpreadsheetComparatorProvider,
-                this::spreadsheetIdSpreadsheetFormatterProvider,
+                this::spreadsheetIdToSpreadsheetComparatorProvider,
+                this::spreadsheetIdToSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetParserProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 this::contentTypeFactory,
@@ -88,11 +88,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
         throw new UnsupportedOperationException();
     }
 
-    private SpreadsheetComparatorProvider spreadsheetIdSpreadsheetComparatorProvider(final SpreadsheetId id) {
+    private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId id) {
         return SpreadsheetComparatorProviders.builtIn();
     }
 
-    private SpreadsheetFormatterProvider spreadsheetIdSpreadsheetFormatterProvider(final SpreadsheetId id) {
+    private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId id) {
         return SpreadsheetFormatterProviders.spreadsheetFormatPattern();
     }
 
@@ -100,7 +100,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
         throw new UnsupportedOperationException();
     }
 
-    private SpreadsheetParserProvider spreadsheetIdSpreadsheetParserProvider(final SpreadsheetId id) {
+    private SpreadsheetParserProvider spreadsheetIdToSpreadsheetParserProvider(final SpreadsheetId id) {
         return SpreadsheetParserProviders.spreadsheetParsePattern();
     }
 
