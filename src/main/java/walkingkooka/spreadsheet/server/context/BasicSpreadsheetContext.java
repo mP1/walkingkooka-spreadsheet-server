@@ -337,7 +337,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         return patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context)
                 .then(
-                        this.cellColumnComparatorExpressionFunctionRowViewportRouter(
+                        this.cellColumnProvidersRowViewportRouter(
                                 id,
                                 100, // defaultMax
                                 engine,
@@ -350,10 +350,10 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
     private final Supplier<LocalDateTime> now;
 
-    private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnComparatorExpressionFunctionRowViewportRouter(final SpreadsheetId id,
-                                                                                                                 final int defaultMax,
-                                                                                                                 final SpreadsheetEngine engine,
-                                                                                                                 final SpreadsheetEngineContext context) {
+    private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnProvidersRowViewportRouter(final SpreadsheetId id,
+                                                                                              final int defaultMax,
+                                                                                              final SpreadsheetEngine engine,
+                                                                                              final SpreadsheetEngineContext context) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
                 defaultMax,
                 engine,
