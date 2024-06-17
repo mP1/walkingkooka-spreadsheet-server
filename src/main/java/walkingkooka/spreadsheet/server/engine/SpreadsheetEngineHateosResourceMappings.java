@@ -329,7 +329,10 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 selection = HateosResourceSelection.all();
                 break;
             default:
-                throw new IllegalArgumentException("Invalid selection " + CharSequences.quoteAndEscape(text));
+                selection = HateosResourceSelection.one(
+                        SpreadsheetComparatorName.with(text)
+                );
+                break;
         }
 
         return selection;
