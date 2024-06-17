@@ -70,7 +70,10 @@ final class SpreadsheetEngineHateosHandlerExpressionFunctions extends Spreadshee
         HateosHandler.checkResource(info);
         HateosHandler.checkParameters(parameters);
 
-        throw new UnsupportedOperationException();
+        return this.context.expressionFunctionInfos()
+                .stream()
+                .filter(i -> i.name().equals(name))
+                .findFirst();
     }
 
     @Override

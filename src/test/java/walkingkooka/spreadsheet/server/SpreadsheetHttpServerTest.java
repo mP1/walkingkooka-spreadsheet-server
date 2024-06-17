@@ -5619,6 +5619,41 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testExpressionFunctionByName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/expression-function/ExpressionFunction1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"url\": \"https://example.com/expression-function-1\",\n" +
+                                "  \"name\": \"ExpressionFunction1\"\n" +
+                                "}",
+                        ExpressionFunctionInfo.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testExpressionFunctionByNameNotFound() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/expression-function/UnknownFunctionName",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
     // parsers......................................................................................................
 
     @Test
