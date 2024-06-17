@@ -324,10 +324,12 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<SpreadsheetComparatorName> parseComparatorSelection(final String text) {
         final HateosResourceSelection<SpreadsheetComparatorName> selection;
 
-        switch (text.length()) {
-            case 0:
+        switch (text) {
+            case "":
                 selection = HateosResourceSelection.all();
                 break;
+            case "*":
+                throw new IllegalArgumentException("Invalid comparator selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
                         SpreadsheetComparatorName.with(text)
