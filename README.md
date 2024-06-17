@@ -109,6 +109,8 @@ These end points may be used to work with
 available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-expression-function-provider/blob/master/src/main/java/walkingkooka/tree/expression/function/provider/ExpressionFunctionInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/expression-function
+- **GET**
+  /api/spreadsheet/$spreadsheet-id/expression-function/[FunctionExpressionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/FunctionExpressionName.java)
 
 #### [Label](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/SpreadsheetLabelName.java)
 

@@ -411,12 +411,16 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<FunctionExpressionName> parseFunctionSelection(final String text) {
         final HateosResourceSelection<FunctionExpressionName> selection;
 
-        switch (text.length()) {
-            case 0:
+        switch (text) {
+            case "":
                 selection = HateosResourceSelection.all();
                 break;
-            default:
+            case "*":
                 throw new IllegalArgumentException("Invalid selection " + CharSequences.quoteAndEscape(text));
+            default:
+                selection = HateosResourceSelection.one(
+                        FunctionExpressionName.with(text)
+                );
         }
 
         return selection;
