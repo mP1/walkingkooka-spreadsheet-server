@@ -131,6 +131,9 @@ These end points may be used to work with
 available [SpreadsheetParserInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetParserInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/parser
+- **GET**
+  /api/spreadsheet/$spreadsheet-id/parser/[SpreadsheetParserName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetParserName.java)
+
 
 #### [Row](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
 

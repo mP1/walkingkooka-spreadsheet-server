@@ -66,6 +66,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
@@ -5725,6 +5726,42 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  }\n" +
                                 "]",
                         SpreadsheetParserInfoSet.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testParsersBySpreadsheetParserName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/parser/date-parse-pattern",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/date-parse-pattern\",\n" +
+                                "  \"name\": \"date-parse-pattern\"\n" +
+                                "}",
+                        SpreadsheetParserInfo.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testParsersBySpreadsheetParserNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/parser/unknown-parser-204",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status()
                 )
         );
     }
