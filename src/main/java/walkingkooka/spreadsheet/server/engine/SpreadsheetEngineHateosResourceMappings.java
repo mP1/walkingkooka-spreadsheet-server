@@ -369,12 +369,17 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<SpreadsheetFormatterName> parseFormatterSelection(final String text) {
         final HateosResourceSelection<SpreadsheetFormatterName> selection;
 
-        switch (text.length()) {
-            case 0:
+        switch (text) {
+            case "":
                 selection = HateosResourceSelection.all();
                 break;
-            default:
+            case "*":
                 throw new IllegalArgumentException("Invalid formatter selection " + CharSequences.quoteAndEscape(text));
+            default:
+                selection = HateosResourceSelection.one(
+                        SpreadsheetFormatterName.with(text)
+                );
+                break;
         }
 
         return selection;
