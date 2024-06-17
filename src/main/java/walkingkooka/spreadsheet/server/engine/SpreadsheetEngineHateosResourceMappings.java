@@ -405,7 +405,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet,
                 ExpressionFunctionInfo> function = HateosResourceMapping.with(
                         FUNCTION,
-                        SpreadsheetEngineHateosResourceMappings::parseFunctionSelection,
+                        SpreadsheetEngineHateosResourceMappings::parseExpressionFunctionSelection,
                         ExpressionFunctionInfo.class, // valueType
                         ExpressionFunctionInfoSet.class, // collectionType
                         ExpressionFunctionInfo.class// resourceType
@@ -415,7 +415,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
         return function;
     }
 
-    private static HateosResourceSelection<FunctionExpressionName> parseFunctionSelection(final String text) {
+    private static HateosResourceSelection<FunctionExpressionName> parseExpressionFunctionSelection(final String text) {
         final HateosResourceSelection<FunctionExpressionName> selection;
 
         switch (text) {
@@ -423,7 +423,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 selection = HateosResourceSelection.all();
                 break;
             case "*":
-                throw new IllegalArgumentException("Invalid selection " + CharSequences.quoteAndEscape(text));
+                throw new IllegalArgumentException("Invalid function " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
                         FunctionExpressionName.with(text)
