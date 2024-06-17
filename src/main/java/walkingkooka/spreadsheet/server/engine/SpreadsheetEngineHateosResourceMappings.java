@@ -462,12 +462,17 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     private static HateosResourceSelection<SpreadsheetParserName> parseParserSelection(final String text) {
         final HateosResourceSelection<SpreadsheetParserName> selection;
 
-        switch (text.length()) {
-            case 0:
+        switch (text) {
+            case "":
                 selection = HateosResourceSelection.all();
                 break;
-            default:
+            case "*":
                 throw new IllegalArgumentException("Invalid parser selection " + CharSequences.quoteAndEscape(text));
+            default:
+                selection = HateosResourceSelection.one(
+                        SpreadsheetParserName.with(text)
+                );
+                break;
         }
 
         return selection;
