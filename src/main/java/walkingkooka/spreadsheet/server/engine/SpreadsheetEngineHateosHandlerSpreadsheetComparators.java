@@ -70,7 +70,10 @@ final class SpreadsheetEngineHateosHandlerSpreadsheetComparators extends Spreads
         HateosHandler.checkResource(info);
         HateosHandler.checkParameters(parameters);
 
-        throw new UnsupportedOperationException();
+        return this.context.spreadsheetComparatorInfos()
+                .stream()
+                .filter(i -> i.name().equals(name))
+                .findFirst();
     }
 
     @Override
