@@ -94,6 +94,7 @@ These end points may be used to work with
 available [SpreadsheetComparatorInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetComparatorInfoSet.java)
 
 - **GET** /api/spreadsheet/$spreadsheet-id/comparator
+- **GET** /api/spreadsheet/$spreadsheet-id/comparator/$speadsheet-comparator-name
 
 #### [Formatter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatter.java)
 

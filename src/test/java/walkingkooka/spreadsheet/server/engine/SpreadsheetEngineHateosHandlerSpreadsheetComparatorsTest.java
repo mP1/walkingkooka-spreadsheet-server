@@ -60,6 +60,26 @@ public class SpreadsheetEngineHateosHandlerSpreadsheetComparatorsTest extends Sp
     }
 
     @Test
+    public void testHandleOne() {
+        this.handleOneAndCheck(
+                INFO1.name(),
+                Optional.empty(), // resource
+                Maps.empty(), // parameters
+                Optional.of(INFO1)
+        );
+    }
+
+    @Test
+    public void testHandleOneNotFound() {
+        this.handleOneAndCheck(
+                SpreadsheetComparatorName.with("Unknown"),
+                Optional.empty(), // resource
+                Maps.empty(), // parameters
+                Optional.empty()
+        );
+    }
+
+    @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
                 Optional.empty(), // resource
