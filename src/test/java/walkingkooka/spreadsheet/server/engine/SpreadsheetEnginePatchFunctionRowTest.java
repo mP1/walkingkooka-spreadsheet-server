@@ -45,7 +45,6 @@ import walkingkooka.tree.json.JsonNode;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionRow, SpreadsheetRowRangeReference> {
@@ -332,7 +331,7 @@ public final class SpreadsheetEnginePatchFunctionRowTest extends SpreadsheetEngi
                                                               final SpreadsheetEngineEvaluation evaluation,
                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                               final SpreadsheetEngineContext context) {
-                                assertEquals(Sets.of(WINDOWS), range, "window");
+                                checkEquals(Sets.of(WINDOWS), range, "window");
 
                                 return SpreadsheetDelta.EMPTY
                                         .setCells(
