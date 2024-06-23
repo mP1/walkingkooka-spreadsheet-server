@@ -19,8 +19,8 @@ package walkingkooka.spreadsheet.server.engine;
 import walkingkooka.NeverError;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.net.http.server.hateos.HateosHandlers;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlers;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -55,7 +55,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A collection of factory methods to create various {@link HateosHandler}.
+ * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
 public final class SpreadsheetEngineHateosResourceMappings implements PublicStaticHelper {
 
@@ -64,15 +64,15 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetCellReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetCell> cell(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
-                                  final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
+            SpreadsheetCell> cell(final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
+                                  final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
                                   final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         Objects.requireNonNull(fillCells, "fillCells");
         Objects.requireNonNull(findCells, "findCells");
@@ -100,12 +100,12 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 .set(LinkRelation.SELF, HttpMethod.GET, loadCellComputeIfNecessary)
                 .set(LinkRelation.SELF, HttpMethod.POST, saveCell)
                 .set(LinkRelation.SELF, HttpMethod.DELETE, deleteCell)
-                .set(LinkRelation.SELF, HttpMethod.PATCH, HateosHandlers.fake());
+                .set(LinkRelation.SELF, HttpMethod.PATCH, HateosResourceHandlers.fake());
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
 
         for (final SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
-            final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCell;
+            final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCell;
 
             switch (evaluation) {
                 case CLEAR_VALUE_ERROR_SKIP_EVALUATE:
@@ -239,7 +239,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<String,
             SpreadsheetExpressionReferenceSimilarities,
             SpreadsheetExpressionReferenceSimilarities,
-            SpreadsheetExpressionReferenceSimilarities> cellReference(final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference) {
+            SpreadsheetExpressionReferenceSimilarities> cellReference(final HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference) {
 
         return HateosResourceMapping.with(
                 CELL_REFERENCE,
@@ -268,10 +268,10 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetColumnReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetColumn> column(final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns,
-                                      final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns,
-                                      final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns,
-                                      final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns) {
+            SpreadsheetColumn> column(final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns,
+                                      final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns,
+                                      final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns,
+                                      final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns) {
         return HateosResourceMapping.with(
                         COLUMN,
                         SpreadsheetEngineHateosResourceMappings::parseColumn,
@@ -303,7 +303,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetComparatorName,
             SpreadsheetComparatorInfo,
             SpreadsheetComparatorInfoSet,
-            SpreadsheetComparatorInfo> comparator(final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators) {
+            SpreadsheetComparatorInfo> comparator(final HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators) {
         Objects.requireNonNull(loadSpreadsheetComparators, "loadSpreadsheetComparators");
 
         // comparator GET...............................................................................................
@@ -350,7 +350,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetFormatterName,
             SpreadsheetFormatterInfo,
             SpreadsheetFormatterInfoSet,
-            SpreadsheetFormatterInfo> formatter(final HateosHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters) {
+            SpreadsheetFormatterInfo> formatter(final HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters) {
         Objects.requireNonNull(loadSpreadsheetFormatters, "loadSpreadsheetFormatters");
 
         // formatter GET...............................................................................................
@@ -397,7 +397,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<FunctionExpressionName,
             ExpressionFunctionInfo,
             ExpressionFunctionInfoSet,
-            ExpressionFunctionInfo> expressionFunction(final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunctions) {
+            ExpressionFunctionInfo> expressionFunction(final HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunctions) {
         Objects.requireNonNull(loadSpreadsheetExpressionFunctions, "loadSpreadsheetExpressionFunctions");
 
         // function GET...............................................................................................
@@ -443,7 +443,7 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetParserName,
             SpreadsheetParserInfo,
             SpreadsheetParserInfoSet,
-            SpreadsheetParserInfo> parser(final HateosHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers) {
+            SpreadsheetParserInfo> parser(final HateosResourceHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers) {
         Objects.requireNonNull(loadSpreadsheetParsers, "loadSpreadsheetParsers");
 
         // GET /parser..................................................................................................
@@ -490,10 +490,10 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
     public static HateosResourceMapping<SpreadsheetRowReference,
             SpreadsheetDelta,
             SpreadsheetDelta,
-            SpreadsheetRow> row(final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows,
-                                final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows,
-                                final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows,
-                                final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows) {
+            SpreadsheetRow> row(final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows,
+                                final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows,
+                                final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows,
+                                final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows) {
         return HateosResourceMapping.with(
                         ROW,
                         SpreadsheetEngineHateosResourceMappings::parseRow,

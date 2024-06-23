@@ -20,7 +20,7 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -32,29 +32,29 @@ import walkingkooka.tree.json.JsonNode;
 import java.util.function.UnaryOperator;
 
 /**
- * A collection of factory methods to create various {@link HateosHandler}, {@link Router} etc.
+ * A collection of factory methods to create various {@link HateosResourceHandler}, {@link Router} etc.
  */
 public final class SpreadsheetContextHttps implements PublicStaticHelper {
 
     /**
-     * {@see SpreadsheetContextHateosHandlerMetadataDelete}
+     * {@see SpreadsheetContextHateosResourceHandlerMetadataDelete}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata(final SpreadsheetContext context) {
-        return SpreadsheetContextHateosHandlerMetadataDelete.with(context);
+    public static HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosResourceHandlerMetadataDelete.with(context);
     }
 
     /**
-     * {@see SpreadsheetContextHateosHandlerMetadataSaveOrUpdate}
+     * {@see SpreadsheetContextHateosResourceHandlerMetadataSaveOrUpdate}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> saveOrUpdateMetadata(final SpreadsheetContext context) {
-        return SpreadsheetContextHateosHandlerMetadataSaveOrUpdate.with(context);
+    public static HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> saveOrUpdateMetadata(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosResourceHandlerMetadataSaveOrUpdate.with(context);
     }
 
     /**
-     * {@see SpreadsheetContextHateosHandlerMetadataLoad}
+     * {@see SpreadsheetContextHateosResourceHandlerMetadataLoad}
      */
-    public static HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata(final SpreadsheetContext context) {
-        return SpreadsheetContextHateosHandlerMetadataLoad.with(context);
+    public static HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata(final SpreadsheetContext context) {
+        return SpreadsheetContextHateosResourceHandlerMetadataLoad.with(context);
     }
 
     /**
@@ -66,16 +66,16 @@ public final class SpreadsheetContextHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetContextHateosHandlersRouter}
+     * {@see SpreadsheetContextHateosResourceHandlersRouter}
      */
     public static Router<HttpRequestAttribute<?>, HttpHandler> router(final AbsoluteUrl baseUrl,
                                                                       final HateosContentType contentType,
                                                                       final Indentation indentation,
                                                                       final LineEnding lineEnding,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata,
-                                                                      final HateosHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata) {
-        return SpreadsheetContextHateosHandlersRouter.with(
+                                                                      final HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> createAndSaveMetadata,
+                                                                      final HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> deleteMetadata,
+                                                                      final HateosResourceHandler<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet> loadMetadata) {
+        return SpreadsheetContextHateosResourceHandlersRouter.with(
                 baseUrl,
                 contentType,
                 indentation,

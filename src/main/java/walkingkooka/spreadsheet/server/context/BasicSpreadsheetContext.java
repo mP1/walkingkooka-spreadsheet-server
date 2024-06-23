@@ -35,7 +35,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
@@ -75,7 +75,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
-import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosHandlers;
+import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -409,37 +409,37 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final int defaultMax,
                                                                                                                              final SpreadsheetEngine engine,
                                                                                                                              final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHttps.fillCells(engine, context);
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetEngineHttps.fillCells(engine, context);
 
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells = SpreadsheetEngineHttps.findCells(
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells = SpreadsheetEngineHttps.findCells(
                 defaultMax,
                 engine,
                 context
         );
 
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHttps.loadCell(
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetEngineHttps.loadCell(
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.SKIP_EVALUATE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetEngineHttps.loadCell(
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetEngineHttps.loadCell(
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetEngineHttps.loadCell(
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 engine,
                 context
         );
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHttps.saveCell(engine, context);
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
-        final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCell = SpreadsheetEngineHttps.sortCells(engine, context);
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetEngineHttps.saveCell(engine, context);
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
+        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCell = SpreadsheetEngineHttps.sortCells(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cell(
                 fillCells,
@@ -596,7 +596,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngine engine,
                                                                                                                                                                                                    final SpreadsheetEngineContext context) {
-        final HateosHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHttps.findSimilarities(engine, context);
+        final HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHttps.findSimilarities(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.cellReference(
                 findSimilarities
@@ -605,12 +605,12 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private static HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column(final SpreadsheetEngine engine,
                                                                                                                                    final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns = SpreadsheetEngineHttps.clearColumns(engine, context);
+        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns = SpreadsheetEngineHttps.clearColumns(engine, context);
 
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHttps.deleteColumns(engine, context);
+        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetEngineHttps.deleteColumns(engine, context);
 
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHttps.insertAfterColumns(engine, context);
-        final HateosHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHttps.insertBeforeColumns(engine, context);
+        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHttps.insertAfterColumns(engine, context);
+        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHttps.insertBeforeColumns(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.column(
                 clearColumns,
@@ -625,7 +625,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
             SpreadsheetComparatorInfoSet,
             SpreadsheetComparatorInfo> comparator(final SpreadsheetEngine engine,
                                                   final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
+        final HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
                 engine,
                 context
         );
@@ -641,7 +641,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
             SpreadsheetFormatterInfoSet,
             SpreadsheetFormatterInfo> formatter(final SpreadsheetEngine engine,
                                                 final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters = SpreadsheetEngineHttps.loadSpreadsheetFormatters(
+        final HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters = SpreadsheetEngineHttps.loadSpreadsheetFormatters(
                 engine,
                 context
         );
@@ -657,7 +657,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
             ExpressionFunctionInfoSet,
             ExpressionFunctionInfo> expressionFunction(final SpreadsheetEngine engine,
                                                        final SpreadsheetEngineContext context) {
-        final HateosHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
+        final HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
                 engine,
                 context
         );
@@ -670,9 +670,9 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label(final SpreadsheetLabelStore store) {
 
-        final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete = SpreadsheetLabelHateosHandlers.delete(store);
-        final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load = SpreadsheetLabelHateosHandlers.load(store);
-        final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate = SpreadsheetLabelHateosHandlers.saveOrUpdate(store);
+        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete = SpreadsheetLabelHateosResourceHandlers.delete(store);
+        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load = SpreadsheetLabelHateosResourceHandlers.load(store);
+        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate = SpreadsheetLabelHateosResourceHandlers.saveOrUpdate(store);
 
         return SpreadsheetLabelHateosResourceMappings.with(
                 delete,
@@ -688,7 +688,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
             SpreadsheetParserInfoSet,
             SpreadsheetParserInfo> parser(final SpreadsheetEngine engine,
                                           final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers = SpreadsheetEngineHttps.loadSpreadsheetParsers(
+        final HateosResourceHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers = SpreadsheetEngineHttps.loadSpreadsheetParsers(
                 engine,
                 context
         );
@@ -701,12 +701,12 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
     private static HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row(final SpreadsheetEngine engine,
                                                                                                                           final SpreadsheetEngineContext context) {
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows = SpreadsheetEngineHttps.clearRows(engine, context);
+        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows = SpreadsheetEngineHttps.clearRows(engine, context);
 
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHttps.deleteRows(engine, context);
+        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetEngineHttps.deleteRows(engine, context);
 
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHttps.insertAfterRows(engine, context);
-        final HateosHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHttps.insertBeforeRows(engine, context);
+        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHttps.insertAfterRows(engine, context);
+        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHttps.insertBeforeRows(engine, context);
 
         return SpreadsheetEngineHateosResourceMappings.row(
                 clearRows,

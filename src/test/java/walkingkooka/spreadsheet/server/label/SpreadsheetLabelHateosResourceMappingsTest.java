@@ -36,7 +36,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -99,9 +99,9 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         );
     }
 
-    private void withFails(final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
-                           HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
-                           HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
+    private void withFails(final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
+                           HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
+                           HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
         assertThrows(NullPointerException.class, () -> SpreadsheetLabelHateosResourceMappings.with(
                 delete,
                 load,
@@ -135,7 +135,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
         this.routeAndCheck2(
                 delete(),
-                SpreadsheetLabelHateosHandlers.load(store),
+                SpreadsheetLabelHateosResourceHandlers.load(store),
                 saveOrUpdate(),
                 HttpMethod.GET,
                 URL + "/label/" + LABEL,
@@ -151,7 +151,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
         this.routeAndCheck2(
                 delete(),
-                SpreadsheetLabelHateosHandlers.load(store),
+                SpreadsheetLabelHateosResourceHandlers.load(store),
                 saveOrUpdate(),
                 HttpMethod.GET,
                 URL + "/label/" + LABEL,
@@ -168,7 +168,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         this.routeAndCheck2(
                 delete(),
                 load(),
-                SpreadsheetLabelHateosHandlers.saveOrUpdate(store),
+                SpreadsheetLabelHateosResourceHandlers.saveOrUpdate(store),
                 HttpMethod.POST,
                 URL + "/label/",
                 toJson(MAPPING),
@@ -187,7 +187,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         this.routeAndCheck2(
                 delete(),
                 load(),
-                SpreadsheetLabelHateosHandlers.saveOrUpdate(store),
+                SpreadsheetLabelHateosResourceHandlers.saveOrUpdate(store),
                 HttpMethod.POST,
                 URL + "/label/",
                 toJson(MAPPING),
@@ -218,7 +218,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         store.save(MAPPING);
 
         this.routeAndCheck2(
-                SpreadsheetLabelHateosHandlers.delete(store),
+                SpreadsheetLabelHateosResourceHandlers.delete(store),
                 load(),
                 saveOrUpdate(),
                 HttpMethod.DELETE,
@@ -237,9 +237,9 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         return marshallContext().marshall(mapping).toString();
     }
 
-    private void routeAndCheck2(final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
-                                final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
-                                final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate,
+    private void routeAndCheck2(final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
+                                final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
+                                final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate,
                                 final HttpMethod method,
                                 final String url,
                                 final String requestBody,
@@ -345,16 +345,16 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
     // all these handlers throw UOE
 
-    private HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete() {
-        return SpreadsheetLabelHateosHandlers.delete(SpreadsheetLabelStores.fake());
+    private HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete() {
+        return SpreadsheetLabelHateosResourceHandlers.delete(SpreadsheetLabelStores.fake());
     }
 
-    private HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load() {
-        return SpreadsheetLabelHateosHandlers.load(SpreadsheetLabelStores.fake());
+    private HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load() {
+        return SpreadsheetLabelHateosResourceHandlers.load(SpreadsheetLabelStores.fake());
     }
 
-    private HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate() {
-        return SpreadsheetLabelHateosHandlers.saveOrUpdate(SpreadsheetLabelStores.fake());
+    private HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate() {
+        return SpreadsheetLabelHateosResourceHandlers.saveOrUpdate(SpreadsheetLabelStores.fake());
     }
 
     // ClassTesting.....................................................................................................
