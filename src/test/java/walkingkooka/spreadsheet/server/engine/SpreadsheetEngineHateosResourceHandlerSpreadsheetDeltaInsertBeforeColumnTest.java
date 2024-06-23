@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 
 import java.util.Optional;
@@ -90,7 +91,7 @@ public final class SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInsertB
                 handler,
                 c3.column(),
                 RESOURCE,
-                Maps.of(SpreadsheetEngineHateosResourceHandler.COUNT, Lists.of("" + count)),
+                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -172,7 +173,7 @@ public final class SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInsertB
                 handler,
                 c3.column().range(d4.column()),
                 RESOURCE,
-                Maps.of(SpreadsheetEngineHateosResourceHandler.COUNT, Lists.of("" + count)),
+                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(

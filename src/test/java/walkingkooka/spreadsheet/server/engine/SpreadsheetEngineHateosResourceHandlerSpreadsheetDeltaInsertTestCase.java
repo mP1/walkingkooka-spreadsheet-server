@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -61,7 +62,7 @@ public abstract class SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInse
     @Override
     public final Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-                SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInsert.COUNT, Lists.of("" + COUNT)
+                SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + COUNT)
         );
     }
 }

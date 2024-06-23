@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -31,7 +32,7 @@ public final class SpreadsheetEngineHateosResourceHandlerTest extends Spreadshee
     public void testCountParameterMissingFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHateosResourceHandler.count(HateosResourceHandler.NO_PARAMETERS)
+                () -> SpreadsheetUrlQueryParameters.count(HateosResourceHandler.NO_PARAMETERS)
         );
     }
 
@@ -39,8 +40,8 @@ public final class SpreadsheetEngineHateosResourceHandlerTest extends Spreadshee
     public void testCountParameterMissingFails2() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHateosResourceHandler.count(
-                        Maps.of(SpreadsheetEngineHateosResourceHandler.COUNT, Lists.empty())
+                () -> SpreadsheetUrlQueryParameters.count(
+                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty())
                 )
         );
     }
@@ -49,8 +50,8 @@ public final class SpreadsheetEngineHateosResourceHandlerTest extends Spreadshee
     public void testInvalidCountParameterMissingFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHateosResourceHandler.count(
-                        Maps.of(SpreadsheetEngineHateosResourceHandler.COUNT, Lists.of("!invalid"))
+                () -> SpreadsheetUrlQueryParameters.count(
+                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("!invalid"))
                 )
         );
         this.checkEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
@@ -60,8 +61,11 @@ public final class SpreadsheetEngineHateosResourceHandlerTest extends Spreadshee
     public void testCount() {
         this.checkEquals(
                 123,
-                SpreadsheetEngineHateosResourceHandler.count(
-                        Maps.of(SpreadsheetEngineHateosResourceHandler.COUNT, Lists.of("123"))
+                SpreadsheetUrlQueryParameters.count(
+                        Maps.of(
+                                SpreadsheetUrlQueryParameters.COUNT,
+                                Lists.of("123")
+                        )
                 )
         );
     }
