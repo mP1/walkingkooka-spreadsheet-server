@@ -20,8 +20,9 @@ package walkingkooka.spreadsheet.server.engine;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
@@ -39,22 +40,20 @@ import java.util.Set;
 /**
  * A {@link HateosResourceHandler} that resolves {@link String text} holding a cell-reference or label or range to a cell-reference.
  */
-final class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities implements HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>,
+final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler implements HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>,
         UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>,
+        UnsupportedHateosResourceHandlerHandleMany<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>,
+        UnsupportedHateosResourceHandlerHandleNone<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>,
         UnsupportedHateosResourceHandlerHandleRange<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> {
 
-    static SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities with(final SpreadsheetEngine engine,
-                                                                                                 final SpreadsheetEngineContext context) {
-        return new SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities(
-                Objects.requireNonNull(engine, "engine"),
+    static SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler with(final SpreadsheetEngineContext context) {
+        return new SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler(
                 Objects.requireNonNull(context, "context")
         );
     }
 
-    private SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities(final SpreadsheetEngine engine,
-                                                                                             final SpreadsheetEngineContext context) {
+    private SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler(final SpreadsheetEngineContext context) {
         super();
-        this.engine = engine;
         this.context = context;
     }
 
@@ -104,8 +103,6 @@ final class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReference
                 .labels()
                 .findSimilar(text, count);
     }
-
-    private final SpreadsheetEngine engine;
 
     private final SpreadsheetEngineContext context;
 

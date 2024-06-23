@@ -24,10 +24,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
@@ -43,10 +43,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilaritiesTest extends SpreadsheetEngineHateosResourceHandlerTestCase2<SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities,
+public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler,
         String,
         SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetExpressionReferenceSimilarities> implements ToStringTesting<SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities> {
+        SpreadsheetExpressionReferenceSimilarities>,
+        ToStringTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> {
 
     private final static SpreadsheetCellReference A1 = SpreadsheetSelection.A1;
     private final static SpreadsheetCellReference B2 = SpreadsheetSelection.parseCell("B2");
@@ -59,6 +60,30 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
     private final static SpreadsheetLabelMapping MAPPING1 = LABEL1.mapping(A1);
     private final static SpreadsheetLabelMapping MAPPING2 = LABEL2.mapping(B2);
     private final static SpreadsheetLabelMapping MAPPING3 = LABEL3.mapping(C3);
+
+    private final static SpreadsheetEngineContext ENGINE_CONTEXT = new FakeSpreadsheetEngineContext() {
+
+        @Override
+        public SpreadsheetStoreRepository storeRepository() {
+            return new FakeSpreadsheetStoreRepository() {
+
+                {
+                    final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
+                    store.save(MAPPING1);
+                    store.save(MAPPING2);
+                    store.save(MAPPING3);
+                    this.store = store;
+                }
+
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return this.store;
+                }
+
+                private final SpreadsheetLabelStore store;
+            };
+        }
+    };
 
     @Test
     public void testMissingCountFails() {
@@ -187,42 +212,9 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
         );
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createHandler(), "SpreadsheetLabelStore.findSimilarities");
-    }
-
     @Override
-    SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities createHandler(final SpreadsheetEngine engine,
-                                                                                                   final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.with(engine, context);
-    }
-
-    @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(MAPPING1);
-        store.save(MAPPING2);
-        store.save(MAPPING3);
-
-        return new FakeSpreadsheetEngineContext() {
-
-            @Override
-            public SpreadsheetStoreRepository storeRepository() {
-                return new FakeSpreadsheetStoreRepository() {
-
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return store;
-                    }
-                };
-            }
-        };
+    public SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler createHandler() {
+        return SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.with(ENGINE_CONTEXT);
     }
 
     @Override
@@ -255,8 +247,25 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
         return Maps.of(SpreadsheetUrlQueryParameters.COUNT, 3);
     }
 
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createHandler(), "SpreadsheetLabelStore.findSimilarities");
+    }
+
+    // ClassTesting.....................................................................................................
+
     @Override
-    public Class<SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities> type() {
-        return SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.class;
+    public Class<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> type() {
+        return SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return SpreadsheetExpressionReferenceSimilarities.class.getSimpleName();
     }
 }
