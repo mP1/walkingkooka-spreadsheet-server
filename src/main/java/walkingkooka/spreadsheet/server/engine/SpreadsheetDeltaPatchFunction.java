@@ -44,29 +44,29 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
+abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
 
-    static SpreadsheetEnginePatchFunctionCell cell(final HttpRequest request,
-                                                   final SpreadsheetEngine engine,
-                                                   final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionCell.with(request, engine, context);
+    static SpreadsheetDeltaPatchFunctionCell cell(final HttpRequest request,
+                                                  final SpreadsheetEngine engine,
+                                                  final SpreadsheetEngineContext context) {
+        return SpreadsheetDeltaPatchFunctionCell.with(request, engine, context);
     }
 
-    static SpreadsheetEnginePatchFunctionColumn column(final HttpRequest request,
-                                                       final SpreadsheetEngine engine,
-                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionColumn.with(request, engine, context);
+    static SpreadsheetDeltaPatchFunctionColumn column(final HttpRequest request,
+                                                      final SpreadsheetEngine engine,
+                                                      final SpreadsheetEngineContext context) {
+        return SpreadsheetDeltaPatchFunctionColumn.with(request, engine, context);
     }
 
-    static SpreadsheetEnginePatchFunctionRow row(final HttpRequest request,
-                                                 final SpreadsheetEngine engine,
-                                                 final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionRow.with(request, engine, context);
+    static SpreadsheetDeltaPatchFunctionRow row(final HttpRequest request,
+                                                final SpreadsheetEngine engine,
+                                                final SpreadsheetEngineContext context) {
+        return SpreadsheetDeltaPatchFunctionRow.with(request, engine, context);
     }
 
-    SpreadsheetEnginePatchFunction(final HttpRequest request,
-                                   final SpreadsheetEngine engine,
-                                   final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaPatchFunction(final HttpRequest request,
+                                  final SpreadsheetEngine engine,
+                                  final SpreadsheetEngineContext context) {
         super();
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(engine, "engine");

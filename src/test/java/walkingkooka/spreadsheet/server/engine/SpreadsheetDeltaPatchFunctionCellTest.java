@@ -52,7 +52,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEnginePatchFunctionTestCase<SpreadsheetEnginePatchFunctionCell, SpreadsheetCellRangeReference> {
+public final class SpreadsheetDeltaPatchFunctionCellTest extends SpreadsheetDeltaPatchFunctionTestCase<SpreadsheetDeltaPatchFunctionCell, SpreadsheetCellRangeReference> {
 
     private final static SpreadsheetViewportWindows WINDOWS = SpreadsheetViewportWindows.parse("A1:Z99");
 
@@ -372,7 +372,7 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
                                final Set<SpreadsheetCell> saved,
                                final SpreadsheetDelta response) {
         this.applyAndCheck(
-                SpreadsheetEnginePatchFunctionCell.with(
+                SpreadsheetDeltaPatchFunctionCell.with(
                         new FakeHttpRequest() {
                             @Override
                             public RelativeUrl url() {
@@ -437,10 +437,10 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
     }
 
     @Override
-    public SpreadsheetEnginePatchFunctionCell createFunction(final HttpRequest request,
-                                                             final SpreadsheetEngine engine,
-                                                             final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionCell.with(
+    public SpreadsheetDeltaPatchFunctionCell createFunction(final HttpRequest request,
+                                                            final SpreadsheetEngine engine,
+                                                            final SpreadsheetEngineContext context) {
+        return SpreadsheetDeltaPatchFunctionCell.with(
                 request,
                 engine,
                 context
@@ -448,7 +448,7 @@ public final class SpreadsheetEnginePatchFunctionCellTest extends SpreadsheetEng
     }
 
     @Override
-    public Class<SpreadsheetEnginePatchFunctionCell> type() {
-        return SpreadsheetEnginePatchFunctionCell.class;
+    public Class<SpreadsheetDeltaPatchFunctionCell> type() {
+        return SpreadsheetDeltaPatchFunctionCell.class;
     }
 }

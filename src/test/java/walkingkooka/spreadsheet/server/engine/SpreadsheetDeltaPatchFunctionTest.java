@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class SpreadsheetEnginePatchFunctionTest implements ClassTesting<SpreadsheetEnginePatchFunction<?>> {
+public final class SpreadsheetDeltaPatchFunctionTest implements ClassTesting<SpreadsheetDeltaPatchFunction<?>> {
 
     @Override
-    public Class<SpreadsheetEnginePatchFunction<?>> type() {
-        return Cast.to(SpreadsheetEnginePatchFunction.class);
+    public Class<SpreadsheetDeltaPatchFunction<?>> type() {
+        return Cast.to(SpreadsheetDeltaPatchFunction.class);
     }
 
     @Override

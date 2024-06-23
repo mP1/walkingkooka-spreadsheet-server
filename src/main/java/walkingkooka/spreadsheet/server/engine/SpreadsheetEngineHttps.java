@@ -189,12 +189,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchFunctionCell}
+     * {@see SpreadsheetDeltaPatchFunctionCell}
      */
     public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,
                                                     final SpreadsheetEngine engine,
                                                     final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunction.cell(
+        return SpreadsheetDeltaPatchFunction.cell(
                 request,
                 engine,
                 context
@@ -202,12 +202,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchFunctionColumn}
+     * {@see SpreadsheetDeltaPatchFunctionColumn}
      */
     public static UnaryOperator<JsonNode> patchColumn(final HttpRequest request,
                                                       final SpreadsheetEngine engine,
                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunction.column(
+        return SpreadsheetDeltaPatchFunction.column(
                 request,
                 engine,
                 context
@@ -215,12 +215,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEnginePatchFunctionRow}
+     * {@see SpreadsheetDeltaPatchFunctionRow}
      */
     public static UnaryOperator<JsonNode> patchRow(final HttpRequest request,
                                                    final SpreadsheetEngine engine,
                                                    final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunction.row(
+        return SpreadsheetDeltaPatchFunction.row(
                 request,
                 engine,
                 context

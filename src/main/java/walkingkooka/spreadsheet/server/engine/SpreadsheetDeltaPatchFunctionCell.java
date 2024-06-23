@@ -35,17 +35,17 @@ import java.util.function.UnaryOperator;
 /**
  * A {@link UnaryOperator} that accepts the PATCH json and returns the {@link SpreadsheetDelta} JSON response.
  */
-final class SpreadsheetEnginePatchFunctionCell extends SpreadsheetEnginePatchFunction<SpreadsheetCellRangeReference> {
+final class SpreadsheetDeltaPatchFunctionCell extends SpreadsheetDeltaPatchFunction<SpreadsheetCellRangeReference> {
 
-    static SpreadsheetEnginePatchFunctionCell with(final HttpRequest request,
-                                                   final SpreadsheetEngine engine,
-                                                   final SpreadsheetEngineContext context) {
-        return new SpreadsheetEnginePatchFunctionCell(request, engine, context);
+    static SpreadsheetDeltaPatchFunctionCell with(final HttpRequest request,
+                                                  final SpreadsheetEngine engine,
+                                                  final SpreadsheetEngineContext context) {
+        return new SpreadsheetDeltaPatchFunctionCell(request, engine, context);
     }
 
-    private SpreadsheetEnginePatchFunctionCell(final HttpRequest request,
-                                               final SpreadsheetEngine engine,
-                                               final SpreadsheetEngineContext context) {
+    private SpreadsheetDeltaPatchFunctionCell(final HttpRequest request,
+                                              final SpreadsheetEngine engine,
+                                              final SpreadsheetEngineContext context) {
         super(request, engine, context);
     }
 
