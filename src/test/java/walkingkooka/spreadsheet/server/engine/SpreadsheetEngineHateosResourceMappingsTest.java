@@ -927,62 +927,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 )
         );
     }
-
-    // parser...........................................................................................................
-
-    @Test
-    public void testParserNullLoadFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.parser(null)
-        );
-    }
-
-    @Test
-    public void testParsersLoadGet() {
-        this.routeParserAndCheck(
-                HttpMethod.GET,
-                "/parser",
-                HttpStatusCode.OK
-        );
-    }
-
-    @Test
-    public void testParsersLoadPost() {
-        this.routeParserAndCheck(
-                HttpMethod.POST,
-                "/parser",
-                HttpStatusCode.METHOD_NOT_ALLOWED
-        );
-    }
-
-    private void routeParserAndCheck(final HttpMethod method,
-                                     final String url,
-                                     final HttpStatusCode statusCode) {
-        this.routeParserAndCheck(
-                method,
-                url,
-                "",
-                statusCode
-        );
-    }
-
-    private void routeParserAndCheck(final HttpMethod method,
-                                     final String url,
-                                     final String body,
-                                     final HttpStatusCode statusCode) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
-        this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.parser(
-                        SpreadsheetEngineHttps.loadSpreadsheetParsers(engine, context)
-                ),
-                method,
-                url,
-                body,
-                statusCode
-        );
-    }
     
     // row...........................................................................................................
 

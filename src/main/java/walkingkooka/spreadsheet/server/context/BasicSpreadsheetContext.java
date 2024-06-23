@@ -80,6 +80,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResou
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
+import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -381,7 +382,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(labelStore);
 
-        final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo> parser = parser(engine, context);
+        final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo> parser = SpreadsheetParserHateosResourceMappings.parser(context);
         
         final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = row(engine, context);
 
@@ -635,22 +636,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 delete,
                 load,
                 saveOrUpdate
-        );
-    }
-
-    // parser...........................................................................................................
-
-    public static HateosResourceMapping<SpreadsheetParserName,
-            SpreadsheetParserInfo,
-            SpreadsheetParserInfoSet,
-            SpreadsheetParserInfo> parser(final SpreadsheetEngine engine,
-                                          final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers = SpreadsheetEngineHttps.loadSpreadsheetParsers(
-                engine,
-                context
-        );
-        return SpreadsheetEngineHateosResourceMappings.parser(
-                loadSpreadsheetParsers
         );
     }
 
