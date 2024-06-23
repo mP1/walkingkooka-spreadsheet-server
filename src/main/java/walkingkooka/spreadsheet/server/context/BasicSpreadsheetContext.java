@@ -73,7 +73,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorsHateosResourceMappings;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetDeltaHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
@@ -445,7 +445,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetEngineHttps.deleteCell(engine, context);
         final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCell = SpreadsheetEngineHttps.sortCells(engine, context);
 
-        return SpreadsheetEngineHateosResourceMappings.cell(
+        return SpreadsheetDeltaHateosResourceMappings.cell(
                 fillCells,
                 findCells,
                 loadCellClearValueErrorSkipEvaluate,
@@ -601,7 +601,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
     private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngineContext context) {
         final HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetEngineHttps.findSimilarities(context);
 
-        return SpreadsheetEngineHateosResourceMappings.cellReference(
+        return SpreadsheetDeltaHateosResourceMappings.cellReference(
                 findSimilarities
         );
     }
@@ -615,7 +615,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetEngineHttps.insertAfterColumns(engine, context);
         final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetEngineHttps.insertBeforeColumns(engine, context);
 
-        return SpreadsheetEngineHateosResourceMappings.column(
+        return SpreadsheetDeltaHateosResourceMappings.column(
                 clearColumns,
                 deleteColumns,
                 insertAfterColumns,
@@ -649,7 +649,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetEngineHttps.insertAfterRows(engine, context);
         final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetEngineHttps.insertBeforeRows(engine, context);
 
-        return SpreadsheetEngineHateosResourceMappings.row(
+        return SpreadsheetDeltaHateosResourceMappings.row(
                 clearRows,
                 deleteRows,
                 insertAfterRows,
