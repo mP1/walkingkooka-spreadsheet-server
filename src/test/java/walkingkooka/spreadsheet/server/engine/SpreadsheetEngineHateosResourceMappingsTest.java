@@ -927,66 +927,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
                 )
         );
     }
-    
-    // expressionFunction.......................................................................................................
-
-    @Test
-    public void testExpressionFunctionNullLoadFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.expressionFunction(null)
-        );
-    }
-
-    @Test
-    public void testExpressionFunctionsLoadGet() {
-        this.routeExpressionFunctionAndCheck(
-                HttpMethod.GET,
-                "/expression-function",
-                HttpStatusCode.OK
-        );
-    }
-
-    @Test
-    public void testExpressionFunctionsLoadPost() {
-        this.routeExpressionFunctionAndCheck(
-                HttpMethod.POST,
-                "/expression-function",
-                HttpStatusCode.METHOD_NOT_ALLOWED
-        );
-    }
-
-    private void routeExpressionFunctionAndCheck(final HttpMethod method,
-                                                 final String url,
-                                                 final HttpStatusCode statusCode) {
-        this.routeExpressionFunctionAndCheck(
-                method,
-                url,
-                "",
-                statusCode
-        );
-    }
-
-    private void routeExpressionFunctionAndCheck(final HttpMethod method,
-                                                 final String url,
-                                                 final String body,
-                                                 final HttpStatusCode statusCode) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
-
-        this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.expressionFunction(
-                        SpreadsheetEngineHttps.loadExpressionFunctions(
-                                engine,
-                                context
-                        )
-                ),
-                method,
-                url,
-                body,
-                statusCode
-        );
-    }
 
     // parser...........................................................................................................
 
