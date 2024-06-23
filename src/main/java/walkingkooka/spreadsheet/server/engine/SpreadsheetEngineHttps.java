@@ -32,9 +32,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetParserName;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -241,19 +238,6 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadExpressionFunctions(final SpreadsheetEngine engine,
                                                                                                                                     final SpreadsheetEngineContext context) {
         return SpreadsheetEngineHateosResourceHandlerExpressionFunctions.with(
-                engine,
-                context
-        );
-    }
-
-    // parsers......................................................................................................
-
-    /**
-     * {@see SpreadsheetEngineHateosResourceHandlerSpreadsheetParsers}
-     */
-    public static HateosResourceHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet> loadSpreadsheetParsers(final SpreadsheetEngine engine,
-                                                                                                                               final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosResourceHandlerSpreadsheetParsers.with(
                 engine,
                 context
         );
