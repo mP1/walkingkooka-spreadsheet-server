@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.engine;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -37,7 +38,8 @@ import java.util.Set;
 /**
  * A {@link HateosResourceHandler} that resolves {@link String text} holding a cell-reference or label or range to a cell-reference.
  */
-final class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities extends SpreadsheetEngineHateosResourceHandler2<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> {
+final class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities extends SpreadsheetEngineHateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities>
+        implements UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> {
 
     static SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities with(final SpreadsheetEngine engine,
                                                                                                  final SpreadsheetEngineContext context) {
