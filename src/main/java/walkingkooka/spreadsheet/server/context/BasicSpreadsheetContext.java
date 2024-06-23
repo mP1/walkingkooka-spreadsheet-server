@@ -77,6 +77,7 @@ import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMap
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
+import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -373,7 +374,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
-        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
+        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = ExpressionFunctionHateosResourceMappings.function(context);
 
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
@@ -619,22 +620,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 deleteColumns,
                 insertAfterColumns,
                 insertBeforeColumns
-        );
-    }
-
-    // expression-function..............................................................................................
-
-    public static HateosResourceMapping<FunctionExpressionName,
-            ExpressionFunctionInfo,
-            ExpressionFunctionInfoSet,
-            ExpressionFunctionInfo> expressionFunction(final SpreadsheetEngine engine,
-                                                       final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> loadSpreadsheetExpressionFunction = SpreadsheetEngineHttps.loadExpressionFunctions(
-                engine,
-                context
-        );
-        return SpreadsheetEngineHateosResourceMappings.expressionFunction(
-                loadSpreadsheetExpressionFunction
         );
     }
 
