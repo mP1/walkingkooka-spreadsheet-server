@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.ToStringBuilder;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
