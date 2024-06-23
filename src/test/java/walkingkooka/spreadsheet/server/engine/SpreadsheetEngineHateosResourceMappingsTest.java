@@ -38,8 +38,8 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosHandler;
-import walkingkooka.net.http.server.hateos.HateosHandlers;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlers;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -103,17 +103,17 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
 
     // cell.............................................................................................................
 
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> CLEAR_CELLS = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FILL_CELLS = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FIND_CELLS = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_CLEAR = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_SKIP = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_FORCE = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosHandlers.fake();
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> CLEAR_CELLS = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FILL_CELLS = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FIND_CELLS = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_CLEAR = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_SKIP = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_FORCE = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosResourceHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosResourceHandlers.fake();
 
-    private final static HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SORT_CELLS = HateosHandlers.fake();
+    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SORT_CELLS = HateosResourceHandlers.fake();
     private final static Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL_REFERENCE = (l) -> {
         throw new UnsupportedOperationException();
     };
@@ -278,15 +278,15 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
-    private void cellFails(final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
-                           final HateosHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
+    private void cellFails(final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
+                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
                            final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
         assertThrows(
                 NullPointerException.class,
@@ -756,7 +756,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullClearFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
         );
     }
 
@@ -764,7 +764,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
         );
     }
 
@@ -772,7 +772,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake())
         );
     }
 
@@ -780,7 +780,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testColumnNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.column(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.column(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null)
         );
     }
 
@@ -1162,7 +1162,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullClearFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
         );
     }
 
@@ -1170,7 +1170,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullDeleteFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), null, HateosHandlers.fake(), HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
         );
     }
 
@@ -1178,7 +1178,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertAfterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), null, HateosHandlers.fake())
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake())
         );
     }
 
@@ -1186,7 +1186,7 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
     public void testRowNullInsertBeforeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.row(HateosHandlers.fake(), HateosHandlers.fake(), HateosHandlers.fake(), null)
+                () -> SpreadsheetEngineHateosResourceMappings.row(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null)
         );
     }
 

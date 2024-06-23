@@ -18,7 +18,7 @@ package walkingkooka.spreadsheet.server.label;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -31,13 +31,13 @@ import walkingkooka.text.CharSequences;
 import java.util.Objects;
 
 /**
- * A collection of factory methods to create various {@link HateosHandler}.
+ * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
 public final class SpreadsheetLabelHateosResourceMappings implements PublicStaticHelper {
 
-    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> with(final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
-                                                                                                                                              final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
-                                                                                                                                              final HateosHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
+    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> with(final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
+                                                                                                                                              final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
+                                                                                                                                              final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
         Objects.requireNonNull(delete, "delete");
         Objects.requireNonNull(load, "load");
         Objects.requireNonNull(saveOrUpdate, "saveOrUpdate");
