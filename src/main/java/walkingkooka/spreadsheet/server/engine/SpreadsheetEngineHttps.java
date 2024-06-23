@@ -114,11 +114,10 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     }
 
     /**
-     * {@see SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities}
+     * {@see SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler}
      */
-    public static HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities(final SpreadsheetEngine engine,
-                                                                                                                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.with(engine, context);
+    public static HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities(final SpreadsheetEngineContext context) {
+        return SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.with(context);
     }
 
     /**
