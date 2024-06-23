@@ -46,6 +46,24 @@ import java.util.function.UnaryOperator;
  */
 abstract class SpreadsheetEnginePatchFunction<S extends SpreadsheetSelection> implements UnaryOperator<JsonNode> {
 
+    static SpreadsheetEnginePatchFunctionCell cell(final HttpRequest request,
+                                                   final SpreadsheetEngine engine,
+                                                   final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchFunctionCell.with(request, engine, context);
+    }
+
+    static SpreadsheetEnginePatchFunctionColumn column(final HttpRequest request,
+                                                       final SpreadsheetEngine engine,
+                                                       final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchFunctionColumn.with(request, engine, context);
+    }
+
+    static SpreadsheetEnginePatchFunctionRow row(final HttpRequest request,
+                                                 final SpreadsheetEngine engine,
+                                                 final SpreadsheetEngineContext context) {
+        return SpreadsheetEnginePatchFunctionRow.with(request, engine, context);
+    }
+
     SpreadsheetEnginePatchFunction(final HttpRequest request,
                                    final SpreadsheetEngine engine,
                                    final SpreadsheetEngineContext context) {
