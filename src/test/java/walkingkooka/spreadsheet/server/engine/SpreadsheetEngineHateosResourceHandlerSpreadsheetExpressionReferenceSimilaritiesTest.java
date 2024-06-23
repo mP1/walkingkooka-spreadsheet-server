@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -74,7 +75,7 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
         this.handleOneFails(
                 "Abc",
                 Optional.empty(),
-                Maps.of(SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.empty()),
+                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty()),
                 IllegalArgumentException.class
         );
     }
@@ -84,7 +85,7 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
         this.handleOneFails(
                 "Abc",
                 Optional.empty(),
-                Maps.of(SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.of("???")),
+                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("???")),
                 IllegalArgumentException.class
         );
     }
@@ -181,7 +182,7 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
         this.handleOneAndCheck(
                 text,
                 Optional.empty(),
-                Maps.of(SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, Lists.of("" + count)),
+                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
                 Optional.ofNullable(expected)
         );
     }
@@ -251,7 +252,7 @@ public class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenc
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.of(SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReferenceSimilarities.COUNT, 3);
+        return Maps.of(SpreadsheetUrlQueryParameters.COUNT, 3);
     }
 
     @Override

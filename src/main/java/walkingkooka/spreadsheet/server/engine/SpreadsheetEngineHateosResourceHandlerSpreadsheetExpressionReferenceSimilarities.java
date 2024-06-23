@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
 import java.util.Map;
@@ -63,7 +64,7 @@ final class SpreadsheetEngineHateosResourceHandlerSpreadsheetExpressionReference
         final SpreadsheetExpressionReference cellOrLabel = parseCellOrLabelOrNull(text);
         final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
                 text,
-                count(parameters)
+                SpreadsheetUrlQueryParameters.count(parameters)
         );
 
         return Optional.of(

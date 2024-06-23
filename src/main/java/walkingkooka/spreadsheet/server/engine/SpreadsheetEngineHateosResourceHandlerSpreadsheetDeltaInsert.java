@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -54,7 +55,7 @@ abstract class SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInsert<R ex
                         parameters,
                         this.insert(
                                 columnOrRow,
-                                count(parameters)
+                                SpreadsheetUrlQueryParameters.count(parameters)
                         )
                 )
         );
@@ -81,7 +82,7 @@ abstract class SpreadsheetEngineHateosResourceHandlerSpreadsheetDeltaInsert<R ex
                         parameters,
                         this.insert(
                                 columnOrRow,
-                                count(parameters)
+                                SpreadsheetUrlQueryParameters.count(parameters)
                         )
                 )
         );
