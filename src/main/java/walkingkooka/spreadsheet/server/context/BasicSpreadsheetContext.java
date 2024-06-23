@@ -72,6 +72,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
@@ -367,7 +368,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
 
-        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = comparator(engine, context);
+        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = SpreadsheetComparatorsHateosResourceMappings.comparator(context);
 
         final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo> formatter = formatter(engine, context);
 
@@ -617,20 +618,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 deleteColumns,
                 insertAfterColumns,
                 insertBeforeColumns
-        );
-    }
-
-    public static HateosResourceMapping<SpreadsheetComparatorName,
-            SpreadsheetComparatorInfo,
-            SpreadsheetComparatorInfoSet,
-            SpreadsheetComparatorInfo> comparator(final SpreadsheetEngine engine,
-                                                  final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators = SpreadsheetEngineHttps.loadSpreadsheetComparators(
-                engine,
-                context
-        );
-        return SpreadsheetEngineHateosResourceMappings.comparator(
-                loadSpreadsheetComparators
         );
     }
 

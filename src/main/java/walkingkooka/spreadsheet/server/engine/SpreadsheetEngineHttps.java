@@ -27,9 +27,6 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -234,19 +231,6 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                                    final SpreadsheetEngineContext context) {
         return SpreadsheetEnginePatchFunctionRow.with(
                 request,
-                engine,
-                context
-        );
-    }
-
-    // comparators......................................................................................................
-
-    /**
-     * {@see SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators}
-     */
-    public static HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> loadSpreadsheetComparators(final SpreadsheetEngine engine,
-                                                                                                                                               final SpreadsheetEngineContext context) {
-        return SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators.with(
                 engine,
                 context
         );

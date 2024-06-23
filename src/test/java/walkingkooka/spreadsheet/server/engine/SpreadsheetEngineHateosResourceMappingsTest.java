@@ -928,62 +928,6 @@ public final class SpreadsheetEngineHateosResourceMappingsTest implements ClassT
         );
     }
 
-    // comparator.......................................................................................................
-
-    @Test
-    public void testComparatorNullLoadFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetEngineHateosResourceMappings.comparator(null)
-        );
-    }
-
-    @Test
-    public void testComparatorsLoadGet() {
-        this.routeComparatorAndCheck(
-                HttpMethod.GET,
-                "/comparator",
-                HttpStatusCode.OK
-        );
-    }
-
-    @Test
-    public void testComparatorsLoadPost() {
-        this.routeComparatorAndCheck(
-                HttpMethod.POST,
-                "/comparator",
-                HttpStatusCode.METHOD_NOT_ALLOWED
-        );
-    }
-
-    private void routeComparatorAndCheck(final HttpMethod method,
-                                         final String url,
-                                         final HttpStatusCode statusCode) {
-        this.routeComparatorAndCheck(
-                method,
-                url,
-                "",
-                statusCode
-        );
-    }
-
-    private void routeComparatorAndCheck(final HttpMethod method,
-                                         final String url,
-                                         final String body,
-                                         final HttpStatusCode statusCode) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
-        this.routeAndCheck(
-                SpreadsheetEngineHateosResourceMappings.comparator(
-                        SpreadsheetEngineHttps.loadSpreadsheetComparators(engine, context)
-                ),
-                method,
-                url,
-                body,
-                statusCode
-        );
-    }
-
     // formatter........................................................................................................
 
     @Test
