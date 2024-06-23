@@ -15,38 +15,40 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server.comparator;
 
-import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Provides a single end point to retrieve ALL the {@link SpreadsheetComparatorInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators extends SpreadsheetEngineHateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> {
+final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet>,
+        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet> {
 
-    static SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators with(final SpreadsheetEngine engine,
-                                                                             final SpreadsheetEngineContext context) {
-        check(
-                engine,
-                context
+    static SpreadsheetComparatorInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
+        return new SpreadsheetComparatorInfoHateosResourceHandler(
+                Objects.requireNonNull(context, "context")
         );
-        return new SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators(engine, context);
     }
 
-    private SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators(final SpreadsheetEngine engine,
-                                                                         final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetComparatorInfoHateosResourceHandler(final SpreadsheetEngineContext context) {
+        super();
+        this.context = context;
     }
 
     @Override
@@ -76,16 +78,7 @@ final class SpreadsheetEngineHateosResourceHandlerSpreadsheetComparators extends
                 .findFirst();
     }
 
-    @Override
-    public Optional<SpreadsheetComparatorInfoSet> handleRange(final Range<SpreadsheetComparatorName> nameRange,
-                                                              final Optional<SpreadsheetComparatorInfoSet> infos,
-                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkIdRange(nameRange);
-        HateosResourceHandler.checkResource(infos);
-        HateosResourceHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
-    }
+    private final SpreadsheetEngineContext context;
 
     @Override
     public String toString() {
