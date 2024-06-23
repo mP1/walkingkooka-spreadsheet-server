@@ -194,7 +194,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static UnaryOperator<JsonNode> patchCell(final HttpRequest request,
                                                     final SpreadsheetEngine engine,
                                                     final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionCell.with(
+        return SpreadsheetEnginePatchFunction.cell(
                 request,
                 engine,
                 context
@@ -207,7 +207,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static UnaryOperator<JsonNode> patchColumn(final HttpRequest request,
                                                       final SpreadsheetEngine engine,
                                                       final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionColumn.with(
+        return SpreadsheetEnginePatchFunction.column(
                 request,
                 engine,
                 context
@@ -220,7 +220,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     public static UnaryOperator<JsonNode> patchRow(final HttpRequest request,
                                                    final SpreadsheetEngine engine,
                                                    final SpreadsheetEngineContext context) {
-        return SpreadsheetEnginePatchFunctionRow.with(
+        return SpreadsheetEnginePatchFunction.row(
                 request,
                 engine,
                 context
