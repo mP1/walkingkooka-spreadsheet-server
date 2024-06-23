@@ -48,11 +48,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class SpreadsheetEnginePatchFunctionTestCase<P extends SpreadsheetEnginePatchFunction<R>, R extends SpreadsheetSelection> implements ClassTesting<P>,
+public abstract class SpreadsheetDeltaPatchFunctionTestCase<P extends SpreadsheetDeltaPatchFunction<R>, R extends SpreadsheetSelection> implements ClassTesting<P>,
         FunctionTesting<P, JsonNode, JsonNode>,
         ToStringTesting<P> {
 
-    SpreadsheetEnginePatchFunctionTestCase() {
+    SpreadsheetDeltaPatchFunctionTestCase() {
         super();
     }
 
@@ -178,7 +178,7 @@ public abstract class SpreadsheetEnginePatchFunctionTestCase<P extends Spreadshe
 
     @Override
     public final String typeNamePrefix() {
-        return SpreadsheetEnginePatchFunction.class.getSimpleName();
+        return SpreadsheetDeltaPatchFunction.class.getSimpleName();
     }
 
     @Override
