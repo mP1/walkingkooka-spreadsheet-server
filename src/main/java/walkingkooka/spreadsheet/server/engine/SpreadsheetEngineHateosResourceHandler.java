@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.engine;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -30,12 +32,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * An abstract {@link HateosResourceHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
  */
-abstract class SpreadsheetEngineHateosResourceHandler<I extends Comparable<I>, V, C> implements HateosResourceHandler<I, V, C> {
+abstract class SpreadsheetEngineHateosResourceHandler<I extends Comparable<I>, V, C> implements HateosResourceHandler<I, V, C>,
+        UnsupportedHateosResourceHandlerHandleMany<I, V, C>,
+        UnsupportedHateosResourceHandlerHandleNone<I, V, C> {
 
     /**
      * Checks required factory method parameters are not null.
@@ -54,26 +57,6 @@ abstract class SpreadsheetEngineHateosResourceHandler<I extends Comparable<I>, V
         super();
         this.engine = engine;
         this.context = context;
-    }
-
-    @Override
-    public final Optional<C> handleMany(final Set<I> ids,
-                                        final Optional<C> resource,
-                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkManyIds(ids);
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public final Optional<V> handleNone(final Optional<V> resource,
-                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
     }
 
     final SpreadsheetEngine engine;
