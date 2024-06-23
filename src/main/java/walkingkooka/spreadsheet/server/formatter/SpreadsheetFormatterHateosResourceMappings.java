@@ -28,7 +28,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
 
@@ -60,6 +59,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 LinkRelation.SELF,
                 HttpMethod.GET,
                 SpreadsheetFormatterInfoHateosResourceHandler.with(context)
+        ).setHateosHttpEntityHandler(
+                LinkRelation.with("format"),
+                HttpMethod.POST,
+                SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
         );
 
         return formatter;
@@ -71,10 +74,13 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
 
         switch (text) {
             case "":
+                //GET /formatters
                 selection = HateosResourceSelection.all();
                 break;
             case "*":
-                throw new IllegalArgumentException("Invalid formatter selection " + CharSequences.quoteAndEscape(text));
+                //POST /formatters/*/format
+                selection = HateosResourceSelection.all();
+                break;
             default:
                 selection = HateosResourceSelection.one(
                         SpreadsheetFormatterName.with(text)
