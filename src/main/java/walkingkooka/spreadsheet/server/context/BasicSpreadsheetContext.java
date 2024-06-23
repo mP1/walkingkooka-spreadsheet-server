@@ -76,6 +76,7 @@ import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorsHateosRe
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceMappings;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHttps;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetExpressionReferenceSimilarities;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -370,7 +371,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = SpreadsheetComparatorsHateosResourceMappings.comparator(context);
 
-        final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo> formatter = formatter(engine, context);
+        final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
         final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo> expressionFunction = expressionFunction(engine, context);
 
@@ -618,22 +619,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 deleteColumns,
                 insertAfterColumns,
                 insertBeforeColumns
-        );
-    }
-
-    // formatter........................................................................................................
-
-    public static HateosResourceMapping<SpreadsheetFormatterName,
-            SpreadsheetFormatterInfo,
-            SpreadsheetFormatterInfoSet,
-            SpreadsheetFormatterInfo> formatter(final SpreadsheetEngine engine,
-                                                final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters = SpreadsheetEngineHttps.loadSpreadsheetFormatters(
-                engine,
-                context
-        );
-        return SpreadsheetEngineHateosResourceMappings.formatter(
-                loadSpreadsheetFormatters
         );
     }
 

@@ -30,9 +30,6 @@ import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetParserName;
@@ -294,53 +291,6 @@ public final class SpreadsheetEngineHateosResourceMappings implements PublicStat
                 HateosResourceSelection.one(parsed.begin()) :
                 HateosResourceSelection.range(parsed.range());
     }
-
-    // formatter.......................................................................................................
-
-    public static HateosResourceMapping<SpreadsheetFormatterName,
-            SpreadsheetFormatterInfo,
-            SpreadsheetFormatterInfoSet,
-            SpreadsheetFormatterInfo> formatter(final HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> loadSpreadsheetFormatters) {
-        Objects.requireNonNull(loadSpreadsheetFormatters, "loadSpreadsheetFormatters");
-
-        // formatter GET...............................................................................................
-
-        HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet,
-                SpreadsheetFormatterInfo> formatter = HateosResourceMapping.with(
-                        FORMATTER,
-                        SpreadsheetEngineHateosResourceMappings::parseFormatterSelection,
-                        SpreadsheetFormatterInfo.class, // valueType
-                        SpreadsheetFormatterInfoSet.class, // collectionType
-                        SpreadsheetFormatterInfo.class// resourceType
-                )
-                .set(LinkRelation.SELF, HttpMethod.GET, loadSpreadsheetFormatters);
-
-        return formatter;
-    }
-
-    private static HateosResourceSelection<SpreadsheetFormatterName> parseFormatterSelection(final String text) {
-        final HateosResourceSelection<SpreadsheetFormatterName> selection;
-
-        switch (text) {
-            case "":
-                selection = HateosResourceSelection.all();
-                break;
-            case "*":
-                throw new IllegalArgumentException("Invalid formatter selection " + CharSequences.quoteAndEscape(text));
-            default:
-                selection = HateosResourceSelection.one(
-                        SpreadsheetFormatterName.with(text)
-                );
-                break;
-        }
-
-        return selection;
-    }
-
-    /**
-     * A {@link HateosResourceName} with <code>formatter</code>.
-     */
-    private static final HateosResourceName FORMATTER = HateosResourceName.with("formatter");
 
     // expression-function..............................................................................................
 

@@ -15,38 +15,40 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Provides a single end point to retrieve ALL the {@link SpreadsheetFormatterInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetEngineHateosResourceHandlerSpreadsheetFormatters extends SpreadsheetEngineHateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> {
+final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
+        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> {
 
-    static SpreadsheetEngineHateosResourceHandlerSpreadsheetFormatters with(final SpreadsheetEngine engine,
-                                                                            final SpreadsheetEngineContext context) {
-        check(
-                engine,
-                context
+    static SpreadsheetFormatterInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
+        return new SpreadsheetFormatterInfoHateosResourceHandler(
+                Objects.requireNonNull(context, "context")
         );
-        return new SpreadsheetEngineHateosResourceHandlerSpreadsheetFormatters(engine, context);
     }
 
-    private SpreadsheetEngineHateosResourceHandlerSpreadsheetFormatters(final SpreadsheetEngine engine,
-                                                                        final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetFormatterInfoHateosResourceHandler(final SpreadsheetEngineContext context) {
+        super();
+        this.context = context;
     }
 
     @Override
@@ -76,16 +78,7 @@ final class SpreadsheetEngineHateosResourceHandlerSpreadsheetFormatters extends 
                 .findFirst();
     }
 
-    @Override
-    public Optional<SpreadsheetFormatterInfoSet> handleRange(final Range<SpreadsheetFormatterName> nameRange,
-                                                             final Optional<SpreadsheetFormatterInfoSet> infos,
-                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkIdRange(nameRange);
-        HateosResourceHandler.checkResource(infos);
-        HateosResourceHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
-    }
+    private final SpreadsheetEngineContext context;
 
     @Override
     public String toString() {
