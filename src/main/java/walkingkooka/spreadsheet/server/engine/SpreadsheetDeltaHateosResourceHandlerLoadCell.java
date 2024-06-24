@@ -101,7 +101,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         // copy all the parameters plus the resolved window, which will be used by prepareResponse.
         final Map<HttpRequestAttribute<?>, Object> parametersPlusWindow = Maps.ordered();
         parametersPlusWindow.putAll(parameters);
-        parametersPlusWindow.put(SpreadsheetEngineHttps.WINDOW,
+        parametersPlusWindow.put(SpreadsheetDeltaHttps.WINDOW,
                 Lists.of(
                         window.toString()
                 )
@@ -119,10 +119,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
     final static String MISSING_VIEWPORT = "Missing: " +
             MissingBuilder.empty()
-                    .add(SpreadsheetEngineHttps.HOME.value())
-                    .add(SpreadsheetEngineHttps.WIDTH.value())
-                    .add(SpreadsheetEngineHttps.HEIGHT.value())
-                    .add(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS.value())
+                    .add(SpreadsheetDeltaHttps.HOME.value())
+                    .add(SpreadsheetDeltaHttps.WIDTH.value())
+                    .add(SpreadsheetDeltaHttps.HEIGHT.value())
+                    .add(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS.value())
                     .build();
 
     // handleOne........................................................................................................
@@ -141,7 +141,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         parameters,
                         this.loadCell(
                                 cell,
-                                SpreadsheetEngineHttps.deltaProperties(parameters)
+                                SpreadsheetDeltaHttps.deltaProperties(parameters)
                         )
                 )
         );
@@ -185,7 +185,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         parameters,
                         this.loadCells(
                                 window,
-                                SpreadsheetEngineHttps.deltaProperties(parameters)
+                                SpreadsheetDeltaHttps.deltaProperties(parameters)
                         ).setViewport(viewport)
                 )
         );

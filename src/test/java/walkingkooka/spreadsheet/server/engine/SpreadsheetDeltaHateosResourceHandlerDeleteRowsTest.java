@@ -120,7 +120,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                 row,
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW,
+                        SpreadsheetDeltaHttps.WINDOW,
                         Lists.of(
                                 window.toString()
                         )

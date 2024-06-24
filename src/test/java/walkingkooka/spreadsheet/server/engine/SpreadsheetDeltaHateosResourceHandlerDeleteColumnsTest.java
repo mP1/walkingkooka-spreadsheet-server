@@ -121,7 +121,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                 column,
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW,
+                        SpreadsheetDeltaHttps.WINDOW,
                         Lists.of(
                                 window.toString()
                         )

@@ -107,11 +107,11 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
         final SpreadsheetEngineContext context = this.context;
 
-        final Optional<SpreadsheetCellRangeReferencePath> path = SpreadsheetEngineHttps.cellRangePath(parameters);
-        final Optional<Integer> offset = SpreadsheetEngineHttps.offset(parameters);
-        final Optional<Integer> max = SpreadsheetEngineHttps.max(parameters);
-        final Optional<String> valueType = SpreadsheetEngineHttps.valueType(parameters, context);
-        final Optional<Expression> query = SpreadsheetEngineHttps.query(parameters, context);
+        final Optional<SpreadsheetCellRangeReferencePath> path = SpreadsheetDeltaHttps.cellRangePath(parameters);
+        final Optional<Integer> offset = SpreadsheetDeltaHttps.offset(parameters);
+        final Optional<Integer> max = SpreadsheetDeltaHttps.max(parameters);
+        final Optional<String> valueType = SpreadsheetDeltaHttps.valueType(parameters, context);
+        final Optional<Expression> query = SpreadsheetDeltaHttps.query(parameters, context);
 
         return Optional.ofNullable(
                 SpreadsheetDelta.EMPTY.setCells(

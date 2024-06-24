@@ -104,7 +104,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
                         );
 
         // honour any window or "query" url query parameters.
-        final SpreadsheetDelta prepareResponse = SpreadsheetEngineHttps.prepareResponse(
+        final SpreadsheetDelta prepareResponse = SpreadsheetDeltaHttps.prepareResponse(
                 Optional.empty(), // no input SpreadsheetDelta
                 this.request.routerParameters(),
                 saved,
@@ -162,7 +162,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
     final SpreadsheetEngineContext context;
 
     private Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetViewport> viewport) {
-        Optional<SpreadsheetViewport> result = SpreadsheetEngineHttps.viewport(
+        Optional<SpreadsheetViewport> result = SpreadsheetDeltaHttps.viewport(
                 this.request.routerParameters(),
                 false // includeNavigation
         );
@@ -173,7 +173,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
     }
 
     final SpreadsheetViewportWindows window(final SpreadsheetDelta delta) {
-        return SpreadsheetEngineHttps.window(
+        return SpreadsheetDeltaHttps.window(
                 this.request.routerParameters(),
                 Optional.of(delta),
                 this.engine,

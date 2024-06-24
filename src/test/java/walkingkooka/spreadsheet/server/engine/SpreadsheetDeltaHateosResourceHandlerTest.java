@@ -139,7 +139,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                         delta.setViewport(viewport)
                 ),
                 Map.of(
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)
@@ -176,13 +176,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                 )
                 ),
                 Map.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of(home.toString()),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of(String.valueOf(width)),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of(String.valueOf(height)),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaHttps.HOME, Lists.of(home.toString()),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of(String.valueOf(width)),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of(String.valueOf(height)),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of(selection.toString()),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell-range"),
+                        SpreadsheetDeltaHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)
@@ -213,13 +213,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                 )
                 ),
                 Map.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("!invalidhome"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("!invalid-width"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("!invalid height"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("!invalid selection"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("!invalid selection type"),
-                        SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaHttps.HOME, Lists.of("!invalidhome"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("!invalid-width"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("!invalid height"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("!invalid selection"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("!invalid selection type"),
+                        SpreadsheetDeltaHttps.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)

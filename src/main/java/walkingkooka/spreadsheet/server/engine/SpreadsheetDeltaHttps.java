@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
 /**
  * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
-public final class SpreadsheetEngineHttps implements PublicStaticHelper {
+public final class SpreadsheetDeltaHttps implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetDeltaHateosResourceHandlerClearColumns}
@@ -586,7 +586,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
 
         return spreadsheetSelection.setAnchor(
                 anchor.map(
-                        SpreadsheetEngineHttps::parseAnchor
+                        SpreadsheetDeltaHttps::parseAnchor
                 ).orElse(spreadsheetSelection.defaultAnchor())
         );
     }
@@ -717,12 +717,12 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
                                             final SpreadsheetEngine engine,
                                             final SpreadsheetEngineContext context) {
 
-        final Optional<Expression> maybeExpression = SpreadsheetEngineHttps.query(
+        final Optional<Expression> maybeExpression = SpreadsheetDeltaHttps.query(
                 parameters,
                 context
         );
 
-        final Optional<String> maybeValueType = SpreadsheetEngineHttps.valueType(
+        final Optional<String> maybeValueType = SpreadsheetDeltaHttps.valueType(
                 parameters,
                 context
         );
@@ -744,7 +744,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
         }
 
         return result.setWindow(
-                SpreadsheetEngineHttps.window(
+                SpreadsheetDeltaHttps.window(
                         parameters,
                         in,
                         engine,
@@ -756,7 +756,7 @@ public final class SpreadsheetEngineHttps implements PublicStaticHelper {
     /**
      * Stop creation.
      */
-    private SpreadsheetEngineHttps() {
+    private SpreadsheetDeltaHttps() {
         throw new UnsupportedOperationException();
     }
 }

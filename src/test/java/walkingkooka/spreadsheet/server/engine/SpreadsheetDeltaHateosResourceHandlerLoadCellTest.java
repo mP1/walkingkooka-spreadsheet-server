@@ -149,15 +149,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         if (null != deltaProperties) {
             parameters.put(
-                    SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                    SpreadsheetDeltaHttps.DELTA_PROPERTIES,
                     Lists.of(deltaProperties)
             );
         }
         if (null != window) {
-            parameters.put(SpreadsheetEngineHttps.WINDOW, Lists.of(window));
+            parameters.put(SpreadsheetDeltaHttps.WINDOW, Lists.of(window));
         }
         if (null != query) {
-            parameters.put(SpreadsheetEngineHttps.QUERY, Lists.of(query));
+            parameters.put(SpreadsheetDeltaHttps.QUERY, Lists.of(query));
         }
 
         this.handleOneAndCheck(
@@ -431,7 +431,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 this.range(),
                 this.collectionResource(),
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW,
+                        SpreadsheetDeltaHttps.WINDOW,
                         List.of(
                                 window.toString()
                         )
@@ -462,10 +462,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     public void testLoadCellRangeInvalidHomeParameterFails() {
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
 
-        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of("!Invalid"));
-        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("123"));
-        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("456"));
-        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(SpreadsheetDeltaHttps.HOME, Lists.of("!Invalid"));
+        parameters.put(SpreadsheetDeltaHttps.WIDTH, Lists.of("123"));
+        parameters.put(SpreadsheetDeltaHttps.HEIGHT, Lists.of("456"));
+        parameters.put(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
         this.loadCellRangeFails(
                 parameters,
@@ -611,22 +611,22 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home.toString()));
-        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + width));
-        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + height));
+        parameters.put(SpreadsheetDeltaHttps.HOME, Lists.of(home.toString()));
+        parameters.put(SpreadsheetDeltaHttps.WIDTH, Lists.of("" + width));
+        parameters.put(SpreadsheetDeltaHttps.HEIGHT, Lists.of("" + height));
 
         if (null != selectionType) {
-            parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selectionType));
-            parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selectionText));
+            parameters.put(SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of(selectionType));
+            parameters.put(SpreadsheetDeltaHttps.SELECTION, Lists.of(selectionText));
 
             if (null != anchor) {
-                parameters.put(SpreadsheetEngineHttps.SELECTION_ANCHOR, Lists.of(anchor));
+                parameters.put(SpreadsheetDeltaHttps.SELECTION_ANCHOR, Lists.of(anchor));
             }
         }
 
-        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(
-                SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                SpreadsheetDeltaHttps.DELTA_PROPERTIES,
                 Lists.of(deltaProperties)
         );
 
@@ -780,11 +780,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final double viewportHeight = viewportWindowRange.height() * ROW_HEIGHT;
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home));
-        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + viewportWidth));
-        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + viewportHeight));
+        parameters.put(SpreadsheetDeltaHttps.HOME, Lists.of(home));
+        parameters.put(SpreadsheetDeltaHttps.WIDTH, Lists.of("" + viewportWidth));
+        parameters.put(SpreadsheetDeltaHttps.HEIGHT, Lists.of("" + viewportHeight));
 
-        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
+        parameters.put(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
 
         this.handleAllAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
@@ -1091,18 +1091,18 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final int height = 150;
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
-        parameters.put(SpreadsheetEngineHttps.HOME, Lists.of(home));
-        parameters.put(SpreadsheetEngineHttps.WIDTH, Lists.of("" + width)); // 4x3
-        parameters.put(SpreadsheetEngineHttps.HEIGHT, Lists.of("" + height));
-        parameters.put(SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
+        parameters.put(SpreadsheetDeltaHttps.HOME, Lists.of(home));
+        parameters.put(SpreadsheetDeltaHttps.WIDTH, Lists.of("" + width)); // 4x3
+        parameters.put(SpreadsheetDeltaHttps.HEIGHT, Lists.of("" + height));
+        parameters.put(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
         if(anchoredSpreadsheetSelection.isPresent()) {
             final SpreadsheetSelection selection = anchoredSpreadsheetSelection.get()
                     .selection();
-            parameters.put(SpreadsheetEngineHttps.SELECTION, Lists.of(selection.toString()));
-            parameters.put(SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
+            parameters.put(SpreadsheetDeltaHttps.SELECTION, Lists.of(selection.toString()));
+            parameters.put(SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
             parameters.put(
-                    SpreadsheetEngineHttps.SELECTION_ANCHOR,
+                    SpreadsheetDeltaHttps.SELECTION_ANCHOR,
                     Lists.of(
                             anchoredSpreadsheetSelection.get()
                                     .anchor()
@@ -1112,7 +1112,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         }
         parameters.put(
-                SpreadsheetEngineHttps.NAVIGATION,
+                SpreadsheetDeltaHttps.NAVIGATION,
                 Lists.of(
                         SpreadsheetViewport.SEPARATOR.toSeparatedString(
                                 navigations,
