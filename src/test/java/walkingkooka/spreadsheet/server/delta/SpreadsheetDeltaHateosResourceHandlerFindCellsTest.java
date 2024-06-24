@@ -140,11 +140,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 b2, // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
-                        SpreadsheetDeltaHttps.OFFSET, Lists.of("" + offset),
-                        SpreadsheetDeltaHttps.MAX, Lists.of("" + max),
-                        SpreadsheetDeltaHttps.VALUE_TYPE, Lists.of("" + valueType),
-                        SpreadsheetDeltaHttps.QUERY, Lists.of("" + expression)
+                        SpreadsheetDeltaUrlQueryParameters.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetDeltaUrlQueryParameters.OFFSET, Lists.of("" + offset),
+                        SpreadsheetDeltaUrlQueryParameters.MAX, Lists.of("" + max),
+                        SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
+                        SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
@@ -225,11 +225,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
-                        SpreadsheetDeltaHttps.OFFSET, Lists.of("" + offset),
-                        SpreadsheetDeltaHttps.MAX, Lists.of("" + max),
-                        SpreadsheetDeltaHttps.VALUE_TYPE, Lists.of("" + valueType),
-                        SpreadsheetDeltaHttps.QUERY, Lists.of("" + expression)
+                        SpreadsheetDeltaUrlQueryParameters.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetDeltaUrlQueryParameters.OFFSET, Lists.of("" + offset),
+                        SpreadsheetDeltaUrlQueryParameters.MAX, Lists.of("" + max),
+                        SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
+                        SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
@@ -310,11 +310,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHttps.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
-                        SpreadsheetDeltaHttps.OFFSET, Lists.of("" + offset),
-                        SpreadsheetDeltaHttps.MAX, Lists.of("" + max),
-                        SpreadsheetDeltaHttps.VALUE_TYPE, Lists.of("" + valueType),
-                        SpreadsheetDeltaHttps.QUERY, Lists.of("" + expression)
+                        SpreadsheetDeltaUrlQueryParameters.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetDeltaUrlQueryParameters.OFFSET, Lists.of("" + offset),
+                        SpreadsheetDeltaUrlQueryParameters.MAX, Lists.of("" + max),
+                        SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
+                        SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
@@ -431,7 +431,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-                SpreadsheetDeltaHttps.QUERY, Lists.of("true")
+                SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("true")
         );
     }
 

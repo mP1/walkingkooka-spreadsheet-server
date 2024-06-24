@@ -102,7 +102,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     final Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final Optional<SpreadsheetDelta> delta,
                                                  final boolean includeNavigation) {
-        Optional<SpreadsheetViewport> viewport = SpreadsheetDeltaHttps.viewport(
+        Optional<SpreadsheetViewport> viewport = SpreadsheetDeltaUrlQueryParameters.viewport(
                 parameters,
                 includeNavigation
         );

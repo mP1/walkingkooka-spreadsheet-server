@@ -162,7 +162,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
     final SpreadsheetEngineContext context;
 
     private Optional<SpreadsheetViewport> viewport(final Optional<SpreadsheetViewport> viewport) {
-        Optional<SpreadsheetViewport> result = SpreadsheetDeltaHttps.viewport(
+        Optional<SpreadsheetViewport> result = SpreadsheetDeltaUrlQueryParameters.viewport(
                 this.request.routerParameters(),
                 false // includeNavigation
         );
@@ -173,7 +173,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
     }
 
     final SpreadsheetViewportWindows window(final SpreadsheetDelta delta) {
-        return SpreadsheetDeltaHttps.window(
+        return SpreadsheetDeltaUrlQueryParameters.window(
                 this.request.routerParameters(),
                 Optional.of(delta),
                 this.engine,

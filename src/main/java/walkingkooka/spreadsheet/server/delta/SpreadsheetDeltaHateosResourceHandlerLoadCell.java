@@ -101,7 +101,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         // copy all the parameters plus the resolved window, which will be used by prepareResponse.
         final Map<HttpRequestAttribute<?>, Object> parametersPlusWindow = Maps.ordered();
         parametersPlusWindow.putAll(parameters);
-        parametersPlusWindow.put(SpreadsheetDeltaHttps.WINDOW,
+        parametersPlusWindow.put(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW,
                 Lists.of(
                         window.toString()
                 )
@@ -119,10 +120,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
     final static String MISSING_VIEWPORT = "Missing: " +
             MissingBuilder.empty()
-                    .add(SpreadsheetDeltaHttps.HOME.value())
-                    .add(SpreadsheetDeltaHttps.WIDTH.value())
-                    .add(SpreadsheetDeltaHttps.HEIGHT.value())
-                    .add(SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS.value())
+                    .add(SpreadsheetDeltaUrlQueryParameters.HOME.value())
+                    .add(SpreadsheetDeltaUrlQueryParameters.WIDTH.value())
+                    .add(SpreadsheetDeltaUrlQueryParameters.HEIGHT.value())
+                    .add(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS.value())
                     .build();
 
     // handleOne........................................................................................................
@@ -141,7 +142,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         parameters,
                         this.loadCell(
                                 cell,
-                                SpreadsheetDeltaHttps.deltaProperties(parameters)
+                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters)
                         )
                 )
         );
@@ -185,7 +186,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         parameters,
                         this.loadCells(
                                 window,
-                                SpreadsheetDeltaHttps.deltaProperties(parameters)
+                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters)
                         ).setViewport(viewport)
                 )
         );
