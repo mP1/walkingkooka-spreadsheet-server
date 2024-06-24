@@ -106,7 +106,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
                 this.engine.sortCells(
                         cells, // cells
                         comparators(parameters),
-                        SpreadsheetDeltaHttps.deltaProperties(parameters),
+                        SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
                         this.context
                 )
         );

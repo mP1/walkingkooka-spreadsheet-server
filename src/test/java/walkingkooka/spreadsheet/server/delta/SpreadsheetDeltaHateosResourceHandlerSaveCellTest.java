@@ -178,7 +178,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setWindow(window)
                 ),
                 Maps.of(
-                        SpreadsheetDeltaHttps.QUERY,
+                        SpreadsheetDeltaUrlQueryParameters.QUERY,
                         Lists.of(query)
                 ),
                 Optional.of(

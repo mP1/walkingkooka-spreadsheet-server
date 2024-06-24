@@ -139,7 +139,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                         delta.setViewport(viewport)
                 ),
                 Map.of(
-                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)
@@ -176,13 +176,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                 )
                 ),
                 Map.of(
-                        SpreadsheetDeltaHttps.HOME, Lists.of(home.toString()),
-                        SpreadsheetDeltaHttps.WIDTH, Lists.of(String.valueOf(width)),
-                        SpreadsheetDeltaHttps.HEIGHT, Lists.of(String.valueOf(height)),
-                        SpreadsheetDeltaHttps.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetDeltaHttps.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
-                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of(home.toString()),
+                        SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of(String.valueOf(width)),
+                        SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of(String.valueOf(height)),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of(selection.toString()),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("cell-range"),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
+                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)
@@ -213,13 +213,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                 )
                 ),
                 Map.of(
-                        SpreadsheetDeltaHttps.HOME, Lists.of("!invalidhome"),
-                        SpreadsheetDeltaHttps.WIDTH, Lists.of("!invalid-width"),
-                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("!invalid height"),
-                        SpreadsheetDeltaHttps.SELECTION, Lists.of("!invalid selection"),
-                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("!invalid selection type"),
-                        SpreadsheetDeltaHttps.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
-                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows.toString())
+                        SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of("!invalidhome"),
+                        SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of("!invalid-width"),
+                        SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("!invalid height"),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of("!invalid selection"),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("!invalid selection type"),
+                        SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
+                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
                 ),
                 delta,
                 delta.setWindow(windows)
