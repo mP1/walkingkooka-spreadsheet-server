@@ -17,58 +17,9 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetEngineHateosResourceHandlerTest extends SpreadsheetEngineHateosResourceHandlerTestCase<SpreadsheetEngineHateosResourceHandler<?, ?, ?>> {
-
-    @Test
-    public void testCountParameterMissingFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(HateosResourceHandler.NO_PARAMETERS)
-        );
-    }
-
-    @Test
-    public void testCountParameterMissingFails2() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(
-                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty())
-                )
-        );
-    }
-
-    @Test
-    public void testInvalidCountParameterMissingFails() {
-        final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(
-                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("!invalid"))
-                )
-        );
-        this.checkEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
-    }
-
-    @Test
-    public void testCount() {
-        this.checkEquals(
-                123,
-                SpreadsheetUrlQueryParameters.count(
-                        Maps.of(
-                                SpreadsheetUrlQueryParameters.COUNT,
-                                Lists.of("123")
-                        )
-                )
-        );
-    }
 
     @Override
     public Class<SpreadsheetEngineHateosResourceHandler<?, ?, ?>> type() {
