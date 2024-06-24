@@ -92,10 +92,23 @@ final class SpreadsheetContextHateosResourceHandlersRouter implements StaticHelp
                                         SpreadsheetMetadataSet.class,
                                         SpreadsheetMetadata.class
                                 )
-                                .set(METADATA_LINK_RELATION, HttpMethod.DELETE, deleteMetadata)
-                                .set(METADATA_LINK_RELATION, HttpMethod.GET, loadMetadata)
-                                .set(METADATA_LINK_RELATION, HttpMethod.POST, createAndSaveMetadata)
-                                .set(METADATA_LINK_RELATION, HttpMethod.PATCH, HateosResourceHandlers.fake())
+                                .setHateosResourceHandler(
+                                        METADATA_LINK_RELATION,
+                                        HttpMethod.DELETE,
+                                        deleteMetadata
+                                ).setHateosResourceHandler(
+                                        METADATA_LINK_RELATION,
+                                        HttpMethod.GET,
+                                        loadMetadata
+                                ).setHateosResourceHandler(
+                                        METADATA_LINK_RELATION,
+                                        HttpMethod.POST,
+                                        createAndSaveMetadata
+                                ).setHateosResourceHandler(
+                                        METADATA_LINK_RELATION,
+                                        HttpMethod.PATCH,
+                                        HateosResourceHandlers.fake()
+                                )
                 ),
                 indentation,
                 lineEnding
