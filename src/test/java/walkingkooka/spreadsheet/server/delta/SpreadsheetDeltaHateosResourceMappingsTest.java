@@ -38,8 +38,6 @@ import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandlers;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -56,7 +54,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
@@ -88,12 +88,19 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTesting2<SpreadsheetDeltaHateosResourceMappings> {
+
+    private final static HateosContentType HATEOS_CONTENT_TYPE = HateosContentType.json(
+            JsonNodeUnmarshallContexts.basic(
+                    ExpressionNumberKind.BIG_DECIMAL,
+                    MathContext.DECIMAL32
+            ),
+            JsonNodeMarshallContexts.basic()
+    );
 
     private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
     private final static Indentation INDENTATION = Indentation.SPACES2;
@@ -103,206 +110,55 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
 
     // cell.............................................................................................................
 
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> CLEAR_CELLS = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FILL_CELLS = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> FIND_CELLS = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_CLEAR = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_SKIP = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_FORCE = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> LOAD_CELL_COMPUTE_IF = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SAVE_CELL = HateosResourceHandlers.fake();
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> DELETE_CELL = HateosResourceHandlers.fake();
-
-    private final static HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> SORT_CELLS = HateosResourceHandlers.fake();
-    private final static Function<SpreadsheetLabelName, SpreadsheetCellReference> LABEL_TO_CELL_REFERENCE = (l) -> {
-        throw new UnsupportedOperationException();
-    };
-
     @Test
-    public void testCellNullFillCellsFails() {
-        this.cellFails(
-                null,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullFindCellsFails() {
-        this.cellFails(
-                FILL_CELLS,
-                null,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullLoadCellClearFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                null,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullLoadCellSkipFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                null,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullLoadCellForceFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                null,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullLoadCellComputeIfFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                null,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullSaveCellFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                null,
-                DELETE_CELL,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullDeleteCellFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                null,
-                SORT_CELLS,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullSortCellsFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                null,
-                LABEL_TO_CELL_REFERENCE
-        );
-    }
-
-    @Test
-    public void testCellNullLabelToCellReferenceFails() {
-        this.cellFails(
-                FILL_CELLS,
-                FIND_CELLS,
-                LOAD_CELL_CLEAR,
-                LOAD_CELL_SKIP,
-                LOAD_CELL_FORCE,
-                LOAD_CELL_COMPUTE_IF,
-                SAVE_CELL,
-                DELETE_CELL,
-                SORT_CELLS,
-                null
-        );
-    }
-
-    private void cellFails(final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell,
-                           final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCells,
-                           final Function<SpreadsheetLabelName, SpreadsheetCellReference> labelToCellReference) {
+    public void testCellWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () ->
-                        SpreadsheetDeltaHateosResourceMappings.cell(
-                                fillCells,
-                                findCells,
-                                loadCellClearValueErrorSkipEvaluate,
-                                loadCellSkipEvaluate,
-                                loadCellForceRecompute,
-                                loadCellComputeIfNecessary,
-                                saveCell,
-                                deleteCell,
-                                sortCells,
-                                labelToCellReference
-                        )
+                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                        null,
+                        HATEOS_CONTENT_TYPE,
+                        DEFAULT_MAX,
+                        SpreadsheetEngineContexts.fake()
+                )
+        );
+    }
+
+    @Test
+    public void testCellWithNullHateosContentTypeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                        SpreadsheetEngines.fake(),
+                        null,
+                        DEFAULT_MAX,
+                        SpreadsheetEngineContexts.fake()
+                )
+        );
+    }
+
+    @Test
+    public void testCellWithInvalidDefaultMaxFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                        SpreadsheetEngines.fake(),
+                        HATEOS_CONTENT_TYPE,
+                        -1, // defaultMax
+                        SpreadsheetEngineContexts.fake()
+                )
+        );
+    }
+
+    @Test
+    public void testCellWithNullEngineContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                        SpreadsheetEngines.fake(),
+                        HATEOS_CONTENT_TYPE,
+                        DEFAULT_MAX,
+                        null // context
+                )
         );
     }
 
@@ -498,14 +354,25 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     private void routeCellAndCheck(final HttpMethod method,
                                    final String url,
                                    final HttpStatusCode statusCode) {
-        this.routeCellAndCheck(method, url, statusCode, null);
+        this.routeCellAndCheck(
+                method,
+                url,
+                statusCode,
+                null
+        );
     }
 
     private void routeCellAndCheck(final HttpMethod method,
                                    final String url,
                                    final HttpStatusCode statusCode,
                                    final String message) {
-        this.routeCellAndCheck(method, url, "", statusCode, message);
+        this.routeCellAndCheck(
+                method,
+                url,
+                "",
+                statusCode,
+                message
+        );
     }
 
     private void routeCellAndCheck(final HttpMethod method,
@@ -530,19 +397,10 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.cell(
-                        SpreadsheetDeltaHttps.fillCells(engine, context),
-                        SpreadsheetDeltaHttps.findCells(DEFAULT_MAX, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
-                        SpreadsheetDeltaHttps.saveCell(engine, context),
-                        SpreadsheetDeltaHttps.deleteCell(engine, context),
-                        SpreadsheetDeltaHttps.sortCells(engine, context),
-                        (e) -> context.storeRepository()
-                                .labels()
-                                .cellReferenceOrRangeOrFail(e)
-                                .toCell()
+                        engine,
+                        HATEOS_CONTENT_TYPE,
+                        DEFAULT_MAX,
+                        context
                 ),
                 method,
                 url,
@@ -555,23 +413,12 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     private HttpResponse routeCell(final HttpMethod method,
                                    final String url,
                                    final String body) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
         return this.route(
                 SpreadsheetDeltaHateosResourceMappings.cell(
-                        SpreadsheetDeltaHttps.fillCells(engine, context),
-                        SpreadsheetDeltaHttps.findCells(DEFAULT_MAX, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
-                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
-                        SpreadsheetDeltaHttps.saveCell(engine, context),
-                        SpreadsheetDeltaHttps.deleteCell(engine, context),
-                        SpreadsheetDeltaHttps.sortCells(engine, context),
-                        (e) -> context.storeRepository()
-                                .labels()
-                                .cellReferenceOrRangeOrFail(e)
-                                .toCell()
+                        this.engine(),
+                        HATEOS_CONTENT_TYPE,
+                        DEFAULT_MAX,
+                        this.engineContext()
                 ),
                 method,
                 url,
@@ -753,50 +600,39 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     // column...........................................................................................................
 
     @Test
-    public void testColumnNullClearFails() {
+    public void testColumnWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.column(null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
+                () -> SpreadsheetDeltaHateosResourceMappings.column(
+                        null,
+                        HATEOS_CONTENT_TYPE,
+                        SpreadsheetEngineContexts.fake()
+                )
         );
     }
 
     @Test
-    public void testColumnNullDeleteFails() {
+    public void testColumnWithNullHateosContentTypeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.column(HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
+                () -> SpreadsheetDeltaHateosResourceMappings.column(
+                        SpreadsheetEngines.fake(),
+                        null,
+                        SpreadsheetEngineContexts.fake()
+                )
         );
     }
 
     @Test
-    public void testColumnNullInsertAfterFails() {
+    public void testColumnWithNullEngineContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.column(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake())
+                () -> SpreadsheetDeltaHateosResourceMappings.column(
+                        SpreadsheetEngines.fake(),
+                        HATEOS_CONTENT_TYPE,
+                        null
+                )
         );
-    }
-
-    @Test
-    public void testColumnNullInsertBeforeFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.column(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null)
-        );
-    }
-
-    @Test
-    public void testRouteColumnsInvalidFails() {
-        this.routeColumnAndCheck(HttpMethod.GET, "/invalid", HttpStatusCode.NOT_FOUND);
-    }
-
-    @Test
-    public void testRouteColumnsGetFails() {
-        this.routeColumnAndCheck(HttpMethod.GET, "/column/A", HttpStatusCode.METHOD_NOT_ALLOWED);
-    }
-
-    @Test
-    public void testRouteColumnsPostFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A", HttpStatusCode.METHOD_NOT_ALLOWED);
     }
 
     @Test
@@ -890,14 +726,11 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                      final String url,
                                      final String body,
                                      final HttpStatusCode statusCode) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.column(
-                        SpreadsheetDeltaHttps.clearColumns(engine, context),
-                        SpreadsheetDeltaHttps.deleteColumns(engine, context),
-                        SpreadsheetDeltaHttps.insertAfterColumns(engine, context),
-                        SpreadsheetDeltaHttps.insertBeforeColumns(engine, context)
+                        this.engine(),
+                        HATEOS_CONTENT_TYPE,
+                        this.engineContext()
                 ),
                 method,
                 url,
@@ -908,18 +741,14 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
 
     private void routeColumnAndCheck(final HttpMethod method,
                                      final String url,
-                                     final Class<? extends Throwable> thcolumnn) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
-
+                                     final Class<? extends Throwable> thrown) {
         assertThrows(
-                thcolumnn,
+                thrown,
                 () -> this.route(
                         SpreadsheetDeltaHateosResourceMappings.column(
-                                SpreadsheetDeltaHttps.clearColumns(engine, context),
-                                SpreadsheetDeltaHttps.deleteColumns(engine, context),
-                                SpreadsheetDeltaHttps.insertAfterColumns(engine, context),
-                                SpreadsheetDeltaHttps.insertBeforeColumns(engine, context)
+                                this.engine(),
+                                HATEOS_CONTENT_TYPE,
+                                this.engineContext()
                         ),
                         method,
                         url,
@@ -931,34 +760,38 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     // row...........................................................................................................
 
     @Test
-    public void testRowNullClearFails() {
+    public void testRowWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.row(null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
+                () -> SpreadsheetDeltaHateosResourceMappings.row(
+                        null,
+                        HATEOS_CONTENT_TYPE,
+                        SpreadsheetEngineContexts.fake()
+                )
         );
     }
 
     @Test
-    public void testRowNullDeleteFails() {
+    public void testRowWithNullHateosContentTypeFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.row(HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake(), HateosResourceHandlers.fake())
+                () -> SpreadsheetDeltaHateosResourceMappings.row(
+                        SpreadsheetEngines.fake(),
+                        null,
+                        SpreadsheetEngineContexts.fake()
+                )
         );
     }
 
     @Test
-    public void testRowNullInsertAfterFails() {
+    public void testRowWithNullEngineContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.row(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null, HateosResourceHandlers.fake())
-        );
-    }
-
-    @Test
-    public void testRowNullInsertBeforeFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.row(HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), HateosResourceHandlers.fake(), null)
+                () -> SpreadsheetDeltaHateosResourceMappings.row(
+                        SpreadsheetEngines.fake(),
+                        HATEOS_CONTENT_TYPE,
+                        null
+                )
         );
     }
 
@@ -1068,14 +901,11 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                   final String url,
                                   final String body,
                                   final HttpStatusCode statusCode) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.row(
-                        SpreadsheetDeltaHttps.clearRows(engine, context),
-                        SpreadsheetDeltaHttps.deleteRows(engine, context),
-                        SpreadsheetDeltaHttps.insertAfterRows(engine, context),
-                        SpreadsheetDeltaHttps.insertBeforeRows(engine, context)
+                        this.engine(),
+                        HATEOS_CONTENT_TYPE,
+                        this.engineContext()
                 ),
                 method,
                 url,
@@ -1087,17 +917,13 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     private void routeRowAndCheck(final HttpMethod method,
                                   final String url,
                                   final Class<? extends Throwable> thrown) {
-        final SpreadsheetEngine engine = this.engine();
-        final SpreadsheetEngineContext context = this.engineContext();
-
         assertThrows(
                 thrown,
                 () -> this.route(
                         SpreadsheetDeltaHateosResourceMappings.row(
-                                SpreadsheetDeltaHttps.clearRows(engine, context),
-                                SpreadsheetDeltaHttps.deleteRows(engine, context),
-                                SpreadsheetDeltaHttps.insertAfterRows(engine, context),
-                                SpreadsheetDeltaHttps.insertBeforeRows(engine, context)
+                                this.engine(),
+                                HATEOS_CONTENT_TYPE,
+                                this.engineContext()
                         ),
                         method,
                         url,
@@ -1133,7 +959,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
                         URL,
-                        contentType(),
+                        HATEOS_CONTENT_TYPE,
                         Sets.of(mapping),
                         INDENTATION,
                         LINE_ENDING
@@ -1167,7 +993,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
                 URL,
-                contentType(),
+                HATEOS_CONTENT_TYPE,
                 Sets.of(mapping),
                 INDENTATION,
                 LINE_ENDING
@@ -1236,16 +1062,6 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                 return Maps.empty();
             }
         };
-    }
-
-    private HateosContentType contentType() {
-        return HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32
-                ),
-                JsonNodeMarshallContexts.basic()
-        );
     }
 
     // ClassTesting.....................................................................................................

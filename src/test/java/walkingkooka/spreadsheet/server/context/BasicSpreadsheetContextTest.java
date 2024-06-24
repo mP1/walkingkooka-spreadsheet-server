@@ -551,34 +551,7 @@ public final class BasicSpreadsheetContextTest implements SpreadsheetContextTest
                         "            ],\n" +
                         "            \"text\": \"=1+2\"\n" +
                         "          }\n" +
-                        "        },\n" +
-                        "        \"expression\": {\n" +
-                        "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"1\"\n" +
-                        "              }\n" +
-                        "            },\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"2\"\n" +
-                        "              }\n" +
-                        "            }\n" +
-                        "          ]\n" +
-                        "        },\n" +
-                        "        \"value\": {\n" +
-                        "          \"type\": \"expression-number\",\n" +
-                        "          \"value\": \"3\"\n" +
                         "        }\n" +
-                        "      },\n" +
-                        "      \"formatted-value\": {\n" +
-                        "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Number 003.000\"\n" +
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +

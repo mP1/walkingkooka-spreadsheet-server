@@ -2386,7 +2386,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "     }\n" +
                         "  }\n" +
                         "}",
-                HttpStatusCode.NOT_FOUND
+                HttpStatusCode.BAD_REQUEST
                         .setMessage("Label not found: UnknownLabel123"),
                 "Label not found: UnknownLabel123"
         );
