@@ -78,7 +78,6 @@ import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttps;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
-import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceHandlers;
 import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -380,7 +379,7 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = label(labelStore);
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = SpreadsheetLabelHateosResourceMappings.with(labelStore);
 
         final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo> parser = SpreadsheetParserHateosResourceMappings.parser(context);
         
@@ -620,21 +619,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 deleteColumns,
                 insertAfterColumns,
                 insertBeforeColumns
-        );
-    }
-
-    // label............................................................................................................
-
-    private static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label(final SpreadsheetLabelStore store) {
-
-        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete = SpreadsheetLabelHateosResourceHandlers.delete(store);
-        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load = SpreadsheetLabelHateosResourceHandlers.load(store);
-        final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate = SpreadsheetLabelHateosResourceHandlers.saveOrUpdate(store);
-
-        return SpreadsheetLabelHateosResourceMappings.with(
-                delete,
-                load,
-                saveOrUpdate
         );
     }
 

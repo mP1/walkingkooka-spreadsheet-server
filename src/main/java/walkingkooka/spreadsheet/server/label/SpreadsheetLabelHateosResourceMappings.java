@@ -26,6 +26,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -35,12 +36,8 @@ import java.util.Objects;
  */
 public final class SpreadsheetLabelHateosResourceMappings implements PublicStaticHelper {
 
-    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> with(final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> delete,
-                                                                                                                                              final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> load,
-                                                                                                                                              final HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> saveOrUpdate) {
-        Objects.requireNonNull(delete, "delete");
-        Objects.requireNonNull(load, "load");
-        Objects.requireNonNull(saveOrUpdate, "saveOrUpdate");
+    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> with(final SpreadsheetLabelStore store) {
+        Objects.requireNonNull(store, "store");
 
         return HateosResourceMapping.with(LABEL,
                 SpreadsheetLabelHateosResourceMappings::parse,
@@ -50,15 +47,15 @@ public final class SpreadsheetLabelHateosResourceMappings implements PublicStati
                 .setHateosResourceHandler(
                         METADATA_LINK_RELATION,
                         HttpMethod.DELETE,
-                        delete
+                        SpreadsheetLabelHateosResourceHandlerDelete.with(store)
                 ).setHateosResourceHandler(
                         METADATA_LINK_RELATION,
                         HttpMethod.GET,
-                        load
+                        SpreadsheetLabelHateosResourceHandlerLoad.with(store)
                 ).setHateosResourceHandler(
                         METADATA_LINK_RELATION,
                         HttpMethod.POST,
-                        saveOrUpdate
+                        SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store)
                 );
     }
 
