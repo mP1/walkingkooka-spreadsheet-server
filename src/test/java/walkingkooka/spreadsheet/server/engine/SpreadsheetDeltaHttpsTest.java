@@ -52,8 +52,8 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetEngineHttpsTest implements ClassTesting2<SpreadsheetEngineHttps>,
-        PublicStaticHelperTesting<SpreadsheetEngineHttps> {
+public final class SpreadsheetDeltaHttpsTest implements ClassTesting2<SpreadsheetDeltaHttps>,
+        PublicStaticHelperTesting<SpreadsheetDeltaHttps> {
 
     // cell-range-path properties.......................................................................................
 
@@ -61,7 +61,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testCellRangePathNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.cellRangePath(
+                () -> SpreadsheetDeltaHttps.cellRangePath(
                         null
                 )
         );
@@ -78,7 +78,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testCellRangePathEmpty() {
         this.cellRangePathAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        SpreadsheetDeltaHttps.CELL_RANGE_PATH,
                         Lists.of()
                 )
         );
@@ -88,7 +88,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testCellRangePathLrtd() {
         this.cellRangePathAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        SpreadsheetDeltaHttps.CELL_RANGE_PATH,
                         Lists.of(
                                 "tdlr"
                         )
@@ -101,7 +101,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testCellRangePathRlbu() {
         this.cellRangePathAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.CELL_RANGE_PATH,
+                        SpreadsheetDeltaHttps.CELL_RANGE_PATH,
                         Lists.of(
                                 "rlbu"
                         )
@@ -129,7 +129,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                        final Optional<SpreadsheetCellRangeReferencePath> expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.cellRangePath(
+                SpreadsheetDeltaHttps.cellRangePath(
                         parameters
                 ),
                 () -> parameters.toString()
@@ -142,7 +142,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testDeltaPropertiesNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.deltaProperties(
+                () -> SpreadsheetDeltaHttps.deltaProperties(
                         null
                 )
         );
@@ -160,7 +160,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testDeltaPropertiesEmpty() {
         this.deltaPropertiesAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                        SpreadsheetDeltaHttps.DELTA_PROPERTIES,
                         Lists.empty()
                 ),
                 SpreadsheetDeltaProperties.ALL
@@ -171,7 +171,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testDeltaPropertiesAll() {
         this.deltaPropertiesAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                        SpreadsheetDeltaHttps.DELTA_PROPERTIES,
                         Lists.of("*")
                 ),
                 SpreadsheetDeltaProperties.ALL
@@ -182,7 +182,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testDeltaPropertiesPresent() {
         this.deltaPropertiesAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.DELTA_PROPERTIES,
+                        SpreadsheetDeltaHttps.DELTA_PROPERTIES,
                         Lists.of("cells,labels,column-count")
                 ),
                 Sets.of(
@@ -197,7 +197,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                          final Set<SpreadsheetDeltaProperties> expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.deltaProperties(
+                SpreadsheetDeltaHttps.deltaProperties(
                         parameters
                 ),
                 () -> parameters.toString()
@@ -210,7 +210,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.max(
+                () -> SpreadsheetDeltaHttps.max(
                         null
                 )
         );
@@ -220,9 +220,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxNegativeFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.max(
+                () -> SpreadsheetDeltaHttps.max(
                         Maps.of(
-                                SpreadsheetEngineHttps.MAX,
+                                SpreadsheetDeltaHttps.MAX,
                                 Lists.of("-1")
                         )
                 )
@@ -233,9 +233,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxDecimalPointFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.max(
+                () -> SpreadsheetDeltaHttps.max(
                         Maps.of(
-                                SpreadsheetEngineHttps.MAX,
+                                SpreadsheetDeltaHttps.MAX,
                                 Lists.of("23.0")
                         )
                 )
@@ -253,7 +253,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxEmpty() {
         this.maxAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.MAX,
+                        SpreadsheetDeltaHttps.MAX,
                         Lists.of()
                 )
         );
@@ -263,7 +263,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxZero() {
         this.maxAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.MAX,
+                        SpreadsheetDeltaHttps.MAX,
                         Lists.of(
                                 "0"
                         )
@@ -276,7 +276,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testMaxOne() {
         this.maxAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.MAX,
+                        SpreadsheetDeltaHttps.MAX,
                         Lists.of(
                                 "1"
                         )
@@ -304,7 +304,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                              final Optional<Integer> expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.max(
+                SpreadsheetDeltaHttps.max(
                         parameters
                 ),
                 () -> parameters.toString()
@@ -317,7 +317,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.offset(
+                () -> SpreadsheetDeltaHttps.offset(
                         null
                 )
         );
@@ -327,9 +327,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetNegativeFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.offset(
+                () -> SpreadsheetDeltaHttps.offset(
                         Maps.of(
-                                SpreadsheetEngineHttps.OFFSET,
+                                SpreadsheetDeltaHttps.OFFSET,
                                 Lists.of("-1")
                         )
                 )
@@ -340,9 +340,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetDecimalPointFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.offset(
+                () -> SpreadsheetDeltaHttps.offset(
                         Maps.of(
-                                SpreadsheetEngineHttps.OFFSET,
+                                SpreadsheetDeltaHttps.OFFSET,
                                 Lists.of("23.0")
                         )
                 )
@@ -360,7 +360,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetEmpty() {
         this.offsetAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.OFFSET,
+                        SpreadsheetDeltaHttps.OFFSET,
                         Lists.of()
                 )
         );
@@ -370,7 +370,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetZero() {
         this.offsetAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.OFFSET,
+                        SpreadsheetDeltaHttps.OFFSET,
                         Lists.of(
                                 "0"
                         )
@@ -383,7 +383,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testOffsetOne() {
         this.offsetAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.OFFSET,
+                        SpreadsheetDeltaHttps.OFFSET,
                         Lists.of(
                                 "1"
                         )
@@ -411,7 +411,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                 final Optional<Integer> expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.offset(
+                SpreadsheetDeltaHttps.offset(
                         parameters
                 ),
                 () -> parameters.toString()
@@ -424,7 +424,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testQueryNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.query(
+                () -> SpreadsheetDeltaHttps.query(
                         null,
                         SpreadsheetEngineContexts.fake()
                 )
@@ -435,7 +435,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testQueryNullContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.query(
+                () -> SpreadsheetDeltaHttps.query(
                         Maps.empty(),
                         null
                 )
@@ -464,7 +464,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.queryAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.QUERY,
+                        SpreadsheetDeltaHttps.QUERY,
                         Lists.of(query)
                 ),
                 new FakeSpreadsheetEngineContext() {
@@ -500,7 +500,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                final Optional<Expression> expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.query(
+                SpreadsheetDeltaHttps.query(
                         parameters,
                         context
                 ),
@@ -556,7 +556,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                              final SpreadsheetEngineContext context) {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.window(
+                () -> SpreadsheetDeltaHttps.window(
                         parameters,
                         delta,
                         engine,
@@ -569,9 +569,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testWindowHomeMissingHomeFails() {
         this.windowFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("111"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("111"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
                 ),
                 "Missing: home"
         );
@@ -581,9 +581,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testWindowHomeMissingWidthFails() {
         this.windowFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
                 ),
                 "Missing: width"
         );
@@ -593,9 +593,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testWindowHomeMissingHeightFails() {
         this.windowFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("22"),
-                        SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("22"),
+                        SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
                 ),
                 "Missing: height"
         );
@@ -606,7 +606,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testWindowHomeMissingWidthHeightIncludeFails() {
         this.windowFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1")
                 ),
                 "Missing: width, height, includeFrozenColumnsRows"
         );
@@ -616,7 +616,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                              final String expected) {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.window(
+                () -> SpreadsheetDeltaHttps.window(
                         parameters,
                         Optional.empty(),
                         SpreadsheetEngines.fake(),
@@ -635,10 +635,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.windowAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("B2"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("111"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("222"),
-                        SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("B2"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("111"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("222"),
+                        SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false")
                 ),
                 Optional.empty(),
                 new FakeSpreadsheetEngine() {
@@ -666,10 +666,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.windowAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("B2"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("111"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("222"),
-                        SpreadsheetEngineHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("B2"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("111"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("222"),
+                        SpreadsheetDeltaHttps.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true")
                 ),
                 Optional.empty(),
                 new FakeSpreadsheetEngine() {
@@ -697,7 +697,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.windowAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows)
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows)
                 ),
                 Optional.empty(),
                 SpreadsheetEngines.fake(),
@@ -712,8 +712,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.windowAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows),
-                        SpreadsheetEngineHttps.HOME, Lists.of("Z1")
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows),
+                        SpreadsheetDeltaHttps.HOME, Lists.of("Z1")
                 ),
                 Optional.empty(),
                 SpreadsheetEngines.fake(),
@@ -728,10 +728,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
 
         this.windowAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.WINDOW, Lists.of(windows),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
+                        SpreadsheetDeltaHttps.WINDOW, Lists.of(windows),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("row"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("3"),
+                        SpreadsheetDeltaHttps.NAVIGATION, Lists.of("left column")
                 ),
                 Optional.empty(),
                 SpreadsheetEngines.fake(),
@@ -747,7 +747,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                 final SpreadsheetViewportWindows expected) {
         this.checkEquals(
                 expected,
-                SpreadsheetEngineHttps.window(
+                SpreadsheetDeltaHttps.window(
                         parameters,
                         delta,
                         engine,
@@ -762,7 +762,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetEngineHttps.viewport(
+                () -> SpreadsheetDeltaHttps.viewport(
                         null, // parameters
                         false // includeNavigations
                 )
@@ -780,8 +780,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportMissingHomeFails() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("1"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("1")
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("1"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("1")
                 ),
                 "Missing: home"
         );
@@ -791,8 +791,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportMissingWidthFails() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("1")
                 ),
                 "Missing: width"
         );
@@ -802,8 +802,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportMissingHeightFails() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("1")
                 ),
                 "Missing: height"
         );
@@ -813,9 +813,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportNoSelection() {
         this.viewportAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A123"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A123"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22")
                 ),
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
@@ -827,10 +827,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionMissingHome() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("1"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("2"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("A1")
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("1"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("2"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("A1")
                 ),
                 "Missing: home"
         );
@@ -840,10 +840,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionMissingWidth() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("1"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("A1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("1"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("A1")
                 ),
                 "Missing: width"
         );
@@ -853,10 +853,10 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionMissingHeight() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("1"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("A1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("1"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("A1")
                 ),
                 "Missing: height"
         );
@@ -866,9 +866,9 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionMissingWidthHeight() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A1"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("A1")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A1"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("A1")
                 ),
                 "Missing: width, height"
         );
@@ -878,8 +878,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionMissingHomeWidthHeight() {
         this.viewportFails(
                 Maps.of(
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("cell"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("A1")
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("cell"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("A1")
                 ),
                 "Missing: home, width, height"
         );
@@ -889,11 +889,11 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelection() {
         this.viewportAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A123"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("column"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("B")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A123"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("column"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("B")
                 ),
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
@@ -911,11 +911,11 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportSelectionAnchorDefaulted() {
         this.viewportAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A123"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("column"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("B")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A123"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("column"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("B")
                 ),
                 SpreadsheetSelection.parseCell("A123")
                         .viewportRectangle(11, 22)
@@ -933,12 +933,12 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     public void testViewportNavigation() {
         this.viewportAndCheck(
                 Maps.of(
-                        SpreadsheetEngineHttps.HOME, Lists.of("A123"),
-                        SpreadsheetEngineHttps.WIDTH, Lists.of("11"),
-                        SpreadsheetEngineHttps.HEIGHT, Lists.of("22"),
-                        SpreadsheetEngineHttps.SELECTION_TYPE, Lists.of("row"),
-                        SpreadsheetEngineHttps.SELECTION, Lists.of("3"),
-                        SpreadsheetEngineHttps.NAVIGATION, Lists.of("left column")
+                        SpreadsheetDeltaHttps.HOME, Lists.of("A123"),
+                        SpreadsheetDeltaHttps.WIDTH, Lists.of("11"),
+                        SpreadsheetDeltaHttps.HEIGHT, Lists.of("22"),
+                        SpreadsheetDeltaHttps.SELECTION_TYPE, Lists.of("row"),
+                        SpreadsheetDeltaHttps.SELECTION, Lists.of("3"),
+                        SpreadsheetDeltaHttps.NAVIGATION, Lists.of("left column")
                 ),
                 true, // includeNavigation
                 SpreadsheetSelection.parseCell("A123")
@@ -971,7 +971,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                final String expected) {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetEngineHttps.viewport(
+                () -> SpreadsheetDeltaHttps.viewport(
                         parameters,
                         includeNavigation
                 )
@@ -1023,7 +1023,7 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
                                   final Optional<SpreadsheetViewport> viewport) {
         this.checkEquals(
                 viewport,
-                SpreadsheetEngineHttps.viewport(
+                SpreadsheetDeltaHttps.viewport(
                         parameters,
                         includeNavigation
                 )
@@ -1035,8 +1035,8 @@ public final class SpreadsheetEngineHttpsTest implements ClassTesting2<Spreadshe
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetEngineHttps> type() {
-        return SpreadsheetEngineHttps.class;
+    public Class<SpreadsheetDeltaHttps> type() {
+        return SpreadsheetDeltaHttps.class;
     }
 
     @Override

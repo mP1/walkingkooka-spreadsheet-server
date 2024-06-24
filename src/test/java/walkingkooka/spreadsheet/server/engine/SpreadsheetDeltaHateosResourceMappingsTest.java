@@ -530,15 +530,15 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.cell(
-                        SpreadsheetEngineHttps.fillCells(engine, context),
-                        SpreadsheetEngineHttps.findCells(DEFAULT_MAX, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHttps.saveCell(engine, context),
-                        SpreadsheetEngineHttps.deleteCell(engine, context),
-                        SpreadsheetEngineHttps.sortCells(engine, context),
+                        SpreadsheetDeltaHttps.fillCells(engine, context),
+                        SpreadsheetDeltaHttps.findCells(DEFAULT_MAX, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
+                        SpreadsheetDeltaHttps.saveCell(engine, context),
+                        SpreadsheetDeltaHttps.deleteCell(engine, context),
+                        SpreadsheetDeltaHttps.sortCells(engine, context),
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
@@ -559,15 +559,15 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngineContext context = this.engineContext();
         return this.route(
                 SpreadsheetDeltaHateosResourceMappings.cell(
-                        SpreadsheetEngineHttps.fillCells(engine, context),
-                        SpreadsheetEngineHttps.findCells(DEFAULT_MAX, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
-                        SpreadsheetEngineHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
-                        SpreadsheetEngineHttps.saveCell(engine, context),
-                        SpreadsheetEngineHttps.deleteCell(engine, context),
-                        SpreadsheetEngineHttps.sortCells(engine, context),
+                        SpreadsheetDeltaHttps.fillCells(engine, context),
+                        SpreadsheetDeltaHttps.findCells(DEFAULT_MAX, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.FORCE_RECOMPUTE, engine, context),
+                        SpreadsheetDeltaHttps.loadCell(SpreadsheetEngineEvaluation.SKIP_EVALUATE, engine, context),
+                        SpreadsheetDeltaHttps.saveCell(engine, context),
+                        SpreadsheetDeltaHttps.deleteCell(engine, context),
+                        SpreadsheetDeltaHttps.sortCells(engine, context),
                         (e) -> context.storeRepository()
                                 .labels()
                                 .cellReferenceOrRangeOrFail(e)
@@ -894,10 +894,10 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.column(
-                        SpreadsheetEngineHttps.clearColumns(engine, context),
-                        SpreadsheetEngineHttps.deleteColumns(engine, context),
-                        SpreadsheetEngineHttps.insertAfterColumns(engine, context),
-                        SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
+                        SpreadsheetDeltaHttps.clearColumns(engine, context),
+                        SpreadsheetDeltaHttps.deleteColumns(engine, context),
+                        SpreadsheetDeltaHttps.insertAfterColumns(engine, context),
+                        SpreadsheetDeltaHttps.insertBeforeColumns(engine, context)
                 ),
                 method,
                 url,
@@ -916,10 +916,10 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                 thcolumnn,
                 () -> this.route(
                         SpreadsheetDeltaHateosResourceMappings.column(
-                                SpreadsheetEngineHttps.clearColumns(engine, context),
-                                SpreadsheetEngineHttps.deleteColumns(engine, context),
-                                SpreadsheetEngineHttps.insertAfterColumns(engine, context),
-                                SpreadsheetEngineHttps.insertBeforeColumns(engine, context)
+                                SpreadsheetDeltaHttps.clearColumns(engine, context),
+                                SpreadsheetDeltaHttps.deleteColumns(engine, context),
+                                SpreadsheetDeltaHttps.insertAfterColumns(engine, context),
+                                SpreadsheetDeltaHttps.insertBeforeColumns(engine, context)
                         ),
                         method,
                         url,
@@ -1072,10 +1072,10 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngineContext context = this.engineContext();
         this.routeAndCheck(
                 SpreadsheetDeltaHateosResourceMappings.row(
-                        SpreadsheetEngineHttps.clearRows(engine, context),
-                        SpreadsheetEngineHttps.deleteRows(engine, context),
-                        SpreadsheetEngineHttps.insertAfterRows(engine, context),
-                        SpreadsheetEngineHttps.insertBeforeRows(engine, context)
+                        SpreadsheetDeltaHttps.clearRows(engine, context),
+                        SpreadsheetDeltaHttps.deleteRows(engine, context),
+                        SpreadsheetDeltaHttps.insertAfterRows(engine, context),
+                        SpreadsheetDeltaHttps.insertBeforeRows(engine, context)
                 ),
                 method,
                 url,
@@ -1094,10 +1094,10 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                 thrown,
                 () -> this.route(
                         SpreadsheetDeltaHateosResourceMappings.row(
-                                SpreadsheetEngineHttps.clearRows(engine, context),
-                                SpreadsheetEngineHttps.deleteRows(engine, context),
-                                SpreadsheetEngineHttps.insertAfterRows(engine, context),
-                                SpreadsheetEngineHttps.insertBeforeRows(engine, context)
+                                SpreadsheetDeltaHttps.clearRows(engine, context),
+                                SpreadsheetDeltaHttps.deleteRows(engine, context),
+                                SpreadsheetDeltaHttps.insertAfterRows(engine, context),
+                                SpreadsheetDeltaHttps.insertBeforeRows(engine, context)
                         ),
                         method,
                         url,

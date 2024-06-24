@@ -87,7 +87,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetDelta out) {
-        return SpreadsheetEngineHttps.prepareResponse(
+        return SpreadsheetDeltaHttps.prepareResponse(
                 in,
                 parameters,
                 out,
@@ -102,7 +102,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     final Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final Optional<SpreadsheetDelta> delta,
                                                  final boolean includeNavigation) {
-        Optional<SpreadsheetViewport> viewport = SpreadsheetEngineHttps.viewport(
+        Optional<SpreadsheetViewport> viewport = SpreadsheetDeltaHttps.viewport(
                 parameters,
                 includeNavigation
         );
