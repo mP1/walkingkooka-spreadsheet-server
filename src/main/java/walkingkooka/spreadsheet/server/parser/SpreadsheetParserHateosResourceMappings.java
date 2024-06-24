@@ -45,13 +45,16 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
 
         HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet,
                 SpreadsheetParserInfo> parser = HateosResourceMapping.with(
-                        PARSER,
-                        SpreadsheetParserHateosResourceMappings::parseParserSelection,
-                        SpreadsheetParserInfo.class, // valueType
-                        SpreadsheetParserInfoSet.class, // collectionType
-                        SpreadsheetParserInfo.class// resourceType
-                )
-                .set(LinkRelation.SELF, HttpMethod.GET, SpreadsheetParserInfoHateosResourceHandler.with(context));
+                PARSER,
+                SpreadsheetParserHateosResourceMappings::parseParserSelection,
+                SpreadsheetParserInfo.class, // valueType
+                SpreadsheetParserInfoSet.class, // collectionType
+                SpreadsheetParserInfo.class// resourceType
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                SpreadsheetParserInfoHateosResourceHandler.with(context)
+        );
 
         return parser;
     }

@@ -45,13 +45,16 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
 
         HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet,
                 SpreadsheetFormatterInfo> formatter = HateosResourceMapping.with(
-                        FORMATTER,
-                        SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
-                        SpreadsheetFormatterInfo.class, // valueType
-                        SpreadsheetFormatterInfoSet.class, // collectionType
-                        SpreadsheetFormatterInfo.class// resourceType
-                )
-                .set(LinkRelation.SELF, HttpMethod.GET, SpreadsheetFormatterInfoHateosResourceHandler.with(context));
+                FORMATTER,
+                SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
+                SpreadsheetFormatterInfo.class, // valueType
+                SpreadsheetFormatterInfoSet.class, // collectionType
+                SpreadsheetFormatterInfo.class// resourceType
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                SpreadsheetFormatterInfoHateosResourceHandler.with(context)
+        );
 
         return formatter;
     }

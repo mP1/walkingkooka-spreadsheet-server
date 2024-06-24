@@ -45,13 +45,16 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
 
         HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet,
                 SpreadsheetComparatorInfo> comparator = HateosResourceMapping.with(
-                        COMPARATOR,
-                        SpreadsheetComparatorsHateosResourceMappings::parseComparatorSelection,
-                        SpreadsheetComparatorInfo.class, // valueType
-                        SpreadsheetComparatorInfoSet.class, // collectionType
-                        SpreadsheetComparatorInfo.class// resourceType
-                )
-                .set(LinkRelation.SELF, HttpMethod.GET, SpreadsheetComparatorInfoHateosResourceHandler.with(context));
+                COMPARATOR,
+                SpreadsheetComparatorsHateosResourceMappings::parseComparatorSelection,
+                SpreadsheetComparatorInfo.class, // valueType
+                SpreadsheetComparatorInfoSet.class, // collectionType
+                SpreadsheetComparatorInfo.class// resourceType
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                SpreadsheetComparatorInfoHateosResourceHandler.with(context)
+        );
 
         return comparator;
     }

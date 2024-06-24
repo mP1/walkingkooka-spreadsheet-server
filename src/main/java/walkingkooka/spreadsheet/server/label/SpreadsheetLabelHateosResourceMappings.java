@@ -47,9 +47,19 @@ public final class SpreadsheetLabelHateosResourceMappings implements PublicStati
                 SpreadsheetLabelMapping.class,
                 SpreadsheetLabelMapping.class,
                 SpreadsheetLabelMapping.class)
-                .set(METADATA_LINK_RELATION, HttpMethod.DELETE, delete)
-                .set(METADATA_LINK_RELATION, HttpMethod.GET, load)
-                .set(METADATA_LINK_RELATION, HttpMethod.POST, saveOrUpdate);
+                .setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.DELETE,
+                        delete
+                ).setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.GET,
+                        load
+                ).setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.POST,
+                        saveOrUpdate
+                );
     }
 
     /**

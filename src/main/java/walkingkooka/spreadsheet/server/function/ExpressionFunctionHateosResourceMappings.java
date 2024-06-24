@@ -51,7 +51,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                         ExpressionFunctionInfoSet.class, // collectionType
                         ExpressionFunctionInfo.class// resourceType
                 )
-                .set(
+                .setHateosResourceHandler(
                         LinkRelation.SELF,
                         HttpMethod.GET,
                         ExpressionFunctionInfoHateosResourceHandler.with(context)
