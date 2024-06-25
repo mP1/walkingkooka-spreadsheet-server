@@ -45,6 +45,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -100,9 +101,9 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                                  final HateosContentType hateosContentType,
                                                  final SpreadsheetEngineContext context) {
         super();
-        this.engine = engine;
-        this.hateosContentType = hateosContentType;
-        this.context = context;
+        this.engine = Objects.requireNonNull(engine, "engine");
+        this.hateosContentType = Objects.requireNonNull(hateosContentType, "hateosContentType");
+        this.context = Objects.requireNonNull(context, "context");
     }
 
     @Override
