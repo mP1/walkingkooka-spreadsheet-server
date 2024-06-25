@@ -59,6 +59,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
         S extends SpreadsheetSelection & Comparable<S>,
         R extends SpreadsheetSelection & Comparable<R>> implements
@@ -91,6 +93,14 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             return Optional.of(viewport);
         }
     };
+
+    private final static HateosContentType HATEOS_CONTENT_TYPE = HateosContentType.json(
+            JsonNodeUnmarshallContexts.basic(
+                    ExpressionNumberKind.BIG_DECIMAL,
+                    MathContext.DECIMAL32
+            ),
+            JsonNodeMarshallContexts.basic()
+    );
 
     final static SpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
 
@@ -133,6 +143,46 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         }
     };
 
+    // with.............................................................................................................
+
+    @Test
+    public final void testWithNullSpreadsheetEngineFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHandler(
+                        null,
+                        HATEOS_CONTENT_TYPE,
+                        CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public final void testWithNullHateosContentTypeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHandler(
+                        ENGINE,
+                        null,
+                        CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public final void testWithNullSpreadsheetEngineContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createHandler(
+                        ENGINE,
+                        HATEOS_CONTENT_TYPE,
+                        null
+                )
+        );
+    }
+
+    // handleXXX........................................................................................................
+
     @Test
     public final void testHandleAllFails() {
         this.handleAllFails(
@@ -173,13 +223,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
                           final SpreadsheetEngineContext context) {
         return this.createHandler(
                 engine,
-                HateosContentType.json(
-                        JsonNodeUnmarshallContexts.basic(
-                                ExpressionNumberKind.BIG_DECIMAL,
-                                MathContext.DECIMAL32
-                        ),
-                        JsonNodeMarshallContexts.basic()
-                ),
+                HATEOS_CONTENT_TYPE,
                 context
         );
     }
