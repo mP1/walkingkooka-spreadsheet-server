@@ -87,7 +87,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetDelta out) {
-        return SpreadsheetDeltaHttps.prepareResponse(
+        return SpreadsheetDeltaHateosResourceMappings.prepareResponse(
                 in,
                 parameters,
                 out,

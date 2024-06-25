@@ -104,7 +104,7 @@ abstract class SpreadsheetDeltaPatchFunction<S extends SpreadsheetSelection> imp
                         );
 
         // honour any window or "query" url query parameters.
-        final SpreadsheetDelta prepareResponse = SpreadsheetDeltaHttps.prepareResponse(
+        final SpreadsheetDelta prepareResponse = SpreadsheetDeltaHateosResourceMappings.prepareResponse(
                 Optional.empty(), // no input SpreadsheetDelta
                 this.request.routerParameters(),
                 saved,

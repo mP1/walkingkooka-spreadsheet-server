@@ -188,7 +188,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                         );
 
         // honour any window or "query" url query parameters.
-        final SpreadsheetDelta prepareResponse = SpreadsheetDeltaHttps.prepareResponse(
+        final SpreadsheetDelta prepareResponse = SpreadsheetDeltaHateosResourceMappings.prepareResponse(
                 Optional.empty(), // no input SpreadsheetDelta
                 parameters,
                 saved,

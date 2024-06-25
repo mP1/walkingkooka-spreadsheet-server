@@ -22,22 +22,11 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
-import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
-import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
-import walkingkooka.net.http.server.HttpHandlers;
-import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.HttpRequestAttributeRouting;
-import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosContentType;
-import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -51,7 +40,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -74,7 +62,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHateosResourceMappings;
-import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttps;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
@@ -97,7 +84,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -337,19 +323,12 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 this.now
         );
 
-        final AbsoluteUrl base = this.base;
-        final UrlPath spreadsheetIdPath = base.path().
-                append(UrlPathName.with(id.hateosLinkId()));
-
-        return patchRouter(spreadsheetIdPath, this.contentType.contentType(), engine, context)
-                .then(
-                        this.cellColumnProvidersRowViewportRouter(
+        return this.cellColumnProvidersRowViewportRouter(
                                 id,
                                 100, // defaultMax
                                 engine,
                                 context
-                        )
-                );
+        );
     }
 
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
@@ -360,15 +339,20 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                                                                                               final int defaultMax,
                                                                                               final SpreadsheetEngine engine,
                                                                                               final SpreadsheetEngineContext context) {
-        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = cell(
-                defaultMax,
+        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell = SpreadsheetDeltaHateosResourceMappings.cell(
                 engine,
+                this.contentType,
+                defaultMax,
                 context
         );
 
-        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = cellReference(context);
+        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference = SpreadsheetDeltaHateosResourceMappings.cellReference(context);
 
-        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = column(engine, context);
+        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column = SpreadsheetDeltaHateosResourceMappings.column(
+                engine,
+                this.contentType,
+                context
+        );
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo> comparator = SpreadsheetComparatorsHateosResourceMappings.comparator(context);
 
@@ -379,16 +363,29 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
         final SpreadsheetLabelStore labelStore = context.storeRepository()
                 .labels();
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = SpreadsheetLabelHateosResourceMappings.with(labelStore);
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> label = SpreadsheetLabelHateosResourceMappings.with(
+                labelStore
+        );
 
         final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo> parser = SpreadsheetParserHateosResourceMappings.parser(context);
-        
-        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = row(engine, context);
+
+        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row = SpreadsheetDeltaHateosResourceMappings.row(
+                engine,
+                this.contentType,
+                context
+        );
 
         final AbsoluteUrl base = this.base;
 
         return HateosResourceMapping.router(
-                base.setPath(base.path().append(UrlPathName.with(id.toString()))),
+                base.setPath(
+                        base.path()
+                                .append(
+                                        UrlPathName.with(
+                                                id.toString()
+                                        )
+                                )
+                ),
                 this.contentTypeFactory.apply(
                         context.spreadsheetMetadata(),
                         labelStore
@@ -406,238 +403,6 @@ final class BasicSpreadsheetContext implements SpreadsheetContext {
                 ),
                 this.indentation,
                 this.lineEnding
-        );
-    }
-
-    private static HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell> cell(final int defaultMax,
-                                                                                                                             final SpreadsheetEngine engine,
-                                                                                                                             final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> fillCells = SpreadsheetDeltaHttps.fillCells(engine, context);
-
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> findCells = SpreadsheetDeltaHttps.findCells(
-                defaultMax,
-                engine,
-                context
-        );
-
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellClearValueErrorSkipEvaluate = SpreadsheetDeltaHttps.loadCell(
-                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
-                engine,
-                context
-        );
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellSkipEvaluate = SpreadsheetDeltaHttps.loadCell(
-                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
-                engine,
-                context
-        );
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellForceRecompute = SpreadsheetDeltaHttps.loadCell(
-                SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
-                engine,
-                context
-        );
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> loadCellComputeIfNecessary = SpreadsheetDeltaHttps.loadCell(
-                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-                engine,
-                context
-        );
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> saveCell = SpreadsheetDeltaHttps.saveCell(engine, context);
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> deleteCell = SpreadsheetDeltaHttps.deleteCell(engine, context);
-        final HateosResourceHandler<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta> sortCell = SpreadsheetDeltaHttps.sortCells(engine, context);
-
-        return SpreadsheetDeltaHateosResourceMappings.cell(
-                fillCells,
-                findCells,
-                loadCellClearValueErrorSkipEvaluate,
-                loadCellSkipEvaluate,
-                loadCellForceRecompute,
-                loadCellComputeIfNecessary,
-                saveCell,
-                deleteCell,
-                sortCell,
-                (e) -> context.storeRepository()
-                        .labels()
-                        .cellReferenceOrRangeOrFail(e)
-                        .toCell()
-        );
-    }
-
-    // patch............................................................................................................
-
-    private static Router<HttpRequestAttribute<?>, HttpHandler> patchRouter(final UrlPath spreadsheetId,
-                                                                            final MediaType contentType,
-                                                                            final SpreadsheetEngine engine,
-                                                                            final SpreadsheetEngineContext context) {
-        return RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
-                .add(
-                        patchCellRouterPredicates(spreadsheetId),
-                        (request, response) -> patchCellHandler(request, response, contentType, engine, context)
-                )
-                .add(
-                        patchColumnRouterPredicates(spreadsheetId),
-                        (request, response) -> patchColumnHandler(request, response, contentType, engine, context)
-                )
-                .add(
-                        patchRowRouterPredicates(spreadsheetId),
-                        (request, response) -> patchRowHandler(request, response, contentType, engine, context)
-                )
-                .router();
-    }
-
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchCellRouterPredicates(final UrlPath path) {
-        return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(path.append(CELL))
-                .build();
-    }
-
-    private final static UrlPathName CELL = UrlPathName.with("cell");
-
-    private static void patchCellHandler(final HttpRequest request,
-                                         final HttpResponse response,
-                                         final MediaType contentType,
-                                         final SpreadsheetEngine engine,
-                                         final SpreadsheetEngineContext context) {
-        // PATCH
-        // content type = JSON
-        HttpHandlers.methodNotAllowed(
-                HttpMethod.PATCH,
-                HttpHandlers.contentType(
-                        contentType,
-                        JsonHttpHandlers.json(
-                                (json) -> SpreadsheetDeltaHttps.patchCell(
-                                        request,
-                                        engine,
-                                        context
-                                ).apply(json),
-                                BasicSpreadsheetContext::patchPost
-                        )
-                )
-        ).handle(
-                request,
-                response
-        );
-    }
-
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchColumnRouterPredicates(final UrlPath path) {
-        return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(path.append(COLUMN))
-                .build();
-    }
-
-    private final static UrlPathName COLUMN = UrlPathName.with("column");
-
-    private static void patchColumnHandler(final HttpRequest request,
-                                           final HttpResponse response,
-                                           final MediaType contentType,
-                                           final SpreadsheetEngine engine,
-                                           final SpreadsheetEngineContext context) {
-        // PATCH
-        // content type = JSON
-        HttpHandlers.methodNotAllowed(
-                HttpMethod.PATCH,
-                HttpHandlers.contentType(
-                        contentType,
-                        JsonHttpHandlers.json(
-                                (json) -> SpreadsheetDeltaHttps.patchColumn(
-                                        request,
-                                        engine,
-                                        context
-                                ).apply(json),
-                                BasicSpreadsheetContext::patchPost
-                        )
-                )
-        ).handle(
-                request,
-                response
-        );
-    }
-
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRowRouterPredicates(final UrlPath path) {
-        return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(path.append(ROW))
-                .build();
-    }
-
-    private final static UrlPathName ROW = UrlPathName.with("row");
-
-    private static void patchRowHandler(final HttpRequest request,
-                                        final HttpResponse response,
-                                        final MediaType contentType,
-                                        final SpreadsheetEngine engine,
-                                        final SpreadsheetEngineContext context) {
-        // PATCH
-        // content type = JSON
-        HttpHandlers.methodNotAllowed(
-                HttpMethod.PATCH,
-                HttpHandlers.contentType(
-                        contentType,
-                        JsonHttpHandlers.json(
-                                (json) -> SpreadsheetDeltaHttps.patchRow(
-                                        request,
-                                        engine,
-                                        context
-                                ).apply(json),
-                                BasicSpreadsheetContext::patchPost
-                        )
-                )
-        ).handle(
-                request,
-                response
-        );
-    }
-
-    private static HttpEntity patchPost(final HttpEntity response) {
-        return response.addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetDelta.class.getSimpleName()
-        );
-    }
-
-    // cell reference...................................................................................................
-
-    private static HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> cellReference(final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities> findSimilarities = SpreadsheetDeltaHttps.findSimilarities(context);
-
-        return SpreadsheetDeltaHateosResourceMappings.cellReference(
-                findSimilarities
-        );
-    }
-
-    private static HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn> column(final SpreadsheetEngine engine,
-                                                                                                                                   final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> clearColumns = SpreadsheetDeltaHttps.clearColumns(engine, context);
-
-        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> deleteColumns = SpreadsheetDeltaHttps.deleteColumns(engine, context);
-
-        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterColumns = SpreadsheetDeltaHttps.insertAfterColumns(engine, context);
-        final HateosResourceHandler<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeColumns = SpreadsheetDeltaHttps.insertBeforeColumns(engine, context);
-
-        return SpreadsheetDeltaHateosResourceMappings.column(
-                clearColumns,
-                deleteColumns,
-                insertAfterColumns,
-                insertBeforeColumns
-        );
-    }
-
-    // row..............................................................................................................
-
-    private static HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow> row(final SpreadsheetEngine engine,
-                                                                                                                          final SpreadsheetEngineContext context) {
-        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> clearRows = SpreadsheetDeltaHttps.clearRows(engine, context);
-
-        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> deleteRows = SpreadsheetDeltaHttps.deleteRows(engine, context);
-
-        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertAfterRows = SpreadsheetDeltaHttps.insertAfterRows(engine, context);
-        final HateosResourceHandler<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta> insertBeforeRows = SpreadsheetDeltaHttps.insertBeforeRows(engine, context);
-
-        return SpreadsheetDeltaHateosResourceMappings.row(
-                clearRows,
-                deleteRows,
-                insertAfterRows,
-                insertBeforeRows
         );
     }
 
