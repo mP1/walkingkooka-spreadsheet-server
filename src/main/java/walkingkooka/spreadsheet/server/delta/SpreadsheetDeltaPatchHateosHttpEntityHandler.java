@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
@@ -291,8 +292,11 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     private HttpEntity marshallResponse(final SpreadsheetDelta response,
                                         final SpreadsheetMetadata metadata) {
         return HttpEntity.EMPTY
-                .addHeader(HttpHeaderName.CONTENT_TYPE, hateosContentType.contentType())
-                .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
+                .addHeader(
+                        HttpHeaderName.CONTENT_TYPE,
+                        this.hateosContentType.contentType()
+                                .setCharset(CharsetName.UTF_8)
+                ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                 .setBodyText(
                         metadata.jsonNodeMarshallContext()
                                 .marshall(
