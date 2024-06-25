@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
@@ -291,12 +292,13 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                         final SpreadsheetMetadata metadata) {
         return HttpEntity.EMPTY
                 .addHeader(HttpHeaderName.CONTENT_TYPE, hateosContentType.contentType())
+                .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                 .setBodyText(
                         metadata.jsonNodeMarshallContext()
                                 .marshall(
                                         response
                                 ).toString()
-                );
+                ).setContentLength();
     }
 
     final SpreadsheetEngine engine;

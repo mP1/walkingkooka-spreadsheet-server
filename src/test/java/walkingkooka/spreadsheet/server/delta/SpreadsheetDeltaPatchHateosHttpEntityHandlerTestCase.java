@@ -30,6 +30,7 @@ import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -235,7 +236,8 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     final HttpEntity httpEntity(final SpreadsheetDelta delta) {
         return this.httpEntity(
                 this.marshall(delta)
-        );
+                ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
+                .setContentLength();
     }
 
     final String marshall(final SpreadsheetDelta delta) {
