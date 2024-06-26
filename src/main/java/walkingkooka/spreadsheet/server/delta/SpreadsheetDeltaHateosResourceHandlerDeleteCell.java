@@ -20,11 +20,13 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -33,56 +35,63 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#deleteCells(SpreadsheetSelection, SpreadsheetEngineContext)}.
  * Deleting more than one cell is not supported.
  */
-final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetDeltaHateosResourceHandler2<SpreadsheetCellReference> {
+final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
+        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteCell(final SpreadsheetEngine engine,
-                                                            final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteCell(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
 
         return deleteCells(
                 resource,
                 parameters,
-                cell
+                cell,
+                context
         );
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> rangeOfCells,
                                                   final Optional<SpreadsheetDelta> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return deleteCells(
                 resource,
                 parameters,
-                SpreadsheetSelection.cellRange(rangeOfCells)
+                SpreadsheetSelection.cellRange(rangeOfCells),
+                context
         );
     }
 
     private Optional<SpreadsheetDelta> deleteCells(final Optional<SpreadsheetDelta> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                   final SpreadsheetSelection cells) {
+                                                   final SpreadsheetSelection cells,
+                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.engine.deleteCells(
                                 cells,
-                                this.context
+                                context
                         )
                 )
         );

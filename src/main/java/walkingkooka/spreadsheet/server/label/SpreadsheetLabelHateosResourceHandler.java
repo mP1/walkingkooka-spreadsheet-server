@@ -17,59 +17,20 @@
 
 package walkingkooka.spreadsheet.server.label;
 
-import walkingkooka.collect.Range;
-import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+abstract class SpreadsheetLabelHateosResourceHandler implements HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> {
 
-abstract class SpreadsheetLabelHateosResourceHandler implements HateosResourceHandler<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping> {
-
-    static void checkStore(final SpreadsheetLabelStore store) {
-        Objects.requireNonNull(store, "store");
-    }
-
-    SpreadsheetLabelHateosResourceHandler(final SpreadsheetLabelStore store) {
+    SpreadsheetLabelHateosResourceHandler() {
         super();
-        this.store = store;
     }
-
-    @Override
-    public final Optional<SpreadsheetLabelMapping> handleAll(final Optional<SpreadsheetLabelMapping> resource,
-                                                             final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        return Optional.empty();
-    }
-
-    @Override
-    public final Optional<SpreadsheetLabelMapping> handleMany(final Set<SpreadsheetLabelName> ids,
-                                                              final Optional<SpreadsheetLabelMapping> resource,
-                                                              final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkManyIds(ids);
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        return Optional.empty();
-    }
-
-    @Override
-    public final Optional<SpreadsheetLabelMapping> handleRange(final Range<SpreadsheetLabelName> labels,
-                                                               final Optional<SpreadsheetLabelMapping> resource,
-                                                               final Map<HttpRequestAttribute<?>, Object> parameters) {
-        HateosResourceHandler.checkIdRange(labels);
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        return Optional.empty();
-    }
-
-    final SpreadsheetLabelStore store;
 }

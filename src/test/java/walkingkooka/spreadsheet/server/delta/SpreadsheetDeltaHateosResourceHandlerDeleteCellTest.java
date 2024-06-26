@@ -26,12 +26,13 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -58,12 +59,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
                                                 )
                                         );
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 this.id(),
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setDeletedCells(
@@ -90,12 +91,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
                                                 Sets.of(cell)
                                         );
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 range,
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setDeletedCells(
@@ -106,19 +107,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteCell createHandler(final SpreadsheetEngine engine,
-                                                                  final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteCell.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerDeleteCell createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteCell.with(engine);
     }
 
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
@@ -131,17 +126,24 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
         return SpreadsheetExpressionReference.parseCellRange("A1:B2").range();
     }
 
-    @Override public Optional<SpreadsheetDelta> resource() {
+    @Override
+    public Optional<SpreadsheetDelta> resource() {
         return Optional.empty();
     }
 
-    @Override public Optional<SpreadsheetDelta> collectionResource() {
+    @Override
+    public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override

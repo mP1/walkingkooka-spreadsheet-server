@@ -27,12 +27,13 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -230,28 +231,43 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final SpreadsheetDelta output,
                                          final SpreadsheetDelta expected) {
+        this.prepareResponseAndCheck(
+                input,
+                parameters,
+                SpreadsheetEngineHateosResourceHandlerContexts.fake(),
+                output,
+                expected
+        );
+    }
+    private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
+                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                         final SpreadsheetEngineHateosResourceHandlerContext context,
+                                         final SpreadsheetDelta output,
+                                         final SpreadsheetDelta expected) {
         final SpreadsheetDelta response = new SpreadsheetDeltaHateosResourceHandler<Integer>(
-                SpreadsheetEngines.fake(),
-                SpreadsheetEngineContexts.fake()
+                SpreadsheetEngines.fake()
         ) {
 
             @Override
             public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> optional,
-                                                        final Map<HttpRequestAttribute<?>, Object> map) {
+                                                        final Map<HttpRequestAttribute<?>, Object> map,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
             public Optional<SpreadsheetDelta> handleOne(final Integer integer,
                                                         final Optional<SpreadsheetDelta> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> map) {
+                                                        final Map<HttpRequestAttribute<?>, Object> map,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
             public Optional<SpreadsheetDelta> handleRange(final Range<Integer> range,
                                                           final Optional<SpreadsheetDelta> resource,
-                                                          final Map<HttpRequestAttribute<?>, Object> map) {
+                                                          final Map<HttpRequestAttribute<?>, Object> map,
+                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
 
@@ -262,6 +278,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
         }.prepareResponse(
                 input,
                 parameters,
+                context,
                 output
         );
 

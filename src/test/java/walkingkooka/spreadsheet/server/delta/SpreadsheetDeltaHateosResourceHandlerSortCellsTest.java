@@ -31,11 +31,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         SpreadsheetCellReference> {
 
     @Test
-    public void testOneMissingComparatorsParameter() {
+    public void testHandleOneMissingComparatorsParameter() {
         final SpreadsheetCellReference cell = SpreadsheetSelection.A1;
         final String comparators = "A=day-of-month";
 
@@ -69,18 +70,18 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                                 checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
-                        },
-                        SpreadsheetEngineContexts.fake()
+                        }
                 ),
                 cell, // reference
                 Optional.empty(), // resource
                 Maps.empty(), // missing COMPARATORS parameters
+                this.context(),
                 IllegalArgumentException.class
         );
     }
 
     @Test
-    public void testOne() {
+    public void testHandleOne() {
         final SpreadsheetCellReference cell = SpreadsheetSelection.A1;
         final String comparators = "A=day-of-month";
 
@@ -103,14 +104,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                                 checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
-                        },
-                        SpreadsheetEngineContexts.fake()
+                        }
                 ),
                 cell, // reference
                 Optional.empty(), // resource
                 Maps.of(
                         SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
                 ), // parameters
+                this.context(),
                 Optional.of(
                         delta
                 )
@@ -118,7 +119,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     }
 
     @Test
-    public void testRange() {
+    public void testHandleRange() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCell a1Cell = a1.setFormula(
                 SpreadsheetFormula.EMPTY.setText("=100")
@@ -152,14 +153,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                                 checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
-                        },
-                        SpreadsheetEngineContexts.fake()
+                        }
                 ),
                 cellRange.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
                         SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
                 ), // parameters
+                this.context(),
                 Optional.of(
                         delta
                 )
@@ -167,7 +168,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     }
 
     @Test
-    public void testAll() {
+    public void testHandleAll() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCell a1Cell = a1.setFormula(
                 SpreadsheetFormula.EMPTY.setText("=100")
@@ -200,13 +201,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                                 checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
                                 return delta;
                             }
-                        },
-                        SpreadsheetEngineContexts.fake()
+                        }
                 ),
                 Optional.empty(), // resource
                 Maps.of(
                         SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
                 ), // parameters
+                this.context(),
                 Optional.of(
                         delta
                 )
@@ -224,22 +225,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSortCells createHandler(final SpreadsheetEngine engine,
-                                                                 final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaHateosResourceHandlerSortCells createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                engine,
-                context
+                engine
         );
     }
 
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
@@ -268,8 +262,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         return Optional.empty();
     }
 
-    // ClassTesting.....................................................................................................
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    }
 
+    // ClassTesting.....................................................................................................
     @Override
     public Class<SpreadsheetDeltaHateosResourceHandlerSortCells> type() {
         return SpreadsheetDeltaHateosResourceHandlerSortCells.class;

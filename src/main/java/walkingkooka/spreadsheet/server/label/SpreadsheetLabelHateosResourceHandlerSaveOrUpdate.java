@@ -21,6 +21,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
 import java.util.Map;
@@ -31,47 +32,60 @@ import java.util.Optional;
  */
 final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdate extends SpreadsheetLabelHateosResourceHandler {
 
-    static SpreadsheetLabelHateosResourceHandlerSaveOrUpdate with(final SpreadsheetLabelStore store) {
-        checkStore(store);
+    final static SpreadsheetLabelHateosResourceHandlerSaveOrUpdate INSTANCE = new SpreadsheetLabelHateosResourceHandlerSaveOrUpdate();
 
-        return new SpreadsheetLabelHateosResourceHandlerSaveOrUpdate(store);
-    }
-
-    private SpreadsheetLabelHateosResourceHandlerSaveOrUpdate(final SpreadsheetLabelStore store) {
-        super(store);
+    private SpreadsheetLabelHateosResourceHandlerSaveOrUpdate() {
+        super();
     }
 
     @Override
     public Optional<SpreadsheetLabelMapping> handleNone(final Optional<SpreadsheetLabelMapping> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetLabelMapping mapping = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
-        return this.saveOrUpdate(mapping);
+        return this.saveOrUpdate(
+                mapping,
+                context
+        );
     }
 
     @Override
     public Optional<SpreadsheetLabelMapping> handleOne(final SpreadsheetLabelName id,
                                                        final Optional<SpreadsheetLabelMapping> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         final SpreadsheetLabelMapping mapping = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         // a rename is actually a delete followed by a save which creates
         if (!id.equals(mapping.id().orElse(null))) {
-            this.store.delete(id);
+            context.storeRepository()
+                    .labels()
+                    .delete(id);
         }
 
-        return this.saveOrUpdate(mapping);
+        return this.saveOrUpdate(
+                mapping,
+                context
+        );
     }
 
-    private Optional<SpreadsheetLabelMapping> saveOrUpdate(final SpreadsheetLabelMapping mapping) {
-        return Optional.of(this.store.save(mapping));
+    private Optional<SpreadsheetLabelMapping> saveOrUpdate(final SpreadsheetLabelMapping mapping,
+                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return Optional.of(
+                context.storeRepository()
+                        .labels()
+                        .save(mapping)
+        );
     }
 
     @Override
     public String toString() {
-        return "load " + this.store;
+        return SpreadsheetLabelStore.class.getSimpleName() + ".load ";
     }
 }

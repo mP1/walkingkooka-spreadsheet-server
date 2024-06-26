@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -46,29 +47,29 @@ import java.util.Set;
 final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCell with(final SpreadsheetEngineEvaluation evaluation,
-                                                              final SpreadsheetEngine engine,
-                                                              final SpreadsheetEngineContext context) {
+                                                              final SpreadsheetEngine engine) {
         Objects.requireNonNull(evaluation, "evaluation");
 
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerLoadCell(evaluation,
-                engine,
-                context);
+        return new SpreadsheetDeltaHateosResourceHandlerLoadCell(
+                evaluation,
+                check(engine)
+        );
     }
 
     private SpreadsheetDeltaHateosResourceHandlerLoadCell(final SpreadsheetEngineEvaluation evaluation,
-                                                          final SpreadsheetEngine engine,
-                                                          final SpreadsheetEngineContext context) {
-        super(engine, context);
+                                                          final SpreadsheetEngine engine) {
+        super(engine);
         this.evaluation = evaluation;
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         // compute window including navigation.
         final Optional<SpreadsheetViewport> maybeViewport = this.viewport(
@@ -84,7 +85,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         final SpreadsheetViewport viewport = maybeViewport.get();
 
         final SpreadsheetEngine engine = this.engine;
-        final SpreadsheetEngineContext context = this.context;
         final Optional<SpreadsheetViewport> navigatedViewport = engine.navigate(
                 viewport,
                 context
@@ -114,7 +114,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                 navigatedViewport,
                 Maps.immutable(
                         parametersPlusWindow
-                )
+                ),
+                context
         );
     }
 
@@ -131,30 +132,35 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     @Override
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.loadCell(
                                 cell,
-                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters)
+                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
+                                context
                         )
                 )
         );
     }
 
     private SpreadsheetDelta loadCell(final SpreadsheetCellReference reference,
-                                      final Set<SpreadsheetDeltaProperties> deltaProperties) {
+                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.engine.loadCells(
                 reference,
                 this.evaluation,
                 deltaProperties,
-                this.context
+                context
         );
     }
 
@@ -163,42 +169,51 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     @Override
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> ids,
                                                   final Optional<SpreadsheetDelta> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(ids);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return this.handleRange0(
-                Sets.of(SpreadsheetSelection.cellRange(ids)),
+                Sets.of(
+                        SpreadsheetSelection.cellRange(ids)
+                ),
                 resource,
                 Optional.empty(), // no viewport ignore query parameters
-                parameters
+                parameters,
+                context
         );
     }
 
     private Optional<SpreadsheetDelta> handleRange0(final Set<SpreadsheetCellRangeReference> window,
                                                     final Optional<SpreadsheetDelta> resource,
                                                     final Optional<SpreadsheetViewport> viewport,
-                                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
         return Optional.ofNullable(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.loadCells(
                                 window,
-                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters)
+                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
+                                context
                         ).setViewport(viewport)
                 )
         );
     }
 
     private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> cells,
-                                       final Set<SpreadsheetDeltaProperties> deltaProperties) {
+                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.engine.loadCells(
                 cells,
                 this.evaluation,
                 deltaProperties,
-                this.context
+                context
         );
     }
 

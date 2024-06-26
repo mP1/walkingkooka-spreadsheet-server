@@ -30,6 +30,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetParserName;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +42,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetParserInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetParserInfoHateosResourceHandler,
         SpreadsheetParserName,
         SpreadsheetParserInfo,
-        SpreadsheetParserInfoSet>,
+        SpreadsheetParserInfoSet,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
 
     @Test
@@ -80,6 +83,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
                 INFO1.name(),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(INFO1)
         );
     }
@@ -90,6 +94,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
                 SpreadsheetParserName.with("Unknown"),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.empty()
         );
     }
@@ -99,6 +104,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
         this.handleAllAndCheck(
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(
                         SpreadsheetParserInfoSet.with(
                                 Sets.of(
@@ -148,6 +154,11 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // toString.........................................................................................................

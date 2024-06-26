@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Optional;
 
@@ -36,7 +38,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
         SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn, SpreadsheetColumnReference> {
 
     @Test
-    public void testColumn() {
+    public void testHandleOne() {
         final SpreadsheetColumnReference column = SpreadsheetSelection.parseColumn("C");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
@@ -62,12 +64,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
 
                                 return returned;
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 column,
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         returned
                 )
@@ -75,7 +77,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     }
 
     @Test
-    public void testColumnRange() {
+    public void testHandleRangeColumnRange() {
         final SpreadsheetColumnRangeReference range = SpreadsheetSelection.parseColumnRange("C:E");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
@@ -101,12 +103,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
 
                                 return returned;
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 range.range(),
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         returned
                 )
@@ -114,9 +116,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn createHandler(final SpreadsheetEngine engine,
-                                                                         final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(engine);
     }
 
     @Override
@@ -128,6 +129,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetSelection.parseColumnRange("E:G")
                 .range();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override

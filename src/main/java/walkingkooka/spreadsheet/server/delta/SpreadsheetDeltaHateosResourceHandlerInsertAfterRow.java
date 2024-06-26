@@ -28,15 +28,14 @@ import java.util.Objects;
 
 final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetRowReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerInsertAfterRow with(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterRow(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerInsertAfterRow with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterRow(
+                Objects.requireNonNull(engine, "engine")
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerInsertAfterRow(final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerInsertAfterRow(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
@@ -51,31 +50,36 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
 
     @Override
     SpreadsheetDelta insert(final SpreadsheetRowReference row,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertAfter(
                 row.addSaturated(1),
-                count
+                count,
+                context
         );
     }
 
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetRowReference> row,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertAfter(
                 row.upperBound()
                         .value()
                         .get()
                         .addSaturated(1),
-                count
+                count,
+                context
         );
     }
 
     private SpreadsheetDelta insertAfter(final SpreadsheetRowReference row,
-                                         final int count) {
+                                         final int count,
+                                         final SpreadsheetEngineContext context) {
         return this.engine.insertRows(
                 row,
                 count,
-                this.context
+                context
         );
     }
 

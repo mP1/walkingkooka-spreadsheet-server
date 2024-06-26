@@ -26,6 +26,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -36,33 +38,37 @@ import java.util.Set;
 public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends SpreadsheetLabelHateosResourceHandlerTestCase2<SpreadsheetLabelHateosResourceHandlerDelete> {
 
     @Test
-    public void testDeleteWithResourceFails() {
+    public void testHandleOneDeleteWithResourceFails() {
         final SpreadsheetLabelName labelName = this.id();
 
         this.handleOneFails(
                 labelName,
                 Optional.of(this.mapping(labelName)),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(),
                 IllegalArgumentException.class
         );
     }
 
     @Test
-    public void testDelete() {
+    public void testHandleOneDelete() {
         final SpreadsheetLabelName labelName = this.id();
         final SpreadsheetLabelMapping mapping = this.mapping(labelName);
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(mapping);
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerDelete.with(store),
                 labelName,
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.empty()
         );
 
-        this.checkEquals(Optional.empty(), store.load(labelName));
+        this.checkEquals(
+                Optional.empty(),
+                store.load(labelName)
+        );
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName labelName) {
@@ -70,30 +76,19 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
     }
 
     @Test
-    public void testDeleteUnknownSpreadsheetLabel() {
+    public void testHandleOneDeleteUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
                 this.id(),
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(SpreadsheetLabelStores.treeMap()),
                 Optional.empty()
         );
     }
 
-    // ClassTesting......................................................................................................
-
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerDelete> type() {
-        return SpreadsheetLabelHateosResourceHandlerDelete.class;
-    }
-
-    @Override
-    SpreadsheetLabelHateosResourceHandlerDelete createHandler(final SpreadsheetLabelStore store) {
-        return SpreadsheetLabelHateosResourceHandlerDelete.with(store);
-    }
-
-    @Override
-    SpreadsheetLabelStore store() {
-        return SpreadsheetLabelStores.treeMap();
+    public SpreadsheetLabelHateosResourceHandlerDelete createHandler() {
+        return SpreadsheetLabelHateosResourceHandlerDelete.INSTANCE;
     }
 
     @Override
@@ -124,5 +119,17 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    }
+
+    // ClassTesting......................................................................................................
+
+    @Override
+    public Class<SpreadsheetLabelHateosResourceHandlerDelete> type() {
+        return SpreadsheetLabelHateosResourceHandlerDelete.class;
     }
 }

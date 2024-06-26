@@ -21,6 +21,8 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleOne;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -28,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Collection;
 import java.util.List;
@@ -37,37 +40,29 @@ import java.util.Optional;
 /**
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRangeReference, SpreadsheetCellRangeReference, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDeltaHateosResourceHandler2<SpreadsheetCellReference> {
+final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
+        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFillCells with(final SpreadsheetEngine engine,
-                                                               final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerFillCells(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerFillCells with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerFillCells(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerFillCells(final SpreadsheetEngine engine,
-                                                           final SpreadsheetEngineContext context) {
-        super(engine, context);
-    }
-
-    @Override
-    public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
-                                                final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkCell(cell);
-        HateosResourceHandler.checkResource(resource);
-        HateosResourceHandler.checkParameters(parameters);
-
-        throw new UnsupportedOperationException();
+    private SpreadsheetDeltaHateosResourceHandlerFillCells(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> to,
                                                   final Optional<SpreadsheetDelta> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetCellRangeReference range = SpreadsheetSelection.cellRange(to);
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         final SpreadsheetCellRangeReference from = FROM.parameterValue(parameters)
                 .map(SpreadsheetDeltaHateosResourceHandlerFillCells::mapFirstStringValue)
@@ -77,11 +72,12 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.engine.fillCells(
                                 delta.cells(),
                                 from,
                                 range,
-                                this.context
+                                context
                         )
                 )
         );

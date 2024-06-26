@@ -26,45 +26,21 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 /**
  * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
 public final class SpreadsheetLabelHateosResourceMappings implements PublicStaticHelper {
 
-    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> with(final SpreadsheetLabelStore store) {
-        Objects.requireNonNull(store, "store");
-
-        return HateosResourceMapping.with(LABEL,
-                SpreadsheetLabelHateosResourceMappings::parse,
-                SpreadsheetLabelMapping.class,
-                SpreadsheetLabelMapping.class,
-                SpreadsheetLabelMapping.class)
-                .setHateosResourceHandler(
-                        METADATA_LINK_RELATION,
-                        HttpMethod.DELETE,
-                        SpreadsheetLabelHateosResourceHandlerDelete.with(store)
-                ).setHateosResourceHandler(
-                        METADATA_LINK_RELATION,
-                        HttpMethod.GET,
-                        SpreadsheetLabelHateosResourceHandlerLoad.with(store)
-                ).setHateosResourceHandler(
-                        METADATA_LINK_RELATION,
-                        HttpMethod.POST,
-                        SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store)
-                );
-    }
-
     /**
      * A {@link HateosResourceName} with <code>metadata</code>.
      */
     private final static HateosResourceName LABEL = HateosResourceName.with("label");
 
-    private static HateosResourceSelection<SpreadsheetLabelName> parse(final String text) {
+    private static HateosResourceSelection<SpreadsheetLabelName> parse(final String text,
+                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         try {
             HateosResourceSelection<SpreadsheetLabelName> selection;
 
@@ -87,6 +63,30 @@ public final class SpreadsheetLabelHateosResourceMappings implements PublicStati
      * </pre>
      */
     private final static LinkRelation<?> METADATA_LINK_RELATION = LinkRelation.SELF;
+
+    /**
+     * Singleton instance
+     */
+    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> INSTANCE = HateosResourceMapping.with(
+            LABEL,
+            SpreadsheetLabelHateosResourceMappings::parse,
+            SpreadsheetLabelMapping.class,
+            SpreadsheetLabelMapping.class,
+            SpreadsheetLabelMapping.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
+    ).setHateosResourceHandler(
+            METADATA_LINK_RELATION,
+            HttpMethod.DELETE,
+            SpreadsheetLabelHateosResourceHandlerDelete.INSTANCE
+    ).setHateosResourceHandler(
+            METADATA_LINK_RELATION,
+            HttpMethod.GET,
+            SpreadsheetLabelHateosResourceHandlerLoad.INSTANCE
+    ).setHateosResourceHandler(
+            METADATA_LINK_RELATION,
+            HttpMethod.POST,
+            SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.INSTANCE
+    );
 
     /**
      * Stop creation.

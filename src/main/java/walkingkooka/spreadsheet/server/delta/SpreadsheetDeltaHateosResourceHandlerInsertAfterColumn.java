@@ -28,15 +28,14 @@ import java.util.Objects;
 
 final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetColumnReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn with(final SpreadsheetEngine engine,
-                                                                       final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(final SpreadsheetEngine engine,
-                                                                   final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
@@ -51,31 +50,36 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
 
     @Override
     SpreadsheetDelta insert(final SpreadsheetColumnReference column,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertAfter(
                 column.addSaturated(1),
-                count
+                count,
+                context
         );
     }
 
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetColumnReference> column,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertAfter(
                 column.upperBound()
                         .value()
                         .get()
                         .addSaturated(1),
-                count
+                count,
+                context
         );
     }
 
     private SpreadsheetDelta insertAfter(final SpreadsheetColumnReference column,
-                                         final int count) {
+                                         final int count,
+                                         final SpreadsheetEngineContext context) {
         return this.engine.insertColumns(
                 column,
                 count,
-                this.context
+                context
         );
     }
 

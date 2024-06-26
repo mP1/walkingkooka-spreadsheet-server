@@ -17,35 +17,49 @@
 
 package walkingkooka.spreadsheet.server.label;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 public abstract class SpreadsheetLabelHateosResourceHandlerTestCase2<H extends SpreadsheetLabelHateosResourceHandler>
         extends SpreadsheetLabelHateosResourceHandlerTestCase<H>
-        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping>,
+        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<H> {
 
     SpreadsheetLabelHateosResourceHandlerTestCase2() {
         super();
     }
 
-    @Test
-    public final void testWithNullSpreadsheetLabelStoreFails() {
-        assertThrows(NullPointerException.class, () -> this.createHandler(null));
+    final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
+
+    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+        return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public SpreadsheetStoreRepository storeRepository() {
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetLabelStore labels() {
+                        return store;
+                    }
+                };
+            }
+        };
     }
 
-    @Override
-    public final H createHandler() {
-        return this.createHandler(this.store());
+    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+        @Override
+        public MediaType contentType() {
+            return CONTENT_TYPE;
+        }
     }
 
-    abstract H createHandler(final SpreadsheetLabelStore store);
-
-    abstract SpreadsheetLabelStore store();
+    ;
 }

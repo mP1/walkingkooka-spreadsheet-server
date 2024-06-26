@@ -34,7 +34,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
@@ -51,6 +50,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
@@ -86,24 +88,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
     @Test
     public void testWithNullEvaluationFails() {
-        assertThrows(NullPointerException.class, () -> SpreadsheetDeltaHateosResourceHandlerLoadCell.with(null, this.engine(), this.engineContext()));
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                        null,
+                        this.engine()
+                )
+        );
     }
 
     // handle...........................................................................................................
 
     @Test
-    public void testLoadCell() {
+    public void testHandleOneLoadCell() {
         this.handleOneAndCheck(
                 this.id(),
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(this.spreadsheetDelta())
         );
     }
 
     @Test
-    public void testLoadCellWithDeltaPropertiesCells() {
-        this.loadCellAndCheck(
+    public void testHandleOneLoadCellWithDeltaPropertiesCells() {
+        this.handleOneLoadCellAndCheck(
                 "cells",
                 null, // window
                 null, // query
@@ -113,8 +122,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellWithDeltaPropertiesCellsAndLabels() {
-        this.loadCellAndCheck(
+    public void testHandleOneLoadCellWithDeltaPropertiesCellsAndLabels() {
+        this.handleOneLoadCellAndCheck(
                 "cells,labels",
                 null, // window
                 null, // query
@@ -125,8 +134,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellWithDeltaPropertiesCellsAndQuery() {
-        this.loadCellAndCheck(
+    public void testHandleOneLoadCellWithDeltaPropertiesCellsAndQuery() {
+        this.handleOneLoadCellAndCheck(
                 "cells",
                 null, // window
                 "=true()", // query
@@ -140,10 +149,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         );
     }
 
-    private void loadCellAndCheck(final String deltaProperties,
-                                  final String window,
-                                  final String query,
-                                  final SpreadsheetDelta expected) {
+    private void handleOneLoadCellAndCheck(final String deltaProperties,
+                                           final String window,
+                                           final String query,
+                                           final SpreadsheetDelta expected) {
         final SpreadsheetCellReference id = this.id();
 
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
@@ -195,40 +204,41 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                                                     final SpreadsheetEngineContext context) {
                                 return cells;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals("=true()", text);
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("true"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(
-                                        Expression.value(true)
-                                );
-                            }
                         }
                 ),
                 id,
                 Optional.empty(),
                 parameters,
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        checkEquals("=true()", text, "formula text");
+
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("true"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(
+                                Expression.value(true)
+                        );
+                    }
+                },
                 Optional.of(expected)
         );
     }
 
-    // handleRange.................................................................................................
+    // handleRange......................................................................................................
 
     @Test
-    public void testLoadCellRange() {
+    public void testHandleRangeLoadCellRange() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
@@ -265,14 +275,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     public String toString() {
                         return "loadCells";
                     }
-                },
-                this.engineContext()
+                }
         );
         this.handleRangeAndCheck(
                 handler,
                 this.range(),
                 this.collectionResource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3))
@@ -281,7 +291,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeWithQuery() {
+    public void testHandleRangeLoadCellRangeWithQuery() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
@@ -334,8 +344,19 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     public String toString() {
                         return "loadCells";
                     }
-                },
-                new FakeSpreadsheetEngineContext() {
+                }
+        );
+        this.handleRangeAndCheck(
+                handler,
+                this.range(),
+                this.collectionResource(),
+                Maps.of(
+                        UrlParameterName.with("query"),
+                        Lists.of(
+                                "query=true()"
+                        )
+                ),
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -354,18 +375,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                 Expression.value(true)
                         );
                     }
-                }
-        );
-        this.handleRangeAndCheck(
-                handler,
-                this.range(),
-                this.collectionResource(),
-                Maps.of(
-                        UrlParameterName.with("query"),
-                        Lists.of(
-                                "query=true()"
-                        )
-                ),
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -382,7 +392,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Test
-    public void testLoadCellRangeWithWindowParameter() {
+    public void testHandleRangeLoadCellRangeWithWindowParameter() {
         final SpreadsheetCell b1 = this.b1();
         final SpreadsheetCell b2 = this.b2();
         final SpreadsheetCell b3 = this.b3();
@@ -423,8 +433,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     public String toString() {
                         return "loadCells";
                     }
-                },
-                this.engineContext()
+                }
         );
         this.handleRangeAndCheck(
                 handler,
@@ -436,6 +445,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                 window.toString()
                         )
                 ),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -477,6 +487,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final IllegalArgumentException thrown = this.handleAllFails(
                 Optional.empty(),
                 parameters,
+                this.context(),
                 IllegalArgumentException.class
         );
         this.checkEquals(message, thrown.getMessage(), "message");
@@ -694,33 +705,33 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                                                           final SpreadsheetEngineContext context) {
                                 return Optional.of(viewport);
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetMetadata spreadsheetMetadata() {
-                                return SpreadsheetMetadata.EMPTY
-                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                        .loadFromLocale();
-                            }
-
-                            @Override
-                            public SpreadsheetStoreRepository storeRepository() {
-                                return new FakeSpreadsheetStoreRepository() {
-                                    @Override
-                                    public SpreadsheetCellStore cells() {
-                                        return SpreadsheetCellStores.fake();
-                                    }
-                                };
-                            }
-
-                            @Override
-                            public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                                return selection;
-                            }
                         }
                 ),
                 Optional.empty(),
                 parameters,
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                                .loadFromLocale();
+                    }
+
+                    @Override
+                    public SpreadsheetStoreRepository storeRepository() {
+                        return new FakeSpreadsheetStoreRepository() {
+                            @Override
+                            public SpreadsheetCellStore cells() {
+                                return SpreadsheetCellStores.fake();
+                            }
+                        };
+                    }
+
+                    @Override
+                    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                        return selection;
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
@@ -786,6 +797,43 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("true"));
 
+        new FakeSpreadsheetEngineContext() {
+            @Override
+            public SpreadsheetMetadata spreadsheetMetadata() {
+                return SpreadsheetMetadata.EMPTY
+                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                        .loadFromLocale()
+                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
+                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
+            }
+
+            @Override
+            public SpreadsheetStoreRepository storeRepository() {
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetCellStore cells() {
+                        return this.cells;
+                    }
+
+                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
+
+                    @Override
+                    public SpreadsheetColumnStore columns() {
+                        return this.columns;
+                    }
+
+                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                    @Override
+                    public SpreadsheetRowStore rows() {
+                        return this.rows;
+                    }
+
+                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
+                };
+            }
+        };
+
         this.handleAllAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
                         EVALUATION,
@@ -831,46 +879,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                                                           final SpreadsheetEngineContext context) {
                                 return Optional.of(viewport);
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetMetadata spreadsheetMetadata() {
-                                return SpreadsheetMetadata.EMPTY
-                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                        .loadFromLocale()
-                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
-                                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
-                            }
-
-                            @Override
-                            public SpreadsheetStoreRepository storeRepository() {
-                                return new FakeSpreadsheetStoreRepository() {
-                                    @Override
-                                    public SpreadsheetCellStore cells() {
-                                        return this.cells;
-                                    }
-
-                                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
-
-                                    @Override
-                                    public SpreadsheetColumnStore columns() {
-                                        return this.columns;
-                                    }
-
-                                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
-
-                                    @Override
-                                    public SpreadsheetRowStore rows() {
-                                        return this.rows;
-                                    }
-
-                                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
-                                };
-                            }
                         }
                 ),
                 Optional.empty(),
                 parameters,
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setViewport(
@@ -1164,63 +1177,64 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                 return SpreadsheetEngines.basic()
                                         .navigate(s, context);
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetMetadata spreadsheetMetadata() {
-                                return SpreadsheetMetadata.EMPTY
-                                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                        .set(
-                                                SpreadsheetMetadataPropertyName.STYLE,
-                                                TextStyle.EMPTY
-                                                        .set(
-                                                                TextStylePropertyName.WIDTH,
-                                                                Length.pixel(COLUMN_WIDTH
-                                                                )
-                                                        )
-                                                        .set(
-                                                                TextStylePropertyName.HEIGHT,
-                                                                Length.pixel(ROW_HEIGHT)
-                                                        )
-                                        ).loadFromLocale();
-                            }
-
-                            @Override
-                            public SpreadsheetStoreRepository storeRepository() {
-                                return new FakeSpreadsheetStoreRepository() {
-                                    @Override
-                                    public SpreadsheetCellStore cells() {
-                                        return this.cells;
-                                    }
-
-                                    private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
-
-                                    @Override
-                                    public SpreadsheetColumnStore columns() {
-                                        return this.columns;
-                                    }
-
-                                    private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
-
-                                    @Override
-                                    public SpreadsheetRowStore rows() {
-                                        return this.rows;
-                                    }
-
-                                    private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
-                                };
-                            }
-
-                            public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                                if (selection.isLabelName()) {
-                                    throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
-                                }
-                                return selection;
-                            }
                         }
                 ),
                 Optional.empty(),
                 parameters,
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return SpreadsheetMetadata.EMPTY
+                                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+                                .set(
+                                        SpreadsheetMetadataPropertyName.STYLE,
+                                        TextStyle.EMPTY
+                                                .set(
+                                                        TextStylePropertyName.WIDTH,
+                                                        Length.pixel(COLUMN_WIDTH
+                                                        )
+                                                )
+                                                .set(
+                                                        TextStylePropertyName.HEIGHT,
+                                                        Length.pixel(ROW_HEIGHT)
+                                                )
+                                ).loadFromLocale();
+                    }
+
+                    @Override
+                    public SpreadsheetStoreRepository storeRepository() {
+                        return new FakeSpreadsheetStoreRepository() {
+                            @Override
+                            public SpreadsheetCellStore cells() {
+                                return this.cells;
+                            }
+
+                            private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
+
+                            @Override
+                            public SpreadsheetColumnStore columns() {
+                                return this.columns;
+                            }
+
+                            private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                            @Override
+                            public SpreadsheetRowStore rows() {
+                                return this.rows;
+                            }
+
+                            private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
+                        };
+                    }
+
+                    @Override
+                    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                        if (selection.isLabelName()) {
+                            throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
+                        }
+                        return selection;
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setViewport(
@@ -1271,11 +1285,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerLoadCell createHandler(final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerLoadCell.with(EVALUATION,
-                engine,
-                context);
+    SpreadsheetDeltaHateosResourceHandlerLoadCell createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                EVALUATION,
+                engine
+        );
     }
 
     @Override
@@ -1305,6 +1319,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override
@@ -1343,11 +1362,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 return 0;
             }
         };
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     private SpreadsheetDelta spreadsheetDelta() {

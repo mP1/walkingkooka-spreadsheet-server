@@ -60,6 +60,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                 column,
                 resource,
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(cells)
@@ -68,7 +69,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
     }
 
     @Test
-    public void testDeleteSeveralColumns() {
+    public void testHandleRangeDeleteSeveralColumns() {
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
         final Range<SpreadsheetColumnReference> range = SpreadsheetColumnOrRowReference.parseColumnRange("C:E")
@@ -93,11 +94,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                 range, // 2 inclusive
                 resource,
                 HateosResourceHandler.NO_PARAMETERS,
-                Optional.of(delta));
+                this.context(),
+                Optional.of(delta)
+        );
     }
 
     @Test
-    public void testDeleteColumnFiltered() {
+    public void testHandleOneDeleteColumnFiltered() {
         final SpreadsheetColumnReference column = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
@@ -126,6 +129,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                                 window.toString()
                         )
                 ),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())
@@ -150,12 +154,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
     }
 
     private void handleRangeFails2(final Range<SpreadsheetColumnReference> columns) {
-        this.checkEquals("Range with both columns required=" + columns,
-                this.handleRangeFails(columns,
+        this.checkEquals(
+                "Range with both columns required=" + columns,
+                this.handleRangeFails(
+                        columns,
                         this.collectionResource(),
                         HateosResourceHandler.NO_PARAMETERS,
-                        IllegalArgumentException.class).getMessage(),
-                "message");
+                        this.context(),
+                        IllegalArgumentException.class
+                ).getMessage(),
+                "message"
+        );
     }
 
     @Test
@@ -163,14 +172,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
         this.toStringAndCheck(this.createHandler().toString(), "SpreadsheetEngine.deleteColumns");
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteColumns createHandler(final SpreadsheetEngine engine) {
-        return this.createHandler(engine, this.engineContext());
-    }
-
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteColumns createHandler(final SpreadsheetEngine engine,
-                                                                     final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerDeleteColumns createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(engine);
     }
 
     @Override

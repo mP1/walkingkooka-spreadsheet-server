@@ -19,8 +19,10 @@ package walkingkooka.spreadsheet.server.label;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
 import java.util.Map;
@@ -29,31 +31,32 @@ import java.util.Optional;
 /**
  * A {@link HateosResourceHandler} that attempts to load a {@link SpreadsheetLabelMapping} with the given {@link SpreadsheetLabelName}.
  */
-final class SpreadsheetLabelHateosResourceHandlerLoad extends SpreadsheetLabelHateosResourceHandlerOne {
+final class SpreadsheetLabelHateosResourceHandlerLoad extends SpreadsheetLabelHateosResourceHandler
+        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetLabelHateosResourceHandlerLoad with(final SpreadsheetLabelStore store) {
-        checkStore(store);
+    final static SpreadsheetLabelHateosResourceHandlerLoad INSTANCE = new SpreadsheetLabelHateosResourceHandlerLoad();
 
-        return new SpreadsheetLabelHateosResourceHandlerLoad(store);
-    }
-
-    private SpreadsheetLabelHateosResourceHandlerLoad(final SpreadsheetLabelStore store) {
-        super(store);
+    private SpreadsheetLabelHateosResourceHandlerLoad() {
+        super();
     }
 
     @Override
     public Optional<SpreadsheetLabelMapping> handleOne(final SpreadsheetLabelName id,
                                                        final Optional<SpreadsheetLabelMapping> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
-        return this.store.load(id);
+        return context.storeRepository()
+                .labels()
+                .load(id);
     }
 
     @Override
     public String toString() {
-        return "load " + this.store;
+        return SpreadsheetLabelStore.class.getSimpleName() + ".load";
     }
 }

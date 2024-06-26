@@ -25,7 +25,6 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponseHttpServerException;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
@@ -38,13 +37,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.store.MissingStoreException;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -55,69 +53,55 @@ import java.util.Set;
  * Base class for a {@link HateosHttpEntityHandler} that supports PATCHING cells/columns/rows.
  */
 abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends SpreadsheetSelection & Comparable<S>,
-        R extends SpreadsheetSelection & Comparable<R>> implements HateosHttpEntityHandler<S>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<S>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<S>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<S> {
+        R extends SpreadsheetSelection & Comparable<R>> implements HateosHttpEntityHandler<S, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleAll<S, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleMany<S, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleNone<S, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerCell}
      */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerCell cell(final SpreadsheetEngine engine,
-                                                                 final HateosContentType hateosContentType,
-                                                                 final SpreadsheetEngineContext context) {
+    static SpreadsheetDeltaPatchHateosHttpEntityHandlerCell cell(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.with(
-                engine,
-                hateosContentType,
-                context
+                engine
         );
     }
 
     /**
      * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn}
      */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn column(final SpreadsheetEngine engine,
-                                                                     final HateosContentType hateosContentType,
-                                                                     final SpreadsheetEngineContext context) {
+    static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn column(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn.with(
-                engine,
-                hateosContentType,
-                context
+                engine
         );
     }
 
     /**
      * {@see SpreadsheetDeltaPatchHateosHttpEntityHandlerRow}
      */
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow row(final SpreadsheetEngine engine,
-                                                               final HateosContentType hateosContentType,
-                                                               final SpreadsheetEngineContext context) {
+    static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow row(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerRow.with(
-                engine,
-                hateosContentType,
-                context
+                engine
         );
     }
 
-    SpreadsheetDeltaPatchHateosHttpEntityHandler(final SpreadsheetEngine engine,
-                                                 final HateosContentType hateosContentType,
-                                                 final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaPatchHateosHttpEntityHandler(final SpreadsheetEngine engine) {
         super();
         this.engine = Objects.requireNonNull(engine, "engine");
-        this.hateosContentType = Objects.requireNonNull(hateosContentType, "hateosContentType");
-        this.context = Objects.requireNonNull(context, "context");
     }
 
     @Override
     public final HttpEntity handleOne(final S selection,
                                       final HttpEntity entity,
-                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                      final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkId(selection);
 
         return this.loadPatchReply(
                 this.toSelectionRange(selection),
                 entity,
-                parameters
+                parameters,
+                context
         );
     }
 
@@ -126,11 +110,13 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     @Override
     public final HttpEntity handleRange(final Range<S> selection,
                                         final HttpEntity entity,
-                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.loadPatchReply(
                 this.toSelectionRange(selection),
                 entity,
-                parameters
+                parameters,
+                context
         );
     }
 
@@ -151,34 +137,38 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
      */
     private HttpEntity loadPatchReply(final R selectionRange,
                                       final HttpEntity entity,
-                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                      final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);
-
-        final SpreadsheetEngineContext context = this.context;
-        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+        HateosHttpEntityHandler.checkContext(context);
 
         // parse HttpEntity as JSON giving the PATCH as JsonNode
         final JsonNode patch = this.preparePatch(
                 this.unmarshallPatch(
                         entity,
-                        metadata
-                )
+                        context
+                ),
+                context
         );
 
         // load the SpreadsheetDelta with cells and patch
         final SpreadsheetDelta patched = this.patch(
-                this.loadSpreadsheetDelta(selectionRange),
+                this.loadSpreadsheetDelta(
+                        selectionRange,
+                        context
+                ),
                 selectionRange,
                 patch,
                 parameters,
-                metadata.jsonNodeUnmarshallContext()
+                context
         );
 
         final SpreadsheetDelta saved =
                 this.save(
                                 patched,
-                                selectionRange
+                                selectionRange,
+                                context
                         ).setWindow(patched.window())
                         .setViewport(
                                 this.viewport(
@@ -198,14 +188,13 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
 
         return marshallResponse(
                 prepareResponse,
-                metadata
+                context
         );
     }
 
     private JsonNode unmarshallPatch(final HttpEntity entity,
-                                     final SpreadsheetMetadata metadata) {
-        return metadata.jsonNodeUnmarshallContext()
-                .unmarshall(
+                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return context.unmarshall(
                         JsonNode.parse(
                                 entity.bodyText()
                         ),
@@ -213,11 +202,16 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                 );
     }
 
-    abstract JsonNode preparePatch(final JsonNode delta);
+    abstract JsonNode preparePatch(final JsonNode delta,
+                                   final SpreadsheetEngineContext context);
 
-    private SpreadsheetDelta loadSpreadsheetDelta(final R selectionRange) {
+    private SpreadsheetDelta loadSpreadsheetDelta(final R selectionRange,
+                                                  final SpreadsheetEngineContext context) {
         try {
-            return this.load(selectionRange);
+            return this.load(
+                    selectionRange,
+                    context
+            );
         } catch (final MissingStoreException cause) {
             throw new HttpResponseHttpServerException(
                     HttpStatusCode.BAD_REQUEST
@@ -231,17 +225,19 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
      * Loads the {@link SpreadsheetCellRangeReference}, {@link walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference} or
      * {@link walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference}.
      */
-    abstract SpreadsheetDelta load(final R selectionRange);
+    abstract SpreadsheetDelta load(final R selectionRange,
+                                   final SpreadsheetEngineContext context);
 
     /**
      * Used to load all the cells within an unhidden column or row.
      */
-    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRangeReference> window) {
+    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRangeReference> window,
+                                         final SpreadsheetEngineContext context) {
         return this.engine.loadCells(
                 window,
                 SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
                 CELLS,
-                this.context
+                context
         ).cells();
     }
 
@@ -253,10 +249,11 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
                                     final R selectionRange,
                                     final JsonNode patch,
                                     final Map<HttpRequestAttribute<?>, Object> parameters,
-                                    final JsonNodeUnmarshallContext context);
+                                    final SpreadsheetEngineHateosResourceHandlerContext context);
 
     abstract SpreadsheetDelta save(final SpreadsheetDelta patched,
-                                   final R selectionRange);
+                                   final R selectionRange,
+                                   final SpreadsheetEngineContext context);
 
     /**
      * Tries to read the parameters from the request parameters otherwise returns the given {@link SpreadsheetViewport}.
@@ -277,12 +274,13 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
      * Returns the {@link SpreadsheetViewportWindows} from the parameters or the given {@link SpreadsheetDelta}.
      */
     final SpreadsheetViewportWindows window(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                            final SpreadsheetDelta delta) {
+                                            final SpreadsheetDelta delta,
+                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return SpreadsheetDeltaUrlQueryParameters.window(
                 parameters,
                 Optional.of(delta),
                 this.engine,
-                this.context
+                context
         );
     }
 
@@ -290,23 +288,18 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
      * Turn the {@link SpreadsheetDelta} into JSON inside a {@link HttpEntity}.
      */
     private HttpEntity marshallResponse(final SpreadsheetDelta response,
-                                        final SpreadsheetMetadata metadata) {
+                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return HttpEntity.EMPTY
                 .addHeader(
                         HttpHeaderName.CONTENT_TYPE,
-                        this.hateosContentType.contentType()
+                        context.contentType()
                                 .setCharset(CharsetName.UTF_8)
                 ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                 .setBodyText(
-                        metadata.jsonNodeMarshallContext()
-                                .marshall(
-                                        response
-                                ).toString()
+                        context.marshall(response)
+                                .toString()
                 ).setContentLength();
     }
 
     final SpreadsheetEngine engine;
-
-    final HateosContentType hateosContentType;
-    final SpreadsheetEngineContext context;
 }

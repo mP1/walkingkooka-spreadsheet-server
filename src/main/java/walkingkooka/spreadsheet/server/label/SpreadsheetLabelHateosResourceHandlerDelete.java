@@ -19,9 +19,10 @@ package walkingkooka.spreadsheet.server.label;
 
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -29,32 +30,33 @@ import java.util.Optional;
 /**
  * A {@link HateosResourceHandler} that attempts to load a {@link SpreadsheetLabelMapping} with the given {@link SpreadsheetLabelName}.
  */
-final class SpreadsheetLabelHateosResourceHandlerDelete extends SpreadsheetLabelHateosResourceHandlerOne {
+final class SpreadsheetLabelHateosResourceHandlerDelete extends SpreadsheetLabelHateosResourceHandler
+        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetLabelHateosResourceHandlerDelete with(final SpreadsheetLabelStore store) {
-        checkStore(store);
+    static SpreadsheetLabelHateosResourceHandlerDelete INSTANCE = new SpreadsheetLabelHateosResourceHandlerDelete();
 
-        return new SpreadsheetLabelHateosResourceHandlerDelete(store);
-    }
-
-    private SpreadsheetLabelHateosResourceHandlerDelete(final SpreadsheetLabelStore store) {
-        super(store);
+    private SpreadsheetLabelHateosResourceHandlerDelete() {
+        super();
     }
 
     @Override
     public Optional<SpreadsheetLabelMapping> handleOne(final SpreadsheetLabelName id,
                                                        final Optional<SpreadsheetLabelMapping> resource,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
-        this.store.delete(id);
+        context.storeRepository()
+                .labels()
+                .delete(id);
         return Optional.empty();
     }
 
     @Override
     public String toString() {
-        return "delete with labelName " + this.store;
+        return "delete with labelName ";
     }
 }

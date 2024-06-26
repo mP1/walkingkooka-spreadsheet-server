@@ -31,15 +31,14 @@ import java.util.Objects;
  */
 final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends SpreadsheetDeltaHateosResourceHandlerDelete<SpreadsheetColumnReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerDeleteColumns with(final SpreadsheetEngine engine,
-                                                                   final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteColumns(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerDeleteColumns with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerDeleteColumns(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteColumns(final SpreadsheetEngine engine,
-                                                               final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerDeleteColumns(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
@@ -53,8 +52,14 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends Spreadshe
     }
 
     @Override
-    SpreadsheetDelta execute(final SpreadsheetColumnReference column, final int count) {
-        return this.engine.deleteColumns(column, count, this.context);
+    SpreadsheetDelta execute(final SpreadsheetColumnReference column,
+                             final int count,
+                             final SpreadsheetEngineContext context) {
+        return this.engine.deleteColumns(
+                column,
+                count,
+                context
+        );
     }
 
     @Override

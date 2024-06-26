@@ -31,6 +31,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Optional;
 import java.util.Set;
@@ -39,7 +41,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         SpreadsheetRowReference> {
 
     @Test
-    public void testDeleteRow() {
+    public void testHandleOneDeleteRow() {
         final SpreadsheetRowReference row = this.id();
         final Optional<SpreadsheetDelta> resource = this.resource();
 
@@ -61,6 +63,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                 row,
                 resource,
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(cells)
@@ -69,7 +72,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     }
 
     @Test
-    public void testDeleteSeveralRows() {
+    public void testHandleRangeDeleteSeveralRows() {
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
         final Range<SpreadsheetRowReference> range = SpreadsheetColumnOrRowReference.parseRowRange("2:4")
@@ -78,7 +81,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
-        this.handleRangeAndCheck(this.createHandler(
+        this.handleRangeAndCheck(
+                this.createHandler(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -93,11 +97,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                 range, // 3 inclusive
                 resource,
                 HateosResourceHandler.NO_PARAMETERS,
-                Optional.of(delta));
+                this.context(),
+                Optional.of(delta)
+        );
     }
 
     @Test
-    public void testDeleteRowFiltered() {
+    public void testHandleOneDeleteRowFiltered() {
         final SpreadsheetRowReference row = this.id();
 
         final Set<SpreadsheetCell> cells = this.cells();
@@ -125,6 +131,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                                 window.toString()
                         )
                 ),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(this.cellsWithinWindow())
@@ -150,11 +157,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
         this.checkEquals("Range with both rows required=" + rows,
-                this.handleRangeFails(rows,
+                this.handleRangeFails(
+                        rows,
                         this.collectionResource(),
                         HateosResourceHandler.NO_PARAMETERS,
+                        this.context(),
                         IllegalArgumentException.class).getMessage(),
-                "message");
+                "message"
+        );
     }
 
     @Test
@@ -162,14 +172,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         this.toStringAndCheck(this.createHandler().toString(), "SpreadsheetEngine.deleteRows");
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerDeleteRows createHandler(final SpreadsheetEngine engine) {
-        return this.createHandler(engine, this.engineContext());
-    }
-
     @Override
-    SpreadsheetDeltaHateosResourceHandlerDeleteRows createHandler(final SpreadsheetEngine engine,
-                                                                  final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerDeleteRows createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(engine);
     }
 
     @Override
@@ -181,6 +186,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     public Range<SpreadsheetRowReference> range() {
         return SpreadsheetColumnOrRowReference.parseRowRange("2:4")
                 .range();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override

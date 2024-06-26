@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -39,8 +38,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn,
         SpreadsheetColumnReference, SpreadsheetColumnRangeReference> {
@@ -61,8 +58,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.createHandler(
                         this.spreadsheetEngine(
                                 COLUMN_RANGE
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN,
                 this.httpEntity(
@@ -75,6 +71,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 )
                 ),
                 this.parameters(),
+                this.context(),
                 IllegalArgumentException.class
         );
 
@@ -108,14 +105,14 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN,
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                 ),
                 this.parameters(),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -152,8 +149,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN,
                 this.httpEntity(
@@ -162,6 +158,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -211,8 +208,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN,
                 this.httpEntity(
@@ -221,6 +217,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -267,8 +264,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN,
                 this.httpEntity(
@@ -277,6 +273,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setViewport(
                                 Optional.of(
@@ -305,8 +302,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.createHandler(
                         this.spreadsheetEngine(
                                 COLUMN_RANGE
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
@@ -319,6 +315,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 )
                 ),
                 this.parameters(),
+                this.context(),
                 IllegalArgumentException.class
         );
 
@@ -357,14 +354,14 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                 ),
                 this.parameters(),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -401,8 +398,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
@@ -411,6 +407,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -460,8 +457,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
@@ -470,6 +466,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
                                 .setCells(cells)
@@ -516,8 +513,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
@@ -526,6 +522,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setViewport(
                                 Optional.of(
@@ -583,8 +580,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                 loadedColumns,
                                 cells,
                                 (c) -> storeSaved.add(c)
-                        ),
-                        CONTEXT
+                        )
                 ),
                 COLUMN_RANGE.range(),
                 this.httpEntity(
@@ -593,6 +589,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
                 ),
+                this.context(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(cell2)
@@ -640,7 +637,6 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             public SpreadsheetDelta loadColumn(final SpreadsheetColumnReference column,
                                                final SpreadsheetEngineContext context) {
                 checkColumn(column);
-                assertSame(CONTEXT, context, "context");
 
                 return SpreadsheetDelta.EMPTY
                         .setCells(
@@ -692,13 +688,9 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
     }
 
     @Override
-    SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn createHandler(final SpreadsheetEngine engine,
-                                                                     final HateosContentType hateosContentType,
-                                                                     final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn.with(
-                engine,
-                hateosContentType,
-                context
+                engine
         );
     }
 

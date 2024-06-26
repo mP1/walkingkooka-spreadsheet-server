@@ -51,7 +51,6 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -82,19 +81,18 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -102,10 +100,14 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -123,7 +125,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         implements SpreadsheetMetadataTesting {
 
     private final static CharsetName CHARSET = CharsetName.UTF_8;
-    private final static MediaType CONTENT_TYPE_UTF8 = HateosContentType.JSON_CONTENT_TYPE.setCharset(CHARSET);
+
+    private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
+
+    private final static MediaType CONTENT_TYPE_UTF8 = CONTENT_TYPE.setCharset(CHARSET);
+
     private final static UrlPath FILE = UrlPath.parse("/file.txt");
     private final static MediaType FILE_CONTENT_TYPE = MediaType.parse("text/custom-file;charset=" + CHARSET.value());
     private final static LocalDateTime FILE_LAST_MODIFIED = LocalDateTime.of(2000, 12, 31, 12, 28, 29);
@@ -136,6 +142,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
+
+    private final static JsonNodeMarshallContext JSON_NODE_MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();
+
+    private final static JsonNodeUnmarshallContext JSON_NODE_UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
+            ExpressionNumberKind.BIG_DECIMAL,
+            MathContext.UNLIMITED
+    );
 
     @Test
     public void testStartServer() {
@@ -8049,12 +8062,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.metadataStore,
                 this::spreadsheetMetadataStamper,
                 fractioner(),
+                JSON_NODE_MARSHALL_CONTEXT,
+                JSON_NODE_UNMARSHALL_CONTEXT,
                 spreadsheetIdToSpreadsheetComparatorProvider(),
                 spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
                 spreadsheetIdToSpreadsheetParserProvider(),
                 this.spreadsheetIdToRepository,
-                this::contentTypeFactory,
                 this::fileServer,
                 this::server
         );
@@ -8237,11 +8251,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
                 MODIFIED_DATE_TIME
         );
-    }
-
-    private HateosContentType contentTypeFactory(final SpreadsheetMetadata metadata,
-                                                 final SpreadsheetLabelStore labelStore) {
-        return SpreadsheetContexts.jsonHateosContentType(metadata, labelStore);
     }
 
     /**
@@ -8439,9 +8448,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private HttpResponse response(final HttpStatus status,
                                   final String body,
                                   final String bodyTypeName) {
-        return this.response(status,
+        return this.response(
+                status,
                 NO_TRANSACTION_ID,
-                binary(body, CONTENT_TYPE_UTF8),
+                binary(
+                        body,
+                        CONTENT_TYPE_UTF8
+                ),
                 bodyTypeName);
     }
 

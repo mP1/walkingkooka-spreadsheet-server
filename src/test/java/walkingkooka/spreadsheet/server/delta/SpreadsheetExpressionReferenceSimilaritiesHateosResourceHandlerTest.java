@@ -34,6 +34,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -46,7 +48,8 @@ import java.util.Set;
 public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler,
         String,
         SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetExpressionReferenceSimilarities>,
+        SpreadsheetExpressionReferenceSimilarities,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> {
 
     private final static SpreadsheetCellReference A1 = SpreadsheetSelection.A1;
@@ -91,6 +94,7 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                 "Abc",
                 Optional.empty(),
                 Maps.empty(),
+                this.context(),
                 IllegalArgumentException.class
         );
     }
@@ -101,6 +105,7 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                 "Abc",
                 Optional.empty(),
                 Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty()),
+                this.context(),
                 IllegalArgumentException.class
         );
     }
@@ -111,6 +116,7 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                 "Abc",
                 Optional.empty(),
                 Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("???")),
+                this.context(),
                 IllegalArgumentException.class
         );
     }
@@ -208,6 +214,7 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                 text,
                 Optional.empty(),
                 Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
+                this.context(),
                 Optional.ofNullable(expected)
         );
     }
@@ -245,6 +252,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(SpreadsheetUrlQueryParameters.COUNT, 3);
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Test

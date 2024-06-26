@@ -35,18 +35,22 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -56,28 +60,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTesting2<SpreadsheetLabelHateosResourceMappings> {
+
+    private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     private final static AbsoluteUrl URL = Url.parseAbsolute("https://example.com/");
 
-    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("label123");
     private final static SpreadsheetLabelMapping MAPPING = SpreadsheetLabelMapping.with(
             LABEL,
             SpreadsheetSelection.parseCell("B2")
     );
-
-    // with.............................................................................................................
-
-    @Test
-    public void testWithNullLabelStoreFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetLabelHateosResourceMappings.with(null)
-        );
-    }
 
     // label.............................................................................................................
 
@@ -200,7 +193,39 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                                 final HttpStatusCode statusCode,
                                 final String responseBody) {
         this.routeAndCheck2(
-                SpreadsheetLabelHateosResourceMappings.with(store),
+                SpreadsheetLabelHateosResourceMappings.INSTANCE,
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+                    @Override
+                    public MediaType contentType() {
+                        return MediaType.APPLICATION_JSON;
+                    }
+
+                    @Override
+                    public JsonNode marshall(final Object value) {
+                        return JsonNodeMarshallContexts.basic()
+                                .marshall(value);
+                    }
+
+                    @Override
+                    public <T> T unmarshall(final JsonNode json,
+                                            final Class<T> type) {
+                        return JsonNodeUnmarshallContexts.basic(
+                                ExpressionNumberKind.DEFAULT,
+                                MathContext.DECIMAL32
+                        ).unmarshall(json, type);
+                    }
+
+                    @Override
+                    public SpreadsheetStoreRepository storeRepository() {
+                        return new FakeSpreadsheetStoreRepository() {
+                            @Override
+                            public SpreadsheetLabelStore labels() {
+                                return store;
+                            }
+                        };
+                    }
+                },
                 method,
                 url,
                 requestBody,
@@ -213,7 +238,8 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         return JsonNodeMarshallContexts.basic();
     }
 
-    private void routeAndCheck2(final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping> mapping,
+    private void routeAndCheck2(final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> mapping,
+                                final SpreadsheetEngineHateosResourceHandlerContext context,
                                 final HttpMethod method,
                                 final String url,
                                 final String requestBody,
@@ -222,11 +248,12 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
         final HttpRequest request = this.request(method, url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
                 URL,
-                contentType(),
                 Sets.of(mapping),
                 Indentation.SPACES2,
-                LineEnding.NL
+                LineEnding.NL,
+                context
         ).route(request.routerParameters());
+
         this.checkNotEquals(Optional.empty(),
                 possible,
                 () -> method + " " + url);
@@ -266,11 +293,9 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
             @SuppressWarnings("UnnecessaryBoxing")
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
-                final MediaType contentType = HateosContentType.JSON_CONTENT_TYPE;
-
                 return Maps.of(
-                        HttpHeaderName.ACCEPT, Lists.of(contentType.accept()),
-                        HttpHeaderName.CONTENT_TYPE, Lists.of(contentType.setCharset(CharsetName.UTF_8)),
+                        HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
+                        HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
                         HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
                 );
             }
@@ -285,16 +310,6 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 return bodyText.length();
             }
         };
-    }
-
-    private HateosContentType contentType() {
-        return HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
-                        MathContext.DECIMAL32
-                ),
-                JsonNodeMarshallContexts.basic()
-        );
     }
 
     // ClassTesting.....................................................................................................
