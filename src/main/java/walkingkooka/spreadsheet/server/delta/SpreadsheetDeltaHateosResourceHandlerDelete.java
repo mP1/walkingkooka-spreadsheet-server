@@ -20,10 +20,12 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -31,27 +33,27 @@ import java.util.Optional;
 /**
  * Abstract base class for DELETE / INSERT a column or row or range of either
  */
-abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler2<R> {
+abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
+        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine,
-                                                final SpreadsheetEngineContext context) {
-        super(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
-                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
-        HateosResourceHandler.checkResourceEmpty(resource);
-        HateosResourceHandler.checkParameters(parameters);
 
         return Optional.of(
                 this.executeAndPrepareResponse(
                         columnOrRow,
                         1,
                         resource,
-                        parameters
+                        parameters,
+                        context
                 )
         );
     }
@@ -62,10 +64,9 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
-        HateosResourceHandler.checkResourceEmpty(resource);
-        HateosResourceHandler.checkParameters(parameters);
 
         final R lower = columnOrRow.lowerBound()
                 .value()
@@ -79,7 +80,8 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                         lower,
                         upper.value() - lower.value() + 1,
                         resource,
-                        parameters
+                        parameters,
+                        context
                 )
         );
     }
@@ -89,16 +91,28 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     private SpreadsheetDelta executeAndPrepareResponse(final R lower,
                                                        final int count,
                                                        final Optional<SpreadsheetDelta> in,
-                                                       final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+        HateosResourceHandler.checkResourceEmpty(in);
+        HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
+
         return this.prepareResponse(
                 in,
                 parameters,
-                this.execute(lower, count)
+                context,
+                this.execute(
+                        lower,
+                        count,
+                        context
+                )
         );
     }
 
     /**
      * Sub classes must perform the delete or insert option.
      */
-    abstract SpreadsheetDelta execute(final R lower, final int count);
+    abstract SpreadsheetDelta execute(final R lower,
+                                      final int count,
+                                      final SpreadsheetEngineContext context);
 }

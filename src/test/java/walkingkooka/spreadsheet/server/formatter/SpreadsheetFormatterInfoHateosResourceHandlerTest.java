@@ -30,6 +30,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -37,17 +39,18 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterInfoHateosResourceHandler,
+public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetFormatterInfoHateosResourceHandler,
         SpreadsheetFormatterName,
         SpreadsheetFormatterInfo,
-        SpreadsheetFormatterInfoSet>,
-        ToStringTesting<walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterInfoHateosResourceHandler> {
+        SpreadsheetFormatterInfoSet,
+        SpreadsheetEngineHateosResourceHandlerContext>,
+        ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
 
     @Test
     public void testWithNullContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterInfoHateosResourceHandler.with(null)
+                () -> SpreadsheetFormatterInfoHateosResourceHandler.with(null)
         );
     }
 
@@ -80,6 +83,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
                 INFO1.name(),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(INFO1)
         );
     }
@@ -90,6 +94,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
                 SpreadsheetFormatterName.with("Unknown"),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.empty()
         );
     }
@@ -99,6 +104,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
         this.handleAllAndCheck(
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(
                         SpreadsheetFormatterInfoSet.with(
                                 Sets.of(
@@ -111,8 +117,8 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     }
 
     @Override
-    public walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterInfoHateosResourceHandler createHandler() {
-        return walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterInfoHateosResourceHandler.with(CONTEXT);
+    public SpreadsheetFormatterInfoHateosResourceHandler createHandler() {
+        return SpreadsheetFormatterInfoHateosResourceHandler.with(CONTEXT);
     }
 
     @Override
@@ -148,6 +154,11 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // toString.........................................................................................................

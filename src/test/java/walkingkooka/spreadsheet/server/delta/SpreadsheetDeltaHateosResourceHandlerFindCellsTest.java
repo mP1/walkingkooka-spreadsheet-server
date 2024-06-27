@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
@@ -38,6 +37,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -60,8 +61,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 IllegalArgumentException.class,
                 () -> SpreadsheetDeltaHateosResourceHandlerFindCells.with(
                         -1,
-                        SpreadsheetEngines.fake(),
-                        SpreadsheetEngineContexts.fake()
+                        SpreadsheetEngines.fake()
                 )
         );
     }
@@ -78,7 +78,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     );
 
     @Test
-    public void testOne() {
+    public void testHandleOne() {
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell b2Cell = b2.setFormula(
                 SpreadsheetFormula.EMPTY.setText("=100")
@@ -115,26 +115,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
                                 return found;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals(EXPRESSION.toString(), text);
-
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("test123"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(EXPRESSION);
-                            }
                         }
                 ),
                 b2, // reference
@@ -146,6 +126,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        checkEquals(EXPRESSION.toString(), text);
+
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("test123"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(EXPRESSION);
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
                                 found
@@ -155,7 +155,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Test
-    public void testRange() {
+    public void testHandleRange() {
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell b2Cell = b2.setFormula(
                 SpreadsheetFormula.EMPTY.setText("=100")
@@ -200,26 +200,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
                                 return found;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals(EXPRESSION.toString(), text);
-
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("test123"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(EXPRESSION);
-                            }
                         }
                 ),
                 range.range(), // reference
@@ -231,6 +211,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        checkEquals(EXPRESSION.toString(), text);
+
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("test123"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(EXPRESSION);
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
                                 found
@@ -240,7 +240,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Test
-    public void testAll() {
+    public void testHandleAll() {
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell b2Cell = b2.setFormula(
                 SpreadsheetFormula.EMPTY.setText("=100")
@@ -285,26 +285,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
                                 return found;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals(EXPRESSION.toString(), text);
-
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("test123"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(EXPRESSION);
-                            }
                         }
                 ),
                 range.range(), // reference
@@ -316,6 +296,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        checkEquals(EXPRESSION.toString(), text);
+
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("test123"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(EXPRESSION);
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
                                 found
@@ -343,6 +343,27 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         final SpreadsheetCellRangeReference range = b2.cellRange(c3);
 
+        new FakeSpreadsheetEngineContext() {
+            @Override
+            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                final TextCursorSavePoint begin = formula.save();
+                formula.end();
+                final String text = begin.textBetween()
+                        .toString();
+                checkEquals(EXPRESSION.toString(), text);
+
+                return SpreadsheetParserToken.functionName(
+                        SpreadsheetFunctionName.with("test123"),
+                        text
+                );
+            }
+
+            @Override
+            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                return Optional.of(EXPRESSION);
+            }
+        };
+
         this.handleRangeAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerFindCells.with(
                         DEFAULT_MAX,
@@ -365,31 +386,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
                                 return found;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals(EXPRESSION.toString(), text);
-
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("test123"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(EXPRESSION);
-                            }
                         }
                 ),
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY.setCells(
                                 found
@@ -409,23 +411,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFindCells createHandler(final SpreadsheetEngine engine,
-                                                                 final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaHateosResourceHandlerFindCells createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaHateosResourceHandlerFindCells.with(
                 DEFAULT_MAX,
-                engine,
-                context
+                engine
         );
     }
 
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
@@ -454,6 +449,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     @Override
     public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

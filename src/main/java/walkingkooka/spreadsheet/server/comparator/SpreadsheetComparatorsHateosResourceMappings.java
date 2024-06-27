@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
 import java.util.Objects;
@@ -38,18 +39,23 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
     public static HateosResourceMapping<SpreadsheetComparatorName,
             SpreadsheetComparatorInfo,
             SpreadsheetComparatorInfoSet,
-            SpreadsheetComparatorInfo> comparator(final SpreadsheetEngineContext context) {
+            SpreadsheetComparatorInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> comparator(final SpreadsheetEngineContext context) {
         Objects.requireNonNull(context, "context");
 
         // comparator GET...............................................................................................
 
-        HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet,
-                SpreadsheetComparatorInfo> comparator = HateosResourceMapping.with(
+        HateosResourceMapping<SpreadsheetComparatorName,
+                SpreadsheetComparatorInfo,
+                SpreadsheetComparatorInfoSet,
+                SpreadsheetComparatorInfo,
+                SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
                 COMPARATOR,
                 SpreadsheetComparatorsHateosResourceMappings::parseComparatorSelection,
                 SpreadsheetComparatorInfo.class, // valueType
                 SpreadsheetComparatorInfoSet.class, // collectionType
-                SpreadsheetComparatorInfo.class// resourceType
+                SpreadsheetComparatorInfo.class,// resourceType
+                SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -59,7 +65,8 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
         return comparator;
     }
 
-    private static HateosResourceSelection<SpreadsheetComparatorName> parseComparatorSelection(final String text) {
+    private static HateosResourceSelection<SpreadsheetComparatorName> parseComparatorSelection(final String text,
+                                                                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetComparatorName> selection;
 
         switch (text) {

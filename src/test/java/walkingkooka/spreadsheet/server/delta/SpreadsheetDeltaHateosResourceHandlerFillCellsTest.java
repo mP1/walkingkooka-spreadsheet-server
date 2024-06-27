@@ -29,12 +29,13 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -57,6 +58,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                 Maps.of(
                         SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.empty()
                 ),
+                this.context(),
                 IllegalArgumentException.class);
     }
 
@@ -68,6 +70,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                 Maps.of(
                         SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.of("!INVALID")
                 ),
+                this.context(),
                 IllegalArgumentException.class
         );
     }
@@ -109,11 +112,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                                 checkEquals(toSpreadsheetCellRangeReference(), t, "to");
                                 return deltaWithCell();
                             }
-                        },
-                        this.engineContext()),
+                        }
+                ),
                 this.range(),
                 this.collectionResource(),
                 parameters,
+                this.context(),
                 Optional.of(
                         this.deltaWithCell()
                 )
@@ -161,12 +165,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                                                 )
                                         );
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 range,
                 Optional.of(resource.setWindow(window)),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
@@ -183,19 +187,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerFillCells createHandler(final SpreadsheetEngine engine,
-                                                                 final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerFillCells.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerFillCells createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerFillCells.with(engine);
     }
 
     @Override
     SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
-    }
-
-    @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override
@@ -237,6 +235,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     private SpreadsheetDelta deltaWithCell() {
         return SpreadsheetDelta.EMPTY
                 .setCells(Sets.of(this.cell()));
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override

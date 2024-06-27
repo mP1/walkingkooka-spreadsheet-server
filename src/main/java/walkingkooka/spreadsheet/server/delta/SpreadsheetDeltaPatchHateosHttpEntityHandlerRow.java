@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -30,8 +29,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -39,20 +38,16 @@ import java.util.Set;
 
 final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetDeltaPatchHateosHttpEntityHandler<SpreadsheetRowReference, SpreadsheetRowRangeReference> {
 
-    static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow with(final SpreadsheetEngine engine,
-                                                                final HateosContentType hateosContentType,
-                                                                final SpreadsheetEngineContext context) {
+    static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaPatchHateosHttpEntityHandlerRow(
-                engine,
-                hateosContentType,
-                context
+                engine
         );
     }
 
-    private SpreadsheetDeltaPatchHateosHttpEntityHandlerRow(final SpreadsheetEngine engine,
-                                                            final HateosContentType hateosContentType,
-                                                            final SpreadsheetEngineContext context) {
-        super(engine, hateosContentType, context);
+    private SpreadsheetDeltaPatchHateosHttpEntityHandlerRow(final SpreadsheetEngine engine) {
+        super(
+                engine
+        );
     }
 
     @Override
@@ -66,14 +61,15 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
     }
 
     @Override
-    JsonNode preparePatch(final JsonNode delta) {
+    JsonNode preparePatch(final JsonNode delta,
+                          final SpreadsheetEngineContext context) {
         return delta;
     }
 
     @Override
-    SpreadsheetDelta load(final SpreadsheetRowRangeReference range) {
+    SpreadsheetDelta load(final SpreadsheetRowRangeReference range,
+                          final SpreadsheetEngineContext context) {
         final SpreadsheetEngine engine = this.engine;
-        final SpreadsheetEngineContext context = this.context;
 
         final Set<SpreadsheetRow> loaded = Sets.sorted();
 
@@ -94,7 +90,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                            final SpreadsheetRowRangeReference range,
                            final JsonNode patch,
                            final Map<HttpRequestAttribute<?>, Object> parameters,
-                           final JsonNodeUnmarshallContext context) {
+                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta patched = loaded.patchRows(
                 patch,
                 context
@@ -102,7 +98,8 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
 
         final SpreadsheetViewportWindows window = window(
                 parameters,
-                patched
+                patched,
+                context
         );
 
         // load all the cells for any unhidden rows....
@@ -120,7 +117,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {
                     // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(window.cellRanges())
+                            this.loadCells(
+                                    window.cellRanges(),
+                                    context
+                            )
                     );
                 }
             }
@@ -131,9 +131,9 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
 
     @Override
     SpreadsheetDelta save(final SpreadsheetDelta patched,
-                          final SpreadsheetRowRangeReference range) {
+                          final SpreadsheetRowRangeReference range,
+                          final SpreadsheetEngineContext context) {
         final SpreadsheetEngine engine = this.engine;
-        final SpreadsheetEngineContext context = this.context;
 
         final Set<SpreadsheetCell> cells = Sets.sorted();
 

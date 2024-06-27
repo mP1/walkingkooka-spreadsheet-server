@@ -23,9 +23,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -39,33 +39,32 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
     }
 
     @Test
-    public final void testIdNotEmptyResourceFails() {
+    public final void testHandleOneIdNotEmptyResourceFails() {
         this.handleOneFails(
                 this.id(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                 ),
                 this.parameters(),
+                this.context(),
                 IllegalArgumentException.class);
     }
 
     @Test
-    public final void testRangeNotEmptyResourceFails() {
+    public final void testHandleRangeNotEmptyResourceFails() {
         this.handleRangeFails(
                 this.range(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                 ),
                 this.parameters(),
-                IllegalArgumentException.class);
+                this.context(),
+                IllegalArgumentException.class
+        );
     }
 
     @Override final SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine();
-    }
-
-    @Override final SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override final public Optional<SpreadsheetDelta> resource() {
@@ -78,5 +77,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
 
     @Override final public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 }

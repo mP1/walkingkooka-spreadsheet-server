@@ -22,8 +22,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
@@ -41,10 +39,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
 
     @Override final SpreadsheetEngine engine() {
         return SpreadsheetEngines.fake();
-    }
-
-    @Override final SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
     }
 
     @Override

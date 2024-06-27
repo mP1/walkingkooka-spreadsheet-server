@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -35,10 +36,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link SpreadsheetFormatterInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet> {
+final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetFormatterInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
         return new SpreadsheetFormatterInfoHateosResourceHandler(
@@ -53,9 +54,11 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
 
     @Override
     public Optional<SpreadsheetFormatterInfoSet> handleAll(final Optional<SpreadsheetFormatterInfoSet> infos,
-                                                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 SpreadsheetFormatterInfoSet.with(
@@ -67,10 +70,12 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
     @Override
     public Optional<SpreadsheetFormatterInfo> handleOne(final SpreadsheetFormatterName name,
                                                         final Optional<SpreadsheetFormatterInfo> info,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return this.context.spreadsheetFormatterInfos()
                 .stream()

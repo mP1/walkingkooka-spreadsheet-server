@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
@@ -29,7 +30,6 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
@@ -39,21 +39,21 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContext;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContextHttps;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -67,7 +67,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetHttpHandler} handler.
      */
     static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl baseUrl,
-                                                               final HateosContentType contentType,
                                                                final Indentation indentation,
                                                                final LineEnding lineEnding,
                                                                final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
@@ -79,11 +78,11 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                               final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                               final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                                               final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                                                final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
                 baseUrl,
-                contentType,
                 indentation,
                 lineEnding,
                 createMetadata,
@@ -95,7 +94,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory,
+                jsonNodeMarshallContext,
+                jsonNodeUnmarshallContext,
                 now
         );
     }
@@ -104,7 +104,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
      * Private ctor
      */
     private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl baseUrl,
-                                                           final HateosContentType contentType,
                                                            final Indentation indentation,
                                                            final LineEnding lineEnding,
                                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
@@ -116,16 +115,15 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                           final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
+                                                           final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                                           final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                                            final Supplier<LocalDateTime> now) {
         super();
 
         this.baseUrl = baseUrl;
-        this.contentType = contentType;
 
-        final SpreadsheetContext context = SpreadsheetContexts.basic(
+        final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
                 baseUrl,
-                contentType,
                 indentation,
                 lineEnding,
                 fractioner,
@@ -137,20 +135,18 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
-                contentTypeFactory,
+                jsonNodeMarshallContext,
+                jsonNodeUnmarshallContext,
                 now
         );
 
         this.context = context;
 
-        this.hateosRouter = SpreadsheetContextHttps.router(
+        this.hateosRouter = SpreadsheetMetadataHateosResourceMappings.router(
                 baseUrl,
-                contentType,
                 indentation,
                 lineEnding,
-                SpreadsheetContextHttps.saveOrUpdateMetadata(context),
-                SpreadsheetContextHttps.deleteMetadata(context),
-                SpreadsheetContextHttps.loadMetadata(context)
+                context
         );
     }
 
@@ -190,9 +186,9 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
         HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
                 HttpHandlers.contentType(
-                        this.contentType.contentType(),
+                        MediaType.APPLICATION_JSON,
                         JsonHttpHandlers.json(
-                                (json) -> SpreadsheetContextHttps.patch(
+                                (json) -> SpreadsheetMetadataHateosResourceMappings.patch(
                                         SpreadsheetId.parse(request.url().path().name().value()),
                                         context
                                 ).apply(json),
@@ -205,8 +201,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
         );
     }
 
-    private final HateosContentType contentType;
-
     private static HttpEntity patchPost(final HttpEntity response) {
         return response.addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,
@@ -214,7 +208,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
         );
     }
 
-    private final SpreadsheetContext context;
+    private final SpreadsheetMetadataHateosResourceHandlerContext context;
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> hateosRouter;
 

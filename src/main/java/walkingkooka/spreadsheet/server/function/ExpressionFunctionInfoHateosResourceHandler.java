@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -35,10 +36,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ExpressionFunctionInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet>,
-        UnsupportedHateosResourceHandlerHandleMany<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet>,
-        UnsupportedHateosResourceHandlerHandleNone<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet>,
-        UnsupportedHateosResourceHandlerHandleRange<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet> {
+final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static ExpressionFunctionInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
         return new ExpressionFunctionInfoHateosResourceHandler(
@@ -53,9 +54,11 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
 
     @Override
     public Optional<ExpressionFunctionInfoSet> handleAll(final Optional<ExpressionFunctionInfoSet> infos,
-                                                         final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 ExpressionFunctionInfoSet.with(
@@ -67,10 +70,12 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     @Override
     public Optional<ExpressionFunctionInfo> handleOne(final FunctionExpressionName name,
                                                       final Optional<ExpressionFunctionInfo> info,
-                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return this.context.expressionFunctionInfos()
                 .stream()

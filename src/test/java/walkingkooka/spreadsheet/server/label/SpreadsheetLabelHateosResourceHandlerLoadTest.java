@@ -26,6 +26,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -36,46 +38,35 @@ import java.util.Set;
 public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends SpreadsheetLabelHateosResourceHandlerTestCase2<SpreadsheetLabelHateosResourceHandlerLoad> {
 
     @Test
-    public void testLoad() {
+    public void testHandleOneLoad() {
         final SpreadsheetLabelName labelName = this.id();
         final SpreadsheetLabelMapping mapping = SpreadsheetLabelMapping.with(labelName, SpreadsheetSelection.parseCell("B2"));
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(mapping);
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerLoad.with(store),
                 labelName,
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.of(mapping)
         );
     }
 
     @Test
-    public void testLoadUnknownSpreadsheetLabel() {
+    public void testHandleOneLoadUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
                 this.id(),
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(SpreadsheetLabelStores.treeMap()),
                 this.resource()
         );
     }
 
-    // ClassTesting......................................................................................................
-
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerLoad> type() {
-        return SpreadsheetLabelHateosResourceHandlerLoad.class;
-    }
-
-    @Override
-    SpreadsheetLabelHateosResourceHandlerLoad createHandler(final SpreadsheetLabelStore store) {
-        return SpreadsheetLabelHateosResourceHandlerLoad.with(store);
-    }
-
-    @Override
-    SpreadsheetLabelStore store() {
-        return SpreadsheetLabelStores.treeMap();
+    public SpreadsheetLabelHateosResourceHandlerLoad createHandler() {
+        return SpreadsheetLabelHateosResourceHandlerLoad.INSTANCE;
     }
 
     @Override
@@ -106,5 +97,17 @@ public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends Spreads
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    }
+
+    // ClassTesting......................................................................................................
+
+    @Override
+    public Class<SpreadsheetLabelHateosResourceHandlerLoad> type() {
+        return SpreadsheetLabelHateosResourceHandlerLoad.class;
     }
 }

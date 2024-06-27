@@ -66,12 +66,15 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -354,7 +357,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
                 Url.parseAbsolute(BASE_URL + "/api"),
-                //HateosContentType.json(JsonNodeUnmarshallContexts.basic(ExpressionNumberContexts.fake()), JsonNodeMarshallContexts.basic()),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 fractioner(),
@@ -366,6 +368,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 spreadsheetIdToSpreadsheetParserProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
+                JsonNodeMarshallContexts.basic(),
+                JsonNodeUnmarshallContexts.basic(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        MathContext.UNLIMITED
+                ),
                 LocalDateTime::now
         );
     }

@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -35,17 +36,15 @@ import java.util.Optional;
 /**
  * An abstract {@link HateosResourceHandler} that includes uses a {@link SpreadsheetEngine} and {@link SpreadsheetEngineContext} to do things.
  */
-abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> implements HateosResourceHandler<I, SpreadsheetDelta, SpreadsheetDelta>,
-        UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta>,
-        UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta> {
+abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> implements HateosResourceHandler<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
-     * Checks required factory method parameters are not null.
+     * Checks required {@link SpreadsheetEngine} is not null.
      */
-    static void check(final SpreadsheetEngine engine,
-                      final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(engine, "engine");
-        Objects.requireNonNull(context, "context");
+    static SpreadsheetEngine check(final SpreadsheetEngine engine) {
+        return Objects.requireNonNull(engine, "engine");
     }
 
     static void checkCell(final SpreadsheetCellReference cell) {
@@ -67,11 +66,9 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     /**
      * Package private to limit sub classing.
      */
-    SpreadsheetDeltaHateosResourceHandler(final SpreadsheetEngine engine,
-                                          final SpreadsheetEngineContext context) {
+    SpreadsheetDeltaHateosResourceHandler(final SpreadsheetEngine engine) {
         super();
         this.engine = engine;
-        this.context = context;
     }
 
     @Override
@@ -86,18 +83,18 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
      */
     final SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                                           final SpreadsheetEngineHateosResourceHandlerContext context,
                                            final SpreadsheetDelta out) {
         return SpreadsheetDeltaHateosResourceMappings.prepareResponse(
                 in,
                 parameters,
                 out,
                 this.engine,
-                this.context
+                context
         );
     }
 
     final SpreadsheetEngine engine;
-    final SpreadsheetEngineContext context;
 
     final Optional<SpreadsheetViewport> viewport(final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final Optional<SpreadsheetDelta> delta,

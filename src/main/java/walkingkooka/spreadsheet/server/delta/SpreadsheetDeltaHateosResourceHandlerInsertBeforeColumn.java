@@ -28,15 +28,14 @@ import java.util.Objects;
 
 final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetColumnReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn with(final SpreadsheetEngine engine,
-                                                                        final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn(final SpreadsheetEngine engine,
-                                                                    final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
@@ -51,30 +50,35 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn extends Spre
 
     @Override
     SpreadsheetDelta insert(final SpreadsheetColumnReference column,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertBefore(
                 column,
-                count
+                count,
+                context
         );
     }
 
     @Override
     SpreadsheetDelta insert(final Range<SpreadsheetColumnReference> column,
-                            final int count) {
+                            final int count,
+                            final SpreadsheetEngineContext context) {
         return this.insertBefore(
                 column.lowerBound()
                         .value()
                         .get(),
-                count
+                count,
+                context
         );
     }
 
     private SpreadsheetDelta insertBefore(final SpreadsheetColumnReference column,
-                                          final int count) {
+                                          final int count,
+                                          final SpreadsheetEngineContext context) {
         return this.engine.insertColumns(
                 column,
                 count,
-                this.context
+                context
         );
     }
 

@@ -20,11 +20,13 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -34,28 +36,32 @@ import java.util.Optional;
  * with the original column or row and count.
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>>
-        extends SpreadsheetDeltaHateosResourceHandler2<R> {
+        extends SpreadsheetDeltaHateosResourceHandler<R>
+        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    SpreadsheetDeltaHateosResourceHandlerInsert(final SpreadsheetEngine engine,
-                                                final SpreadsheetEngineContext context) {
-        super(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerInsert(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
-                                                      final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                      final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.insert(
                                 columnOrRow,
-                                SpreadsheetUrlQueryParameters.count(parameters)
+                                SpreadsheetUrlQueryParameters.count(parameters),
+                                context
                         )
                 )
         );
@@ -66,23 +72,29 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     /**
      * Sub classes must perform the insert before or after operation here.
      */
-    abstract SpreadsheetDelta insert(final R columnOrRow, final int count);
+    abstract SpreadsheetDelta insert(final R columnOrRow,
+                                     final int count,
+                                     final SpreadsheetEngineContext context);
 
     @Override
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.insert(
                                 columnOrRow,
-                                SpreadsheetUrlQueryParameters.count(parameters)
+                                SpreadsheetUrlQueryParameters.count(parameters),
+                                context
                         )
                 )
         );
@@ -93,5 +105,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     /**
      * Sub classes must perform the insert before or after operation here.
      */
-    abstract SpreadsheetDelta insert(final Range<R> columnOrRow, final int count);
+    abstract SpreadsheetDelta insert(final Range<R> columnOrRow,
+                                     final int count,
+                                     final SpreadsheetEngineContext context);
 }

@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.List;
 import java.util.Map;
@@ -42,72 +43,72 @@ import java.util.Set;
  */
 final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSortCells with(final SpreadsheetEngine engine,
-                                                               final SpreadsheetEngineContext context) {
-        check(
-                engine,
-                context
-        );
-
+    static SpreadsheetDeltaHateosResourceHandlerSortCells with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerSortCells(
-                engine,
-                context
+                check(engine)
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerSortCells(final SpreadsheetEngine engine,
-                                                           final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerSortCells(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
                 SpreadsheetSelection.ALL_CELLS.range(),
                 resource,
-                parameters
+                parameters,
+                context
         );
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
 
         return this.handleRange(
                 cell.range(cell),
                 resource,
-                parameters
+                parameters,
+                context
         );
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
         return this.sortCells(
                 SpreadsheetSelection.cellRange(cells),
                 resource,
-                parameters
+                parameters,
+                context
         );
     }
 
     private Optional<SpreadsheetDelta> sortCells(final SpreadsheetCellRangeReference cells,
                                                  final Optional<SpreadsheetDelta> resource,
-                                                 final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.ofNullable(
                 this.engine.sortCells(
                         cells, // cells
                         comparators(parameters),
                         SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
-                        this.context
+                        context
                 )
         );
     }

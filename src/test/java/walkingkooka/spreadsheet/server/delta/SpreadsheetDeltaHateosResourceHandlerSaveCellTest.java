@@ -29,17 +29,17 @@ import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -63,6 +63,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         this.handleOneFails(this.id(),
                 Optional.empty(),
                 this.parameters(),
+                this.context(),
                 IllegalArgumentException.class);
     }
 
@@ -88,6 +89,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                 this.id(),
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         this.saved()
                 )
@@ -103,7 +105,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setText("99")
                 );
 
-        this.handleOneFails(this.id(),
+        this.handleOneFails(
+                this.id(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -111,7 +114,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 )
                 ),
                 this.parameters(),
-                IllegalArgumentException.class);
+                this.context(),
+                IllegalArgumentException.class
+        );
     }
 
     @Test
@@ -147,27 +152,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                                                     final SpreadsheetEngineContext context) {
                                 return cells;
                             }
-                        },
-                        new FakeSpreadsheetEngineContext() {
-                            @Override
-                            public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                                final TextCursorSavePoint begin = formula.save();
-                                formula.end();
-                                final String text = begin.textBetween()
-                                        .toString();
-                                checkEquals(query, text);
-                                return SpreadsheetParserToken.functionName(
-                                        SpreadsheetFunctionName.with("true"),
-                                        text
-                                );
-                            }
-
-                            @Override
-                            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                                return Optional.of(
-                                        Expression.value(true)
-                                );
-                            }
                         }
                 ),
                 this.id(),
@@ -181,6 +165,28 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                         SpreadsheetDeltaUrlQueryParameters.QUERY,
                         Lists.of(query)
                 ),
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                    @Override
+                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                        final TextCursorSavePoint begin = formula.save();
+                        formula.end();
+                        final String text = begin.textBetween()
+                                .toString();
+                        checkEquals(query, text);
+                        return SpreadsheetParserToken.functionName(
+                                SpreadsheetFunctionName.with("true"),
+                                text
+                        );
+                    }
+
+                    @Override
+                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                        return Optional.of(
+                                Expression.value(true)
+                        );
+                    }
+                },
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -229,6 +235,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setWindow(window)
                 ),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(Sets.of(saved1))
@@ -273,6 +280,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setCells(Sets.of(b2, c3))
                 ),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         result
                 )
@@ -318,6 +326,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setWindow(window)
                 ),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         SpreadsheetDelta.EMPTY
                                 .setCells(
@@ -327,9 +336,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         );
     }
 
-    private final static double WIDTH = 50;
-    private final static double HEIGHT = 20;
-
     // toString.........................................................................................................
 
     @Test
@@ -338,13 +344,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerSaveCell createHandler(final SpreadsheetEngine engine,
-                                                                final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerSaveCell.with(engine, context);
-    }
-
-    private SpreadsheetDeltaHateosResourceHandlerSaveCell createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerSaveCell.with(engine, this.engineContext());
+    SpreadsheetDeltaHateosResourceHandlerSaveCell createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerSaveCell.with(engine);
     }
 
     @Override
@@ -384,13 +385,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     }
 
     @Override
-    SpreadsheetEngine engine() {
-        return SpreadsheetEngines.fake();
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override
-    SpreadsheetEngineContext engineContext() {
-        return SpreadsheetEngineContexts.fake();
+    SpreadsheetEngine engine() {
+        return SpreadsheetEngines.fake();
     }
 
     private SpreadsheetDelta saved() {

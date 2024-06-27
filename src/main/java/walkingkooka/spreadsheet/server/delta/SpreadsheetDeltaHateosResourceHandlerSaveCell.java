@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -27,6 +28,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -35,23 +37,24 @@ import java.util.Set;
 /**
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#saveCell(SpreadsheetCell, SpreadsheetEngineContext)}.
  */
-final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDeltaHateosResourceHandler2<SpreadsheetCellReference> {
+final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
+        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerSaveCell with(final SpreadsheetEngine engine,
-                                                              final SpreadsheetEngineContext context) {
-        check(engine, context);
-        return new SpreadsheetDeltaHateosResourceHandlerSaveCell(engine, context);
+    static SpreadsheetDeltaHateosResourceHandlerSaveCell with(final SpreadsheetEngine engine) {
+        return new SpreadsheetDeltaHateosResourceHandlerSaveCell(
+                check(engine)
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerSaveCell(final SpreadsheetEngine engine,
-                                                          final SpreadsheetEngineContext context) {
-        super(engine, context);
+    private SpreadsheetDeltaHateosResourceHandlerSaveCell(final SpreadsheetEngine engine) {
+        super(engine);
     }
 
     @Override
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
 
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
@@ -60,15 +63,17 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
             throw new IllegalArgumentException("Expected 1 cell got " + cells.size());
         }
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.engine.saveCell(
                                 cells.iterator()
                                         .next(),
-                                this.context
+                                context
                         )
                 )
         );
@@ -77,20 +82,23 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
     @Override
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
                                                   final Optional<SpreadsheetDelta> resource,
-                                                  final Map<HttpRequestAttribute<?>, Object> parameters) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetCellRangeReference spreadsheetCellRangeReference = SpreadsheetSelection.cellRange(range);
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
 
         return Optional.of(
                 this.prepareResponse(
                         resource,
                         parameters,
+                        context,
                         this.engine.fillCells(
                                 delta.cells(),
                                 spreadsheetCellRangeReference,
                                 spreadsheetCellRangeReference,
-                                this.context
+                                context
                         )
                 )
         );

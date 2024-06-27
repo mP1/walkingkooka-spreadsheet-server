@@ -29,6 +29,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Optional;
 
@@ -61,12 +63,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
                                 checkEquals(COUNT, count, "count");
                                 return returned;
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 row,
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         returned
                 )
@@ -99,12 +101,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
                                 checkEquals(COUNT, count, "count");
                                 return returned;
                             }
-                        },
-                        this.engineContext()
+                        }
                 ),
                 range.range(),
                 this.resource(),
                 this.parameters(),
+                this.context(),
                 Optional.of(
                         returned
                 )
@@ -112,9 +114,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
     }
 
     @Override
-    SpreadsheetDeltaHateosResourceHandlerInsertAfterRow createHandler(final SpreadsheetEngine engine,
-                                                                      final SpreadsheetEngineContext context) {
-        return SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(engine, context);
+    SpreadsheetDeltaHateosResourceHandlerInsertAfterRow createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(engine);
     }
 
     @Override
@@ -126,6 +127,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
     public Range<SpreadsheetRowReference> range() {
         return SpreadsheetSelection.parseRowRange("2:3")
                 .range();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     @Override

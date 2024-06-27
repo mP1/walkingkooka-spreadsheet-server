@@ -41,7 +41,6 @@ import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -50,21 +49,17 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -92,12 +87,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final SpreadsheetMetadataStore metadataStore,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                              final Function<BigDecimal, Fraction> fractioner,
+                                             final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                             final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                              final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                              final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                              final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                             final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
@@ -111,12 +107,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 metadataStore,
                 spreadsheetMetadataStamper,
                 fractioner,
+                jsonNodeMarshallContext,
+                jsonNodeUnmarshallContext,
                 spreadsheetIdToSpreadsheetComparatorProvider,
                 spreadsheetIdToSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
                 spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
-                contentTypeFactory,
                 fileServer,
                 server
         );
@@ -143,23 +140,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final SpreadsheetMetadataStore metadataStore,
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                   final Function<BigDecimal, Fraction> fractioner,
+                                  final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                  final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                   final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                   final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                   final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
                                   final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                  final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<HttpHandler, HttpServer> server) {
         super();
-
-        this.contentTypeJson = HateosContentType.json(
-                JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.DEFAULT,
-                        MathContext.DECIMAL32
-                ),
-                JsonNodeMarshallContexts.basic()); // TODO https://github.com/mP1/walkingkooka-spreadsheet-server/issues/42
-        this.contentTypeFactory = contentTypeFactory;
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
@@ -170,6 +160,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
         this.fractioner = fractioner;
+
+        this.jsonNodeMarshallContext = jsonNodeMarshallContext;
+        this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
 
         this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
         this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
@@ -233,7 +226,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpHandler spreadsheetHandler(final AbsoluteUrl api) {
         return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
                 api,
-                this.contentTypeJson,
                 this.indentation,
                 this.lineEnding,
                 this.createMetadata,
@@ -245,7 +237,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdToSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                this.contentTypeFactory,
+                this.jsonNodeMarshallContext,
+                this.jsonNodeUnmarshallContext,
                 this.now
         );
     }
@@ -273,12 +266,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdToSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
+                this.jsonNodeMarshallContext,
+                this.jsonNodeUnmarshallContext,
                 this.now
         );
     }
 
-    private final HateosContentType contentTypeJson;
     private final Indentation indentation;
+
     private final LineEnding lineEnding;
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
@@ -298,9 +293,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider;
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
-    private final BiFunction<SpreadsheetMetadata, SpreadsheetLabelStore, HateosContentType> contentTypeFactory;
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+
+    private final JsonNodeMarshallContext jsonNodeMarshallContext;
+
+    private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
 

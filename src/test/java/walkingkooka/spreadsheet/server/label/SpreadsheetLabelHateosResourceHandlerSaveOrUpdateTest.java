@@ -27,6 +27,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 
@@ -43,9 +45,9 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         this.handleNoneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store),
                 Optional.of(mapping),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.of(mapping)
         );
 
@@ -60,10 +62,10 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         store.save(mapping);
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store),
                 labelName,
                 Optional.of(mapping),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.of(mapping)
         );
 
@@ -79,10 +81,10 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         store.save(this.mapping(oldLabelName));
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store),
                 oldLabelName,
                 Optional.of(newMapping),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.of(newMapping)
         );
 
@@ -102,10 +104,10 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         store.save(newLabelName.mapping(SpreadsheetSelection.parseCell("Z99")));
 
         this.handleOneAndCheck(
-                SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store),
                 oldLabelName,
                 Optional.of(newMapping),
                 HateosResourceHandler.NO_PARAMETERS,
+                this.context(store),
                 Optional.of(newMapping)
         );
 
@@ -115,21 +117,9 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         );
     }
 
-    // ClassTesting......................................................................................................
-
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerSaveOrUpdate> type() {
-        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.class;
-    }
-
-    @Override
-    SpreadsheetLabelHateosResourceHandlerSaveOrUpdate createHandler(final SpreadsheetLabelStore store) {
-        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.with(store);
-    }
-
-    @Override
-    SpreadsheetLabelStore store() {
-        return SpreadsheetLabelStores.treeMap();
+    public SpreadsheetLabelHateosResourceHandlerSaveOrUpdate createHandler() {
+        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.INSTANCE;
     }
 
     @Override
@@ -164,5 +154,17 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    }
+
+    // ClassTesting......................................................................................................
+
+    @Override
+    public Class<SpreadsheetLabelHateosResourceHandlerSaveOrUpdate> type() {
+        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.class;
     }
 }

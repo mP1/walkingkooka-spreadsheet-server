@@ -27,6 +27,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -40,7 +42,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ExpressionFunctionInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<ExpressionFunctionInfoHateosResourceHandler,
         FunctionExpressionName,
         ExpressionFunctionInfo,
-        ExpressionFunctionInfoSet>,
+        ExpressionFunctionInfoSet,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
 
     @Test
@@ -80,6 +83,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
                 INFO1.name(),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(INFO1)
         );
     }
@@ -90,6 +94,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
                 FunctionExpressionName.with("Unknown"),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.empty()
         );
     }
@@ -99,6 +104,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
         this.handleAllAndCheck(
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
+                this.context(),
                 Optional.of(
                         ExpressionFunctionInfoSet.with(
                                 Sets.of(
@@ -148,6 +154,11 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // toString.........................................................................................................

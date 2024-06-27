@@ -24,7 +24,6 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
-import walkingkooka.net.http.server.hateos.HateosContentType;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
@@ -32,17 +31,15 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.server.context.SpreadsheetContexts;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -69,6 +66,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                     final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                                                     final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                                                      final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
                 base,
@@ -83,6 +82,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 spreadsheetIdToSpreadsheetParserProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
+                jsonNodeMarshallContext,
+                jsonNodeUnmarshallContext,
                 now
         );
     }
@@ -102,6 +103,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
+                                                                 final JsonNodeMarshallContext jsonNodeMarshallContext,
+                                                                 final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                                                  final Supplier<LocalDateTime> now) {
         super();
 
@@ -130,6 +133,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
+        this.jsonNodeMarshallContext = jsonNodeMarshallContext;
+        this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
+
         this.now = now;
     }
 
@@ -152,15 +158,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      * Creates a {@link Router} for engine apis with base url=<code>/api/spreadsheet/$spreadsheetId$/</code> for the given spreadsheet.
      */
     Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
-        return SpreadsheetContexts.basic(
+        return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
                 this.baseUrl,
-                HateosContentType.json(
-                        JsonNodeUnmarshallContexts.basic(
-                                ExpressionNumberKind.DOUBLE,
-                                MathContext.DECIMAL32
-                        ),
-                        JsonNodeMarshallContexts.basic()
-                ),
                 this.indentation,
                 this.lineEnding,
                 this.fractioner,
@@ -172,7 +171,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.spreadsheetIdToSpreadsheetParserProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                SpreadsheetContexts::jsonHateosContentType,
+                this.jsonNodeMarshallContext,
+                this.jsonNodeUnmarshallContext,
                 this.now
         ).httpRouter(id);
     }
@@ -204,6 +204,10 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      * Updates the last-modified timestamp.
      */
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
+
+    private final JsonNodeMarshallContext jsonNodeMarshallContext;
+
+    private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
 
