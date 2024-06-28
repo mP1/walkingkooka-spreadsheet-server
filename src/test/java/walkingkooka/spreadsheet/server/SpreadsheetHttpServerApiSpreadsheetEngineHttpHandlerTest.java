@@ -393,7 +393,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
     private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SpreadsheetComparatorProviders.builtIn();
+        return (id) -> SpreadsheetComparatorProviders.spreadsheetComparators();
     }
 
     private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {

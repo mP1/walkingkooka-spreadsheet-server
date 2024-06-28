@@ -97,7 +97,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
     }
 
     private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId id) {
-        return SpreadsheetComparatorProviders.builtIn();
+        return SpreadsheetComparatorProviders.spreadsheetComparators();
     }
 
     private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId id) {
