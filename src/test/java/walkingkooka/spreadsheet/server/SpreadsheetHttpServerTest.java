@@ -8127,7 +8127,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SpreadsheetComparatorProviders.builtIn();
+        return (id) -> SpreadsheetComparatorProviders.spreadsheetComparators();
     }
 
     private static Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {

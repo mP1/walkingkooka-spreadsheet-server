@@ -1331,7 +1331,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return SpreadsheetComparatorProviders.builtIn();
+        return SpreadsheetComparatorProviders.spreadsheetComparators();
     }
 
     private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId spreadsheetId) {
