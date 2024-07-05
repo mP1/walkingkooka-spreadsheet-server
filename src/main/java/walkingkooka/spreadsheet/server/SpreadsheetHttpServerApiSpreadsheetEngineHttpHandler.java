@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
@@ -60,6 +61,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<BigDecimal, Fraction> fractioner,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
+                                                                     final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                                                      final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctions,
@@ -76,6 +78,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdToConverterProvider,
                 spreadsheetIdToSpreadsheetComparatorProvider,
                 spreadsheetIdToSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctions,
@@ -97,6 +100,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<BigDecimal, Fraction> fractioner,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
+                                                                 final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctions,
@@ -117,6 +121,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
+        this.spreadsheetIdToConverterProvider = spreadsheetIdToConverterProvider;
         this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
         this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
         this.spreadsheetIdToExpressionFunctions = spreadsheetIdToExpressionFunctions;
@@ -165,6 +170,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
+                this.spreadsheetIdToConverterProvider,
                 this.spreadsheetIdToSpreadsheetComparatorProvider,
                 this.spreadsheetIdToSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctions,
@@ -186,6 +192,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     private final SpreadsheetMetadataStore metadataStore;
+
+    private final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider;
 
     private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider;
 

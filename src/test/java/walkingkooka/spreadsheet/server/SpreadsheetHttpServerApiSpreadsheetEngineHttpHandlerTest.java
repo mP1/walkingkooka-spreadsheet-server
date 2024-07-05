@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -39,6 +40,7 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -362,6 +364,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 fractioner(),
                 createMetadata(),
                 this.metadataStore,
+                spreadsheetIdToConverterProvider(),
                 spreadsheetIdToSpreadsheetComparatorProvider(),
                 spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
@@ -391,6 +394,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+
+    private Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider() {
+        return (id) -> SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                this.metadataStore.loadOrFail(id),
+                spreadsheetIdToSpreadsheetFormatterProvider().apply(id),
+                spreadsheetIdToSpreadsheetParserProvider().apply(id)
+        );
+    }
 
     private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
         return (id) -> SpreadsheetComparatorProviders.spreadsheetComparators();

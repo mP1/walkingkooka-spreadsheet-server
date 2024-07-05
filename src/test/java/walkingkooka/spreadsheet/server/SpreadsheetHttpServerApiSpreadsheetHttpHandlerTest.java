@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
@@ -25,6 +26,7 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
@@ -76,6 +78,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
+                this::spreadsheetIdToConverterProvider,
                 this::spreadsheetIdToSpreadsheetComparatorProvider,
                 this::spreadsheetIdToSpreadsheetFormatterProvider,
                 this::spreadsheetIdToExpressionFunctionProvider,
@@ -96,6 +99,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
         throw new UnsupportedOperationException();
     }
 
+    private ConverterProvider spreadsheetIdToConverterProvider(final SpreadsheetId id) {
+        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                SpreadsheetMetadata.EMPTY,
+                this.spreadsheetIdToSpreadsheetFormatterProvider(id),
+                this.spreadsheetIdToSpreadsheetParserProvider(id)
+        );
+    }
+    
     private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId id) {
         return SpreadsheetComparatorProviders.spreadsheetComparators();
     }

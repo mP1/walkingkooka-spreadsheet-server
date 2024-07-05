@@ -31,12 +31,15 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
+import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
@@ -274,12 +277,20 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     }
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern();
+
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 METADATA,
+                SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                        METADATA,
+                        spreadsheetFormatterProvider,
+                        spreadsheetParserProvider
+                ),
                 SpreadsheetComparatorProviders.spreadsheetComparators(),
-                SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
+                spreadsheetFormatterProvider,
                 ExpressionFunctionProviders.fake(),
-                SpreadsheetParserProviders.spreadsheetParsePattern(),
+                spreadsheetParserProvider,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
                 (b) -> {
                     throw new UnsupportedOperationException();

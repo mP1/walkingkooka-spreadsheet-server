@@ -18,6 +18,9 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -59,6 +62,11 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosR
      */
     SpreadsheetMetadataStore metadataStore();
 
+    /**
+     * Returns a {@link Function} which knows the available {@link Converter} by {@link ConverterName}.
+     */
+    ConverterProvider converterProvider(final SpreadsheetId id);
+    
     /**
      * Returns a {@link Function} which knows the available {@link SpreadsheetComparator} by {@link SpreadsheetComparatorName}.
      */

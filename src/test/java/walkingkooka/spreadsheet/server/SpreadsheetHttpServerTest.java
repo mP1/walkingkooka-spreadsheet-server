@@ -24,6 +24,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
@@ -60,6 +61,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -8064,6 +8066,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 fractioner(),
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
+                spreadsheetIdToConverterProvider(),
                 spreadsheetIdToSpreadsheetComparatorProvider(),
                 spreadsheetIdToSpreadsheetFormatterProvider(),
                 spreadsheetIdToExpressionFunctionProvider(),
@@ -8124,6 +8127,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return (n) -> {
             throw new UnsupportedOperationException();
         };
+    }
+
+    private Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider() {
+        return (id) -> SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                SpreadsheetMetadata.EMPTY,
+                this.spreadsheetIdToSpreadsheetFormatterProvider().apply(id),
+                this.spreadsheetIdToSpreadsheetParserProvider().apply(id)
+        );
     }
 
     private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
