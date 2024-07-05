@@ -103,6 +103,8 @@ public final class SpreadsheetFormatterFormatRequestList extends AbstractList<Sp
     }
 
     static {
+        SpreadsheetFormatterFormatRequest.SELECTOR_PROPERTY.toString(); // force json-registry
+
         JsonNodeContext.register(
                 JsonNodeContext.computeTypeName(SpreadsheetFormatterFormatRequestList.class),
                 SpreadsheetFormatterFormatRequestList::unmarshall,
