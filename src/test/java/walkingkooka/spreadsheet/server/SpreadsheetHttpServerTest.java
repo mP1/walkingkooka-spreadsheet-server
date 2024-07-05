@@ -24,6 +24,8 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterInfo;
+import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
@@ -5559,6 +5561,96 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(
                 HttpMethod.GET,
                 "/api/spreadsheet/1/comparator/unknown",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    // converters.......................................................................................................
+
+    @Test
+    public void testConverters() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/converter",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic-spreadsheet-converter\",\n" +
+                                "    \"name\": \"basic-spreadsheet-converter\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing\",\n" +
+                                "    \"name\": \"error-throwing\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number\",\n" +
+                                "    \"name\": \"error-to-number\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string\",\n" +
+                                "    \"name\": \"error-to-string\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general\",\n" +
+                                "    \"name\": \"general\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection\",\n" +
+                                "    \"name\": \"selection-to-selection\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to\",\n" +
+                                "    \"name\": \"spreadsheet-cell-to\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection\",\n" +
+                                "    \"name\": \"string-to-selection\"\n" +
+                                "  }\n" +
+                                "]",
+                        ConverterInfoSet.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testConvertersWithName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/converter/general",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general\",\n" +
+                                "  \"name\": \"general\"\n" +
+                                "}",
+                        ConverterInfo.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testConvertersWithNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/converter/unknown",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(

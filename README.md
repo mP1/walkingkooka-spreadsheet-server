@@ -97,6 +97,15 @@ available [SpreadsheetComparatorInfoSet](https://github.com/mP1/walkingkooka-spr
 - **GET**
   /api/spreadsheet/$spreadsheet-id/comparator/[SpreadsheetComparatorName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetComparatorName.java)
 
+#### [Converter](https://github.com/mP1/walkingkooka-convert/blob/master/src/main/java/walkingkooka/convert/Converter.java)
+
+These end points may be used to work with
+available [ConverterInfoSet](https://github.com/mP1/walkingkooka-convert-provider/blob/master/src/main/java/walkingkooka/convert/provider/ConverterInfoSet.java)
+
+- **GET** /api/spreadsheet/$spreadsheet-id/converter
+- **GET**
+  /api/spreadsheet/$spreadsheet-id/converter/[ConverterName](https://github.com/mP1/walkingkooka-convert-provider/blob/master/src/main/java/walkingkooka/convert/provider/ConverterName.java)
+
 #### [Formatter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatter.java)
 
 These end points may be used to work with

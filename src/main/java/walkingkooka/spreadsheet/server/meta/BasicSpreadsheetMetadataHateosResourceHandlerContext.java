@@ -20,6 +20,9 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterInfo;
+import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
@@ -62,6 +65,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorsHateosResourceMappings;
+import walkingkooka.spreadsheet.server.convert.ConvertersHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
@@ -391,6 +395,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo, SpreadsheetEngineHateosResourceHandlerContext> comparator = SpreadsheetComparatorsHateosResourceMappings.comparator(context);
 
+        final HateosResourceMapping<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetEngineHateosResourceHandlerContext> converter = ConvertersHateosResourceMappings.converter(context);
+
         final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
         final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function(context);
@@ -420,6 +426,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         cellReference,
                         column,
                         comparator, // /comparator
+                        converter,
                         formatter, // formatter
                         expressionFunction, // function
                         label,
