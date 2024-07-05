@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
@@ -89,6 +90,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final JsonNodeMarshallContext jsonNodeMarshallContext,
                                              final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                             final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                              final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                              final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                              final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
@@ -109,6 +111,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 fractioner,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
+                spreadsheetIdToConverterProvider,
                 spreadsheetIdToSpreadsheetComparatorProvider,
                 spreadsheetIdToSpreadsheetFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
@@ -142,6 +145,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final JsonNodeMarshallContext jsonNodeMarshallContext,
                                   final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                  final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                   final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
                                   final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
                                   final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
@@ -164,6 +168,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.jsonNodeMarshallContext = jsonNodeMarshallContext;
         this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
 
+        this.spreadsheetIdToConverterProvider = spreadsheetIdToConverterProvider;
         this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
         this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
         this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
@@ -231,6 +236,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.createMetadata,
                 this.metadataStore,
                 this.fractioner,
+                this.spreadsheetIdToConverterProvider,
                 this.spreadsheetIdToSpreadsheetComparatorProvider,
                 this.spreadsheetIdToSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
@@ -260,6 +266,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
+                this.spreadsheetIdToConverterProvider,
                 this.spreadsheetIdToSpreadsheetComparatorProvider,
                 this.spreadsheetIdToSpreadsheetFormatterProvider,
                 this.spreadsheetIdToExpressionFunctionProvider,
@@ -283,6 +290,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
 
     private final Function<BigDecimal, Fraction> fractioner;
+
+    private final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider;
 
     private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider;
 

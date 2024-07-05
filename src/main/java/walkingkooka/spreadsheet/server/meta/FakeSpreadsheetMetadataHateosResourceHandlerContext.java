@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -60,6 +61,11 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
 
     @Override
     public SpreadsheetMetadataStore metadataStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ConverterProvider converterProvider(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
     }
 

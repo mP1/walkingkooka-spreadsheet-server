@@ -17,6 +17,10 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.provider.ConverterInfo;
+import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
@@ -43,6 +47,7 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.text.TextNode;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -100,6 +105,17 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public boolean isPure(final FunctionExpressionName functionExpressionName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <C extends ConverterContext> Optional<Converter<C>> converter(final ConverterName converterName,
+                                                                         final List<?> values) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<ConverterInfo> converterInfos() {
         throw new UnsupportedOperationException();
     }
 

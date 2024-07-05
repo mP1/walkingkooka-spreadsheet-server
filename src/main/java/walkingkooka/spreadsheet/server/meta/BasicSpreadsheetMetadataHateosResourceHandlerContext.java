@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
@@ -113,6 +114,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final Function<BigDecimal, Fraction> fractioner,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
+                                                                     final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                                                      final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
@@ -128,6 +130,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(metadataStore, "metadataStore");
+        Objects.requireNonNull(spreadsheetIdToConverterProvider, "spreadsheetIdToConverterProvider");
         Objects.requireNonNull(spreadsheetIdToComparatorProvider, "spreadsheetIdToComparatorProvider");
         Objects.requireNonNull(spreadsheetIdToFormatterProvider, "spreadsheetIdToFormatterProvider");
         Objects.requireNonNull(spreadsheetIdToExpressionFunctionProvider, "spreadsheetIdToExpressionFunctionProvider");
@@ -145,6 +148,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdToConverterProvider,
                 spreadsheetIdToComparatorProvider,
                 spreadsheetIdToFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
@@ -163,6 +167,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final Function<BigDecimal, Fraction> fractioner,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
+                                                                 final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
@@ -183,6 +188,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
+        this.spreadsheetIdToConverterProvider = spreadsheetIdToConverterProvider;
         this.spreadsheetIdToComparatorProvider = spreadsheetIdToComparatorProvider;
         this.spreadsheetIdToFormatterProvider = spreadsheetIdToFormatterProvider;
         this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
@@ -258,6 +264,15 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private final SpreadsheetMetadataStore metadataStore;
 
+    // ConverterProvider................................................................................................
+
+    @Override
+    public ConverterProvider converterProvider(final SpreadsheetId id) {
+        return this.spreadsheetIdToConverterProvider.apply(id);
+    }
+
+    private final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider;
+    
     // SpreadsheetComparatorProvider....................................................................................
 
     @Override
@@ -325,6 +340,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.spreadsheetMetadataStamper
         );
 
+        final ConverterProvider converterProvider = this.spreadsheetIdToConverterProvider.apply(id);
         final SpreadsheetComparatorProvider spreadsheetComparatorProvider = this.spreadsheetIdToComparatorProvider.apply(id);
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = this.spreadsheetIdToFormatterProvider.apply(id);
         final ExpressionFunctionProvider expressionFunctionProvider = this.spreadsheetIdToExpressionFunctionProvider.apply(id);
@@ -335,6 +351,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
+                metadata.converterProvider(converterProvider),
                 metadata.spreadsheetComparatorProvider(spreadsheetComparatorProvider),
                 metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider),
                 metadata.expressionFunctionProvider(expressionFunctionProvider),

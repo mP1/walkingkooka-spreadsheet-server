@@ -17,6 +17,10 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
+import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.provider.ConverterInfo;
+import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
@@ -289,6 +293,20 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public boolean isPure(final FunctionExpressionName functionExpressionName) {
         return this.engineContext.isPure(functionExpressionName);
+    }
+
+    @Override
+    public <C extends ConverterContext> Optional<Converter<C>> converter(final ConverterName converterName,
+                                                                         final List<?> values) {
+        return this.engineContext.converter(
+                converterName,
+                values
+        );
+    }
+
+    @Override
+    public Set<ConverterInfo> converterInfos() {
+        return this.engineContext.converterInfos();
     }
 
     @Override

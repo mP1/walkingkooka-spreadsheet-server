@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -53,6 +54,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<BigDecimal, Fraction> fractioner,
                                                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                         final SpreadsheetMetadataStore metadataStore,
+                                                                        final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
                                                                         final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
@@ -69,6 +71,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 fractioner,
                 createMetadata,
                 metadataStore,
+                spreadsheetIdToConverterProvider,
                 spreadsheetIdToComparatorProvider,
                 spreadsheetIdToFormatterProvider,
                 spreadsheetIdToExpressionFunctionProvider,
