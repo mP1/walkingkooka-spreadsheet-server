@@ -106,6 +106,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
+import walkingkooka.tree.text.TextNodeList;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -5640,6 +5641,45 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    @Test
+    public void testFormatterBatchFormat() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/formatter/*/format",
+                NO_HEADERS_TRANSACTION_ID,
+                "[\n" +
+                        "  {\n" +
+                        "    \"selector\": \"date-format-pattern yyyy/mmmm/dddd d\",\n" +
+                        "    \"value\": {\n" +
+                        "      \"type\": \"local-date\",\n" +
+                        "      \"value\": \"1999-12-31\"\n" +
+                        "    }\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"selector\": \"text-format-pattern @@\",\n" +
+                        "    \"value\": \"Text123\"\n" +
+                        "  }\n" +
+                        "]",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"type\": \"text\",\n" +
+                                "    \"value\": \"1999/December/Friday 31\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"text\",\n" +
+                                "    \"value\": \"Text123Text123\"\n" +
+                                "  }\n" +
+                                "]",
+                        TextNodeList.class.getSimpleName()
                 )
         );
     }
