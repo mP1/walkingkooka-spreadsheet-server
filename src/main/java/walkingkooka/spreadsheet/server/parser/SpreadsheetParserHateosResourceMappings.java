@@ -23,14 +23,11 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 public final class SpreadsheetParserHateosResourceMappings implements PublicStaticHelper {
 
@@ -40,8 +37,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
             SpreadsheetParserInfo,
             SpreadsheetParserInfoSet,
             SpreadsheetParserInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> parser(final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(context, "context");
+            SpreadsheetEngineHateosResourceHandlerContext> parser() {
 
         // parser GET...............................................................................................
 
@@ -59,7 +55,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
-                SpreadsheetParserInfoHateosResourceHandler.with(context)
+                SpreadsheetParserInfoHateosResourceHandler.INSTANCE
         );
 
         return parser;

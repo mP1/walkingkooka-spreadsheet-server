@@ -22,14 +22,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,15 +39,13 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         UnsupportedHateosResourceHandlerHandleNone<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosResourceHandlerHandleRange<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetParserInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
-        return new SpreadsheetParserInfoHateosResourceHandler(
-                Objects.requireNonNull(context, "context")
-        );
-    }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetParserInfoHateosResourceHandler INSTANCE = new SpreadsheetParserInfoHateosResourceHandler();
 
-    private SpreadsheetParserInfoHateosResourceHandler(final SpreadsheetEngineContext context) {
+    private SpreadsheetParserInfoHateosResourceHandler() {
         super();
-        this.context = context;
     }
 
     @Override
@@ -62,7 +58,7 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
 
         return Optional.of(
                 SpreadsheetParserInfoSet.with(
-                        this.context.spreadsheetParserInfos()
+                        context.spreadsheetParserInfos()
                 )
         );
     }
@@ -77,13 +73,11 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return this.context.spreadsheetParserInfos()
+        return context.spreadsheetParserInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();
     }
-
-    private final SpreadsheetEngineContext context;
 
     @Override
     public String toString() {
