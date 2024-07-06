@@ -26,11 +26,8 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 public final class SpreadsheetComparatorsHateosResourceMappings implements PublicStaticHelper {
 
@@ -40,8 +37,7 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
             SpreadsheetComparatorInfo,
             SpreadsheetComparatorInfoSet,
             SpreadsheetComparatorInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> comparator(final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(context, "context");
+            SpreadsheetEngineHateosResourceHandlerContext> comparator() {
 
         // comparator GET...............................................................................................
 
@@ -59,7 +55,7 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
-                SpreadsheetComparatorInfoHateosResourceHandler.with(context)
+                SpreadsheetComparatorInfoHateosResourceHandler.INSTANCE
         );
 
         return comparator;

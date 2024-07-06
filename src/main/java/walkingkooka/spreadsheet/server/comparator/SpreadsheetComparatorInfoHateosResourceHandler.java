@@ -25,11 +25,9 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,15 +39,10 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         UnsupportedHateosResourceHandlerHandleNone<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosResourceHandlerHandleRange<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetComparatorInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
-        return new SpreadsheetComparatorInfoHateosResourceHandler(
-                Objects.requireNonNull(context, "context")
-        );
-    }
+    final static SpreadsheetComparatorInfoHateosResourceHandler INSTANCE = new SpreadsheetComparatorInfoHateosResourceHandler();
 
-    private SpreadsheetComparatorInfoHateosResourceHandler(final SpreadsheetEngineContext context) {
+    private SpreadsheetComparatorInfoHateosResourceHandler() {
         super();
-        this.context = context;
     }
 
     @Override
@@ -62,7 +55,7 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
 
         return Optional.of(
                 SpreadsheetComparatorInfoSet.with(
-                        this.context.spreadsheetComparatorInfos()
+                        context.spreadsheetComparatorInfos()
                 )
         );
     }
@@ -77,13 +70,11 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return this.context.spreadsheetComparatorInfos()
+        return context.spreadsheetComparatorInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();
     }
-
-    private final SpreadsheetEngineContext context;
 
     @Override
     public String toString() {
