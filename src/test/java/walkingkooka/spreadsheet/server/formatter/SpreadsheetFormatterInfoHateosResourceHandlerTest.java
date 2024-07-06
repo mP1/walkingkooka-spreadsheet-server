@@ -26,18 +26,15 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetFormatterInfoHateosResourceHandler,
         SpreadsheetFormatterName,
@@ -45,14 +42,6 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
         SpreadsheetFormatterInfoSet,
         SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterInfoHateosResourceHandler.with(null)
-        );
-    }
 
     // hateos...........................................................................................................
 
@@ -66,7 +55,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
             SpreadsheetFormatterName.with("formatter-2")
     );
 
-    private final static FakeSpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
+    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
         public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
@@ -118,7 +107,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
 
     @Override
     public SpreadsheetFormatterInfoHateosResourceHandler createHandler() {
-        return SpreadsheetFormatterInfoHateosResourceHandler.with(CONTEXT);
+        return SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE;
     }
 
     @Override
@@ -158,7 +147,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+        return CONTEXT;
     }
 
     // toString.........................................................................................................
