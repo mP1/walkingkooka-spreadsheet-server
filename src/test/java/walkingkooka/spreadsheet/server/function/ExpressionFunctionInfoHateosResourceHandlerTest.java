@@ -26,9 +26,8 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -37,22 +36,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class ExpressionFunctionInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<ExpressionFunctionInfoHateosResourceHandler,
         FunctionExpressionName,
         ExpressionFunctionInfo,
         ExpressionFunctionInfoSet,
         SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionInfoHateosResourceHandler.with(null)
-        );
-    }
 
     // hateos...........................................................................................................
 
@@ -66,7 +55,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
             FunctionExpressionName.with("function-2")
     );
 
-    private final static FakeSpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
+    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
         public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
@@ -118,7 +107,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
 
     @Override
     public ExpressionFunctionInfoHateosResourceHandler createHandler() {
-        return ExpressionFunctionInfoHateosResourceHandler.with(CONTEXT);
+        return ExpressionFunctionInfoHateosResourceHandler.INSTANCE;
     }
 
     @Override
@@ -158,7 +147,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+        return CONTEXT;
     }
 
     // toString.........................................................................................................
