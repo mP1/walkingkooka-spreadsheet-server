@@ -23,14 +23,11 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
-
-import java.util.Objects;
 
 public final class ExpressionFunctionHateosResourceMappings implements PublicStaticHelper {
 
@@ -40,8 +37,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
             ExpressionFunctionInfo,
             ExpressionFunctionInfoSet,
             ExpressionFunctionInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> function(final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(context, "context");
+            SpreadsheetEngineHateosResourceHandlerContext> function() {
 
         // function GET...............................................................................................
 
@@ -60,7 +56,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 .setHateosResourceHandler(
                         LinkRelation.SELF,
                         HttpMethod.GET,
-                        ExpressionFunctionInfoHateosResourceHandler.with(context)
+                        ExpressionFunctionInfoHateosResourceHandler.INSTANCE
                 );
 
         return function;
