@@ -58,7 +58,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
-                SpreadsheetFormatterInfoHateosResourceHandler.with(context)
+                SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
                 LinkRelation.with("format"),
                 HttpMethod.POST,

@@ -22,14 +22,12 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,15 +39,13 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetFormatterInfoHateosResourceHandler with(final SpreadsheetEngineContext context) {
-        return new SpreadsheetFormatterInfoHateosResourceHandler(
-                Objects.requireNonNull(context, "context")
-        );
-    }
+    /**
+     * Singleton
+     */
+    final static SpreadsheetFormatterInfoHateosResourceHandler INSTANCE = new SpreadsheetFormatterInfoHateosResourceHandler();
 
-    private SpreadsheetFormatterInfoHateosResourceHandler(final SpreadsheetEngineContext context) {
+    private SpreadsheetFormatterInfoHateosResourceHandler() {
         super();
-        this.context = context;
     }
 
     @Override
@@ -62,7 +58,7 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
 
         return Optional.of(
                 SpreadsheetFormatterInfoSet.with(
-                        this.context.spreadsheetFormatterInfos()
+                        context.spreadsheetFormatterInfos()
                 )
         );
     }
@@ -77,13 +73,11 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return this.context.spreadsheetFormatterInfos()
+        return context.spreadsheetFormatterInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();
     }
-
-    private final SpreadsheetEngineContext context;
 
     @Override
     public String toString() {
