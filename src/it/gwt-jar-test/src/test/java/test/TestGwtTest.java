@@ -2,21 +2,24 @@ package test;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.provider.ConverterProvider;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColors;
-import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.expression.FakeSpreadsheetExpressionEvaluationContext;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
@@ -51,6 +54,7 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextNode;
@@ -60,6 +64,7 @@ import walkingkooka.tree.text.TextStylePropertyName;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -148,16 +153,19 @@ public class TestGwtTest extends GWTTestCase {
                     .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
                     .set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, '.')
                     .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
+                    .set(SpreadsheetMetadataPropertyName.EXPRESSION_CONVERTER, ConverterSelector.parse("general"))
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
-                    .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
+                    .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
+                    .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
                     .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
                     .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
                     .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
-                    .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#0.0$#0.00").spreadsheetParserSelector())
+                    .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
+                    .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
                     .set(SpreadsheetMetadataPropertyName.PERCENTAGE_SYMBOL, '%')
                     .set(SpreadsheetMetadataPropertyName.POSITIVE_SIGN, '+')
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
@@ -173,7 +181,7 @@ public class TestGwtTest extends GWTTestCase {
                     .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
                     .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
-            for (int i = SpreadsheetColors.MIN; i < SpreadsheetColors.MAX; i++) {
+            for (int i = SpreadsheetColors.MIN; i < SpreadsheetColors.MAX + 1; i++) {
                 m = m.set(SpreadsheetMetadataPropertyName.numberedColor(i), Color.fromRgb(i));
             }
 
@@ -192,6 +200,11 @@ public class TestGwtTest extends GWTTestCase {
         final SpreadsheetMetadata metadata = metadata();
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
         final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern();
+        final ConverterProvider converterProvider = SpreadsheetConvertersConverterProviders.spreadsheetConverters(
+                metadata,
+                spreadsheetFormatterProvider,
+                spreadsheetParserProvider
+        );
 
         return new FakeSpreadsheetEngineContext() {
 
@@ -202,32 +215,20 @@ public class TestGwtTest extends GWTTestCase {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                return SpreadsheetParsers.valueOrExpression(
-                                metadata.parser(spreadsheetParserProvider)
-                        ).orFailIfCursorNotEmpty(ParserReporters.basic())
-                        .parse(
-                                formula,
-                                metadata.parserContext(NOW)
-                        ) // TODO should fetch from metadata prop
-                        .get()
-                        .cast(SpreadsheetParserToken.class);
+                return Cast.to(
+                        SpreadsheetParsers.expression()
+                                .orFailIfCursorNotEmpty(ParserReporters.basic())
+                                .parse(
+                                        formula,
+                                        metadata.parserContext(NOW)
+                                ) // TODO should fetch parse metadata prop
+                                .get()
+                );
             }
 
             @Override
             public Optional<Parser<SpreadsheetParserContext>> spreadsheetParser(final SpreadsheetParserSelector selector) {
                 return spreadsheetParserProvider.spreadsheetParser(selector);
-            }
-
-            @Override
-            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                return token.toExpression(
-                        new FakeSpreadsheetExpressionEvaluationContext() {
-                            @Override
-                            public ExpressionNumberKind expressionNumberKind() {
-                                return EXPRESSION_NUMBER_KIND;
-                            }
-                        }
-                );
             }
 
             @Override
@@ -237,17 +238,17 @@ public class TestGwtTest extends GWTTestCase {
                         ExpressionEvaluationContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
                                 ExpressionFunctionProviders.fake()::expressionFunction,
-                                SpreadsheetErrorKind::translate,
+                                (r) -> {
+                                    throw new UnsupportedOperationException();
+                                },
                                 this.references(),
-                                ExpressionEvaluationContexts.referenceNotFound(),
+                                SpreadsheetExpressionEvaluationContexts.referenceNotFound(),
                                 CaseSensitivity.INSENSITIVE,
-                                this.spreadsheetMetadata()
-                                        .converterContext(
-                                                spreadsheetFormatterProvider,
-                                                spreadsheetParserProvider,
-                                                NOW,
-                                                LABEL_NAME_RESOLVER
-                                        )
+                                metadata.converterContext(
+                                        converterProvider,
+                                        NOW,
+                                        LABEL_NAME_RESOLVER
+                                )
                         )
                 );
             }
@@ -260,6 +261,41 @@ public class TestGwtTest extends GWTTestCase {
             }
 
             @Override
+            public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                Objects.requireNonNull(token, "token");
+
+                return token.toExpression(
+                        new FakeExpressionEvaluationContext() {
+                            @Override
+                            public ExpressionNumberKind expressionNumberKind() {
+                                return EXPRESSION_NUMBER_KIND;
+                            }
+                        }
+                );
+            }
+
+            @Override
+            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
+                                                       final Optional<SpreadsheetFormatter> formatter) {
+                return cell.setFormattedValue(
+                        Optional.of(
+                                this.formatValue(
+                                        cell.formula()
+                                                .value()
+                                                .get(),
+                                        formatter.orElse(
+                                                this.spreadsheetMetadata()
+                                                        .formatter(spreadsheetFormatterProvider)
+                                        )
+                                ).map(
+                                        f -> cell.style()
+                                                .replace(f)
+                                ).orElse(TextNode.EMPTY_TEXT)
+                        )
+                );
+            }
+
+            @Override
             public Optional<TextNode> formatValue(final Object value,
                                                   final SpreadsheetFormatter formatter) {
                 checkEquals(false, value instanceof Optional, "Value must not be optional" + value);
@@ -267,18 +303,12 @@ public class TestGwtTest extends GWTTestCase {
                 return formatter.format(
                         value,
                         metadata.formatterContext(
+                                converterProvider,
                                 spreadsheetFormatterProvider,
-                                spreadsheetParserProvider,
                                 NOW,
                                 LABEL_NAME_RESOLVER
                         )
                 );
-            }
-
-            @Override
-            public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
-                                                       final Optional<SpreadsheetFormatter> formatter) {
-                return cell;
             }
 
             @Override

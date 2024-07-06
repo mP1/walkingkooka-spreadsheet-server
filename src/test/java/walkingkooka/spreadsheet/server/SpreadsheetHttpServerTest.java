@@ -8263,7 +8263,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider() {
         return (id) -> SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                SpreadsheetMetadata.EMPTY,
+                this.metadataStore.loadOrFail(id),
                 this.spreadsheetIdToSpreadsheetFormatterProvider().apply(id),
                 this.spreadsheetIdToSpreadsheetParserProvider().apply(id)
         );

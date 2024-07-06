@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProvider;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
@@ -1374,7 +1375,9 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         this.checkSpreadsheetId(spreadsheetId);
 
         return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                SpreadsheetMetadata.EMPTY,
+                this.spreadsheetIdToRepository.get(spreadsheetId)
+                        .metadatas()
+                        .loadOrFail(spreadsheetId),
                 this.spreadsheetIdToSpreadsheetFormatterProvider(spreadsheetId),
                 this.spreadsheetIdToSpreadsheetParserProvider(spreadsheetId)
         );
@@ -1439,6 +1442,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                     .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "C")
                     .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
+                            .set(SpreadsheetMetadataPropertyName.EXPRESSION_CONVERTER, ConverterSelector.parse("general"))
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
                     .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
