@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.ToStringBuilder;
+import walkingkooka.Value;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
@@ -31,7 +32,7 @@ import java.util.Objects;
 /**
  * An individual item with a list of requests to the POST format API.
  */
-public final class SpreadsheetFormatterFormatRequest<T> {
+public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
 
     public static <T> SpreadsheetFormatterFormatRequest<T> with(final SpreadsheetFormatterSelector selector,
                                                                 final T value) {
