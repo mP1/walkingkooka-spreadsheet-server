@@ -133,7 +133,6 @@ public final class SpreadsheetFormatterFormatRequest<T> {
                     context.marshallWithType(value)
             );
         }
-        ;
 
         return object;
     }
