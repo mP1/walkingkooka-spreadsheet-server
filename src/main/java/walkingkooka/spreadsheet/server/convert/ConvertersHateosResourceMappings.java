@@ -26,11 +26,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 public final class ConvertersHateosResourceMappings implements PublicStaticHelper {
 
@@ -40,8 +37,7 @@ public final class ConvertersHateosResourceMappings implements PublicStaticHelpe
             ConverterInfo,
             ConverterInfoSet,
             ConverterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> converter(final SpreadsheetEngineContext context) {
-        Objects.requireNonNull(context, "context");
+            SpreadsheetEngineHateosResourceHandlerContext> converter() {
 
         // converter GET...............................................................................................
 
