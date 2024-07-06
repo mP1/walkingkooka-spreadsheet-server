@@ -29,15 +29,12 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
+import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetComparatorInfoHateosResourceHandler,
         SpreadsheetComparatorName,
@@ -45,14 +42,6 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
         SpreadsheetComparatorInfoSet,
         SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetComparatorInfoHateosResourceHandler> {
-
-    @Test
-    public void testWithNullContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetComparatorInfoHateosResourceHandler.with(null)
-        );
-    }
 
     // hateos...........................................................................................................
 
@@ -66,7 +55,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
             SpreadsheetComparatorName.with("comparator-2")
     );
 
-    private final static FakeSpreadsheetEngineContext CONTEXT = new FakeSpreadsheetEngineContext() {
+    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
         public Set<SpreadsheetComparatorInfo> spreadsheetComparatorInfos() {
@@ -118,7 +107,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
 
     @Override
     public SpreadsheetComparatorInfoHateosResourceHandler createHandler() {
-        return SpreadsheetComparatorInfoHateosResourceHandler.with(CONTEXT);
+        return SpreadsheetComparatorInfoHateosResourceHandler.INSTANCE;
     }
 
     @Override
@@ -158,7 +147,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+        return CONTEXT;
     }
 
     // toString.........................................................................................................
