@@ -22,9 +22,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetParserName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;

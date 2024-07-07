@@ -23,9 +23,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetParserName;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
