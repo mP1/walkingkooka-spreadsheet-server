@@ -611,7 +611,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "      },\n" +
                         "      \"formatted-value\": {\n" +
                         "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Text Time 12:34\"\n" +
+                        "        \"value\": \"Time 12:34\"\n" +
                         "      }\n" +
                         "    }\n" +
                         "  },\n" +
