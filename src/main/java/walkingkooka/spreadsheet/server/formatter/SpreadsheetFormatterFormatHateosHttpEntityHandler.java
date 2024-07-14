@@ -104,7 +104,7 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
 
     private TextNode format(final SpreadsheetFormatterFormatRequest<?> request,
                             final SpreadsheetEngineHateosResourceHandlerContext context) {
-        final SpreadsheetFormatter formatter = context.spreadsheetFormatterOrFail(
+        final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
                 request.selector()
         );
         return context.formatValue(
