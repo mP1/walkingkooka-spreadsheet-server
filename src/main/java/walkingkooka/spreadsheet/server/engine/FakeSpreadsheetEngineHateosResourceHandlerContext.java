@@ -108,8 +108,8 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public <C extends ConverterContext> Optional<Converter<C>> converter(final ConverterName converterName,
-                                                                         final List<?> values) {
+    public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
+                                                               final List<?> values) {
         throw new UnsupportedOperationException();
     }
 
@@ -119,7 +119,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<SpreadsheetComparator<?>> spreadsheetComparator(final SpreadsheetComparatorName spreadsheetComparatorName) {
+    public SpreadsheetComparator<?> spreadsheetComparator(final SpreadsheetComparatorName spreadsheetComparatorName) {
         throw new UnsupportedOperationException();
     }
 
@@ -134,12 +134,12 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName functionExpressionName) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName functionExpressionName) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<SpreadsheetFormatter> spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
         throw new UnsupportedOperationException();
     }
 
@@ -149,7 +149,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<SpreadsheetParser> spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
+    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
         throw new UnsupportedOperationException();
     }
 

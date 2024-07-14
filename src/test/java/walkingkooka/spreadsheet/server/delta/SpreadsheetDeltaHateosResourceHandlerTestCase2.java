@@ -372,7 +372,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public Optional<SpreadsheetParser> spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
+            public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
                 return engineContext.spreadsheetParser(spreadsheetParserSelector);
             }
 

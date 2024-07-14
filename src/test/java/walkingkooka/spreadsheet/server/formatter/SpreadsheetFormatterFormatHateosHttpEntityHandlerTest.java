@@ -178,7 +178,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                     }
 
                     @Override
-                    public Optional<SpreadsheetFormatter> spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
+                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
                         return SpreadsheetFormatterProviders.spreadsheetFormatPattern()
                                 .spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
