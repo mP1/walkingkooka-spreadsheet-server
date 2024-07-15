@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
@@ -332,6 +333,15 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName functionExpressionName) {
         return this.engineContext.expressionFunction(functionExpressionName);
+    }
+
+    @Override
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
+                                                     final List<?> values) {
+        return this.engineContext.spreadsheetFormatter(
+                name,
+                values
+        );
     }
 
     @Override

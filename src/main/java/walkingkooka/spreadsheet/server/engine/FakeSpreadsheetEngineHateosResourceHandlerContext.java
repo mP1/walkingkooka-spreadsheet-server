@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
@@ -141,6 +142,12 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName functionExpressionName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
+                                                     final List<?> values) {
         throw new UnsupportedOperationException();
     }
 
