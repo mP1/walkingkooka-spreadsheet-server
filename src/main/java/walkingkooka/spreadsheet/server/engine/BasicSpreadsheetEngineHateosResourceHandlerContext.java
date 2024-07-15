@@ -21,6 +21,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
@@ -292,6 +293,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public boolean isPure(final FunctionExpressionName functionExpressionName) {
         return this.engineContext.isPure(functionExpressionName);
+    }
+
+    @Override
+    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
+        return this.engineContext.converter(selector);
     }
 
     @Override
