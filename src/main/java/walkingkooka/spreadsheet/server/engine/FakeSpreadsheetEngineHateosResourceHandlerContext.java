@@ -21,6 +21,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
@@ -104,6 +105,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public boolean isPure(final FunctionExpressionName functionExpressionName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
         throw new UnsupportedOperationException();
     }
 
