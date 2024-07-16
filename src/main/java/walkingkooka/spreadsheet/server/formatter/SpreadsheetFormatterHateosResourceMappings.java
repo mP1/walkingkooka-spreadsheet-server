@@ -63,6 +63,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 LinkRelation.with("format"),
                 HttpMethod.POST,
                 SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
+        ).setHateosHttpEntityHandler(
+                LinkRelation.with("text-components"),
+                HttpMethod.POST,
+                SpreadsheetFormatterTextComponentsHateosHttpEntityHandler.instance()
         );
 
         return formatter;
@@ -82,6 +86,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 selection = HateosResourceSelection.all();
                 break;
             default:
+                // POST /formatter/formatter-name
                 selection = HateosResourceSelection.one(
                         SpreadsheetFormatterName.with(text)
                 );
