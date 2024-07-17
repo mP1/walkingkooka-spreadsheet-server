@@ -61,7 +61,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
         ToStringTesting<SpreadsheetParserTextComponentsHateosHttpEntityHandler>,
         SpreadsheetMetadataTesting {
 
-    private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER;
+    private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
 
     @Test
     public void testHandleAllFails() {
@@ -108,7 +108,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
     @Test
     public void testHandleAllContentTypeBadContentType() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                SpreadsheetParserName.DATE_PARSER,
+                SpreadsheetParserName.DATE_PARSER_PATTERN,
                 this.entity()
                         .setHeader(
                                 HttpHeaderName.CONTENT_TYPE,
