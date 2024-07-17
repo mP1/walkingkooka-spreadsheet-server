@@ -80,6 +80,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -6004,6 +6005,100 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    @Test
+    public void testParserTextComponents() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/parser/date-parse-pattern/text-components",
+                NO_HEADERS_TRANSACTION_ID,
+                "\"yyyy/mm/ddd\"",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"yyyy\",\n" +
+                                "      \"text\": \"yyyy\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"yy\",\n" +
+                                "          \"text\": \"yy\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"/\",\n" +
+                                "      \"text\": \"/\",\n" +
+                                "      \"alternatives\": []\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"mm\",\n" +
+                                "      \"text\": \"mm\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"m\",\n" +
+                                "          \"text\": \"m\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmm\",\n" +
+                                "          \"text\": \"mmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmm\",\n" +
+                                "          \"text\": \"mmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmmm\",\n" +
+                                "          \"text\": \"mmmmm\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"/\",\n" +
+                                "      \"text\": \"/\",\n" +
+                                "      \"alternatives\": []\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"ddd\",\n" +
+                                "      \"text\": \"ddd\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"d\",\n" +
+                                "          \"text\": \"d\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"dd\",\n" +
+                                "          \"text\": \"dd\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"dddd\",\n" +
+                                "          \"text\": \"dddd\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetParserSelectorTextComponentList.class.getSimpleName()
                 )
         );
     }
