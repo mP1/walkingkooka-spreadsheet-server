@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -373,6 +374,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
                 name,
                 values
         );
+    }
+
+    @Override
+    public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
+        return this.engineContext.spreadsheetParserNextTextComponent(selector);
     }
 
     @Override
