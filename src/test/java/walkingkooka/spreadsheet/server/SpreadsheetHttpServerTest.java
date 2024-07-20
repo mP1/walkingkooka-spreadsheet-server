@@ -5701,6 +5701,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"name\": \"number-format-pattern\"\n" +
                                 "  },\n" +
                                 "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection\",\n" +
+                                "    \"name\": \"spreadsheet-pattern-collection\"\n" +
+                                "  },\n" +
+                                "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern\",\n" +
                                 "    \"name\": \"text-format-pattern\"\n" +
                                 "  },\n" +
