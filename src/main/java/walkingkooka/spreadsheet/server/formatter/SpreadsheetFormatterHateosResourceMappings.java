@@ -67,6 +67,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 LinkRelation.with("text-components"),
                 HttpMethod.POST,
                 SpreadsheetFormatterTextComponentsHateosHttpEntityHandler.instance()
+        ).setHateosHttpEntityHandler(
+                LinkRelation.with("next-next-component"),
+                HttpMethod.POST,
+                SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.instance()
         );
 
         return formatter;
