@@ -69,6 +69,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -5884,6 +5885,62 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  }\n" +
                                 "]",
                         SpreadsheetFormatterSelectorTextComponentList.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testFormatterNextTextComponent() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/formatter/date-format-pattern/next-next-component",
+                NO_HEADERS_TRANSACTION_ID,
+                "\"yyyy/mm/ddd\"",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"\",\n" +
+                                "      \"text\": \"\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"m\",\n" +
+                                "          \"text\": \"m\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mm\",\n" +
+                                "          \"text\": \"mm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmm\",\n" +
+                                "          \"text\": \"mmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmm\",\n" +
+                                "          \"text\": \"mmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmmm\",\n" +
+                                "          \"text\": \"mmmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"yy\",\n" +
+                                "          \"text\": \"yy\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"yyyy\",\n" +
+                                "          \"text\": \"yyyy\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetFormatterSelectorTextComponent.class.getSimpleName()
                 )
         );
     }
