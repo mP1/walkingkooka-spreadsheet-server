@@ -81,6 +81,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
@@ -6078,6 +6079,62 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    @Test
+    public void testParserNextTextComponent() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/parser/date-parse-pattern/next-text-component",
+                NO_HEADERS_TRANSACTION_ID,
+                "\"yyyy/mm/ddd\"",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
+                                "    \"value\": {\n" +
+                                "      \"label\": \"\",\n" +
+                                "      \"text\": \"\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"m\",\n" +
+                                "          \"text\": \"m\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mm\",\n" +
+                                "          \"text\": \"mm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmm\",\n" +
+                                "          \"text\": \"mmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmm\",\n" +
+                                "          \"text\": \"mmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmmm\",\n" +
+                                "          \"text\": \"mmmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"yy\",\n" +
+                                "          \"text\": \"yy\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"yyyy\",\n" +
+                                "          \"text\": \"yyyy\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetParserSelectorTextComponent.class.getSimpleName()
                 )
         );
     }

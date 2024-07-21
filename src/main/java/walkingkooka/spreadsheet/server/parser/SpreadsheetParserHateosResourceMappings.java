@@ -60,6 +60,10 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 LinkRelation.with("text-components"),
                 HttpMethod.POST,
                 SpreadsheetParserTextComponentsHateosHttpEntityHandler.instance()
+        ).setHateosHttpEntityHandler(
+                LinkRelation.with("next-text-component"),
+                HttpMethod.POST,
+                SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.instance()
         );
 
         return parser;
