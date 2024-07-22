@@ -199,7 +199,9 @@ public class TestGwtTest extends GWTTestCase {
     private static SpreadsheetEngineContext engineContext(final SpreadsheetEngine engine) {
         final SpreadsheetMetadata metadata = metadata();
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
-        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern();
+        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(
+                spreadsheetFormatterProvider
+        );
         final ConverterProvider converterProvider = SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                 metadata,
                 spreadsheetFormatterProvider,

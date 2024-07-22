@@ -279,7 +279,9 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
-        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern();
+        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(
+                spreadsheetFormatterProvider
+        );
 
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 METADATA,
