@@ -154,7 +154,9 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                         return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                                 this.spreadsheetMetadata(),
                                 this, // SpreadsheetFormatterProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern()
+                                SpreadsheetParserProviders.spreadsheetParsePattern(
+                                        SpreadsheetFormatterProviders.fake()
+                                )
                         ).converter(
                                 name,
                                 values

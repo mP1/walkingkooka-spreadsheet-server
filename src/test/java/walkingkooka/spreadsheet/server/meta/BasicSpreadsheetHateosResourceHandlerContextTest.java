@@ -1408,9 +1408,9 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     }
 
     private SpreadsheetParserProvider spreadsheetIdToSpreadsheetParserProvider(final SpreadsheetId spreadsheetId) {
-        this.checkSpreadsheetId(spreadsheetId);
-
-        return SpreadsheetParserProviders.spreadsheetParsePattern();
+        return SpreadsheetParserProviders.spreadsheetParsePattern(
+                this.spreadsheetIdToSpreadsheetFormatterProvider(spreadsheetId)
+        );
     }
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {

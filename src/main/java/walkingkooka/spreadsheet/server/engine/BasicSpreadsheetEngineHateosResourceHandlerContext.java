@@ -382,6 +382,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
+    public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector selector) {
+        return this.engineContext.spreadsheetFormatterSelector(selector);
+    }
+
+    @Override
     public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
         return this.engineContext.spreadsheetParserInfos();
     }

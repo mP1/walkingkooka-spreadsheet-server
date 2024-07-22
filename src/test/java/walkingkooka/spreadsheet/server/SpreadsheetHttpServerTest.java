@@ -8616,7 +8616,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
-        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern();
+        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern(
+                SpreadsheetFormatterProviders.spreadsheetFormatPattern()
+        );
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

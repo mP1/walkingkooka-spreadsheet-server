@@ -120,7 +120,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
     }
 
     private SpreadsheetParserProvider spreadsheetIdToSpreadsheetParserProvider(final SpreadsheetId id) {
-        return SpreadsheetParserProviders.spreadsheetParsePattern();
+        return SpreadsheetParserProviders.spreadsheetParsePattern(
+                this.spreadsheetIdToSpreadsheetFormatterProvider(id)
+        );
     }
 
     private SpreadsheetMetadata defaultMetadata(final Optional<Locale> locale) {

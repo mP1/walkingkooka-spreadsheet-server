@@ -35,6 +35,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -158,7 +159,9 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                         return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
                                 this.spreadsheetMetadata(),
                                 this, // SpreadsheetParserProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern()
+                                SpreadsheetParserProviders.spreadsheetParsePattern(
+                                        SpreadsheetFormatterProviders.fake()
+                                )
                         ).converter(
                                 name,
                                 values
@@ -167,7 +170,9 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
 
                     @Override
                     public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
-                        return SpreadsheetParserProviders.spreadsheetParsePattern()
+                        return SpreadsheetParserProviders.spreadsheetParsePattern(
+                                        SpreadsheetFormatterProviders.fake()
+                                )
                                 .spreadsheetParser(spreadsheetParserSelector);
                     }
 

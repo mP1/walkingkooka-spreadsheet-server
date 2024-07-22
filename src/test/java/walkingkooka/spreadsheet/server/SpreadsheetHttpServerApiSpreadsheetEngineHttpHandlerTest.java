@@ -422,7 +422,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
-        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern();
+        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern(
+                this.spreadsheetIdToSpreadsheetFormatterProvider().apply(id)
+        );
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
