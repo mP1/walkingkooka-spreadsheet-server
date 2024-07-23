@@ -55,6 +55,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -170,8 +171,12 @@ public final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandlerTest
 
                     @Override
                     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern()
-                                .spreadsheetFormatter(spreadsheetFormatterSelector);
+                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                                Locale.forLanguageTag("EN-AU"),
+                                () -> {
+                                    throw new UnsupportedOperationException();
+                                }
+                        ).spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
 
                     @Override

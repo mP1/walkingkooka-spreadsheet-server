@@ -1392,7 +1392,12 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId spreadsheetId) {
         this.checkSpreadsheetId(spreadsheetId);
 
-        return SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
     }
 
     private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId spreadsheetId) {

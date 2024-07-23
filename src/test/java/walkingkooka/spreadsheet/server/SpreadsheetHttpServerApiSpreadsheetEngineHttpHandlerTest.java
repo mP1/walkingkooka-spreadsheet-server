@@ -408,7 +408,12 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
     }
 
     private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {

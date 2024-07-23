@@ -43,6 +43,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -236,6 +237,13 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
         final AtomicLong nextId = new AtomicLong();
 
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
+
         return SpreadsheetHttpServer.with(
                 UrlScheme.HTTPS,
                 HostAddress.with("example.com"),
@@ -259,11 +267,11 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 ),
                 (id) -> metadata.converterProvider(ConverterProviders.converters()), // spreadsheetIdToConverterProvider
                 (id) -> metadata.spreadsheetComparatorProvider(SpreadsheetComparatorProviders.spreadsheetComparators()), // spreadsheetIdToSpreadsheetComparatorProvider
-                (id) -> metadata.spreadsheetFormatterProvider(SpreadsheetFormatterProviders.spreadsheetFormatPattern()), // spreadsheetIdToSpreadsheetFormatterProvider
+                (id) -> metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider), // spreadsheetIdToSpreadsheetFormatterProvider
                 (id) -> metadata.expressionFunctionProvider(ExpressionFunctionProviders.expressionFunctions()), // spreadsheetIdToExpressionFunctionProvider
                 (id) -> metadata.spreadsheetParserProvider(
                         SpreadsheetParserProviders.spreadsheetParsePattern(
-                                metadata.spreadsheetFormatterProvider(SpreadsheetFormatterProviders.spreadsheetFormatPattern())
+                                metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
                         )
                 ), // spreadsheetIdToSpreadsheetParserProvider
                 (id) -> repo, // spreadsheetIdToStoreRepository

@@ -8594,7 +8594,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
     }
     
     private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
@@ -8617,7 +8622,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private static Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
         return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern(
-                SpreadsheetFormatterProviders.spreadsheetFormatPattern()
+                SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                        Locale.forLanguageTag("EN-AU"),
+                        () -> {
+                            throw new UnsupportedOperationException();
+                        }
+                )
         );
     }
 
