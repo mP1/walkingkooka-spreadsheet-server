@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -355,6 +356,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
         return this.engineContext.spreadsheetFormatterNextTextComponent(selector);
+    }
+
+    @Override
+    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
+        return this.engineContext.spreadsheetFormatterSamples(name);
     }
 
     @Override

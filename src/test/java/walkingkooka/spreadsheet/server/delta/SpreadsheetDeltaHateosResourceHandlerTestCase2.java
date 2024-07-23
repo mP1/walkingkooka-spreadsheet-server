@@ -278,7 +278,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     }
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
         final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(
                 spreadsheetFormatterProvider
         );

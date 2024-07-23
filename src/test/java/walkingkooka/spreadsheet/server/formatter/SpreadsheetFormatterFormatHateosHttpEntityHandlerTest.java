@@ -179,8 +179,12 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
 
                     @Override
                     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern()
-                                .spreadsheetFormatter(spreadsheetFormatterSelector);
+                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                                Locale.forLanguageTag("EN-AU"),
+                                () -> {
+                                    throw new UnsupportedOperationException();
+                                }
+                        ).spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
 
                     @Override

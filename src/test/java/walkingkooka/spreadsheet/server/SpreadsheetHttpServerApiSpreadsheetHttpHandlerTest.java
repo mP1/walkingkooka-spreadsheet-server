@@ -112,7 +112,12 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
     }
 
     private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId id) {
-        return SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
+                Locale.forLanguageTag("EN-AU"),
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
     }
 
     private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId id) {
