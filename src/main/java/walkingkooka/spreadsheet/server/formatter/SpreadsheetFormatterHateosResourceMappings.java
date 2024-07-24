@@ -71,6 +71,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 LinkRelation.with("next-next-component"),
                 HttpMethod.POST,
                 SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.instance()
+        ).setHateosHttpEntityHandler(
+                LinkRelation.with("samples"),
+                HttpMethod.GET,
+                SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
         );
 
         return formatter;
