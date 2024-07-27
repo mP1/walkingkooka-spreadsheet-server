@@ -5792,8 +5792,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "      \"value\": {\n" +
                                 "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\",\n" +
-                                "        \"alternatives\": []\n" +
+                                "        \"text\": \"/\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
@@ -5825,8 +5824,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "      \"value\": {\n" +
                                 "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\",\n" +
-                                "        \"alternatives\": []\n" +
+                                "        \"text\": \"/\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
@@ -5852,8 +5850,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"next\": {\n" +
-                                "    \"label\": \"\",\n" +
-                                "    \"text\": \"\",\n" +
                                 "    \"alternatives\": [\n" +
                                 "      {\n" +
                                 "        \"label\": \"m\",\n" +
@@ -5994,8 +5990,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
                                 "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\",\n" +
-                                "      \"alternatives\": []\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  {\n" +
@@ -6027,8 +6022,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
                                 "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\",\n" +
-                                "      \"alternatives\": []\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  {\n" +
@@ -6074,8 +6068,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  {\n" +
                                 "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
-                                "      \"label\": \"\",\n" +
-                                "      \"text\": \"\",\n" +
                                 "      \"alternatives\": [\n" +
                                 "        {\n" +
                                 "          \"label\": \"m\",\n" +
@@ -6318,8 +6310,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  {\n" +
                                 "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
-                                "      \"label\": \"\",\n" +
-                                "      \"text\": \"\",\n" +
                                 "      \"alternatives\": [\n" +
                                 "        {\n" +
                                 "          \"label\": \"m\",\n" +
@@ -6388,8 +6378,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
                                 "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\",\n" +
-                                "      \"alternatives\": []\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  {\n" +
@@ -6421,8 +6410,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
                                 "    \"value\": {\n" +
                                 "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\",\n" +
-                                "      \"alternatives\": []\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    }\n" +
                                 "  },\n" +
                                 "  {\n" +

@@ -255,8 +255,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                                 "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "      \"value\": {\n" +
                                 "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\",\n" +
-                                "        \"alternatives\": []\n" +
+                                "        \"text\": \"/\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
@@ -288,8 +287,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                                 "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
                                 "      \"value\": {\n" +
                                 "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\",\n" +
-                                "        \"alternatives\": []\n" +
+                                "        \"text\": \"/\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
@@ -307,8 +305,6 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"next\": {\n" +
-                                "    \"label\": \"\",\n" +
-                                "    \"text\": \"\",\n" +
                                 "    \"alternatives\": [\n" +
                                 "      {\n" +
                                 "        \"label\": \"d\",\n" +
