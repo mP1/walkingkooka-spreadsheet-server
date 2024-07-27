@@ -72,6 +72,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
+import walkingkooka.spreadsheet.format.edit.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -5754,6 +5755,172 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+
+    @Test
+    public void testFormatterEdit() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/formatter/*/edit",
+                NO_HEADERS_TRANSACTION_ID,
+                "\"date-format-pattern yyyy/mm/ddd\"",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
+                                "  \"message\": \"\",\n" +
+                                "  \"textComponents\": [\n" +
+                                "    {\n" +
+                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"label\": \"yyyy\",\n" +
+                                "        \"text\": \"yyyy\",\n" +
+                                "        \"alternatives\": [\n" +
+                                "          {\n" +
+                                "            \"label\": \"yy\",\n" +
+                                "            \"text\": \"yy\"\n" +
+                                "          }\n" +
+                                "        ]\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"label\": \"/\",\n" +
+                                "        \"text\": \"/\",\n" +
+                                "        \"alternatives\": []\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"label\": \"mm\",\n" +
+                                "        \"text\": \"mm\",\n" +
+                                "        \"alternatives\": [\n" +
+                                "          {\n" +
+                                "            \"label\": \"m\",\n" +
+                                "            \"text\": \"m\"\n" +
+                                "          },\n" +
+                                "          {\n" +
+                                "            \"label\": \"mmm\",\n" +
+                                "            \"text\": \"mmm\"\n" +
+                                "          },\n" +
+                                "          {\n" +
+                                "            \"label\": \"mmmm\",\n" +
+                                "            \"text\": \"mmmm\"\n" +
+                                "          },\n" +
+                                "          {\n" +
+                                "            \"label\": \"mmmmm\",\n" +
+                                "            \"text\": \"mmmmm\"\n" +
+                                "          }\n" +
+                                "        ]\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"label\": \"/\",\n" +
+                                "        \"text\": \"/\",\n" +
+                                "        \"alternatives\": []\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"label\": \"ddd\",\n" +
+                                "        \"text\": \"ddd\",\n" +
+                                "        \"alternatives\": [\n" +
+                                "          {\n" +
+                                "            \"label\": \"d\",\n" +
+                                "            \"text\": \"d\"\n" +
+                                "          },\n" +
+                                "          {\n" +
+                                "            \"label\": \"dd\",\n" +
+                                "            \"text\": \"dd\"\n" +
+                                "          },\n" +
+                                "          {\n" +
+                                "            \"label\": \"dddd\",\n" +
+                                "            \"text\": \"dddd\"\n" +
+                                "          }\n" +
+                                "        ]\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  ],\n" +
+                                "  \"next\": {\n" +
+                                "    \"label\": \"\",\n" +
+                                "    \"text\": \"\",\n" +
+                                "    \"alternatives\": [\n" +
+                                "      {\n" +
+                                "        \"label\": \"m\",\n" +
+                                "        \"text\": \"m\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mm\",\n" +
+                                "        \"text\": \"mm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmm\",\n" +
+                                "        \"text\": \"mmm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmmm\",\n" +
+                                "        \"text\": \"mmmm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmmmm\",\n" +
+                                "        \"text\": \"mmmmm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"yy\",\n" +
+                                "        \"text\": \"yy\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"yyyy\",\n" +
+                                "        \"text\": \"yyyy\"\n" +
+                                "      }\n" +
+                                "    ]\n" +
+                                "  },\n" +
+                                "  \"samples\": [\n" +
+                                "    {\n" +
+                                "      \"label\": \"Short\",\n" +
+                                "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"type\": \"local-date\",\n" +
+                                "        \"value\": \"1999-12-31\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"Medium\",\n" +
+                                "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"type\": \"local-date\",\n" +
+                                "        \"value\": \"1999-12-31\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"Long\",\n" +
+                                "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"type\": \"local-date\",\n" +
+                                "        \"value\": \"1999-12-31\"\n" +
+                                "      }\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"Full\",\n" +
+                                "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                                "      \"value\": {\n" +
+                                "        \"type\": \"local-date\",\n" +
+                                "        \"value\": \"1999-12-31\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  ]\n" +
+                                "}",
+                        SpreadsheetFormatterSelectorEdit.class.getSimpleName()
                 )
         );
     }
