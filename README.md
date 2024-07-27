@@ -114,6 +114,7 @@ available [SpreadsheetFormatterInfoSet](https://github.com/mP1/walkingkooka-spre
 - **GET** /api/spreadsheet/$spreadsheet-id/formatter
 - **GET**
   /api/spreadsheet/$spreadsheet-id/formatter/[SpreadsheetFormatterName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatterName.java)
+- **POST** /api/spreadsheet/$spreadsheet-id/formatter/*/edit
 - **POST** /api/spreadsheet/$spreadsheet-id/formatter/*/format
 - **POST** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/next-text-component
 - **GET** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/samples
