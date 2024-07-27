@@ -89,7 +89,7 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
             throw new IllegalArgumentException("Got " + contentType + " expected " + requiredContentType);
         }
 
-        // read json into SpreadsheetFormatterFormatRequestList
+        // read the string from the request holding the SpreadsheetFormatterSelector
         final String selector = context.unmarshall(
                 JsonNode.parse(
                         httpEntity.bodyText()
@@ -97,7 +97,6 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
                 String.class
         );
 
-        // format all the individual requests
         final SpreadsheetFormatterSelectorEdit response = SpreadsheetFormatterSelectorEdit.parse(
                 selector,
                 SpreadsheetFormatterSelectorEditContexts.basic(
