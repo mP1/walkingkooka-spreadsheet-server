@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -177,48 +176,47 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                     }
                 },
                 this.httpEntity(
-                        SpreadsheetParserSelectorTextComponentList.with(
-                                Lists.of(
-                                        SpreadsheetParserSelectorTextComponent.with(
-                                                "",
-                                                "",
-                                                Lists.of(
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "d",
-                                                                "d"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "dd",
-                                                                "dd"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "ddd",
-                                                                "ddd"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "dddd",
-                                                                "dddd"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "m",
-                                                                "m"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "mm",
-                                                                "mm"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "mmm",
-                                                                "mmm"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "mmmm",
-                                                                "mmmm"
-                                                        ),
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
-                                                                "mmmmm",
-                                                                "mmmmm"
-                                                        )
+                        Optional.of(
+
+                                SpreadsheetParserSelectorTextComponent.with(
+                                        "",
+                                        "",
+                                        Lists.of(
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "d",
+                                                        "d"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "dd",
+                                                        "dd"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "ddd",
+                                                        "ddd"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "dddd",
+                                                        "dddd"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "m",
+                                                        "m"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "mm",
+                                                        "mm"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "mmm",
+                                                        "mmm"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "mmmm",
+                                                        "mmmm"
+                                                ),
+                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        "mmmmm",
+                                                        "mmmmm"
                                                 )
                                         )
                                 )
