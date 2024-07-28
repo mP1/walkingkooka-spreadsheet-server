@@ -8881,7 +8881,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private Either<WebFile, HttpStatus> fileServer(final UrlPath path) {
-        return path.equals(FILE) ?
+        return path.normalize().equals(FILE) ?
                 Either.left(new WebFile() {
                     @Override
                     public LocalDateTime lastModified() {
