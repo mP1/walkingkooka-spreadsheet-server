@@ -6419,43 +6419,38 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "\"yyyy/mm/ddd\"",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "[\n" +
-                                "  {\n" +
-                                "    \"type\": \"spreadsheet-parser-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"alternatives\": [\n" +
-                                "        {\n" +
-                                "          \"label\": \"m\",\n" +
-                                "          \"text\": \"m\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mm\",\n" +
-                                "          \"text\": \"mm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmm\",\n" +
-                                "          \"text\": \"mmm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmmm\",\n" +
-                                "          \"text\": \"mmmm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmmmm\",\n" +
-                                "          \"text\": \"mmmmm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"yy\",\n" +
-                                "          \"text\": \"yy\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"yyyy\",\n" +
-                                "          \"text\": \"yyyy\"\n" +
-                                "        }\n" +
-                                "      ]\n" +
+                        "{\n" +
+                                "  \"alternatives\": [\n" +
+                                "    {\n" +
+                                "      \"label\": \"m\",\n" +
+                                "      \"text\": \"m\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"mm\",\n" +
+                                "      \"text\": \"mm\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"mmm\",\n" +
+                                "      \"text\": \"mmm\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"mmmm\",\n" +
+                                "      \"text\": \"mmmm\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"mmmmm\",\n" +
+                                "      \"text\": \"mmmmm\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"yy\",\n" +
+                                "      \"text\": \"yy\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"label\": \"yyyy\",\n" +
+                                "      \"text\": \"yyyy\"\n" +
                                 "    }\n" +
-                                "  }\n" +
-                                "]",
+                                "  ]\n" +
+                                "}",
                         SpreadsheetParserSelectorTextComponent.class.getSimpleName()
                 )
         );
