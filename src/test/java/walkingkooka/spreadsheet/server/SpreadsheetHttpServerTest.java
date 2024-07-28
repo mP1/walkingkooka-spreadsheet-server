@@ -5777,77 +5777,62 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"message\": \"\",\n" +
                                 "  \"textComponents\": [\n" +
                                 "    {\n" +
-                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "      \"value\": {\n" +
-                                "        \"label\": \"yyyy\",\n" +
-                                "        \"text\": \"yyyy\",\n" +
-                                "        \"alternatives\": [\n" +
-                                "          {\n" +
-                                "            \"label\": \"yy\",\n" +
-                                "            \"text\": \"yy\"\n" +
-                                "          }\n" +
-                                "        ]\n" +
-                                "      }\n" +
+                                "      \"label\": \"yyyy\",\n" +
+                                "      \"text\": \"yyyy\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"yy\",\n" +
+                                "          \"text\": \"yy\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
                                 "    },\n" +
                                 "    {\n" +
-                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "      \"value\": {\n" +
-                                "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\"\n" +
-                                "      }\n" +
+                                "      \"label\": \"/\",\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    },\n" +
                                 "    {\n" +
-                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "      \"value\": {\n" +
-                                "        \"label\": \"mm\",\n" +
-                                "        \"text\": \"mm\",\n" +
-                                "        \"alternatives\": [\n" +
-                                "          {\n" +
-                                "            \"label\": \"m\",\n" +
-                                "            \"text\": \"m\"\n" +
-                                "          },\n" +
-                                "          {\n" +
-                                "            \"label\": \"mmm\",\n" +
-                                "            \"text\": \"mmm\"\n" +
-                                "          },\n" +
-                                "          {\n" +
-                                "            \"label\": \"mmmm\",\n" +
-                                "            \"text\": \"mmmm\"\n" +
-                                "          },\n" +
-                                "          {\n" +
-                                "            \"label\": \"mmmmm\",\n" +
-                                "            \"text\": \"mmmmm\"\n" +
-                                "          }\n" +
-                                "        ]\n" +
-                                "      }\n" +
+                                "      \"label\": \"mm\",\n" +
+                                "      \"text\": \"mm\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"m\",\n" +
+                                "          \"text\": \"m\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmm\",\n" +
+                                "          \"text\": \"mmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmm\",\n" +
+                                "          \"text\": \"mmmm\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"mmmmm\",\n" +
+                                "          \"text\": \"mmmmm\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
                                 "    },\n" +
                                 "    {\n" +
-                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "      \"value\": {\n" +
-                                "        \"label\": \"/\",\n" +
-                                "        \"text\": \"/\"\n" +
-                                "      }\n" +
+                                "      \"label\": \"/\",\n" +
+                                "      \"text\": \"/\"\n" +
                                 "    },\n" +
                                 "    {\n" +
-                                "      \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "      \"value\": {\n" +
-                                "        \"label\": \"ddd\",\n" +
-                                "        \"text\": \"ddd\",\n" +
-                                "        \"alternatives\": [\n" +
-                                "          {\n" +
-                                "            \"label\": \"d\",\n" +
-                                "            \"text\": \"d\"\n" +
-                                "          },\n" +
-                                "          {\n" +
-                                "            \"label\": \"dd\",\n" +
-                                "            \"text\": \"dd\"\n" +
-                                "          },\n" +
-                                "          {\n" +
-                                "            \"label\": \"dddd\",\n" +
-                                "            \"text\": \"dddd\"\n" +
-                                "          }\n" +
-                                "        ]\n" +
-                                "      }\n" +
+                                "      \"label\": \"ddd\",\n" +
+                                "      \"text\": \"ddd\",\n" +
+                                "      \"alternatives\": [\n" +
+                                "        {\n" +
+                                "          \"label\": \"d\",\n" +
+                                "          \"text\": \"d\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"dd\",\n" +
+                                "          \"text\": \"dd\"\n" +
+                                "        },\n" +
+                                "        {\n" +
+                                "          \"label\": \"dddd\",\n" +
+                                "          \"text\": \"dddd\"\n" +
+                                "        }\n" +
+                                "      ]\n" +
                                 "    }\n" +
                                 "  ],\n" +
                                 "  \"next\": {\n" +
@@ -5975,77 +5960,62 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "[\n" +
                                 "  {\n" +
-                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"label\": \"yyyy\",\n" +
-                                "      \"text\": \"yyyy\",\n" +
-                                "      \"alternatives\": [\n" +
-                                "        {\n" +
-                                "          \"label\": \"yy\",\n" +
-                                "          \"text\": \"yy\"\n" +
-                                "        }\n" +
-                                "      ]\n" +
-                                "    }\n" +
+                                "    \"label\": \"yyyy\",\n" +
+                                "    \"text\": \"yyyy\",\n" +
+                                "    \"alternatives\": [\n" +
+                                "      {\n" +
+                                "        \"label\": \"yy\",\n" +
+                                "        \"text\": \"yy\"\n" +
+                                "      }\n" +
+                                "    ]\n" +
                                 "  },\n" +
                                 "  {\n" +
-                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\"\n" +
-                                "    }\n" +
+                                "    \"label\": \"/\",\n" +
+                                "    \"text\": \"/\"\n" +
                                 "  },\n" +
                                 "  {\n" +
-                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"label\": \"mm\",\n" +
-                                "      \"text\": \"mm\",\n" +
-                                "      \"alternatives\": [\n" +
-                                "        {\n" +
-                                "          \"label\": \"m\",\n" +
-                                "          \"text\": \"m\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmm\",\n" +
-                                "          \"text\": \"mmm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmmm\",\n" +
-                                "          \"text\": \"mmmm\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"mmmmm\",\n" +
-                                "          \"text\": \"mmmmm\"\n" +
-                                "        }\n" +
-                                "      ]\n" +
-                                "    }\n" +
+                                "    \"label\": \"mm\",\n" +
+                                "    \"text\": \"mm\",\n" +
+                                "    \"alternatives\": [\n" +
+                                "      {\n" +
+                                "        \"label\": \"m\",\n" +
+                                "        \"text\": \"m\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmm\",\n" +
+                                "        \"text\": \"mmm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmmm\",\n" +
+                                "        \"text\": \"mmmm\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"mmmmm\",\n" +
+                                "        \"text\": \"mmmmm\"\n" +
+                                "      }\n" +
+                                "    ]\n" +
                                 "  },\n" +
                                 "  {\n" +
-                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"label\": \"/\",\n" +
-                                "      \"text\": \"/\"\n" +
-                                "    }\n" +
+                                "    \"label\": \"/\",\n" +
+                                "    \"text\": \"/\"\n" +
                                 "  },\n" +
                                 "  {\n" +
-                                "    \"type\": \"spreadsheet-formatter-selector-text-component\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"label\": \"ddd\",\n" +
-                                "      \"text\": \"ddd\",\n" +
-                                "      \"alternatives\": [\n" +
-                                "        {\n" +
-                                "          \"label\": \"d\",\n" +
-                                "          \"text\": \"d\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"dd\",\n" +
-                                "          \"text\": \"dd\"\n" +
-                                "        },\n" +
-                                "        {\n" +
-                                "          \"label\": \"dddd\",\n" +
-                                "          \"text\": \"dddd\"\n" +
-                                "        }\n" +
-                                "      ]\n" +
-                                "    }\n" +
+                                "    \"label\": \"ddd\",\n" +
+                                "    \"text\": \"ddd\",\n" +
+                                "    \"alternatives\": [\n" +
+                                "      {\n" +
+                                "        \"label\": \"d\",\n" +
+                                "        \"text\": \"d\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"dd\",\n" +
+                                "        \"text\": \"dd\"\n" +
+                                "      },\n" +
+                                "      {\n" +
+                                "        \"label\": \"dddd\",\n" +
+                                "        \"text\": \"dddd\"\n" +
+                                "      }\n" +
+                                "    ]\n" +
                                 "  }\n" +
                                 "]",
                         SpreadsheetFormatterSelectorTextComponentList.class.getSimpleName()
