@@ -26,6 +26,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 public final class SpreadsheetParserHateosResourceMappings implements PublicStaticHelper {
@@ -56,15 +57,15 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 HttpMethod.GET,
                 SpreadsheetParserInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("edit"),
+                SpreadsheetHttpServerLinkRelations.EDIT,
                 HttpMethod.POST,
                 SpreadsheetParserEditHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("text-components"),
+                SpreadsheetHttpServerLinkRelations.TEXT_COMPONENTS,
                 HttpMethod.POST,
                 SpreadsheetParserTextComponentsHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("next-text-component"),
+                SpreadsheetHttpServerLinkRelations.NEXT_TEXT_COMPONENT,
                 HttpMethod.POST,
                 SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.instance()
         );
