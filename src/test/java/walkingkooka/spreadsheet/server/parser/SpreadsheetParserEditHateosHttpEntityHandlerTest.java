@@ -70,11 +70,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserEditHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting,
         ToStringTesting<SpreadsheetParserEditHateosHttpEntityHandler> {
 
-    private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
+    private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
 
     @Test
     public void testHandleOneFails() {
@@ -411,20 +411,20 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     }
 
     @Override
-    public SpreadsheetFormatterName id() {
-        return FORMATTER_NAME;
+    public SpreadsheetParserName id() {
+        return PARSER_NAME;
     }
 
     @Override
-    public Set<SpreadsheetFormatterName> manyIds() {
+    public Set<SpreadsheetParserName> manyIds() {
         return Sets.of(
-                FORMATTER_NAME
+                PARSER_NAME
         );
     }
 
     @Override
-    public Range<SpreadsheetFormatterName> range() {
-        return Range.singleton(FORMATTER_NAME);
+    public Range<SpreadsheetParserName> range() {
+        return Range.singleton(PARSER_NAME);
     }
 
     @Override

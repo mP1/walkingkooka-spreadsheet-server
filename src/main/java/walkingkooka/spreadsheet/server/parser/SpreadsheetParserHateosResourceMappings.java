@@ -27,7 +27,6 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetParserHateosResourceMappings implements PublicStaticHelper {
 
@@ -57,6 +56,10 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 HttpMethod.GET,
                 SpreadsheetParserInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
+                LinkRelation.with("edit"),
+                HttpMethod.POST,
+                SpreadsheetParserEditHateosHttpEntityHandler.instance()
+        ).setHateosHttpEntityHandler(
                 LinkRelation.with("text-components"),
                 HttpMethod.POST,
                 SpreadsheetParserTextComponentsHateosHttpEntityHandler.instance()
@@ -78,7 +81,8 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 selection = HateosResourceSelection.all();
                 break;
             case "*":
-                throw new IllegalArgumentException("Invalid parser selection " + CharSequences.quoteAndEscape(text));
+                selection = HateosResourceSelection.all();
+                break;
             default:
                 selection = HateosResourceSelection.one(
                         SpreadsheetParserName.with(text)
