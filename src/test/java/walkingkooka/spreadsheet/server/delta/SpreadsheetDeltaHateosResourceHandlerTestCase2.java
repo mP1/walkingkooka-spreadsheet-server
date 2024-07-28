@@ -30,23 +30,17 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.conditionalformat.SpreadsheetConditionalFormattingRule;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -73,7 +67,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -278,27 +271,13 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     }
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                () -> {
-                    throw new UnsupportedOperationException();
-                }
-        );
-        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(
-                spreadsheetFormatterProvider
-        );
-
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 METADATA,
-                SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                        METADATA,
-                        spreadsheetFormatterProvider,
-                        spreadsheetParserProvider
-                ),
-                SpreadsheetComparatorProviders.spreadsheetComparators(),
-                spreadsheetFormatterProvider,
-                ExpressionFunctionProviders.fake(),
-                spreadsheetParserProvider,
+                CONVERTER_PROVIDER,
+                SPREADSHEET_COMPARATOR_PROVIDER,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                EXPRESSION_FUNCTION_PROVIDER,
+                SPREADSHEET_PARSER_PROVIDER,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
                 (b) -> {
                     throw new UnsupportedOperationException();

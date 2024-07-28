@@ -34,13 +34,10 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
@@ -150,13 +147,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
                                                                                final List<?> values) {
-                        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                                this.spreadsheetMetadata(),
-                                this, // SpreadsheetParserProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        SpreadsheetFormatterProviders.fake()
-                                )
-                        ).converter(
+                        return CONVERTER_PROVIDER.converter(
                                 name,
                                 values
                         );
@@ -164,9 +155,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
 
                     @Override
                     public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-                        return SpreadsheetParserProviders.spreadsheetParsePattern(
-                                SpreadsheetFormatterProviders.fake()
-                        ).spreadsheetParserNextTextComponent(selector);
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextTextComponent(selector);
                     }
 
                     @Override

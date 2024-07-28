@@ -34,14 +34,11 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
@@ -156,13 +153,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
                                                                                final List<?> values) {
-                        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                                this.spreadsheetMetadata(),
-                                this, // SpreadsheetParserProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        SpreadsheetFormatterProviders.fake()
-                                )
-                        ).converter(
+                        return CONVERTER_PROVIDER.converter(
                                 name,
                                 values
                         );
@@ -170,10 +161,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
 
                     @Override
                     public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
-                        return SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        SpreadsheetFormatterProviders.fake()
-                                )
-                                .spreadsheetParser(spreadsheetParserSelector);
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParser(spreadsheetParserSelector);
                     }
 
                     @Override
