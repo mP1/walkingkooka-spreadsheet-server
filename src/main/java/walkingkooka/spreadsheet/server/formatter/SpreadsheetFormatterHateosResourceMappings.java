@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Objects;
@@ -60,23 +61,23 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 HttpMethod.GET,
                 SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("edit"),
+                SpreadsheetHttpServerLinkRelations.EDIT,
                 HttpMethod.POST,
                 SpreadsheetFormatterEditHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("format"),
+                SpreadsheetHttpServerLinkRelations.FORMAT,
                 HttpMethod.POST,
                 SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("text-components"),
+                SpreadsheetHttpServerLinkRelations.TEXT_COMPONENTS,
                 HttpMethod.POST,
                 SpreadsheetFormatterTextComponentsHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("next-text-component"),
+                SpreadsheetHttpServerLinkRelations.NEXT_TEXT_COMPONENT,
                 HttpMethod.POST,
                 SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                LinkRelation.with("samples"),
+                SpreadsheetHttpServerLinkRelations.SAMPLES,
                 HttpMethod.GET,
                 SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
         );
