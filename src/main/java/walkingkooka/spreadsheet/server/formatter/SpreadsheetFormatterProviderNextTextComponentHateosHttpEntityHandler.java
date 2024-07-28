@@ -91,9 +91,8 @@ final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,
                 SpreadsheetFormatterSelectorTextComponent.class.getSimpleName()
         ).setBodyText(
-                context.marshall(
-                        response
-                ).toString()
+                response.map(r -> context.marshall(r).toString())
+                        .orElse("")
         ).setContentLength();
     }
 
