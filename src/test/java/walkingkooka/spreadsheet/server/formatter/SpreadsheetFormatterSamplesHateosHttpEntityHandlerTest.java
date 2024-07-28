@@ -39,13 +39,10 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
@@ -53,7 +50,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
@@ -66,7 +62,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -149,19 +144,13 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
                     @Override
                     public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-                        return this.spreadsheetFormatterProvider.spreadsheetFormatterSamples(selector.name());
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(selector.name());
                     }
 
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
                                                                                final List<?> values) {
-                        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                                this.spreadsheetMetadata(),
-                                this, // SpreadsheetFormatterProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        SpreadsheetFormatterProviders.fake()
-                                )
-                        ).converter(
+                        return CONVERTER_PROVIDER.converter(
                                 name,
                                 values
                         );
@@ -169,7 +158,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
                     @Override
                     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return this.spreadsheetFormatterProvider.spreadsheetFormatter(spreadsheetFormatterSelector);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
 
                     @Override
@@ -218,17 +207,6 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                         return JsonNodeMarshallContexts.basic()
                                 .marshall(value);
                     }
-
-                    private final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                            Locale.forLanguageTag("EN-AU"),
-                            () -> LocalDateTime.of(
-                                    1999,
-                                    12,
-                                    31,
-                                    12,
-                                    58
-                            )
-                    );
                 },
                 this.httpEntity(
                         "[\n" +

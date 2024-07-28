@@ -34,16 +34,13 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentAlternative;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -53,7 +50,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -151,13 +147,7 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
                                                                                final List<?> values) {
-                        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                                this.spreadsheetMetadata(),
-                                this, // SpreadsheetFormatterProvider
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        SpreadsheetFormatterProviders.fake()
-                                )
-                        ).converter(
+                        return CONVERTER_PROVIDER.converter(
                                 name,
                                 values
                         );
@@ -165,12 +155,7 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
 
                     @Override
                     public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
-                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                                Locale.forLanguageTag("EN-AU"),
-                                () -> {
-                                    throw new UnsupportedOperationException();
-                                }
-                        ).spreadsheetFormatterNextTextComponent(selector);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextTextComponent(selector);
                     }
 
                     @Override

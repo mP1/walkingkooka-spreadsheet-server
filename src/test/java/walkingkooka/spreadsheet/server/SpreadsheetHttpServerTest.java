@@ -62,13 +62,11 @@ import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
@@ -82,7 +80,6 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
 import walkingkooka.spreadsheet.parser.edit.SpreadsheetParserSelectorEdit;
@@ -8890,20 +8887,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SpreadsheetComparatorProviders.spreadsheetComparators();
+        return (id) -> SPREADSHEET_COMPARATOR_PROVIDER;
     }
 
     private static Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                () -> LocalDateTime.of(
-                        1999,
-                        12,
-                        31,
-                        12,
-                        58
-                )
-        );
+        return (id) -> SPREADSHEET_FORMATTER_PROVIDER;
     }
     
     private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
@@ -8925,14 +8913,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private static Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
-        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern(
-                SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                        Locale.forLanguageTag("EN-AU"),
-                        () -> {
-                            throw new UnsupportedOperationException();
-                        }
-                )
-        );
+        return (id) -> SPREADSHEET_PARSER_PROVIDER;
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

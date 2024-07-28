@@ -25,7 +25,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -36,11 +35,8 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
@@ -48,8 +44,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.edit.SpreadsheetParserSelectorEdit;
@@ -63,9 +57,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -139,24 +131,6 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
 
     @Test
     public void testHandleAll() {
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                () -> LocalDateTime.of(
-                        1999,
-                        12,
-                        31,
-                        12,
-                        58,
-                        59
-                )
-        );
-        final SpreadsheetParserProvider spreadsheetParserProvider = SpreadsheetParserProviders.spreadsheetParsePattern(spreadsheetFormatterProvider);
-        final ConverterProvider converterProvider = SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                SpreadsheetMetadataTesting.METADATA_EN_AU,
-                spreadsheetFormatterProvider,
-                spreadsheetParserProvider
-        );
-
         this.handleAllAndCheck(
                 // two format requests
                 this.httpEntity(
@@ -182,13 +156,13 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
 
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
-                        return converterProvider.converter(selector);
+                        return CONVERTER_PROVIDER.converter(selector);
                     }
 
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
                                                                                final List<?> values) {
-                        return converterProvider.converter(
+                        return CONVERTER_PROVIDER.converter(
                                 converterName,
                                 values
                         );
@@ -196,32 +170,32 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
 
                     @Override
                     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return spreadsheetFormatterProvider.spreadsheetFormatter(spreadsheetFormatterSelector);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
 
                     @Override
                     public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
-                        return spreadsheetFormatterProvider.spreadsheetFormatterNextTextComponent(selector);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextTextComponent(selector);
                     }
 
                     @Override
                     public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-                        return spreadsheetFormatterProvider.spreadsheetFormatterSamples(name);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(name);
                     }
 
                     @Override
                     public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector selector) {
-                        return spreadsheetParserProvider.spreadsheetFormatterSelector(selector);
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetFormatterSelector(selector);
                     }
 
                     @Override
                     public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector) {
-                        return spreadsheetParserProvider.spreadsheetParser(selector);
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParser(selector);
                     }
 
                     @Override
                     public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-                        return spreadsheetParserProvider.spreadsheetParserNextTextComponent(selector);
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextTextComponent(selector);
                     }
 
                     @Override
@@ -230,9 +204,9 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                         return formatter.format(
                                 value,
                                 SpreadsheetMetadataTesting.METADATA_EN_AU.formatterContext(
-                                        converterProvider,
-                                        spreadsheetFormatterProvider,
-                                        LocalDateTime::now,
+                                        CONVERTER_PROVIDER,
+                                        SPREADSHEET_FORMATTER_PROVIDER,
+                                        NOW,
                                         SpreadsheetLabelNameResolvers.fake()
                                 )
                         );
