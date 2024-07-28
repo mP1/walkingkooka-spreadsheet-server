@@ -6030,7 +6030,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/formatter/date-format-pattern/next-next-component",
+                "/api/spreadsheet/1/formatter/date-format-pattern/next-text-component",
                 NO_HEADERS_TRANSACTION_ID,
                 "\"yyyy/mm/ddd\"",
                 this.response(
