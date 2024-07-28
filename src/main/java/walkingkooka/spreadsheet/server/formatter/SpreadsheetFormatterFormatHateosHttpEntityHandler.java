@@ -71,10 +71,9 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity);
-        if (false == requiredContentType.equalsIgnoringParameters(contentType)) {
-            throw new IllegalArgumentException("Got " + contentType + " expected " + requiredContentType);
-        }
+        requiredContentType.testOrFail(
+                HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
+        );
 
         // read json into SpreadsheetFormatterFormatRequestList
         final SpreadsheetFormatterFormatRequestList requests = context.unmarshall(

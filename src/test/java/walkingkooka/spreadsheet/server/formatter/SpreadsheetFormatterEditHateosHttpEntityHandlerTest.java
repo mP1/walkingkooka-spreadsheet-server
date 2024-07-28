@@ -128,7 +128,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                 IllegalArgumentException.class
         );
         this.checkEquals(
-                "Got text/plain expected application/json",
+                "Got text/plain requested application/json",
                 thrown.getMessage()
         );
     }

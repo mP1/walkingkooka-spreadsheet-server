@@ -72,10 +72,9 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity);
-        if (false == requiredContentType.equalsIgnoringParameters(contentType)) {
-            throw new IllegalArgumentException("Got " + contentType + " expected " + requiredContentType);
-        }
+        requiredContentType.testOrFail(
+                HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
+        );
 
         // read request body text
         final String text = context.unmarshall(
