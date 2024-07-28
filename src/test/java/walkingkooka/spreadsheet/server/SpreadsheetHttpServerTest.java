@@ -6307,12 +6307,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "\"date-parse-pattern yyyy/mm/ddd\"",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        "200 OK\n" +
-                                "Content-Type: application/json; charset=UTF-8\n" +
-                                "X-Content-Type-Name: SpreadsheetParserSelectorEdit\n" +
-                                "Content-Length: 2744\n" +
-                                "\n" +
-                                "{\n" +
+                        "{\n" +
                                 "  \"selector\": \"date-parse-pattern yyyy/mm/ddd\",\n" +
                                 "  \"message\": \"\",\n" +
                                 "  \"textComponents\": [\n" +
