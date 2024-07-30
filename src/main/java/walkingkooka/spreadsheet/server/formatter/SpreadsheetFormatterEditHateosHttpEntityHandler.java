@@ -28,17 +28,13 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.edit.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.format.edit.SpreadsheetFormatterSelectorEditContexts;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
-import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -51,16 +47,14 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetFormatterSelectorEdit.parse(
-                "date-format-pattern yyyy",
-                SpreadsheetFormatterSelectorEditContexts.basic(
-                        SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                                Locale.forLanguageTag("EN-AU"),
-                                LocalDateTime::now
-                        )
-                )
-        ); // force json registry
+        try {
+            SpreadsheetFormatterSelectorEdit.parse(
+                    "date-format-pattern yyyy",
+                    null
+            ); // force json registry
+        } catch (final NullPointerException ignore) {
+            // dont care just want to force json registry
+        }
     }
 
     static SpreadsheetFormatterEditHateosHttpEntityHandler instance() {

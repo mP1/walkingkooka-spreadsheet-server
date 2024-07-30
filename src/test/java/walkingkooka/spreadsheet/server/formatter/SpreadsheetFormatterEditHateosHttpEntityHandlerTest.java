@@ -36,6 +36,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
@@ -43,7 +44,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent
 import walkingkooka.spreadsheet.format.edit.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -53,6 +53,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -175,8 +176,12 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                     }
 
                     @Override
-                    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(name);
+                    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                                        final SpreadsheetFormatterContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                                name,
+                                context
+                        );
                     }
 
                     @Override
@@ -184,13 +189,13 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                                                           final SpreadsheetFormatter formatter) {
                         return formatter.format(
                                 value,
-                                SpreadsheetMetadataTesting.METADATA_EN_AU.formatterContext(
-                                        CONVERTER_PROVIDER,
-                                        SPREADSHEET_FORMATTER_PROVIDER,
-                                        NOW,
-                                        SpreadsheetLabelNameResolvers.fake()
-                                )
+                                SPREADSHEET_FORMATTER_CONTEXT
                         );
+                    }
+
+                    @Override
+                    public LocalDateTime now() {
+                        return NOW.get();
                     }
 
                     @Override
@@ -308,32 +313,32 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                                 "      \"label\": \"Short\",\n" +
                                 "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31/12/99\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Medium\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 Dec. 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Long\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 December 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Full\",\n" +
                                 "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Friday, 31 December 1999\"\n" +
                                 "      }\n" +
                                 "    }\n" +
                                 "  ]\n" +

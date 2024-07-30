@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
+import walkingkooka.Either;
+import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
@@ -27,8 +29,11 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
@@ -63,6 +68,7 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -73,20 +79,24 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                                    final JsonNodeUnmarshallContext unmarshallContext,
-                                                                   final SpreadsheetEngineContext engineContext) {
+                                                                   final SpreadsheetEngineContext engineContext,
+                                                                   final SpreadsheetFormatterContext formatterContext) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 Objects.requireNonNull(marshallContext, "marshallContext"),
                 Objects.requireNonNull(unmarshallContext, "unmarshallContext"),
-                Objects.requireNonNull(engineContext, "engineContext")
+                Objects.requireNonNull(engineContext, "engineContext"),
+                Objects.requireNonNull(formatterContext, "formatterContext")
         );
     }
 
     private BasicSpreadsheetEngineHateosResourceHandlerContext(final JsonNodeMarshallContext marshallContext,
                                                                final JsonNodeUnmarshallContext unmarshallContext,
-                                                               final SpreadsheetEngineContext engineContext) {
+                                                               final SpreadsheetEngineContext engineContext,
+                                                               final SpreadsheetFormatterContext formatterContext) {
         this.marshallContext = marshallContext;
         this.unmarshallContext = unmarshallContext;
         this.engineContext = engineContext;
+        this.formatterContext = formatterContext;
     }
 
     @Override
@@ -359,8 +369,12 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-        return this.engineContext.spreadsheetFormatterSamples(name);
+    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                        final SpreadsheetFormatterContext context) {
+        return this.engineContext.spreadsheetFormatterSamples(
+                name,
+                context
+        );
     }
 
     @Override
@@ -398,4 +412,170 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     private final SpreadsheetEngineContext engineContext;
+
+    // SpreadsheetFormatterContext......................................................................................
+
+    @Override
+    public int cellCharacterWidth() {
+        return formatterContext.cellCharacterWidth();
+    }
+
+    @Override
+    public Optional<Color> colorNumber(final int number) {
+        return formatterContext.colorNumber(number);
+    }
+
+    @Override
+    public Optional<Color> colorName(final SpreadsheetColorName name) {
+        return formatterContext.colorName(name);
+    }
+
+    @Override
+    public Optional<TextNode> format(Object o) {
+        return formatterContext.format(o);
+    }
+
+    @Override
+    public int generalFormatNumberDigitCount() {
+        return formatterContext.generalFormatNumberDigitCount();
+    }
+
+    @Override
+    public long dateOffset() {
+        return formatterContext.dateOffset();
+    }
+
+    @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> type) {
+        return formatterContext.canConvert(
+                value,
+                type
+        );
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type) {
+        return formatterContext.convert(
+                value,
+                type
+        );
+    }
+
+    @Override
+    public List<String> ampms() {
+        return formatterContext.ampms();
+    }
+
+    @Override public String ampm(final int hourOfDay) {
+        return formatterContext.ampm(hourOfDay);
+    }
+
+    @Override
+    public List<String> monthNames() {
+        return formatterContext.monthNames();
+    }
+
+    @Override
+    public String monthName(final int month) {
+        return formatterContext.monthName(month);
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        return formatterContext.monthNameAbbreviations();
+    }
+
+    @Override
+    public String monthNameAbbreviation(final int month) {
+        return formatterContext.monthNameAbbreviation(month);
+    }
+
+    @Override
+    public List<String> weekDayNames() {
+        return formatterContext.weekDayNames();
+    }
+
+    @Override
+    public String weekDayName(final int day) {
+        return formatterContext.weekDayName(day);
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        return formatterContext.weekDayNameAbbreviations();
+    }
+
+    @Override
+    public String weekDayNameAbbreviation(final int day) {
+        return formatterContext.weekDayNameAbbreviation(day);
+    }
+
+    @Override
+    public int defaultYear() {
+        return formatterContext.defaultYear();
+    }
+
+    @Override
+    public int twoDigitYear() {
+        return formatterContext.twoDigitYear();
+    }
+
+    @Override
+    public int twoToFourDigitYear(final int year) {
+        return formatterContext.twoToFourDigitYear(year);
+    }
+
+    @Override
+    public Locale locale() {
+        return formatterContext.locale();
+    }
+
+    @Override
+    public String currencySymbol() {
+        return formatterContext.currencySymbol();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        return formatterContext.decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return formatterContext.exponentSymbol();
+    }
+
+    @Override
+    public char groupSeparator() {
+        return formatterContext.groupSeparator();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return formatterContext.percentageSymbol();
+    }
+
+    @Override
+    public char negativeSign() {
+        return formatterContext.negativeSign();
+    }
+
+    @Override
+    public char positiveSign() {
+        return formatterContext.positiveSign();
+    }
+
+    @Override
+    public Converter<SpreadsheetConverterContext> converter() {
+        return formatterContext.converter();
+    }
+
+    @Override
+    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+        return formatterContext.resolveIfLabel(selection);
+    }
+
+    private final SpreadsheetFormatterContext formatterContext;
 }

@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
+import walkingkooka.Either;
+import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
@@ -27,7 +29,10 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
@@ -53,6 +58,7 @@ import walkingkooka.tree.text.TextNode;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -166,7 +172,8 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
+    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                        final SpreadsheetFormatterContext context) {
         throw new UnsupportedOperationException();
     }
 
@@ -198,6 +205,158 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int cellCharacterWidth() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Color> colorNumber(final int number) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Color> colorName(final SpreadsheetColorName name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<TextNode> format(final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int generalFormatNumberDigitCount() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public long dateOffset() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> ampms() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String ampm(final int hourOfDay) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthName(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String monthNameAbbreviation(final int month) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayName(final int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String weekDayNameAbbreviation(final int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int defaultYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int twoDigitYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int twoToFourDigitYear(final int year) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String currencySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char groupSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char negativeSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char positiveSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Converter<SpreadsheetConverterContext> converter() {
         throw new UnsupportedOperationException();
     }
 }

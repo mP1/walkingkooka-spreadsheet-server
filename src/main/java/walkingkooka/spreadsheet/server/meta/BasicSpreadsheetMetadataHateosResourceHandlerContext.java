@@ -444,7 +444,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                         .labels()
                                         )
                                 ),
-                        context
+                        context,
+                        metadata.formatterContext(
+                                context, // ConverterProvider
+                                context, // SpreadsheetFormatterProvider
+                                context::now,
+                                context // SpreadsheetLabelNameResolver
+                        )
                 )
         );
     }
