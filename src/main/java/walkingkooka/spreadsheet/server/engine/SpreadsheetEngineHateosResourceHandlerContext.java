@@ -19,7 +19,9 @@ package walkingkooka.spreadsheet.server.engine;
 
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
-        SpreadsheetEngineContext {
+        SpreadsheetEngineContext,
+        SpreadsheetFormatterContext {
 }

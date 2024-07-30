@@ -5857,32 +5857,32 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"label\": \"Short\",\n" +
                                 "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31/12/99\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Medium\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 Dec. 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Long\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 December 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Full\",\n" +
                                 "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Friday, 31 December 1999\"\n" +
                                 "      }\n" +
                                 "    }\n" +
                                 "  ]\n" +
@@ -6357,32 +6357,32 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"label\": \"Short\",\n" +
                                 "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31/12/99\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Medium\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 Dec. 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Long\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 December 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Full\",\n" +
                                 "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Friday, 31 December 1999\"\n" +
                                 "      }\n" +
                                 "    }\n" +
                                 "  ]\n" +
@@ -8793,7 +8793,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 IpPort.HTTP,
                 Indentation.SPACES2,
                 LineEnding.NL,
-                LocalDateTime::now,
+                NOW,
                 createMetadata(
                         this.createMetadata(),
                         this.metadataStore

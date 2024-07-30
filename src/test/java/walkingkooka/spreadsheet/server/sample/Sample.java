@@ -237,12 +237,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
         final AtomicLong nextId = new AtomicLong();
 
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                () -> {
-                    throw new UnsupportedOperationException();
-                }
-        );
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
 
         return SpreadsheetHttpServer.with(
                 UrlScheme.HTTPS,

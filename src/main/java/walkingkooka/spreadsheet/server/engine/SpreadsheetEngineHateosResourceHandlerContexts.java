@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.engine;
 
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -29,11 +30,13 @@ public final class SpreadsheetEngineHateosResourceHandlerContexts implements Pub
      */
     public static SpreadsheetEngineHateosResourceHandlerContext basic(final JsonNodeMarshallContext marshallContext,
                                                                       final JsonNodeUnmarshallContext unmarshallContext,
-                                                                      final SpreadsheetEngineContext engineContext) {
+                                                                      final SpreadsheetEngineContext engineContext,
+                                                                      final SpreadsheetFormatterContext formatterContext) {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 marshallContext,
                 unmarshallContext,
-                engineContext
+                engineContext,
+                formatterContext
         );
     }
 

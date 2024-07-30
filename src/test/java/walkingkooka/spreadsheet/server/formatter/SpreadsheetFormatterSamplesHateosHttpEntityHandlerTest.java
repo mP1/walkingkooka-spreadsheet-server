@@ -18,16 +18,13 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -37,24 +34,17 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -62,6 +52,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -143,8 +134,12 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                     }
 
                     @Override
-                    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(selector.name());
+                    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                                        final SpreadsheetFormatterContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                                name,
+                                context
+                        );
                     }
 
                     @Override
@@ -162,44 +157,96 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                     }
 
                     @Override
+                    public Locale locale() {
+                        return LOCALE;
+                    }
+
+                    @Override
+                    public LocalDateTime now() {
+                        return NOW.get();
+                    }
+
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type) {
+                        return SPREADSHEET_CONVERTER_CONTEXT.convert(
+                                value,
+                                type
+                        );
+                    }
+
+                    @Override
                     public Optional<TextNode> formatValue(final Object value,
                                                           final SpreadsheetFormatter formatter) {
                         return formatter.format(
                                 value,
-                                SpreadsheetFormatterContexts.basic(
-                                        (n) -> {
-                                            throw new UnsupportedOperationException();
-                                        },
-                                        (n) -> {
-                                            throw new UnsupportedOperationException();
-                                        },
-                                        1, // cellCharacterWidth
-                                        SpreadsheetFormatterContext.DEFAULT_GENERAL_FORMAT_NUMBER_DIGIT_COUNT,
-                                        SpreadsheetFormatters.fake(),
-                                        SpreadsheetConverterContexts.basic(
-                                                SpreadsheetConverters.basic(),
-                                                SpreadsheetLabelNameResolvers.fake(),
-                                                ExpressionNumberConverterContexts.basic(
-                                                        Converters.fake()
-                                                                .cast(ExpressionNumberConverterContext.class),
-                                                        ConverterContexts.basic(
-                                                                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                                                Converters.fake(),
-                                                                DateTimeContexts.locale(
-                                                                        Locale.forLanguageTag("EN-AU"),
-                                                                        1950, // default year
-                                                                        50,
-                                                                        () -> {
-                                                                            throw new UnsupportedOperationException();
-                                                                        } // now
-                                                                ),
-                                                                DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                                        ),
-                                                        ExpressionNumberKind.BIG_DECIMAL
-                                                )
-                                        )
-                                )
+                                SPREADSHEET_FORMATTER_CONTEXT
                         );
+                    }
+
+                    @Override
+                    public List<String> ampms() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.ampms();
+                    }
+
+                    @Override
+                    public String ampm(final int hourOfDay) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.ampm(hourOfDay);
+                    }
+
+                    @Override
+                    public List<String> monthNames() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.monthNames();
+                    }
+
+                    @Override
+                    public String monthName(final int month) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.monthName(month);
+                    }
+
+                    @Override
+                    public List<String> monthNameAbbreviations() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviations();
+                    }
+
+                    @Override
+                    public String monthNameAbbreviation(final int month) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviation(month);
+                    }
+
+                    @Override
+                    public List<String> weekDayNames() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNames();
+                    }
+
+                    @Override
+                    public String weekDayName(final int day) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayName(day);
+                    }
+
+                    @Override
+                    public List<String> weekDayNameAbbreviations() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviations();
+                    }
+
+                    @Override
+                    public String weekDayNameAbbreviation(final int day) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviation(day);
+                    }
+
+                    @Override
+                    public int defaultYear() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.defaultYear();
+                    }
+
+                    @Override
+                    public int twoDigitYear() {
+                        return SPREADSHEET_FORMATTER_CONTEXT.twoDigitYear();
+                    }
+
+                    @Override
+                    public int twoToFourDigitYear(final int year) {
+                        return SPREADSHEET_FORMATTER_CONTEXT.twoToFourDigitYear(year);
                     }
 
                     @Override

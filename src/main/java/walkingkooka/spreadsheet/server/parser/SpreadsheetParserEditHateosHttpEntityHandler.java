@@ -28,12 +28,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserContexts;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.edit.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.parser.edit.SpreadsheetParserSelectorEditContexts;
@@ -41,8 +36,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
-import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -55,20 +48,14 @@ final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEn
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                LocalDateTime::now
-        );
-
-        SpreadsheetParserSelectorEdit.parse(
-                SpreadsheetParserName.DATE_PARSER_PATTERN + " yyyy",
-                SpreadsheetParserSelectorEditContexts.basic(
-                        SpreadsheetParserProviders.spreadsheetParsePattern(spreadsheetFormatterProvider),
-                        SpreadsheetParserContexts.fake(),
-                        SpreadsheetFormatterContexts.fake(),
-                        spreadsheetFormatterProvider
-                )
-        ); // force json registry
+        try {
+            SpreadsheetParserSelectorEdit.parse(
+                    SpreadsheetParserName.DATE_PARSER_PATTERN + " yyyy",
+                    null
+            ); // force json registry
+        } catch (final NullPointerException ignore) {
+            // nop
+        }
     }
 
     static SpreadsheetParserEditHateosHttpEntityHandler instance() {

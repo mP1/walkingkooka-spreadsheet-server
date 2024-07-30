@@ -34,11 +34,9 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.text.TextNode;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * A handler that takes the {@link SpreadsheetFormatterName} and invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatterSamples(SpreadsheetFormatterName)},
@@ -76,10 +74,10 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
         final MediaType requiredContentType = context.contentType();
 
         // format all the individual requests
-        final List<SpreadsheetFormatterSample<?>> response = context.spreadsheetFormatterSamples(formatterName)
-                .stream()
-                .map(s -> this.format(s, context))
-                .collect(Collectors.toList());
+        final List<SpreadsheetFormatterSample> response = context.spreadsheetFormatterSamples(
+                formatterName,
+                context
+        );
 
         return HttpEntity.EMPTY.addHeader(
                 HttpHeaderName.CONTENT_TYPE,
@@ -94,18 +92,6 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
                         )
                 ).toString()
         ).setContentLength();
-    }
-
-    private SpreadsheetFormatterSample<?> format(final SpreadsheetFormatterSample<?> sample,
-                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return sample.setValue(
-                context.formatValue(
-                        sample.value(),
-                        context.spreadsheetFormatter(
-                                sample.selector()
-                        )
-                ).orElse(TextNode.EMPTY_TEXT)
-        );
     }
 
     @Override

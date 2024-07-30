@@ -36,6 +36,7 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
@@ -57,6 +58,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -179,8 +181,12 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                     }
 
                     @Override
-                    public List<SpreadsheetFormatterSample<?>> spreadsheetFormatterSamples(final SpreadsheetFormatterName name) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(name);
+                    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                                        final SpreadsheetFormatterContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                                name,
+                                context
+                        );
                     }
 
                     @Override
@@ -216,6 +222,11 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                     public JsonNode marshall(final Object value) {
                         return JsonNodeMarshallContexts.basic()
                                 .marshall(value);
+                    }
+
+                    @Override
+                    public LocalDateTime now() {
+                        return NOW.get();
                     }
                 },
                 this.httpEntity(
@@ -327,32 +338,32 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                                 "      \"label\": \"Short\",\n" +
                                 "      \"selector\": \"date-format-pattern d/m/yy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31/12/99\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Medium\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 Dec. 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Long\",\n" +
                                 "      \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"31 December 1999\"\n" +
                                 "      }\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"label\": \"Full\",\n" +
                                 "      \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
                                 "      \"value\": {\n" +
-                                "        \"type\": \"local-date\",\n" +
-                                "        \"value\": \"1999-12-31\"\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Friday, 31 December 1999\"\n" +
                                 "      }\n" +
                                 "    }\n" +
                                 "  ]\n" +
