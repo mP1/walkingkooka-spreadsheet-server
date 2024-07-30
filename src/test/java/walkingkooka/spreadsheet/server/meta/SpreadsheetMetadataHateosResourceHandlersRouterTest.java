@@ -41,18 +41,15 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.FakeSpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -60,7 +57,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends SpreadsheetMetadataHateosResourceHandlerTestCase<SpreadsheetMetadataHateosResourceHandlersRouter> {
+public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends SpreadsheetMetadataHateosResourceHandlerTestCase<SpreadsheetMetadataHateosResourceHandlersRouter>
+        implements SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
     private final static Indentation INDENTATION = Indentation.SPACES2;
@@ -79,8 +77,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
         @Override
         public JsonNode marshall(final Object value) {
-            return JsonNodeMarshallContexts.basic()
-                    .marshall(value);
+            return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
         }
     }
 
@@ -279,10 +276,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                     @Override
                     public <T> T unmarshall(final JsonNode json,
                                             final Class<T> type) {
-                        return JsonNodeUnmarshallContexts.basic(
-                                ExpressionNumberKind.BIG_DECIMAL,
-                                MathContext.UNLIMITED
-                        ).unmarshall(
+                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
                                 json,
                                 type
                         );
@@ -296,8 +290,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 },
                 HttpMethod.POST,
                 URL + "/spreadsheet/12ef",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(unsaved)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(unsaved)
                         .toString(),
                 HttpStatusCode.OK,
                 "{\n" +

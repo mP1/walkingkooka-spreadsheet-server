@@ -22,19 +22,20 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.util.BiFunctionTesting;
 
 public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessorTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor,
         JsonNode,
         Class<?>,
-        JsonNode> {
+        JsonNode>,
+        SpreadsheetMetadataTesting {
 
     private final static SpreadsheetLabelName LABEL1 = SpreadsheetExpressionReference.labelName("Label123");
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");
@@ -134,7 +135,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
                         )
                 );
         this.applyAndCheck2(
-                marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
+                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
                 expected
         );
     }
@@ -149,7 +150,7 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
                         )
                 );
         this.applyAndCheck2(
-                marshall(expected)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
                         .toString()
                         .replace(CELL1.toString(), LABEL1.toString())
                         .replace(CELL2.toString(), LABEL2.toString())
@@ -168,14 +169,14 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
                         )
                 );
         this.applyAndCheck2(
-                marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
+                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
                 expected
         );
     }
 
     private void applyAndCheck2(final SpreadsheetDelta expected) {
         this.applyAndCheck2(
-                marshall(expected).toString(),
+                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString(),
                 expected
         );
     }
@@ -185,13 +186,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
         this.applyAndCheck(
                 JsonNode.parse(json),
                 SpreadsheetDelta.class,
-                marshall(expected)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
         );
-    }
-
-    private JsonNode marshall(final SpreadsheetDelta delta) {
-        return JsonNodeMarshallContexts.basic()
-                .marshall(delta);
     }
 
     @Override

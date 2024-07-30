@@ -45,7 +45,6 @@ import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourc
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
@@ -160,8 +159,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
 
                     @Override
                     public JsonNode marshall(final Object value) {
-                        return JsonNodeMarshallContexts.basic()
-                                .marshall(value);
+                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                     }
                 },
                 this.httpEntity(
@@ -261,8 +259,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                 HttpHeaderName.CONTENT_TYPE,
                 MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
         ).setBodyText(
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
+                JSON_NODE_MARSHALL_CONTEXT.marshall(
                                 value
                         ).toString()
         ).setContentLength();

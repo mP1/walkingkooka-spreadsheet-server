@@ -45,13 +45,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -125,7 +121,10 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                     @Override
                     public <T> T unmarshall(final JsonNode json,
                                             final Class<T> type) {
-                        return fromJson(json, type);
+                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                                json,
+                                type
+                        );
                     }
 
                     @Override
@@ -251,8 +250,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
                     @Override
                     public JsonNode marshall(final Object value) {
-                        return JsonNodeMarshallContexts.basic()
-                                .marshall(value);
+                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                     }
                 },
                 this.httpEntity(
@@ -339,29 +337,12 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
         };
     }
 
-    private HttpEntity httpEntity(final Object value) {
-        return httpEntity(
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                value
-                        ).toString()
-        );
-    }
-
     private HttpEntity httpEntity(final String value) {
         return HttpEntity.EMPTY.addHeader(
                         HttpHeaderName.CONTENT_TYPE,
                         MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
                 ).setBodyText(value)
                 .setContentLength();
-    }
-
-    private <T> T fromJson(final JsonNode json,
-                           final Class<T> type) {
-        return JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32)
-                .unmarshall(json, type);
     }
 
     // toString.........................................................................................................

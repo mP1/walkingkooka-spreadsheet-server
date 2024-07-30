@@ -84,7 +84,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.BigDecimal;
@@ -981,7 +980,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
 
                 @Override
                 public String bodyText() {
-                    return marshallContext()
+                    return JSON_NODE_MARSHALL_CONTEXT
                             .marshall(SpreadsheetDelta.EMPTY.setCells(Sets.of(cell)))
                             .toString();
                 }
@@ -1474,10 +1473,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
 
     private SpreadsheetId spreadsheetId() {
         return SpreadsheetId.with(0x123def);
-    }
-
-    private JsonNodeMarshallContext marshallContext() {
-        return JsonNodeMarshallContexts.basic();
     }
 
     static <T1, T2, T3, T4> Map<HttpHeaderName<?>, List<?>> headersMap(final HttpHeaderName<T1> header1,
