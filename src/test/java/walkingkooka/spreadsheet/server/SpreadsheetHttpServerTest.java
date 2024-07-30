@@ -107,7 +107,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
 import java.io.InputStream;
@@ -9237,7 +9236,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private String toJson(final Object body) {
-        return JsonNodeMarshallContexts.basic().marshall(body).toString();
+        return JSON_NODE_MARSHALL_CONTEXT.marshall(body)
+                .toString();
     }
 
     // ClassTesting.....................................................................................................

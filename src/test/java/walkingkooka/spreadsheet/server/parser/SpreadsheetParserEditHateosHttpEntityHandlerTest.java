@@ -51,13 +51,10 @@ import walkingkooka.spreadsheet.parser.edit.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +145,7 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                     @Override
                     public <T> T unmarshall(final JsonNode json,
                                             final Class<T> type) {
-                        return fromJson(json, type);
+                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(json, type);
                     }
 
                     @Override
@@ -423,14 +420,6 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                         MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
                 ).setBodyText(value)
                 .setContentLength();
-    }
-
-    private <T> T fromJson(final JsonNode json,
-                           final Class<T> type) {
-        return JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32)
-                .unmarshall(json, type);
     }
 
     // toString.........................................................................................................

@@ -40,15 +40,11 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.TextNode;
 import walkingkooka.tree.text.TextNodeList;
 import walkingkooka.tree.text.TextStylePropertyName;
 
-import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -181,8 +177,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
 
                     @Override
                     public JsonNode marshall(final Object value) {
-                        return JsonNodeMarshallContexts.basic()
-                                .marshall(value);
+                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                     }
                 },
                 this.httpEntity(
@@ -254,19 +249,17 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                 HttpHeaderName.CONTENT_TYPE,
                 MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
         ).setBodyText(
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                value
-                        ).toString()
+                JSON_NODE_MARSHALL_CONTEXT.marshall(value)
+                        .toString()
         ).setContentLength();
     }
 
     private <T> T fromJson(final JsonNode json,
                            final Class<T> type) {
-        return JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32)
-                .unmarshall(json, type);
+        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                json,
+                type
+        );
     }
 
     // toString.........................................................................................................

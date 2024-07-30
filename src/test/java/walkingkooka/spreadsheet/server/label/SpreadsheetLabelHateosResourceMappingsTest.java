@@ -38,6 +38,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -49,18 +50,14 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
-import java.math.MathContext;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTesting2<SpreadsheetLabelHateosResourceMappings> {
+public final class SpreadsheetLabelHateosResourceMappingsTest implements SpreadsheetMetadataTesting,
+        ClassTesting2<SpreadsheetLabelHateosResourceMappings> {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -100,7 +97,7 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 URL + "/label/" + LABEL,
                 "",
                 HttpStatusCode.OK,
-                toJson(MAPPING)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(MAPPING).toString()
         );
     }
 
@@ -126,9 +123,9 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 store,
                 HttpMethod.POST,
                 URL + "/label/",
-                toJson(MAPPING),
+                JSON_NODE_MARSHALL_CONTEXT.marshall(MAPPING).toString(),
                 HttpStatusCode.CREATED,
-                toJson(MAPPING)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(MAPPING).toString()
         );
 
         this.checkEquals(MAPPING, store.loadOrFail(LABEL));
@@ -143,9 +140,9 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 store,
                 HttpMethod.POST,
                 URL + "/label/",
-                toJson(MAPPING),
+                JSON_NODE_MARSHALL_CONTEXT.marshall(MAPPING).toString(),
                 HttpStatusCode.CREATED,
-                toJson(MAPPING)
+                JSON_NODE_MARSHALL_CONTEXT.marshall(MAPPING).toString()
         );
 
         this.checkEquals(MAPPING, store.loadOrFail(LABEL));
@@ -182,10 +179,6 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
     // helpers..........................................................................................................
 
-    private static String toJson(final SpreadsheetLabelMapping mapping) {
-        return marshallContext().marshall(mapping).toString();
-    }
-
     private void routeAndCheck2(final SpreadsheetLabelStore store,
                                 final HttpMethod method,
                                 final String url,
@@ -203,17 +196,16 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
 
                     @Override
                     public JsonNode marshall(final Object value) {
-                        return JsonNodeMarshallContexts.basic()
-                                .marshall(value);
+                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                     }
 
                     @Override
                     public <T> T unmarshall(final JsonNode json,
                                             final Class<T> type) {
-                        return JsonNodeUnmarshallContexts.basic(
-                                ExpressionNumberKind.DEFAULT,
-                                MathContext.DECIMAL32
-                        ).unmarshall(json, type);
+                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                                json,
+                                type
+                        );
                     }
 
                     @Override
@@ -232,10 +224,6 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements ClassTe
                 statusCode,
                 responseBody
         );
-    }
-
-    private static JsonNodeMarshallContext marshallContext() {
-        return JsonNodeMarshallContexts.basic();
     }
 
     private void routeAndCheck2(final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> mapping,

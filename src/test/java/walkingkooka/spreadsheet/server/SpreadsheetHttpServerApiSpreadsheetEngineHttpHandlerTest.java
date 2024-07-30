@@ -67,15 +67,11 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -212,8 +208,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
         this.routeAndCheck(
                 HttpMethod.POST,
                 "/api/1/cell/A1:B2/fill",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
+                JSON_NODE_MARSHALL_CONTEXT.marshall(
                                 SpreadsheetDelta.EMPTY
                                         .setCells(
                                                 Sets.of(
@@ -342,8 +337,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private static String toJsonString(final Object value) {
-        return JsonNodeMarshallContexts.basic()
-                .marshall(value)
+        return JSON_NODE_MARSHALL_CONTEXT.marshall(value)
                 .toString();
     }
 
@@ -371,11 +365,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 spreadsheetIdToSpreadsheetParserProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
-                JsonNodeMarshallContexts.basic(),
-                JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.UNLIMITED
-                ),
+                JSON_NODE_MARSHALL_CONTEXT,
+                JSON_NODE_UNMARSHALL_CONTEXT,
                 LocalDateTime::now
         );
     }
