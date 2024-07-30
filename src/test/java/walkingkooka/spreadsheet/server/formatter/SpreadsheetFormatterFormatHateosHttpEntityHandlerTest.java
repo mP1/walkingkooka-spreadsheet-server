@@ -24,10 +24,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -37,21 +33,13 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverters;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -63,13 +51,13 @@ import walkingkooka.tree.text.TextStylePropertyName;
 import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler> {
+        ToStringTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler>,
+        SpreadsheetMetadataTesting {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
@@ -179,12 +167,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
 
                     @Override
                     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                                Locale.forLanguageTag("EN-AU"),
-                                () -> {
-                                    throw new UnsupportedOperationException();
-                                }
-                        ).spreadsheetFormatter(spreadsheetFormatterSelector);
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(spreadsheetFormatterSelector);
                     }
 
                     @Override
@@ -192,37 +175,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                                                           final SpreadsheetFormatter formatter) {
                         return formatter.format(
                                 value,
-                                SpreadsheetFormatterContexts.basic(
-                                        (n) -> {
-                                            throw new UnsupportedOperationException();
-                                        },
-                                        (n) -> Optional.of(Color.BLACK),
-                                        1, // cellCharacterWidth
-                                        SpreadsheetFormatterContext.DEFAULT_GENERAL_FORMAT_NUMBER_DIGIT_COUNT,
-                                        SpreadsheetFormatters.defaultText(),
-                                        SpreadsheetConverterContexts.basic(
-                                                SpreadsheetConverters.basic(),
-                                                SpreadsheetLabelNameResolvers.fake(),
-                                                ExpressionNumberConverterContexts.basic(
-                                                        Converters.fake()
-                                                                .cast(ExpressionNumberConverterContext.class),
-                                                        ConverterContexts.basic(
-                                                                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                                                Converters.fake(),
-                                                                DateTimeContexts.locale(
-                                                                        Locale.forLanguageTag("EN-AU"),
-                                                                        1950, // default year
-                                                                        50,
-                                                                        () -> {
-                                                                            throw new UnsupportedOperationException();
-                                                                        } // now
-                                                                ),
-                                                                DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                                        ),
-                                                        ExpressionNumberKind.BIG_DECIMAL
-                                                )
-                                        )
-                                )
+                                SPREADSHEET_FORMATTER_CONTEXT
                         );
                     }
 
