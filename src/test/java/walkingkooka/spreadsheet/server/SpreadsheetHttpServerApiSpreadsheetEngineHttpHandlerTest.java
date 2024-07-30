@@ -39,15 +39,14 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
@@ -84,7 +83,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>
+        implements SpreadsheetMetadataTesting {
 
     private final static String BASE_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
@@ -404,16 +404,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SpreadsheetComparatorProviders.spreadsheetComparators();
+        return (id) -> SPREADSHEET_COMPARATOR_PROVIDER;
     }
 
     private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SpreadsheetFormatterProviders.spreadsheetFormatPattern(
-                Locale.forLanguageTag("EN-AU"),
-                () -> {
-                    throw new UnsupportedOperationException();
-                }
-        );
+        return (id) -> SPREADSHEET_FORMATTER_PROVIDER;
     }
 
     private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
