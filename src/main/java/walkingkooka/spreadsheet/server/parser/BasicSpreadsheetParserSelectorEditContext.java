@@ -24,13 +24,12 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
-import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEditContext;
 
 import java.util.Objects;
 
 /**
- * A delegating {@link SpreadsheetFormatterSelectorEditContext} that uses a {@link SpreadsheetFormatterContext} and
- * {@link SpreadsheetFormatterProvider}.
+ * A delegating {@link SpreadsheetParserSelectorEditContext} that uses a {@link SpreadsheetParserContext} and
+ * {@link SpreadsheetParserProvider} etc.
  */
 final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
         SpreadsheetFormatterContextDelegator,
