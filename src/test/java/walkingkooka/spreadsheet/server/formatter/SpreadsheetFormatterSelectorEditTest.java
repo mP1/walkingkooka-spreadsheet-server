@@ -101,6 +101,20 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     }
 
     @Test
+    public void testParseOnlySpreadsheetFormatterNameSpaceMissingPattern() {
+        this.parseStringAndCheck(
+                SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " ",
+                SpreadsheetFormatterSelectorEdit.with(
+                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("")),
+                        "text is empty",
+                        Lists.empty(),
+                        Optional.empty(),
+                        Lists.empty()
+                )
+        );
+    }
+
+    @Test
     public void testParseSpreadsheetFormatterNameInvalidPattern() {
         final String selector = SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " !";
 
