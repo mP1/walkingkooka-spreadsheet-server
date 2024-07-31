@@ -21,20 +21,12 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEditContext;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * A delegating {@link SpreadsheetFormatterSelectorEditContext} that uses a {@link SpreadsheetFormatterContext} and
@@ -42,7 +34,8 @@ import java.util.Set;
  */
 final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator {
+        SpreadsheetFormatterProviderDelegator,
+        SpreadsheetParserProviderDelegator {
 
     static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
@@ -69,23 +62,11 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     // SpreadsheetParserProvider........................................................................................
 
     @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector) {
-        return this.spreadsheetParserProvider.spreadsheetParser(selector);
+    public SpreadsheetParserProvider spreadsheetParserProvider() {
+        return this.spreadsheetParserProvider;
     }
 
-    @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserName name,
-                                               final List<?> values) {
-        return this.spreadsheetParserProvider.spreadsheetParser(
-                name,
-                values
-        );
-    }
-
-    @Override
-    public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-        return this.spreadsheetParserProvider.spreadsheetParserNextTextComponent(selector);
-    }
+    private final SpreadsheetParserProvider spreadsheetParserProvider;
 
     // SpreadsheetParserContext.........................................................................................
 
@@ -97,22 +78,6 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     private final SpreadsheetParserContext spreadsheetParserContext;
 
     // SpreadsheetFormatterProvider.....................................................................................
-
-    @Override
-    public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector selector) {
-        return this.spreadsheetParserProvider.spreadsheetFormatterSelector(selector);
-    }
-
-    @Override
-    public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
-        return this.spreadsheetParserProvider.spreadsheetParserInfos();
-    }
-
-    private final SpreadsheetParserProvider spreadsheetParserProvider;
-
-    // SpreadsheetFormatterContext......................................................................................
-
-    // SpreadsheetFormatterContext......................................................................................
 
     @Override
     public SpreadsheetFormatterContext spreadsheetFormatterContext() {
