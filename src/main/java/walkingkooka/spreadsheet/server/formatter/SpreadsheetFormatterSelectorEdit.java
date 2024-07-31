@@ -59,12 +59,12 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
         try {
             spreadsheetFormatterSelector = SpreadsheetFormatterSelector.parse(selector);
-            final SpreadsheetFormatter formatter = context.spreadsheetFormatter(spreadsheetFormatterSelector);
+            samples = context.spreadsheetFormatterSamples(spreadsheetFormatterSelector.name());
 
+            final SpreadsheetFormatter formatter = context.spreadsheetFormatter(spreadsheetFormatterSelector);
             try {
                 textComponents = formatter.textComponents(context);
                 next = context.spreadsheetFormatterNextTextComponent(spreadsheetFormatterSelector);
-                samples = context.spreadsheetFormatterSamples(spreadsheetFormatterSelector.name());
             } catch (final InvalidCharacterException cause) {
                 message = cause.setTextAndPosition(
                         selector,
