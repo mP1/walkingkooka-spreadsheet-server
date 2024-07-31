@@ -33,13 +33,9 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.parser.SpreadsheetParser;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -72,7 +68,8 @@ import java.util.function.Function;
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         SpreadsheetComparatorProviderDelegator,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator {
+        SpreadsheetFormatterProviderDelegator,
+        SpreadsheetParserProviderDelegator {
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                                    final JsonNodeUnmarshallContext unmarshallContext,
@@ -351,33 +348,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext;
     }
 
-    @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
-        return this.engineContext.spreadsheetParser(spreadsheetParserSelector);
-    }
+    // SpreadsheetParserProvider........................................................................................
 
     @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserName name,
-                                               final List<?> values) {
-        return this.engineContext.spreadsheetParser(
-                name,
-                values
-        );
-    }
-
-    @Override
-    public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-        return this.engineContext.spreadsheetParserNextTextComponent(selector);
-    }
-
-    @Override
-    public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector selector) {
-        return this.engineContext.spreadsheetFormatterSelector(selector);
-    }
-
-    @Override
-    public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
-        return this.engineContext.spreadsheetParserInfos();
+    public SpreadsheetParserProvider spreadsheetParserProvider() {
+        return this.engineContext;
     }
 
     private final SpreadsheetEngineContext engineContext;
