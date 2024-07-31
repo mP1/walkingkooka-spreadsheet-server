@@ -60,12 +60,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
         try {
             spreadsheetParserSelector = SpreadsheetParserSelector.parse(selector);
-            final SpreadsheetParser parser = context.spreadsheetParser(spreadsheetParserSelector);
 
             try {
-                textComponents = parser.textComponents(context);
-                next = context.spreadsheetParserNextTextComponent(spreadsheetParserSelector);
-
                 final Optional<SpreadsheetFormatterSelector> maybeSpreadsheetFormatterSelector = context.spreadsheetFormatterSelector(spreadsheetParserSelector);
                 if (maybeSpreadsheetFormatterSelector.isPresent()) {
                     samples = context.spreadsheetFormatterSamples(
@@ -74,6 +70,15 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                             context
                     );
                 }
+            } catch (final RuntimeException ignore) {
+                // ignored!
+            }
+
+            final SpreadsheetParser parser = context.spreadsheetParser(spreadsheetParserSelector);
+
+            try {
+                textComponents = parser.textComponents(context);
+                next = context.spreadsheetParserNextTextComponent(spreadsheetParserSelector);
             } catch (final InvalidCharacterException cause) {
                 message = cause.setTextAndPosition(
                         selector,
