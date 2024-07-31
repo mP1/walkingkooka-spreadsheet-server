@@ -31,11 +31,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
@@ -73,7 +71,8 @@ import java.util.function.Function;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         SpreadsheetComparatorProviderDelegator,
-        SpreadsheetFormatterContextDelegator {
+        SpreadsheetFormatterContextDelegator,
+        SpreadsheetFormatterProviderDelegator {
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                                    final JsonNodeUnmarshallContext unmarshallContext,
@@ -348,36 +347,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
-                                                     final List<?> values) {
-        return this.engineContext.spreadsheetFormatter(
-                name,
-                values
-        );
-    }
-
-    @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-        return this.engineContext.spreadsheetFormatter(spreadsheetFormatterSelector);
-    }
-
-    @Override
-    public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
-        return this.engineContext.spreadsheetFormatterNextTextComponent(selector);
-    }
-
-    @Override
-    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                        final SpreadsheetFormatterContext context) {
-        return this.engineContext.spreadsheetFormatterSamples(
-                name,
-                context
-        );
-    }
-
-    @Override
-    public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
-        return this.engineContext.spreadsheetFormatterInfos();
+    public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
+        return this.engineContext;
     }
 
     @Override

@@ -17,27 +17,20 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * A delegating {@link SpreadsheetFormatterSelectorEditContext} that uses a {@link SpreadsheetFormatterContext} and
  * {@link SpreadsheetFormatterProvider}.
  */
 final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetFormatterSelectorEditContext,
-        SpreadsheetFormatterContextDelegator {
+        SpreadsheetFormatterContextDelegator,
+        SpreadsheetFormatterProviderDelegator {
 
     static BasicSpreadsheetFormatterSelectorEditContext with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                              final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
@@ -65,33 +58,8 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector) {
-        return spreadsheetFormatterProvider.spreadsheetFormatter(selector);
-    }
-
-    @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
-                                                     final List<?> values) {
-        return spreadsheetFormatterProvider.spreadsheetFormatter(name, values);
-    }
-
-    @Override
-    public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
-        return spreadsheetFormatterProvider.spreadsheetFormatterNextTextComponent(selector);
-    }
-
-    @Override
-    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                        final SpreadsheetFormatterContext context) {
-        return spreadsheetFormatterProvider.spreadsheetFormatterSamples(
-                name,
-                context
-        );
-    }
-
-    @Override
-    public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
-        return spreadsheetFormatterProvider.spreadsheetFormatterInfos();
+    public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
+        return this.spreadsheetFormatterProvider;
     }
 
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
