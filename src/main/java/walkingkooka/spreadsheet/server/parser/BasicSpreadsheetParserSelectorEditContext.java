@@ -17,13 +17,9 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
-import walkingkooka.Either;
-import walkingkooka.color.Color;
-import walkingkooka.convert.Converter;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -37,16 +33,9 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEditContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.text.TextNode;
 
-import java.math.MathContext;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -55,7 +44,8 @@ import java.util.Set;
  * A delegating {@link SpreadsheetFormatterSelectorEditContext} that uses a {@link SpreadsheetFormatterContext} and
  * {@link SpreadsheetFormatterProvider}.
  */
-final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext {
+final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
+        SpreadsheetFormatterContextDelegator {
 
     static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
@@ -125,195 +115,16 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
 
     // SpreadsheetFormatterContext......................................................................................
 
-    @Override
-    public int cellCharacterWidth() {
-        return this.spreadsheetFormatterContext.cellCharacterWidth();
-    }
+    // SpreadsheetFormatterContext......................................................................................
 
     @Override
-    public Optional<Color> colorNumber(final int number) {
-        return this.spreadsheetFormatterContext.colorNumber(number);
-    }
-
-    @Override
-    public Optional<Color> colorName(final SpreadsheetColorName name) {
-        return this.spreadsheetFormatterContext.colorName(name);
-    }
-
-    @Override
-    public Optional<TextNode> format(final Object value) {
-        return this.spreadsheetFormatterContext.format(value);
-    }
-
-    @Override
-    public TextNode formatOrEmptyText(final Object value) {
-        return this.spreadsheetFormatterContext.formatOrEmptyText(value);
-    }
-
-    @Override
-    public int generalFormatNumberDigitCount() {
-        return this.spreadsheetFormatterContext.generalFormatNumberDigitCount();
-    }
-
-    @Override
-    public long dateOffset() {
-        return this.spreadsheetFormatterContext.dateOffset();
-    }
-
-    @Override
-    public boolean canConvert(final Object value,
-                              final Class<?> type) {
-        return this.spreadsheetFormatterContext.canConvert(
-                value,
-                type
-        );
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type) {
-        return this.spreadsheetFormatterContext.convert(
-                value,
-                type
-        );
-    }
-
-    @Override
-    public List<String> ampms() {
-        return this.spreadsheetFormatterContext.ampms();
-    }
-
-    @Override
-    public String ampm(int hourOfDay) {
-        return this.spreadsheetFormatterContext.ampm(hourOfDay);
-    }
-
-    @Override
-    public List<String> monthNames() {
-        return this.spreadsheetFormatterContext.monthNames();
-    }
-
-    @Override
-    public String monthName(int month) {
-        return this.spreadsheetFormatterContext.monthName(month);
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        return this.spreadsheetFormatterContext.monthNameAbbreviations();
-    }
-
-    @Override
-    public String monthNameAbbreviation(int month) {
-        return this.spreadsheetFormatterContext.monthNameAbbreviation(month);
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        return this.spreadsheetFormatterContext.weekDayNames();
-    }
-
-    @Override
-    public String weekDayName(int day) {
-        return this.spreadsheetFormatterContext.weekDayName(day);
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        return this.spreadsheetFormatterContext.weekDayNameAbbreviations();
-    }
-
-    @Override
-    public String weekDayNameAbbreviation(int day) {
-        return this.spreadsheetFormatterContext.weekDayNameAbbreviation(day);
-    }
-
-    @Override
-    public int defaultYear() {
-        return this.spreadsheetFormatterContext.defaultYear();
-    }
-
-    @Override
-    public int twoDigitYear() {
-        return this.spreadsheetFormatterContext.twoDigitYear();
-    }
-
-    @Override
-    public int twoToFourDigitYear(int year) {
-        return this.spreadsheetFormatterContext.twoToFourDigitYear(year);
-    }
-
-    @Override
-    public Locale locale() {
-        return this.spreadsheetFormatterContext.locale();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.spreadsheetFormatterContext.now();
-    }
-
-    @Override
-    public String currencySymbol() {
-        return this.spreadsheetFormatterContext.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.spreadsheetFormatterContext.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.spreadsheetFormatterContext.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.spreadsheetFormatterContext.groupSeparator();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return this.spreadsheetFormatterContext.percentageSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.spreadsheetFormatterContext.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.spreadsheetFormatterContext.positiveSign();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.spreadsheetFormatterContext.mathContext();
-    }
-
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        return this.spreadsheetFormatterContext.expressionNumberKind();
-    }
-
-    @Override
-    public Converter<SpreadsheetConverterContext> converter() {
-        return this.spreadsheetFormatterContext.converter();
-    }
-
-    @Override
-    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-        return this.spreadsheetFormatterContext.resolveIfLabel(selection);
-    }
-
-    @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName labelName) {
-        return this.spreadsheetFormatterContext.resolveLabel(labelName);
+    public SpreadsheetFormatterContext spreadsheetFormatterContext() {
+        return this.spreadsheetFormatterContext;
     }
 
     private final SpreadsheetFormatterContext spreadsheetFormatterContext;
+
+    // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector) {
