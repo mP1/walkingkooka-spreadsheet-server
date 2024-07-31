@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentAlternative;
@@ -32,6 +33,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -86,6 +88,11 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         );
     }
 
+    private final static List<SpreadsheetFormatterSample> DATE_FORMAT_SAMPLES = SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
+            SPREADSHEET_FORMATTER_CONTEXT
+    );
+
     @Test
     public void testParseOnlySpreadsheetFormatterName() {
         this.parseStringAndCheck(
@@ -95,7 +102,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         "text is empty",
                         Lists.empty(),
                         Optional.empty(),
-                        Lists.empty()
+                        DATE_FORMAT_SAMPLES
                 )
         );
     }
@@ -109,7 +116,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         "text is empty",
                         Lists.empty(),
                         Optional.empty(),
-                        Lists.empty()
+                        DATE_FORMAT_SAMPLES
                 )
         );
     }
@@ -131,7 +138,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         thrown.getMessage(),
                         Lists.empty(),
                         Optional.empty(),
-                        Lists.empty()
+                        DATE_FORMAT_SAMPLES
                 )
         );
     }
@@ -199,10 +206,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                                         )
                                 )
                         ),
-                        SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
-                                SPREADSHEET_FORMATTER_CONTEXT
-                        )
+                        DATE_FORMAT_SAMPLES
                 )
         );
     }
