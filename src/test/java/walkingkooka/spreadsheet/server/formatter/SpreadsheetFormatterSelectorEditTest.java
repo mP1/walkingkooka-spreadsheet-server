@@ -199,7 +199,10 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                                         )
                                 )
                         ),
-                        Lists.empty()
+                        SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
+                                SPREADSHEET_FORMATTER_CONTEXT
+                        )
                 )
         );
     }
@@ -278,7 +281,24 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         "      yy\n" +
                         "      yy\n" +
                         "      yyyy\n" +
-                        "      yyyy\n"
+                        "      yyyy\n" +
+                        "  samples\n" +
+                        "    Short\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d/m/yy\"\n" +
+                        "      Text \"31/12/99\"\n" +
+                        "    Medium\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d mmm yyyy\"\n" +
+                        "      Text \"31 Dec. 1999\"\n" +
+                        "    Long\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d mmmm yyyy\"\n" +
+                        "      Text \"31 December 1999\"\n" +
+                        "    Full\n" +
+                        "      date-format-pattern\n" +
+                        "        \"dddd, d mmmm yyyy\"\n" +
+                        "      Text \"Friday, 31 December 1999\"\n"
         );
     }
 

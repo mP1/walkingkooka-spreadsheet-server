@@ -235,6 +235,17 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 }
                 printer.outdent();
             }
+
+            if (false == this.samples.isEmpty()) {
+                printer.println("samples");
+                printer.indent();
+                {
+                    for (final SpreadsheetFormatterSample sample : this.samples) {
+                        sample.printTree(printer);
+                    }
+                }
+                printer.outdent();
+            }
         }
 
         printer.outdent();
