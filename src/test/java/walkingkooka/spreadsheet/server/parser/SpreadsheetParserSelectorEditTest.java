@@ -103,6 +103,22 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     }
 
     @Test
+    public void testParseOnlySpreadsheetParserNameSpaceMissingPattern() {
+        this.parseStringAndCheck(
+                SpreadsheetParserName.DATE_PARSER_PATTERN + " ",
+                SpreadsheetParserSelectorEdit.with(
+                        Optional.of(
+                                SpreadsheetParserName.DATE_PARSER_PATTERN.setText("")
+                        ),
+                        "text is empty",
+                        Lists.empty(),
+                        Optional.empty(),
+                        Lists.empty()
+                )
+        );
+    }
+
+    @Test
     public void testParseSpreadsheetParserNameInvalidPattern() {
         final String selector = SpreadsheetParserName.DATE_PARSER_PATTERN + " !";
 
