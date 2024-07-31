@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
@@ -207,7 +208,10 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                                         )
                                 )
                         ),
-                        Lists.empty()
+                        SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
+                                SPREADSHEET_FORMATTER_CONTEXT
+                        )
                 )
         );
     }
@@ -288,7 +292,24 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         "      yy\n" +
                         "      yy\n" +
                         "      yyyy\n" +
-                        "      yyyy\n"
+                        "      yyyy\n" +
+                        "  samples\n" +
+                        "    Short\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d/m/yy\"\n" +
+                        "      Text \"31/12/99\"\n" +
+                        "    Medium\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d mmm yyyy\"\n" +
+                        "      Text \"31 Dec. 1999\"\n" +
+                        "    Long\n" +
+                        "      date-format-pattern\n" +
+                        "        \"d mmmm yyyy\"\n" +
+                        "      Text \"31 December 1999\"\n" +
+                        "    Full\n" +
+                        "      date-format-pattern\n" +
+                        "        \"dddd, d mmmm yyyy\"\n" +
+                        "      Text \"Friday, 31 December 1999\"\n"
         );
     }
 
