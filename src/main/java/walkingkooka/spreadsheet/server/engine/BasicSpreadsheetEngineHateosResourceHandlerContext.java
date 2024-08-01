@@ -43,6 +43,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
@@ -51,6 +52,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.text.TextNode;
 
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -89,6 +91,16 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public MediaType contentType() {
         return MediaType.APPLICATION_JSON;
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.formatterContext.expressionNumberKind();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.formatterContext.mathContext();
     }
 
     // JsonNodeMarshallContext..........................................................................................
