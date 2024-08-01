@@ -78,28 +78,20 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonString;
+import walkingkooka.tree.json.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -107,7 +99,8 @@ import java.util.function.Supplier;
  * A {@link SpreadsheetMetadataHateosResourceHandlerContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
  * There is no way to delete existing spreadsheets.
  */
-final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext {
+final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
+        JsonNodeMarshallUnmarshallContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -475,43 +468,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // JsonNodeMarshallContext..........................................................................................
 
     @Override
-    public JsonNodeMarshallContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor context) {
-        return this.marshallContext.setObjectPostProcessor(context);
-    }
-
-    @Override
-    public JsonNode marshall(final Object value) {
-        return this.marshallContext.marshall(value);
-    }
-
-    @Override
-    public JsonNode marshallEnumSet(final Set<? extends Enum<?>> set) {
-        return this.marshallContext.marshallEnumSet(set);
-    }
-
-    @Override
-    public JsonNode marshallWithType(final Object value) {
-        return this.marshallContext.marshallWithType(value);
-    }
-
-    @Override
-    public JsonNode marshallCollection(final Collection<?> collection) {
-        return this.marshallContext.marshallCollection(collection);
-    }
-
-    @Override
-    public JsonNode marshallMap(final Map<?, ?> map) {
-        return this.marshallContext.marshallMap(map);
-    }
-
-    @Override
-    public JsonNode marshallWithTypeCollection(final Collection<?> collection) {
-        return this.marshallContext.marshallWithTypeCollection(collection);
-    }
-
-    @Override
-    public JsonNode marshallWithTypeMap(final Map<?, ?> map) {
-        return this.marshallContext.marshallWithTypeMap(map);
+    public JsonNodeMarshallContext jsonNodeMarshallContext() {
+        return this.marshallContext;
     }
 
     private final JsonNodeMarshallContext marshallContext;
@@ -519,97 +477,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     // JsonNodeUnmarshallContext........................................................................................
 
     @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        return this.unmarshallContext.expressionNumberKind();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.unmarshallContext.mathContext();
-    }
-
-    @Override
-    public JsonNodeUnmarshallContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        return this.unmarshallContext.setPreProcessor(processor);
-    }
-
-    @Override
-    public <T> T unmarshall(final JsonNode json,
-                            final Class<T> type) {
-        return this.unmarshallContext.unmarshall(
-                json,
-                type
-        );
-    }
-
-    @Override
-    public <T extends Enum<T>> Set<T> unmarshallEnumSet(final JsonNode json,
-                                                        final Class<T> type,
-                                                        final Function<String, T> nameToEnum) {
-        return this.unmarshallContext.unmarshallEnumSet(
-                json,
-                type,
-                nameToEnum
-        );
-    }
-
-    @Override
-    public <T> List<T> unmarshallList(final JsonNode json,
-                                      final Class<T> type) {
-        return this.unmarshallContext.unmarshallList(
-                json,
-                type
-        );
-    }
-
-    @Override
-    public <T> Set<T> unmarshallSet(final JsonNode json,
-                                    final Class<T> type) {
-        return this.unmarshallContext.unmarshallSet(
-                json,
-                type
-        );
-    }
-
-    @Override
-    public <K, V> Map<K, V> unmarshallMap(final JsonNode json,
-                                          final Class<K> keyType,
-                                          final Class<V> valueType) {
-        return this.unmarshallContext.unmarshallMap(
-                json,
-                keyType,
-                valueType
-        );
-    }
-
-    @Override
-    public <T> T unmarshallWithType(final JsonNode json) {
-        return this.unmarshallContext.unmarshallWithType(json);
-    }
-
-    @Override
-    public <T> List<T> unmarshallWithTypeList(final JsonNode json) {
-        return this.unmarshallContext.unmarshallWithTypeList(json);
-    }
-
-    @Override
-    public <T> Set<T> unmarshallWithTypeSet(final JsonNode json) {
-        return this.unmarshallContext.unmarshallWithTypeSet(json);
-    }
-
-    @Override
-    public <K, V> Map<K, V> unmarshallWithTypeMap(final JsonNode json) {
-        return this.unmarshallContext.unmarshallWithTypeMap(json);
-    }
-
-    @Override
-    public Optional<Class<?>> registeredType(final JsonString string) {
-        return this.unmarshallContext.registeredType(string);
-    }
-
-    @Override
-    public Optional<JsonString> typeName(final Class<?> type) {
-        return this.unmarshallContext.typeName(type);
+    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
+        return this.unmarshallContext;
     }
 
     private final JsonNodeUnmarshallContext unmarshallContext;
