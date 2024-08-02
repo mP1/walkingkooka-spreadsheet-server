@@ -21,7 +21,6 @@ import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -196,10 +195,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext;
     }
 
-    @Override
-    public Set<SpreadsheetComparatorInfo> spreadsheetComparatorInfos() {
-        return this.engineContext.spreadsheetComparatorInfos();
-    }
+    // ExpressionFunctionProvider.......................................................................................
 
     @Override
     public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
