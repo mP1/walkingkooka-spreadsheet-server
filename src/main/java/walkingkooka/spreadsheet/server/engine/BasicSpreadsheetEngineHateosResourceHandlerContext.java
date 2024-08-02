@@ -17,11 +17,8 @@
 
 package walkingkooka.spreadsheet.server.engine;
 
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.provider.ConverterInfo;
-import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.convert.provider.ConverterProvider;
+import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
@@ -54,12 +51,12 @@ import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
+        ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
@@ -185,24 +182,14 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.isPure(functionExpressionName);
     }
 
-    @Override
-    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
-        return this.engineContext.converter(selector);
-    }
+    // ConverterProvider................................................................................................
 
     @Override
-    public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
-                                                               final List<?> values) {
-        return this.engineContext.converter(
-                converterName,
-                values
-        );
+    public ConverterProvider converterProvider() {
+        return this.engineContext;
     }
 
-    @Override
-    public Set<ConverterInfo> converterInfos() {
-        return this.engineContext.converterInfos();
-    }
+    // SpreadsheetComparatorProvider....................................................................................
 
     @Override
     public SpreadsheetComparatorProvider spreadsheetComparatorProvider() {
