@@ -207,6 +207,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.expressionFunction(functionExpressionName);
     }
 
+    // SpreadsheetFormatterProvider.....................................................................................
+
     @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
         return this.engineContext;
