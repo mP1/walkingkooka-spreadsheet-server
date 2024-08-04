@@ -112,7 +112,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
     /**
      * A {@link HateosResourceName} with <code>formatter</code>.
      */
-    private static final HateosResourceName FORMATTER = HateosResourceName.with("formatter");
+    public static final HateosResourceName FORMATTER = HateosResourceName.with("formatter");
 
     /**
      * Stop creation
