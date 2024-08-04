@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
+import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -39,6 +40,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.tree.expression.Expression;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -446,6 +448,17 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
      */
     // @VisibleForTesting
     public final static UrlParameterName NAVIGATION = UrlParameterName.with("navigation");
+
+    static List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return COMPARATORS.firstParameterValue(parameters)
+                .map(SpreadsheetColumnOrRowSpreadsheetComparatorNames::parseList)
+                .orElseThrow(() -> new IllegalArgumentException("Missing required " + COMPARATORS));
+    }
+
+    /**
+     * Required parameter holding the columns/rows to be sorted.
+     */
+    public final static UrlParameterName COMPARATORS = UrlParameterName.with("comparators");
 
     private static double parseDoubleQueryParameter(final String text,
                                                     final UrlParameterName parameterName) {
