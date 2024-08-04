@@ -84,7 +84,7 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
     /**
      * A {@link HateosResourceName} with <code>comparator</code>.
      */
-    private static final HateosResourceName COMPARATOR = HateosResourceName.with("comparator");
+    public static final HateosResourceName COMPARATOR = HateosResourceName.with("comparator");
 
     /**
      * Stop creation

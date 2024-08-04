@@ -377,7 +377,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     /**
      * A {@link HateosResourceName} with <code>parser</code>.
      */
-    private static final HateosResourceName PARSER = HateosResourceName.with("parser");
+    public static final HateosResourceName PARSER = HateosResourceName.with("parser");
     
     // row..............................................................................................................
 

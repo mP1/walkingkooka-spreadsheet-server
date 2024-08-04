@@ -37,7 +37,7 @@ public final class SpreadsheetLabelHateosResourceMappings implements PublicStati
     /**
      * A {@link HateosResourceName} with <code>metadata</code>.
      */
-    private final static HateosResourceName LABEL = HateosResourceName.with("label");
+    public final static HateosResourceName LABEL = HateosResourceName.with("label");
 
     private static HateosResourceSelection<SpreadsheetLabelName> parse(final String text,
                                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
