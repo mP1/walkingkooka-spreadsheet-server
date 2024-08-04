@@ -150,7 +150,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     /**
      * A {@link HateosResourceName} with <code>cell</code>.
      */
-    private static final HateosResourceName CELL = HateosResourceName.with("cell");
+    public static final HateosResourceName CELL = HateosResourceName.with("cell");
 
     /**
      * Handles parsing just a cell or label or a range with either, always resolving labels to cells. Any returned
@@ -213,22 +213,22 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     /**
      * A {@link LinkRelation} with <code>clear</code>.
      */
-    private static final LinkRelation<?> CLEAR = LinkRelation.with("clear");
+    public static final LinkRelation<?> CLEAR = LinkRelation.with("clear");
 
     /**
      * A {@link LinkRelation} with <code>fill</code>.
      */
-    private static final LinkRelation<?> FILL = LinkRelation.with("fill");
+    public static final LinkRelation<?> FILL = LinkRelation.with("fill");
 
     /**
      * A {@link LinkRelation} with <code>find</code>.
      */
-    private static final LinkRelation<?> FIND = LinkRelation.with("find");
+    public static final LinkRelation<?> FIND = LinkRelation.with("find");
 
     /**
      * A {@link LinkRelation} with <code>sort</code>.
      */
-    private static final LinkRelation<?> SORT = LinkRelation.with("sort");
+    public static final LinkRelation<?> SORT = LinkRelation.with("sort");
 
     // cellReference....................................................................................................
 
@@ -440,8 +440,9 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                 HateosResourceSelection.range(parsed.range());
     }
 
-    private final static LinkRelation<?> AFTER = LinkRelation.with("after");
-    private final static LinkRelation<?> BEFORE = LinkRelation.with("before");
+    public final static LinkRelation<?> AFTER = LinkRelation.with("after");
+
+    public final static LinkRelation<?> BEFORE = LinkRelation.with("before");
 
     /**
      * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.
