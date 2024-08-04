@@ -84,7 +84,7 @@ public final class ConvertersHateosResourceMappings implements PublicStaticHelpe
     /**
      * A {@link HateosResourceName} with <code>converter</code>.
      */
-    private static final HateosResourceName CONVERTER = HateosResourceName.with("converter");
+    public static final HateosResourceName CONVERTER = HateosResourceName.with("converter");
 
     /**
      * Stop creation

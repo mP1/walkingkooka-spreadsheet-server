@@ -50,7 +50,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
     /**
      * A {@link HateosResourceName} with <code>metadata</code>.
      */
-    private final static HateosResourceName SPREADSHEET = HateosResourceName.with("spreadsheet");
+    public final static HateosResourceName SPREADSHEET = HateosResourceName.with("spreadsheet");
 
     /**
      * Used to form the metadata load and save services

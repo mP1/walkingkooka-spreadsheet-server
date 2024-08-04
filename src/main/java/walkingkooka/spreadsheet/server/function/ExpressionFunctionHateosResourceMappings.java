@@ -85,7 +85,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
     /**
      * A {@link HateosResourceName} with <code>function</code>.
      */
-    private static final HateosResourceName FUNCTION = HateosResourceName.with("expression-function");
+    public static final HateosResourceName FUNCTION = HateosResourceName.with("expression-function");
 
     /**
      * Stop creation

@@ -97,7 +97,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
     /**
      * A {@link HateosResourceName} with <code>parser</code>.
      */
-    private static final HateosResourceName PARSER = HateosResourceName.with("parser");
+    public static final HateosResourceName PARSER = HateosResourceName.with("parser");
 
     /**
      * Stop creation
