@@ -109,7 +109,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                 cell, // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
+                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
                 ), // parameters
                 this.context(),
                 Optional.of(
@@ -158,7 +158,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                 cellRange.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
+                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
                 ), // parameters
                 this.context(),
                 Optional.of(
@@ -205,7 +205,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
                 ),
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerSortCells.COMPARATORS, Lists.of(comparators)
+                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
                 ), // parameters
                 this.context(),
                 Optional.of(

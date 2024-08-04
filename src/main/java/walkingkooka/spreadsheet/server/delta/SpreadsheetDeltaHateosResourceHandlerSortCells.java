@@ -18,10 +18,8 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
-import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -106,23 +104,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
         return Optional.ofNullable(
                 this.engine.sortCells(
                         cells, // cells
-                        comparators(parameters),
+                        SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
                         SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
                         context
                 )
         );
     }
-
-    private static List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        return COMPARATORS.firstParameterValue(parameters)
-                .map(SpreadsheetColumnOrRowSpreadsheetComparatorNames::parseList)
-                .orElseThrow(() -> new IllegalArgumentException("Missing required " + COMPARATORS));
-    }
-
-    /**
-     * Required parameter holding the columns/rows to be sorted.
-     */
-    final static UrlParameterName COMPARATORS = UrlParameterName.with("comparators");
 
     @Override
     String operation() {
