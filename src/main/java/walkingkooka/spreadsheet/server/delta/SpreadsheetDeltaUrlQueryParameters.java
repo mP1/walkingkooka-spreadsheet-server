@@ -68,7 +68,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    final static UrlParameterName CELL_RANGE_PATH = UrlParameterName.with("cell-range-path");
+    public final static UrlParameterName CELL_RANGE_PATH = UrlParameterName.with("cell-range-path");
 
     // delta properties parameters.....................................................................................
 
@@ -88,7 +88,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     /**
      * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
      */
-    final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
+    public final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
 
     // max parameter....................................................................................................
 
@@ -107,7 +107,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    final static UrlParameterName MAX = UrlParameterName.with("max");
+    public final static UrlParameterName MAX = UrlParameterName.with("max");
 
     // offset parameter....................................................................................................
 
@@ -126,7 +126,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    final static UrlParameterName OFFSET = UrlParameterName.with("offset");
+    public final static UrlParameterName OFFSET = UrlParameterName.with("offset");
 
     // query parameters................................................................................................
 
@@ -155,7 +155,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         );
     }
 
-    final static UrlParameterName QUERY = UrlParameterName.with("query");
+    public final static UrlParameterName QUERY = UrlParameterName.with("query");
 
     // valueType parameters.............................................................................................
 
@@ -170,7 +170,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         return VALUE_TYPE.firstParameterValue(parameters);
     }
 
-    final static UrlParameterName VALUE_TYPE = UrlParameterName.with("value-type");
+    public final static UrlParameterName VALUE_TYPE = UrlParameterName.with("value-type");
 
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
@@ -339,13 +339,13 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     /**
      * Adds support for passing the window as a url query parameter.
      */
-    final static UrlParameterName WINDOW = UrlParameterName.with("window");
+    public final static UrlParameterName WINDOW = UrlParameterName.with("window");
 
     private static Optional<String> includeFrozenColumnsRows(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return INCLUDE_FROZEN_COLUMNS_ROWS.firstParameterValue(parameters);
     }
 
-    final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
+    public final static UrlParameterName INCLUDE_FROZEN_COLUMNS_ROWS = UrlParameterName.with("includeFrozenColumnsRows");
 
     // helpers.........................................................................................................
 
@@ -372,7 +372,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     }
 
     // @VisibleForTesting
-    final static UrlParameterName HOME = UrlParameterName.with("home");
+    public final static UrlParameterName HOME = UrlParameterName.with("home");
 
     private static double height(final String value) {
         return parseDoubleQueryParameter(
@@ -381,7 +381,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         );
     }
 
-    final static UrlParameterName HEIGHT = UrlParameterName.with("height");
+    public final static UrlParameterName HEIGHT = UrlParameterName.with("height");
 
     private static double width(final String value) {
         return parseDoubleQueryParameter(
@@ -390,7 +390,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         );
     }
 
-    final static UrlParameterName WIDTH = UrlParameterName.with("width");
+    public final static UrlParameterName WIDTH = UrlParameterName.with("width");
 
     private static AnchoredSpreadsheetSelection selection(final String selection,
                                                           final String type,
@@ -419,19 +419,19 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
      * The {@link SpreadsheetViewportAnchor} in text form, eg "top-bottom"
      */
     // @VisibleForTesting
-    final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
+    public final static UrlParameterName SELECTION_ANCHOR = UrlParameterName.with("selectionAnchor");
 
     /**
      * Holds the type of the selection parameter. This is necessary due to ambiguities between column and labels.
      */
     // @VisibleForTesting
-    final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
+    public final static UrlParameterName SELECTION_TYPE = UrlParameterName.with("selectionType");
 
     /**
      * The {@link SpreadsheetSelection} in text form, eg "A" for column, "B2" for cell, "C:D" for column range etc.
      */
     // @VisibleForTesting
-    final static UrlParameterName SELECTION = UrlParameterName.with("selection");
+    public final static UrlParameterName SELECTION = UrlParameterName.with("selection");
 
     private static SpreadsheetViewportNavigationList navigations(final String value) {
         return parseQueryParameter(
@@ -445,7 +445,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
      * The {@link SpreadsheetViewportNavigation} in text form, eg "extend-right"
      */
     // @VisibleForTesting
-    final static UrlParameterName NAVIGATION = UrlParameterName.with("navigation");
+    public final static UrlParameterName NAVIGATION = UrlParameterName.with("navigation");
 
     private static double parseDoubleQueryParameter(final String text,
                                                     final UrlParameterName parameterName) {
