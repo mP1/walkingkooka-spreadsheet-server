@@ -23,7 +23,11 @@ import walkingkooka.collect.list.ListTesting2;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
@@ -178,22 +182,10 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     // prepare..........................................................................................................
 
     @Test
-    public void testPrepareWithSpreadsheetFormatterProviderFails() {
+    public void testPrepareWithContextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> SpreadsheetFormatterSelectorMenuList.prepare(
-                        null,
-                        SPREADSHEET_FORMATTER_CONTEXT
-                )
-        );
-    }
-
-    @Test
-    public void testPrepareWithSpreadsheetFormatterContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterSelectorMenuList.prepare(
-                        SPREADSHEET_FORMATTER_PROVIDER,
                         null
                 )
         );
@@ -269,9 +261,22 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
                         )
                 ),
                 SpreadsheetFormatterSelectorMenuList.prepare(
-                        SPREADSHEET_FORMATTER_PROVIDER,
-                        SPREADSHEET_FORMATTER_CONTEXT
+                        new TestSpreadsheetFormatterSelectorMenuListContext()
                 )
         );
+    }
+
+    static class TestSpreadsheetFormatterSelectorMenuListContext implements SpreadsheetFormatterSelectorMenuListContext,
+            SpreadsheetFormatterProviderDelegator,
+            SpreadsheetFormatterContextDelegator {
+        @Override
+        public SpreadsheetFormatterContext spreadsheetFormatterContext() {
+            return SPREADSHEET_FORMATTER_CONTEXT;
+        }
+
+        @Override
+        public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
+            return SPREADSHEET_FORMATTER_PROVIDER;
+        }
     }
 }
