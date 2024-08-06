@@ -313,7 +313,146 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
     }
 
     /**
-     * Creates an JSON object with all the textComponents of this formula.
+     * <pre>
+     * {
+     *   "selector": "date-format-pattern dd/mm/yyyy",
+     *   "message": "",
+     *   "textComponents": [
+     *     {
+     *       "label": "dd",
+     *       "text": "dd",
+     *       "alternatives": [
+     *         {
+     *           "label": "d",
+     *           "text": "d"
+     *         },
+     *         {
+     *           "label": "ddd",
+     *           "text": "ddd"
+     *         },
+     *         {
+     *           "label": "dddd",
+     *           "text": "dddd"
+     *         }
+     *       ]
+     *     },
+     *     {
+     *       "label": "/",
+     *       "text": "/"
+     *     },
+     *     {
+     *       "label": "mm",
+     *       "text": "mm",
+     *       "alternatives": [
+     *         {
+     *           "label": "m",
+     *           "text": "m"
+     *         },
+     *         {
+     *           "label": "mmm",
+     *           "text": "mmm"
+     *         },
+     *         {
+     *           "label": "mmmm",
+     *           "text": "mmmm"
+     *         },
+     *         {
+     *           "label": "mmmmm",
+     *           "text": "mmmmm"
+     *         }
+     *       ]
+     *     },
+     *     {
+     *       "label": "/",
+     *       "text": "/"
+     *     },
+     *     {
+     *       "label": "yyyy",
+     *       "text": "yyyy",
+     *       "alternatives": [
+     *         {
+     *           "label": "yy",
+     *           "text": "yy"
+     *         }
+     *       ]
+     *     }
+     *   ],
+     *   "next": {
+     *     "alternatives": [
+     *       {
+     *         "label": "d",
+     *         "text": "d"
+     *       },
+     *       {
+     *         "label": "dd",
+     *         "text": "dd"
+     *       },
+     *       {
+     *         "label": "ddd",
+     *         "text": "ddd"
+     *       },
+     *       {
+     *         "label": "dddd",
+     *         "text": "dddd"
+     *       },
+     *       {
+     *         "label": "m",
+     *         "text": "m"
+     *       },
+     *       {
+     *         "label": "mm",
+     *         "text": "mm"
+     *       },
+     *       {
+     *         "label": "mmm",
+     *         "text": "mmm"
+     *       },
+     *       {
+     *         "label": "mmmm",
+     *         "text": "mmmm"
+     *       },
+     *       {
+     *         "label": "mmmmm",
+     *         "text": "mmmmm"
+     *       }
+     *     ]
+     *   },
+     *   "samples": [
+     *     {
+     *       "label": "Short",
+     *       "selector": "date-format-pattern d/m/yy",
+     *       "value": {
+     *         "type": "text",
+     *         "value": "31/12/99"
+     *       }
+     *     },
+     *     {
+     *       "label": "Medium",
+     *       "selector": "date-format-pattern d mmm yyyy",
+     *       "value": {
+     *         "type": "text",
+     *         "value": "31 Dec. 1999"
+     *       }
+     *     },
+     *     {
+     *       "label": "Long",
+     *       "selector": "date-format-pattern d mmmm yyyy",
+     *       "value": {
+     *         "type": "text",
+     *         "value": "31 December 1999"
+     *       }
+     *     },
+     *     {
+     *       "label": "Full",
+     *       "selector": "date-format-pattern dddd, d mmmm yyyy",
+     *       "value": {
+     *         "type": "text",
+     *         "value": "Friday, 31 December 1999"
+     *       }
+     *     }
+     *   ]
+     * }
+     * </pre>
      */
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         return JsonNode.object()
