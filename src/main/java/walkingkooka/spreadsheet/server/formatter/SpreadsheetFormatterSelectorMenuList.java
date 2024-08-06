@@ -20,9 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -43,26 +41,23 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
     /**
      * Prepares a flat list of {@link SpreadsheetFormatterSelectorMenu} for all {@link SpreadsheetFormatterSelector}.
      */
-    public static SpreadsheetFormatterSelectorMenuList prepare(final SpreadsheetFormatterProvider provider,
-                                                               final SpreadsheetFormatterContext context) {
-        Objects.requireNonNull(provider, "provider");
+    public static SpreadsheetFormatterSelectorMenuList prepare(final SpreadsheetFormatterSelectorMenuListContext context) {
         Objects.requireNonNull(context, "context");
 
         return with(
-                provider.spreadsheetFormatterInfos()
+                context.spreadsheetFormatterInfos()
                         .stream()
-                        .flatMap(i -> menus(i, provider, context).stream())
+                        .flatMap(i -> menus(i, context).stream())
                         .collect(Collectors.toList())
         );
     }
 
     private static List<SpreadsheetFormatterSelectorMenu> menus(final SpreadsheetFormatterInfo info,
-                                                                final SpreadsheetFormatterProvider provider,
-                                                                final SpreadsheetFormatterContext context) {
+                                                                final SpreadsheetFormatterSelectorMenuListContext context) {
         List<SpreadsheetFormatterSelectorMenu> menus;
 
         try {
-            menus = provider.spreadsheetFormatterSamples(
+            menus = context.spreadsheetFormatterSamples(
                             info.name(),
                             context
                     ).stream()
@@ -76,7 +71,6 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
 
         return menus;
     }
-
 
     public static SpreadsheetFormatterSelectorMenuList with(final List<SpreadsheetFormatterSelectorMenu> menus) {
         Objects.requireNonNull(menus, "menus");
