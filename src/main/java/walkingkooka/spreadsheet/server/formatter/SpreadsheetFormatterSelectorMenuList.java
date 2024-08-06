@@ -48,23 +48,6 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
         Objects.requireNonNull(provider, "provider");
         Objects.requireNonNull(context, "context");
 
-//        final List<SpreadsheetFormatterSelectorMenu> menus = Lists.array();
-//
-//        for (final SpreadsheetFormatterInfo info : provider.spreadsheetFormatterInfos()) {
-//            final SpreadsheetFormatterName name = info.name();
-//
-//            try {
-//                provider.spreadsheetFormatterSamples(
-//                                name,
-//                                context
-//                        ).stream()
-//                        .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
-//                        .forEach(menus::add);
-//            } catch (final RuntimeException ignore) {
-//                // ignore failed samples
-//            }
-//        }
-
         return with(
                 provider.spreadsheetFormatterInfos()
                         .stream()
