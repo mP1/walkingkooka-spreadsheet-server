@@ -19,9 +19,9 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
@@ -49,7 +49,7 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
 
     @Override
     public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                        final SpreadsheetFormatterContext context) {
+                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
         throw new UnsupportedOperationException();
     }
 

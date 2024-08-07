@@ -91,7 +91,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
 
     private final static List<SpreadsheetFormatterSample> DATE_FORMAT_SAMPLES = SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
             SpreadsheetFormatterName.DATE_FORMAT_PATTERN,
-            SPREADSHEET_FORMATTER_CONTEXT
+            SPREADSHEET_FORMATTER_PROVIDER_SAMPLES_CONTEXT
     );
 
     @Test
