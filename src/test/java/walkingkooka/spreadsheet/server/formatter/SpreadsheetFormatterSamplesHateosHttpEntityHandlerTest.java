@@ -35,8 +35,8 @@ import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
@@ -134,7 +134,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
                     @Override
                     public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                                        final SpreadsheetFormatterContext context) {
+                                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
                         return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
                                 name,
                                 context
