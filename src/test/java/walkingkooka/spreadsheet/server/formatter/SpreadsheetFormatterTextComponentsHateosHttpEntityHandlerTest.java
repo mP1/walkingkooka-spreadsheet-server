@@ -33,6 +33,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
@@ -149,16 +150,22 @@ public final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandlerTest
 
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
-                                                                               final List<?> values) {
+                                                                               final List<?> values,
+                                                                               final ProviderContext context) {
                         return CONVERTER_PROVIDER.converter(
                                 name,
-                                values
+                                values,
+                                context
                         );
                     }
 
                     @Override
-                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(spreadsheetFormatterSelector);
+                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                     final ProviderContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                                selector,
+                                context
+                        );
                     }
 
                     @Override

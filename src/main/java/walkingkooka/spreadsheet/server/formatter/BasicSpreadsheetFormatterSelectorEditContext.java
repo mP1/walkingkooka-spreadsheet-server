@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -30,20 +32,25 @@ import java.util.Objects;
  */
 final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetFormatterSelectorEditContext,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator {
+        SpreadsheetFormatterProviderDelegator,
+        ProviderContextDelegator {
 
     static BasicSpreadsheetFormatterSelectorEditContext with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                             final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                             final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                             final ProviderContext providerContext) {
         return new BasicSpreadsheetFormatterSelectorEditContext(
                 Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
-                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider")
+                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
+                Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 
     private BasicSpreadsheetFormatterSelectorEditContext(final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                         final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                         final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                         final ProviderContext providerContext) {
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
+        this.providerContext = providerContext;
     }
 
     // SpreadsheetFormatterContext......................................................................................
@@ -64,8 +71,17 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
 
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
 
+    // ProviderContext..................................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
+        return this.providerContext;
+    }
+
+    private final ProviderContext providerContext;
+
     @Override
     public String toString() {
-        return this.spreadsheetFormatterContext + " " + this.spreadsheetFormatterProvider;
+        return this.spreadsheetFormatterContext + " " + this.spreadsheetFormatterProvider + " " + this.providerContext;
     }
 }

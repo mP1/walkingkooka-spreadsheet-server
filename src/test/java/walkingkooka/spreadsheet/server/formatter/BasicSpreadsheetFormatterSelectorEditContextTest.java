@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -40,7 +41,8 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
-public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext> {
+public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext>,
+        SpreadsheetMetadataTesting {
 
     @Override
     public String currencySymbol() {
@@ -94,7 +96,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     public BasicSpreadsheetFormatterSelectorEditContext createContext() {
         return BasicSpreadsheetFormatterSelectorEditContext.with(
                 this.spreadsheetFormatterContext(),
-                SpreadsheetFormatterProviders.spreadsheetFormatPattern()
+                SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
+                PROVIDER_CONTEXT
         );
     }
 

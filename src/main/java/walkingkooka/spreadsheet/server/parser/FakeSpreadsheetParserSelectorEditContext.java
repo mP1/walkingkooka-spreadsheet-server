@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.parser;
 import walkingkooka.Either;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -45,13 +47,15 @@ import java.util.Set;
 
 public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetParserContext implements SpreadsheetParserSelectorEditContext {
     @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector) {
+    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,
+                                               final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public SpreadsheetParser spreadsheetParser(final SpreadsheetParserName name,
-                                               final List<?> values) {
+                                               final List<?> values,
+                                               final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
 
@@ -120,13 +124,15 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     }
 
     @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector) {
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                     final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
-                                                     final List<?> values) {
+                                                     final List<?> values,
+                                                     final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
 
@@ -148,6 +154,12 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
 
     @Override
     public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName labelName) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ProviderContext..................................................................................................
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
         throw new UnsupportedOperationException();
     }
 }

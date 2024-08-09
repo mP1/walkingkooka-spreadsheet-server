@@ -106,14 +106,16 @@ final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandler implements
     private List<SpreadsheetFormatterSelectorTextComponent> textComponents(final SpreadsheetFormatterSelector selector,
                                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetFormatter(
-                selector
+                selector,
+                context
         ).textComponents(
                 context.spreadsheetMetadata()
                         .formatterContext(
                                 context, // ConverterProvider
                                 context, // SpreadsheetFormatterProvider
                                 context::now, // now provider
-                                context // SpreadsheetLabelNameResolver
+                                context, // SpreadsheetLabelNameResolver
+                                context // ProviderContext
                         )
         );
     }

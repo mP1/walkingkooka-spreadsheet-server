@@ -228,7 +228,8 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         SPREADSHEET_PARSER_PROVIDER,
                         SPREADSHEET_PARSER_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
-                        SPREADSHEET_FORMATTER_PROVIDER
+                        SPREADSHEET_FORMATTER_PROVIDER,
+                        PROVIDER_CONTEXT
                 )
         );
     }

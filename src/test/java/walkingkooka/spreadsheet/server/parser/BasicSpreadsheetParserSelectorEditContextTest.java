@@ -44,7 +44,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
                         null,
                         SpreadsheetParserContexts.fake(),
                         SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.fake()
+                        SpreadsheetFormatterProviders.fake(),
+                        PROVIDER_CONTEXT
                 )
         );
     }
@@ -57,7 +58,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
                         SpreadsheetParserProviders.fake(),
                         null,
                         SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.fake()
+                        SpreadsheetFormatterProviders.fake(),
+                        PROVIDER_CONTEXT
                 )
         );
     }
@@ -70,7 +72,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
                         SpreadsheetParserProviders.fake(),
                         SpreadsheetParserContexts.fake(),
                         null,
-                        SpreadsheetFormatterProviders.fake()
+                        SpreadsheetFormatterProviders.fake(),
+                        PROVIDER_CONTEXT
                 )
         );
     }
@@ -83,6 +86,21 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
                         SpreadsheetParserProviders.fake(),
                         SpreadsheetParserContexts.fake(),
                         SpreadsheetFormatterContexts.fake(),
+                        null,
+                        PROVIDER_CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullProviderContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetParserSelectorEditContext.with(
+                        SpreadsheetParserProviders.fake(),
+                        SpreadsheetParserContexts.fake(),
+                        SpreadsheetFormatterContexts.fake(),
+                        SpreadsheetFormatterProviders.fake(),
                         null
                 )
         );
@@ -96,6 +114,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
 
         this.spreadsheetFormatterAndCheck(
                 dateTextFormat.spreadsheetFormatterSelector(),
+                PROVIDER_CONTEXT,
                 dateTextFormat.formatter()
         );
     }
@@ -106,6 +125,7 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
 
         this.spreadsheetParserAndCheck(
                 dateTextParser.spreadsheetParserSelector(),
+                PROVIDER_CONTEXT,
                 dateTextParser.parser()
         );
     }
@@ -118,7 +138,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
                 SPREADSHEET_PARSER_PROVIDER,
                 SPREADSHEET_PARSER_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
-                SPREADSHEET_FORMATTER_PROVIDER
+                SPREADSHEET_FORMATTER_PROVIDER,
+                PROVIDER_CONTEXT
         );
     }
 

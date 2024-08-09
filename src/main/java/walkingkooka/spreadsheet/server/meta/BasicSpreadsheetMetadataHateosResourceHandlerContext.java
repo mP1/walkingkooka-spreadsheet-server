@@ -24,6 +24,7 @@ import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterProvider;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
@@ -31,6 +32,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -353,6 +355,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider),
                 metadata.expressionFunctionProvider(expressionFunctionProvider),
                 metadata.spreadsheetParserProvider(spreadsheetParserProvider),
+                new ProviderContext() {
+                    @Override
+                    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+                        return metadata.environmentContext()
+                                .environmentValue(name);
+                    }
+                },
                 engine,
                 fractioner,
                 repository,
@@ -442,7 +451,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                 context, // ConverterProvider
                                 context, // SpreadsheetFormatterProvider
                                 context::now,
-                                context // SpreadsheetLabelNameResolver
+                                context, // SpreadsheetLabelNameResolver
+                                context // ProviderContext
                         )
                 )
         );

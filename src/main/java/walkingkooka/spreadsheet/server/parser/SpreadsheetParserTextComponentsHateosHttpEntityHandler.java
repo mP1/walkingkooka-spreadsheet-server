@@ -106,7 +106,8 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
     private List<SpreadsheetParserSelectorTextComponent> textComponents(final SpreadsheetParserSelector selector,
                                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetParser(
-                selector
+                selector,
+                context
         ).textComponents(
                 context.spreadsheetMetadata()
                         .parserContext(

@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.engine;
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
@@ -60,7 +62,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetParserProviderDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator {
+        JsonNodeMarshallUnmarshallContextDelegator,
+        ProviderContextDelegator {
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                                    final JsonNodeUnmarshallContext unmarshallContext,
@@ -203,8 +206,12 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName functionExpressionName) {
-        return this.engineContext.expressionFunction(functionExpressionName);
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name,
+                                                                                 final ProviderContext context) {
+        return this.engineContext.expressionFunction(
+                name,
+                context
+        );
     }
 
     // SpreadsheetFormatterProvider.....................................................................................
@@ -231,4 +238,11 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     private final SpreadsheetFormatterContext formatterContext;
+
+    // ProviderContext..................................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
+        return this.engineContext;
+    }
 }

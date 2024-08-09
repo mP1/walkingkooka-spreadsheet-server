@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -27,10 +28,12 @@ public final class SpreadsheetFormatterSelectorEditContexts implements PublicSta
      * {@see SpreadsheetFormatterSelectorEditContext}
      */
     public static SpreadsheetFormatterSelectorEditContext basic(final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                                final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                                final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                                final ProviderContext providerContext) {
         return BasicSpreadsheetFormatterSelectorEditContext.with(
                 spreadsheetFormatterContext,
-                spreadsheetFormatterProvider
+                spreadsheetFormatterProvider,
+                providerContext
         );
     }
 

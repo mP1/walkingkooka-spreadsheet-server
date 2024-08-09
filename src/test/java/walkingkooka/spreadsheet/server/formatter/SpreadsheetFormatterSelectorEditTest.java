@@ -217,7 +217,8 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 selector,
                 SpreadsheetFormatterSelectorEditContexts.basic(
                         SPREADSHEET_FORMATTER_CONTEXT,
-                        SPREADSHEET_FORMATTER_PROVIDER
+                        SPREADSHEET_FORMATTER_PROVIDER,
+                        PROVIDER_CONTEXT
                 )
         );
     }
