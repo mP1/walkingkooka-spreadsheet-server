@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
@@ -25,5 +26,6 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserProvider,
         SpreadsheetParserContext,
         SpreadsheetFormatterProvider,
-        SpreadsheetFormatterContext {
+        SpreadsheetFormatterContext,
+        ProviderContext {
 }

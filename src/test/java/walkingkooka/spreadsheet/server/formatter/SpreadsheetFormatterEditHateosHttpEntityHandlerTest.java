@@ -34,6 +34,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
@@ -150,22 +151,32 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                     }
 
                     @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
-                        return CONVERTER_PROVIDER.converter(selector);
-                    }
-
-                    @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
-                                                                               final List<?> values) {
+                    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
+                                                                               final ProviderContext context) {
                         return CONVERTER_PROVIDER.converter(
-                                converterName,
-                                values
+                                selector,
+                                context
                         );
                     }
 
                     @Override
-                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector spreadsheetFormatterSelector) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(spreadsheetFormatterSelector);
+                    public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
+                                                                               final List<?> values,
+                                                                               final ProviderContext context) {
+                        return CONVERTER_PROVIDER.converter(
+                                converterName,
+                                values,
+                                context
+                        );
+                    }
+
+                    @Override
+                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                     final ProviderContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                                selector,
+                                context
+                        );
                     }
 
                     @Override

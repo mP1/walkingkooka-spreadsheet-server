@@ -33,6 +33,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -148,16 +149,22 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
 
                     @Override
                     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
-                                                                               final List<?> values) {
+                                                                               final List<?> values,
+                                                                               final ProviderContext context) {
                         return CONVERTER_PROVIDER.converter(
                                 name,
-                                values
+                                values,
+                                context
                         );
                     }
 
                     @Override
-                    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
-                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParser(spreadsheetParserSelector);
+                    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,
+                                                               final ProviderContext context) {
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParser(
+                                selector,
+                                context
+                        );
                     }
 
                     @Override

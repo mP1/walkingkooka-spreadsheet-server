@@ -26,6 +26,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -278,6 +279,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 SPREADSHEET_FORMATTER_PROVIDER,
                 EXPRESSION_FUNCTION_PROVIDER,
                 SPREADSHEET_PARSER_PROVIDER,
+                PROVIDER_CONTEXT,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
                 (b) -> {
                     throw new UnsupportedOperationException();
@@ -358,8 +360,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector spreadsheetParserSelector) {
-                return engineContext.spreadsheetParser(spreadsheetParserSelector);
+            public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,
+                                                       final ProviderContext context) {
+                return engineContext.spreadsheetParser(
+                        selector,
+                        context
+                );
             }
 
             @Override

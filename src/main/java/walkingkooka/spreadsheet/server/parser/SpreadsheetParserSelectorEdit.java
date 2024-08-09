@@ -75,7 +75,10 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 // ignored!
             }
 
-            final SpreadsheetParser parser = context.spreadsheetParser(spreadsheetParserSelector);
+            final SpreadsheetParser parser = context.spreadsheetParser(
+                    spreadsheetParserSelector,
+                    context
+            );
 
             try {
                 textComponents = parser.textComponents(context);

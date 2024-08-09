@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -34,28 +36,33 @@ import java.util.Objects;
 final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
-        SpreadsheetParserProviderDelegator {
+        SpreadsheetParserProviderDelegator,
+        ProviderContextDelegator {
 
     static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
                                                           final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                          final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                          final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                          final ProviderContext providerContext) {
         return new BasicSpreadsheetParserSelectorEditContext(
                 Objects.requireNonNull(spreadsheetParserProvider, "spreadsheetParserProvider"),
                 Objects.requireNonNull(spreadsheetParserContext, "spreadsheetParserContext"),
                 Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
-                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider")
+                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
+                Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 
     private BasicSpreadsheetParserSelectorEditContext(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                       final SpreadsheetParserContext spreadsheetParserContext,
                                                       final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                      final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                      final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                      final ProviderContext providerContext) {
         this.spreadsheetParserProvider = spreadsheetParserProvider;
         this.spreadsheetParserContext = spreadsheetParserContext;
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
+        this.providerContext = providerContext;
     }
 
     // SpreadsheetParserProvider........................................................................................
@@ -93,6 +100,15 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     }
 
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
+
+    // ProviderContext..................................................................................................
+
+    @Override
+    public ProviderContext providerContext() {
+        return this.providerContext;
+    }
+
+    private final ProviderContext providerContext;
 
     @Override
     public String toString() {

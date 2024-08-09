@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -31,12 +32,14 @@ public final class SpreadsheetParserSelectorEditContexts implements PublicStatic
     public static SpreadsheetParserSelectorEditContext basic(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                              final SpreadsheetParserContext spreadsheetParserContext,
                                                              final SpreadsheetFormatterContext spreadsheetFormatterContext,
-                                                             final SpreadsheetFormatterProvider spreadsheetFormatterProvider) {
+                                                             final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                             final ProviderContext providerContext) {
         return BasicSpreadsheetParserSelectorEditContext.with(
                 spreadsheetParserProvider,
                 spreadsheetParserContext,
                 spreadsheetFormatterContext,
-                spreadsheetFormatterProvider
+                spreadsheetFormatterProvider,
+                providerContext
         );
     }
 

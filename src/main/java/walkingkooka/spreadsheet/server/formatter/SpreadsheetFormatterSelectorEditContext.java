@@ -17,9 +17,11 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 
 public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetFormatterProvider,
-        SpreadsheetFormatterContext {
+        SpreadsheetFormatterContext,
+        ProviderContext {
 }
