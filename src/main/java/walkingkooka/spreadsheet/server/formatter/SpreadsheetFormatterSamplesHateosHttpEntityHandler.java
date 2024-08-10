@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -79,8 +78,7 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
                 context
         );
 
-        return HttpEntity.EMPTY.addHeader(
-                HttpHeaderName.CONTENT_TYPE,
+        return HttpEntity.EMPTY.setContentType(
                 requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,

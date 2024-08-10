@@ -26,7 +26,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -345,8 +344,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
     }
 
     private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
+        return HttpEntity.EMPTY.setContentType(
                         MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
                 ).setBodyText(value)
                 .setContentLength();

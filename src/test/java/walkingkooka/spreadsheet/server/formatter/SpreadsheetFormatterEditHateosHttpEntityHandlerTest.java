@@ -401,8 +401,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
     }
 
     private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
+        return HttpEntity.EMPTY.setContentType(
                         MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
                 ).setBodyText(value)
                 .setContentLength();

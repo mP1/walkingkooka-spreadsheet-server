@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -165,10 +164,8 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
     final HttpEntity httpEntity(final String json) {
         return HttpEntity.EMPTY
-                .addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                ).setBodyText(json);
+                .setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
+                .setBodyText(json);
     }
 
     @Override

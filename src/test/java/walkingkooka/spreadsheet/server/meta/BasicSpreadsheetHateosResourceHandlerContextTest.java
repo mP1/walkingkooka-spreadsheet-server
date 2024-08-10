@@ -1050,7 +1050,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
             expected.setStatus(HttpStatusCode.OK.status());
 
             expected.addEntity(HttpEntity.EMPTY
-                    .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE.setCharset(CharsetName.UTF_8))
+                    .setContentType(CONTENT_TYPE.setCharset(CharsetName.UTF_8))
                     .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
                     .setContentLength());
