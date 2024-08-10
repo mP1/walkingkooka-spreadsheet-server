@@ -26,7 +26,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -105,10 +104,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
         final IllegalArgumentException thrown = this.handleOneFails(
                 SpreadsheetParserName.DATE_PARSER_PATTERN,
                 this.entity()
-                        .setHeader(
-                                HttpHeaderName.CONTENT_TYPE,
-                                Lists.of(MediaType.TEXT_PLAIN)
-                        ),
+                        .setContentType(MediaType.TEXT_PLAIN),
                 this.parameters(),
                 this.context(),
                 IllegalArgumentException.class
@@ -237,13 +233,10 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
     }
 
     private HttpEntity httpEntity(final Object value) {
-        return HttpEntity.EMPTY.addHeader(
-                HttpHeaderName.CONTENT_TYPE,
-                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-        ).setBodyText(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(
-                                value
-                        ).toString()
+        return HttpEntity.EMPTY.setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
+                .setBodyText(
+                        JSON_NODE_MARSHALL_CONTEXT.marshall(value)
+                                .toString()
         ).setContentLength();
     }
 

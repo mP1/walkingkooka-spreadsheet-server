@@ -20,14 +20,12 @@ package walkingkooka.spreadsheet.server.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -114,10 +112,7 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     public void testHandleAllContentTypeBadContentType() {
         final IllegalArgumentException thrown = this.handleAllFails(
                 this.entity()
-                        .setHeader(
-                                HttpHeaderName.CONTENT_TYPE,
-                                Lists.of(MediaType.TEXT_PLAIN)
-                        ),
+                        .setContentType(MediaType.TEXT_PLAIN),
                 this.parameters(),
                 this.context(),
                 IllegalArgumentException.class
@@ -430,10 +425,8 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     }
 
     private HttpEntity httpEntity(final String value) {
-        return HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.CONTENT_TYPE,
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                ).setBodyText(value)
+        return HttpEntity.EMPTY.setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
+                .setBodyText(value)
                 .setContentLength();
     }
 

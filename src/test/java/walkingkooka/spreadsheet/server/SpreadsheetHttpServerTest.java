@@ -8763,7 +8763,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY
-                                .addHeader(HttpHeaderName.CONTENT_TYPE, FILE_CONTENT_TYPE)
+                                .setContentType(FILE_CONTENT_TYPE)
                                 .addHeader(HttpHeaderName.CONTENT_LENGTH, 6L)
                                 .addHeader(HttpHeaderName.LAST_MODIFIED, FILE_LAST_MODIFIED)
                                 .setBody(FILE_BINARY)));
@@ -9222,7 +9222,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return this.response(status,
                 HttpEntity.EMPTY
                         .setHeader(SpreadsheetHttpServer.TRANSACTION_ID, transactionId.map(Lists::of).orElse(Lists.empty()))
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE_UTF8)
+                        .setContentType(CONTENT_TYPE_UTF8)
                         .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, bodyTypeName)
                         .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.value().length)
                         .setBody(body));

@@ -107,8 +107,7 @@ final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEn
         );
 
         // write TextNodes as JSON response
-        return HttpEntity.EMPTY.addHeader(
-                HttpHeaderName.CONTENT_TYPE,
+        return HttpEntity.EMPTY.setContentType(
                 requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,

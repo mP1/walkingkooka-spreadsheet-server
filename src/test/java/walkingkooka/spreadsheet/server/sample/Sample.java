@@ -122,8 +122,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
         checkEquals(
                 Lists.of(
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.CONTENT_TYPE,
+                        HttpEntity.EMPTY.setContentType(
                                 MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
                         ).addHeader(
                                 HttpHeaderName.with("X-Content-Type-Name"),

@@ -308,7 +308,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 Url.parseAbsolute(BASE_URL + urlPathAppend).relativeUrl(),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY
-                        .addHeader(HttpHeaderName.CONTENT_TYPE, contentType)
+                        .setContentType(contentType)
                         .addHeader(HttpHeaderName.ACCEPT, contentType.accept())
                         .setBodyText(bodyText)
                         .setContentLength()

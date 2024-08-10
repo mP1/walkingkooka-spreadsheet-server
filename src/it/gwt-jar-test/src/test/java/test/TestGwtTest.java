@@ -112,10 +112,9 @@ public class TestGwtTest extends GWTTestCase {
 
         checkEquals(
                 Lists.of(
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.CONTENT_TYPE,
+                        HttpEntity.EMPTY.setContentType(
                                 MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                        ).addHeader(
+                                ).addHeader(
                                 HttpHeaderName.with("X-Content-Type-Name"),
                                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
                         ).setBodyText(
