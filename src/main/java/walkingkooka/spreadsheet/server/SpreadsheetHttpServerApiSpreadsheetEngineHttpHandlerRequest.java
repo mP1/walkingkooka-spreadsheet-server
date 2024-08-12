@@ -110,7 +110,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
                            final String message) {
         final HttpResponse response = this.response;
         response.setStatus(status.setMessage(message));
-        response.addEntity(HttpEntity.EMPTY);
+        response.setEntity(HttpEntity.EMPTY);
     }
 
     private final HttpRequest request;

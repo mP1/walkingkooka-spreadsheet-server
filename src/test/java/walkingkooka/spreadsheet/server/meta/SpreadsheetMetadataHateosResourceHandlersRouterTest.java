@@ -27,7 +27,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -411,13 +410,9 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                     () -> "status " + request + " " + response + "\n" + possible
             );
 
-            final List<HttpEntity> responseEntities = response.entities();
             this.checkEquals(
                     responseBody,
-                    responseEntities.isEmpty() ?
-                            "" :
-                            responseEntities.get(0)
-                                    .bodyText()
+                    response.entity().bodyText()
             );
         }
     }

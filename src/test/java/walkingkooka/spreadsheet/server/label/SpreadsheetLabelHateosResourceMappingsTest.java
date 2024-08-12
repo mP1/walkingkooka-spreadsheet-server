@@ -26,7 +26,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -252,14 +251,17 @@ public final class SpreadsheetLabelHateosResourceMappingsTest implements Spreads
                             request,
                             response
                     );
-            this.checkEquals(statusCode,
+            this.checkEquals(
+                    statusCode,
                     response.status().map(HttpStatus::value).orElse(null),
-                    () -> "status " + request + " " + response + "\n" + possible);
-
-            final List<HttpEntity> entities = response.entities();
-            this.checkEquals(responseBody,
-                    entities.isEmpty() ? "" : entities.get(0).bodyText(),
-                    () -> "body " + request + " " + response + "\n" + possible);
+                    () -> "status " + request + " " + response + "\n" + possible
+            );
+            this.checkEquals(
+                    responseBody,
+                    response.entity()
+                            .bodyText(),
+                    () -> "body " + request + " " + response + "\n" + possible
+            );
         }
     }
 

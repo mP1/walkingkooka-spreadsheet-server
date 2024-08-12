@@ -127,7 +127,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     static void notFound(final HttpRequest request, final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_FOUND.status());
-        response.addEntity(HttpEntity.EMPTY);
+        response.setEntity(HttpEntity.EMPTY);
     }
 
     /**
