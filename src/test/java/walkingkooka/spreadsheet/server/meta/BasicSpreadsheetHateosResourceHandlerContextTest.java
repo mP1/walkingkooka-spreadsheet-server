@@ -1049,11 +1049,13 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
             final HttpResponse expected = HttpResponses.recording();
             expected.setStatus(HttpStatusCode.OK.status());
 
-            expected.addEntity(HttpEntity.EMPTY
+            expected.setEntity(
+                    HttpEntity.EMPTY
                     .setContentType(CONTENT_TYPE.setCharset(CharsetName.UTF_8))
                     .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
-                    .setContentLength());
+                            .setContentLength()
+            );
 
             this.checkEquals(expected, response, () -> "consumer: " + httpHandler + ", request: " + request);
         }

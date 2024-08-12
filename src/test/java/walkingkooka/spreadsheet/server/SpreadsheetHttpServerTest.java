@@ -122,8 +122,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer>
         implements SpreadsheetMetadataTesting {
 
@@ -9042,13 +9040,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final HttpResponse response = this.handle(request);
             checkEquals(status, response.status().orElse(null), "status");
 
-            final List<HttpEntity> entities = response.entities();
-            checkEquals(1, entities.size(), () -> "" + request + "\n" + response);
-
-            final HttpEntity first = entities.get(0);
-            final String body = first.bodyText();
-
-            assertTrue(body.contains(bodyTextContains), () -> "" + request + "\n" + response);
+            final String body = response.entity().bodyText();
+            checkEquals(
+                    true,
+                    body.contains(bodyTextContains),
+                    () -> "" + request + "\n" + response
+            );
         }
 
         void handleAndCheck(final HttpMethod method,
@@ -9231,7 +9228,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private HttpResponse response(final HttpStatus status,
                                   final HttpEntity body) {
         final HttpResponse response = this.response(status);
-        response.addEntity(body);
+        response.setEntity(body);
         return response;
     }
 

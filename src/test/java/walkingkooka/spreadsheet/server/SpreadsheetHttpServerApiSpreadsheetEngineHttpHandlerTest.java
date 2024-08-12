@@ -331,9 +331,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                                    final HttpStatus status,
                                    final Object body) {
         this.checkEquals(Optional.of(status), httpResponse.status(), () -> "status\n" + httpResponse);
-        this.checkEquals(toJsonString(body),
-                httpResponse.entities().get(0).bodyText(),
-                httpResponse::toString);
+        this.checkEquals(
+                toJsonString(body),
+                httpResponse.entity().bodyText(),
+                httpResponse::toString
+        );
     }
 
     private static String toJsonString(final Object value) {

@@ -119,56 +119,54 @@ public class JunitTest {
         );
 
         checkEquals(
-                Lists.of(
-                        HttpEntity.EMPTY.setContentType(
-                                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                        ).addHeader(
-                                HttpHeaderName.with("X-Content-Type-Name"),
-                                Cast.to(SpreadsheetMetadata.class.getSimpleName())
-                        ).setBodyText(
-                                "{\n" +
-                                        "  \"spreadsheet-id\": \"1\",\n" +
-                                        "  \"cell-character-width\": 10,\n" +
-                                        "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
-                                        "  \"creator\": \"creator@example.com\",\n" +
-                                        "  \"currency-symbol\": \"$AUD\",\n" +
-                                        "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
-                                        "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
-                                        "  \"date-time-formatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
-                                        "  \"date-time-offset\": \"0\",\n" +
-                                        "  \"date-time-parser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                                        "  \"decimal-separator\": \".\",\n" +
-                                        "  \"default-year\": 1900,\n" +
-                                        "  \"exponent-symbol\": \"E\",\n" +
-                                        "  \"expression-converter\": \"general\",\n" +
-                                        "  \"expression-number-kind\": \"DOUBLE\",\n" +
-                                        "  \"frozen-columns\": \"A:B\",\n" +
-                                        "  \"frozen-rows\": \"1:2\",\n" +
-                                        "  \"general-number-format-digit-count\": 8,\n" +
-                                        "  \"group-separator\": \",\",\n" +
-                                        "  \"locale\": \"en-AU\",\n" +
-                                        "  \"modified-by\": \"modified@example.com\",\n" +
-                                        "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
-                                        "  \"negative-sign\": \"-\",\n" +
-                                        "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
-                                        "  \"number-parser\": \"number-parse-pattern #\",\n" +
-                                        "  \"percentage-symbol\": \"%\",\n" +
-                                        "  \"positive-sign\": \"+\",\n" +
-                                        "  \"precision\": 123,\n" +
-                                        "  \"rounding-mode\": \"FLOOR\",\n" +
-                                        "  \"style\": {\n" +
-                                        "    \"height\": \"50px\",\n" +
-                                        "    \"width\": \"50px\"\n" +
-                                        "  },\n" +
-                                        "  \"text-formatter\": \"text-format-pattern @@\",\n" +
-                                        "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
-                                        "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
-                                        "  \"two-digit-year\": 31,\n" +
-                                        "  \"value-separator\": \",\"\n" +
-                                        "}"
-                        ).setContentLength()
-                ),
-                response.entities(),
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+                ).addHeader(
+                        HttpHeaderName.with("X-Content-Type-Name"),
+                        Cast.to(SpreadsheetMetadata.class.getSimpleName())
+                ).setBodyText(
+                        "{\n" +
+                                "  \"spreadsheet-id\": \"1\",\n" +
+                                "  \"cell-character-width\": 10,\n" +
+                                "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
+                                "  \"creator\": \"creator@example.com\",\n" +
+                                "  \"currency-symbol\": \"$AUD\",\n" +
+                                "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
+                                "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
+                                "  \"date-time-formatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
+                                "  \"date-time-offset\": \"0\",\n" +
+                                "  \"date-time-parser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                                "  \"decimal-separator\": \".\",\n" +
+                                "  \"default-year\": 1900,\n" +
+                                "  \"exponent-symbol\": \"E\",\n" +
+                                "  \"expression-converter\": \"general\",\n" +
+                                "  \"expression-number-kind\": \"DOUBLE\",\n" +
+                                "  \"frozen-columns\": \"A:B\",\n" +
+                                "  \"frozen-rows\": \"1:2\",\n" +
+                                "  \"general-number-format-digit-count\": 8,\n" +
+                                "  \"group-separator\": \",\",\n" +
+                                "  \"locale\": \"en-AU\",\n" +
+                                "  \"modified-by\": \"modified@example.com\",\n" +
+                                "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
+                                "  \"negative-sign\": \"-\",\n" +
+                                "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
+                                "  \"number-parser\": \"number-parse-pattern #\",\n" +
+                                "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"positive-sign\": \"+\",\n" +
+                                "  \"precision\": 123,\n" +
+                                "  \"rounding-mode\": \"FLOOR\",\n" +
+                                "  \"style\": {\n" +
+                                "    \"height\": \"50px\",\n" +
+                                "    \"width\": \"50px\"\n" +
+                                "  },\n" +
+                                "  \"text-formatter\": \"text-format-pattern @@\",\n" +
+                                "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
+                                "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
+                                "  \"two-digit-year\": 31,\n" +
+                                "  \"value-separator\": \",\"\n" +
+                                "}"
+                ).setContentLength(),
+                response.entity(),
                 "POST /api/spreadsheet response"
         );
     }
