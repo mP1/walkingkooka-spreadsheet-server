@@ -64,15 +64,6 @@ public interface SpreadsheetHateosResourceHandlerContextTesting<C extends Spread
     }
 
     @Test
-    default void testExpressionFunctionProviderNullSpreadsheetIdFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .expressionFunctionProvider(null)
-        );
-    }
-
-    @Test
     default void testHttpRouterNullSpreadsheetIdFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().httpRouter(null));
     }

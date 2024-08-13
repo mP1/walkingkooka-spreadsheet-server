@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
@@ -49,19 +48,16 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -77,12 +73,11 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.Store;
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.ExpressionFunctions;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -94,6 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -108,7 +104,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
-    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
+    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.treeMap();
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 20);
 
@@ -123,11 +119,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -145,11 +137,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -167,11 +155,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -189,11 +173,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 null,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -211,11 +191,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 null,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -233,11 +209,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 null,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -247,7 +219,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     }
 
     @Test
-    public void testWithNullSpreadsheetIdToConverterProviderFails() {
+    public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
         this.withFails(
                 this.base(),
                 INDENTATION,
@@ -255,98 +227,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                null,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
-                this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetComparatorProviderFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                this::fractioner,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                null,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
-                this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetFormatterProviderFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                this::fractioner,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                null,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
-                this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToExpressionFunctionProviderFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                this::fractioner,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                null,
-                this::spreadsheetIdToSpreadsheetParserProvider,
-                this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetParserProviderFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                this::fractioner,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
                 null,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
@@ -365,12 +245,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 null,
-                this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
@@ -387,11 +263,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 null,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -409,11 +281,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 null,
@@ -431,11 +299,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -453,11 +317,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -472,11 +332,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                            final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
-                           final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                           final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
-                           final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                           final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                           final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
+                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                            final JsonNodeMarshallContext marshallContext,
@@ -491,26 +347,13 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         fractioner,
                         createMetadata,
                         metadataStore,
-                        spreadsheetIdToConverterProvider,
-                        spreadsheetIdToSpreadsheetComparatorProvider,
-                        spreadsheetIdToSpreadsheetFormatterProvider,
-                        spreadsheetIdToExpressionFunctionProvider,
-                        spreadsheetIdToSpreadsheetParserProvider,
+                        spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToRepository,
                         spreadsheetMetadataStamper,
                         marshallContext,
                         unmarshallContext,
                         now
                 )
-        );
-    }
-
-    @Test
-    public void testExpressionFunctionProvider() {
-        this.checkNotEquals(
-                null,
-                this.createContext()
-                        .expressionFunctionProvider(this.spreadsheetId())
         );
     }
 
@@ -1321,11 +1164,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -1360,46 +1199,31 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         return metadata;
     }
 
-    private ConverterProvider spreadsheetIdToConverterProvider(final SpreadsheetId spreadsheetId) {
-        this.checkSpreadsheetId(spreadsheetId);
-
-        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                this.spreadsheetIdToRepository.get(spreadsheetId)
-                        .metadatas()
-                        .loadOrFail(spreadsheetId),
-                this.spreadsheetIdToSpreadsheetFormatterProvider(spreadsheetId),
-                this.spreadsheetIdToSpreadsheetParserProvider(spreadsheetId)
-        );
-    }
-
-    private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId spreadsheetId) {
-        this.checkSpreadsheetId(spreadsheetId);
-
-        return SPREADSHEET_COMPARATOR_PROVIDER;
-    }
-
-    private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId spreadsheetId) {
-        this.checkSpreadsheetId(spreadsheetId);
-
-        return SPREADSHEET_FORMATTER_PROVIDER;
-    }
-
-    private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId spreadsheetId) {
-        this.checkSpreadsheetId(spreadsheetId);
-
-        return ExpressionFunctionProviders.basic(
-                Url.parseAbsolute("https://example.com/functions"),
-                CaseSensitivity.INSENSITIVE,
-                Sets.of(
-                        ExpressionFunctions.typeName()
-                )
-        );
-    }
-
-    private SpreadsheetParserProvider spreadsheetIdToSpreadsheetParserProvider(final SpreadsheetId spreadsheetId) {
-        return SpreadsheetParserProviders.spreadsheetParsePattern(
-                this.spreadsheetIdToSpreadsheetFormatterProvider(spreadsheetId)
-        );
+    private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
+        return METADATA_STORE.loadOrFail(id)
+                .spreadsheetProvider(
+                        SpreadsheetProviders.basic(
+                                CONVERTER_PROVIDER,
+                                new FakeExpressionFunctionProvider() {
+                                    @Override
+                                    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
+                                        return Sets.of(
+                                                ExpressionFunctionInfo.with(
+                                                        Url.parseAbsolute("https://example.com/expression-function-1"),
+                                                        FunctionExpressionName.with("ExpressionFunction1")
+                                                ),
+                                                ExpressionFunctionInfo.with(
+                                                        Url.parseAbsolute("https://example.com/expression-function-2"),
+                                                        FunctionExpressionName.with("ExpressionFunction2")
+                                                )
+                                        );
+                                    }
+                                },
+                                SPREADSHEET_COMPARATOR_PROVIDER,
+                                SPREADSHEET_FORMATTER_PROVIDER,
+                                SPREADSHEET_PARSER_PROVIDER
+                        )
+                );
     }
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
@@ -1412,12 +1236,10 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         SpreadsheetStoreRepository repository = this.spreadsheetIdToRepository.get(id);
 
         if (null == repository) {
-            final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-
             final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
             final LocalDateTime now = LocalDateTime.now();
 
-            metadataStore.save(
+            METADATA_STORE.save(
                     SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
                     .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
@@ -1454,7 +1276,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                     SpreadsheetGroupStores.treeMap(),
                     SpreadsheetLabelStores.treeMap(),
                     SpreadsheetExpressionReferenceStores.treeMap(),
-                    metadataStore,
+                    METADATA_STORE,
                     SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetCellRangeStores.treeMap(),
                     SpreadsheetRowStores.treeMap(),
@@ -1467,11 +1289,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     }
 
     private final Map<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = Maps.sorted();
-
-    private void checkSpreadsheetId(final SpreadsheetId id) {
-        Objects.requireNonNull(id, "spreadsheetId");
-        this.checkEquals(this.spreadsheetId(), id, "spreadsheetId");
-    }
 
     private SpreadsheetId spreadsheetId() {
         return SpreadsheetId.with(0x123def);

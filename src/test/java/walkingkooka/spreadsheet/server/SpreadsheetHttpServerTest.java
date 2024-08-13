@@ -26,7 +26,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
@@ -61,12 +60,9 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
@@ -78,9 +74,10 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -103,7 +100,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -9023,11 +9019,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 fractioner(),
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                spreadsheetIdToConverterProvider(),
-                spreadsheetIdToSpreadsheetComparatorProvider(),
-                spreadsheetIdToSpreadsheetFormatterProvider(),
-                spreadsheetIdToExpressionFunctionProvider(),
-                spreadsheetIdToSpreadsheetParserProvider(),
+                this::spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 this::fileServer,
                 this::server
@@ -9086,42 +9078,31 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         };
     }
 
-    private Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider() {
-        return (id) -> SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                this.metadataStore.loadOrFail(id),
-                this.spreadsheetIdToSpreadsheetFormatterProvider().apply(id),
-                this.spreadsheetIdToSpreadsheetParserProvider().apply(id)
-        );
-    }
-
-    private static Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SPREADSHEET_COMPARATOR_PROVIDER;
-    }
-
-    private static Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SPREADSHEET_FORMATTER_PROVIDER;
-    }
-    
-    private static Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
-        return (id) -> new FakeExpressionFunctionProvider() {
-            @Override
-            public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-                return Sets.of(
-                        ExpressionFunctionInfo.with(
-                                Url.parseAbsolute("https://example.com/expression-function-1"),
-                                FunctionExpressionName.with("ExpressionFunction1")
-                        ),
-                        ExpressionFunctionInfo.with(
-                                Url.parseAbsolute("https://example.com/expression-function-2"),
-                                FunctionExpressionName.with("ExpressionFunction2")
+    private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
+        return this.metadataStore.loadOrFail(id)
+                .spreadsheetProvider(
+                        SpreadsheetProviders.basic(
+                                CONVERTER_PROVIDER,
+                                new FakeExpressionFunctionProvider() {
+                                    @Override
+                                    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
+                                        return Sets.of(
+                                                ExpressionFunctionInfo.with(
+                                                        Url.parseAbsolute("https://example.com/expression-function-1"),
+                                                        FunctionExpressionName.with("ExpressionFunction1")
+                                                ),
+                                                ExpressionFunctionInfo.with(
+                                                        Url.parseAbsolute("https://example.com/expression-function-2"),
+                                                        FunctionExpressionName.with("ExpressionFunction2")
+                                                )
+                                        );
+                                    }
+                                },
+                                SPREADSHEET_COMPARATOR_PROVIDER,
+                                SPREADSHEET_FORMATTER_PROVIDER,
+                                SPREADSHEET_PARSER_PROVIDER
                         )
                 );
-            }
-        };
-    }
-
-    private static Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
-        return (id) -> SPREADSHEET_PARSER_PROVIDER;
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();

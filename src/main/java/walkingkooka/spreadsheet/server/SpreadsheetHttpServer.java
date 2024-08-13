@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
@@ -45,15 +44,12 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -90,11 +86,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<BigDecimal, Fraction> fractioner,
                                              final JsonNodeMarshallContext jsonNodeMarshallContext,
                                              final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
-                                             final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                                             final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
-                                             final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                             final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                             final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
+                                             final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler, HttpServer> server) {
@@ -111,11 +103,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 fractioner,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
-                spreadsheetIdToConverterProvider,
-                spreadsheetIdToSpreadsheetComparatorProvider,
-                spreadsheetIdToSpreadsheetFormatterProvider,
-                spreadsheetIdToExpressionFunctionProvider,
-                spreadsheetIdToSpreadsheetParserProvider,
+                spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 fileServer,
                 server
@@ -145,11 +133,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final JsonNodeMarshallContext jsonNodeMarshallContext,
                                   final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
-                                  final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                                  final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
-                                  final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                  final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                  final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
+                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                   final Function<HttpHandler, HttpServer> server) {
@@ -168,11 +152,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.jsonNodeMarshallContext = jsonNodeMarshallContext;
         this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
 
-        this.spreadsheetIdToConverterProvider = spreadsheetIdToConverterProvider;
-        this.spreadsheetIdToSpreadsheetComparatorProvider = spreadsheetIdToSpreadsheetComparatorProvider;
-        this.spreadsheetIdToSpreadsheetFormatterProvider = spreadsheetIdToSpreadsheetFormatterProvider;
-        this.spreadsheetIdToExpressionFunctionProvider = spreadsheetIdToExpressionFunctionProvider;
-        this.spreadsheetIdToSpreadsheetParserProvider = spreadsheetIdToSpreadsheetParserProvider;
+        this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
+ 
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.server = server.apply(
@@ -236,11 +217,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.createMetadata,
                 this.metadataStore,
                 this.fractioner,
-                this.spreadsheetIdToConverterProvider,
-                this.spreadsheetIdToSpreadsheetComparatorProvider,
-                this.spreadsheetIdToSpreadsheetFormatterProvider,
-                this.spreadsheetIdToExpressionFunctionProvider,
-                this.spreadsheetIdToSpreadsheetParserProvider,
+                this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallContext,
@@ -266,11 +243,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
-                this.spreadsheetIdToConverterProvider,
-                this.spreadsheetIdToSpreadsheetComparatorProvider,
-                this.spreadsheetIdToSpreadsheetFormatterProvider,
-                this.spreadsheetIdToExpressionFunctionProvider,
-                this.spreadsheetIdToSpreadsheetParserProvider,
+                this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallContext,
@@ -291,15 +264,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final Function<BigDecimal, Fraction> fractioner;
 
-    private final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider;
-
-    private final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider;
-
-    private final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider;
-
-    private final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider;
-
-    private final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider;
+    private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
 
