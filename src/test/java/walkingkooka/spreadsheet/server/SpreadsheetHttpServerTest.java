@@ -3045,6 +3045,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         "{\n" +
+                                "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\"\n" +
+                                "  },\n" +
                                 "  \"cells\": {\n" +
                                 "    \"A1\": {\n" +
                                 "      \"formula\": {\n" +
