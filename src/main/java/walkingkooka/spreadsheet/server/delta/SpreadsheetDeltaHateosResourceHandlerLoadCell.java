@@ -30,6 +30,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -85,14 +87,46 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         final SpreadsheetViewport viewport = maybeViewport.get();
 
         final SpreadsheetEngine engine = this.engine;
-        final Optional<SpreadsheetViewport> navigatedViewport = engine.navigate(
+
+        final Optional<SpreadsheetViewport> maybeNavigatedViewport = engine.navigate(
                 viewport,
                 context
         );
 
+        // if the selection moved need to SAVE!
+        SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+
+        if (maybeNavigatedViewport.isPresent()) {
+            metadata = context.storeRepository()
+                    .metadatas()
+                    .save(
+                            metadata.set(
+                                    SpreadsheetMetadataPropertyName.VIEWPORT,
+                                    maybeNavigatedViewport.get()
+                            )
+                    );
+        }
+
+        return this.handleAll0(
+                resource,
+                parameters,
+                maybeNavigatedViewport.orElse(viewport),
+                SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
+                        metadata,
+                        context
+                )
+        );
+    }
+
+    /**
+     * This is invoked after any navigations to the viewport.
+     */
+    private Optional<SpreadsheetDelta> handleAll0(final Optional<SpreadsheetDelta> resource,
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final SpreadsheetViewport viewport,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetViewportWindows window = this.engine.window(
-                navigatedViewport.orElse(viewport)
-                        .rectangle(),
+                viewport.rectangle(),
                 true, // includeFrozenColumnsRows,
                 SpreadsheetEngine.NO_SELECTION, // no selection
                 context
@@ -111,7 +145,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         return this.handleRange0(
                 window.cellRanges(),
                 resource,
-                navigatedViewport,
+                Optional.of(viewport),
                 Maps.immutable(
                         parametersPlusWindow
                 ),

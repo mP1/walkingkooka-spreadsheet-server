@@ -57,7 +57,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -84,7 +86,6 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -92,7 +93,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTesting2<SpreadsheetDeltaHateosResourceMappings> {
+public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTesting2<SpreadsheetDeltaHateosResourceMappings>,
+        SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -499,6 +501,9 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
         labelStore.save(label123.mapping(a1));
 
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+        metadataStore.save(METADATA_EN_AU);
+
         return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
@@ -508,8 +513,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadata.EMPTY.set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                        .loadFromLocale();
+                return METADATA_EN_AU;
             }
 
             @Override
@@ -518,6 +522,11 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                     @Override
                     public SpreadsheetLabelStore labels() {
                         return labelStore;
+                    }
+
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return metadataStore;
                     }
                 };
             }

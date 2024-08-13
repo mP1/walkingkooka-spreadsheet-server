@@ -39,6 +39,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -52,7 +54,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
@@ -69,7 +70,6 @@ import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -641,6 +641,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 Lists.of(deltaProperties)
         );
 
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+        metadataStore.save(METADATA_EN_AU);
+
         this.handleAllAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
                         EVALUATION,
@@ -712,9 +715,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
-                        return SpreadsheetMetadata.EMPTY
-                                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                .loadFromLocale();
+                        return METADATA_EN_AU;
                     }
 
                     @Override
@@ -723,6 +724,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                             @Override
                             public SpreadsheetCellStore cells() {
                                 return SpreadsheetCellStores.fake();
+                            }
+
+                            @Override
+                            public SpreadsheetMetadataStore metadatas() {
+                                return metadataStore;
                             }
                         };
                     }
@@ -800,9 +806,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         new FakeSpreadsheetEngineContext() {
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
-                return SpreadsheetMetadata.EMPTY
-                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                        .loadFromLocale()
+                return METADATA_EN_AU
                         .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
                         .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
             }
@@ -1136,6 +1140,23 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
 
+        final SpreadsheetMetadata metadata = METADATA_EN_AU.set(
+                SpreadsheetMetadataPropertyName.STYLE,
+                TextStyle.EMPTY
+                        .set(
+                                TextStylePropertyName.WIDTH,
+                                Length.pixel(COLUMN_WIDTH
+                                )
+                        )
+                        .set(
+                                TextStylePropertyName.HEIGHT,
+                                Length.pixel(ROW_HEIGHT)
+                        )
+        );
+
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+        metadataStore.save(metadata);
+
         this.handleAllAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
                         EVALUATION,
@@ -1184,21 +1205,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
-                        return SpreadsheetMetadata.EMPTY
-                                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                                .set(
-                                        SpreadsheetMetadataPropertyName.STYLE,
-                                        TextStyle.EMPTY
-                                                .set(
-                                                        TextStylePropertyName.WIDTH,
-                                                        Length.pixel(COLUMN_WIDTH
-                                                        )
-                                                )
-                                                .set(
-                                                        TextStylePropertyName.HEIGHT,
-                                                        Length.pixel(ROW_HEIGHT)
-                                                )
-                                ).loadFromLocale();
+                        return metadata;
                     }
 
                     @Override
@@ -1217,6 +1224,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                             }
 
                             private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                            @Override
+                            public SpreadsheetMetadataStore metadatas() {
+                                return metadataStore;
+                            }
 
                             @Override
                             public SpreadsheetRowStore rows() {
@@ -1323,7 +1335,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
     @Override
     public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        store.save(METADATA);
+
+        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+
+            @Override
+            public SpreadsheetMetadata spreadsheetMetadata() {
+                return METADATA_EN_AU;
+            }
+
+            public SpreadsheetStoreRepository storeRepository() {
+                return new FakeSpreadsheetStoreRepository() {
+                    @Override
+                    public SpreadsheetMetadataStore metadatas() {
+                        return store;
+                    }
+                };
+            }
+        };
     }
 
     @Override
