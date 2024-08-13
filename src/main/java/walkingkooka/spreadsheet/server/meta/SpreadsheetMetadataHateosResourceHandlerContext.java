@@ -18,25 +18,15 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -63,30 +53,10 @@ public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosR
     SpreadsheetMetadataStore metadataStore();
 
     /**
-     * Returns a {@link Function} which knows the available {@link Converter} by {@link ConverterName}.
+     * Returns a {@link Function} which knows the available {@link SpreadsheetProvider} for the given {@link SpreadsheetId}
      */
-    ConverterProvider converterProvider(final SpreadsheetId id);
-    
-    /**
-     * Returns a {@link Function} which knows the available {@link SpreadsheetComparator} by {@link SpreadsheetComparatorName}.
-     */
-    SpreadsheetComparatorProvider comparatorProvider(final SpreadsheetId id);
+    SpreadsheetProvider spreadsheetProvider(final SpreadsheetId id);
 
-    /**
-     * Returns a {@link Function} which knows the available {@link SpreadsheetFormatterProvider} by {@link SpreadsheetFormatterName}.
-     */
-    SpreadsheetFormatterProvider formatterProvider(final SpreadsheetId id);
-
-    /**
-     * Returns a {@link ExpressionFunctionProvider} for the given {@link SpreadsheetId}.
-     */
-    ExpressionFunctionProvider expressionFunctionProvider(final SpreadsheetId id);
-
-    /**
-     * Returns a {@link Function} which knows the available {@link SpreadsheetParserProvider} by {@link SpreadsheetParserName}.
-     */
-    SpreadsheetParserProvider parserProvider(final SpreadsheetId id);
-    
     /**
      * A {@link Router} that can handle http requests for the given identified spreadsheet.
      */

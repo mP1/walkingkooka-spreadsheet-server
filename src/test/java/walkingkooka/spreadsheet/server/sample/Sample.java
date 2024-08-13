@@ -51,6 +51,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
@@ -257,15 +258,17 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         metadata.expressionNumberKind(),
                         metadata.mathContext()
                 ),
-                (id) -> metadata.converterProvider(ConverterProviders.converters()), // spreadsheetIdToConverterProvider
-                (id) -> metadata.spreadsheetComparatorProvider(SpreadsheetComparatorProviders.spreadsheetComparators()), // spreadsheetIdToSpreadsheetComparatorProvider
-                (id) -> metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider), // spreadsheetIdToSpreadsheetFormatterProvider
-                (id) -> metadata.expressionFunctionProvider(ExpressionFunctionProviders.expressionFunctions()), // spreadsheetIdToExpressionFunctionProvider
-                (id) -> metadata.spreadsheetParserProvider(
-                        SpreadsheetParserProviders.spreadsheetParsePattern(
-                                metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
+                (id) -> metadata.spreadsheetProvider(
+                        SpreadsheetProviders.basic(
+                                ConverterProviders.converters(),
+                                ExpressionFunctionProviders.expressionFunctions(),
+                                SpreadsheetComparatorProviders.spreadsheetComparators(),
+                                spreadsheetFormatterProvider,
+                                SpreadsheetParserProviders.spreadsheetParsePattern(
+                                        metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
+                                )
                         )
-                ), // spreadsheetIdToSpreadsheetParserProvider
+                ),
                 (id) -> repo, // spreadsheetIdToStoreRepository
                 (url) -> {
                     throw new UnsupportedOperationException(); // fileServer

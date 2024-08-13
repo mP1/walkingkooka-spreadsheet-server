@@ -18,25 +18,20 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -65,11 +60,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
                 this::fractioner,
-                this::spreadsheetIdToConverterProvider,
-                this::spreadsheetIdToSpreadsheetComparatorProvider,
-                this::spreadsheetIdToSpreadsheetFormatterProvider,
-                this::spreadsheetIdToExpressionFunctionProvider,
-                this::spreadsheetIdToSpreadsheetParserProvider,
+                this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -86,32 +77,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
         throw new UnsupportedOperationException();
     }
 
-    private ConverterProvider spreadsheetIdToConverterProvider(final SpreadsheetId id) {
-        return SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                SpreadsheetMetadata.EMPTY,
-                this.spreadsheetIdToSpreadsheetFormatterProvider(id),
-                this.spreadsheetIdToSpreadsheetParserProvider(id)
-        );
+    private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
+        return SpreadsheetProviders.fake();
     }
-    
-    private SpreadsheetComparatorProvider spreadsheetIdToSpreadsheetComparatorProvider(final SpreadsheetId id) {
-        return SPREADSHEET_COMPARATOR_PROVIDER;
-    }
-
-    private SpreadsheetFormatterProvider spreadsheetIdToSpreadsheetFormatterProvider(final SpreadsheetId id) {
-        return SPREADSHEET_FORMATTER_PROVIDER;
-    }
-
-    private ExpressionFunctionProvider spreadsheetIdToExpressionFunctionProvider(final SpreadsheetId id) {
-        throw new UnsupportedOperationException();
-    }
-
-    private SpreadsheetParserProvider spreadsheetIdToSpreadsheetParserProvider(final SpreadsheetId id) {
-        return SpreadsheetParserProviders.spreadsheetParsePattern(
-                this.spreadsheetIdToSpreadsheetFormatterProvider(id)
-        );
-    }
-
     private SpreadsheetMetadata defaultMetadata(final Optional<Locale> locale) {
         throw new UnsupportedOperationException();
     }

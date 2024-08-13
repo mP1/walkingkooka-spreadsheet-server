@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -38,19 +37,16 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.convert.SpreadsheetConvertersConverterProviders;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviders;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
@@ -68,7 +64,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
 import java.math.BigDecimal;
@@ -360,11 +355,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 fractioner(),
                 createMetadata(),
                 this.metadataStore,
-                spreadsheetIdToConverterProvider(),
-                spreadsheetIdToSpreadsheetComparatorProvider(),
-                spreadsheetIdToSpreadsheetFormatterProvider(),
-                spreadsheetIdToExpressionFunctionProvider(),
-                spreadsheetIdToSpreadsheetParserProvider(),
+                spreadsheetIdToSpreadsheetProvider(),
                 spreadsheetIdToStoreRepository(),
                 spreadsheetMetadataStamper(),
                 JSON_NODE_MARSHALL_CONTEXT,
@@ -388,35 +379,21 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
 
-    private Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider() {
-        return (id) -> SpreadsheetConvertersConverterProviders.spreadsheetConverters(
-                this.metadataStore.loadOrFail(id),
-                spreadsheetIdToSpreadsheetFormatterProvider().apply(id),
-                spreadsheetIdToSpreadsheetParserProvider().apply(id)
-        );
-    }
-
-    private Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider() {
-        return (id) -> SPREADSHEET_COMPARATOR_PROVIDER;
-    }
-
-    private Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider() {
-        return (id) -> SPREADSHEET_FORMATTER_PROVIDER;
-    }
-
-    private Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider() {
-        return (i) -> ExpressionFunctionProviders.basic(
-                Url.parseAbsolute("https://example.com/functions"),
-                CaseSensitivity.INSENSITIVE,
-                Sets.of(
-                        ExpressionFunctions.typeName()
+    private Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider() {
+        return (id) -> this.metadataStore.loadOrFail(id).spreadsheetProvider(
+                SpreadsheetProviders.basic(
+                        CONVERTER_PROVIDER,
+                        ExpressionFunctionProviders.basic(
+                                Url.parseAbsolute("https://example.com/functions"),
+                                CaseSensitivity.INSENSITIVE,
+                                Sets.of(
+                                        ExpressionFunctions.typeName()
+                                )
+                        ),
+                        SPREADSHEET_COMPARATOR_PROVIDER,
+                        SPREADSHEET_FORMATTER_PROVIDER,
+                        SPREADSHEET_PARSER_PROVIDER
                 )
-        );
-    }
-
-    private Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider() {
-        return (id) -> SpreadsheetParserProviders.spreadsheetParsePattern(
-                this.spreadsheetIdToSpreadsheetFormatterProvider().apply(id)
         );
     }
 

@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -35,18 +34,15 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -73,11 +69,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                final SpreadsheetMetadataStore metadataStore,
                                                                final Function<BigDecimal, Fraction> fractioner,
-                                                               final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                                                               final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
-                                                               final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                                               final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                                               final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
+                                                               final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                final JsonNodeMarshallContext jsonNodeMarshallContext,
@@ -90,11 +82,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 createMetadata,
                 metadataStore,
                 fractioner,
-                spreadsheetIdToConverterProvider,
-                spreadsheetIdToSpreadsheetComparatorProvider,
-                spreadsheetIdToSpreadsheetFormatterProvider,
-                spreadsheetIdToExpressionFunctionProvider,
-                spreadsheetIdToSpreadsheetParserProvider,
+                spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 jsonNodeMarshallContext,
@@ -112,11 +100,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                            final SpreadsheetMetadataStore metadataStore,
                                                            final Function<BigDecimal, Fraction> fractioner,
-                                                           final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                                                           final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToSpreadsheetComparatorProvider,
-                                                           final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToSpreadsheetFormatterProvider,
-                                                           final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                                           final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToSpreadsheetParserProvider,
+                                                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                            final JsonNodeMarshallContext jsonNodeMarshallContext,
@@ -133,11 +117,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 fractioner,
                 createMetadata,
                 metadataStore,
-                spreadsheetIdToConverterProvider,
-                spreadsheetIdToSpreadsheetComparatorProvider,
-                spreadsheetIdToSpreadsheetFormatterProvider,
-                spreadsheetIdToExpressionFunctionProvider,
-                spreadsheetIdToSpreadsheetParserProvider,
+                spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
                 jsonNodeMarshallContext,

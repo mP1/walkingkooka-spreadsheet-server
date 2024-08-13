@@ -17,21 +17,17 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
@@ -54,11 +50,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<BigDecimal, Fraction> fractioner,
                                                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                         final SpreadsheetMetadataStore metadataStore,
-                                                                        final Function<SpreadsheetId, ConverterProvider> spreadsheetIdToConverterProvider,
-                                                                        final Function<SpreadsheetId, SpreadsheetComparatorProvider> spreadsheetIdToComparatorProvider,
-                                                                        final Function<SpreadsheetId, SpreadsheetFormatterProvider> spreadsheetIdToFormatterProvider,
-                                                                        final Function<SpreadsheetId, ExpressionFunctionProvider> spreadsheetIdToExpressionFunctionProvider,
-                                                                        final Function<SpreadsheetId, SpreadsheetParserProvider> spreadsheetIdToParserProvider,
+                                                                        final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                         final JsonNodeMarshallContext marshallContext,
@@ -71,11 +63,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 fractioner,
                 createMetadata,
                 metadataStore,
-                spreadsheetIdToConverterProvider,
-                spreadsheetIdToComparatorProvider,
-                spreadsheetIdToFormatterProvider,
-                spreadsheetIdToExpressionFunctionProvider,
-                spreadsheetIdToParserProvider,
+                spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
                 marshallContext,
