@@ -143,6 +143,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
+    private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
 
     @Test
     public void testStartServer() {
@@ -190,12 +191,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.CREATED.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                 )
         );
-        this.checkNotEquals(null,
-                this.metadataStore.load(SpreadsheetId.with(1L)),
-                () -> "spreadsheet metadata not created and saved: " + this.metadataStore);
+        this.checkNotEquals(
+                null,
+                this.metadataStore.load(SPREADSHEET_ID),
+                () -> "spreadsheet metadata not created and saved: " + this.metadataStore
+        );
     }
 
     @Test
@@ -204,7 +207,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         this.checkNotEquals(
                 null,
-                this.metadataStore.load(SpreadsheetId.with(1L)),
+                this.metadataStore.load(SPREADSHEET_ID),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore
         );
     }
@@ -215,7 +218,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         this.checkNotEquals(
                 null,
-                this.metadataStore.load(SpreadsheetId.with(1L)),
+                this.metadataStore.load(SPREADSHEET_ID),
                 () -> "spreadsheet metadata not created and saved: " + this.metadataStore
         );
 
@@ -228,7 +231,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                 )
         );
     }
@@ -859,7 +862,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         final SpreadsheetMetadata stamped = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L))
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, MODIFIED_DATE_TIME);
 
         server.handleAndCheck(
@@ -1202,7 +1205,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testCreateAndPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SpreadsheetId.with(1L));
+        final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SPREADSHEET_ID);
         this.checkNotEquals(
                 null,
                 loaded,
@@ -1272,7 +1275,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         this.createMetadata()
                                 .set(
                                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
+                                        SPREADSHEET_ID
                                 )
                 )
         );
@@ -4202,7 +4205,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1L));
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID);
 
         // create a new spreadsheet.
         server.handleAndCheck(
@@ -8830,7 +8833,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         this.createMetadata()
                                 .set(
                                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SpreadsheetId.with(1L)
+                                        SPREADSHEET_ID
                                 )
                 )
         );
