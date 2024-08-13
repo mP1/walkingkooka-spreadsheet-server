@@ -3838,6 +3838,223 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         DELTA
                 )
         );
+
+        // verify metadata was updated and saved.
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"spreadsheet-id\": \"1\",\n" +
+                                "  \"cell-character-width\": 1,\n" +
+                                "  \"color-1\": \"#000000\",\n" +
+                                "  \"color-2\": \"#ffffff\",\n" +
+                                "  \"color-Black\": 1,\n" +
+                                "  \"color-White\": 2,\n" +
+                                "  \"converters\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic-spreadsheet-converter\",\n" +
+                                "      \"name\": \"basic-spreadsheet-converter\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing\",\n" +
+                                "      \"name\": \"error-throwing\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number\",\n" +
+                                "      \"name\": \"error-to-number\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string\",\n" +
+                                "      \"name\": \"error-to-string\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general\",\n" +
+                                "      \"name\": \"general\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection\",\n" +
+                                "      \"name\": \"selection-to-selection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to\",\n" +
+                                "      \"name\": \"spreadsheet-cell-to\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection\",\n" +
+                                "      \"name\": \"string-to-selection\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
+                                "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
+                                "  \"creator\": \"user@example.com\",\n" +
+                                "  \"currency-symbol\": \"$\",\n" +
+                                "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                                "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                                "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                                "  \"date-time-offset\": \"-25569\",\n" +
+                                "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                                "  \"decimal-separator\": \".\",\n" +
+                                "  \"default-year\": 2000,\n" +
+                                "  \"exponent-symbol\": \"e\",\n" +
+                                "  \"expression-converter\": \"general\",\n" +
+                                "  \"expression-functions\": [],\n" +
+                                "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
+                                "  \"general-number-format-digit-count\": 8,\n" +
+                                "  \"group-separator\": \",\",\n" +
+                                "  \"locale\": \"en-AU\",\n" +
+                                "  \"modified-by\": \"user@example.com\",\n" +
+                                "  \"modified-date-time\": \"2021-07-15T20:33\",\n" +
+                                "  \"negative-sign\": \"-\",\n" +
+                                "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                                "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                                "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"positive-sign\": \"+\",\n" +
+                                "  \"precision\": 7,\n" +
+                                "  \"rounding-mode\": \"HALF_UP\",\n" +
+                                "  \"spreadsheet-comparators\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date\",\n" +
+                                "      \"name\": \"date\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time\",\n" +
+                                "      \"name\": \"date-time\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month\",\n" +
+                                "      \"name\": \"day-of-month\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-week\",\n" +
+                                "      \"name\": \"day-of-week\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-am-pm\",\n" +
+                                "      \"name\": \"hour-of-am-pm\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-day\",\n" +
+                                "      \"name\": \"hour-of-day\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/minute-of-hour\",\n" +
+                                "      \"name\": \"minute-of-hour\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/month-of-year\",\n" +
+                                "      \"name\": \"month-of-year\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/nano-of-second\",\n" +
+                                "      \"name\": \"nano-of-second\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/number\",\n" +
+                                "      \"name\": \"number\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/seconds-of-minute\",\n" +
+                                "      \"name\": \"seconds-of-minute\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text\",\n" +
+                                "      \"name\": \"text\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text-case-insensitive\",\n" +
+                                "      \"name\": \"text-case-insensitive\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time\",\n" +
+                                "      \"name\": \"time\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year\",\n" +
+                                "      \"name\": \"year\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
+                                "  \"spreadsheet-formatters\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic\",\n" +
+                                "      \"name\": \"automatic\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection\",\n" +
+                                "      \"name\": \"collection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern\",\n" +
+                                "      \"name\": \"date-format-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern\",\n" +
+                                "      \"name\": \"date-time-format-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general\",\n" +
+                                "      \"name\": \"general\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern\",\n" +
+                                "      \"name\": \"number-format-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection\",\n" +
+                                "      \"name\": \"spreadsheet-pattern-collection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern\",\n" +
+                                "      \"name\": \"text-format-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern\",\n" +
+                                "      \"name\": \"time-format-pattern\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
+                                "  \"spreadsheet-parsers\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/date-parse-pattern\",\n" +
+                                "      \"name\": \"date-parse-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/date-time-parse-pattern\",\n" +
+                                "      \"name\": \"date-time-parse-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/number-parse-pattern\",\n" +
+                                "      \"name\": \"number-parse-pattern\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/time-parse-pattern\",\n" +
+                                "      \"name\": \"time-parse-pattern\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
+                                "  \"style\": {\n" +
+                                "    \"height\": \"50px\",\n" +
+                                "    \"width\": \"100px\"\n" +
+                                "  },\n" +
+                                "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                                "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                                "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
+                                "  \"two-digit-year\": 50,\n" +
+                                "  \"value-separator\": \",\",\n" +
+                                "  \"viewport\": {\n" +
+                                "    \"rectangle\": \"A1:200.0:60.0\",\n" +
+                                "    \"anchoredSelection\": {\n" +
+                                "      \"selection\": {\n" +
+                                "        \"type\": \"spreadsheet-cell-range-reference\",\n" +
+                                "        \"value\": \"A1:B1\"\n" +
+                                "      },\n" +
+                                "      \"anchor\": \"TOP_LEFT\"\n" +
+                                "    }\n" +
+                                "  }\n" +
+                                "}",
+                        SpreadsheetMetadata.class.getSimpleName()
+                )
+        );
     }
 
     @Test
