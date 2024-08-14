@@ -177,8 +177,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public boolean isPure(final ExpressionFunctionName functionExpressionName) {
-        return this.context.isPure(functionExpressionName);
+    public boolean isPure(final ExpressionFunctionName name) {
+        return this.context.isPure(name);
     }
 
     // ConverterProvider................................................................................................

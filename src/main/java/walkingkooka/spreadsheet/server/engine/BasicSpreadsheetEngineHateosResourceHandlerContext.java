@@ -180,8 +180,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public boolean isPure(final ExpressionFunctionName functionExpressionName) {
-        return this.engineContext.isPure(functionExpressionName);
+    public boolean isPure(final ExpressionFunctionName name) {
+        return this.engineContext.isPure(name);
     }
 
     // ConverterProvider................................................................................................

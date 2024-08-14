@@ -117,7 +117,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public boolean isPure(final ExpressionFunctionName functionExpressionName) {
+    public boolean isPure(final ExpressionFunctionName name) {
         throw new UnsupportedOperationException();
     }
 
