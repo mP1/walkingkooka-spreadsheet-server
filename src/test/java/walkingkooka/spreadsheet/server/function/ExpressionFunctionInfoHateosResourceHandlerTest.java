@@ -28,7 +28,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 
@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class ExpressionFunctionInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<ExpressionFunctionInfoHateosResourceHandler,
-        FunctionExpressionName,
+        ExpressionFunctionName,
         ExpressionFunctionInfo,
         ExpressionFunctionInfoSet,
         SpreadsheetEngineHateosResourceHandlerContext>,
@@ -47,12 +47,12 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
 
     private final static ExpressionFunctionInfo INFO1 = ExpressionFunctionInfo.with(
             Url.parseAbsolute("https://example.com/1"),
-            FunctionExpressionName.with("function-1")
+            ExpressionFunctionName.with("function-1")
     );
 
     private final static ExpressionFunctionInfo INFO2 = ExpressionFunctionInfo.with(
             Url.parseAbsolute("https://example.com/2"),
-            FunctionExpressionName.with("function-2")
+            ExpressionFunctionName.with("function-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -80,7 +80,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                FunctionExpressionName.with("Unknown"),
+                ExpressionFunctionName.with("Unknown"),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
                 this.context(),
@@ -111,12 +111,12 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     }
 
     @Override
-    public FunctionExpressionName id() {
-        return FunctionExpressionName.with("id-spreadsheet-function-name");
+    public ExpressionFunctionName id() {
+        return ExpressionFunctionName.with("id-spreadsheet-function-name");
     }
 
     @Override
-    public Set<FunctionExpressionName> manyIds() {
+    public Set<ExpressionFunctionName> manyIds() {
         return Sets.of(
                 INFO1.name(),
                 INFO2.name()
@@ -124,9 +124,9 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     }
 
     @Override
-    public Range<FunctionExpressionName> range() {
+    public Range<ExpressionFunctionName> range() {
         return Range.singleton(
-                FunctionExpressionName.with("range-spreadsheet-function-name")
+                ExpressionFunctionName.with("range-spreadsheet-function-name")
         );
     }
 

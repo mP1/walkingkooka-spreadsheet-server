@@ -25,7 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 
@@ -33,7 +33,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
     // function.......................................................................................................
 
-    public static HateosResourceMapping<FunctionExpressionName,
+    public static HateosResourceMapping<ExpressionFunctionName,
             ExpressionFunctionInfo,
             ExpressionFunctionInfoSet,
             ExpressionFunctionInfo,
@@ -41,7 +41,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
         // function GET...............................................................................................
 
-        HateosResourceMapping<FunctionExpressionName,
+        HateosResourceMapping<ExpressionFunctionName,
                 ExpressionFunctionInfo,
                 ExpressionFunctionInfoSet,
                 ExpressionFunctionInfo,
@@ -62,9 +62,9 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
         return function;
     }
 
-    private static HateosResourceSelection<FunctionExpressionName> parseFunctionSelection(final String text,
+    private static HateosResourceSelection<ExpressionFunctionName> parseFunctionSelection(final String text,
                                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
-        final HateosResourceSelection<FunctionExpressionName> selection;
+        final HateosResourceSelection<ExpressionFunctionName> selection;
 
         switch (text) {
             case "":
@@ -74,7 +74,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 throw new IllegalArgumentException("Invalid function selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                        FunctionExpressionName.with(text)
+                        ExpressionFunctionName.with(text)
                 );
                 break;
         }
