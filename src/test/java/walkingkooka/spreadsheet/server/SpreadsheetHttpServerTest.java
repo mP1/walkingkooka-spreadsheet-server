@@ -97,7 +97,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
@@ -9089,11 +9089,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         return Sets.of(
                                                 ExpressionFunctionInfo.with(
                                                         Url.parseAbsolute("https://example.com/expression-function-1"),
-                                                        FunctionExpressionName.with("ExpressionFunction1")
+                                                        ExpressionFunctionName.with("ExpressionFunction1")
                                                 ),
                                                 ExpressionFunctionInfo.with(
                                                         Url.parseAbsolute("https://example.com/expression-function-2"),
-                                                        FunctionExpressionName.with("ExpressionFunction2")
+                                                        ExpressionFunctionName.with("ExpressionFunction2")
                                                 )
                                         );
                                     }

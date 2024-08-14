@@ -77,7 +77,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.JsonNodeMarshallUnmarshallContextDelegator;
@@ -333,7 +333,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
-        final HateosResourceMapping<FunctionExpressionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
+        final HateosResourceMapping<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
 
         final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetLabelHateosResourceMappings.INSTANCE;
 

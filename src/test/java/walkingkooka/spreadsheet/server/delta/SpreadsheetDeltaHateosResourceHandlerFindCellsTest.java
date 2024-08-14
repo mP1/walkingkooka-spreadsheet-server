@@ -42,7 +42,7 @@ import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHan
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.Map;
 import java.util.Optional;
@@ -72,7 +72,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     private final static String VALUE_TYPE = "test-value-type";
     private final static Expression EXPRESSION = Expression.call(
             Expression.namedFunction(
-                    FunctionExpressionName.with("test123")
+                    ExpressionFunctionName.with("test123")
             ),
             Expression.NO_CHILDREN
     );

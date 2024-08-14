@@ -127,7 +127,7 @@ available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-e
 
 - **GET** /api/spreadsheet/$spreadsheet-id/expression-function
 - **GET**
-  /api/spreadsheet/$spreadsheet-id/expression-function/[FunctionExpressionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/FunctionExpressionName.java)
+  /api/spreadsheet/$spreadsheet-id/expression-function/[ExpressionFunctionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
 
 #### [Label](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/SpreadsheetLabelName.java)
 

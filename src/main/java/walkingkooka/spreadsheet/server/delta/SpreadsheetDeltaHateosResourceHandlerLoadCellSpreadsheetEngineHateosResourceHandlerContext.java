@@ -41,8 +41,8 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.json.JsonNodeMarshallUnmarshallContextDelegator;
@@ -177,7 +177,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public boolean isPure(final FunctionExpressionName functionExpressionName) {
+    public boolean isPure(final ExpressionFunctionName functionExpressionName) {
         return this.context.isPure(functionExpressionName);
     }
 
@@ -203,7 +203,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name,
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
                                                                                  final ProviderContext context) {
         return this.context.expressionFunction(
                 name,
