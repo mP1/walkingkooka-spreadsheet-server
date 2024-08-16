@@ -3898,6 +3898,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"expression-converter\": \"general\",\n" +
                                 "  \"expression-functions\": [],\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
+                                "  \"format-converter\": \"general\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
