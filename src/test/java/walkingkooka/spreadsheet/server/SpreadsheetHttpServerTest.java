@@ -3854,8 +3854,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"color-White\": 2,\n" +
                                 "  \"converters\": [\n" +
                                 "    {\n" +
-                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic-spreadsheet-converter\",\n" +
-                                "      \"name\": \"basic-spreadsheet-converter\"\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic\",\n" +
+                                "      \"name\": \"basic\"\n" +
                                 "    },\n" +
                                 "    {\n" +
                                 "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection\",\n" +
@@ -5804,8 +5804,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpStatusCode.OK.status(),
                         "[\n" +
                                 "  {\n" +
-                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic-spreadsheet-converter\",\n" +
-                                "    \"name\": \"basic-spreadsheet-converter\"\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic\",\n" +
+                                "    \"name\": \"basic\"\n" +
                                 "  },\n" +
                                 "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection\",\n" +
