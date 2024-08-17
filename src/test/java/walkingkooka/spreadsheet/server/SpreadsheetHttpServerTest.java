@@ -3856,6 +3856,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"name\": \"basic-spreadsheet-converter\"\n" +
                                 "    },\n" +
                                 "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection\",\n" +
+                                "      \"name\": \"collection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
                                 "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing\",\n" +
                                 "      \"name\": \"error-throwing\"\n" +
                                 "    },\n" +
@@ -5796,6 +5800,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic-spreadsheet-converter\",\n" +
                                 "    \"name\": \"basic-spreadsheet-converter\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection\",\n" +
+                                "    \"name\": \"collection\"\n" +
                                 "  },\n" +
                                 "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing\",\n" +
