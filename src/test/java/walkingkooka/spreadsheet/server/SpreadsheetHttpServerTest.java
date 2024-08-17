@@ -97,6 +97,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -119,7 +120,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer>
-        implements SpreadsheetMetadataTesting {
+        implements SpreadsheetMetadataTesting,
+        TreePrintableTesting {
 
     private final static CharsetName CHARSET = CharsetName.UTF_8;
 
@@ -3880,6 +3882,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"name\": \"selection-to-selection\"\n" +
                                 "    },\n" +
                                 "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string\",\n" +
+                                "      \"name\": \"selection-to-string\"\n" +
+                                "    },\n" +
+                                "    {\n" +
                                 "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to\",\n" +
                                 "      \"name\": \"spreadsheet-cell-to\"\n" +
                                 "    },\n" +
@@ -3899,10 +3905,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"expression-converter\": \"collection (error-to-number, error-throwing, general)\",\n" +
+                                "  \"expression-converter\": \"collection (error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"expression-functions\": [],\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                                "  \"format-converter\": \"collection (error-to-number, error-to-string, general)\",\n" +
+                                "  \"format-converter\": \"collection (error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
@@ -5824,6 +5830,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection\",\n" +
                                 "    \"name\": \"selection-to-selection\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string\",\n" +
+                                "    \"name\": \"selection-to-string\"\n" +
                                 "  },\n" +
                                 "  {\n" +
                                 "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to\",\n" +
