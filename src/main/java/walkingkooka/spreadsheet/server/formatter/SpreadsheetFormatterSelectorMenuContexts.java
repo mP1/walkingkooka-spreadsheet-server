@@ -18,11 +18,24 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 
 /**
  * A collection of {@link SpreadsheetFormatterSelectorEditContext} factory methods.
  */
 public final class SpreadsheetFormatterSelectorMenuContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicSpreadsheetFormatterSelectorMenuContext}
+     */
+    public static SpreadsheetFormatterSelectorMenuContext basic(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
+                                                                final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
+        return BasicSpreadsheetFormatterSelectorMenuContext.with(
+                spreadsheetFormatterProvider,
+                spreadsheetFormatterProviderSamplesContext
+        );
+    }
 
     /**
      * {@see FakeSpreadsheetFormatterSelectorMenuContext}
