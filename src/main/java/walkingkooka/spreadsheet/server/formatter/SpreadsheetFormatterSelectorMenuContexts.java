@@ -25,10 +25,10 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class SpreadsheetFormatterSelectorMenuContexts implements PublicStaticHelper {
 
     /**
-     * {@see FakeSpreadsheetFormatterSelectorEditContext}
+     * {@see FakeSpreadsheetFormatterSelectorMenuContext}
      */
-    public static SpreadsheetFormatterSelectorEditContext fake() {
-        return new FakeSpreadsheetFormatterSelectorEditContext();
+    public static SpreadsheetFormatterSelectorMenuContext fake() {
+        return new FakeSpreadsheetFormatterSelectorMenuContext();
     }
 
     /**
