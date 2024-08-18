@@ -98,6 +98,7 @@ public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements 
 
     // class............................................................................................................
 
+    @Override
     public Class<TestSpreadsheetFormatterProviderSamplesContextDelegator> type() {
         return TestSpreadsheetFormatterProviderSamplesContextDelegator.class;
     }
