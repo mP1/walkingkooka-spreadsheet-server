@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -30,47 +29,12 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * A collection of {@link SpreadsheetFormatterSelectorMenu} for a {@link SpreadsheetFormatterSelector}.
  */
 public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<SpreadsheetFormatterSelectorMenu>
         implements ImmutableListDefaults<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu> {
-
-    /**
-     * Prepares a flat list of {@link SpreadsheetFormatterSelectorMenu} for all {@link SpreadsheetFormatterSelector}.
-     */
-    public static SpreadsheetFormatterSelectorMenuList prepare(final SpreadsheetFormatterSelectorMenuListContext context) {
-        Objects.requireNonNull(context, "context");
-
-        return with(
-                context.spreadsheetFormatterInfos()
-                        .stream()
-                        .flatMap(i -> menus(i, context).stream())
-                        .collect(Collectors.toList())
-        );
-    }
-
-    private static List<SpreadsheetFormatterSelectorMenu> menus(final SpreadsheetFormatterInfo info,
-                                                                final SpreadsheetFormatterSelectorMenuListContext context) {
-        List<SpreadsheetFormatterSelectorMenu> menus;
-
-        try {
-            menus = context.spreadsheetFormatterSamples(
-                            info.name(),
-                            context
-                    ).stream()
-                    .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
-                    .distinct()
-                    .collect(Collectors.toList());
-        } catch (final RuntimeException ignore) {
-            // ignore failed samples
-            menus = Lists.empty();
-        }
-
-        return menus;
-    }
 
     public static SpreadsheetFormatterSelectorMenuList with(final List<SpreadsheetFormatterSelectorMenu> menus) {
         Objects.requireNonNull(menus, "menus");

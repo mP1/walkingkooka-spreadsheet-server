@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class FakeSpreadsheetFormatterSelectorMenuListContext extends FakeSpreadsheetFormatterContext
-        implements SpreadsheetFormatterSelectorMenuListContext {
+public class FakeSpreadsheetFormatterSelectorMenuContext extends FakeSpreadsheetFormatterContext
+        implements SpreadsheetFormatterSelectorMenuContext {
 
     @Override
     public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,

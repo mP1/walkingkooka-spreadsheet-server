@@ -17,8 +17,10 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.plugin.PluginSelectorMenu;
 import walkingkooka.plugin.PluginSelectorMenuLike;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.text.printer.IndentingPrinter;
@@ -27,13 +29,49 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents a single menu item for a {@link SpreadsheetFormatterSelector}. A {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterName#DATE_FORMAT_PATTERN},
  * might include three items one for SHORT, MEDIUM and LONG patterns.
  */
 public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMenuLike<SpreadsheetFormatterSelector, SpreadsheetFormatterName> {
+
+    /**
+     * Prepares a flat list of {@link SpreadsheetFormatterSelectorMenu} for all {@link SpreadsheetFormatterSelector}.
+     */
+    public static SpreadsheetFormatterSelectorMenuList prepare(final SpreadsheetFormatterSelectorMenuContext context) {
+        Objects.requireNonNull(context, "context");
+
+        return SpreadsheetFormatterSelectorMenuList.with(
+                context.spreadsheetFormatterInfos()
+                        .stream()
+                        .flatMap(i -> menus(i, context).stream())
+                        .collect(Collectors.toList())
+        );
+    }
+
+    private static List<SpreadsheetFormatterSelectorMenu> menus(final SpreadsheetFormatterInfo info,
+                                                                final SpreadsheetFormatterSelectorMenuContext context) {
+        List<SpreadsheetFormatterSelectorMenu> menus;
+
+        try {
+            menus = context.spreadsheetFormatterSamples(
+                            info.name(),
+                            context
+                    ).stream()
+                    .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
+                    .distinct()
+                    .collect(Collectors.toList());
+        } catch (final RuntimeException ignore) {
+            // ignore failed samples
+            menus = Lists.empty();
+        }
+
+        return menus;
+    }
 
     static SpreadsheetFormatterSelectorMenu with(final String label,
                                                  final SpreadsheetFormatterSelector selector) {
