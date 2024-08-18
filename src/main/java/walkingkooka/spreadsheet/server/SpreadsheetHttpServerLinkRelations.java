@@ -26,6 +26,8 @@ public final class SpreadsheetHttpServerLinkRelations implements PublicStaticHel
 
     public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
 
+    public final static LinkRelation<?> MENU = LinkRelation.with("menu");
+
     public final static LinkRelation<?> NEXT_TEXT_COMPONENT = LinkRelation.with("next-text-component");
 
     public final static LinkRelation<?> TEXT_COMPONENTS = LinkRelation.with("text-components");

@@ -86,6 +86,7 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
+import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
@@ -6162,6 +6163,89 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  }\n" +
                                 "]",
                         TextNodeList.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testFormatterMenu() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/formatter/*/menu",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"label\": \"Short\",\n" +
+                                "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Medium\",\n" +
+                                "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Long\",\n" +
+                                "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Full\",\n" +
+                                "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Short\",\n" +
+                                "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Medium\",\n" +
+                                "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Long\",\n" +
+                                "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Full\",\n" +
+                                "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"General\",\n" +
+                                "    \"selector\": \"general\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Number\",\n" +
+                                "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Integer\",\n" +
+                                "    \"selector\": \"number-format-pattern #,##0\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Percent\",\n" +
+                                "    \"selector\": \"number-format-pattern #,##0%\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Currency\",\n" +
+                                "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Default\",\n" +
+                                "    \"selector\": \"text-format-pattern @\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Short\",\n" +
+                                "    \"selector\": \"time-format-pattern h:mm AM/PM\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"label\": \"Long\",\n" +
+                                "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
                 )
         );
     }
