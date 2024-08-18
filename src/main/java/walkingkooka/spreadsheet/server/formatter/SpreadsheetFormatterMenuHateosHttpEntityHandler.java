@@ -35,7 +35,7 @@ import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHan
 import java.util.Map;
 
 /**
- * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorMenu}
+ * A handler that returns all available {@link SpreadsheetFormatterSelectorMenu}
  */
 final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
