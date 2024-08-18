@@ -98,7 +98,7 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
                                 SpreadsheetLabelNameResolvers.fake(),
                                 context // ProviderContext
                         ),
-                        context, // SpreadsheetFormatterProvider
+                        context, // SpreadsheetLabelNameResolver
                         context // ProviderContext
                 )
         );
