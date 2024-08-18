@@ -23,7 +23,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
@@ -31,7 +30,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -287,13 +286,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 metadata,
                 metadata.spreadsheetProvider(spreadsheetProvider),
-                new ProviderContext() {
-                    @Override
-                    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-                        return metadata.environmentContext()
-                                .environmentValue(name);
-                    }
-                },
+                ProviderContexts.basic(
+                        metadata.environmentContext()
+                ),
                 engine,
                 fractioner,
                 repository,
