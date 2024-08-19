@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.delta;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -141,6 +143,14 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);
         HateosHttpEntityHandler.checkContext(context);
+
+        final MediaType requiredContentType = context.contentType();
+        requiredContentType.requireContentType(
+                HttpHeaderName.CONTENT_TYPE.header(entity)
+                        .orElse(null)
+        );
+        HttpHeaderName.ACCEPT.headerOrFail(entity)
+                .testOrFail(requiredContentType);
 
         // parse HttpEntity as JSON giving the PATCH as JsonNode
         final JsonNode patch = this.preparePatch(

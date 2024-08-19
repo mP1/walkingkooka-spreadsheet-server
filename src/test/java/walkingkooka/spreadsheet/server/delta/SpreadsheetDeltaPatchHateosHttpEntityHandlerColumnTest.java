@@ -19,7 +19,11 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.header.Accept;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -69,6 +73,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                                         .column()
                                         )
                                 )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -110,6 +119,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN,
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -154,6 +168,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN,
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
@@ -213,6 +232,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN,
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -269,6 +293,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN,
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
@@ -313,6 +342,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                                                         .column()
                                         )
                                 )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -359,6 +393,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -403,6 +442,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
@@ -462,6 +506,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -518,6 +567,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
@@ -585,6 +639,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 COLUMN_RANGE.range(),
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString

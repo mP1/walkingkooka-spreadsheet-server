@@ -19,7 +19,11 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.header.Accept;
+import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
@@ -72,6 +76,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                                         )
                                         )
                                 )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -105,6 +114,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
                         )
                 ),
                 this.parameters(),
@@ -141,6 +155,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                         Sets.of(patch)
                                 )
                         ).replace(CELL.toString(), LABEL.toString())
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -173,6 +192,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
                         )
                 ),
                 this.parameters(
@@ -222,6 +246,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -266,6 +295,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
                         )
                 ),
                 this.parameters(
@@ -312,6 +346,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                                         )
                                         )
                                 )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -346,6 +385,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 this.context(),
@@ -378,6 +422,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
                         )
                 ),
                 this.parameters(
@@ -427,6 +476,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -469,6 +523,11 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 this.httpEntity(
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
                         )
                 ),
                 this.parameters(
