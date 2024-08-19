@@ -66,8 +66,9 @@ final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        requiredContentType.testOrFail(
-                HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
+        requiredContentType.requireContentType(
+                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                        .orElse(null)
         );
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
                 .testOrFail(requiredContentType);

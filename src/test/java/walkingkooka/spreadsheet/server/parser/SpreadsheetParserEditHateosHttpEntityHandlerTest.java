@@ -121,7 +121,7 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                 IllegalArgumentException.class
         );
         this.checkEquals(
-                "Got text/plain expected application/json",
+                "Content-Type: Got text/plain require application/json",
                 thrown.getMessage()
         );
     }

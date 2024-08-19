@@ -77,10 +77,11 @@ final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEn
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
-        final MediaType contentType = HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity);
-        if (false == requiredContentType.equalsIgnoringParameters(contentType)) {
-            throw new IllegalArgumentException("Got " + contentType + " expected " + requiredContentType);
-        }
+        requiredContentType.requireContentType(
+                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                        .orElse(null)
+        );
+
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
                 .testOrFail(requiredContentType);
 
