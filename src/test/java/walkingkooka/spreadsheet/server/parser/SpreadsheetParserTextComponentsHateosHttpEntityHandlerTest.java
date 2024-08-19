@@ -25,7 +25,9 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -116,6 +118,28 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
     }
 
     @Test
+    public void testHandleAllBadAccept() {
+        final IllegalArgumentException thrown = this.handleOneFails(
+                SpreadsheetParserName.DATE_PARSER_PATTERN,
+                this.entity()
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.with(
+                                        Lists.of(MediaType.IMAGE_BMP)
+                                )
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+        this.checkEquals(
+                "Accept: Got image/bmp require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleOne() {
         final SpreadsheetParserSelector selector = SpreadsheetPattern.parseDateParsePattern("yyyy")
                 .spreadsheetParserSelector();
@@ -124,6 +148,13 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                 selector.name(), // resource id
                 this.httpEntity(
                         JsonNode.string(selector.text())
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(
+                                        MediaType.APPLICATION_JSON
+                                )
+                        )
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

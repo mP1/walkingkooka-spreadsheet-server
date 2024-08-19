@@ -25,7 +25,9 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -103,7 +105,11 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
         final IllegalArgumentException thrown = this.handleOneFails(
                 SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
                 this.entity()
-                        .setContentType(MediaType.TEXT_PLAIN),
+                        .setContentType(MediaType.TEXT_PLAIN)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.parse(MediaType.APPLICATION_JSON.toHeaderText())
+                        ),
                 this.parameters(),
                 this.context(),
                 IllegalArgumentException.class
@@ -123,6 +129,11 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                 selector.name(), // resource id
                 this.httpEntity(
                         JsonNode.string(selector.text())
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

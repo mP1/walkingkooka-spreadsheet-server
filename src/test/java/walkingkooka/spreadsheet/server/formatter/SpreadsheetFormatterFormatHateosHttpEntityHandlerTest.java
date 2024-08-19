@@ -24,7 +24,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -116,6 +118,29 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
     }
 
     @Test
+    public void testHandleAllBadAccept() {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                this.entity()
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.with(
+                                        Lists.of(
+                                                MediaType.ANY_IMAGE
+                                        )
+                                )
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+        this.checkEquals(
+                "Accept: Got image/* require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
                 // two format requests
@@ -142,6 +167,13 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                                                         .spreadsheetFormatterSelector(),
                                                 "Hello222"
                                         )
+                                )
+                        )
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(
+                                        MediaType.APPLICATION_JSON
                                 )
                         )
                 ),

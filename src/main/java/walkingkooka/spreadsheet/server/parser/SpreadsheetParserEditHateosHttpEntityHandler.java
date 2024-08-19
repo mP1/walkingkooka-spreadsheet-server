@@ -81,6 +81,8 @@ final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEn
         if (false == requiredContentType.equalsIgnoringParameters(contentType)) {
             throw new IllegalArgumentException("Got " + contentType + " expected " + requiredContentType);
         }
+        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+                .testOrFail(requiredContentType);
 
         final String selector = context.unmarshall(
                 JsonNode.parse(

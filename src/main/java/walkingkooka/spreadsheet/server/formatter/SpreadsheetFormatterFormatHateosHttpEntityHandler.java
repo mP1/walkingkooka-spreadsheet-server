@@ -75,6 +75,9 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
                 HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
         );
 
+        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+                .testOrFail(requiredContentType);
+
         // read json into SpreadsheetFormatterFormatRequestList
         final SpreadsheetFormatterFormatRequestList requests = context.unmarshall(
                         JsonNode.parse(

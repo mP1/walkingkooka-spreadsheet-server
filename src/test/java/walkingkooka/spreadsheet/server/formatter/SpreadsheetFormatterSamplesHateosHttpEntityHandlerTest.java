@@ -21,11 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -104,13 +107,42 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
     }
 
     @Test
+    public void testHandleOneBadAcceptFails() {
+        final IllegalArgumentException thrown = this.handleOneFails(
+                this.id(),
+                this.entity()
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.with(
+                                        Lists.of(
+                                                MediaType.IMAGE_BMP
+                                        )
+                                )
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+                "Accept: Got image/bmp require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleOne() {
         final SpreadsheetFormatterSelector selector = SpreadsheetPattern.parseDateFormatPattern("yyyy")
                 .spreadsheetFormatterSelector();
 
         this.handleOneAndCheck(
                 selector.name(), // resource id
-                HttpEntity.EMPTY,
+                HttpEntity.EMPTY.addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
+                ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
