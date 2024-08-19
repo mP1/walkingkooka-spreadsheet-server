@@ -73,8 +73,8 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
         return menus;
     }
 
-    static SpreadsheetFormatterSelectorMenu with(final String label,
-                                                 final SpreadsheetFormatterSelector selector) {
+    public static SpreadsheetFormatterSelectorMenu with(final String label,
+                                                        final SpreadsheetFormatterSelector selector) {
         return new SpreadsheetFormatterSelectorMenu(
                 PluginSelectorMenu.with(
                         label,
