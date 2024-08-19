@@ -112,7 +112,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                 IllegalArgumentException.class
         );
         this.checkEquals(
-                "Got text/plain requested application/json",
+                "Content-Type: Got text/plain require application/json",
                 thrown.getMessage()
         );
     }
