@@ -80,6 +80,9 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
                 HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
         );
 
+        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+                .testOrFail(requiredContentType);
+
         // read the string from the request holding the SpreadsheetFormatterSelector
         final String selector = context.unmarshall(
                 JsonNode.parse(

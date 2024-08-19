@@ -75,6 +75,8 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
         requiredContentType.testOrFail(
                 HttpHeaderName.CONTENT_TYPE.headerOrFail(httpEntity)
         );
+        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+                .testOrFail(requiredContentType);
 
         // read request body text
         final String text = context.unmarshall(

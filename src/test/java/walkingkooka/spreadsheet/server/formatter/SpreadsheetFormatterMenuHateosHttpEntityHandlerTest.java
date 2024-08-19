@@ -25,7 +25,10 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HeaderException;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -104,9 +107,31 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
     }
 
     @Test
+    public void testHandleAllMissingAcceptApplicationJson() {
+        final HeaderException thrown = this.handleAllFails(
+                HttpEntity.EMPTY,
+                this.parameters(),
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                    @Override
+                    public MediaType contentType() {
+                        return MediaType.APPLICATION_JSON;
+                    }
+                },
+                HeaderException.class
+        );
+        this.checkEquals(
+                "Required value is absent for Accept",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                HttpEntity.EMPTY,
+                HttpEntity.EMPTY.addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.parse(MediaType.APPLICATION_JSON.toHeaderText())
+                ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override

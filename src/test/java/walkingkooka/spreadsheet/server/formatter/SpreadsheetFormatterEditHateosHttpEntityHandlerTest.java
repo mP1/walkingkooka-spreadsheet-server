@@ -26,6 +26,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -123,11 +124,35 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
     }
 
     @Test
+    public void testHandleAllBadAccept() {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                this.entity()
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.parse("text/plain")
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+        this.checkEquals(
+                "Accept: Got text/plain require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
                 // two format requests
                 this.httpEntity(
                         JsonNode.string("date-format-pattern dd/mm/yyyy").toString()
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

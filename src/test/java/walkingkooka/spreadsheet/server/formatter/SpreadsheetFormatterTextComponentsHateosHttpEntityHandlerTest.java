@@ -25,7 +25,9 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -117,6 +119,28 @@ public final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandlerTest
     }
 
     @Test
+    public void testHandleAllContentBadAccept() {
+        final IllegalArgumentException thrown = this.handleOneFails(
+                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
+                this.entity()
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.with(
+                                        Lists.of(MediaType.IMAGE_BMP)
+                                )
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+        this.checkEquals(
+                "Accept: Got image/bmp require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleOne() {
         final SpreadsheetFormatterSelector selector = SpreadsheetPattern.parseDateFormatPattern("yyyy")
                 .spreadsheetFormatterSelector();
@@ -125,6 +149,11 @@ public final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandlerTest
                 selector.name(), // resource id
                 this.httpEntity(
                         JsonNode.string(selector.text())
+                ).addHeader(
+                        HttpHeaderName.ACCEPT,
+                        Accept.with(
+                                Lists.of(MediaType.APPLICATION_JSON)
+                        )
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

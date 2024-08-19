@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -71,6 +72,9 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();
+
+        HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
+                .testOrFail(requiredContentType);
 
         // format all the individual requests
         final List<SpreadsheetFormatterSample> response = context.spreadsheetFormatterSamples(
