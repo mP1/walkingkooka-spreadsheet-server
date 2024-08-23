@@ -40,12 +40,10 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionSelector;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviderDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -53,14 +51,13 @@ import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
+        ExpressionFunctionProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetParserProviderDelegator,
@@ -203,28 +200,8 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     // ExpressionFunctionProvider.......................................................................................
 
     @Override
-    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-        return this.engineContext.expressionFunctionInfos();
-    }
-
-    @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionSelector selector,
-                                                                                 final ProviderContext context) {
-        return this.engineContext.expressionFunction(
-                selector,
-                context
-        );
-    }
-
-    @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
-                                                                                 final List<?> values,
-                                                                                 final ProviderContext context) {
-        return this.engineContext.expressionFunction(
-                name,
-                values,
-                context
-        );
+    public ExpressionFunctionProvider expressionFunctionProvider() {
+        return this.engineContext;
     }
 
     // SpreadsheetFormatterProvider.....................................................................................
