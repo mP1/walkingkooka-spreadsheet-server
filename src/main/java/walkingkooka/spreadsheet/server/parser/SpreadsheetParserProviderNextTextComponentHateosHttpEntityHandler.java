@@ -31,8 +31,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
@@ -40,7 +40,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.parser.SpreadsheetParserProvider#spreadsheetParserNextTextComponent(SpreadsheetParserSelector)}.
+ * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.parser.SpreadsheetParserProvider#spreadsheetParserNextToken(SpreadsheetParserSelector)}.
  */
 final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -49,7 +49,7 @@ final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler im
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetParserSelectorTextComponentList.with(Lists.empty()); // force json registry
+        SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
     }
 
     static SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler instance() {
@@ -89,7 +89,7 @@ final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler im
         );
 
         // format all the individual requests
-        final Optional<SpreadsheetParserSelectorTextComponent> response = nextTextComponent(
+        final Optional<SpreadsheetParserSelectorToken> response = nextTextComponent(
                 formatterName.setText(text), // selector
                 context
         );
@@ -98,16 +98,16 @@ final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler im
                 requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetParserSelectorTextComponent.class.getSimpleName()
+                SpreadsheetParserSelectorToken.class.getSimpleName()
         ).setBodyText(
                 response.map(r -> context.marshall(r).toString())
                         .orElse("")
         ).setContentLength();
     }
 
-    private Optional<SpreadsheetParserSelectorTextComponent> nextTextComponent(final SpreadsheetParserSelector selector,
+    private Optional<SpreadsheetParserSelectorToken> nextTextComponent(final SpreadsheetParserSelector selector,
                                                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return context.spreadsheetParserNextTextComponent(
+        return context.spreadsheetParserNextToken(
                 selector
         );
     }

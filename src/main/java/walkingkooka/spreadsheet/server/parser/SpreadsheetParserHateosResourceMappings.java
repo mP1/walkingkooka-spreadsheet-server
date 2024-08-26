@@ -63,7 +63,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
         ).setHateosHttpEntityHandler(
                 SpreadsheetHttpServerLinkRelations.TEXT_COMPONENTS,
                 HttpMethod.POST,
-                SpreadsheetParserTextComponentsHateosHttpEntityHandler.instance()
+                SpreadsheetParserTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
                 SpreadsheetHttpServerLinkRelations.NEXT_TEXT_COMPONENT,
                 HttpMethod.POST,

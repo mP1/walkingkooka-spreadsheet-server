@@ -27,8 +27,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -55,8 +55,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
         SpreadsheetParserSelector spreadsheetParserSelector = null;
         String message = "";
-        List<SpreadsheetParserSelectorTextComponent> textComponents = Lists.empty();
-        Optional<SpreadsheetParserSelectorTextComponent> next = Optional.empty();
+        List<SpreadsheetParserSelectorToken> textComponents = Lists.empty();
+        Optional<SpreadsheetParserSelectorToken> next = Optional.empty();
         List<SpreadsheetFormatterSample> samples = Lists.empty();
 
         try {
@@ -81,8 +81,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
             );
 
             try {
-                textComponents = parser.textComponents(context);
-                next = context.spreadsheetParserNextTextComponent(spreadsheetParserSelector);
+                textComponents = parser.tokens(context);
+                next = context.spreadsheetParserNextToken(spreadsheetParserSelector);
             } catch (final InvalidCharacterException cause) {
                 message = cause.setTextAndPosition(
                         selector,
@@ -106,13 +106,13 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     static SpreadsheetParserSelectorEdit with(final Optional<SpreadsheetParserSelector> selector,
                                               final String message,
-                                              final List<SpreadsheetParserSelectorTextComponent> textComponents,
-                                              final Optional<SpreadsheetParserSelectorTextComponent> next,
+                                              final List<SpreadsheetParserSelectorToken> textComponents,
+                                              final Optional<SpreadsheetParserSelectorToken> next,
                                               final List<SpreadsheetFormatterSample> samples) {
         return new SpreadsheetParserSelectorEdit(
                 Objects.requireNonNull(selector, "selector"),
                 Objects.requireNonNull(message, "message"),
-                SpreadsheetParserSelectorTextComponentList.with(
+                SpreadsheetParserSelectorTokenList.with(
                         Objects.requireNonNull(textComponents, "textComponents")
                 ),
                 Objects.requireNonNull(next, "next"),
@@ -124,8 +124,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     private SpreadsheetParserSelectorEdit(final Optional<SpreadsheetParserSelector> selector,
                                           final String message,
-                                          final List<SpreadsheetParserSelectorTextComponent> textComponents,
-                                          final Optional<SpreadsheetParserSelectorTextComponent> next,
+                                          final List<SpreadsheetParserSelectorToken> textComponents,
+                                          final Optional<SpreadsheetParserSelectorToken> next,
                                           final List<SpreadsheetFormatterSample> samples) {
         this.selector = selector;
         this.message = message;
@@ -146,17 +146,17 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     private final String message;
 
-    public List<SpreadsheetParserSelectorTextComponent> textComponents() {
+    public List<SpreadsheetParserSelectorToken> textComponents() {
         return this.textComponents;
     }
 
-    private List<SpreadsheetParserSelectorTextComponent> textComponents;
+    private List<SpreadsheetParserSelectorToken> textComponents;
 
-    public Optional<SpreadsheetParserSelectorTextComponent> next() {
+    public Optional<SpreadsheetParserSelectorToken> next() {
         return this.next;
     }
 
-    private final Optional<SpreadsheetParserSelectorTextComponent> next;
+    private final Optional<SpreadsheetParserSelectorToken> next;
 
     public List<SpreadsheetFormatterSample> samples() {
         return this.samples;
@@ -237,7 +237,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 printer.println("text-components");
                 printer.indent();
                 {
-                    for (final SpreadsheetParserSelectorTextComponent textComponent : this.textComponents) {
+                    for (final SpreadsheetParserSelectorToken textComponent : this.textComponents) {
                         textComponent.printTree(printer);
                     }
                 }
@@ -278,8 +278,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                                                     final JsonNodeUnmarshallContext context) {
         SpreadsheetParserSelector selector = null;
         String message = null;
-        List<SpreadsheetParserSelectorTextComponent> textComponents = null;
-        SpreadsheetParserSelectorTextComponent next = null;
+        List<SpreadsheetParserSelectorToken> textComponents = null;
+        SpreadsheetParserSelectorToken next = null;
         List<SpreadsheetFormatterSample> samples = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
@@ -300,13 +300,13 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 case TEXT_COMPONENTS_PROPERTY_STRING:
                     textComponents = context.unmarshall(
                             child,
-                            SpreadsheetParserSelectorTextComponentList.class
+                            SpreadsheetParserSelectorTokenList.class
                     );
                     break;
                 case NEXT_PROPERTY_STRING:
                     next = context.unmarshall(
                             child,
-                            SpreadsheetParserSelectorTextComponent.class
+                            SpreadsheetParserSelectorToken.class
                     );
                     break;
                 case SAMPLES_PROPERTY_STRING:
@@ -501,7 +501,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
     final static JsonPropertyName SAMPLES_PROPERTY = JsonPropertyName.with(SAMPLES_PROPERTY_STRING);
 
     static {
-        SpreadsheetParserSelectorTextComponentList.with(Lists.empty());
+        SpreadsheetParserSelectorTokenList.with(Lists.empty());
         SpreadsheetFormatterSampleList.with(
                 Lists.of(
                         SpreadsheetFormatterSample.with(

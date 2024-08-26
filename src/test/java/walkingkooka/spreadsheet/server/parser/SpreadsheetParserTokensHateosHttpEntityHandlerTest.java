@@ -42,9 +42,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenAlternative;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
@@ -53,8 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserTextComponentsHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetParserTextComponentsHateosHttpEntityHandler>,
+public final class SpreadsheetParserTokensHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserTokensHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        ToStringTesting<SpreadsheetParserTokensHateosHttpEntityHandler>,
         SpreadsheetMetadataTesting {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
@@ -200,13 +200,13 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                     }
                 },
                 this.httpEntity(
-                        SpreadsheetParserSelectorTextComponentList.with(
+                        SpreadsheetParserSelectorTokenList.with(
                                 Lists.of(
-                                        SpreadsheetParserSelectorTextComponent.with(
+                                        SpreadsheetParserSelectorToken.with(
                                                 "yyyy",
                                                 "yyyy",
                                                 Lists.of(
-                                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                                 "yy",
                                                                 "yy"
                                                         )
@@ -216,14 +216,14 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
                         )
                 ).addHeader(
                         HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetParserSelectorTextComponentList.class.getSimpleName()
+                        SpreadsheetParserSelectorTokenList.class.getSimpleName()
                 )
         );
     }
 
     @Override
-    public SpreadsheetParserTextComponentsHateosHttpEntityHandler createHandler() {
-        return SpreadsheetParserTextComponentsHateosHttpEntityHandler.instance();
+    public SpreadsheetParserTokensHateosHttpEntityHandler createHandler() {
+        return SpreadsheetParserTokensHateosHttpEntityHandler.instance();
     }
 
     @Override
@@ -277,7 +277,7 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                SpreadsheetParserTextComponentsHateosHttpEntityHandler.class.getSimpleName()
+                SpreadsheetParserTokensHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 
@@ -296,8 +296,8 @@ public final class SpreadsheetParserTextComponentsHateosHttpEntityHandlerTest im
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetParserTextComponentsHateosHttpEntityHandler> type() {
-        return SpreadsheetParserTextComponentsHateosHttpEntityHandler.class;
+    public Class<SpreadsheetParserTokensHateosHttpEntityHandler> type() {
+        return SpreadsheetParserTokensHateosHttpEntityHandler.class;
     }
 
     @Override

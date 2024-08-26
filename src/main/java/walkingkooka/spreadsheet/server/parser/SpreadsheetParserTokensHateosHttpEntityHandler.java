@@ -31,8 +31,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
@@ -42,23 +42,23 @@ import java.util.Map;
 /**
  * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetParserProvider#spreadsheetParser(SpreadsheetParserSelector)}.
  */
-final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetParserSelectorTextComponentList.with(Lists.empty()); // force json registry
+        SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
     }
 
-    static SpreadsheetParserTextComponentsHateosHttpEntityHandler instance() {
+    static SpreadsheetParserTokensHateosHttpEntityHandler instance() {
         return INSTANCE;
     }
 
-    private final static SpreadsheetParserTextComponentsHateosHttpEntityHandler INSTANCE = new SpreadsheetParserTextComponentsHateosHttpEntityHandler();
+    private final static SpreadsheetParserTokensHateosHttpEntityHandler INSTANCE = new SpreadsheetParserTokensHateosHttpEntityHandler();
 
-    private SpreadsheetParserTextComponentsHateosHttpEntityHandler() {
+    private SpreadsheetParserTokensHateosHttpEntityHandler() {
     }
 
     @Override
@@ -88,7 +88,7 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
         );
 
         // format all the individual requests
-        final List<SpreadsheetParserSelectorTextComponent> response = textComponents(
+        final List<SpreadsheetParserSelectorToken> response = tokens(
                 formatterName.setText(text), // selector
                 context
         );
@@ -97,20 +97,20 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
                 requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetParserSelectorTextComponentList.class.getSimpleName()
+                SpreadsheetParserSelectorTokenList.class.getSimpleName()
         ).setBodyText(
                 context.marshall(
-                        SpreadsheetParserSelectorTextComponentList.with(response)
+                        SpreadsheetParserSelectorTokenList.with(response)
                 ).toString()
         ).setContentLength();
     }
 
-    private List<SpreadsheetParserSelectorTextComponent> textComponents(final SpreadsheetParserSelector selector,
-                                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private List<SpreadsheetParserSelectorToken> tokens(final SpreadsheetParserSelector selector,
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetParser(
                 selector,
                 context
-        ).textComponents(
+        ).tokens(
                 context.spreadsheetMetadata()
                         .parserContext(
                                 context::now // now provider
@@ -120,6 +120,6 @@ final class SpreadsheetParserTextComponentsHateosHttpEntityHandler implements Ha
 
     @Override
     public String toString() {
-        return SpreadsheetParserTextComponentsHateosHttpEntityHandler.class.getSimpleName();
+        return SpreadsheetParserTokensHateosHttpEntityHandler.class.getSimpleName();
     }
 }
