@@ -31,8 +31,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
@@ -42,23 +42,23 @@ import java.util.Map;
 /**
  * A handler that takes the {@link SpreadsheetFormatterName} and request body {@link String} to make a {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatter(SpreadsheetFormatterSelector)}.
  */
-final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetFormatterSelectorTextComponentList.with(Lists.empty()); // force json registry
+        SpreadsheetFormatterSelectorTokenList.with(Lists.empty()); // force json registry
     }
 
-    static SpreadsheetFormatterTextComponentsHateosHttpEntityHandler instance() {
+    static SpreadsheetFormatterTokensHateosHttpEntityHandler instance() {
         return INSTANCE;
     }
 
-    private final static SpreadsheetFormatterTextComponentsHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterTextComponentsHateosHttpEntityHandler();
+    private final static SpreadsheetFormatterTokensHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterTokensHateosHttpEntityHandler();
 
-    private SpreadsheetFormatterTextComponentsHateosHttpEntityHandler() {
+    private SpreadsheetFormatterTokensHateosHttpEntityHandler() {
     }
 
     @Override
@@ -89,7 +89,7 @@ final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandler implements
         );
 
         // format all the individual requests
-        final List<SpreadsheetFormatterSelectorTextComponent> response = textComponents(
+        final List<SpreadsheetFormatterSelectorToken> response = tokens(
                 formatterName.setText(text), // selector
                 context
         );
@@ -98,20 +98,20 @@ final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandler implements
                 requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
                 HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetFormatterSelectorTextComponentList.class.getSimpleName()
+                SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
         ).setBodyText(
                 context.marshall(
-                        SpreadsheetFormatterSelectorTextComponentList.with(response)
+                        SpreadsheetFormatterSelectorTokenList.with(response)
                 ).toString()
         ).setContentLength();
     }
 
-    private List<SpreadsheetFormatterSelectorTextComponent> textComponents(final SpreadsheetFormatterSelector selector,
-                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private List<SpreadsheetFormatterSelectorToken> tokens(final SpreadsheetFormatterSelector selector,
+                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetFormatter(
                 selector,
                 context
-        ).textComponents(
+        ).tokens(
                 context.spreadsheetMetadata()
                         .formatterContext(
                                 context, // ConverterProvider
@@ -125,6 +125,6 @@ final class SpreadsheetFormatterTextComponentsHateosHttpEntityHandler implements
 
     @Override
     public String toString() {
-        return SpreadsheetFormatterTextComponentsHateosHttpEntityHandler.class.getSimpleName();
+        return SpreadsheetFormatterTokensHateosHttpEntityHandler.class.getSimpleName();
     }
 }

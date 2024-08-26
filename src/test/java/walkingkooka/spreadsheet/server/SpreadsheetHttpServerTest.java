@@ -64,8 +64,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
@@ -6322,7 +6322,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    ]\n" +
                                 "  }\n" +
                                 "]",
-                        SpreadsheetFormatterSelectorTextComponentList.class.getSimpleName()
+                        SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
                 )
         );
     }
@@ -6371,7 +6371,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    }\n" +
                                 "  ]\n" +
                                 "}",
-                        SpreadsheetFormatterSelectorTextComponent.class.getSimpleName()
+                        SpreadsheetFormatterSelectorToken.class.getSimpleName()
                 )
         );
     }

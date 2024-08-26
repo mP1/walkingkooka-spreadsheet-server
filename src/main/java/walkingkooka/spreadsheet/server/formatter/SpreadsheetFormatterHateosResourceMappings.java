@@ -75,11 +75,11 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         ).setHateosHttpEntityHandler(
                 SpreadsheetHttpServerLinkRelations.TEXT_COMPONENTS,
                 HttpMethod.POST,
-                SpreadsheetFormatterTextComponentsHateosHttpEntityHandler.instance()
+                SpreadsheetFormatterTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
                 SpreadsheetHttpServerLinkRelations.NEXT_TEXT_COMPONENT,
                 HttpMethod.POST,
-                SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.instance()
+                SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
                 SpreadsheetHttpServerLinkRelations.SAMPLES,
                 HttpMethod.GET,

@@ -32,7 +32,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.List;
@@ -49,7 +49,7 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
         UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
-        SpreadsheetFormatterSelectorTextComponentList.with(Lists.empty()); // force json registry
+        SpreadsheetFormatterSelectorTokenList.with(Lists.empty()); // force json registry
     }
 
     static SpreadsheetFormatterSamplesHateosHttpEntityHandler instance() {

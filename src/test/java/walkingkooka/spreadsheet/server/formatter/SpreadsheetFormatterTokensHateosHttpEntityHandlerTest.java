@@ -39,21 +39,23 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentAlternative;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenAlternative;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler>,
+public final class SpreadsheetFormatterTokensHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterTokensHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+        ToStringTesting<SpreadsheetFormatterTokensHateosHttpEntityHandler>,
         SpreadsheetMetadataTesting {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
@@ -105,17 +107,35 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
         final IllegalArgumentException thrown = this.handleOneFails(
                 SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
                 this.entity()
-                        .setContentType(MediaType.TEXT_PLAIN)
-                        .addHeader(
-                                HttpHeaderName.ACCEPT,
-                                Accept.parse(MediaType.APPLICATION_JSON.toHeaderText())
-                        ),
+                        .setContentType(MediaType.TEXT_PLAIN),
                 this.parameters(),
                 this.context(),
                 IllegalArgumentException.class
         );
         this.checkEquals(
                 "Content-Type: Got text/plain require application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testHandleAllContentBadAccept() {
+        final IllegalArgumentException thrown = this.handleOneFails(
+                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
+                this.entity()
+                        .setContentType(MediaType.APPLICATION_JSON)
+                        .addHeader(
+                                HttpHeaderName.ACCEPT,
+                                Accept.with(
+                                        Lists.of(MediaType.IMAGE_BMP)
+                                )
+                        ),
+                this.parameters(),
+                this.context(),
+                IllegalArgumentException.class
+        );
+        this.checkEquals(
+                "Accept: Got image/bmp require application/json",
                 thrown.getMessage()
         );
     }
@@ -145,10 +165,12 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                     @Override
                     public <T> T unmarshall(final JsonNode json,
                                             final Class<T> type) {
-                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                                json,
-                                type
-                        );
+                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(json, type);
+                    }
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return SpreadsheetMetadataTesting.METADATA_EN_AU;
                     }
 
                     @Override
@@ -163,8 +185,12 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                     }
 
                     @Override
-                    public Optional<SpreadsheetFormatterSelectorTextComponent> spreadsheetFormatterNextTextComponent(final SpreadsheetFormatterSelector selector) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextTextComponent(selector);
+                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                     final ProviderContext context) {
+                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                                selector,
+                                context
+                        );
                     }
 
                     @Override
@@ -173,58 +199,30 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
                     }
                 },
                 this.httpEntity(
-                        SpreadsheetFormatterSelectorTextComponent.with(
-                                "",
-                                "",
+                        SpreadsheetFormatterSelectorTokenList.with(
                                 Lists.of(
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "d",
-                                                "d"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "dd",
-                                                "dd"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "ddd",
-                                                "ddd"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "dddd",
-                                                "dddd"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "m",
-                                                "m"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "mm",
-                                                "mm"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "mmm",
-                                                "mmm"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "mmmm",
-                                                "mmmm"
-                                        ),
-                                        SpreadsheetFormatterSelectorTextComponentAlternative.with(
-                                                "mmmmm",
-                                                "mmmmm"
+                                        SpreadsheetFormatterSelectorToken.with(
+                                                "yyyy",
+                                                "yyyy",
+                                                Lists.of(
+                                                        SpreadsheetFormatterSelectorTokenAlternative.with(
+                                                                "yy",
+                                                                "yy"
+                                                        )
+                                                )
                                         )
                                 )
                         )
                 ).addHeader(
                         HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetFormatterSelectorTextComponent.class.getSimpleName()
+                        SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
                 )
         );
     }
 
     @Override
-    public SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler createHandler() {
-        return SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.instance();
+    public SpreadsheetFormatterTokensHateosHttpEntityHandler createHandler() {
+        return SpreadsheetFormatterTokensHateosHttpEntityHandler.instance();
     }
 
     @Override
@@ -265,11 +263,12 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
     }
 
     private HttpEntity httpEntity(final Object value) {
-        return HttpEntity.EMPTY.setContentType(
-                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-        ).setBodyText(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(value)
-                        .toString()
+        return HttpEntity.EMPTY.setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
+                .setBodyText(
+                JsonNodeMarshallContexts.basic()
+                        .marshall(
+                                value
+                        ).toString()
         ).setContentLength();
     }
 
@@ -279,7 +278,7 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.class.getSimpleName()
+                SpreadsheetFormatterTokensHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 
@@ -298,8 +297,8 @@ public final class SpreadsheetFormatterProviderNextTextComponentHateosHttpEntity
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler> type() {
-        return SpreadsheetFormatterProviderNextTextComponentHateosHttpEntityHandler.class;
+    public Class<SpreadsheetFormatterTokensHateosHttpEntityHandler> type() {
+        return SpreadsheetFormatterTokensHateosHttpEntityHandler.class;
     }
 
     @Override
