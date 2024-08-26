@@ -26,8 +26,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentList;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -54,8 +54,8 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
         SpreadsheetFormatterSelector spreadsheetFormatterSelector = null;
         String message = "";
-        List<SpreadsheetFormatterSelectorTextComponent> textComponents = Lists.empty();
-        Optional<SpreadsheetFormatterSelectorTextComponent> next = Optional.empty();
+        List<SpreadsheetFormatterSelectorToken> textComponents = Lists.empty();
+        Optional<SpreadsheetFormatterSelectorToken> next = Optional.empty();
         List<SpreadsheetFormatterSample> samples = Lists.empty();
 
         try {
@@ -70,8 +70,8 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                     context
             );
             try {
-                textComponents = formatter.textComponents(context);
-                next = context.spreadsheetFormatterNextTextComponent(spreadsheetFormatterSelector);
+                textComponents = formatter.tokens(context);
+                next = context.spreadsheetFormatterNextToken(spreadsheetFormatterSelector);
             } catch (final InvalidCharacterException cause) {
                 message = cause.setTextAndPosition(
                         selector,
@@ -95,13 +95,13 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
     static SpreadsheetFormatterSelectorEdit with(final Optional<SpreadsheetFormatterSelector> selector,
                                                  final String message,
-                                                 final List<SpreadsheetFormatterSelectorTextComponent> textComponents,
-                                                 final Optional<SpreadsheetFormatterSelectorTextComponent> next,
+                                                 final List<SpreadsheetFormatterSelectorToken> textComponents,
+                                                 final Optional<SpreadsheetFormatterSelectorToken> next,
                                                  final List<SpreadsheetFormatterSample> samples) {
         return new SpreadsheetFormatterSelectorEdit(
                 Objects.requireNonNull(selector, "selector"),
                 Objects.requireNonNull(message, "message"),
-                SpreadsheetFormatterSelectorTextComponentList.with(
+                SpreadsheetFormatterSelectorTokenList.with(
                         Objects.requireNonNull(textComponents, "textComponents")
                 ),
                 Objects.requireNonNull(next, "next"),
@@ -113,8 +113,8 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
     private SpreadsheetFormatterSelectorEdit(final Optional<SpreadsheetFormatterSelector> selector,
                                              final String message,
-                                             final List<SpreadsheetFormatterSelectorTextComponent> textComponents,
-                                             final Optional<SpreadsheetFormatterSelectorTextComponent> next,
+                                             final List<SpreadsheetFormatterSelectorToken> textComponents,
+                                             final Optional<SpreadsheetFormatterSelectorToken> next,
                                              final List<SpreadsheetFormatterSample> samples) {
         this.selector = selector;
         this.message = message;
@@ -135,17 +135,17 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
 
     private final String message;
 
-    public List<SpreadsheetFormatterSelectorTextComponent> textComponents() {
+    public List<SpreadsheetFormatterSelectorToken> textComponents() {
         return this.textComponents;
     }
 
-    private List<SpreadsheetFormatterSelectorTextComponent> textComponents;
+    private List<SpreadsheetFormatterSelectorToken> textComponents;
 
-    public Optional<SpreadsheetFormatterSelectorTextComponent> next() {
+    public Optional<SpreadsheetFormatterSelectorToken> next() {
         return this.next;
     }
 
-    private final Optional<SpreadsheetFormatterSelectorTextComponent> next;
+    private final Optional<SpreadsheetFormatterSelectorToken> next;
 
     public List<SpreadsheetFormatterSample> samples() {
         return this.samples;
@@ -226,7 +226,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 printer.println("text-components");
                 printer.indent();
                 {
-                    for (final SpreadsheetFormatterSelectorTextComponent textComponent : this.textComponents) {
+                    for (final SpreadsheetFormatterSelectorToken textComponent : this.textComponents) {
                         textComponent.printTree(printer);
                     }
                 }
@@ -267,8 +267,8 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                                                        final JsonNodeUnmarshallContext context) {
         SpreadsheetFormatterSelector selector = null;
         String message = null;
-        List<SpreadsheetFormatterSelectorTextComponent> textComponents = null;
-        SpreadsheetFormatterSelectorTextComponent next = null;
+        List<SpreadsheetFormatterSelectorToken> textComponents = null;
+        SpreadsheetFormatterSelectorToken next = null;
         List<SpreadsheetFormatterSample> samples = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
@@ -289,13 +289,13 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 case TEXT_COMPONENTS_PROPERTY_STRING:
                     textComponents = context.unmarshall(
                             child,
-                            SpreadsheetFormatterSelectorTextComponentList.class
+                            SpreadsheetFormatterSelectorTokenList.class
                     );
                     break;
                 case NEXT_PROPERTY_STRING:
                     next = context.unmarshall(
                             child,
-                            SpreadsheetFormatterSelectorTextComponent.class
+                            SpreadsheetFormatterSelectorToken.class
                     );
                     break;
                 case SAMPLES_PROPERTY_STRING:
@@ -490,7 +490,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
     final static JsonPropertyName SAMPLES_PROPERTY = JsonPropertyName.with(SAMPLES_PROPERTY_STRING);
 
     static {
-        SpreadsheetFormatterSelectorTextComponentList.with(Lists.empty());
+        SpreadsheetFormatterSelectorTokenList.with(Lists.empty());
         SpreadsheetFormatterSampleList.with(
                 Lists.of(
                         SpreadsheetFormatterSample.with(

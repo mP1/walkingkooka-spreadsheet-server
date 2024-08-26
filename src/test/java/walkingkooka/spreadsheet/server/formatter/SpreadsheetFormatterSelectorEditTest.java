@@ -24,8 +24,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponent;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTextComponentAlternative;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenAlternative;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -151,11 +151,11 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                         Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("yyyy")),
                         "",
                         Lists.of(
-                                SpreadsheetFormatterSelectorTextComponent.with(
+                                SpreadsheetFormatterSelectorToken.with(
                                         "yyyy",
                                         "yyyy",
                                         Lists.of(
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "yy",
                                                         "yy"
                                                 )
@@ -163,43 +163,43 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                                 )
                         ),
                         Optional.of(
-                                SpreadsheetFormatterSelectorTextComponent.with(
+                                SpreadsheetFormatterSelectorToken.with(
                                         "",
                                         "",
                                         Lists.of(
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "d",
                                                         "d"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "dd",
                                                         "dd"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "ddd",
                                                         "ddd"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "dddd",
                                                         "dddd"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "m",
                                                         "m"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "mm",
                                                         "mm"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "mmm",
                                                         "mmm"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "mmmm",
                                                         "mmmm"
                                                 ),
-                                                SpreadsheetFormatterSelectorTextComponentAlternative.with(
+                                                SpreadsheetFormatterSelectorTokenAlternative.with(
                                                         "mmmmm",
                                                         "mmmmm"
                                                 )
