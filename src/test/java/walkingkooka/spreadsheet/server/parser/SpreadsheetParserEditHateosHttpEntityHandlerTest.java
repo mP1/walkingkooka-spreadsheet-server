@@ -48,7 +48,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
@@ -237,8 +237,8 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
                     }
 
                     @Override
-                    public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextTextComponent(selector);
+                    public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector selector) {
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextToken(selector);
                     }
 
                     @Override

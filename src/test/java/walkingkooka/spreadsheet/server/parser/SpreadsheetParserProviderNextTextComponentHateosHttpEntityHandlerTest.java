@@ -41,8 +41,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenAlternative;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -179,8 +179,8 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                     }
 
                     @Override
-                    public Optional<SpreadsheetParserSelectorTextComponent> spreadsheetParserNextTextComponent(final SpreadsheetParserSelector selector) {
-                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextTextComponent(selector);
+                    public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector selector) {
+                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextToken(selector);
                     }
 
                     @Override
@@ -189,43 +189,43 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                     }
                 },
                 this.httpEntity(
-                        SpreadsheetParserSelectorTextComponent.with(
+                        SpreadsheetParserSelectorToken.with(
                                 "",
                                 "",
                                 Lists.of(
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "d",
                                                 "d"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "dd",
                                                 "dd"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "ddd",
                                                 "ddd"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "dddd",
                                                 "dddd"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "m",
                                                 "m"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "mm",
                                                 "mm"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "mmm",
                                                 "mmm"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "mmmm",
                                                 "mmmm"
                                         ),
-                                        SpreadsheetParserSelectorTextComponentAlternative.with(
+                                        SpreadsheetParserSelectorTokenAlternative.with(
                                                 "mmmmm",
                                                 "mmmmm"
                                         )
@@ -233,7 +233,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
                         )
                 ).addHeader(
                         HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetParserSelectorTextComponent.class.getSimpleName()
+                        SpreadsheetParserSelectorToken.class.getSimpleName()
                 )
         );
     }

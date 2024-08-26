@@ -74,8 +74,8 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentList;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -6755,7 +6755,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    }\n" +
                                 "  ]\n" +
                                 "}",
-                        SpreadsheetParserSelectorTextComponent.class.getSimpleName()
+                        SpreadsheetParserSelectorToken.class.getSimpleName()
                 )
         );
     }
@@ -6832,7 +6832,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    ]\n" +
                                 "  }\n" +
                                 "]",
-                        SpreadsheetParserSelectorTextComponentList.class.getSimpleName()
+                        SpreadsheetParserSelectorTokenList.class.getSimpleName()
                 )
         );
     }

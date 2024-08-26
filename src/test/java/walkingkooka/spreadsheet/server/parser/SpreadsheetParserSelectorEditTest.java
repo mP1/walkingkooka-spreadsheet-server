@@ -26,8 +26,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponent;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTextComponentAlternative;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenAlternative;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -160,11 +160,11 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         ),
                         "",
                         Lists.of(
-                                SpreadsheetParserSelectorTextComponent.with(
+                                SpreadsheetParserSelectorToken.with(
                                         "yyyy",
                                         "yyyy",
                                         Lists.of(
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "yy",
                                                         "yy"
                                                 )
@@ -172,43 +172,43 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                                 )
                         ),
                         Optional.of(
-                                SpreadsheetParserSelectorTextComponent.with(
+                                SpreadsheetParserSelectorToken.with(
                                         "",
                                         "",
                                         Lists.of(
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "d",
                                                         "d"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "dd",
                                                         "dd"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "ddd",
                                                         "ddd"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "dddd",
                                                         "dddd"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "m",
                                                         "m"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "mm",
                                                         "mm"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "mmm",
                                                         "mmm"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "mmmm",
                                                         "mmmm"
                                                 ),
-                                                SpreadsheetParserSelectorTextComponentAlternative.with(
+                                                SpreadsheetParserSelectorTokenAlternative.with(
                                                         "mmmmm",
                                                         "mmmmm"
                                                 )
