@@ -241,7 +241,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
                         "{\n" +
                                 "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
                                 "  \"message\": \"\",\n" +
-                                "  \"textComponents\": [\n" +
+                                "  \"tokens\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"dd\",\n" +
                                 "      \"text\": \"dd\",\n" +
