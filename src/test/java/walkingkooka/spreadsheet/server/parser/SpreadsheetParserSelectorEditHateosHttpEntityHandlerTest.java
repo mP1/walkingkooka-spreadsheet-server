@@ -62,9 +62,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting,
-        ToStringTesting<SpreadsheetParserEditHateosHttpEntityHandler> {
+        ToStringTesting<SpreadsheetParserSelectorEditHateosHttpEntityHandler> {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
 
@@ -414,8 +414,8 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     }
 
     @Override
-    public SpreadsheetParserEditHateosHttpEntityHandler createHandler() {
-        return SpreadsheetParserEditHateosHttpEntityHandler.instance();
+    public SpreadsheetParserSelectorEditHateosHttpEntityHandler createHandler() {
+        return SpreadsheetParserSelectorEditHateosHttpEntityHandler.instance();
     }
 
     @Override
@@ -467,7 +467,7 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                SpreadsheetParserEditHateosHttpEntityHandler.class.getSimpleName()
+                SpreadsheetParserSelectorEditHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 
@@ -486,8 +486,8 @@ public final class SpreadsheetParserEditHateosHttpEntityHandlerTest implements H
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetParserEditHateosHttpEntityHandler> type() {
-        return SpreadsheetParserEditHateosHttpEntityHandler.class;
+    public Class<SpreadsheetParserSelectorEditHateosHttpEntityHandler> type() {
+        return SpreadsheetParserSelectorEditHateosHttpEntityHandler.class;
     }
 
     @Override

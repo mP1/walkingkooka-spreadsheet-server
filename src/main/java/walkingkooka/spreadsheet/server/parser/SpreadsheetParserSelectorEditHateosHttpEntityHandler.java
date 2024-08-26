@@ -39,7 +39,7 @@ import java.util.Map;
 /**
  * A handler that accepts a request with a possible {@link SpreadsheetParserSelector} and returns a {@link SpreadsheetParserSelectorEdit}
  */
-final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -56,16 +56,16 @@ final class SpreadsheetParserEditHateosHttpEntityHandler implements HateosHttpEn
         }
     }
 
-    static SpreadsheetParserEditHateosHttpEntityHandler instance() {
+    static SpreadsheetParserSelectorEditHateosHttpEntityHandler instance() {
         return INSTANCE;
     }
 
     /**
      * Singleton
      */
-    private final static SpreadsheetParserEditHateosHttpEntityHandler INSTANCE = new SpreadsheetParserEditHateosHttpEntityHandler();
+    private final static SpreadsheetParserSelectorEditHateosHttpEntityHandler INSTANCE = new SpreadsheetParserSelectorEditHateosHttpEntityHandler();
 
-    private SpreadsheetParserEditHateosHttpEntityHandler() {
+    private SpreadsheetParserSelectorEditHateosHttpEntityHandler() {
     }
 
     @Override
