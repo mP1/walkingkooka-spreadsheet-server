@@ -5996,7 +5996,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "{\n" +
                                 "  \"selector\": \"date-format-pattern yyyy/mm/ddd\",\n" +
                                 "  \"message\": \"\",\n" +
-                                "  \"textComponents\": [\n" +
+                                "  \"tokens\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"yyyy\",\n" +
                                 "      \"text\": \"yyyy\",\n" +

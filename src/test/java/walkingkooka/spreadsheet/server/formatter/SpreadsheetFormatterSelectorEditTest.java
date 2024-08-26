@@ -316,7 +316,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "{\n" +
                         "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
                         "  \"message\": \"\",\n" +
-                        "  \"textComponents\": [\n" +
+                        "  \"tokens\": [\n" +
                         "    {\n" +
                         "      \"label\": \"dd\",\n" +
                         "      \"text\": \"dd\",\n" +
@@ -460,7 +460,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "{\n" +
                         "  \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
                         "  \"message\": \"\",\n" +
-                        "  \"textComponents\": [\n" +
+                        "  \"tokens\": [\n" +
                         "    {\n" +
                         "      \"label\": \"dd\",\n" +
                         "      \"text\": \"dd\",\n" +
