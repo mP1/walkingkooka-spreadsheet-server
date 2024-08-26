@@ -55,7 +55,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
         SpreadsheetParserSelector spreadsheetParserSelector = null;
         String message = "";
-        List<SpreadsheetParserSelectorToken> textComponents = Lists.empty();
+        List<SpreadsheetParserSelectorToken> tokens = Lists.empty();
         Optional<SpreadsheetParserSelectorToken> next = Optional.empty();
         List<SpreadsheetFormatterSample> samples = Lists.empty();
 
@@ -81,7 +81,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
             );
 
             try {
-                textComponents = parser.tokens(context);
+                tokens = parser.tokens(context);
                 next = context.spreadsheetParserNextToken(spreadsheetParserSelector);
             } catch (final InvalidCharacterException cause) {
                 message = cause.setTextAndPosition(
@@ -98,7 +98,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return SpreadsheetParserSelectorEdit.with(
                 Optional.ofNullable(spreadsheetParserSelector),
                 message,
-                textComponents,
+                tokens,
                 next,
                 samples
         );
@@ -106,14 +106,14 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     static SpreadsheetParserSelectorEdit with(final Optional<SpreadsheetParserSelector> selector,
                                               final String message,
-                                              final List<SpreadsheetParserSelectorToken> textComponents,
+                                              final List<SpreadsheetParserSelectorToken> tokens,
                                               final Optional<SpreadsheetParserSelectorToken> next,
                                               final List<SpreadsheetFormatterSample> samples) {
         return new SpreadsheetParserSelectorEdit(
                 Objects.requireNonNull(selector, "selector"),
                 Objects.requireNonNull(message, "message"),
                 SpreadsheetParserSelectorTokenList.with(
-                        Objects.requireNonNull(textComponents, "textComponents")
+                        Objects.requireNonNull(tokens, "tokens")
                 ),
                 Objects.requireNonNull(next, "next"),
                 SpreadsheetFormatterSampleList.with(
@@ -124,12 +124,12 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     private SpreadsheetParserSelectorEdit(final Optional<SpreadsheetParserSelector> selector,
                                           final String message,
-                                          final List<SpreadsheetParserSelectorToken> textComponents,
+                                          final List<SpreadsheetParserSelectorToken> tokens,
                                           final Optional<SpreadsheetParserSelectorToken> next,
                                           final List<SpreadsheetFormatterSample> samples) {
         this.selector = selector;
         this.message = message;
-        this.textComponents = textComponents;
+        this.tokens = tokens;
         this.next = next;
         this.samples = samples;
     }
@@ -146,11 +146,11 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     private final String message;
 
-    public List<SpreadsheetParserSelectorToken> textComponents() {
-        return this.textComponents;
+    public List<SpreadsheetParserSelectorToken> tokens() {
+        return this.tokens;
     }
 
-    private List<SpreadsheetParserSelectorToken> textComponents;
+    private List<SpreadsheetParserSelectorToken> tokens;
 
     public Optional<SpreadsheetParserSelectorToken> next() {
         return this.next;
@@ -171,7 +171,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return Objects.hash(
                 this.selector,
                 this.message,
-                this.textComponents,
+                this.tokens,
                 this.next,
                 this.samples
         );
@@ -187,7 +187,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
     private boolean equals0(final SpreadsheetParserSelectorEdit other) {
         return this.selector.equals(other.selector) &&
                 this.message.equals(other.message) &&
-                this.textComponents.equals(other.textComponents) &&
+                this.tokens.equals(other.tokens) &&
                 this.next.equals(other.next) &&
                 this.samples.equals(other.samples);
     }
@@ -197,7 +197,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return ToStringBuilder.empty()
                 .value(this.selector)
                 .value(this.message)
-                .value(this.textComponents)
+                .value(this.tokens)
                 .value(this.next)
                 .value(this.samples)
                 .build();
@@ -233,11 +233,11 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                 printer.outdent();
             }
 
-            if (false == this.textComponents.isEmpty()) {
+            if (false == this.tokens.isEmpty()) {
                 printer.println("text-components");
                 printer.indent();
                 {
-                    for (final SpreadsheetParserSelectorToken textComponent : this.textComponents) {
+                    for (final SpreadsheetParserSelectorToken textComponent : this.tokens) {
                         textComponent.printTree(printer);
                     }
                 }
@@ -278,7 +278,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                                                     final JsonNodeUnmarshallContext context) {
         SpreadsheetParserSelector selector = null;
         String message = null;
-        List<SpreadsheetParserSelectorToken> textComponents = null;
+        List<SpreadsheetParserSelectorToken> tokens = null;
         SpreadsheetParserSelectorToken next = null;
         List<SpreadsheetFormatterSample> samples = null;
 
@@ -297,8 +297,8 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                             String.class
                     );
                     break;
-                case TEXT_COMPONENTS_PROPERTY_STRING:
-                    textComponents = context.unmarshall(
+                case TOKENS_PROPERTY_STRING:
+                    tokens = context.unmarshall(
                             child,
                             SpreadsheetParserSelectorTokenList.class
                     );
@@ -324,7 +324,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return with(
                 Optional.ofNullable(selector),
                 message,
-                textComponents,
+                tokens,
                 Optional.ofNullable(next),
                 samples
         );
@@ -335,7 +335,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
      * {
      *   "selector": "date-parse-pattern dd/mm/yyyy",
      *   "message": "",
-     *   "textComponents": [
+     *   "tokens": [
      *     {
      *       "label": "dd",
      *       "text": "dd",
@@ -478,7 +478,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
                         Lists.of(
                                 context.marshall(this.selector.orElse(null)).setName(SELECTOR_PROPERTY),
                                 context.marshall(this.message).setName(MESSAGE_PROPERTY),
-                                context.marshall(this.textComponents).setName(TEXT_COMPONENTS_PROPERTY),
+                                context.marshall(this.tokens).setName(TOKENS_PROPERTY),
                                 context.marshall(this.next.orElse(null)).setName(NEXT_PROPERTY),
                                 context.marshall(this.samples).setName(SAMPLES_PROPERTY)
                         )
@@ -487,7 +487,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     private final static String SELECTOR_PROPERTY_STRING = "selector";
     private final static String MESSAGE_PROPERTY_STRING = "message";
-    private final static String TEXT_COMPONENTS_PROPERTY_STRING = "textComponents";
+    private final static String TOKENS_PROPERTY_STRING = "tokens";
     private final static String NEXT_PROPERTY_STRING = "next";
     private final static String SAMPLES_PROPERTY_STRING = "samples";
 
@@ -495,7 +495,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
 
     final static JsonPropertyName SELECTOR_PROPERTY = JsonPropertyName.with(SELECTOR_PROPERTY_STRING);
     final static JsonPropertyName MESSAGE_PROPERTY = JsonPropertyName.with(MESSAGE_PROPERTY_STRING);
-    final static JsonPropertyName TEXT_COMPONENTS_PROPERTY = JsonPropertyName.with(TEXT_COMPONENTS_PROPERTY_STRING);
+    final static JsonPropertyName TOKENS_PROPERTY = JsonPropertyName.with(TOKENS_PROPERTY_STRING);
     final static JsonPropertyName NEXT_PROPERTY = JsonPropertyName.with(NEXT_PROPERTY_STRING);
 
     final static JsonPropertyName SAMPLES_PROPERTY = JsonPropertyName.with(SAMPLES_PROPERTY_STRING);

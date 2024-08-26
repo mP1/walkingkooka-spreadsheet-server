@@ -327,7 +327,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "{\n" +
                         "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
                         "  \"message\": \"\",\n" +
-                        "  \"textComponents\": [\n" +
+                        "  \"tokens\": [\n" +
                         "    {\n" +
                         "      \"label\": \"dd\",\n" +
                         "      \"text\": \"dd\",\n" +
@@ -471,7 +471,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "{\n" +
                         "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
                         "  \"message\": \"\",\n" +
-                        "  \"textComponents\": [\n" +
+                        "  \"tokens\": [\n" +
                         "    {\n" +
                         "      \"label\": \"dd\",\n" +
                         "      \"text\": \"dd\",\n" +
