@@ -6251,13 +6251,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFormatterTextComponents() {
+    public void testFormatterTokens() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/formatter/date-format-pattern/text-components",
+                "/api/spreadsheet/1/formatter/date-format-pattern/tokens",
                 NO_HEADERS_TRANSACTION_ID,
                 "\"yyyy/mm/ddd\"",
                 this.response(
@@ -6328,13 +6328,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFormatterNextTextComponent() {
+    public void testFormatterNextToken() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/formatter/date-format-pattern/next-text-component",
+                "/api/spreadsheet/1/formatter/date-format-pattern/next-token",
                 NO_HEADERS_TRANSACTION_ID,
                 "\"yyyy/mm/ddd\"",
                 this.response(
@@ -6712,13 +6712,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
     
     @Test
-    public void testParserNextTextComponent() {
+    public void testParserNextToken() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/parser/date-parse-pattern/next-text-component",
+                "/api/spreadsheet/1/parser/date-parse-pattern/next-token",
                 NO_HEADERS_TRANSACTION_ID,
                 "\"yyyy/mm/ddd\"",
                 this.response(
@@ -6761,13 +6761,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testParserTextComponents() {
+    public void testParserTokens() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
         server.handleAndCheck(
                 HttpMethod.POST,
-                "/api/spreadsheet/1/parser/date-parse-pattern/text-components",
+                "/api/spreadsheet/1/parser/date-parse-pattern/tokens",
                 NO_HEADERS_TRANSACTION_ID,
                 "\"yyyy/mm/ddd\"",
                 this.response(
