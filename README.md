@@ -117,9 +117,9 @@ available [SpreadsheetFormatterInfoSet](https://github.com/mP1/walkingkooka-spre
 - **POST** /api/spreadsheet/$spreadsheet-id/formatter/*/edit
 - **POST** /api/spreadsheet/$spreadsheet-id/formatter/*/format
 - **GET** /api/spreadsheet/$spreadsheet-id/formatter/*/menu
-- **POST** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/next-text-component
+- **POST** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/next-token
 - **GET** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/samples
-- **POST** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/text-components
+- **POST** /api/spreadsheet/$spreadsheet-id/formatter/$formatter-name/tokens
 
 #### [Expression function](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
@@ -149,8 +149,8 @@ available [SpreadsheetParserInfoSet](https://github.com/mP1/walkingkooka-spreads
 - **GET**
   /api/spreadsheet/$spreadsheet-id/parser/[SpreadsheetParserName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetParserName.java)
 - **POST** /api/spreadsheet/$spreadsheet-id/parser/*/edit
-- **POST** /api/spreadsheet/$spreadsheet-id/parser/$parser-name/next-text-component
-- **POST** /api/spreadsheet/$spreadsheet-id/parser/$parser-name/text-components
+- **POST** /api/spreadsheet/$spreadsheet-id/parser/$parser-name/next-token
+- **POST** /api/spreadsheet/$spreadsheet-id/parser/$parser-name/tokens
 
 #### [Row](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
 
