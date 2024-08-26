@@ -42,7 +42,7 @@ import java.util.Optional;
 /**
  * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.parser.SpreadsheetParserProvider#spreadsheetParserNextToken(SpreadsheetParserSelector)}.
  */
-final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -52,13 +52,13 @@ final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler im
         SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
     }
 
-    static SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler instance() {
+    static SpreadsheetParserProviderNextTokenHateosHttpEntityHandler instance() {
         return INSTANCE;
     }
 
-    private final static SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler INSTANCE = new SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler();
+    private final static SpreadsheetParserProviderNextTokenHateosHttpEntityHandler INSTANCE = new SpreadsheetParserProviderNextTokenHateosHttpEntityHandler();
 
-    private SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler() {
+    private SpreadsheetParserProviderNextTokenHateosHttpEntityHandler() {
     }
 
     @Override
@@ -114,6 +114,6 @@ final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler im
 
     @Override
     public String toString() {
-        return SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.class.getSimpleName();
+        return SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.class.getSimpleName();
     }
 }

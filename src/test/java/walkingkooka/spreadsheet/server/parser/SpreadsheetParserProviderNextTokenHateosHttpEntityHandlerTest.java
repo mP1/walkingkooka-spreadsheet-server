@@ -55,8 +55,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler>,
+public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        ToStringTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler>,
         SpreadsheetMetadataTesting {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
@@ -239,8 +239,8 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
     }
 
     @Override
-    public SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler createHandler() {
-        return SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.instance();
+    public SpreadsheetParserProviderNextTokenHateosHttpEntityHandler createHandler() {
+        return SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.instance();
     }
 
     @Override
@@ -302,7 +302,7 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.class.getSimpleName()
+                SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 
@@ -321,8 +321,8 @@ public final class SpreadsheetParserProviderNextTextComponentHateosHttpEntityHan
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler> type() {
-        return SpreadsheetParserProviderNextTextComponentHateosHttpEntityHandler.class;
+    public Class<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler> type() {
+        return SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.class;
     }
 
     @Override
