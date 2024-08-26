@@ -56,9 +56,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterEditHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterSelectorEditHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting,
-        ToStringTesting<SpreadsheetFormatterEditHateosHttpEntityHandler> {
+        ToStringTesting<SpreadsheetFormatterSelectorEditHateosHttpEntityHandler> {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
@@ -384,8 +384,8 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
     }
 
     @Override
-    public SpreadsheetFormatterEditHateosHttpEntityHandler createHandler() {
-        return SpreadsheetFormatterEditHateosHttpEntityHandler.instance();
+    public SpreadsheetFormatterSelectorEditHateosHttpEntityHandler createHandler() {
+        return SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.instance();
     }
 
     @Override
@@ -438,7 +438,7 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                SpreadsheetFormatterEditHateosHttpEntityHandler.class.getSimpleName()
+                SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 
@@ -457,8 +457,8 @@ public final class SpreadsheetFormatterEditHateosHttpEntityHandlerTest implement
     // class............................................................................................................
 
     @Override
-    public Class<SpreadsheetFormatterEditHateosHttpEntityHandler> type() {
-        return SpreadsheetFormatterEditHateosHttpEntityHandler.class;
+    public Class<SpreadsheetFormatterSelectorEditHateosHttpEntityHandler> type() {
+        return SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.class;
     }
 
     @Override

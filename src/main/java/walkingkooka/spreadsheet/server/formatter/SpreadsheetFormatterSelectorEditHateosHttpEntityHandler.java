@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
@@ -55,16 +55,16 @@ final class SpreadsheetFormatterEditHateosHttpEntityHandler implements HateosHtt
         }
     }
 
-    static SpreadsheetFormatterEditHateosHttpEntityHandler instance() {
+    static SpreadsheetFormatterSelectorEditHateosHttpEntityHandler instance() {
         return INSTANCE;
     }
 
     /**
      * Singleton
      */
-    private final static SpreadsheetFormatterEditHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterEditHateosHttpEntityHandler();
+    private final static SpreadsheetFormatterSelectorEditHateosHttpEntityHandler INSTANCE = new SpreadsheetFormatterSelectorEditHateosHttpEntityHandler();
 
-    private SpreadsheetFormatterEditHateosHttpEntityHandler() {
+    private SpreadsheetFormatterSelectorEditHateosHttpEntityHandler() {
     }
 
     @Override
