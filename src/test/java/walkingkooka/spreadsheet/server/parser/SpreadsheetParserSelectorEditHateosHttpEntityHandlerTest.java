@@ -271,7 +271,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         "{\n" +
                                 "  \"selector\": \"date-parse-pattern dd/mm/yyyy\",\n" +
                                 "  \"message\": \"\",\n" +
-                                "  \"textComponents\": [\n" +
+                                "  \"tokens\": [\n" +
                                 "    {\n" +
                                 "      \"label\": \"dd\",\n" +
                                 "      \"text\": \"dd\",\n" +
