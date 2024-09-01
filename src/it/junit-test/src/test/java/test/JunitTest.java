@@ -49,6 +49,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterProviders;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -262,6 +263,7 @@ public class JunitTest {
                                 ExpressionFunctionProviders.expressionFunctions(),
                                 SpreadsheetComparatorProviders.spreadsheetComparators(),
                                 spreadsheetFormatterProvider,
+                                SpreadsheetImporterProviders.spreadsheetImport(),
                                 SpreadsheetParserProviders.spreadsheetParsePattern(
                                         metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
                                 )
