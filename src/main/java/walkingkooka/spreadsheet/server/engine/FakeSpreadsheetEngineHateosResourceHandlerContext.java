@@ -32,6 +32,10 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.export.SpreadsheetExporter;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
@@ -154,6 +158,28 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     public Set<SpreadsheetComparatorInfo> spreadsheetComparatorInfos() {
         throw new UnsupportedOperationException();
     }
+
+    // SpreadsheetExporterProvider......................................................................................
+
+    @Override
+    public SpreadsheetExporter spreadsheetExporter(final SpreadsheetExporterSelector selector,
+                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetExporter spreadsheetExporter(final SpreadsheetExporterName name,
+                                                   final List<?> values,
+                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<SpreadsheetExporterInfo> spreadsheetExporterInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetImporterProvider......................................................................................
 
     @Override
     public Set<ExpressionFunctionInfo> expressionFunctionInfos() {

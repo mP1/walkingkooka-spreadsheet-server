@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterProviders;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -254,6 +255,7 @@ public class TestGwtTest extends GWTTestCase {
                                 ConverterProviders.converters(),
                                 ExpressionFunctionProviders.expressionFunctions(),
                                 SpreadsheetComparatorProviders.spreadsheetComparators(),
+                                SpreadsheetExporterProviders.spreadsheetExport(),
                                 spreadsheetFormatterProvider,
                                 SpreadsheetImporterProviders.spreadsheetImport(),
                                 SpreadsheetParserProviders.spreadsheetParsePattern(
