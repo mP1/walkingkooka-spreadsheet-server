@@ -25,6 +25,8 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterProvider;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -63,6 +65,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
         ExpressionFunctionProviderDelegator,
+        SpreadsheetExporterProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetImporterProviderDelegator,
@@ -197,6 +200,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         return this.context;
     }
 
+    // SpreadsheetExporterProvider......................................................................................
+
+    @Override
+    public SpreadsheetExporterProvider spreadsheetExporterProvider() {
+        return this.context;
+    }
+    
     // ExpressionFunctionProvider.......................................................................................
 
     @Override

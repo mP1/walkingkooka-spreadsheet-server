@@ -26,6 +26,8 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterProvider;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
@@ -59,6 +61,7 @@ import java.util.Optional;
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
+        SpreadsheetExporterProviderDelegator,
         ExpressionFunctionProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
@@ -200,6 +203,13 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext;
     }
 
+    // SpreadsheetExporterProvider......................................................................................
+
+    @Override
+    public SpreadsheetExporterProvider spreadsheetExporterProvider() {
+        return this.engineContext;
+    }
+    
     // ExpressionFunctionProvider.......................................................................................
 
     @Override
