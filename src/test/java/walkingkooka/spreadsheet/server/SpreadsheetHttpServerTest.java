@@ -3984,6 +3984,20 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"name\": \"year\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
+                                "  \"spreadsheet-exporters\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection\",\n" +
+                                "      \"name\": \"collection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty\",\n" +
+                                "      \"name\": \"empty\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json\",\n" +
+                                "      \"name\": \"json\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
                                 "  \"spreadsheet-formatters\": [\n" +
                                 "    {\n" +
                                 "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic\",\n" +
