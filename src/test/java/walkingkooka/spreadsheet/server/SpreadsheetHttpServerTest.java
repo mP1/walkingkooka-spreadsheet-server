@@ -9217,6 +9217,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 },
                                 SPREADSHEET_COMPARATOR_PROVIDER,
                                 SPREADSHEET_FORMATTER_PROVIDER,
+                                SPREADSHEET_IMPORTER_PROVIDER,
                                 SPREADSHEET_PARSER_PROVIDER
                         )
                 );

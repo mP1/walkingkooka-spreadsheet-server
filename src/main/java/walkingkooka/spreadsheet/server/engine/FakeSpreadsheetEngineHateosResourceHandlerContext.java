@@ -40,6 +40,10 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporter;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
@@ -197,6 +201,28 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
         throw new UnsupportedOperationException();
     }
+
+    // SpreadsheetImporterProvider......................................................................................
+
+    @Override
+    public SpreadsheetImporter spreadsheetImporter(final SpreadsheetImporterSelector selector,
+                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetImporter spreadsheetImporter(final SpreadsheetImporterName name,
+                                                   final List<?> values,
+                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<SpreadsheetImporterInfo> spreadsheetImporterInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetParserProvider........................................................................................
 
     @Override
     public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,

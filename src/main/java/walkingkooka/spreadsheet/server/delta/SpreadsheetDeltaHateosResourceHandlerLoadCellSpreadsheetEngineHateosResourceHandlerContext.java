@@ -30,6 +30,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterProvider;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterProviderDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
@@ -63,6 +65,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
         ExpressionFunctionProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
+        SpreadsheetImporterProviderDelegator,
         SpreadsheetParserProviderDelegator,
         ProviderContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
@@ -205,6 +208,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
 
     @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
+        return this.context;
+    }
+
+    // SpreadsheetImporterProvider......................................................................................
+
+    @Override
+    public SpreadsheetImporterProvider spreadsheetImporterProvider() {
         return this.context;
     }
 
