@@ -4022,6 +4022,20 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "      \"name\": \"time-format-pattern\"\n" +
                                 "    }\n" +
                                 "  ],\n" +
+                                "  \"spreadsheet-importers\": [\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/collection\",\n" +
+                                "      \"name\": \"collection\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/empty\",\n" +
+                                "      \"name\": \"empty\"\n" +
+                                "    },\n" +
+                                "    {\n" +
+                                "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/json\",\n" +
+                                "      \"name\": \"json\"\n" +
+                                "    }\n" +
+                                "  ],\n" +
                                 "  \"spreadsheet-parsers\": [\n" +
                                 "    {\n" +
                                 "      \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/Parser/date-parse-pattern\",\n" +
