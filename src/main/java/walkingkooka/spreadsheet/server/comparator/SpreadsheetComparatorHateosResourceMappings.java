@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
-public final class SpreadsheetComparatorsHateosResourceMappings implements PublicStaticHelper {
+public final class SpreadsheetComparatorHateosResourceMappings implements PublicStaticHelper {
 
     // comparator.......................................................................................................
 
@@ -47,7 +47,7 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
                 SpreadsheetComparatorInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
                 COMPARATOR,
-                SpreadsheetComparatorsHateosResourceMappings::parseComparatorSelection,
+                SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
                 SpreadsheetComparatorInfo.class, // valueType
                 SpreadsheetComparatorInfoSet.class, // collectionType
                 SpreadsheetComparatorInfo.class,// resourceType
@@ -89,7 +89,7 @@ public final class SpreadsheetComparatorsHateosResourceMappings implements Publi
     /**
      * Stop creation
      */
-    private SpreadsheetComparatorsHateosResourceMappings() {
+    private SpreadsheetComparatorHateosResourceMappings() {
         throw new UnsupportedOperationException();
     }
 }
