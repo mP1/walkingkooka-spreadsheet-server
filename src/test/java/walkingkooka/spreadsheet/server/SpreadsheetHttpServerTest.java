@@ -69,6 +69,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
+import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -6591,6 +6593,76 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // importers........................................................................................................
+
+    @Test
+    public void testImporters() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/importer",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/collection\",\n" +
+                                "    \"name\": \"collection\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/empty\",\n" +
+                                "    \"name\": \"empty\"\n" +
+                                "  },\n" +
+                                "  {\n" +
+                                "    \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/json\",\n" +
+                                "    \"name\": \"json\"\n" +
+                                "  }\n" +
+                                "]",
+                        SpreadsheetImporterInfoSet.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testImportersWithName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/importer/json",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"url\": \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/json\",\n" +
+                                "  \"name\": \"json\"\n" +
+                                "}",
+                        SpreadsheetImporterInfo.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testImportersWithNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/spreadsheet/1/importer/unknown",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status()
+                )
+        );
+    }
+    
     // parsers......................................................................................................
 
     @Test

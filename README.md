@@ -130,6 +130,15 @@ available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-e
 - **GET**
   /api/spreadsheet/$spreadsheet-id/expression-function/[ExpressionFunctionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
 
+#### [Importer](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetImporter.java)
+
+These end points may be used to work with
+available [SpreadsheetImporterInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/importer/SpreadsheetImporterInfoSet.java)
+
+- **GET** /api/spreadsheet/$spreadsheet-id/importer
+- **GET**
+  /api/spreadsheet/$spreadsheet-id/importer/[SpreadsheetImporterName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/importer/SpreadsheetImporterName.java)
+
 #### [Label](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/SpreadsheetLabelName.java)
 
 These end points are mostly used by the label management dialog.
