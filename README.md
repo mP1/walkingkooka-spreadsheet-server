@@ -139,7 +139,7 @@ available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-e
 - **GET**
   /api/spreadsheet/$spreadsheet-id/expression-function/[ExpressionFunctionName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
 
-#### [Importer](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/compare/SpreadsheetImporter.java)
+#### [Importer](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/importer/SpreadsheetImporter.java)
 
 These end points may be used to work with
 available [SpreadsheetImporterInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/importer/SpreadsheetImporterInfoSet.java)
