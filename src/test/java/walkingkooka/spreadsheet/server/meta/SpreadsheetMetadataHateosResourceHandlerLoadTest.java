@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -232,7 +233,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleManyAndCheck(
                 all.stream()
                         .map(m -> m.id().get())
-                        .collect(Collectors.toCollection(Sets::sorted)),
+                        .collect(Collectors.toCollection(SortedSets::tree)),
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {

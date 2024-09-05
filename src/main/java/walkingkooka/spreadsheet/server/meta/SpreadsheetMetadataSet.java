@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.iterator.Iterators;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.tree.json.JsonNode;
@@ -42,7 +42,7 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     public static SpreadsheetMetadataSet with(final Set<SpreadsheetMetadata> metadatas) {
         Objects.requireNonNull(metadatas, "metadatas");
 
-        final Set<SpreadsheetMetadata> copy = Sets.sorted(HateosResource.comparator());
+        final Set<SpreadsheetMetadata> copy = SortedSets.tree(HateosResource.comparator());
         copy.addAll(metadatas);
         return new SpreadsheetMetadataSet(copy);
     }
