@@ -18,7 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -71,7 +71,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
                           final SpreadsheetEngineContext context) {
         final SpreadsheetEngine engine = this.engine;
 
-        final Set<SpreadsheetColumn> loaded = Sets.sorted();
+        final Set<SpreadsheetColumn> loaded = SortedSets.tree();
 
         for (final SpreadsheetColumnReference column : range) {
             loaded.addAll(
@@ -103,7 +103,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
         );
 
         // load all the cells for any unhidden columns....
-        final Set<SpreadsheetCell> unhidden = Sets.sorted();
+        final Set<SpreadsheetCell> unhidden = SortedSets.tree();
 
         for (final SpreadsheetColumn beforeColumn : patched.columns()) {
             final SpreadsheetColumnReference reference = beforeColumn.reference();
@@ -135,7 +135,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
                           final SpreadsheetEngineContext context) {
         final SpreadsheetEngine engine = this.engine;
 
-        final Set<SpreadsheetCell> cells = Sets.sorted();
+        final Set<SpreadsheetCell> cells = SortedSets.tree();
 
         for (final SpreadsheetColumn column : patched.columns()) {
             cells.addAll(

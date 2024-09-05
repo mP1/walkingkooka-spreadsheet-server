@@ -17,7 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -79,7 +79,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
                 .map(Integer::parseInt)
                 .orElse(DEFAULT_COUNT);
 
-        final Set<SpreadsheetMetadata> all = Sets.sorted(HateosResource.comparator());
+        final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         all.addAll(
                 context.metadataStore()
                         .values(
@@ -116,7 +116,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final Set<SpreadsheetMetadata> all = Sets.sorted(HateosResource.comparator());
+        final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         final SpreadsheetMetadataStore store = context.metadataStore();
 
         for (final SpreadsheetId id : ids) {
