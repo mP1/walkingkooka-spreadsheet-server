@@ -29,7 +29,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
-public final class ConvertersHateosResourceMappings implements PublicStaticHelper {
+public final class ConverterHateosResourceMappings implements PublicStaticHelper {
 
     // converter.......................................................................................................
 
@@ -47,7 +47,7 @@ public final class ConvertersHateosResourceMappings implements PublicStaticHelpe
                 ConverterInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMapping.with(
                 CONVERTER,
-                ConvertersHateosResourceMappings::parseConverterSelection,
+                ConverterHateosResourceMappings::parseConverterSelection,
                 ConverterInfo.class, // valueType
                 ConverterInfoSet.class, // collectionType
                 ConverterInfo.class,// resourceType
@@ -89,7 +89,7 @@ public final class ConvertersHateosResourceMappings implements PublicStaticHelpe
     /**
      * Stop creation
      */
-    private ConvertersHateosResourceMappings() {
+    private ConverterHateosResourceMappings() {
         throw new UnsupportedOperationException();
     }
 }
