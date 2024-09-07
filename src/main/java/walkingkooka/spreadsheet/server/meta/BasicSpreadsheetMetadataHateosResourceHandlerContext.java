@@ -69,7 +69,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
-import walkingkooka.spreadsheet.server.convert.ConvertersHateosResourceMappings;
+import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
@@ -332,7 +332,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo, SpreadsheetEngineHateosResourceHandlerContext> comparator = SpreadsheetComparatorHateosResourceMappings.comparator();
 
-        final HateosResourceMapping<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetEngineHateosResourceHandlerContext> converter = ConvertersHateosResourceMappings.converter();
+        final HateosResourceMapping<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetEngineHateosResourceHandlerContext> converter = ConverterHateosResourceMappings.converter();
 
         final HateosResourceMapping<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetExporterInfo, SpreadsheetEngineHateosResourceHandlerContext> exporter = SpreadsheetExporterHateosResourceMappings.exporter();
 

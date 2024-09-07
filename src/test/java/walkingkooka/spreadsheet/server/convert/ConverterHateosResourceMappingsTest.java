@@ -22,13 +22,13 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class ConvertersHateosResourceMappingsTest implements PublicStaticHelperTesting<ConvertersHateosResourceMappings> {
+public final class ConverterHateosResourceMappingsTest implements PublicStaticHelperTesting<ConverterHateosResourceMappings> {
 
     // PublicStaticHelper...............................................................................................
 
     @Override
-    public Class<ConvertersHateosResourceMappings> type() {
-        return ConvertersHateosResourceMappings.class;
+    public Class<ConverterHateosResourceMappings> type() {
+        return ConverterHateosResourceMappings.class;
     }
 
     @Override
