@@ -77,6 +77,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -89,7 +90,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -1206,15 +1206,17 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                                 CONVERTER_PROVIDER,
                                 new FakeExpressionFunctionProvider() {
                                     @Override
-                                    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-                                        return Sets.of(
-                                                ExpressionFunctionInfo.with(
-                                                        Url.parseAbsolute("https://example.com/expression-function-1"),
-                                                        ExpressionFunctionName.with("ExpressionFunction1")
-                                                ),
-                                                ExpressionFunctionInfo.with(
-                                                        Url.parseAbsolute("https://example.com/expression-function-2"),
-                                                        ExpressionFunctionName.with("ExpressionFunction2")
+                                    public ExpressionFunctionInfoSet expressionFunctionInfos() {
+                                        return ExpressionFunctionInfoSet.with(
+                                                Sets.of(
+                                                        ExpressionFunctionInfo.with(
+                                                                Url.parseAbsolute("https://example.com/expression-function-1"),
+                                                                ExpressionFunctionName.with("ExpressionFunction1")
+                                                        ),
+                                                        ExpressionFunctionInfo.with(
+                                                                Url.parseAbsolute("https://example.com/expression-function-2"),
+                                                                ExpressionFunctionName.with("ExpressionFunction2")
+                                                        )
                                                 )
                                         );
                                     }

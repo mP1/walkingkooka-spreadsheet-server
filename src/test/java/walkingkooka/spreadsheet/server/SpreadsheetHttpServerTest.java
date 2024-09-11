@@ -119,7 +119,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -9069,15 +9068,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 CONVERTER_PROVIDER,
                                 new FakeExpressionFunctionProvider() {
                                     @Override
-                                    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-                                        return Sets.of(
-                                                ExpressionFunctionInfo.with(
-                                                        Url.parseAbsolute("https://example.com/expression-function-1"),
-                                                        ExpressionFunctionName.with("ExpressionFunction1")
-                                                ),
-                                                ExpressionFunctionInfo.with(
-                                                        Url.parseAbsolute("https://example.com/expression-function-2"),
-                                                        ExpressionFunctionName.with("ExpressionFunction2")
+                                    public ExpressionFunctionInfoSet expressionFunctionInfos() {
+                                        return ExpressionFunctionInfoSet.with(
+                                                Sets.of(
+                                                        ExpressionFunctionInfo.with(
+                                                                Url.parseAbsolute("https://example.com/expression-function-1"),
+                                                                ExpressionFunctionName.with("ExpressionFunction1")
+                                                        ),
+                                                        ExpressionFunctionInfo.with(
+                                                                Url.parseAbsolute("https://example.com/expression-function-2"),
+                                                                ExpressionFunctionName.with("ExpressionFunction2")
+                                                        )
                                                 )
                                         );
                                     }
