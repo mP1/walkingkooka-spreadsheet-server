@@ -58,10 +58,12 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
-        public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
-            return Sets.of(
-                    INFO1,
-                    INFO2
+        public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+            return SpreadsheetFormatterInfoSet.with(
+                    Sets.of(
+                            INFO1,
+                            INFO2
+                    )
             );
         }
     };

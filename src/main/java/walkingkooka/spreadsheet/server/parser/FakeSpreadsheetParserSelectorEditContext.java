@@ -25,7 +25,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
@@ -148,7 +148,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     }
 
     @Override
-    public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
+    public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
         throw new UnsupportedOperationException();
     }
 

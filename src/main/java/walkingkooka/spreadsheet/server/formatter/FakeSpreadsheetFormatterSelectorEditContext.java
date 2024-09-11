@@ -21,7 +21,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetFormatterSelectorEditContext {
     @Override
@@ -58,7 +57,7 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
     }
 
     @Override
-    public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
+    public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
         throw new UnsupportedOperationException();
     }
 
