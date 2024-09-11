@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporter;
-import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
+import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
@@ -175,7 +175,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Set<SpreadsheetExporterInfo> spreadsheetExporterInfos() {
+    public SpreadsheetExporterInfoSet spreadsheetExporterInfos() {
         throw new UnsupportedOperationException();
     }
 
