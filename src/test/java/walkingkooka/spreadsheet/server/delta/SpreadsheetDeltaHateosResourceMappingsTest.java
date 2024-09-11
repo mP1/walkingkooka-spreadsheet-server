@@ -46,6 +46,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -535,8 +536,8 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
             // required by GET comparators
 
             @Override
-            public Set<SpreadsheetComparatorInfo> spreadsheetComparatorInfos() {
-                return Sets.of(
+            public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
+                return SpreadsheetComparatorInfoSet.EMPTY.concat(
                         SpreadsheetComparatorInfo.with(
                                 Url.parseAbsolute("https://example.com/comparator-1"),
                                 SpreadsheetComparatorName.with("comparator-1")
