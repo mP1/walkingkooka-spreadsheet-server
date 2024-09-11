@@ -57,9 +57,7 @@ final class SpreadsheetExporterInfoHateosResourceHandler implements HateosResour
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                SpreadsheetExporterInfoSet.with(
-                        context.spreadsheetExporterInfos()
-                )
+                context.spreadsheetExporterInfos()
         );
     }
 
