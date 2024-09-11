@@ -58,10 +58,12 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
-        public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
-            return Sets.of(
-                    INFO1,
-                    INFO2
+        public SpreadsheetParserInfoSet spreadsheetParserInfos() {
+            return SpreadsheetParserInfoSet.with(
+                    Sets.of(
+                            INFO1,
+                            INFO2
+                    )
             );
         }
     };

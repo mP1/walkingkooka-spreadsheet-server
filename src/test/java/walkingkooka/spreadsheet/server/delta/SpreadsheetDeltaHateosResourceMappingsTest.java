@@ -63,6 +63,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
+import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -573,8 +574,8 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
             }
 
             @Override
-            public Set<SpreadsheetParserInfo> spreadsheetParserInfos() {
-                return Sets.of(
+            public SpreadsheetParserInfoSet spreadsheetParserInfos() {
+                return SpreadsheetParserInfoSet.EMPTY.concat(
                         SpreadsheetParserInfo.with(
                                 Url.parseAbsolute("https://example.com/parser-1"),
                                 SpreadsheetParserName.with("parser-1")
