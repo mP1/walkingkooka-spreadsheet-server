@@ -58,10 +58,12 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
-        public Set<ConverterInfo> converterInfos() {
-            return Sets.of(
-                    INFO1,
-                    INFO2
+        public ConverterInfoSet converterInfos() {
+            return ConverterInfoSet.with(
+                    Sets.of(
+                            INFO1,
+                            INFO2
+                    )
             );
         }
     };
