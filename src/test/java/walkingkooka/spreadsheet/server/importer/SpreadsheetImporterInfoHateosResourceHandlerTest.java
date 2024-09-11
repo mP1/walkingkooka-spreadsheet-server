@@ -58,10 +58,12 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
-        public Set<SpreadsheetImporterInfo> spreadsheetImporterInfos() {
-            return Sets.of(
-                    INFO1,
-                    INFO2
+        public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
+            return SpreadsheetImporterInfoSet.with(
+                    Sets.of(
+                            INFO1,
+                            INFO2
+                    )
             );
         }
     };
