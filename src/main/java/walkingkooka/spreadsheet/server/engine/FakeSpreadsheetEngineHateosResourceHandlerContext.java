@@ -63,7 +63,7 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionSelector;
 import walkingkooka.tree.text.TextNode;
 
@@ -179,10 +179,10 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
-    // SpreadsheetImporterProvider......................................................................................
+    // ExpressionFunctionProvider.......................................................................................
 
     @Override
-    public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
+    public ExpressionFunctionInfoSet expressionFunctionInfos() {
         throw new UnsupportedOperationException();
     }
 

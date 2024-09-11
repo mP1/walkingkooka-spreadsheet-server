@@ -79,6 +79,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -554,15 +555,17 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
             }
 
             @Override
-            public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-                return Sets.of(
-                        ExpressionFunctionInfo.with(
-                                Url.parseAbsolute("https://example.com/expression-function-1"),
-                                ExpressionFunctionName.with("ExpressionFunction1")
-                        ),
-                        ExpressionFunctionInfo.with(
-                                Url.parseAbsolute("https://example.com/expression-function-2"),
-                                ExpressionFunctionName.with("ExpressionFunction2")
+            public ExpressionFunctionInfoSet expressionFunctionInfos() {
+                return ExpressionFunctionInfoSet.with(
+                        Sets.of(
+                                ExpressionFunctionInfo.with(
+                                        Url.parseAbsolute("https://example.com/expression-function-1"),
+                                        ExpressionFunctionName.with("ExpressionFunction1")
+                                ),
+                                ExpressionFunctionInfo.with(
+                                        Url.parseAbsolute("https://example.com/expression-function-2"),
+                                        ExpressionFunctionName.with("ExpressionFunction2")
+                                )
                         )
                 );
             }

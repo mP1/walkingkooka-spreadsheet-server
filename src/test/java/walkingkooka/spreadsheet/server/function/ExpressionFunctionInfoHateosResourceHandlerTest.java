@@ -58,10 +58,12 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
-        public Set<ExpressionFunctionInfo> expressionFunctionInfos() {
-            return Sets.of(
-                    INFO1,
-                    INFO2
+        public ExpressionFunctionInfoSet expressionFunctionInfos() {
+            return ExpressionFunctionInfoSet.with(
+                    Sets.of(
+                            INFO1,
+                            INFO2
+                    )
             );
         }
     };
