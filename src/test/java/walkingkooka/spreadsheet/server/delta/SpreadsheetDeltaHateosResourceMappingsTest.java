@@ -56,6 +56,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -546,8 +547,8 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
             }
 
             @Override
-            public Set<SpreadsheetFormatterInfo> spreadsheetFormatterInfos() {
-                return Sets.of(
+            public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+                return SpreadsheetFormatterInfoSet.EMPTY.concat(
                         SpreadsheetFormatterInfo.with(
                                 Url.parseAbsolute("https://example.com/formatter-1"),
                                 SpreadsheetFormatterName.with("formatter-1")

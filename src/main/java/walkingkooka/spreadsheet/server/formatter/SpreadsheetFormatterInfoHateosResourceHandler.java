@@ -57,9 +57,7 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                SpreadsheetFormatterInfoSet.with(
-                        context.spreadsheetFormatterInfos()
-                )
+                context.spreadsheetFormatterInfos()
         );
     }
 
