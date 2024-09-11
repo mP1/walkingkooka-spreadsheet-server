@@ -57,9 +57,7 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                SpreadsheetParserInfoSet.with(
-                        context.spreadsheetParserInfos()
-                )
+                context.spreadsheetParserInfos()
         );
     }
 
