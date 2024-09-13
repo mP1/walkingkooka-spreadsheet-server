@@ -3880,7 +3880,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
                                 "  \"expression-converter\": \"collection (error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                                "  \"expression-functions\": [],\n" +
+                                "  \"expression-functions\": [\n" +
+                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
+                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
+                                "  ],\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"format-converter\": \"collection (error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
@@ -9052,7 +9055,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("000.000").spreadsheetParserSelector())
                 .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @").spreadsheetFormatterSelector())
                 .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" hh:mm").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mm").spreadsheetParserSelector());
+                .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mm").spreadsheetParserSelector())
+                .set(
+                        SpreadsheetMetadataPropertyName.EXPRESSION_FUNCTIONS,
+                        ExpressionFunctionInfoSet.parse("https://example.com/expression-function-1 ExpressionFunction1, https://example.com/expression-function-2 ExpressionFunction2")
+                );
     }
 
     private static Function<BigDecimal, Fraction> fractioner() {
