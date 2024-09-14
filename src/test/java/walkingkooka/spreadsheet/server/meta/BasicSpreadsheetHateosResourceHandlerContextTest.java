@@ -1149,7 +1149,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
 
         this.toStringAndCheck(
                 context,
-                "base=https://example.com/api987"
+                "https://example.com/api987"
         );
     }
 
