@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
@@ -438,8 +437,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     @Override
     public String toString() {
-        return ToStringBuilder.empty()
-                .label("base").value(this.base)
-                .build();
+        return this.base.toString();
     }
 }
