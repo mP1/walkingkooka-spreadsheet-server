@@ -15,12 +15,12 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label;
+package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
@@ -28,16 +28,14 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
-public abstract class SpreadsheetLabelHateosResourceHandlerTestCase2<H extends SpreadsheetLabelHateosResourceHandler>
-        extends SpreadsheetLabelHateosResourceHandlerTestCase<H>
-        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext>,
+public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>>
+        extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
+        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<H> {
 
-    SpreadsheetLabelHateosResourceHandlerTestCase2() {
+    SpreadsheetDeltaHateosResourceHandlerLabelTestCase() {
         super();
     }
-
-    final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
@@ -60,6 +58,4 @@ public abstract class SpreadsheetLabelHateosResourceHandlerTestCase2<H extends S
             return CONTENT_TYPE;
         }
     }
-
-    ;
 }

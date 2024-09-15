@@ -26,6 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
@@ -49,6 +50,10 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
 
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
+    }
+
+    static SpreadsheetLabelName checkLabel(final SpreadsheetLabelName label) {
+        return Objects.requireNonNull(label, "label");
     }
 
     /**

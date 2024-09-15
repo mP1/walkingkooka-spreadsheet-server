@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label;
+package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
@@ -23,6 +23,10 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -35,7 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends SpreadsheetLabelHateosResourceHandlerTestCase2<SpreadsheetLabelHateosResourceHandlerDelete> {
+public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends SpreadsheetDeltaHateosResourceHandlerLabelTestCase<SpreadsheetDeltaHateosResourceHandlerDeleteLabel> {
 
     @Test
     public void testHandleOneDeleteWithResourceFails() {
@@ -43,7 +47,13 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
 
         this.handleOneFails(
                 labelName,
-                Optional.of(this.mapping(labelName)),
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(
+                                        this.mapping(labelName)
+                                )
+                        )
+                ),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(),
                 IllegalArgumentException.class
@@ -62,7 +72,11 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(store),
-                Optional.empty()
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setDeletedLabels(
+                                Sets.of(labelName)
+                        )
+                )
         );
 
         this.checkEquals(
@@ -78,17 +92,42 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
     @Test
     public void testHandleOneDeleteUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
-                this.id(),
+                SpreadsheetSelection.labelName("UnknownLabel123"),
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(SpreadsheetLabelStores.treeMap()),
-                Optional.empty()
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                )
         );
     }
 
     @Override
-    public SpreadsheetLabelHateosResourceHandlerDelete createHandler() {
-        return SpreadsheetLabelHateosResourceHandlerDelete.INSTANCE;
+    SpreadsheetDeltaHateosResourceHandlerDeleteLabel createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine);
+    }
+
+    @Override
+    SpreadsheetEngine engine() {
+        return new FakeSpreadsheetEngine() {
+            @Override
+            public SpreadsheetDelta deleteLabel(final SpreadsheetLabelName label,
+                                                final SpreadsheetEngineContext context) {
+                SpreadsheetDelta response = SpreadsheetDelta.EMPTY;
+
+                final SpreadsheetLabelStore store = context.storeRepository()
+                        .labels();
+                if (store.load(label).isPresent()) {
+                    store.delete(label);
+
+                    response = response.setDeletedLabels(
+                            Sets.of(label)
+                    );
+                }
+
+                return response;
+            }
+        };
     }
 
     @Override
@@ -107,12 +146,12 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> resource() {
+    public Optional<SpreadsheetDelta> resource() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> collectionResource() {
+    public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
@@ -126,10 +165,10 @@ public final class SpreadsheetLabelHateosResourceHandlerDeleteTest extends Sprea
         return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
-    // ClassTesting......................................................................................................
+    // Class.............................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerDelete> type() {
-        return SpreadsheetLabelHateosResourceHandlerDelete.class;
+    public Class<SpreadsheetDeltaHateosResourceHandlerDeleteLabel> type() {
+        return SpreadsheetDeltaHateosResourceHandlerDeleteLabel.class;
     }
 }

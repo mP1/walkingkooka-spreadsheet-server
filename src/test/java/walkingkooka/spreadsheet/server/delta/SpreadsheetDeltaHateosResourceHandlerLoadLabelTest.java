@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label;
+package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
@@ -23,6 +23,10 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -35,7 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends SpreadsheetLabelHateosResourceHandlerTestCase2<SpreadsheetLabelHateosResourceHandlerLoad> {
+public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends SpreadsheetDeltaHateosResourceHandlerLabelTestCase<SpreadsheetDeltaHateosResourceHandlerLoadLabel> {
 
     @Test
     public void testHandleOneLoad() {
@@ -49,7 +53,11 @@ public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends Spreads
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(store),
-                Optional.of(mapping)
+                Optional.of(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                )
         );
     }
 
@@ -60,13 +68,33 @@ public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends Spreads
                 Optional.empty(),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(SpreadsheetLabelStores.treeMap()),
-                this.resource()
+                Optional.of(
+                        SpreadsheetDelta.EMPTY
+                )
         );
     }
 
     @Override
-    public SpreadsheetLabelHateosResourceHandlerLoad createHandler() {
-        return SpreadsheetLabelHateosResourceHandlerLoad.INSTANCE;
+    SpreadsheetDeltaHateosResourceHandlerLoadLabel createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(engine);
+    }
+
+    @Override
+    SpreadsheetEngine engine() {
+        return new FakeSpreadsheetEngine() {
+
+            @Override
+            public SpreadsheetDelta loadLabel(final SpreadsheetLabelName name,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY.setLabels(
+                        context.storeRepository()
+                                .labels()
+                                .load(name)
+                                .map(Sets::of)
+                                .orElse(Sets.empty())
+                );
+            }
+        };
     }
 
     @Override
@@ -85,12 +113,12 @@ public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends Spreads
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> resource() {
+    public Optional<SpreadsheetDelta> resource() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> collectionResource() {
+    public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
@@ -107,7 +135,7 @@ public final class SpreadsheetLabelHateosResourceHandlerLoadTest extends Spreads
     // ClassTesting......................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerLoad> type() {
-        return SpreadsheetLabelHateosResourceHandlerLoad.class;
+    public Class<SpreadsheetDeltaHateosResourceHandlerLoadLabel> type() {
+        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.class;
     }
 }
