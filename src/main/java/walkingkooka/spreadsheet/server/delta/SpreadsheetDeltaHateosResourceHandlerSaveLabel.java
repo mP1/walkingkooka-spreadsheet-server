@@ -60,7 +60,6 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
-                null,
                 resource,
                 parameters,
                 context
@@ -74,16 +73,16 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+        checkLabel(label);
+
         return this.saveOrUpdate(
-                checkLabel(label),
                 resource,
                 parameters,
                 context
         );
     }
 
-    private Optional<SpreadsheetDelta> saveOrUpdate(final SpreadsheetLabelName label,
-                                                    final Optional<SpreadsheetDelta> resource,
+    private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetDelta> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
