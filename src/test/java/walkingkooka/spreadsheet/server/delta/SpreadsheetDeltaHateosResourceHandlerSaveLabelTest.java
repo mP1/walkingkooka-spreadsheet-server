@@ -15,15 +15,18 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.label;
+package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
+import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -36,7 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends SpreadsheetLabelHateosResourceHandlerTestCase2<SpreadsheetLabelHateosResourceHandlerSaveOrUpdate> {
+public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends SpreadsheetDeltaHateosResourceHandlerLabelTestCase<SpreadsheetDeltaHateosResourceHandlerSaveLabel> {
 
     @Test
     public void testSave() {
@@ -45,10 +48,14 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         this.handleNoneAndCheck(
-                Optional.of(mapping),
+                Optional.of(
+                        this.spreadsheetDelta(mapping)
+                ),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(store),
-                Optional.of(mapping)
+                Optional.of(
+                        this.spreadsheetDelta(mapping)
+                )
         );
 
         this.checkEquals(mapping, store.loadOrFail(labelName));
@@ -63,63 +70,39 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
 
         this.handleOneAndCheck(
                 labelName,
-                Optional.of(mapping),
+                Optional.of(
+                        this.spreadsheetDelta(mapping)
+                ),
                 HateosResourceHandler.NO_PARAMETERS,
                 this.context(store),
-                Optional.of(mapping)
+                Optional.of(
+                        this.spreadsheetDelta(mapping)
+                )
         );
 
         this.checkEquals(mapping, store.loadOrFail(labelName));
     }
 
-    @Test
-    public void testRename() {
-        final SpreadsheetLabelName oldLabelName = SpreadsheetSelection.labelName("oldLabel1");
-        final SpreadsheetLabelName newLabelName = SpreadsheetSelection.labelName("newLabel2");
-        final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
-        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(this.mapping(oldLabelName));
-
-        this.handleOneAndCheck(
-                oldLabelName,
-                Optional.of(newMapping),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(newMapping)
-        );
-
-        this.checkEquals(
-                Lists.of(newMapping),
-                store.all()
-        );
-    }
-
-    @Test
-    public void testRenameNewLabelReplacesAnother() {
-        final SpreadsheetLabelName oldLabelName = SpreadsheetSelection.labelName("oldLabel1");
-        final SpreadsheetLabelName newLabelName = SpreadsheetSelection.labelName("newLabel2");
-        final SpreadsheetLabelMapping newMapping = mapping(newLabelName);
-        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
-        store.save(this.mapping(oldLabelName));
-        store.save(newLabelName.mapping(SpreadsheetSelection.parseCell("Z99")));
-
-        this.handleOneAndCheck(
-                oldLabelName,
-                Optional.of(newMapping),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(newMapping)
-        );
-
-        this.checkEquals(
-                Lists.of(newMapping),
-                store.all()
-        );
+    @Override
+    SpreadsheetDeltaHateosResourceHandlerSaveLabel createHandler(final SpreadsheetEngine engine) {
+        return SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine);
     }
 
     @Override
-    public SpreadsheetLabelHateosResourceHandlerSaveOrUpdate createHandler() {
-        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.INSTANCE;
+    SpreadsheetEngine engine() {
+        return new FakeSpreadsheetEngine() {
+            @Override
+            public SpreadsheetDelta saveLabel(final SpreadsheetLabelMapping mapping,
+                                              final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(
+                                context.storeRepository()
+                                        .labels()
+                                        .save(mapping)
+                        )
+                );
+            }
+        };
     }
 
     @Override
@@ -138,16 +121,31 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> resource() {
-        return Optional.of(mapping(this.id()));
+    public Optional<SpreadsheetDelta> resource() {
+        return Optional.of(
+                this.spreadsheetDelta(
+                        this.mapping(this.id())
+                )
+        );
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName id) {
-        return SpreadsheetLabelMapping.with(id, SpreadsheetSelection.parseCell("Z99"));
+        return SpreadsheetLabelMapping.with(
+                id,
+                SpreadsheetSelection.parseCell("Z99")
+        );
+    }
+
+    private SpreadsheetDelta spreadsheetDelta(final SpreadsheetLabelMapping mapping) {
+        return SpreadsheetDelta.EMPTY.setLabels(
+                Sets.of(
+                        mapping
+                )
+        );
     }
 
     @Override
-    public Optional<SpreadsheetLabelMapping> collectionResource() {
+    public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
@@ -164,7 +162,7 @@ public final class SpreadsheetLabelHateosResourceHandlerSaveOrUpdateTest extends
     // ClassTesting......................................................................................................
 
     @Override
-    public Class<SpreadsheetLabelHateosResourceHandlerSaveOrUpdate> type() {
-        return SpreadsheetLabelHateosResourceHandlerSaveOrUpdate.class;
+    public Class<SpreadsheetDeltaHateosResourceHandlerSaveLabel> type() {
+        return SpreadsheetDeltaHateosResourceHandlerSaveLabel.class;
     }
 }

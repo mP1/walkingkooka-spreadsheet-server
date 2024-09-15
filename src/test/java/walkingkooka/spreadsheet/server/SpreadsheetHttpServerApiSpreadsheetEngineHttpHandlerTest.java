@@ -233,7 +233,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     @Test
     public void testRouteLabelGetNotFound() {
-        this.routeAndCheck(HttpMethod.GET, "/api/1/label/UnknownLabel99", HttpStatusCode.NO_CONTENT);
+        this.routeAndCheck(
+                HttpMethod.GET,
+                "/api/1/label/UnknownLabel99",
+                HttpStatusCode.OK
+        );
     }
 
     @Test

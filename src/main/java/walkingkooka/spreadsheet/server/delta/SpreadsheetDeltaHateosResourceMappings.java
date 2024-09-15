@@ -36,10 +36,13 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
+import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.Map;
@@ -427,6 +430,63 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                 )
         );
     }
+
+    /**
+     * Used to form the metadata load and save services
+     * <pre>
+     * /api/spreadsheet/$spreadsheet-id/label
+     * </pre>
+     */
+    private final static LinkRelation<?> LABEL_LINK_RELATION = LinkRelation.SELF;
+
+    /**
+     * Factory that creates a labels.
+     */
+    public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final SpreadsheetEngine engine) {
+        return HateosResourceMapping.with(
+                LABEL,
+                SpreadsheetDeltaHateosResourceMappings::parseLabel,
+                SpreadsheetDelta.class,
+                SpreadsheetDelta.class,
+                SpreadsheetLabelMapping.class,
+                SpreadsheetEngineHateosResourceHandlerContext.class
+        ).setHateosResourceHandler(
+                LABEL_LINK_RELATION,
+                HttpMethod.DELETE,
+                SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine)
+        ).setHateosResourceHandler(
+                LABEL_LINK_RELATION,
+                HttpMethod.GET,
+                SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(engine)
+        ).setHateosResourceHandler(
+                LABEL_LINK_RELATION,
+                HttpMethod.POST,
+                SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
+        );
+    }
+
+    /**
+     * A {@link HateosResourceName} with <code>metadata</code>.
+     */
+    public final static HateosResourceName LABEL = HateosResourceName.with("label");
+
+    private static HateosResourceSelection<SpreadsheetLabelName> parseLabel(final String text,
+                                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
+        try {
+            HateosResourceSelection<SpreadsheetLabelName> selection;
+
+            if (text.isEmpty()) {
+                selection = HateosResourceSelection.none();
+            } else {
+                selection = HateosResourceSelection.one(SpreadsheetSelection.labelName(text));
+            }
+
+            return selection;
+        } catch (final Exception cause) {
+            throw new IllegalArgumentException("Invalid label name " + CharSequences.quoteAndEscape(text));
+        }
+    }
+
 
     /**
      * Stop creation.

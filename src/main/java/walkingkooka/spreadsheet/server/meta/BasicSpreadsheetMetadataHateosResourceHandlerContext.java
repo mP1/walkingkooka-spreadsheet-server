@@ -77,7 +77,6 @@ import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceM
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
-import walkingkooka.spreadsheet.server.label.SpreadsheetLabelHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -341,7 +340,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetImporterInfo, SpreadsheetEngineHateosResourceHandlerContext> importer = SpreadsheetImporterHateosResourceMappings.importer();
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetLabelHateosResourceMappings.INSTANCE;
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetDeltaHateosResourceMappings.label(engine);
 
         final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
 

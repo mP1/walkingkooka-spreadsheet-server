@@ -119,6 +119,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -2416,11 +2417,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/" + label,
                 NO_HEADERS_TRANSACTION_ID,
-                this.toJson(mapping),
+                this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.OK.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -3979,11 +3992,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -4151,11 +4176,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -4531,11 +4568,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/" + label,
                 NO_HEADERS_TRANSACTION_ID,
-                this.toJson(mapping),
+                this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.OK.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
     }
@@ -5461,11 +5510,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
     }
@@ -5482,11 +5543,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -5497,8 +5570,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
     }
@@ -5515,11 +5592,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -5554,11 +5643,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpMethod.POST,
                 "/api/spreadsheet/1/label/",
                 NO_HEADERS_TRANSACTION_ID,
-                toJson(mapping),
+                toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                                Sets.of(mapping)
+                        )
+                ),
                 this.response(
                         HttpStatusCode.CREATED.status(),
-                        this.toJson(mapping),
-                        SpreadsheetLabelMapping.class.getSimpleName()
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setLabels(
+                                        Sets.of(mapping)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
 
@@ -5568,7 +5669,17 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.OK.status(),
+                        this.toJson(
+                                SpreadsheetDelta.EMPTY.setDeletedLabels(
+                                        Sets.of(label)
+                                ).setColumnCount(
+                                        OptionalInt.of(0)
+                                ).setRowCount(
+                                        OptionalInt.of(0)
+                                )
+                        ),
+                        SpreadsheetDelta.class.getSimpleName()
                 )
         );
     }
