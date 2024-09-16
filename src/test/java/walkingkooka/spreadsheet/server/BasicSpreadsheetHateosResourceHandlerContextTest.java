@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.Url;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -26,6 +27,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 
 import java.math.MathContext;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetHateosResourceHandlerContextTest implements SpreadsheetHateosResourceHandlerContextTesting<BasicSpreadsheetHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting {
@@ -42,6 +45,62 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
             Url.parseAbsolute("https://example.com"),
             NOW
     );
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullJsonNodeMarshallContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                        null,
+                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        SPREADSHEET_ENGINE_CONTEXT,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullJsonNodeUnmarshallContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        null,
+                        SPREADSHEET_ENGINE_CONTEXT,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetEngineContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        null,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetFormatterContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        SPREADSHEET_ENGINE_CONTEXT,
+                        null
+                )
+        );
+    }
+
+    // SpreadsheetHateosResourceHandlerContextTesting...................................................................
 
     @Override
     public void testResolveLabelWithNullFails() {
