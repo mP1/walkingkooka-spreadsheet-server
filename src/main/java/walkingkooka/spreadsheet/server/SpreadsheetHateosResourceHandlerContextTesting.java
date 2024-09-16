@@ -25,6 +25,7 @@ public interface SpreadsheetHateosResourceHandlerContextTesting<C extends Spread
         SpreadsheetEngineContextTesting<C>,
         SpreadsheetFormatterProviderSamplesContextTesting<C> {
 
+    @Override
     default C createSpreadsheetProvider() {
         return this.createContext();
     }
