@@ -29,6 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
@@ -58,13 +60,18 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-            return SpreadsheetFormatterInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+                    return SpreadsheetFormatterInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 
@@ -158,7 +165,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                "SpreadsheetEngineContext.spreadsheetFormatterInfos"
+                "systemSpreadsheetProvider.spreadsheetFormatterInfos"
         );
     }
 

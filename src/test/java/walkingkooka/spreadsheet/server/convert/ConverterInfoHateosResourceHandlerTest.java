@@ -29,6 +29,8 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
@@ -58,13 +60,18 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
-        public ConverterInfoSet converterInfos() {
-            return ConverterInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public ConverterInfoSet converterInfos() {
+                    return ConverterInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 

@@ -26,6 +26,8 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -58,13 +60,18 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
-        public ExpressionFunctionInfoSet expressionFunctionInfos() {
-            return ExpressionFunctionInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public ExpressionFunctionInfoSet expressionFunctionInfos() {
+                    return ExpressionFunctionInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 

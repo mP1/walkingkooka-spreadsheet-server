@@ -55,7 +55,8 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
 
         return Optional.of(
                 ExpressionFunctionInfoSet.with(
-                        context.expressionFunctionInfos()
+                        context.systemSpreadsheetProvider()
+                                .expressionFunctionInfos()
                 )
         );
     }
@@ -70,7 +71,8 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return context.expressionFunctionInfos()
+        return context.systemSpreadsheetProvider()
+                .expressionFunctionInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();

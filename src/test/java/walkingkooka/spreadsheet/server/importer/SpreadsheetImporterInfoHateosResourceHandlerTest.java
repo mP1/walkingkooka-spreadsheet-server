@@ -29,6 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
@@ -58,13 +60,18 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
-            return SpreadsheetImporterInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
+                    return SpreadsheetImporterInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 
@@ -158,7 +165,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                "SpreadsheetEngineContext.spreadsheetImporterInfos"
+                "systemSpreadsheetProvider.spreadsheetImporterInfos"
         );
     }
 
