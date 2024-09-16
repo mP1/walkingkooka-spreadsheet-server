@@ -55,7 +55,8 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
 
         return Optional.of(
                 SpreadsheetComparatorInfoSet.with(
-                        context.spreadsheetComparatorInfos()
+                        context.systemSpreadsheetProvider()
+                                .spreadsheetComparatorInfos()
                 )
         );
     }
@@ -70,7 +71,8 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return context.spreadsheetComparatorInfos()
+        return context.systemSpreadsheetProvider()
+                .spreadsheetComparatorInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();

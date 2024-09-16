@@ -29,6 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
@@ -57,14 +59,18 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
 
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
-        @Override
-        public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
-            return SpreadsheetComparatorInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
+                    return SpreadsheetComparatorInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 
