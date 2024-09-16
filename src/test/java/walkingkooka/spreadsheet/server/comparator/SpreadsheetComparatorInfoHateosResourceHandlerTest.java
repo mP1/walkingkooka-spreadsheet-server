@@ -59,6 +59,7 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
 
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
+        @Override
         public SpreadsheetProvider systemSpreadsheetProvider() {
             return new FakeSpreadsheetProvider() {
                 @Override
