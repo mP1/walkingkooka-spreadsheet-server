@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.color.Color;
@@ -72,7 +72,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
+public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext {
 
     // SpreadsheetEngineContext.........................................................................................
 

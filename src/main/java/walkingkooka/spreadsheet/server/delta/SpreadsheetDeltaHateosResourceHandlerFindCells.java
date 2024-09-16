@@ -28,7 +28,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.Expression;
 
 import java.util.Map;
@@ -60,7 +60,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         return this.handleRange(
                 SpreadsheetSelection.ALL_CELLS.range(),
                 resource,
@@ -73,7 +73,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         checkCell(cell);
 
         return this.handleRange(
@@ -88,7 +88,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
         return this.findCells(
@@ -102,7 +102,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     private Optional<SpreadsheetDelta> findCells(final SpreadsheetCellRangeReference cells,
                                                  final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                 final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);

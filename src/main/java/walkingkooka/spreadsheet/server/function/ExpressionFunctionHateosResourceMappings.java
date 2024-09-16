@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
@@ -37,7 +37,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
             ExpressionFunctionInfo,
             ExpressionFunctionInfoSet,
             ExpressionFunctionInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> function() {
+            SpreadsheetHateosResourceHandlerContext> function() {
 
         // function GET...............................................................................................
 
@@ -45,13 +45,13 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 ExpressionFunctionInfo,
                 ExpressionFunctionInfoSet,
                 ExpressionFunctionInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMapping.with(
+                SpreadsheetHateosResourceHandlerContext> function = HateosResourceMapping.with(
                         FUNCTION,
                         ExpressionFunctionHateosResourceMappings::parseFunctionSelection,
                         ExpressionFunctionInfo.class, // valueType
                         ExpressionFunctionInfoSet.class, // collectionType
                         ExpressionFunctionInfo.class,// resourceType
-                        SpreadsheetEngineHateosResourceHandlerContext.class // context
+                        SpreadsheetHateosResourceHandlerContext.class // context
                 )
                 .setHateosResourceHandler(
                         LinkRelation.SELF,
@@ -63,7 +63,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
     }
 
     private static HateosResourceSelection<ExpressionFunctionName> parseFunctionSelection(final String text,
-                                                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                                          final SpreadsheetHateosResourceHandlerContext context) {
         final HateosResourceSelection<ExpressionFunctionName> selection;
 
         switch (text) {

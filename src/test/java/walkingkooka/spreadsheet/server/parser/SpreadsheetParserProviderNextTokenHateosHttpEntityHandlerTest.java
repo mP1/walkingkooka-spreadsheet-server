@@ -43,8 +43,8 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenAlternative;
-import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -55,7 +55,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler>,
         SpreadsheetMetadataTesting {
 
@@ -155,7 +155,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
                         )
                 ),
                 this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                new FakeSpreadsheetHateosResourceHandlerContext() {
                     @Override
                     public MediaType contentType() {
                         return MediaType.APPLICATION_JSON;
@@ -271,8 +271,8 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    public SpreadsheetHateosResourceHandlerContext context() {
+        return new FakeSpreadsheetHateosResourceHandlerContext() {
             @Override
             public MediaType contentType() {
                 return MediaType.APPLICATION_JSON;

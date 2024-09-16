@@ -29,8 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
         SpreadsheetFormatterName,
         SpreadsheetFormatterInfo,
         SpreadsheetFormatterInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
+        SpreadsheetHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -55,7 +55,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
             SpreadsheetFormatterName.with("formatter-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
         public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
@@ -148,7 +148,7 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

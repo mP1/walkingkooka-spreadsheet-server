@@ -25,7 +25,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -34,10 +34,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ConverterInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetHateosResourceHandlerContext> {
 
     final static ConverterInfoHateosResourceHandler INSTANCE = new ConverterInfoHateosResourceHandler();
 
@@ -48,7 +48,7 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
     @Override
     public Optional<ConverterInfoSet> handleAll(final Optional<ConverterInfoSet> infos,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
@@ -64,7 +64,7 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
     public Optional<ConverterInfo> handleOne(final ConverterName name,
                                              final Optional<ConverterInfo> info,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                             final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);

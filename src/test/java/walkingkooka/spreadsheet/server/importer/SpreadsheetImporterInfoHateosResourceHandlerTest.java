@@ -29,8 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
-import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -40,7 +40,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
         SpreadsheetImporterName,
         SpreadsheetImporterInfo,
         SpreadsheetImporterInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
+        SpreadsheetHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetImporterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -55,7 +55,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
             SpreadsheetImporterName.with("importer-2")
     );
 
-    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+    private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
         public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
@@ -148,7 +148,7 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
+    public SpreadsheetHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

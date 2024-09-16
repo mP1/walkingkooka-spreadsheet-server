@@ -67,12 +67,12 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
@@ -317,34 +317,34 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                                               final int defaultMax,
                                                                                               final SpreadsheetEngine engine,
                                                                                               final SpreadsheetEngineContext context) {
-        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHateosResourceMappings.cell(
+        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetHateosResourceHandlerContext> cell = SpreadsheetDeltaHateosResourceMappings.cell(
                 engine,
                 defaultMax
         );
 
-        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHateosResourceMappings.cellReference(context);
+        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHateosResourceMappings.cellReference(context);
 
-        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHateosResourceMappings.column(
+        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetHateosResourceHandlerContext> column = SpreadsheetDeltaHateosResourceMappings.column(
                 engine
         );
 
-        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo, SpreadsheetEngineHateosResourceHandlerContext> comparator = SpreadsheetComparatorHateosResourceMappings.comparator();
+        final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo, SpreadsheetHateosResourceHandlerContext> comparator = SpreadsheetComparatorHateosResourceMappings.comparator();
 
-        final HateosResourceMapping<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetEngineHateosResourceHandlerContext> converter = ConverterHateosResourceMappings.converter();
+        final HateosResourceMapping<ConverterName, ConverterInfo, ConverterInfoSet, ConverterInfo, SpreadsheetHateosResourceHandlerContext> converter = ConverterHateosResourceMappings.converter();
 
-        final HateosResourceMapping<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetExporterInfo, SpreadsheetEngineHateosResourceHandlerContext> exporter = SpreadsheetExporterHateosResourceMappings.exporter();
+        final HateosResourceMapping<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetExporterInfo, SpreadsheetHateosResourceHandlerContext> exporter = SpreadsheetExporterHateosResourceMappings.exporter();
 
-        final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
+        final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
-        final HateosResourceMapping<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
+        final HateosResourceMapping<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
 
-        final HateosResourceMapping<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetImporterInfo, SpreadsheetEngineHateosResourceHandlerContext> importer = SpreadsheetImporterHateosResourceMappings.importer();
+        final HateosResourceMapping<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetImporterInfo, SpreadsheetHateosResourceHandlerContext> importer = SpreadsheetImporterHateosResourceMappings.importer();
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label = SpreadsheetDeltaHateosResourceMappings.label(engine);
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetHateosResourceHandlerContext> label = SpreadsheetDeltaHateosResourceMappings.label(engine);
 
-        final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
+        final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
 
-        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHateosResourceMappings.row(
+        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetHateosResourceHandlerContext> row = SpreadsheetDeltaHateosResourceMappings.row(
                 engine
         );
 
@@ -376,7 +376,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 ),
                 this.indentation,
                 this.lineEnding,
-                SpreadsheetEngineHateosResourceHandlerContexts.basic(
+                SpreadsheetHateosResourceHandlerContexts.basic(
                         metadata.jsonNodeMarshallContext(),
                         metadata.jsonNodeUnmarshallContext()
                                 .setPreProcessor(

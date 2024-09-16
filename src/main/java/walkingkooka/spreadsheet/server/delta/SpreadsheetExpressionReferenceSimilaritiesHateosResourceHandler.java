@@ -29,8 +29,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 
 import java.util.Map;
@@ -41,11 +41,11 @@ import java.util.Set;
 /**
  * A {@link HateosResourceHandler} that resolves {@link String text} holding a cell-reference or label or range to a cell-reference.
  */
-final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler implements HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler implements HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext> {
 
     static SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler with(final SpreadsheetEngineContext context) {
         return new SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler(
@@ -62,7 +62,7 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
     public Optional<SpreadsheetExpressionReferenceSimilarities> handleOne(final String text,
                                                                           final Optional<SpreadsheetExpressionReferenceSimilarities> resource,
                                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                          final SpreadsheetHateosResourceHandlerContext context) {
         Objects.requireNonNull(text, "text");
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

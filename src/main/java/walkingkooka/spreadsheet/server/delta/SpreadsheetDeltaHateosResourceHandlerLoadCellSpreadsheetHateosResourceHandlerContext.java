@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
@@ -25,7 +25,6 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterProvider;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -41,6 +40,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
@@ -55,92 +55,87 @@ import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
-final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
+/**
+ * A {@link SpreadsheetHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetHateosResourceHandlerContext},
+ * except for the given {@link SpreadsheetMetadata} which will have the updated {@link walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName#VIEWPORT}.
+ */
+final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
         ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
-        SpreadsheetExporterProviderDelegator,
         ExpressionFunctionProviderDelegator,
+        SpreadsheetExporterProviderDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetImporterProviderDelegator,
         SpreadsheetParserProviderDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator,
-        ProviderContextDelegator {
+        ProviderContextDelegator,
+        JsonNodeMarshallUnmarshallContextDelegator {
 
-    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
-                                                                   final JsonNodeUnmarshallContext unmarshallContext,
-                                                                   final SpreadsheetEngineContext engineContext,
-                                                                   final SpreadsheetFormatterContext formatterContext) {
-        return new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                Objects.requireNonNull(marshallContext, "marshallContext"),
-                Objects.requireNonNull(unmarshallContext, "unmarshallContext"),
-                Objects.requireNonNull(engineContext, "engineContext"),
-                Objects.requireNonNull(formatterContext, "formatterContext")
+    static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
+                                                                                                     final SpreadsheetHateosResourceHandlerContext context) {
+        return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext(
+                metadata,
+                context
         );
     }
 
-    private BasicSpreadsheetEngineHateosResourceHandlerContext(final JsonNodeMarshallContext marshallContext,
-                                                               final JsonNodeUnmarshallContext unmarshallContext,
-                                                               final SpreadsheetEngineContext engineContext,
-                                                               final SpreadsheetFormatterContext formatterContext) {
-        this.marshallContext = marshallContext;
-        this.unmarshallContext = unmarshallContext;
-        this.engineContext = engineContext;
-        this.formatterContext = formatterContext;
+    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext(final SpreadsheetMetadata metadata,
+                                                                                                 final SpreadsheetHateosResourceHandlerContext context) {
+        this.metadata = metadata;
+        this.context = context;
     }
+
+    // SpreadsheetHateosResourceHandlerContext....................................................................
 
     @Override
     public MediaType contentType() {
         return MediaType.APPLICATION_JSON;
     }
 
+    // must be overridden because of clashes between various XXXDelegators
+
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.formatterContext.expressionNumberKind();
+        return this.context.expressionNumberKind();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.formatterContext.mathContext();
+        return this.context.mathContext();
     }
 
     // JsonNodeMarshallContext..........................................................................................
 
     @Override
     public JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.marshallContext;
+        return this.context;
     }
-
-    private final JsonNodeMarshallContext marshallContext;
 
     // JsonNodeUnmarshallContext........................................................................................
 
     @Override
     public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
-        return this.unmarshallContext;
+        return this.context;
     }
-
-    private final JsonNodeUnmarshallContext unmarshallContext;
 
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
     public SpreadsheetParserToken parseFormula(final TextCursor textCursor) {
-        return this.engineContext.parseFormula(textCursor);
+        return this.context.parseFormula(textCursor);
     }
 
     @Override
     public Optional<Expression> toExpression(final SpreadsheetParserToken spreadsheetParserToken) {
-        return this.engineContext.toExpression(spreadsheetParserToken);
+        return this.context.toExpression(spreadsheetParserToken);
     }
 
     @Override
     public Object evaluate(final Expression expression,
                            final Optional<SpreadsheetCell> cell) {
-        return this.engineContext.evaluate(
+        return this.context.evaluate(
                 expression,
                 cell
         );
@@ -149,7 +144,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public Optional<TextNode> formatValue(final Object value,
                                           final SpreadsheetFormatter spreadsheetFormatter) {
-        return this.engineContext.formatValue(
+        return this.context.formatValue(
                 value,
                 spreadsheetFormatter
         );
@@ -158,7 +153,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
                                                final Optional<SpreadsheetFormatter> formatter) {
-        return this.engineContext.formatValueAndStyle(
+        return this.context.formatValueAndStyle(
                 cell,
                 formatter
         );
@@ -166,93 +161,93 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
 
     @Override
     public SpreadsheetStoreRepository storeRepository() {
-        return this.engineContext.storeRepository();
+        return this.context.storeRepository();
     }
 
     @Override
     public LocalDateTime now() {
-        return this.engineContext.now();
+        return this.context.now();
     }
 
     @Override
     public SpreadsheetMetadata spreadsheetMetadata() {
-        return this.engineContext.spreadsheetMetadata();
+        return this.metadata;
     }
+
+    private final SpreadsheetMetadata metadata;
 
     @Override
     public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
-        return this.engineContext.resolveLabel(spreadsheetLabelName);
+        return this.context.resolveLabel(spreadsheetLabelName);
     }
 
     @Override
     public boolean isPure(final ExpressionFunctionName name) {
-        return this.engineContext.isPure(name);
+        return this.context.isPure(name);
     }
 
     // ConverterProvider................................................................................................
 
     @Override
     public ConverterProvider converterProvider() {
-        return this.engineContext;
+        return this.context;
     }
 
     // SpreadsheetComparatorProvider....................................................................................
 
     @Override
     public SpreadsheetComparatorProvider spreadsheetComparatorProvider() {
-        return this.engineContext;
+        return this.context;
     }
 
     // SpreadsheetExporterProvider......................................................................................
 
     @Override
     public SpreadsheetExporterProvider spreadsheetExporterProvider() {
-        return this.engineContext;
+        return this.context;
     }
     
     // ExpressionFunctionProvider.......................................................................................
 
     @Override
     public ExpressionFunctionProvider expressionFunctionProvider() {
-        return this.engineContext;
+        return this.context;
     }
 
     // SpreadsheetFormatterProvider.....................................................................................
 
     @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
-        return this.engineContext;
+        return this.context;
     }
 
     // SpreadsheetImporterProvider......................................................................................
 
     @Override
     public SpreadsheetImporterProvider spreadsheetImporterProvider() {
-        return this.engineContext;
+        return this.context;
     }
 
     // SpreadsheetParserProvider........................................................................................
 
     @Override
     public SpreadsheetParserProvider spreadsheetParserProvider() {
-        return this.engineContext;
+        return this.context;
     }
-
-    private final SpreadsheetEngineContext engineContext;
 
     // SpreadsheetFormatterContext......................................................................................
 
     @Override
     public SpreadsheetFormatterContext spreadsheetFormatterContext() {
-        return this.formatterContext;
+        return this.context;
     }
-
-    private final SpreadsheetFormatterContext formatterContext;
 
     // ProviderContext..................................................................................................
 
     @Override
     public ProviderContext providerContext() {
-        return this.engineContext;
+        return this.context;
     }
+
+    private final SpreadsheetHateosResourceHandlerContext context;
 }

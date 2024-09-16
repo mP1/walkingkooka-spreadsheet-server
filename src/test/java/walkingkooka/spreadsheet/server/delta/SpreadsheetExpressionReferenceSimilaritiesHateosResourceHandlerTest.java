@@ -33,9 +33,9 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -49,7 +49,7 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         String,
         SpreadsheetExpressionReferenceSimilarities,
         SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetEngineHateosResourceHandlerContext>,
+        SpreadsheetHateosResourceHandlerContext>,
         ToStringTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> {
 
     private final static SpreadsheetCellReference A1 = SpreadsheetSelection.A1;
@@ -255,8 +255,8 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetHateosResourceHandlerContext context() {
+        return SpreadsheetHateosResourceHandlerContexts.fake();
     }
 
     @Test

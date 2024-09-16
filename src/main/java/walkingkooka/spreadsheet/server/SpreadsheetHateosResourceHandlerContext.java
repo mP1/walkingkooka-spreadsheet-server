@@ -15,13 +15,13 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 
-public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
+public interface SpreadsheetHateosResourceHandlerContext extends HateosResourceHandlerContext,
         SpreadsheetEngineContext,
         SpreadsheetFormatterProviderSamplesContext {
 }

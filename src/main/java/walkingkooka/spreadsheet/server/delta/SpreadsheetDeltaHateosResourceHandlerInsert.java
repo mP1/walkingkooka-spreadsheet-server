@@ -25,8 +25,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +37,7 @@ import java.util.Optional;
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>>
         extends SpreadsheetDeltaHateosResourceHandler<R>
-        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerInsert(final SpreadsheetEngine engine) {
         super(engine);
@@ -47,7 +47,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                      final SpreadsheetHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -80,7 +80,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                        final SpreadsheetHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

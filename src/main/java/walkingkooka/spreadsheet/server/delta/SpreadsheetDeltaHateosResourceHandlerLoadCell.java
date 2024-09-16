@@ -36,7 +36,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -67,7 +67,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -111,7 +111,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                 resource,
                 parameters,
                 maybeNavigatedViewport.orElse(viewport),
-                SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
+                SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext.with(
                         metadata,
                         context
                 )
@@ -124,7 +124,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     private Optional<SpreadsheetDelta> handleAll0(final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final SpreadsheetViewport viewport,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetHateosResourceHandlerContext context) {
         final SpreadsheetViewportWindows window = this.engine.window(
                 viewport.rectangle(),
                 true, // includeFrozenColumnsRows,
@@ -167,7 +167,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         checkCell(cell);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -189,7 +189,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
     private SpreadsheetDelta loadCell(final SpreadsheetCellReference reference,
                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                      final SpreadsheetHateosResourceHandlerContext context) {
         return this.engine.loadCells(
                 reference,
                 this.evaluation,
@@ -204,7 +204,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> ids,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(ids);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
@@ -225,7 +225,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                     final Optional<SpreadsheetDelta> resource,
                                                     final Optional<SpreadsheetViewport> viewport,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                    final SpreadsheetHateosResourceHandlerContext context) {
         return Optional.ofNullable(
                 this.prepareResponse(
                         resource,
@@ -242,7 +242,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
     private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> cells,
                                        final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                       final SpreadsheetHateosResourceHandlerContext context) {
         return this.engine.loadCells(
                 cells,
                 this.evaluation,
