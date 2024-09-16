@@ -55,6 +55,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -434,6 +435,13 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
     // ProviderContext..................................................................................................
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    // SpreadsheetHateosResourceHandlerContext..........................................................................
+
+    @Override
+    public SpreadsheetProvider systemSpreadsheetProvider() {
         throw new UnsupportedOperationException();
     }
 }

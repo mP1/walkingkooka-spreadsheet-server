@@ -9107,6 +9107,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Indentation.SPACES2,
                 LineEnding.NL,
                 NOW,
+                SPREADSHEET_PROVIDER,
                 createMetadata(
                         this.createMetadata(),
                         this.metadataStore

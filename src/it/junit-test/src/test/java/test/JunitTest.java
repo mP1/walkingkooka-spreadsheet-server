@@ -244,6 +244,7 @@ public class JunitTest {
                 Indentation.SPACES2,
                 LineEnding.NL,
                 () -> now, // now
+                SpreadsheetProviders.fake(),
                 (l) -> metadata.set(
                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                         SpreadsheetId.with(nextId.incrementAndGet())

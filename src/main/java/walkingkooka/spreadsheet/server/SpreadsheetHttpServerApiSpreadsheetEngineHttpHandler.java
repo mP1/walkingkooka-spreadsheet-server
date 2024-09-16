@@ -55,6 +55,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
                                                                      final Function<BigDecimal, Fraction> fractioner,
+                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -68,6 +69,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 indentation,
                 lineEnding,
                 fractioner,
+                systemSpreadsheetProvider,
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
@@ -86,6 +88,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
                                                                  final Function<BigDecimal, Fraction> fractioner,
+                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -101,6 +104,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.lineEnding = lineEnding;
 
         this.fractioner = fractioner;
+
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
@@ -156,7 +161,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallContext,
                 this.jsonNodeUnmarshallContext,
-                this.now
+                this.now,
+                this.systemSpreadsheetProvider
         ).httpRouter(id);
     }
 
@@ -187,6 +193,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
+
+    private final SpreadsheetProvider systemSpreadsheetProvider;
 
     // toString.........................................................................................................
 

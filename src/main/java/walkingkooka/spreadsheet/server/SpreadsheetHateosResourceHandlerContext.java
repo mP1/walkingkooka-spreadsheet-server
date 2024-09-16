@@ -20,8 +20,14 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
 public interface SpreadsheetHateosResourceHandlerContext extends HateosResourceHandlerContext,
         SpreadsheetEngineContext,
         SpreadsheetFormatterProviderSamplesContext {
+
+    /**
+     * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.
+     */
+    SpreadsheetProvider systemSpreadsheetProvider();
 }

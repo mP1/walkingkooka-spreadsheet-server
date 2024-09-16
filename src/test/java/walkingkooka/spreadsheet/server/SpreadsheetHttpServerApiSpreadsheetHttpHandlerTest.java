@@ -65,7 +65,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                LocalDateTime::now
+                LocalDateTime::now,
+                SPREADSHEET_PROVIDER
         );
     }
 

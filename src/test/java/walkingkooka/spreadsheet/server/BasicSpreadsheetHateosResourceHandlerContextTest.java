@@ -56,7 +56,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         null,
                         JSON_NODE_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
-                        SPREADSHEET_FORMATTER_CONTEXT
+                        SPREADSHEET_FORMATTER_CONTEXT,
+                        SPREADSHEET_PROVIDER
                 )
         );
     }
@@ -69,7 +70,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         JSON_NODE_MARSHALL_CONTEXT,
                         null,
                         SPREADSHEET_ENGINE_CONTEXT,
-                        SPREADSHEET_FORMATTER_CONTEXT
+                        SPREADSHEET_FORMATTER_CONTEXT,
+                        SPREADSHEET_PROVIDER
                 )
         );
     }
@@ -82,7 +84,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         JSON_NODE_MARSHALL_CONTEXT,
                         JSON_NODE_UNMARSHALL_CONTEXT,
                         null,
-                        SPREADSHEET_FORMATTER_CONTEXT
+                        SPREADSHEET_FORMATTER_CONTEXT,
+                        SPREADSHEET_PROVIDER
                 )
         );
     }
@@ -95,6 +98,21 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         JSON_NODE_MARSHALL_CONTEXT,
                         JSON_NODE_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
+                        null,
+                        SPREADSHEET_PROVIDER
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetProviderFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        SPREADSHEET_ENGINE_CONTEXT,
+                        SPREADSHEET_FORMATTER_CONTEXT,
                         null
                 )
         );
@@ -118,7 +136,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT
+                SPREADSHEET_FORMATTER_CONTEXT,
+                SPREADSHEET_PROVIDER
         );
     }
 

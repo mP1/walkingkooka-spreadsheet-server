@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
@@ -247,6 +248,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
     @Override
     public ProviderContext providerContext() {
         return this.context;
+    }
+
+    // SpreadsheetHateosResourceHandlerContext..........................................................................
+
+    @Override
+    public SpreadsheetProvider systemSpreadsheetProvider() {
+        return this.context.systemSpreadsheetProvider();
     }
 
     private final SpreadsheetHateosResourceHandlerContext context;

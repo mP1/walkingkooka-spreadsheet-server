@@ -124,7 +124,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -142,7 +143,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -160,7 +162,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -178,7 +181,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -196,7 +200,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -214,7 +219,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -232,7 +238,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -250,7 +257,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -268,7 +276,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 null,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -286,7 +295,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 null,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -304,7 +314,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 null,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 
@@ -322,6 +333,26 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
+                null,
+                SPREADSHEET_PROVIDER
+        );
+    }
+
+    @Test
+    public void testWithNullSystemSpreadsheetProviderFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                this::fractioner,
+                this::createMetadata,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                this::spreadsheetMetadataStamper,
+                JSON_NODE_MARSHALL_CONTEXT,
+                JSON_NODE_UNMARSHALL_CONTEXT,
+                NOW,
                 null
         );
     }
@@ -337,7 +368,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                            final JsonNodeMarshallContext marshallContext,
                            final JsonNodeUnmarshallContext unmarshallContext,
-                           final Supplier<LocalDateTime> now) {
+                           final Supplier<LocalDateTime> now,
+                           final SpreadsheetProvider systemSpreadsheetProvider) {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -352,7 +384,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         spreadsheetMetadataStamper,
                         marshallContext,
                         unmarshallContext,
-                        now
+                        now,
+                        systemSpreadsheetProvider
                 )
         );
     }
@@ -1169,7 +1202,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this::spreadsheetMetadataStamper,
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW
+                NOW,
+                SPREADSHEET_PROVIDER
         );
     }
 

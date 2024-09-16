@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.Context;
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
@@ -40,6 +39,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -59,9 +59,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * A {@link SpreadsheetHateosResourceHandlerContext} that aggregates or combines several other {@link Context}.
- */
 final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
         ConverterProviderDelegator,
         SpreadsheetComparatorProviderDelegator,
@@ -77,23 +74,27 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
     static BasicSpreadsheetHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                              final JsonNodeUnmarshallContext unmarshallContext,
                                                              final SpreadsheetEngineContext engineContext,
-                                                             final SpreadsheetFormatterContext formatterContext) {
+                                                             final SpreadsheetFormatterContext formatterContext,
+                                                             final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetHateosResourceHandlerContext(
                 Objects.requireNonNull(marshallContext, "marshallContext"),
                 Objects.requireNonNull(unmarshallContext, "unmarshallContext"),
                 Objects.requireNonNull(engineContext, "engineContext"),
-                Objects.requireNonNull(formatterContext, "formatterContext")
+                Objects.requireNonNull(formatterContext, "formatterContext"),
+                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
         );
     }
 
     private BasicSpreadsheetHateosResourceHandlerContext(final JsonNodeMarshallContext marshallContext,
                                                          final JsonNodeUnmarshallContext unmarshallContext,
                                                          final SpreadsheetEngineContext engineContext,
-                                                         final SpreadsheetFormatterContext formatterContext) {
+                                                         final SpreadsheetFormatterContext formatterContext,
+                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
         this.marshallContext = marshallContext;
         this.unmarshallContext = unmarshallContext;
         this.engineContext = engineContext;
         this.formatterContext = formatterContext;
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
     @Override
@@ -259,4 +260,13 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
     public ProviderContext providerContext() {
         return this.engineContext;
     }
+
+    // SpreadsheetHateosResourceHandlerContext..........................................................................
+
+    @Override
+    public SpreadsheetProvider systemSpreadsheetProvider() {
+        return this.systemSpreadsheetProvider;
+    }
+
+    private final SpreadsheetProvider systemSpreadsheetProvider;
 }
