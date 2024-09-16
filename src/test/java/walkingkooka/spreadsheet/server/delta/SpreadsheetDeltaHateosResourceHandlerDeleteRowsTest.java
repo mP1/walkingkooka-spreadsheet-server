@@ -31,8 +31,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 
 import java.util.Optional;
 import java.util.Set;
@@ -189,8 +189,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetHateosResourceHandlerContext context() {
+        return SpreadsheetHateosResourceHandlerContexts.fake();
     }
 
     @Override

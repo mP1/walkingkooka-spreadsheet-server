@@ -45,8 +45,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.FakeSpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -65,7 +65,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
         S extends SpreadsheetSelection & Comparable<S>,
         R extends SpreadsheetSelection & Comparable<R>> implements
-        HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosResourceHandlerContext>,
+        HateosHttpEntityHandlerTesting<H, S, SpreadsheetHateosResourceHandlerContext>,
         ClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
@@ -189,13 +189,13 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return new TestSpreadsheetEngineHateosResourceHandlerContext();
+    public SpreadsheetHateosResourceHandlerContext context() {
+        return new TestSpreadsheetHateosResourceHandlerContext();
     }
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
-    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+    static class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;

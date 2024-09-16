@@ -37,8 +37,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -126,7 +126,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                new TestSpreadsheetHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -211,7 +211,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                new TestSpreadsheetHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -296,7 +296,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetDeltaUrlQueryParameters.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetDeltaUrlQueryParameters.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                new TestSpreadsheetHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -452,8 +452,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Override
-    public SpreadsheetEngineHateosResourceHandlerContext context() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
+    public SpreadsheetHateosResourceHandlerContext context() {
+        return SpreadsheetHateosResourceHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

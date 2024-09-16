@@ -25,7 +25,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -34,10 +34,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link SpreadsheetImporterInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -51,7 +51,7 @@ final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResour
     @Override
     public Optional<SpreadsheetImporterInfoSet> handleAll(final Optional<SpreadsheetImporterInfoSet> infos,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                          final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
@@ -65,7 +65,7 @@ final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResour
     public Optional<SpreadsheetImporterInfo> handleOne(final SpreadsheetImporterName name,
                                                        final Optional<SpreadsheetImporterInfo> info,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                       final SpreadsheetHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);

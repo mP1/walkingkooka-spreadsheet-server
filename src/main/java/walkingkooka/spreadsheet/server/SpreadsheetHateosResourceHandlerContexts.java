@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server;
 
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -23,16 +23,16 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-public final class SpreadsheetEngineHateosResourceHandlerContexts implements PublicStaticHelper {
+public final class SpreadsheetHateosResourceHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetEngineHateosResourceHandlerContext}
+     * {@see BasicSpreadsheetHateosResourceHandlerContext}
      */
-    public static SpreadsheetEngineHateosResourceHandlerContext basic(final JsonNodeMarshallContext marshallContext,
-                                                                      final JsonNodeUnmarshallContext unmarshallContext,
-                                                                      final SpreadsheetEngineContext engineContext,
-                                                                      final SpreadsheetFormatterContext formatterContext) {
-        return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+    public static SpreadsheetHateosResourceHandlerContext basic(final JsonNodeMarshallContext marshallContext,
+                                                                final JsonNodeUnmarshallContext unmarshallContext,
+                                                                final SpreadsheetEngineContext engineContext,
+                                                                final SpreadsheetFormatterContext formatterContext) {
+        return BasicSpreadsheetHateosResourceHandlerContext.with(
                 marshallContext,
                 unmarshallContext,
                 engineContext,
@@ -41,16 +41,16 @@ public final class SpreadsheetEngineHateosResourceHandlerContexts implements Pub
     }
 
     /**
-     * {see FakeSpreadsheetEngineHateosResourceHandlerContext}
+     * {see FakeSpreadsheetHateosResourceHandlerContext}
      */
-    public static SpreadsheetEngineHateosResourceHandlerContext fake() {
-        return new FakeSpreadsheetEngineHateosResourceHandlerContext();
+    public static SpreadsheetHateosResourceHandlerContext fake() {
+        return new FakeSpreadsheetHateosResourceHandlerContext();
     }
 
     /**
      * Stop creation
      */
-    private SpreadsheetEngineHateosResourceHandlerContexts() {
+    private SpreadsheetHateosResourceHandlerContexts() {
         throw new UnsupportedOperationException();
     }
 }

@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -90,7 +90,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                            final SpreadsheetRowRangeReference range,
                            final JsonNode patch,
                            final Map<HttpRequestAttribute<?>, Object> parameters,
-                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+                           final SpreadsheetHateosResourceHandlerContext context) {
         final SpreadsheetDelta patched = loaded.patchRows(
                 patch,
                 context

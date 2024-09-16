@@ -15,18 +15,18 @@
  *
  */
 
-package walkingkooka.spreadsheet.server.engine;
+package walkingkooka.spreadsheet.server;
 
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetEngineHateosResourceHandlerContextsTest implements PublicStaticHelperTesting<SpreadsheetEngineHateosResourceHandlerContexts> {
+public final class SpreadsheetHateosResourceHandlerContextsTest implements PublicStaticHelperTesting<SpreadsheetHateosResourceHandlerContexts> {
 
     @Override
-    public Class<SpreadsheetEngineHateosResourceHandlerContexts> type() {
-        return SpreadsheetEngineHateosResourceHandlerContexts.class;
+    public Class<SpreadsheetHateosResourceHandlerContexts> type() {
+        return SpreadsheetHateosResourceHandlerContexts.class;
     }
 
     @Override

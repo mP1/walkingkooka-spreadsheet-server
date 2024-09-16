@@ -50,8 +50,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.engine.FakeSpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
@@ -86,7 +86,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
         extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
-        implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+        implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting,
         ToStringTesting<H> {
 
@@ -260,7 +260,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                             .set(TextStylePropertyName.HEIGHT, Length.pixel(ROW_HEIGHT))
             );
 
-    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
+    static class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
@@ -272,7 +272,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         }
     }
 
-    TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
+    TestSpreadsheetHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 METADATA,
                 SPREADSHEET_PROVIDER,
@@ -340,7 +340,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 LocalDateTime::now
         );
 
-        return new TestSpreadsheetEngineHateosResourceHandlerContext() {
+        return new TestSpreadsheetHateosResourceHandlerContext() {
 
             @Override
             public SpreadsheetParserToken parseFormula(final TextCursor cursor) {

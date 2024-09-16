@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -38,11 +38,11 @@ import java.util.Map;
 /**
  * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
-final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetHateosResourceHandlerContext> {
 
     static {
         try {
@@ -70,7 +70,7 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
     @Override
     public HttpEntity handleAll(final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                final SpreadsheetHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
         HateosHttpEntityHandler.checkContext(context);

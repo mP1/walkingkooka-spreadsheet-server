@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,10 +36,10 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#deleteLabel(SpreadsheetLabelName, SpreadsheetEngineContext)}
  */
 final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>
-        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteLabel with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerDeleteLabel(
@@ -57,7 +57,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetLabelName label,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                final SpreadsheetHateosResourceHandlerContext context) {
         checkLabel(label);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

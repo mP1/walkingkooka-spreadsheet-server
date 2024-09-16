@@ -31,7 +31,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.spreadsheet.server.engine.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.Map;
@@ -39,11 +39,11 @@ import java.util.Map;
 /**
  * A handler that accepts a request with a possible {@link SpreadsheetParserSelector} and returns a {@link SpreadsheetParserSelectorEdit}
  */
-final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
+final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext> {
 
     static {
         try {
@@ -71,7 +71,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
     @Override
     public HttpEntity handleAll(final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                final SpreadsheetHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
         HateosHttpEntityHandler.checkContext(context);
