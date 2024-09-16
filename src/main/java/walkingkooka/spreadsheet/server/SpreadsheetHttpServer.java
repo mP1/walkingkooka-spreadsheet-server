@@ -80,6 +80,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
                                              final Supplier<LocalDateTime> now,
+                                             final SpreadsheetProvider systemSpreadsheetProvider,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -103,6 +104,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 fractioner,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
+                systemSpreadsheetProvider,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 fileServer,
@@ -133,6 +135,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<BigDecimal, Fraction> fractioner,
                                   final JsonNodeMarshallContext jsonNodeMarshallContext,
                                   final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -151,6 +154,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.jsonNodeMarshallContext = jsonNodeMarshallContext;
         this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
+
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
  
@@ -222,7 +227,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallContext,
                 this.jsonNodeUnmarshallContext,
-                this.now
+                this.now,
+                this.systemSpreadsheetProvider
         );
     }
 
@@ -241,6 +247,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.indentation,
                 this.lineEnding,
                 this.fractioner,
+                this.systemSpreadsheetProvider,
                 this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
@@ -275,6 +282,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
+
+    private final SpreadsheetProvider systemSpreadsheetProvider;
 
     // files............................................................................................................
 

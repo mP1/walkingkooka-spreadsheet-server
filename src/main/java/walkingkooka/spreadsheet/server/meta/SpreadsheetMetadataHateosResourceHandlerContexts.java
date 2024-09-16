@@ -55,7 +55,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                         final JsonNodeMarshallContext marshallContext,
                                                                         final JsonNodeUnmarshallContext unmarshallContext,
-                                                                        final Supplier<LocalDateTime> now) {
+                                                                        final Supplier<LocalDateTime> now,
+                                                                        final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 base,
                 indentation,
@@ -68,7 +69,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 spreadsheetMetadataStamper,
                 marshallContext,
                 unmarshallContext,
-                now
+                now,
+                systemSpreadsheetProvider
         );
     }
 

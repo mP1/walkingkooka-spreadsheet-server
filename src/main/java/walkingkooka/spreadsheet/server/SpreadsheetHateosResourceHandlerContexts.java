@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
@@ -31,12 +32,14 @@ public final class SpreadsheetHateosResourceHandlerContexts implements PublicSta
     public static SpreadsheetHateosResourceHandlerContext basic(final JsonNodeMarshallContext marshallContext,
                                                                 final JsonNodeUnmarshallContext unmarshallContext,
                                                                 final SpreadsheetEngineContext engineContext,
-                                                                final SpreadsheetFormatterContext formatterContext) {
+                                                                final SpreadsheetFormatterContext formatterContext,
+                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetHateosResourceHandlerContext.with(
                 marshallContext,
                 unmarshallContext,
                 engineContext,
-                formatterContext
+                formatterContext,
+                systemSpreadsheetProvider
         );
     }
 

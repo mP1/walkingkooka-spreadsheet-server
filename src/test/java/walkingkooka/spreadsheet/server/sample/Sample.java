@@ -246,6 +246,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 Indentation.SPACES2,
                 LineEnding.NL,
                 () -> now, // now
+                SpreadsheetProviders.fake(),
                 (l) -> metadata.set(
                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                         SpreadsheetId.with(nextId.incrementAndGet())

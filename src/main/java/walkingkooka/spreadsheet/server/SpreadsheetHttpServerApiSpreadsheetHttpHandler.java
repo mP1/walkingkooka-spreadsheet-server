@@ -74,7 +74,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                final JsonNodeMarshallContext jsonNodeMarshallContext,
                                                                final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
-                                                               final Supplier<LocalDateTime> now) {
+                                                               final Supplier<LocalDateTime> now,
+                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
         return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
                 baseUrl,
                 indentation,
@@ -87,7 +88,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetMetadataStamper,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
-                now
+                now,
+                systemSpreadsheetProvider
         );
     }
 
@@ -105,7 +107,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                            final JsonNodeMarshallContext jsonNodeMarshallContext,
                                                            final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
-                                                           final Supplier<LocalDateTime> now) {
+                                                           final Supplier<LocalDateTime> now,
+                                                           final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
         this.baseUrl = baseUrl;
@@ -122,7 +125,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetMetadataStamper,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
-                now
+                now,
+                systemSpreadsheetProvider
         );
 
         this.context = context;
