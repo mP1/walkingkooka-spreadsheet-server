@@ -55,7 +55,8 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
 
         return Optional.of(
                 ConverterInfoSet.with(
-                        context.converterInfos()
+                        context.systemSpreadsheetProvider()
+                                .converterInfos()
                 )
         );
     }
@@ -70,7 +71,8 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return context.converterInfos()
+        return context.systemSpreadsheetProvider()
+                .converterInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();

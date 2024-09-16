@@ -106,6 +106,7 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -147,6 +148,24 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
     private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
+
+    private static final ExpressionFunctionProvider EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider() {
+        @Override
+        public ExpressionFunctionInfoSet expressionFunctionInfos() {
+            return ExpressionFunctionInfoSet.with(
+                    Sets.of(
+                            ExpressionFunctionInfo.with(
+                                    Url.parseAbsolute("https://example.com/expression-function-1"),
+                                    ExpressionFunctionName.with("ExpressionFunction1")
+                            ),
+                            ExpressionFunctionInfo.with(
+                                    Url.parseAbsolute("https://example.com/expression-function-2"),
+                                    ExpressionFunctionName.with("ExpressionFunction2")
+                            )
+                    )
+            );
+        }
+    };
 
     @Test
     public void testStartServer() {
@@ -9107,7 +9126,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Indentation.SPACES2,
                 LineEnding.NL,
                 NOW,
-                SPREADSHEET_PROVIDER,
+                SpreadsheetProviders.basic(
+                        CONVERTER_PROVIDER,
+                        EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above
+                        SPREADSHEET_COMPARATOR_PROVIDER,
+                        SPREADSHEET_EXPORTER_PROVIDER,
+                        SPREADSHEET_FORMATTER_PROVIDER,
+                        SPREADSHEET_IMPORTER_PROVIDER,
+                        SPREADSHEET_PARSER_PROVIDER
+                ),
                 createMetadata(
                         this.createMetadata(),
                         this.metadataStore
@@ -9185,23 +9212,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 .spreadsheetProvider(
                         SpreadsheetProviders.basic(
                                 CONVERTER_PROVIDER,
-                                new FakeExpressionFunctionProvider() {
-                                    @Override
-                                    public ExpressionFunctionInfoSet expressionFunctionInfos() {
-                                        return ExpressionFunctionInfoSet.with(
-                                                Sets.of(
-                                                        ExpressionFunctionInfo.with(
-                                                                Url.parseAbsolute("https://example.com/expression-function-1"),
-                                                                ExpressionFunctionName.with("ExpressionFunction1")
-                                                        ),
-                                                        ExpressionFunctionInfo.with(
-                                                                Url.parseAbsolute("https://example.com/expression-function-2"),
-                                                                ExpressionFunctionName.with("ExpressionFunction2")
-                                                        )
-                                                )
-                                        );
-                                    }
-                                },
+                                EXPRESSION_FUNCTION_PROVIDER,
                                 SPREADSHEET_COMPARATOR_PROVIDER,
                                 SPREADSHEET_EXPORTER_PROVIDER,
                                 SPREADSHEET_FORMATTER_PROVIDER,

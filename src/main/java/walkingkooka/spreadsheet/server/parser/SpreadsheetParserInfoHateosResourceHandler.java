@@ -57,7 +57,8 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.spreadsheetParserInfos()
+                context.systemSpreadsheetProvider()
+                        .spreadsheetParserInfos()
         );
     }
 
@@ -71,7 +72,8 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return context.spreadsheetParserInfos()
+        return context.systemSpreadsheetProvider()
+                .spreadsheetParserInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();
@@ -79,6 +81,6 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
 
     @Override
     public String toString() {
-        return "SpreadsheetEngineContext.spreadsheetParserInfos";
+        return "systemSpreadsheetProvider.spreadsheetParserInfos";
     }
 }

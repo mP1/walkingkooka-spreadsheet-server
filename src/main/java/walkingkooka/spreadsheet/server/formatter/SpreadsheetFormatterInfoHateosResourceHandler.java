@@ -57,7 +57,8 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.spreadsheetFormatterInfos()
+                context.systemSpreadsheetProvider()
+                        .spreadsheetFormatterInfos()
         );
     }
 
@@ -71,7 +72,8 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        return context.spreadsheetFormatterInfos()
+        return context.systemSpreadsheetProvider()
+                .spreadsheetFormatterInfos()
                 .stream()
                 .filter(i -> i.name().equals(name))
                 .findFirst();
@@ -79,6 +81,6 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
 
     @Override
     public String toString() {
-        return "SpreadsheetEngineContext.spreadsheetFormatterInfos";
+        return "systemSpreadsheetProvider.spreadsheetFormatterInfos";
     }
 }

@@ -29,6 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
+import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
@@ -58,13 +60,18 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
 
         @Override
-        public SpreadsheetParserInfoSet spreadsheetParserInfos() {
-            return SpreadsheetParserInfoSet.with(
-                    Sets.of(
-                            INFO1,
-                            INFO2
-                    )
-            );
+        public SpreadsheetProvider systemSpreadsheetProvider() {
+            return new FakeSpreadsheetProvider() {
+                @Override
+                public SpreadsheetParserInfoSet spreadsheetParserInfos() {
+                    return SpreadsheetParserInfoSet.with(
+                            Sets.of(
+                                    INFO1,
+                                    INFO2
+                            )
+                    );
+                }
+            };
         }
     };
 
@@ -158,7 +165,7 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                "SpreadsheetEngineContext.spreadsheetParserInfos"
+                "systemSpreadsheetProvider.spreadsheetParserInfos"
         );
     }
 
