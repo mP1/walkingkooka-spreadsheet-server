@@ -180,7 +180,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                                               final SpreadsheetEngineContext context) {
                                 assertSame(EVALUATION, evaluation, "evaluation");
                                 checkEquals(
-                                        SpreadsheetDeltaProperties.csv(deltaProperties),
+                                        SpreadsheetDeltaProperties.parse(deltaProperties),
                                         dp,
                                         "deltaProperties"
                                 );
@@ -657,7 +657,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                 checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
                                 checkEquals(EVALUATION, evaluation, "evaluation");
                                 checkEquals(
-                                        SpreadsheetDeltaProperties.csv(deltaProperties),
+                                        SpreadsheetDeltaProperties.parse(deltaProperties),
                                         dp,
                                         "deltaProperties"
                                 );
