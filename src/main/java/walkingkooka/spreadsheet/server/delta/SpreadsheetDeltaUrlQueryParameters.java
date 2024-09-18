@@ -81,7 +81,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     public static Set<SpreadsheetDeltaProperties> deltaProperties(final Map<HttpRequestAttribute<?>, Object> parameters) {
         checkParameters(parameters);
 
-        return SpreadsheetDeltaProperties.csv(
+        return SpreadsheetDeltaProperties.parse(
                 DELTA_PROPERTIES.firstParameterValue(parameters)
                         .orElse(null)
         );
