@@ -206,7 +206,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type) {
-                        return SPREADSHEET_CONVERTER_CONTEXT.convert(
+                        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.convert(
                                 value,
                                 type
                         );
