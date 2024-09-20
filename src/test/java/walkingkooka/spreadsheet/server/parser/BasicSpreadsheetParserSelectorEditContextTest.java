@@ -145,42 +145,42 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
 
     @Override
     public String currencySymbol() {
-        return SPREADSHEET_CONVERTER_CONTEXT.currencySymbol();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
-        return SPREADSHEET_CONVERTER_CONTEXT.decimalSeparator();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
-        return SPREADSHEET_CONVERTER_CONTEXT.exponentSymbol();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.exponentSymbol();
     }
 
     @Override
     public char groupSeparator() {
-        return SPREADSHEET_CONVERTER_CONTEXT.groupSeparator();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.groupSeparator();
     }
 
     @Override
     public MathContext mathContext() {
-        return SPREADSHEET_CONVERTER_CONTEXT.mathContext();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.mathContext();
     }
 
     @Override
     public char negativeSign() {
-        return SPREADSHEET_CONVERTER_CONTEXT.negativeSign();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.negativeSign();
     }
 
     @Override
     public char percentageSymbol() {
-        return SPREADSHEET_CONVERTER_CONTEXT.percentageSymbol();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.percentageSymbol();
     }
 
     @Override
     public char positiveSign() {
-        return SPREADSHEET_CONVERTER_CONTEXT.positiveSign();
+        return SPREADSHEET_EXPRESSION_CONVERTER_CONTEXT.positiveSign();
     }
 
     // class............................................................................................................
