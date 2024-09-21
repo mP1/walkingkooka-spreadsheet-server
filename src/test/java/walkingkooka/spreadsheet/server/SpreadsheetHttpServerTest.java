@@ -3930,6 +3930,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
+                                "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
                                 "  \"sort-converter\": \"collection (error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"spreadsheet-comparators\": [\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date\",\n" +
