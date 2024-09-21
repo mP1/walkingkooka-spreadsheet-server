@@ -247,10 +247,10 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         return formatter.format(
                                 value,
                                 SpreadsheetMetadataTesting.METADATA_EN_AU.formatterContext(
-                                        CONVERTER_PROVIDER,
-                                        SPREADSHEET_FORMATTER_PROVIDER,
                                         NOW,
                                         SpreadsheetLabelNameResolvers.fake(),
+                                        CONVERTER_PROVIDER,
+                                        SPREADSHEET_FORMATTER_PROVIDER,
                                         PROVIDER_CONTEXT
                                 )
                         );
