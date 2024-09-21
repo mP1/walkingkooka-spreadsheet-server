@@ -114,10 +114,10 @@ final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosH
         ).tokens(
                 context.spreadsheetMetadata()
                         .formatterContext(
-                                context, // ConverterProvider
-                                context, // SpreadsheetFormatterProvider
                                 context::now, // now provider
                                 context, // SpreadsheetLabelNameResolver
+                                context, // ConverterProvider
+                                context, // SpreadsheetFormatterProvider
                                 context // ProviderContext
                         )
         );

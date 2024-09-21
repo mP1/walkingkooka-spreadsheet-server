@@ -395,10 +395,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                 ),
                         context,
                         metadata.formatterContext(
-                                context, // ConverterProvider
-                                context, // SpreadsheetFormatterProvider
                                 context::now,
                                 context, // SpreadsheetLabelNameResolver
+                                context, // ConverterProvider
+                                context, // SpreadsheetFormatterProvider
                                 context // ProviderContext
                         ),
                         systemSpreadsheetProvider
