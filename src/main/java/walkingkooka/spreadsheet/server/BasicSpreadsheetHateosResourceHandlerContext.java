@@ -23,6 +23,8 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetCellRange;
+import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -56,8 +58,10 @@ import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
         ConverterProviderDelegator,
@@ -166,6 +170,17 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
         return this.engineContext.formatValueAndStyle(
                 cell,
                 formatter
+        );
+    }
+
+    @Override
+    public SpreadsheetCellRange sortCells(final SpreadsheetCellRange cells,
+                                          final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators,
+                                          final BiConsumer<SpreadsheetCell, SpreadsheetCell> movedFromTo) {
+        return this.engineContext.sortCells(
+                cells,
+                comparators,
+                movedFromTo
         );
     }
 
