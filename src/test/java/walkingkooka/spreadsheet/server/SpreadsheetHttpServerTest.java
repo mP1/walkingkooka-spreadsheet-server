@@ -3911,13 +3911,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"expression-converter\": \"collection (error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"expression-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"expression-functions\": [\n" +
                                 "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
                                 "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
                                 "  ],\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                                "  \"format-converter\": \"collection (error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
@@ -3931,7 +3931,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
                                 "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                                "  \"sort-converter\": \"collection (error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"spreadsheet-comparators\": [\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time date-time\",\n" +
