@@ -274,9 +274,9 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     TestSpreadsheetHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
+                Url.parseAbsolute("https://example.com"),
+                LocalDateTime::now,
                 METADATA,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
                 (b) -> {
                     throw new UnsupportedOperationException();
@@ -336,8 +336,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
                     private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
                 },
-                Url.parseAbsolute("https://example.com"),
-                LocalDateTime::now
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT
         );
 
         return new TestSpreadsheetHateosResourceHandlerContext() {

@@ -296,16 +296,16 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
+                this.base,
+                this.now,
                 metadata,
-                metadata.spreadsheetProvider(spreadsheetProvider),
-                ProviderContexts.basic(
-                        metadata.environmentContext()
-                ),
                 engine,
                 fractioner,
                 repository,
-                this.base,
-                this.now
+                metadata.spreadsheetProvider(spreadsheetProvider),
+                ProviderContexts.basic(
+                        metadata.environmentContext()
+                )
         );
 
         return this.cellColumnProvidersRowViewportRouter(

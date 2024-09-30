@@ -24,7 +24,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
+import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 
 import java.math.MathContext;
 
@@ -34,16 +36,21 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         SpreadsheetMetadataTesting {
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
+            Url.parseAbsolute("https://example.com"),
+            NOW,
             METADATA_EN_AU,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
             SpreadsheetEngines.fake(),
             (i) -> {
                 throw new UnsupportedOperationException();
             },
-            SpreadsheetStoreRepositories.fake(),
-            Url.parseAbsolute("https://example.com"),
-            NOW
+            new FakeSpreadsheetStoreRepository() {
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return SpreadsheetLabelStores.fake();
+                }
+            },
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT
     );
 
     // with.............................................................................................................
