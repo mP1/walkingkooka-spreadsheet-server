@@ -69,6 +69,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliases;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -144,8 +145,9 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 1900,\n" +
                                 "  \"exponent-symbol\": \"E\",\n" +
-                                "  \"expression-converter\": \"general\",\n" +
                                 "  \"expression-number-kind\": \"DOUBLE\",\n" +
+                                "  \"formula-converter\": \"general\",\n" +
+                                "  \"formula-expression-functions\": \"\",\n" +
                                 "  \"frozen-columns\": \"A:B\",\n" +
                                 "  \"frozen-rows\": \"1:2\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
@@ -196,6 +198,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+                .set(SpreadsheetMetadataPropertyName.FORMULA_EXPRESSION_FUNCTIONS, ExpressionFunctionAliases.parse(""))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
                 .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
