@@ -3912,14 +3912,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"expression-functions\": [\n" +
-                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
-                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
-                                "  ],\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                                "  \"formula-expression-functions\": \"abs, special\",\n" +
+                                "  \"formula-functions\": \"abs, special\",\n" +
+                                "  \"functions\": [\n" +
+                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
+                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
+                                "  ],\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
@@ -9200,10 +9200,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" hh:mm").spreadsheetFormatterSelector())
                 .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mm").spreadsheetParserSelector())
                 .set(
-                        SpreadsheetMetadataPropertyName.EXPRESSION_FUNCTIONS,
+                        SpreadsheetMetadataPropertyName.FUNCTIONS,
                         ExpressionFunctionInfoSet.parse("https://example.com/expression-function-1 ExpressionFunction1, https://example.com/expression-function-2 ExpressionFunction2")
                 ).set(
-                        SpreadsheetMetadataPropertyName.FORMULA_EXPRESSION_FUNCTIONS,
+                        SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                         ExpressionFunctionAliases.parse("abs, special")
                 );
     }

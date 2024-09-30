@@ -198,7 +198,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-                .set(SpreadsheetMetadataPropertyName.FORMULA_EXPRESSION_FUNCTIONS, ExpressionFunctionAliases.parse(""))
+                .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliases.parse(""))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
                 .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')

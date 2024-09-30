@@ -137,7 +137,7 @@ public class TestGwtTest extends GWTTestCase {
                                 "  \"exponent-symbol\": \"E\",\n" +
                                 "  \"expression-number-kind\": \"DOUBLE\",\n" +
                                 "  \"formula-converter\": \"general\",\n" +
-                                "  \"formula-expression-functions\": \"\",\n" +
+                                "  \"formula-functions\": \"\",\n" +
                                 "  \"frozen-columns\": \"A:B\",\n" +
                                 "  \"frozen-rows\": \"1:2\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
@@ -188,7 +188,7 @@ public class TestGwtTest extends GWTTestCase {
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
                 .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                 .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-                .set(SpreadsheetMetadataPropertyName.FORMULA_EXPRESSION_FUNCTIONS, ExpressionFunctionAliases.parse(""))
+                .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliases.parse(""))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
                 .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
                 .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
