@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -54,6 +55,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -103,7 +105,12 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintableTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliases;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -151,6 +158,23 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
 
     private static final ExpressionFunctionProvider EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider() {
+
+        @Override
+        public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
+                                                                                     final List<?> values,
+                                                                                     final ProviderContext context) {
+            switch (name.value().toLowerCase()) {
+                case "expressionfunction1":
+                    return Cast.to(
+                            new TestFunction(
+                                    ExpressionFunctionName.with("ExpressionFunction1")
+                            )
+                    );
+                default:
+                    throw new UnknownExpressionFunctionException(name);
+            }
+        }
+
         @Override
         public ExpressionFunctionInfoSet expressionFunctionInfos() {
             return ExpressionFunctionInfoSet.with(
@@ -167,6 +191,35 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             );
         }
     };
+
+    static class TestFunction extends FakeExpressionFunction<Object, ExpressionEvaluationContext> {
+
+        TestFunction(final ExpressionFunctionName name) {
+            this.name = name;
+        }
+
+        @Override
+        public Object apply(final List<Object> parameters,
+                            final ExpressionEvaluationContext context) {
+            return context.expressionNumberKind().create(123);
+        }
+
+        public Optional<ExpressionFunctionName> name() {
+            return Optional.of(this.name);
+        }
+
+        private final ExpressionFunctionName name;
+
+        @Override
+        public ExpressionFunction<Object, ExpressionEvaluationContext> setName(final Optional<ExpressionFunctionName> name) {
+            return new TestFunction(name.get());
+        }
+
+        @Override
+        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+            return Lists.empty();
+        }
+    }
 
     @Test
     public void testStartServer() {
@@ -1983,6 +2036,119 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  },\n" +
                                 "  \"columnCount\": 2,\n" +
                                 "  \"rowCount\": 2\n" +
+                                "}",
+                        DELTA
+                )
+        );
+    }
+
+    // not a perfect validation that function names are case-insensitive
+    @Test
+    public void testSaveCellFormulaWithMixedCaseFunction() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/cell/A1",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        SpreadsheetDelta.EMPTY
+                                .setCells(
+                                        Sets.of(
+                                                SpreadsheetSelection.A1
+                                                        .setFormula(
+                                                                formula("=expressionfunction1()")
+                                                        )
+                                        )
+                                )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"cells\": {\n" +
+                                "    \"A1\": {\n" +
+                                "      \"formula\": {\n" +
+                                "        \"text\": \"=expressionfunction1()\",\n" +
+                                "        \"token\": {\n" +
+                                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"value\": [\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": \"=\",\n" +
+                                "                  \"text\": \"=\"\n" +
+                                "                }\n" +
+                                "              },\n" +
+                                "              {\n" +
+                                "                \"type\": \"spreadsheet-named-function-parser-token\",\n" +
+                                "                \"value\": {\n" +
+                                "                  \"value\": [\n" +
+                                "                    {\n" +
+                                "                      \"type\": \"spreadsheet-function-name-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": \"expressionfunction1\",\n" +
+                                "                        \"text\": \"expressionfunction1\"\n" +
+                                "                      }\n" +
+                                "                    },\n" +
+                                "                    {\n" +
+                                "                      \"type\": \"spreadsheet-function-parameters-parser-token\",\n" +
+                                "                      \"value\": {\n" +
+                                "                        \"value\": [\n" +
+                                "                          {\n" +
+                                "                            \"type\": \"spreadsheet-parenthesis-open-symbol-parser-token\",\n" +
+                                "                            \"value\": {\n" +
+                                "                              \"value\": \"(\",\n" +
+                                "                              \"text\": \"(\"\n" +
+                                "                            }\n" +
+                                "                          },\n" +
+                                "                          {\n" +
+                                "                            \"type\": \"spreadsheet-parenthesis-close-symbol-parser-token\",\n" +
+                                "                            \"value\": {\n" +
+                                "                              \"value\": \")\",\n" +
+                                "                              \"text\": \")\"\n" +
+                                "                            }\n" +
+                                "                          }\n" +
+                                "                        ],\n" +
+                                "                        \"text\": \"()\"\n" +
+                                "                      }\n" +
+                                "                    }\n" +
+                                "                  ],\n" +
+                                "                  \"text\": \"expressionfunction1()\"\n" +
+                                "                }\n" +
+                                "              }\n" +
+                                "            ],\n" +
+                                "            \"text\": \"=expressionfunction1()\"\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"expression\": {\n" +
+                                "          \"type\": \"call-expression\",\n" +
+                                "          \"value\": {\n" +
+                                "            \"callable\": {\n" +
+                                "              \"type\": \"named-function-expression\",\n" +
+                                "              \"value\": \"expressionfunction1\"\n" +
+                                "            }\n" +
+                                "          }\n" +
+                                "        },\n" +
+                                "        \"value\": {\n" +
+                                "          \"type\": \"expression-number\",\n" +
+                                "          \"value\": \"123\"\n" +
+                                "        }\n" +
+                                "      },\n" +
+                                "      \"formatted-value\": {\n" +
+                                "        \"type\": \"text\",\n" +
+                                "        \"value\": \"Number 123.000\"\n" +
+                                "      }\n" +
+                                "    }\n" +
+                                "  },\n" +
+                                "  \"columnWidths\": {\n" +
+                                "    \"A\": 100\n" +
+                                "  },\n" +
+                                "  \"rowHeights\": {\n" +
+                                "    \"1\": 50\n" +
+                                "  },\n" +
+                                "  \"columnCount\": 1,\n" +
+                                "  \"rowCount\": 1\n" +
                                 "}",
                         DELTA
                 )
