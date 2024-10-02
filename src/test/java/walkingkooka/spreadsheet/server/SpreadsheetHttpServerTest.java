@@ -204,6 +204,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             return context.expressionNumberKind().create(123);
         }
 
+        @Override
         public Optional<ExpressionFunctionName> name() {
             return Optional.of(this.name);
         }
