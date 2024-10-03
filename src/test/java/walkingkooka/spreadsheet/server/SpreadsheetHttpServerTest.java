@@ -4116,7 +4116,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
                                 "  ],\n" +
                                 "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                                "  \"formula-functions\": \"abs, special\",\n" +
+                                "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                                 "  \"functions\": [\n" +
                                 "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
                                 "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
@@ -9372,7 +9372,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         ExpressionFunctionInfoSet.parse("https://example.com/expression-function-1 ExpressionFunction1, https://example.com/expression-function-2 ExpressionFunction2")
                 ).set(
                         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-                        ExpressionFunctionAliases.parse("abs, special")
+                        ExpressionFunctionAliases.parse("ExpressionFunction1, ExpressionFunction2")
                 );
     }
 
