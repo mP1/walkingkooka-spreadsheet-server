@@ -68,6 +68,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -247,6 +248,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+            .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.FORMAT_CONVERTER, ConverterSelector.parse("general"))
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
