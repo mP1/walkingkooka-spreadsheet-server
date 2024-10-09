@@ -270,9 +270,7 @@ public class JunitTest {
                                 SpreadsheetExporterProviders.spreadsheetExport(),
                                 spreadsheetFormatterProvider,
                                 SpreadsheetImporterProviders.spreadsheetImport(),
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
-                                )
+                                SpreadsheetParserProviders.spreadsheetParsePattern(spreadsheetFormatterProvider)
                         )
                 ),
                 (id) -> repo, // spreadsheetIdToStoreRepository

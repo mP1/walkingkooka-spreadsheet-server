@@ -273,7 +273,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                                 spreadsheetFormatterProvider,
                                 SpreadsheetImporterProviders.spreadsheetImport(),
                                 SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        metadata.spreadsheetFormatterProvider(spreadsheetFormatterProvider)
+                                        spreadsheetFormatterProvider
                                 )
                         )
                 ),
