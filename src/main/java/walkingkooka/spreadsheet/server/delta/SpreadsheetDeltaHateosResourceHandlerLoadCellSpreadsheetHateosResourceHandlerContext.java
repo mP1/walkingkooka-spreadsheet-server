@@ -147,6 +147,15 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
     }
 
     @Override
+    public boolean evaluateAsBoolean(final Expression expression,
+                                     final Optional<SpreadsheetCell> cell) {
+        return this.context.evaluateAsBoolean(
+                expression,
+                cell
+        );
+    }
+
+    @Override
     public Optional<TextNode> formatValue(final Object value,
                                           final SpreadsheetFormatter spreadsheetFormatter) {
         return this.context.formatValue(
