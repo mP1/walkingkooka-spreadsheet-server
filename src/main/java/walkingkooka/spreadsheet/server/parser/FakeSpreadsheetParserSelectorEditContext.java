@@ -119,7 +119,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
 
     @Override
     public Converter<SpreadsheetConverterContext> converter() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
