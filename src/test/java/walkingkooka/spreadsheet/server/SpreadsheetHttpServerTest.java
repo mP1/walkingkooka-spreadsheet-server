@@ -307,8 +307,115 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 this.response(
                         HttpStatusCode.OK.status(),
-                        this.createMetadata()
-                                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
+                        "{\n" +
+                                "  \"spreadsheet-id\": \"1\",\n" +
+                                "  \"cell-character-width\": 1,\n" +
+                                "  \"color-1\": \"#000000\",\n" +
+                                "  \"color-2\": \"#ffffff\",\n" +
+                                "  \"color-Black\": 1,\n" +
+                                "  \"color-White\": 2,\n" +
+                                "  \"comparators\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date date\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/date-time date-time\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-month day-of-month\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/day-of-week day-of-week\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-am-pm hour-of-am-pm\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/hour-of-day hour-of-day\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/minute-of-hour minute-of-hour\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/month-of-year month-of-year\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/nano-of-second nano-of-second\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/number number\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/seconds-of-minute seconds-of-minute\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text text\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/text-case-insensitive text-case-insensitive\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
+                                "  ],\n" +
+                                "  \"converters\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\"\n" +
+                                "  ],\n" +
+                                "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
+                                "  \"creator\": \"user@example.com\",\n" +
+                                "  \"currency-symbol\": \"$\",\n" +
+                                "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                                "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                                "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                                "  \"date-time-offset\": \"-25569\",\n" +
+                                "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                                "  \"decimal-separator\": \".\",\n" +
+                                "  \"default-year\": 2000,\n" +
+                                "  \"exponent-symbol\": \"e\",\n" +
+                                "  \"exporters\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
+                                "  ],\n" +
+                                "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
+                                "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"find-functions\": \"\",\n" +
+                                "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"formatters\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/automatic automatic\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/collection collection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-format-pattern date-format-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/date-time-format-pattern date-time-format-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/general general\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/number-format-pattern number-format-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/spreadsheet-pattern-collection spreadsheet-pattern-collection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/text-format-pattern text-format-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetFormatter/time-format-pattern time-format-pattern\"\n" +
+                                "  ],\n" +
+                                "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                                "  \"functions\": [\n" +
+                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
+                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
+                                "  ],\n" +
+                                "  \"general-number-format-digit-count\": 8,\n" +
+                                "  \"group-separator\": \",\",\n" +
+                                "  \"importers\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/collection collection\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/empty empty\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetImporter/json json\"\n" +
+                                "  ],\n" +
+                                "  \"locale\": \"en-AU\",\n" +
+                                "  \"modified-by\": \"user@example.com\",\n" +
+                                "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
+                                "  \"negative-sign\": \"-\",\n" +
+                                "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                                "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                                "  \"parsers\": [\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-parse-pattern date-parse-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
+                                "  ],\n" +
+                                "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"positive-sign\": \"+\",\n" +
+                                "  \"precision\": 7,\n" +
+                                "  \"rounding-mode\": \"HALF_UP\",\n" +
+                                "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
+                                "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                                "  \"style\": {\n" +
+                                "    \"height\": \"50px\",\n" +
+                                "    \"width\": \"100px\"\n" +
+                                "  },\n" +
+                                "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                                "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                                "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
+                                "  \"two-digit-year\": 50,\n" +
+                                "  \"value-separator\": \",\"\n" +
+                                "}",
+                        SpreadsheetMetadata.class.getSimpleName()
                 )
         );
     }
