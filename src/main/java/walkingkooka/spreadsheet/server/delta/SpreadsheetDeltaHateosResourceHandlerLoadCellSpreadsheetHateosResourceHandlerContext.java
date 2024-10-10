@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.plugin.ProviderContext;
@@ -25,22 +24,13 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetCellRange;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProvider;
-import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviderDelegator;
-import walkingkooka.spreadsheet.export.SpreadsheetExporterProvider;
-import walkingkooka.spreadsheet.export.SpreadsheetExporterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
-import walkingkooka.spreadsheet.importer.SpreadsheetImporterProvider;
-import walkingkooka.spreadsheet.importer.SpreadsheetImporterProviderDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
@@ -49,8 +39,6 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviderDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -68,13 +56,8 @@ import java.util.function.BiConsumer;
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
         ConverterProviderDelegator,
-        SpreadsheetComparatorProviderDelegator,
-        ExpressionFunctionProviderDelegator,
-        SpreadsheetExporterProviderDelegator,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator,
-        SpreadsheetImporterProviderDelegator,
-        SpreadsheetParserProviderDelegator,
+        SpreadsheetProviderDelegator,
         ProviderContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
@@ -211,59 +194,17 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
         return this.context.isPure(name);
     }
 
-    // ConverterProvider................................................................................................
-
-    @Override
-    public ConverterProvider converterProvider() {
-        return this.context;
-    }
-
-    // SpreadsheetComparatorProvider....................................................................................
-
-    @Override
-    public SpreadsheetComparatorProvider spreadsheetComparatorProvider() {
-        return this.context;
-    }
-
-    // SpreadsheetExporterProvider......................................................................................
-
-    @Override
-    public SpreadsheetExporterProvider spreadsheetExporterProvider() {
-        return this.context;
-    }
-    
-    // ExpressionFunctionProvider.......................................................................................
-
-    @Override
-    public ExpressionFunctionProvider expressionFunctionProvider() {
-        return this.context;
-    }
-
-    // SpreadsheetFormatterProvider.....................................................................................
-
-    @Override
-    public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
-        return this.context;
-    }
-
-    // SpreadsheetImporterProvider......................................................................................
-
-    @Override
-    public SpreadsheetImporterProvider spreadsheetImporterProvider() {
-        return this.context;
-    }
-
-    // SpreadsheetParserProvider........................................................................................
-
-    @Override
-    public SpreadsheetParserProvider spreadsheetParserProvider() {
-        return this.context;
-    }
-
     // SpreadsheetFormatterContext......................................................................................
 
     @Override
     public SpreadsheetFormatterContext spreadsheetFormatterContext() {
+        return this.context;
+    }
+
+    // SpreadsheetProvider..............................................................................................
+
+    @Override
+    public SpreadsheetProvider spreadsheetProvider() {
         return this.context;
     }
 
