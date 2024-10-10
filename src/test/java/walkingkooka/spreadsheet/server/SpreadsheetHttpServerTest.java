@@ -421,7 +421,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellApostropheString() {
+    public void testCellSaveApostropheString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "'Hello123'",
                 "{\n" +
@@ -476,7 +476,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellDate() {
+    public void testCellSaveDate() {
         this.createSpreadsheetSaveCellAndCheck(
                 "2000/12/31",
                 "{\n" +
@@ -558,7 +558,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellDateTime() {
+    public void testCellSaveDateTime() {
         this.createSpreadsheetSaveCellAndCheck(
                 "2000/12/31 12:34",
                 "{\n" +
@@ -668,7 +668,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellNumber() {
+    public void testCellSaveNumber() {
         this.createSpreadsheetSaveCellAndCheck(
                 "123.456",
                 "{\n" +
@@ -736,7 +736,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellTime() {
+    public void testCellSaveTime() {
         this.createSpreadsheetSaveCellAndCheck(
                 "12:34",
                 "{\n" +
@@ -804,7 +804,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellExpressionString() {
+    public void testCellSaveExpressionString() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
                 "{\n" +
@@ -881,7 +881,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellExpressionNumber() {
+    public void testCellSaveExpressionNumber() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=1+2",
                 "{\n" +
@@ -992,7 +992,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellStampsMetadata() {
+    public void testCellSaveStampsMetadata() {
         final TestHttpServer server = this.createSpreadsheetSaveCellAndCheck(
                 "'Hello123'",
                 "{\n" +
@@ -1063,7 +1063,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellSelectionQueryParameter() {
+    public void testCellSaveSelectionQueryParameter() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
                 "?home=A1&width=1000&height=800&selectionType=cell&selection=A2&window=",
@@ -1143,7 +1143,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // sort.............................................................................................................
 
     @Test
-    public void testSort() {
+    public void testCellSort() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -1489,7 +1489,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellThenSaveAnotherCellReferencingFirst() {
+    public void testCellSaveThenSaveAnotherCellReferencingFirst() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -1750,7 +1750,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellTwice() {
+    public void testCellSaveTwice() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2152,7 +2152,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // not a perfect validation that function names are case-insensitive
     @Test
-    public void testSaveCellFormulaWithMixedCaseFunction() {
+    public void testCellSaveFormulaWithMixedCaseFunction() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2264,7 +2264,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchCellInvalidCellFails() {
+    public void testCellPatchInvalidCellFails() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2283,7 +2283,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchCellWithFormula() {
+    public void testCellPatchWithFormula() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2494,7 +2494,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchCellStyle() {
+    public void testCellPatchStyle() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // create cell with formula = 999
@@ -2677,7 +2677,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellPatchCellUnknownLabelFails() {
+    public void testCellSavePatchCellUnknownLabelFails() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -2700,7 +2700,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellPatchCellLabel() {
+    public void testCellSavePatchCellLabel() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ZZZ");
@@ -2882,7 +2882,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchCellSelectionQueryParameter() {
+    public void testCellPatchSelectionQueryParameter() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3089,7 +3089,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewport() {
+    public void testCellLoadViewport() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3571,7 +3571,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionQueryParameters() {
+    public void testCellLoadViewportWithSelectionQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3715,7 +3715,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionQueryParametersWithAnchor() {
+    public void testCellLoadViewportWithSelectionQueryParametersWithAnchor() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -3860,7 +3860,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionQueryParametersAnchorDefaulted() {
+    public void testCellLoadViewportWithSelectionQueryParametersAnchorDefaulted() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -4005,7 +4005,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionAndNavigationQueryParameters() {
+    public void testCellLoadViewportWithSelectionAndNavigationQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -4280,7 +4280,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionLabelAndNavigationQueryParameters() {
+    public void testCellLoadViewportWithSelectionLabelAndNavigationQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -4464,7 +4464,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testLoadViewportWithSelectionLabelAndNavigationUnchangedQueryParameters() {
+    public void testCellLoadViewportWithSelectionLabelAndNavigationUnchangedQueryParameters() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -4664,7 +4664,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testSaveCellUpdateMetadataLoadCell() {
+    public void testCellSaveUpdateMetadataLoadCell() {
         final TestHttpServer server = this.startServer();
 
         final SpreadsheetMetadata initial = this.createMetadata()
@@ -4857,7 +4857,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // save cell, save metadata, save cell..............................................................................
 
     @Test
-    public void testSaveCellThenSaveLabel() {
+    public void testCellSaveThenSaveLabel() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
@@ -4914,7 +4914,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // column...........................................................................................................
 
     @Test
-    public void testClearColumn() {
+    public void testColumnClear() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -5027,7 +5027,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testClearColumnRange() {
+    public void testColumnClearRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -7133,7 +7133,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // row...........................................................................................................
 
     @Test
-    public void testClearRow() {
+    public void testRowClear() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -7246,7 +7246,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testClearRowRange() {
+    public void testRowClearRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8019,7 +8019,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
 
     @Test
-    public void testClearCell() {
+    public void testCellClear() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8103,7 +8103,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testClearCellRange() {
+    public void testCellClearRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8189,7 +8189,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // fillCell........................................................................................................
 
     @Test
-    public void testFillCell() {
+    public void testCellFill() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8348,7 +8348,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFillCellRepeatsFromRange() {
+    public void testCellFillRepeatsFromRange() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // fill A1:B2 from A1
@@ -8588,7 +8588,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFillThatClears() {
+    public void testCellFillThatClears() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8684,7 +8684,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testFillCellWithSelectionQueryParameter() {
+    public void testCellFillWithSelectionQueryParameter() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell B2
@@ -8969,7 +8969,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // column...........................................................................................................
 
     @Test
-    public void testPatchColumn() {
+    public void testColumnPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -9001,7 +9001,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchColumnWithWindow() {
+    public void testColumnPatchWithWindow() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -9035,7 +9035,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellPatchColumn() {
+    public void testCellSavePatchColumn() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell A1
@@ -9167,7 +9167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // row...........................................................................................................
 
     @Test
-    public void testPatchRow() {
+    public void testRowPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -9199,7 +9199,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPatchRowWithWindow() {
+    public void testRowPatchWithWindow() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         server.handleAndCheck(
@@ -9232,7 +9232,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testSaveCellPatchRow() {
+    public void testCellSavePatchRow() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // save cell A1
