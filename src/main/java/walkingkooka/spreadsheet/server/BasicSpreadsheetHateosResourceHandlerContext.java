@@ -156,6 +156,15 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
     }
 
     @Override
+    public boolean evaluateAsBoolean(final Expression expression,
+                                     final Optional<SpreadsheetCell> cell) {
+        return this.engineContext.evaluateAsBoolean(
+                expression,
+                cell
+        );
+    }
+
+    @Override
     public Optional<TextNode> formatValue(final Object value,
                                           final SpreadsheetFormatter spreadsheetFormatter) {
         return this.engineContext.formatValue(

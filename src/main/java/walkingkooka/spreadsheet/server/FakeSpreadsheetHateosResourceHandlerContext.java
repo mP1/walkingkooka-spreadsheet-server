@@ -97,6 +97,12 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
     }
 
     @Override
+    public boolean evaluateAsBoolean(final Expression expression,
+                                     final Optional<SpreadsheetCell> optional) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Optional<TextNode> formatValue(final Object value,
                                           final SpreadsheetFormatter spreadsheetFormatter) {
         throw new UnsupportedOperationException();
