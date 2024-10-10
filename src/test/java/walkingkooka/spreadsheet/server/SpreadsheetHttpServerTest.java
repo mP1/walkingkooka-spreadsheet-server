@@ -228,7 +228,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testGetInvalidSpreadsheetIdBadRequest() {
+    public void testSpreadsheetGetInvalidSpreadsheetIdGivesBadRequest() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -242,7 +242,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testGetUnknownSpreadsheetNotFound() {
+    public void testSpreadsheetGetUnknownNotFound() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -257,7 +257,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheet() {
+    public void testSpreadsheetCreate() {
         final TestHttpServer server = this.startServer();
 
         server.handleAndCheck(
@@ -279,7 +279,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateSpreadsheetWithTransactionIdHeader() {
+    public void testSpreadsheetCreateWithTransactionIdHeader() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         this.checkNotEquals(
@@ -290,7 +290,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCreateThenLoadSpreadsheet() {
+    public void testSpreadsheetCreateThenLoad() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         this.checkNotEquals(
@@ -1386,7 +1386,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     // patch............................................................................................................
 
     @Test
-    public void testCreateAndPatch() {
+    public void testSpreadsheetCreateAndPatch() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetMetadata loaded = this.metadataStore.loadOrFail(SPREADSHEET_ID);
