@@ -18,44 +18,29 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.header.MediaType;
-import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
-import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellRange;
-import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
-import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.text.TextNode;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiConsumer;
 
 final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
+        SpreadsheetEngineContextDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetProviderDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator,
-        ProviderContextDelegator {
+        JsonNodeMarshallUnmarshallContextDelegator {
 
     static BasicSpreadsheetHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
                                                              final JsonNodeUnmarshallContext unmarshallContext,
@@ -88,14 +73,26 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
         return MediaType.APPLICATION_JSON;
     }
 
+    // 4 methods immediately below are required due to clashes between XXXDelegators
+
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.formatterContext.expressionNumberKind();
+        return this.unmarshallContext.expressionNumberKind();
     }
 
     @Override
     public MathContext mathContext() {
         return this.formatterContext.mathContext();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.engineContext.now();
+    }
+
+    @Override
+    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName labelName) {
+        return this.engineContext.resolveLabel(labelName);
     }
 
     // JsonNodeMarshallContext..........................................................................................
@@ -116,88 +113,11 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
 
     private final JsonNodeUnmarshallContext unmarshallContext;
 
-    // SpreadsheetEngineContext.........................................................................................
+    // SpreadsheetEngineContextDelegator................................................................................
 
     @Override
-    public SpreadsheetParserToken parseFormula(final TextCursor textCursor) {
-        return this.engineContext.parseFormula(textCursor);
-    }
-
-    @Override
-    public Optional<Expression> toExpression(final SpreadsheetParserToken spreadsheetParserToken) {
-        return this.engineContext.toExpression(spreadsheetParserToken);
-    }
-
-    @Override
-    public Object evaluate(final Expression expression,
-                           final Optional<SpreadsheetCell> cell) {
-        return this.engineContext.evaluate(
-                expression,
-                cell
-        );
-    }
-
-    @Override
-    public boolean evaluateAsBoolean(final Expression expression,
-                                     final Optional<SpreadsheetCell> cell) {
-        return this.engineContext.evaluateAsBoolean(
-                expression,
-                cell
-        );
-    }
-
-    @Override
-    public Optional<TextNode> formatValue(final Object value,
-                                          final SpreadsheetFormatter spreadsheetFormatter) {
-        return this.engineContext.formatValue(
-                value,
-                spreadsheetFormatter
-        );
-    }
-
-    @Override
-    public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
-                                               final Optional<SpreadsheetFormatter> formatter) {
-        return this.engineContext.formatValueAndStyle(
-                cell,
-                formatter
-        );
-    }
-
-    @Override
-    public SpreadsheetCellRange sortCells(final SpreadsheetCellRange cells,
-                                          final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators,
-                                          final BiConsumer<SpreadsheetCell, SpreadsheetCell> movedFromTo) {
-        return this.engineContext.sortCells(
-                cells,
-                comparators,
-                movedFromTo
-        );
-    }
-
-    @Override
-    public SpreadsheetStoreRepository storeRepository() {
-        return this.engineContext.storeRepository();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.engineContext.now();
-    }
-
-    @Override
-    public SpreadsheetMetadata spreadsheetMetadata() {
-        return this.engineContext.spreadsheetMetadata();
-    }
-
-    @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
-        return this.engineContext.resolveLabel(spreadsheetLabelName);
-    }
-
-    @Override
-    public boolean isPure(final ExpressionFunctionName name) {
-        return this.engineContext.isPure(name);
+    public SpreadsheetEngineContext spreadsheetEngineContext() {
+        return this.engineContext;
     }
 
     // SpreadsheetFormatterProvider.....................................................................................
@@ -224,13 +144,6 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
     }
 
     private final SpreadsheetFormatterContext formatterContext;
-
-    // ProviderContext..................................................................................................
-
-    @Override
-    public ProviderContext providerContext() {
-        return this.engineContext;
-    }
 
     // SpreadsheetHateosResourceHandlerContext..........................................................................
 
