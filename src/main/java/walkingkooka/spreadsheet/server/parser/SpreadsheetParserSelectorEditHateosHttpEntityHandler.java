@@ -97,7 +97,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 SpreadsheetParserSelectorEditContexts.basic(
                         context, // SpreadsheetParserProvider
                         context.spreadsheetMetadata().parserContext(context::now), // SpreadsheetParserContext,
-                        context.spreadsheetMetadata().formatterContext(
+                        context.spreadsheetMetadata().spreadsheetFormatterContext(
                                 context::now,
                                 SpreadsheetLabelNameResolvers.fake(),
                                 context, // ConverterProvider

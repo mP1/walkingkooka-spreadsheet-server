@@ -95,7 +95,7 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
         final SpreadsheetFormatterSelectorEdit response = SpreadsheetFormatterSelectorEdit.parse(
                 selector,
                 SpreadsheetFormatterSelectorEditContexts.basic(
-                        context.spreadsheetMetadata().formatterContext(
+                        context.spreadsheetMetadata().spreadsheetFormatterContext(
                                 context::now,
                                 SpreadsheetLabelNameResolvers.fake(),
                                 context, // ConverterProvider
