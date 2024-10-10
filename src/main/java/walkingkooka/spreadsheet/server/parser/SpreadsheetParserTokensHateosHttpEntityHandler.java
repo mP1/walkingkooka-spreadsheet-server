@@ -112,7 +112,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
                 context
         ).tokens(
                 context.spreadsheetMetadata()
-                        .parserContext(
+                        .spreadsheetParserContext(
                                 context::now // now provider
                         )
         );
