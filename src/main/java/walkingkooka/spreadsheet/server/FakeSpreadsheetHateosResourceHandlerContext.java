@@ -39,7 +39,6 @@ import walkingkooka.spreadsheet.export.SpreadsheetExporter;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterSelector;
-import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -96,12 +95,6 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
 
     @Override
     public SpreadsheetEngineContext spreadsheetEngineContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetExpressionEvaluationContext expressionEvaluationContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases,
-                                                                              final Optional<SpreadsheetCell> cell) {
         throw new UnsupportedOperationException();
     }
 
