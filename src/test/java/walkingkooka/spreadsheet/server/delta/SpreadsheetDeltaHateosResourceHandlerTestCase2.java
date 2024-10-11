@@ -338,6 +338,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
                     private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
                 },
+                SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                 SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT
         );

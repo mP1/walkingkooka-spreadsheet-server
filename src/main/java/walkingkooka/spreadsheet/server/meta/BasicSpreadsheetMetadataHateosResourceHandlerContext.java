@@ -302,6 +302,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 engine,
                 fractioner,
                 repository,
+                SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                 metadata.spreadsheetProvider(spreadsheetProvider),
                 ProviderContexts.basic(
                         metadata.environmentContext()
