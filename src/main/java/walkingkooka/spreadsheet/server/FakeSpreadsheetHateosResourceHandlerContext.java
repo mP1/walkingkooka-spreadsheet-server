@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
+import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporter;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
@@ -90,6 +91,11 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
 
     @Override
     public Optional<Expression> toExpression(final SpreadsheetParserToken spreadsheetParserToken) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetEngineContext spreadsheetEngineContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases) {
         throw new UnsupportedOperationException();
     }
 
