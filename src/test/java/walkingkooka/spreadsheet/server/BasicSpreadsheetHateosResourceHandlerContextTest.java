@@ -23,6 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
@@ -49,6 +50,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                     return SpreadsheetLabelStores.fake();
                 }
             },
+            SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT
     );
