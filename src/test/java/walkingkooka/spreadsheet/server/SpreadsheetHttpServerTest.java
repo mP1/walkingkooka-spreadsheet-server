@@ -338,6 +338,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
@@ -4187,6 +4188,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
+                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
@@ -6074,6 +6076,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
+                                "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
                                 "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
