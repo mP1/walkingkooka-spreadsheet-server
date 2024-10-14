@@ -27,7 +27,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
 import walkingkooka.net.RelativeUrl;
@@ -121,7 +120,6 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.text.TextNodeList;
 
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9424,7 +9422,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ),
                 this.metadataStore,
                 this::spreadsheetMetadataStamper,
-                fractioner(),
                 JSON_NODE_MARSHALL_CONTEXT,
                 JSON_NODE_UNMARSHALL_CONTEXT,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -9485,12 +9482,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                         ExpressionFunctionAliasSet.parse("ExpressionFunction1, ExpressionFunction2")
                 );
-    }
-
-    private static Function<BigDecimal, Fraction> fractioner() {
-        return (n) -> {
-            throw new UnsupportedOperationException();
-        };
     }
 
     private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {

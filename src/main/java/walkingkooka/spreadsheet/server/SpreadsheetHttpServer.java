@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.IpPort;
@@ -53,7 +52,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -84,7 +82,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                             final Function<BigDecimal, Fraction> fractioner,
                                              final JsonNodeMarshallContext jsonNodeMarshallContext,
                                              final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -101,7 +98,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 createMetadata,
                 metadataStore,
                 spreadsheetMetadataStamper,
-                fractioner,
                 jsonNodeMarshallContext,
                 jsonNodeUnmarshallContext,
                 systemSpreadsheetProvider,
@@ -132,7 +128,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                  final Function<BigDecimal, Fraction> fractioner,
                                   final JsonNodeMarshallContext jsonNodeMarshallContext,
                                   final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
@@ -149,8 +144,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
-
-        this.fractioner = fractioner;
 
         this.jsonNodeMarshallContext = jsonNodeMarshallContext;
         this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
@@ -221,7 +214,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.lineEnding,
                 this.createMetadata,
                 this.metadataStore,
-                this.fractioner,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
@@ -246,7 +238,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 url,
                 this.indentation,
                 this.lineEnding,
-                this.fractioner,
                 this.systemSpreadsheetProvider,
                 this.createMetadata,
                 this.metadataStore,
@@ -268,8 +259,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final SpreadsheetMetadataStore metadataStore;
 
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
-
-    private final Function<BigDecimal, Fraction> fractioner;
 
     private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
 

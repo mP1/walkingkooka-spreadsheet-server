@@ -256,9 +256,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 ),
                 metadataStore,
                 Function.identity(), // spreadsheetMetadataStamper
-                (b) -> {
-                    throw new UnsupportedOperationException(); // fractioner
-                },
                 JsonNodeMarshallContexts.basic(),
                 JsonNodeUnmarshallContexts.basic(
                         metadata.expressionNumberKind(),

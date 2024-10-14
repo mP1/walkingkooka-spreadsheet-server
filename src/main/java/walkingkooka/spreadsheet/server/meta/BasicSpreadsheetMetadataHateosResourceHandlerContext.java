@@ -22,7 +22,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
@@ -89,7 +88,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
@@ -111,7 +109,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl base,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
-                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -124,7 +121,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
-        Objects.requireNonNull(fractioner, "fractioner");
         Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
@@ -139,7 +135,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 base,
                 indentation,
                 lineEnding,
-                fractioner,
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
@@ -155,7 +150,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl base,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
-                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -172,7 +166,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.indentation = indentation;
         this.lineEnding = lineEnding;
 
-        this.fractioner = fractioner;
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
@@ -292,7 +285,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
 
-        final Function<BigDecimal, Fraction> fractioner = this.fractioner;
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
@@ -300,7 +292,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.now,
                 metadata,
                 engine,
-                fractioner,
                 repository,
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                 metadata.spreadsheetProvider(spreadsheetProvider),
@@ -410,7 +401,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private final AbsoluteUrl base;
     private final Indentation indentation;
     private final LineEnding lineEnding;
-    private final Function<BigDecimal, Fraction> fractioner;
+
     private final SpreadsheetProvider systemSpreadsheetProvider;
 
     @Override

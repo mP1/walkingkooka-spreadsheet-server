@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -32,7 +31,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -47,7 +45,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl base,
                                                                         final Indentation indentation,
                                                                         final LineEnding lineEnding,
-                                                                        final Function<BigDecimal, Fraction> fractioner,
                                                                         final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -61,7 +58,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 base,
                 indentation,
                 lineEnding,
-                fractioner,
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,

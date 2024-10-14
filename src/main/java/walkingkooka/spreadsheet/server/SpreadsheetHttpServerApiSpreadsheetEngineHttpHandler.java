@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.server.HttpHandler;
@@ -36,7 +35,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -54,7 +52,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final AbsoluteUrl base,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
-                                                                     final Function<BigDecimal, Fraction> fractioner,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
@@ -68,7 +65,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 base,
                 indentation,
                 lineEnding,
-                fractioner,
                 systemSpreadsheetProvider,
                 createMetadata,
                 metadataStore,
@@ -87,7 +83,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final AbsoluteUrl base,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
-                                                                 final Function<BigDecimal, Fraction> fractioner,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
@@ -102,8 +97,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.baseUrl = base;
         this.indentation = indentation;
         this.lineEnding = lineEnding;
-
-        this.fractioner = fractioner;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -153,7 +146,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.baseUrl,
                 this.indentation,
                 this.lineEnding,
-                this.fractioner,
                 this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
@@ -169,8 +161,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
-
-    private final Function<BigDecimal, Fraction> fractioner;
 
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
