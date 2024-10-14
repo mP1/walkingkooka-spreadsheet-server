@@ -23,7 +23,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -82,7 +81,6 @@ import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProv
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -116,7 +114,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 null,
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -135,7 +132,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 null,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -153,26 +149,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         this.withFails(
                 this.base(),
                 INDENTATION,
-                null,
-                this::fractioner,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullFractionerFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 this::createMetadata,
                 METADATA_STORE,
@@ -192,7 +168,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 null,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -211,7 +186,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -230,7 +204,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 null,
@@ -249,7 +222,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -268,7 +240,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -287,7 +258,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -306,7 +276,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -325,7 +294,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -344,7 +312,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -360,7 +327,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private void withFails(final AbsoluteUrl base,
                            final Indentation indentation,
                            final LineEnding lineEnding,
-                           final Function<BigDecimal, Fraction> fractioner,
                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -376,7 +342,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         base,
                         indentation,
                         lineEnding,
-                        fractioner,
                         createMetadata,
                         metadataStore,
                         spreadsheetIdToSpreadsheetProvider,
@@ -1194,7 +1159,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::fractioner,
                 this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -1209,10 +1173,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
 
     private AbsoluteUrl base() {
         return Url.parseAbsolute("https://example.com/api987");
-    }
-
-    private Fraction fractioner(final BigDecimal value) {
-        throw new UnsupportedOperationException();
     }
 
     private SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {

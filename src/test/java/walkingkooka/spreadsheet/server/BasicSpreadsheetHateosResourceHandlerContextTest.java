@@ -41,9 +41,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
             NOW,
             METADATA_EN_AU,
             SpreadsheetEngines.fake(),
-            (i) -> {
-                throw new UnsupportedOperationException();
-            },
             new FakeSpreadsheetStoreRepository() {
                 @Override
                 public SpreadsheetLabelStore labels() {

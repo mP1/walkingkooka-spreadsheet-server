@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandler;
@@ -33,7 +32,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -59,7 +57,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 LineEnding.NL,
                 this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
-                this::fractioner,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
@@ -72,10 +69,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
 
     private AbsoluteUrl baseUrl() {
         return Url.parseAbsolute("https://example.com/api/api2");
-    }
-
-    private Fraction fractioner(final BigDecimal value) {
-        throw new UnsupportedOperationException();
     }
 
     private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {

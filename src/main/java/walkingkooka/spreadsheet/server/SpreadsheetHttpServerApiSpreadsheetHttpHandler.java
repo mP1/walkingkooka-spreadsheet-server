@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.math.Fraction;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.MediaType;
@@ -46,7 +45,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Map;
@@ -68,7 +66,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final LineEnding lineEnding,
                                                                final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                final SpreadsheetMetadataStore metadataStore,
-                                                               final Function<BigDecimal, Fraction> fractioner,
                                                                final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -82,7 +79,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 lineEnding,
                 createMetadata,
                 metadataStore,
-                fractioner,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
@@ -101,7 +97,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final LineEnding lineEnding,
                                                            final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                            final SpreadsheetMetadataStore metadataStore,
-                                                           final Function<BigDecimal, Fraction> fractioner,
                                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
@@ -117,7 +112,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 baseUrl,
                 indentation,
                 lineEnding,
-                fractioner,
                 createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,

@@ -280,9 +280,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 LocalDateTime::now,
                 METADATA,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
-                (b) -> {
-                    throw new UnsupportedOperationException();
-                },
                 new FakeSpreadsheetStoreRepository() {
                     @Override
                     public SpreadsheetCellStore cells() {

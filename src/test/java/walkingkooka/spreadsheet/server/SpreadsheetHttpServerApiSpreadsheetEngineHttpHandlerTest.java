@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.math.Fraction;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
@@ -66,7 +65,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -356,7 +354,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 Url.parseAbsolute(BASE_URL + "/api"),
                 Indentation.SPACES2,
                 LineEnding.NL,
-                fractioner(),
                 systemSpreadsheetProvider(),
                 createMetadata(),
                 this.metadataStore,
@@ -367,12 +364,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 JSON_NODE_UNMARSHALL_CONTEXT,
                 LocalDateTime::now
         );
-    }
-
-    private Function<BigDecimal, Fraction> fractioner() {
-        return (b) -> {
-            throw new UnsupportedOperationException();
-        };
     }
 
     private SpreadsheetProvider systemSpreadsheetProvider() {
