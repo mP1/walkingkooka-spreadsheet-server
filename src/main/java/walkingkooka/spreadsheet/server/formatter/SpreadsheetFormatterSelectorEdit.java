@@ -222,7 +222,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 printer.outdent();
             }
 
-            if (false == this.tokens.isEmpty()) {
+            if (this.tokens.isNotEmpty()) {
                 printer.println("text-components");
                 printer.indent();
                 {
@@ -243,7 +243,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                 printer.outdent();
             }
 
-            if (false == this.samples.isEmpty()) {
+            if (this.samples.isNotEmpty()) {
                 printer.println("samples");
                 printer.indent();
                 {
