@@ -375,10 +375,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  ],\n" +
                                 "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                                "  \"functions\": [\n" +
-                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
-                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
-                                "  ],\n" +
+                                "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"importers\": [\n" +
@@ -4225,10 +4222,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  ],\n" +
                                 "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                                "  \"functions\": [\n" +
-                                "    \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
-                                "    \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
-                                "  ],\n" +
+                                "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"importers\": [\n" +
@@ -9477,7 +9471,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mm").spreadsheetParserSelector())
                 .set(
                         SpreadsheetMetadataPropertyName.FUNCTIONS,
-                        ExpressionFunctionInfoSet.parse("https://example.com/expression-function-1 ExpressionFunction1, https://example.com/expression-function-2 ExpressionFunction2")
+                        ExpressionFunctionAliasSet.parse("ExpressionFunction1, ExpressionFunction2")
                 ).set(
                         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                         ExpressionFunctionAliasSet.parse("ExpressionFunction1, ExpressionFunction2")
