@@ -353,11 +353,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"exporters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
-                                "  ],\n" +
+                                "  \"exporters\": \"collection, empty, json\",\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"find-functions\": \"\",\n" +
@@ -4200,11 +4196,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"exporters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
-                                "  ],\n" +
+                                "  \"exporters\": \"collection, empty, json\",\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"find-functions\": \"\",\n" +
@@ -4629,11 +4621,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"exporters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
-                                "  ],\n" +
+                                "  \"exporters\": \"collection, empty, json\",\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"find-functions\": \"\",\n" +
@@ -4856,11 +4844,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"decimal-separator\": \".\",\n" +
                                 "  \"default-year\": 2000,\n" +
                                 "  \"exponent-symbol\": \"e\",\n" +
-                                "  \"exporters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/empty empty\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetExporter/json json\"\n" +
-                                "  ],\n" +
+                                "  \"exporters\": \"collection, empty, json\",\n" +
                                 "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
                                 "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                                 "  \"find-functions\": \"\",\n" +
