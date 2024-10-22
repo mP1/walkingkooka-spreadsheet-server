@@ -329,19 +329,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
                                 "  ],\n" +
-                                "  \"converters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\"\n" +
-                                "  ],\n" +
+                                "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                                 "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"creator\": \"user@example.com\",\n" +
                                 "  \"currency-symbol\": \"$\",\n" +
@@ -4158,19 +4146,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
                                 "  ],\n" +
-                                "  \"converters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\"\n" +
-                                "  ],\n" +
+                                "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                                 "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"creator\": \"user@example.com\",\n" +
                                 "  \"currency-symbol\": \"$\",\n" +
@@ -4569,19 +4545,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
                                 "  ],\n" +
-                                "  \"converters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\"\n" +
-                                "  ],\n" +
+                                "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                                 "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"creator\": \"user@example.com\",\n" +
                                 "  \"currency-symbol\": \"$\",\n" +
@@ -4778,19 +4742,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/time time\",\n" +
                                 "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetComparator/year year\"\n" +
                                 "  ],\n" +
-                                "  \"converters\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/basic basic\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/collection collection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-throwing error-throwing\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-number error-to-number\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/error-to-string error-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/general general\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/plugin-selector-like-to-string plugin-selector-like-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\"\n" +
-                                "  ],\n" +
+                                "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                                 "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"creator\": \"user@example.com\",\n" +
                                 "  \"currency-symbol\": \"$\",\n" +
