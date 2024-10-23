@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetCompara
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
+import walkingkooka.spreadsheet.compare.SpreadsheetComparatorSelector;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.export.SpreadsheetExporter;
@@ -173,7 +174,14 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
     }
 
     @Override
+    public SpreadsheetComparator<?> spreadsheetComparator(final SpreadsheetComparatorSelector selector,
+                                                          final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetComparator<?> spreadsheetComparator(final SpreadsheetComparatorName name,
+                                                          final List<?> values,
                                                           final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
