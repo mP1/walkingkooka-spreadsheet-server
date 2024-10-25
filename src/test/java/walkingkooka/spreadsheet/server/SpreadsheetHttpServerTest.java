@@ -343,12 +343,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
-                                "  \"parsers\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-parse-pattern date-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
-                                "  ],\n" +
+                                "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
@@ -4144,12 +4139,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
-                                "  \"parsers\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-parse-pattern date-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
-                                "  ],\n" +
+                                "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
@@ -4527,12 +4517,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
-                                "  \"parsers\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-parse-pattern date-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
-                                "  ],\n" +
+                                "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
@@ -4708,12 +4693,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
-                                "  \"parsers\": [\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-parse-pattern date-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/date-time-parse-pattern date-time-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/number-parse-pattern number-parse-pattern\",\n" +
-                                "    \"https://github.com/mP1/walkingkooka-spreadsheet/SpreadsheetParser/time-parse-pattern time-parse-pattern\"\n" +
-                                "  ],\n" +
+                                "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
