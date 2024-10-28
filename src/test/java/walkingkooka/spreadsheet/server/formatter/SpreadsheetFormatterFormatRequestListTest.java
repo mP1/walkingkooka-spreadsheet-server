@@ -39,12 +39,12 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
         JsonNodeMarshallingTesting<SpreadsheetFormatterFormatRequestList> {
 
     private final static SpreadsheetFormatterFormatRequest<?> REQUEST1 = SpreadsheetFormatterFormatRequest.with(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("dd/mm/yyyy"),
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dd/mm/yyyy"),
             LocalDate.of(1999, 12, 31)
     );
 
     private final static SpreadsheetFormatterFormatRequest<?> REQUEST2 = SpreadsheetFormatterFormatRequest.with(
-            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setText("@@"),
+            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@@"),
             "Hello"
     );
 

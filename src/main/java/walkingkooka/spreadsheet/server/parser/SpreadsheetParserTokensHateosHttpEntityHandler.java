@@ -89,7 +89,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
 
         // format all the individual requests
         final List<SpreadsheetParserSelectorToken> response = tokens(
-                formatterName.setText(text), // selector
+                formatterName.setValueText(text), // selector
                 context
         );
 

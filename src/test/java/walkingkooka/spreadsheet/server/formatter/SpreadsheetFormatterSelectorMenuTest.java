@@ -54,7 +54,7 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
 
     @Override
     public SpreadsheetFormatterSelector createDifferentPluginSelector() {
-        return SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("yyyy/mm");
+        return SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yyyy/mm");
     }
 
     // prepare..........................................................................................................
@@ -75,67 +75,67 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                 Lists.of(
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Short",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("d/m/yy")
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d/m/yy")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Medium",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("d mmm yyyy")
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmm yyyy")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Long",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("d mmmm yyyy")
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmmm yyyy")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Full",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("dddd, d mmmm yyyy")
+                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Short",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setText("d/m/yy, h:mm AM/PM")
+                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Medium",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setText("d mmm yyyy, h:mm:ss AM/PM")
+                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmm yyyy, h:mm:ss AM/PM")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Long",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Full",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "General",
-                                SpreadsheetFormatterName.GENERAL.setText("")
+                                SpreadsheetFormatterName.GENERAL.setValueText("")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Number",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setText("\"#,##0.###\"")
+                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("\"#,##0.###\"")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Integer",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setText("#,##0")
+                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Percent",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setText("#,##0%")
+                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0%")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Currency",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setText("$#,##0.00")
+                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Default",
-                                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setText("@")
+                                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Short",
-                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setText("h:mm AM/PM")
+                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm AM/PM")
                         ),
                         SpreadsheetFormatterSelectorMenu.with(
                                 "Long",
-                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setText("h:mm:ss AM/PM")
+                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
                         )
                 ),
                 SpreadsheetFormatterSelectorMenu.prepare(

@@ -98,7 +98,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.parseStringAndCheck(
                 SpreadsheetFormatterName.DATE_FORMAT_PATTERN.value(),
                 SpreadsheetFormatterSelectorEdit.with(
-                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("")),
+                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
                         "text is empty",
                         Lists.empty(),
                         Optional.empty(),
@@ -112,7 +112,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.parseStringAndCheck(
                 SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " ",
                 SpreadsheetFormatterSelectorEdit.with(
-                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("")),
+                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
                         "text is empty",
                         Lists.empty(),
                         Optional.empty(),
@@ -134,7 +134,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.parseStringAndCheck(
                 selector,
                 SpreadsheetFormatterSelectorEdit.with(
-                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("!")),
+                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("!")),
                         thrown.getMessage(),
                         Lists.empty(),
                         Optional.empty(),
@@ -148,7 +148,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
         this.parseStringAndCheck(
                 SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " yyyy",
                 SpreadsheetFormatterSelectorEdit.with(
-                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("yyyy")),
+                        Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yyyy")),
                         "",
                         Lists.of(
                                 SpreadsheetFormatterSelectorToken.with(

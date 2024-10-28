@@ -147,7 +147,7 @@ public final class SpreadsheetParserTokensHateosHttpEntityHandlerTest implements
         this.handleOneAndCheck(
                 selector.name(), // resource id
                 this.httpEntity(
-                        JsonNode.string(selector.text())
+                        JsonNode.string(selector.valueText())
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
