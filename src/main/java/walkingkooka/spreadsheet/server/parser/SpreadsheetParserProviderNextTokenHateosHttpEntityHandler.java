@@ -90,7 +90,7 @@ final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandler implements
 
         // format all the individual requests
         final Optional<SpreadsheetParserSelectorToken> response = nextTextComponent(
-                formatterName.setText(text), // selector
+                formatterName.setValueText(text), // selector
                 context
         );
 

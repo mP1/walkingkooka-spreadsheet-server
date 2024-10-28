@@ -38,12 +38,12 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
 
     private final static SpreadsheetFormatterSelectorMenu MENU1 = SpreadsheetFormatterSelectorMenu.with(
             "Short",
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setText("yy/mm")
+            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yy/mm")
     );
 
     private final static SpreadsheetFormatterSelectorMenu MENU2 = SpreadsheetFormatterSelectorMenu.with(
             "Long",
-            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setText("yyyy/mm/dd")
+            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("yyyy/mm/dd")
     );
 
     @Test

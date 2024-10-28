@@ -100,7 +100,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 SpreadsheetParserName.DATE_PARSER_PATTERN.value(),
                 SpreadsheetParserSelectorEdit.with(
                         Optional.of(
-                                SpreadsheetParserName.DATE_PARSER_PATTERN.setText("")
+                                SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
                         ),
                         "text is empty",
                         Lists.empty(),
@@ -116,7 +116,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 SpreadsheetParserName.DATE_PARSER_PATTERN + " ",
                 SpreadsheetParserSelectorEdit.with(
                         Optional.of(
-                                SpreadsheetParserName.DATE_PARSER_PATTERN.setText("")
+                                SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
                         ),
                         "text is empty",
                         Lists.empty(),
@@ -140,7 +140,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 selector,
                 SpreadsheetParserSelectorEdit.with(
                         Optional.of(
-                                SpreadsheetParserName.DATE_PARSER_PATTERN.setText("!")
+                                SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("!")
                         ),
                         thrown.getMessage(),
                         Lists.empty(),
@@ -156,7 +156,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 SpreadsheetParserName.DATE_PARSER_PATTERN + " yyyy",
                 SpreadsheetParserSelectorEdit.with(
                         Optional.of(
-                                SpreadsheetParserName.DATE_PARSER_PATTERN.setText("yyyy")
+                                SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("yyyy")
                         ),
                         "",
                         Lists.of(

@@ -83,7 +83,7 @@ final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler impleme
 
         // format all the individual requests
         final Optional<SpreadsheetFormatterSelectorToken> response = nextTextComponent(
-                formatterName.setText(text), // selector
+                formatterName.setValueText(text), // selector
                 context
         );
 
