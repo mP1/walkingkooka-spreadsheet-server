@@ -24,6 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -70,7 +71,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    public final static UrlParameterName CELL_RANGE_PATH = UrlParameterName.with("cell-range-path");
+    public final static UrlParameterName CELL_RANGE_PATH = SpreadsheetCellFind.CELL_RANGE_PATH;
 
     // delta properties parameters.....................................................................................
 
@@ -109,7 +110,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    public final static UrlParameterName MAX = UrlParameterName.with("max");
+    public final static UrlParameterName MAX = SpreadsheetCellFind.MAX;
 
     // offset parameter....................................................................................................
 
@@ -128,7 +129,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 );
     }
 
-    public final static UrlParameterName OFFSET = UrlParameterName.with("offset");
+    public final static UrlParameterName OFFSET = SpreadsheetCellFind.OFFSET;
 
     // query parameters................................................................................................
 
@@ -157,7 +158,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         );
     }
 
-    public final static UrlParameterName QUERY = UrlParameterName.with("query");
+    public final static UrlParameterName QUERY = SpreadsheetCellFind.QUERY;
 
     // valueType parameters.............................................................................................
 
@@ -172,7 +173,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         return VALUE_TYPE.firstParameterValue(parameters);
     }
 
-    public final static UrlParameterName VALUE_TYPE = UrlParameterName.with("value-type");
+    public final static UrlParameterName VALUE_TYPE = SpreadsheetCellFind.VALUE_TYPE;
 
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
