@@ -180,7 +180,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         context,
                         this.loadCell(
                                 cell,
-                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
+                                SpreadsheetDeltaProperties.extract(parameters),
                                 context
                         )
                 )
@@ -233,7 +233,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                         context,
                         this.loadCells(
                                 window,
-                                SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
+                                SpreadsheetDeltaProperties.extract(parameters),
                                 context
                         ).setViewport(viewport)
                 )

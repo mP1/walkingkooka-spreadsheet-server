@@ -159,7 +159,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         if (null != deltaProperties) {
             parameters.put(
-                    SpreadsheetDeltaUrlQueryParameters.DELTA_PROPERTIES,
+                    SpreadsheetDeltaProperties.PROPERTIES,
                     Lists.of(deltaProperties)
             );
         }
@@ -638,7 +638,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(
-                SpreadsheetDeltaUrlQueryParameters.DELTA_PROPERTIES,
+                SpreadsheetDeltaProperties.PROPERTIES,
                 Lists.of(deltaProperties)
         );
 

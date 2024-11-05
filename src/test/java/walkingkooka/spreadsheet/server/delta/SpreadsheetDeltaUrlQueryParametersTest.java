@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
@@ -28,7 +27,6 @@ import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -41,79 +39,10 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigationList;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetDeltaUrlQueryParameters> {
-
-    // delta properties................................................................................................
-
-    @Test
-    public void testDeltaPropertiesNullParametersFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaUrlQueryParameters.deltaProperties(
-                        null
-                )
-        );
-    }
-
-    @Test
-    public void testDeltaPropertiesMissing() {
-        this.deltaPropertiesAndCheck(
-                Maps.empty(),
-                SpreadsheetDeltaProperties.ALL
-        );
-    }
-
-    @Test
-    public void testDeltaPropertiesEmpty() {
-        this.deltaPropertiesAndCheck(
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.DELTA_PROPERTIES,
-                        Lists.empty()
-                ),
-                SpreadsheetDeltaProperties.ALL
-        );
-    }
-
-    @Test
-    public void testDeltaPropertiesAll() {
-        this.deltaPropertiesAndCheck(
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.DELTA_PROPERTIES,
-                        Lists.of("*")
-                ),
-                SpreadsheetDeltaProperties.ALL
-        );
-    }
-
-    @Test
-    public void testDeltaPropertiesPresent() {
-        this.deltaPropertiesAndCheck(
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.DELTA_PROPERTIES,
-                        Lists.of("cells,labels,column-count")
-                ),
-                Sets.of(
-                        SpreadsheetDeltaProperties.CELLS,
-                        SpreadsheetDeltaProperties.COLUMN_COUNT,
-                        SpreadsheetDeltaProperties.LABELS
-                )
-        );
-    }
-
-    private void deltaPropertiesAndCheck(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final Set<SpreadsheetDeltaProperties> expected) {
-        this.checkEquals(
-                expected,
-                SpreadsheetDeltaUrlQueryParameters.deltaProperties(
-                        parameters
-                ),
-                () -> parameters.toString()
-        );
-    }
 
     // window...........................................................................................................
 
