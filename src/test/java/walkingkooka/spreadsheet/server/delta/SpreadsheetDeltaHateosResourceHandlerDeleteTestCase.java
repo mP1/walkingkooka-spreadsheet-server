@@ -25,7 +25,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -80,7 +79,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
+    public final SpreadsheetHateosResourceHandlerContext context() {
+        return CONTEXT;
     }
 }

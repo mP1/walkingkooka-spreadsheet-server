@@ -33,6 +33,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
@@ -128,6 +129,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFind.QUERY, Lists.of("" + expression)
                 ), // parameters
                 new TestSpreadsheetHateosResourceHandlerContext() {
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return METADATA;
+                    }
+
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -213,6 +220,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFind.QUERY, Lists.of("" + expression)
                 ), // parameters
                 new TestSpreadsheetHateosResourceHandlerContext() {
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return METADATA;
+                    }
+
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -298,6 +311,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFind.QUERY, Lists.of("" + expression)
                 ), // parameters
                 new TestSpreadsheetHateosResourceHandlerContext() {
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return METADATA;
+                    }
+
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();

@@ -29,8 +29,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 
 import java.util.Optional;
 
@@ -129,11 +127,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetSelection.parseColumnRange("E:G")
                 .range();
-    }
-
-    @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
     }
 
     @Override

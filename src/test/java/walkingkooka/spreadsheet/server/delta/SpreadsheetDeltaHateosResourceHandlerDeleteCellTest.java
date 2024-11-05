@@ -32,7 +32,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -143,7 +142,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
 
     @Override
     public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
+        return CONTEXT;
     }
 
     @Override

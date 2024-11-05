@@ -91,6 +91,13 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         SpreadsheetMetadataTesting,
         ToStringTesting<H> {
 
+    final static FakeSpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
+        @Override
+        public SpreadsheetMetadata spreadsheetMetadata() {
+            return SpreadsheetMetadata.EMPTY;
+        }
+    };
+
     SpreadsheetDeltaHateosResourceHandlerTestCase2() {
         super();
     }
@@ -262,16 +269,14 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                             .set(TextStylePropertyName.HEIGHT, Length.pixel(ROW_HEIGHT))
             );
 
-    static class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
+    static abstract class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
         }
 
         @Override
-        public SpreadsheetMetadata spreadsheetMetadata() {
-            return METADATA;
-        }
+        abstract public SpreadsheetMetadata spreadsheetMetadata();
     }
 
     TestSpreadsheetHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
@@ -382,6 +387,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             @Override
             public SpreadsheetStoreRepository storeRepository() {
                 return engineContext.storeRepository();
+            }
+
+            @Override
+            public SpreadsheetMetadata spreadsheetMetadata() {
+                return METADATA;
             }
         };
     }

@@ -34,6 +34,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
@@ -396,7 +398,10 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                                             final SpreadsheetEngine engine,
                                             final SpreadsheetEngineContext context) {
 
-        final SpreadsheetCellFind find = SpreadsheetCellFind.extract(parameters);
+        final SpreadsheetCellFind find = extractOrMetadataFindHighlightingAndQuery(
+                parameters,
+                context
+        );
 
         final Optional<Expression> maybeExpression = find.queryToExpression(context);
         final Optional<String> maybeValueType = find.valueType();
@@ -425,6 +430,23 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                         context
                 )
         );
+    }
+
+    /**
+     * Helper which attempts to read the {@link SpreadsheetCellFind} from the given parameters and if that is missing
+     * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#FIND_QUERY}.
+     */
+    private static SpreadsheetCellFind extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                                 final SpreadsheetEngineContext context) {
+        SpreadsheetCellFind find = SpreadsheetCellFind.extract(parameters);
+        if (find.isEmpty()) {
+            final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+            if (metadata.get(SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING).orElse(false)) {
+                find = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY).orElse(SpreadsheetCellFind.empty());
+            }
+        }
+
+        return find;
     }
 
     /**
