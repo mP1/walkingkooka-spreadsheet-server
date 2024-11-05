@@ -21,6 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -107,21 +108,17 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final Optional<SpreadsheetCellRangeReferencePath> path = SpreadsheetDeltaUrlQueryParameters.cellRangePath(parameters);
-        final Optional<Integer> offset = SpreadsheetDeltaUrlQueryParameters.offset(parameters);
-        final Optional<Integer> max = SpreadsheetDeltaUrlQueryParameters.max(parameters);
-        final Optional<String> valueType = SpreadsheetDeltaUrlQueryParameters.valueType(parameters, context);
-        final Optional<Expression> query = SpreadsheetDeltaUrlQueryParameters.query(parameters, context);
+        final SpreadsheetCellFind find = SpreadsheetCellFind.extract(parameters);
 
         return Optional.ofNullable(
                 SpreadsheetDelta.EMPTY.setCells(
                         this.engine.findCells(
                                 cells, // cells
-                                path.orElse(DEFAULT_CELL_RANGE_PATH), // path
-                                offset.orElse(DEFAULT_OFFSET), // offset
-                                max.orElse(this.defaultMax), // max
-                                valueType.orElse(DEFAULT_VALUE_TYPE), // valueType
-                                query.orElse(DEFAULT_QUERY), // query
+                                find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
+                                find.offset().orElse(DEFAULT_OFFSET), // offset
+                                find.max().orElse(this.defaultMax), // max
+                                find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
+                                find.queryToExpression(context).orElse(DEFAULT_QUERY), // query
                                 context
                         )
                 )
