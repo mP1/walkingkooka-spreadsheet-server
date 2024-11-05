@@ -66,7 +66,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "",
                 SpreadsheetFormatterSelectorEdit.with(
                         Optional.empty(), // selector
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         Lists.empty()
@@ -99,7 +99,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 SpreadsheetFormatterName.DATE_FORMAT_PATTERN.value(),
                 SpreadsheetFormatterSelectorEdit.with(
                         Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         DATE_FORMAT_SAMPLES
@@ -113,7 +113,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 SpreadsheetFormatterName.DATE_FORMAT_PATTERN + " ",
                 SpreadsheetFormatterSelectorEdit.with(
                         Optional.of(SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("")),
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         DATE_FORMAT_SAMPLES
