@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -395,15 +396,10 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                                             final SpreadsheetEngine engine,
                                             final SpreadsheetEngineContext context) {
 
-        final Optional<Expression> maybeExpression = SpreadsheetDeltaUrlQueryParameters.query(
-                parameters,
-                context
-        );
+        final SpreadsheetCellFind find = SpreadsheetCellFind.extract(parameters);
 
-        final Optional<String> maybeValueType = SpreadsheetDeltaUrlQueryParameters.valueType(
-                parameters,
-                context
-        );
+        final Optional<Expression> maybeExpression = find.queryToExpression(context);
+        final Optional<String> maybeValueType = find.valueType();
 
         SpreadsheetDelta result = out;
 

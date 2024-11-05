@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.SpreadsheetErrorKind;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -162,7 +163,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                                 .setWindow(window)
                 ),
                 Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.QUERY,
+                        SpreadsheetCellFind.QUERY,
                         Lists.of(query)
                 ),
                 new TestSpreadsheetHateosResourceHandlerContext() {

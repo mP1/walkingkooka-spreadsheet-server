@@ -24,13 +24,11 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
-import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
@@ -38,8 +36,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigationList;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.tree.expression.Expression;
 
 import java.util.List;
 import java.util.Map;
@@ -52,26 +48,6 @@ import java.util.function.Function;
  * Collection of helpers to read URL query parameters.
  */
 public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHelper {
-
-    // cell-range-path parameters.......................................................................................
-
-    /**
-     * Attempt to locate a path parameter and then parse it into an {@link SpreadsheetCellRangeReferencePath}.
-     */
-    public static Optional<SpreadsheetCellRangeReferencePath> cellRangePath(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkParameters(parameters);
-
-        return CELL_RANGE_PATH.firstParameterValue(parameters)
-                .map(
-                        s -> parseQueryParameter(
-                                s,
-                                SpreadsheetCellRangeReferencePath::fromKebabCase,
-                                CELL_RANGE_PATH
-                        )
-                );
-    }
-
-    public final static UrlParameterName CELL_RANGE_PATH = SpreadsheetCellFind.CELL_RANGE_PATH;
 
     // delta properties parameters.....................................................................................
 
@@ -92,88 +68,6 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
      * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
      */
     public final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
-
-    // max parameter....................................................................................................
-
-    /**
-     * Attempt to locate a max parameter and then parse it into an {@link Integer}.
-     */
-    public static Optional<Integer> max(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkParameters(parameters);
-
-        return MAX.firstParameterValue(parameters)
-                .map(
-                        s -> parseIntegerQueryParameter(
-                                s,
-                                MAX
-                        )
-                );
-    }
-
-    public final static UrlParameterName MAX = SpreadsheetCellFind.MAX;
-
-    // offset parameter....................................................................................................
-
-    /**
-     * Attempt to locate a offset parameter and then parse it into an {@link Integer}.
-     */
-    public static Optional<Integer> offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkParameters(parameters);
-
-        return OFFSET.firstParameterValue(parameters)
-                .map(
-                        s -> parseIntegerQueryParameter(
-                                s,
-                                OFFSET
-                        )
-                );
-    }
-
-    public final static UrlParameterName OFFSET = SpreadsheetCellFind.OFFSET;
-
-    // query parameters................................................................................................
-
-    /**
-     * Attempt to locate a query parameter and then parse it into an {@link Expression}.
-     */
-    public static Optional<Expression> query(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final SpreadsheetEngineContext context) {
-        checkParameters(parameters);
-        checkContext(context);
-
-        return QUERY.firstParameterValue(parameters)
-                .flatMap(query -> parseQuery(query, context));
-    }
-
-    private static Optional<Expression> parseQuery(final String query,
-                                                   final SpreadsheetEngineContext context) {
-        return parseQueryParameter(
-                query,
-                (t) -> context.toExpression(
-                        context.parseFormula(
-                                TextCursors.charSequence(query)
-                        )
-                ),
-                QUERY
-        );
-    }
-
-    public final static UrlParameterName QUERY = SpreadsheetCellFind.QUERY;
-
-    // valueType parameters.............................................................................................
-
-    /**
-     * Attempt to locate a value-type parameter and then parse it into an {@link String}.
-     */
-    public static Optional<String> valueType(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final SpreadsheetEngineContext context) {
-        checkParameters(parameters);
-        checkContext(context);
-
-        return VALUE_TYPE.firstParameterValue(parameters);
-    }
-
-    public final static UrlParameterName VALUE_TYPE = SpreadsheetCellFind.VALUE_TYPE;
 
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.
