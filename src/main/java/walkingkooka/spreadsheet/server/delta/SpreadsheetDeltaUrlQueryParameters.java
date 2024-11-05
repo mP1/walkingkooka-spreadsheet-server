@@ -372,23 +372,6 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         return value;
     }
 
-    private static int parseIntegerQueryParameter(final String text,
-                                                  final UrlParameterName parameterName) {
-        final int value = parseQueryParameter(
-                text,
-                Integer::parseInt,
-                parameterName
-        );
-
-        if (value < 0) {
-            throw new IllegalArgumentException(
-                    invalidQueryParameterMessage(text, parameterName) + " < 0"
-            );
-        }
-
-        return value;
-    }
-
     private static <T> T parseQueryParameter(final String text,
                                              final Function<String, T> parser,
                                              final UrlParameterName queryParameter) {
