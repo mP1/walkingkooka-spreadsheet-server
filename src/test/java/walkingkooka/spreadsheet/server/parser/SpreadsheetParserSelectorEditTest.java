@@ -67,7 +67,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                 "",
                 SpreadsheetParserSelectorEdit.with(
                         Optional.empty(), // selector
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         Lists.empty()
@@ -102,7 +102,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         Optional.of(
                                 SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
                         ),
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         DATE_FORMAT_SAMPLES
@@ -118,7 +118,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
                         Optional.of(
                                 SpreadsheetParserName.DATE_PARSER_PATTERN.setValueText("")
                         ),
-                        "text is empty",
+                        "Empty \"text\"",
                         Lists.empty(),
                         Optional.empty(),
                         DATE_FORMAT_SAMPLES
