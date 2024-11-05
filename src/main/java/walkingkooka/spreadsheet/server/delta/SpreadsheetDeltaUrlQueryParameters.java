@@ -25,7 +25,6 @@ import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
-import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
@@ -41,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -50,24 +48,6 @@ import java.util.function.Function;
 public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHelper {
 
     // delta properties parameters.....................................................................................
-
-
-    /**
-     * Attempts to read the {@link SpreadsheetDeltaProperties} from the {@link #DELTA_PROPERTIES}.
-     */
-    public static Set<SpreadsheetDeltaProperties> deltaProperties(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        checkParameters(parameters);
-
-        return SpreadsheetDeltaProperties.parse(
-                DELTA_PROPERTIES.firstParameterValue(parameters)
-                        .orElse(null)
-        );
-    }
-
-    /**
-     * Optional query parameter, where the value is a CSV of camel-case {@link SpreadsheetDeltaProperties}.
-     */
-    public final static UrlParameterName DELTA_PROPERTIES = UrlParameterName.with("properties");
 
     /**
      * Attempts to read a {@link SpreadsheetViewport} from the provided parameters.

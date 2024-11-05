@@ -21,6 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -105,7 +106,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
                 this.engine.sortCells(
                         cells, // cells
                         SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
-                        SpreadsheetDeltaUrlQueryParameters.deltaProperties(parameters),
+                        SpreadsheetDeltaProperties.extract(parameters),
                         context
                 )
         );
