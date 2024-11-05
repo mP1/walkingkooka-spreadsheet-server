@@ -35,12 +35,12 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -186,6 +186,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                         return Optional.of(
                                 Expression.value(true)
                         );
+                    }
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return METADATA;
                     }
                 },
                 Optional.of(
@@ -387,7 +392,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
 
     @Override
     public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
+        return CONTEXT;
     }
 
     @Override

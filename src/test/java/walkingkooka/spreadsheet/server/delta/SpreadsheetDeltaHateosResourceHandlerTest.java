@@ -28,12 +28,13 @@ import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 
 import java.util.Map;
 import java.util.Optional;
@@ -234,7 +235,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
         this.prepareResponseAndCheck(
                 input,
                 parameters,
-                SpreadsheetHateosResourceHandlerContexts.fake(),
+                new FakeSpreadsheetHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return SpreadsheetMetadata.EMPTY;
+                    }
+                },
                 output,
                 expected
         );

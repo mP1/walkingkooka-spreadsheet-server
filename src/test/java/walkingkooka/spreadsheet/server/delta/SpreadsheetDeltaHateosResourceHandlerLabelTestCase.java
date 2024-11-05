@@ -21,6 +21,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
@@ -49,6 +50,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
                     }
                 };
             }
+
+            @Override
+            public SpreadsheetMetadata spreadsheetMetadata() {
+                return SpreadsheetMetadata.EMPTY;
+            }
         };
     }
 
@@ -57,5 +63,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
         public MediaType contentType() {
             return CONTENT_TYPE;
         }
+    }
+
+    @Override
+    public final SpreadsheetHateosResourceHandlerContext context() {
+        return CONTEXT;
     }
 }

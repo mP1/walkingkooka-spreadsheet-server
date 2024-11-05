@@ -117,6 +117,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 "cells",
                 null, // window
                 null, // query
+                METADATA,
                 SpreadsheetDelta.EMPTY
                         .setCells(this.cells())
         );
@@ -128,6 +129,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 "cells,labels",
                 null, // window
                 null, // query
+                METADATA,
                 SpreadsheetDelta.EMPTY
                         .setCells(this.cells())
                         .setLabels(this.labels())
@@ -139,7 +141,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         this.handleOneLoadCellAndCheck(
                 "cells",
                 null, // window
-                "=true()", // query
+                "true()", // query
+                METADATA,
+                SpreadsheetDelta.EMPTY
+                        .setCells(this.cells())
+                        .setMatchedCells(
+                                cells().stream()
+                                        .map(SpreadsheetCell::reference)
+                                        .collect(Collectors.toSet())
+                        )
+        );
+    }
+
+    @Test
+    public void testHandleOneLoadCellWithHighlightingAndFindQuery() {
+        this.handleOneLoadCellAndCheck(
+                "cells",
+                null, // window
+                null, // query
+                METADATA.set(
+                        SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING,
+                        true
+                ).set(
+                        SpreadsheetMetadataPropertyName.FIND_QUERY,
+                        SpreadsheetCellFind.parse("query=true()")
+                ),
                 SpreadsheetDelta.EMPTY
                         .setCells(this.cells())
                         .setMatchedCells(
@@ -153,6 +179,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     private void handleOneLoadCellAndCheck(final String deltaProperties,
                                            final String window,
                                            final String query,
+                                           final SpreadsheetMetadata metadata,
                                            final SpreadsheetDelta expected) {
         final SpreadsheetCellReference id = this.id();
 
@@ -217,7 +244,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         formula.end();
                         final String text = begin.textBetween()
                                 .toString();
-                        checkEquals("=true()", text, "formula text");
+                        checkEquals("true()", text, "formula text");
 
                         return SpreadsheetParserToken.functionName(
                                 SpreadsheetFunctionName.with("true"),
@@ -230,6 +257,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         return Optional.of(
                                 Expression.value(true)
                         );
+                    }
+
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return metadata;
                     }
                 },
                 Optional.of(expected)
@@ -358,6 +389,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         )
                 ),
                 new TestSpreadsheetHateosResourceHandlerContext() {
+
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -375,6 +407,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         return Optional.of(
                                 Expression.value(true)
                         );
+                    }
+
+                    @Override
+                    public SpreadsheetMetadata spreadsheetMetadata() {
+                        return METADATA;
                     }
                 },
                 Optional.of(
