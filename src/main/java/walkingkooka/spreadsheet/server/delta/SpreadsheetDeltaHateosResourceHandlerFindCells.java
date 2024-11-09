@@ -21,7 +21,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFind;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -108,7 +108,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetCellFind find = SpreadsheetCellFind.extract(parameters);
+        final SpreadsheetCellQuery find = SpreadsheetCellQuery.extract(parameters);
 
         return Optional.ofNullable(
                 SpreadsheetDelta.EMPTY.setCells(
