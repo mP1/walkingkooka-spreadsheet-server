@@ -29,11 +29,11 @@ import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.meta.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -46,7 +46,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.Expression;
 
 import java.util.Map;
 import java.util.Objects;
@@ -398,22 +397,20 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                                             final SpreadsheetEngine engine,
                                             final SpreadsheetEngineContext context) {
 
-        final SpreadsheetCellFindQuery find = extractOrMetadataFindHighlightingAndQuery(
+        final Optional<SpreadsheetCellQuery> query = extractOrMetadataFindHighlightingAndQuery(
                 parameters,
                 context
         );
 
-        final Optional<Expression> maybeExpression = find.queryToExpression(context);
-        final Optional<String> maybeValueType = find.valueType();
-
         SpreadsheetDelta result = out;
 
-        if (maybeExpression.isPresent()) {
+        if (query.isPresent()) {
             result = out.setMatchedCells(
                     engine.filterCells(
                                     out.cells(),
-                                    maybeValueType.orElse(SpreadsheetValueType.ANY),
-                                    maybeExpression.get(),
+                                    SpreadsheetValueType.ANY,
+                                    query.get()
+                                            .expression(),
                                     context
                             ).stream()
                             .map(
@@ -433,20 +430,20 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     }
 
     /**
-     * Helper which attempts to read the {@link SpreadsheetCellFindQuery} from the given parameters and if that is missing
+     * Helper which attempts to read the {@link SpreadsheetCellQuery} from the given parameters and if that is missing
      * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#FIND_QUERY}.
      */
-    private static SpreadsheetCellFindQuery extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                                                  final SpreadsheetEngineContext context) {
-        SpreadsheetCellFindQuery find = SpreadsheetCellFindQuery.extract(parameters);
-        if (find.isEmpty()) {
+    private static Optional<SpreadsheetCellQuery> extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                                            final SpreadsheetEngineContext context) {
+        Optional<SpreadsheetCellQuery> query = SpreadsheetCellQuery.extract(parameters);
+        if (false == query.isPresent()) {
             final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
             if (metadata.get(SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING).orElse(false)) {
-                find = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY).orElse(SpreadsheetCellFindQuery.empty());
+                query = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY);
             }
         }
 
-        return find;
+        return query;
     }
 
     /**

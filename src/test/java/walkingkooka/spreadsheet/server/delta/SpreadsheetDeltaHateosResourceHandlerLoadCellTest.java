@@ -38,6 +38,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
+import walkingkooka.spreadsheet.meta.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -164,7 +165,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         true
                 ).set(
                         SpreadsheetMetadataPropertyName.FIND_QUERY,
-                        SpreadsheetCellFindQuery.parse("query=true()")
+                        SpreadsheetCellQuery.parse("true()")
                 ),
                 SpreadsheetDelta.EMPTY
                         .setCells(this.cells())
