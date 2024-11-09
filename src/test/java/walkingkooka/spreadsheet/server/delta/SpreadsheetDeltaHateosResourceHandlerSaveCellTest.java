@@ -128,7 +128,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final SpreadsheetCell saved2 = this.cellOutsideWindow().setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
 
         final SpreadsheetViewportWindows window = this.window();
-        final String query = "=true()";
+        final String query = "true()";
 
         this.handleOneAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerSaveCell.with(
