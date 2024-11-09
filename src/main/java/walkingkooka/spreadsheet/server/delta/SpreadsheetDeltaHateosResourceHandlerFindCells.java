@@ -25,6 +25,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -118,7 +119,9 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                 find.offset().orElse(DEFAULT_OFFSET), // offset
                                 find.max().orElse(this.defaultMax), // max
                                 find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
-                                find.queryToExpression(context).orElse(DEFAULT_QUERY), // query
+                                find.query()
+                                        .map(SpreadsheetCellQuery::expression)
+                                        .orElse(DEFAULT_QUERY), // query
                                 context
                         )
                 )

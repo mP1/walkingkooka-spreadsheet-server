@@ -9087,7 +9087,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
                 HttpMethod.GET,
-                "/api/spreadsheet/1/cell/B2/find?query=%3D1",
+                "/api/spreadsheet/1/cell/B2/find?query=1",
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 HttpStatusCode.OK.status(),
