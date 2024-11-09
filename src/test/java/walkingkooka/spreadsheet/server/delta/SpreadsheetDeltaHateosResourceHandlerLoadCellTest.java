@@ -30,7 +30,7 @@ import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
+import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -164,7 +164,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                         true
                 ).set(
                         SpreadsheetMetadataPropertyName.FIND_QUERY,
-                        SpreadsheetCellQuery.parse("query=true()")
+                        SpreadsheetCellFindQuery.parse("query=true()")
                 ),
                 SpreadsheetDelta.EMPTY
                         .setCells(this.cells())
@@ -194,7 +194,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             parameters.put(SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(window));
         }
         if (null != query) {
-            parameters.put(SpreadsheetCellQuery.QUERY, Lists.of(query));
+            parameters.put(SpreadsheetCellFindQuery.QUERY, Lists.of(query));
         }
 
         this.handleOneAndCheck(
