@@ -122,7 +122,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 b2, // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
                         SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
@@ -213,7 +213,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
                         SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
@@ -304,7 +304,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 range.range(), // reference
                 Optional.empty(), // resource
                 Maps.of(
-                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name().toLowerCase()),
+                        SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
                         SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
