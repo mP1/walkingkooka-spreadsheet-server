@@ -64,6 +64,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -228,6 +229,11 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
                                                                                  final List<?> values,
                                                                                  final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CaseSensitivity expressionFunctionNameCaseSensitivity() {
         throw new UnsupportedOperationException();
     }
 
