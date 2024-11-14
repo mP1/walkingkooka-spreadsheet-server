@@ -56,6 +56,7 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -166,6 +167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     return Cast.to(
                             new TestFunction(
                                     ExpressionFunctionName.with("ExpressionFunction1")
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                             )
                     );
                 default:
@@ -180,10 +182,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             ExpressionFunctionInfo.with(
                                     Url.parseAbsolute("https://example.com/expression-function-1"),
                                     ExpressionFunctionName.with("ExpressionFunction1")
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                             ),
                             ExpressionFunctionInfo.with(
                                     Url.parseAbsolute("https://example.com/expression-function-2"),
                                     ExpressionFunctionName.with("ExpressionFunction2")
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                             )
                     )
             );
