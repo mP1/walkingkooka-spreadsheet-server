@@ -44,6 +44,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
@@ -1206,10 +1207,12 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                                                         ExpressionFunctionInfo.with(
                                                                 Url.parseAbsolute("https://example.com/expression-function-1"),
                                                                 ExpressionFunctionName.with("ExpressionFunction1")
+                                                                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                                                         ),
                                                         ExpressionFunctionInfo.with(
                                                                 Url.parseAbsolute("https://example.com/expression-function-2"),
                                                                 ExpressionFunctionName.with("ExpressionFunction2")
+                                                                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                                                         )
                                                 )
                                         );

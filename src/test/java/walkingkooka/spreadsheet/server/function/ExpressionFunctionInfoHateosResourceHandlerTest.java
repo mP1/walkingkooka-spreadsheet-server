@@ -26,6 +26,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
@@ -50,11 +51,13 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     private final static ExpressionFunctionInfo INFO1 = ExpressionFunctionInfo.with(
             Url.parseAbsolute("https://example.com/1"),
             ExpressionFunctionName.with("function-1")
+                    .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
     );
 
     private final static ExpressionFunctionInfo INFO2 = ExpressionFunctionInfo.with(
             Url.parseAbsolute("https://example.com/2"),
             ExpressionFunctionName.with("function-2")
+                    .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
     );
 
     private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
@@ -89,7 +92,8 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                ExpressionFunctionName.with("Unknown"),
+                ExpressionFunctionName.with("Unknown")
+                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY),
                 Optional.empty(), // resource
                 Maps.empty(), // parameters
                 this.context(),
@@ -121,7 +125,8 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
 
     @Override
     public ExpressionFunctionName id() {
-        return ExpressionFunctionName.with("id-spreadsheet-function-name");
+        return ExpressionFunctionName.with("id-spreadsheet-function-name")
+                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY);
     }
 
     @Override
@@ -136,6 +141,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     public Range<ExpressionFunctionName> range() {
         return Range.singleton(
                 ExpressionFunctionName.with("range-spreadsheet-function-name")
+                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
         );
     }
 

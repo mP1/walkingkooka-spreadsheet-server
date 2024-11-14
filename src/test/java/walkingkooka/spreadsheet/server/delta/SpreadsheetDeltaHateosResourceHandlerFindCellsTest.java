@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -75,6 +76,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     private final static Expression EXPRESSION = Expression.call(
             Expression.namedFunction(
                     ExpressionFunctionName.with("test123")
+                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
             ),
             Expression.NO_CHILDREN
     );

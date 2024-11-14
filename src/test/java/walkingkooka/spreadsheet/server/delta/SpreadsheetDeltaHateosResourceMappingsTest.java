@@ -41,6 +41,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
+import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -564,10 +565,12 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                 ExpressionFunctionInfo.with(
                                         Url.parseAbsolute("https://example.com/expression-function-1"),
                                         ExpressionFunctionName.with("ExpressionFunction1")
+                                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                                 ),
                                 ExpressionFunctionInfo.with(
                                         Url.parseAbsolute("https://example.com/expression-function-2"),
                                         ExpressionFunctionName.with("ExpressionFunction2")
+                                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                                 )
                         )
                 );
