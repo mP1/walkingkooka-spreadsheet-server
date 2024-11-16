@@ -22,7 +22,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
-import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -32,6 +31,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -120,8 +121,16 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                 find.max().orElse(this.defaultMax), // max
                                 find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
                                 find.query()
-                                        .map(SpreadsheetCellQuery::expression)
-                                        .orElse(DEFAULT_QUERY), // query
+                                        .map(q -> q.parserToken()
+                                                .toExpression(
+                                                        new FakeExpressionEvaluationContext() {
+
+                                                            public ExpressionNumberKind expressionNumberKind() {
+                                                                return context.expressionNumberKind();
+                                                            }
+                                                        }
+                                                ).orElse(DEFAULT_QUERY)
+                                        ).orElse(DEFAULT_QUERY), // query
                                 context
                         )
                 )

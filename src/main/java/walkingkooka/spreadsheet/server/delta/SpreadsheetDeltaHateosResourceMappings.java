@@ -46,6 +46,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.Map;
 import java.util.Objects;
@@ -409,8 +410,10 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                     engine.filterCells(
                                     out.cells(),
                                     SpreadsheetValueType.ANY,
-                                    query.get()
-                                            .expression(),
+                                    context.toExpression(
+                                            query.get()
+                                                    .parserToken()
+                                    ).orElse(DEFAULT_EXPRESSION),
                                     context
                             ).stream()
                             .map(
@@ -428,6 +431,8 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                 )
         );
     }
+
+    private final static Expression DEFAULT_EXPRESSION = Expression.value(Boolean.TRUE);
 
     /**
      * Helper which attempts to read the {@link SpreadsheetCellQuery} from the given parameters and if that is missing
