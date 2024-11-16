@@ -102,6 +102,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -191,6 +192,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             )
                     )
             );
+        }
+
+        @Override
+        public CaseSensitivity expressionFunctionNameCaseSensitivity() {
+            return SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY;
         }
     };
 
