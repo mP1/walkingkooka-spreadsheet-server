@@ -31,8 +31,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -121,14 +119,8 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                 find.max().orElse(this.defaultMax), // max
                                 find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
                                 find.query()
-                                        .map(q -> q.parserToken()
-                                                .toExpression(
-                                                        new FakeExpressionEvaluationContext() {
-
-                                                            public ExpressionNumberKind expressionNumberKind() {
-                                                                return context.expressionNumberKind();
-                                                            }
-                                                        }
+                                        .map(q -> context.toExpression(
+                                                q.parserToken()
                                                 ).orElse(DEFAULT_QUERY)
                                         ).orElse(DEFAULT_QUERY), // query
                                 context
