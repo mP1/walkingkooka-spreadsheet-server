@@ -119,6 +119,7 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
 import java.io.InputStream;
@@ -9599,8 +9600,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ),
                 this.metadataStore,
                 this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
+                JsonNodeMarshallUnmarshallContexts.basic(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        JSON_NODE_UNMARSHALL_CONTEXT
+                ),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,
                 this::fileServer,

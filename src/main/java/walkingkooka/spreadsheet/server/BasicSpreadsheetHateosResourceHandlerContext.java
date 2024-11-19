@@ -28,9 +28,8 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
@@ -42,27 +41,23 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
         SpreadsheetProviderDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
-    static BasicSpreadsheetHateosResourceHandlerContext with(final JsonNodeMarshallContext marshallContext,
-                                                             final JsonNodeUnmarshallContext unmarshallContext,
+    static BasicSpreadsheetHateosResourceHandlerContext with(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                              final SpreadsheetEngineContext engineContext,
                                                              final SpreadsheetFormatterContext formatterContext,
                                                              final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetHateosResourceHandlerContext(
-                Objects.requireNonNull(marshallContext, "marshallContext"),
-                Objects.requireNonNull(unmarshallContext, "unmarshallContext"),
+                Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext"),
                 Objects.requireNonNull(engineContext, "engineContext"),
                 Objects.requireNonNull(formatterContext, "formatterContext"),
                 Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
         );
     }
 
-    private BasicSpreadsheetHateosResourceHandlerContext(final JsonNodeMarshallContext marshallContext,
-                                                         final JsonNodeUnmarshallContext unmarshallContext,
+    private BasicSpreadsheetHateosResourceHandlerContext(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                          final SpreadsheetEngineContext engineContext,
                                                          final SpreadsheetFormatterContext formatterContext,
                                                          final SpreadsheetProvider systemSpreadsheetProvider) {
-        this.marshallContext = marshallContext;
-        this.unmarshallContext = unmarshallContext;
+        this.marshallUnmarshallContext = marshallUnmarshallContext;
         this.engineContext = engineContext;
         this.formatterContext = formatterContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
@@ -77,7 +72,7 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.unmarshallContext.expressionNumberKind();
+        return this.marshallUnmarshallContext.expressionNumberKind();
     }
 
     @Override
@@ -95,23 +90,14 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
         return this.engineContext.resolveLabel(labelName);
     }
 
-    // JsonNodeMarshallContext..........................................................................................
+    // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override
-    public JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.marshallContext;
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
+        return this.marshallUnmarshallContext;
     }
 
-    private final JsonNodeMarshallContext marshallContext;
-
-    // JsonNodeUnmarshallContext........................................................................................
-
-    @Override
-    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
-        return this.unmarshallContext;
-    }
-
-    private final JsonNodeUnmarshallContext unmarshallContext;
+    private final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext;
 
     // SpreadsheetEngineContextDelegator................................................................................
 

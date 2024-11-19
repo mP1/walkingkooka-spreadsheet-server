@@ -28,6 +28,8 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
 
@@ -35,6 +37,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetHateosResourceHandlerContextTest implements SpreadsheetHateosResourceHandlerContextTesting<BasicSpreadsheetHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting {
+
+    private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
+            JSON_NODE_MARSHALL_CONTEXT,
+            JSON_NODE_UNMARSHALL_CONTEXT
+    );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
             Url.parseAbsolute("https://example.com"),
@@ -55,25 +62,10 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     // with.............................................................................................................
 
     @Test
-    public void testWithNullJsonNodeMarshallContextFails() {
+    public void testWithNullJsonNodeMarshallUnmarshallContextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetHateosResourceHandlerContext.with(
-                        null,
-                        JSON_NODE_UNMARSHALL_CONTEXT,
-                        SPREADSHEET_ENGINE_CONTEXT,
-                        SPREADSHEET_FORMATTER_CONTEXT,
-                        SPREADSHEET_PROVIDER
-                )
-        );
-    }
-
-    @Test
-    public void testWithNullJsonNodeUnmarshallContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
-                        JSON_NODE_MARSHALL_CONTEXT,
                         null,
                         SPREADSHEET_ENGINE_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
@@ -87,8 +79,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetHateosResourceHandlerContext.with(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        MARSHALL_UNMARSHALL_CONTEXT,
                         null,
                         SPREADSHEET_FORMATTER_CONTEXT,
                         SPREADSHEET_PROVIDER
@@ -101,8 +92,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetHateosResourceHandlerContext.with(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        MARSHALL_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         null,
                         SPREADSHEET_PROVIDER
@@ -115,8 +105,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetHateosResourceHandlerContext.with(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT,
+                        MARSHALL_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
                         null
@@ -139,8 +128,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     @Override
     public BasicSpreadsheetHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetHateosResourceHandlerContext.with(
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
+                MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
                 SPREADSHEET_PROVIDER

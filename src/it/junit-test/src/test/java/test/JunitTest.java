@@ -75,6 +75,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
@@ -254,10 +255,12 @@ public class JunitTest {
                 ),
                 metadataStore,
                 Function.identity(), // spreadsheetMetadataStamper
-                JsonNodeMarshallContexts.basic(),
-                JsonNodeUnmarshallContexts.basic(
-                        metadata.expressionNumberKind(),
-                        metadata.mathContext()
+                JsonNodeMarshallUnmarshallContexts.basic(
+                        JsonNodeMarshallContexts.basic(),
+                        JsonNodeUnmarshallContexts.basic(
+                                metadata.expressionNumberKind(),
+                                metadata.mathContext()
+                        )
                 ),
                 (id) -> metadata.spreadsheetProvider(
                         SpreadsheetProviders.basic(
@@ -267,7 +270,9 @@ public class JunitTest {
                                 SpreadsheetExporterProviders.spreadsheetExport(),
                                 spreadsheetFormatterProvider,
                                 SpreadsheetImporterProviders.spreadsheetImport(),
-                                SpreadsheetParserProviders.spreadsheetParsePattern(spreadsheetFormatterProvider)
+                                SpreadsheetParserProviders.spreadsheetParsePattern(
+                                        spreadsheetFormatterProvider
+                                )
                         )
                 ),
                 (id) -> repo, // spreadsheetIdToStoreRepository
