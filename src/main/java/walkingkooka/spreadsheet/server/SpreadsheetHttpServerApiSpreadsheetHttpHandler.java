@@ -67,7 +67,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final SpreadsheetMetadataStore metadataStore,
                                                                final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                               final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                                final Supplier<LocalDateTime> now,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -79,7 +78,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                spreadsheetMetadataStamper,
                 jsonNodeMarshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider
@@ -96,7 +94,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final SpreadsheetMetadataStore metadataStore,
                                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                           final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                            final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                            final Supplier<LocalDateTime> now,
                                                            final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -112,7 +109,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                spreadsheetMetadataStamper,
                 jsonNodeMarshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider

@@ -80,7 +80,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
-                                             final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                              final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -95,7 +94,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 now,
                 createMetadata,
                 metadataStore,
-                spreadsheetMetadataStamper,
                 jsonNodeMarshallUnmarshallContext,
                 systemSpreadsheetProvider,
                 spreadsheetIdToSpreadsheetProvider,
@@ -124,7 +122,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Supplier<LocalDateTime> now,
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final SpreadsheetMetadataStore metadataStore,
-                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                   final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -139,7 +136,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
-        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
         this.jsonNodeMarshallUnmarshallContext = jsonNodeMarshallUnmarshallContext;
 
@@ -211,7 +207,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallUnmarshallContext,
                 this.now,
                 this.systemSpreadsheetProvider
@@ -237,7 +232,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.spreadsheetMetadataStamper,
                 this.jsonNodeMarshallUnmarshallContext,
                 this.now
         );
@@ -250,8 +244,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     private final SpreadsheetMetadataStore metadataStore;
-
-    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
 
     private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
 

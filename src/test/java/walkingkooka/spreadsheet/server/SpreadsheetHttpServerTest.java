@@ -948,77 +948,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testCellSaveStampsMetadata() {
-        final TestHttpServer server = this.createSpreadsheetSaveCellAndCheck(
-                "'Hello123'",
-                "{\n" +
-                        "  \"cells\": {\n" +
-                        "    \"A1\": {\n" +
-                        "      \"formula\": {\n" +
-                        "        \"text\": \"'Hello123'\",\n" +
-                        "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-text-parser-token\",\n" +
-                        "          \"value\": {\n" +
-                        "            \"value\": [\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-apostrophe-symbol-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"'\",\n" +
-                        "                  \"text\": \"'\"\n" +
-                        "                }\n" +
-                        "              },\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-text-literal-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"Hello123'\",\n" +
-                        "                  \"text\": \"Hello123'\"\n" +
-                        "                }\n" +
-                        "              }\n" +
-                        "            ],\n" +
-                        "            \"text\": \"'Hello123'\"\n" +
-                        "          }\n" +
-                        "        },\n" +
-                        "        \"expression\": {\n" +
-                        "          \"type\": \"value-expression\",\n" +
-                        "          \"value\": \"Hello123'\"\n" +
-                        "        },\n" +
-                        "        \"value\": \"Hello123'\"\n" +
-                        "      },\n" +
-                        "      \"formatted-value\": {\n" +
-                        "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Text Hello123'\"\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"columnWidths\": {\n" +
-                        "    \"A\": 100\n" +
-                        "  },\n" +
-                        "  \"rowHeights\": {\n" +
-                        "    \"1\": 50\n" +
-                        "  },\n" +
-                        "  \"columnCount\": 1,\n" +
-                        "  \"rowCount\": 1\n" +
-                        "}"
-        );
-
-        final SpreadsheetMetadata stamped = this.createMetadata()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SPREADSHEET_ID)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, MODIFIED_DATE_TIME);
-
-        server.handleAndCheck(
-                HttpMethod.GET,
-                "/api/spreadsheet/1",
-                NO_HEADERS_TRANSACTION_ID,
-                "",
-                this.response(
-                        HttpStatusCode.OK.status(),
-                        this.toJson(stamped),
-                        SpreadsheetMetadata.class.getSimpleName()
-                )
-        );
-    }
-
-    @Test
     public void testCellSaveSelectionQueryParameter() {
         this.createSpreadsheetSaveCellAndCheck(
                 "=\"Hello 123\"",
@@ -4146,7 +4075,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"importers\": \"collection, empty, json\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
                                 "  \"modified-by\": \"user@example.com\",\n" +
-                                "  \"modified-date-time\": \"2021-07-15T20:33\",\n" +
+                                "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -4524,7 +4453,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"importers\": \"collection, empty, json\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
                                 "  \"modified-by\": \"user@example.com\",\n" +
-                                "  \"modified-date-time\": \"2021-07-15T20:33\",\n" +
+                                "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -4700,7 +4629,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"importers\": \"collection, empty, json\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
                                 "  \"modified-by\": \"user@example.com\",\n" +
-                                "  \"modified-date-time\": \"2021-07-15T20:33\",\n" +
+                                "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -9599,7 +9528,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         this.metadataStore
                 ),
                 this.metadataStore,
-                this::spreadsheetMetadataStamper,
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JSON_NODE_MARSHALL_CONTEXT,
                         JSON_NODE_UNMARSHALL_CONTEXT

@@ -254,7 +254,6 @@ public class JunitTest {
                         SpreadsheetId.with(nextId.incrementAndGet())
                 ),
                 metadataStore,
-                Function.identity(), // spreadsheetMetadataStamper
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),
                         JsonNodeUnmarshallContexts.basic(
