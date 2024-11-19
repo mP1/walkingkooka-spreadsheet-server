@@ -53,6 +53,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -86,20 +87,20 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
-                scheme,
-                host,
-                port,
-                indentation,
-                lineEnding,
-                now,
-                createMetadata,
-                metadataStore,
-                jsonNodeMarshallUnmarshallContext,
-                systemSpreadsheetProvider,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                fileServer,
-                server
+                Objects.requireNonNull(scheme, "scheme"),
+                Objects.requireNonNull(host, "host"),
+                Objects.requireNonNull(port, "port"),
+                Objects.requireNonNull(indentation, "indentation"),
+                Objects.requireNonNull(lineEnding, "lineEnding"),
+                Objects.requireNonNull(now, "now"),
+                Objects.requireNonNull(createMetadata, "createMetadata"),
+                Objects.requireNonNull(metadataStore, "metadataStore"),
+                Objects.requireNonNull(jsonNodeMarshallUnmarshallContext, "jsonNodeMarshallUnmarshallContext"),
+                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
+                Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
+                Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
+                Objects.requireNonNull(fileServer, "fileServer"),
+                Objects.requireNonNull(server, "server")
         );
     }
 
