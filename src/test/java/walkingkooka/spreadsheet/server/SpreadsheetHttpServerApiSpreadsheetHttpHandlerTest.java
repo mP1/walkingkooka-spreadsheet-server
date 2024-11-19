@@ -60,7 +60,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 SpreadsheetMetadataStores.fake(),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
-                this::spreadsheetMetadataStamper,
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JSON_NODE_MARSHALL_CONTEXT,
                         JSON_NODE_UNMARSHALL_CONTEXT

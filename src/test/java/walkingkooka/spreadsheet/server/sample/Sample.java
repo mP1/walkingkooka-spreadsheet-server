@@ -83,7 +83,6 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 
 public final class Sample implements walkingkooka.text.printer.TreePrintableTesting {
 
@@ -256,7 +255,6 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         SpreadsheetId.with(nextId.incrementAndGet())
                 ),
                 metadataStore,
-                Function.identity(), // spreadsheetMetadataStamper
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),
                         JsonNodeUnmarshallContexts.basic(

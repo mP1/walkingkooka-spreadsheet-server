@@ -48,7 +48,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                        final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                         final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                                         final Supplier<LocalDateTime> now,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -60,7 +59,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                spreadsheetMetadataStamper,
                 marshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider

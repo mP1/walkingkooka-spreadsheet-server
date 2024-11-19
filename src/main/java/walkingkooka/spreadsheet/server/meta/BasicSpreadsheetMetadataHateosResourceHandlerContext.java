@@ -113,7 +113,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                     final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                      final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                                      final Supplier<LocalDateTime> now,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -124,7 +123,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
-        Objects.requireNonNull(spreadsheetMetadataStamper, "spreadsheetMetadataStamper");
         Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext");
         Objects.requireNonNull(now, "now");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
@@ -137,7 +135,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                spreadsheetMetadataStamper,
                 marshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider
@@ -151,7 +148,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                 final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
                                                                  final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                                  final Supplier<LocalDateTime> now,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
@@ -167,7 +163,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
-        this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
         this.marshallUnmarshallContext = marshallUnmarshallContext;
 
@@ -273,10 +268,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                SpreadsheetEngines.basic(),
-                this.spreadsheetMetadataStamper
-        );
+        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
 
@@ -304,7 +296,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
     }
 
-    private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
     private final Supplier<LocalDateTime> now;
 
     private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnProvidersRowViewportRouter(final SpreadsheetId id,

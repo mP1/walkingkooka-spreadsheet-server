@@ -360,7 +360,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 this.metadataStore,
                 spreadsheetIdToSpreadsheetProvider(),
                 spreadsheetIdToStoreRepository(),
-                spreadsheetMetadataStamper(),
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JSON_NODE_MARSHALL_CONTEXT,
                         JSON_NODE_UNMARSHALL_CONTEXT
@@ -449,10 +448,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
-
-    private Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper() {
-        return m -> m.set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.now());
-    }
 
     // ClassTesting.....................................................................................................
 
