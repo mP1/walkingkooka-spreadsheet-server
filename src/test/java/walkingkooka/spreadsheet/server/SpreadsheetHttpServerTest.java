@@ -27,8 +27,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
-import walkingkooka.net.IpPort;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
@@ -236,11 +236,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     // with.............................................................................................................
 
-    private final static UrlScheme SCHEME = UrlScheme.HTTPS;
-
-    private final static HostAddress HOST = HostAddress.with("example.com");
-
-    private final static IpPort PORT = IpPort.HTTPS;
+    private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
     private final static Indentation INDENTATION = Indentation.SPACES2;
 
@@ -273,11 +269,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     };
 
     @Test
-    public void testWithNullSchemeFails() {
+    public void testWithNullServerUrlFails() {
         this.withFails(
                 null,
-                HOST,
-                PORT,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -293,11 +287,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testWithNullHostFails() {
+    public void testWithServerUrlNonEmptyPathFails() {
         this.withFails(
-                SCHEME,
-                null,
-                PORT,
+                "http://example.com/path123",
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -308,16 +300,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
-                SERVER
+                SERVER,
+                "Url must not have path got \"http://example.com/path123\""
         );
     }
 
     @Test
-    public void testWithNullPortFails() {
+    public void testWithServerUrlNonQueryStringFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                null,
+                "http://example.com?path123",
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -328,16 +319,72 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
                 SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                 FILE_SERVER,
-                SERVER
+                SERVER,
+                "Url must not have query string got \"http://example.com?path123\""
+        );
+    }
+
+    @Test
+    public void testWithServerUrlNonFragmentFails() {
+        this.withFails(
+                "http://example.com#fragment456",
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER,
+                "Url must not have fragment got \"http://example.com#fragment456\""
+        );
+    }
+
+    private void withFails(final String serverUrl,
+                           final Indentation indentation,
+                           final LineEnding lineEnding,
+                           final Supplier<LocalDateTime> now,
+                           final SpreadsheetProvider systemSpreadsheetProvider,
+                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                           final SpreadsheetMetadataStore metadataStore,
+                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                           final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                           final Function<HttpHandler, HttpServer> server,
+                           final String message) {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetHttpServer.with(
+                        Url.parseAbsolute(serverUrl),
+                        indentation,
+                        lineEnding,
+                        now,
+                        systemSpreadsheetProvider,
+                        createMetadata,
+                        metadataStore,
+                        jsonNodeMarshallUnmarshallContext,
+                        spreadsheetIdToSpreadsheetProvider,
+                        spreadsheetIdToStoreRepository,
+                        fileServer,
+                        server
+                )
+        );
+
+        this.checkEquals(
+                message,
+                thrown.getMessage(),
+                "message"
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 null,
                 LINE_ENDING,
                 NOW,
@@ -355,9 +402,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullLineEndingFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 null,
                 NOW,
@@ -375,9 +420,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullNowFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 null,
@@ -395,9 +438,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -415,9 +456,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullCreateMetadataFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -435,9 +474,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullMetadataStoreFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -455,9 +492,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullMarshallUnmarshallContextFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -475,9 +510,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -495,9 +528,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetStoreRepositoryFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -515,9 +546,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullFileServerFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -535,9 +564,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     @Test
     public void testWithNullServerFails() {
         this.withFails(
-                SCHEME,
-                HOST,
-                PORT,
+                SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
@@ -552,9 +579,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
-    private void withFails(final UrlScheme scheme,
-                           final HostAddress host,
-                           final IpPort port,
+    private void withFails(final AbsoluteUrl serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final Supplier<LocalDateTime> now,
@@ -569,9 +594,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         assertThrows(
                 NullPointerException.class,
                 () -> SpreadsheetHttpServer.with(
-                        scheme,
-                        host,
-                        port,
+                        serverUrl,
                         indentation,
                         lineEnding,
                         now,
@@ -9866,9 +9889,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private TestHttpServer startServer() {
         SpreadsheetHttpServer.with(
-                UrlScheme.HTTP,
-                HostAddress.with("example.com"),
-                IpPort.HTTP,
+                UrlScheme.HTTP.andHost(
+                        HostAddress.with("example.com")
+                ),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 NOW,
