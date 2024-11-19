@@ -26,7 +26,6 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.HostAddress;
-import walkingkooka.net.IpPort;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlScheme;
 import walkingkooka.net.email.EmailAddress;
@@ -242,9 +241,9 @@ public class JunitTest {
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
 
         return SpreadsheetHttpServer.with(
-                UrlScheme.HTTPS,
-                HostAddress.with("example.com"),
-                IpPort.HTTPS,
+                UrlScheme.HTTPS.andHost(
+                        HostAddress.with("example.com")
+                ),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 () -> now, // now

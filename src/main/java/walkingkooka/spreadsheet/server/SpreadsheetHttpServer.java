@@ -20,14 +20,10 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.HostAddress;
-import walkingkooka.net.IpPort;
-import walkingkooka.net.Url;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlQueryString;
-import walkingkooka.net.UrlScheme;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
@@ -47,6 +43,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
@@ -72,9 +69,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
-    public static SpreadsheetHttpServer with(final UrlScheme scheme,
-                                             final HostAddress host,
-                                             final IpPort port,
+    public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
                                              final Supplier<LocalDateTime> now,
@@ -87,9 +82,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
-                Objects.requireNonNull(scheme, "scheme"),
-                Objects.requireNonNull(host, "host"),
-                Objects.requireNonNull(port, "port"),
+                checkServerUrl(serverUrl),
                 Objects.requireNonNull(indentation, "indentation"),
                 Objects.requireNonNull(lineEnding, "lineEnding"),
                 Objects.requireNonNull(now, "now"),
@@ -104,6 +97,33 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
+    private static AbsoluteUrl checkServerUrl(final AbsoluteUrl serverUrl) {
+        Objects.requireNonNull(serverUrl, "serverUrl");
+
+        if (false == serverUrl.path().equals(UrlPath.EMPTY)) {
+            throw checkServerUrlFail("path", serverUrl);
+        }
+        if (false == serverUrl.query().equals(UrlQueryString.EMPTY)) {
+            throw checkServerUrlFail("query string", serverUrl);
+        }
+        if (false == serverUrl.urlFragment().equals(UrlFragment.EMPTY)) {
+            throw checkServerUrlFail("fragment", serverUrl);
+        }
+        return serverUrl;
+    }
+
+    private static IllegalArgumentException checkServerUrlFail(final String property,
+                                                               final AbsoluteUrl serverUrl) {
+        return new IllegalArgumentException(
+                "Url must not have " +
+                        property +
+                        " got " +
+                        CharSequences.quoteAndEscape(
+                                serverUrl.toString()
+                        )
+        );
+    }
+
     /**
      * Reports a resource was not found.
      */
@@ -115,9 +135,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Private ctor use factory.
      */
-    private SpreadsheetHttpServer(final UrlScheme scheme,
-                                  final HostAddress host,
-                                  final IpPort port,
+    private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
                                   final Supplier<LocalDateTime> now,
@@ -156,21 +174,30 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
         );
 
-        final AbsoluteUrl base = Url.absolute(scheme,
-                AbsoluteUrl.NO_CREDENTIALS,
-                host,
-                Optional.of(port),
-                UrlPath.ROOT,
-                UrlQueryString.EMPTY,
-                UrlFragment.EMPTY);
         final UrlPath api = UrlPath.parse(API);
         final UrlPath spreadsheet = UrlPath.parse(SPREADSHEET);
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
-                .add(this.spreadsheetRouting(api).build(), this.spreadsheetHandler(base.setPath(api)))
-                .add(this.spreadsheetEngineRouting(spreadsheet).build(), this.spreadsheetEngineHandler(base.setPath(spreadsheet)))
-                .add(this.fileServerRouting().build(), this.fileServerHandler(UrlPath.ROOT, fileServer))
-                .router();
+                .add(
+                        this.spreadsheetRouting(api)
+                                .build(),
+                        this.spreadsheetHandler(
+                                serverUrl.setPath(api)
+                        )
+                ).add(
+                        this.spreadsheetEngineRouting(spreadsheet)
+                                .build(),
+                        this.spreadsheetEngineHandler(
+                                serverUrl.setPath(spreadsheet)
+                        )
+                ).add(
+                        this.fileServerRouting()
+                                .build(),
+                        this.fileServerHandler(
+                                UrlPath.ROOT,
+                                fileServer
+                        )
+                ).router();
     }
 
     /**
