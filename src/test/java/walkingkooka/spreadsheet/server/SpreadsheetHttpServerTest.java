@@ -119,6 +119,7 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
@@ -133,6 +134,8 @@ import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer>
         implements SpreadsheetMetadataTesting,
@@ -230,6 +233,361 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             return Lists.empty();
         }
     }
+
+    // with.............................................................................................................
+
+    private final static UrlScheme SCHEME = UrlScheme.HTTPS;
+
+    private final static HostAddress HOST = HostAddress.with("example.com");
+
+    private final static IpPort PORT = IpPort.HTTPS;
+
+    private final static Indentation INDENTATION = Indentation.SPACES2;
+
+    private final static LineEnding LINE_ENDING = LineEnding.NL;
+
+    private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
+
+    private final Function<Optional<Locale>, SpreadsheetMetadata> CREATE_METADATA = (l) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
+
+    private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.fake();
+
+    private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static Function<SpreadsheetId, SpreadsheetStoreRepository> SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION = (id) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static Function<UrlPath, Either<WebFile, HttpStatus>> FILE_SERVER = (p) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    private final static Function<HttpHandler, HttpServer> SERVER = (h) -> {
+        throw new UnsupportedOperationException();
+    };
+
+    @Test
+    public void testWithNullSchemeFails() {
+        this.withFails(
+                null,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullHostFails() {
+        this.withFails(
+                SCHEME,
+                null,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullPortFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullIndentationFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                null,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullLineEndingFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                null,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullNowFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                null,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullSystemSpreadsheetProviderFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                null,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullCreateMetadataFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                null,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullMetadataStoreFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                null,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullMarshallUnmarshallContextFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetIdToSpreadsheetStoreRepositoryFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                null,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullFileServerFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                null,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullServerFails() {
+        this.withFails(
+                SCHEME,
+                HOST,
+                PORT,
+                INDENTATION,
+                LINE_ENDING,
+                NOW,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                CREATE_METADATA,
+                METADATA_STORE,
+                MARSHALL_UNMARSHALL_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                null
+        );
+    }
+
+    private void withFails(final UrlScheme scheme,
+                           final HostAddress host,
+                           final IpPort port,
+                           final Indentation indentation,
+                           final LineEnding lineEnding,
+                           final Supplier<LocalDateTime> now,
+                           final SpreadsheetProvider systemSpreadsheetProvider,
+                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
+                           final SpreadsheetMetadataStore metadataStore,
+                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                           final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
+                           final Function<HttpHandler, HttpServer> server) {
+        assertThrows(
+                NullPointerException.class,
+                () -> SpreadsheetHttpServer.with(
+                        scheme,
+                        host,
+                        port,
+                        indentation,
+                        lineEnding,
+                        now,
+                        systemSpreadsheetProvider,
+                        createMetadata,
+                        metadataStore,
+                        jsonNodeMarshallUnmarshallContext,
+                        spreadsheetIdToSpreadsheetProvider,
+                        spreadsheetIdToStoreRepository,
+                        fileServer,
+                        server
+                )
+        );
+    }
+
+    // start............................................................................................................
 
     @Test
     public void testStartServer() {
