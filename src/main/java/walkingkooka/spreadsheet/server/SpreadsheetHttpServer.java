@@ -49,8 +49,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -82,8 +81,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                             final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                             final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                             final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                              final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -98,8 +96,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 createMetadata,
                 metadataStore,
                 spreadsheetMetadataStamper,
-                jsonNodeMarshallContext,
-                jsonNodeUnmarshallContext,
+                jsonNodeMarshallUnmarshallContext,
                 systemSpreadsheetProvider,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
@@ -128,8 +125,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                  final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                  final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                  final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -145,8 +141,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.metadataStore = metadataStore;
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
-        this.jsonNodeMarshallContext = jsonNodeMarshallContext;
-        this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
+        this.jsonNodeMarshallUnmarshallContext = jsonNodeMarshallUnmarshallContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -217,8 +212,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                this.jsonNodeMarshallContext,
-                this.jsonNodeUnmarshallContext,
+                this.jsonNodeMarshallUnmarshallContext,
                 this.now,
                 this.systemSpreadsheetProvider
         );
@@ -244,8 +238,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                this.jsonNodeMarshallContext,
-                this.jsonNodeUnmarshallContext,
+                this.jsonNodeMarshallUnmarshallContext,
                 this.now
         );
     }
@@ -266,9 +259,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
 
-    private final JsonNodeMarshallContext jsonNodeMarshallContext;
-
-    private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
+    private final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
 

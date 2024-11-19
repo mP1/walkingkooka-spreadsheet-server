@@ -31,6 +31,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -60,8 +61,10 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
                 this::spreadsheetMetadataStamper,
-                JSON_NODE_MARSHALL_CONTEXT,
-                JSON_NODE_UNMARSHALL_CONTEXT,
+                JsonNodeMarshallUnmarshallContexts.basic(
+                        JSON_NODE_MARSHALL_CONTEXT,
+                        JSON_NODE_UNMARSHALL_CONTEXT
+                ),
                 LocalDateTime::now,
                 SPREADSHEET_PROVIDER
         );

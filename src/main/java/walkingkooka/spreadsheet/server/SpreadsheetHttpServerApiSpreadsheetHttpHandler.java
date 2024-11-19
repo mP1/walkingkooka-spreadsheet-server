@@ -42,8 +42,7 @@ import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceMap
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -69,8 +68,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                               final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                                               final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                                               final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                                final Supplier<LocalDateTime> now,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
         return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
@@ -82,8 +80,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
-                jsonNodeMarshallContext,
-                jsonNodeUnmarshallContext,
+                jsonNodeMarshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider
         );
@@ -100,8 +97,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                            final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                           final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                                           final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                            final Supplier<LocalDateTime> now,
                                                            final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
@@ -117,8 +113,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
-                jsonNodeMarshallContext,
-                jsonNodeUnmarshallContext,
+                jsonNodeMarshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider
         );

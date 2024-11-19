@@ -27,8 +27,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
@@ -50,8 +49,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                         final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                                        final JsonNodeMarshallContext marshallContext,
-                                                                        final JsonNodeUnmarshallContext unmarshallContext,
+                                                                        final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                                         final Supplier<LocalDateTime> now,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -63,8 +61,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
                 spreadsheetMetadataStamper,
-                marshallContext,
-                unmarshallContext,
+                marshallUnmarshallContext,
                 now,
                 systemSpreadsheetProvider
         );

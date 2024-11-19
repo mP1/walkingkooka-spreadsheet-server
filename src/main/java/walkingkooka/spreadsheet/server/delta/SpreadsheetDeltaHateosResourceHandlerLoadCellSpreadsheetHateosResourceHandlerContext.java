@@ -33,9 +33,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
@@ -108,17 +107,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
         return this.context.resolveLabel(label);
     }
 
-    // JsonNodeMarshallContext..........................................................................................
+    // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override
-    public JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.context;
-    }
-
-    // JsonNodeUnmarshallContext........................................................................................
-
-    @Override
-    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
         return this.context;
     }
 

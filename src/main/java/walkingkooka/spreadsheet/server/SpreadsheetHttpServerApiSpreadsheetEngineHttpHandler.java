@@ -32,8 +32,7 @@ import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHan
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -58,8 +57,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                                     final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                                                     final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                                                     final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                                      final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
                 base,
@@ -71,8 +69,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 spreadsheetMetadataStamper,
-                jsonNodeMarshallContext,
-                jsonNodeUnmarshallContext,
+                jsonNodeMarshallUnmarshallContext,
                 now
         );
     }
@@ -89,8 +86,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                  final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper,
-                                                                 final JsonNodeMarshallContext jsonNodeMarshallContext,
-                                                                 final JsonNodeUnmarshallContext jsonNodeUnmarshallContext,
+                                                                 final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                                                  final Supplier<LocalDateTime> now) {
         super();
 
@@ -117,8 +113,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.spreadsheetMetadataStamper = spreadsheetMetadataStamper;
 
-        this.jsonNodeMarshallContext = jsonNodeMarshallContext;
-        this.jsonNodeUnmarshallContext = jsonNodeUnmarshallContext;
+        this.jsonNodeMarshallUnmarshallContext = jsonNodeMarshallUnmarshallContext;
 
         this.now = now;
     }
@@ -151,8 +146,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.spreadsheetMetadataStamper,
-                this.jsonNodeMarshallContext,
-                this.jsonNodeUnmarshallContext,
+                this.jsonNodeMarshallUnmarshallContext,
                 this.now,
                 this.systemSpreadsheetProvider
         ).httpRouter(id);
@@ -178,9 +172,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      */
     private final Function<SpreadsheetMetadata, SpreadsheetMetadata> spreadsheetMetadataStamper;
 
-    private final JsonNodeMarshallContext jsonNodeMarshallContext;
-
-    private final JsonNodeUnmarshallContext jsonNodeUnmarshallContext;
+    private final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext;
 
     private final Supplier<LocalDateTime> now;
 
