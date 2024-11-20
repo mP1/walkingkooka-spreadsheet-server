@@ -9988,7 +9988,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 );
     }
 
-    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
             storeRepositorySupplier(this.metadataStore));
 

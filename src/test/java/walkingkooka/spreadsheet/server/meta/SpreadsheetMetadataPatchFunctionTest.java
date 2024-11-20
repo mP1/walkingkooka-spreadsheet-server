@@ -25,8 +25,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
@@ -44,7 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesting<SpreadsheetMetadataPatchFunction, JsonNode, JsonNode>,
         ClassTesting<SpreadsheetMetadataPatchFunction>,
-        ToStringTesting<SpreadsheetMetadataPatchFunction> {
+        ToStringTesting<SpreadsheetMetadataPatchFunction>,
+        SpreadsheetMetadataTesting {
 
     private final static SpreadsheetId ID = SpreadsheetId.with(123);
 
@@ -62,7 +63,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testApplyLoadFails() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
             @Override
@@ -100,7 +101,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
     @Test
     public void testApply() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
         final SpreadsheetMetadata metadata = store.save(
                 SpreadsheetMetadata.EMPTY

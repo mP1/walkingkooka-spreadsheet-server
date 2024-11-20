@@ -55,7 +55,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -103,7 +102,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
-    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.treeMap();
+    private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private final static JsonNodeMarshallUnmarshallContext JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
             JSON_NODE_MARSHALL_CONTEXT,

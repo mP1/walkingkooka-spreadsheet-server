@@ -62,7 +62,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
@@ -506,7 +505,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
         labelStore.save(label123.mapping(a1));
 
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         metadataStore.save(METADATA_EN_AU);
 
         return new FakeSpreadsheetHateosResourceHandlerContext() {

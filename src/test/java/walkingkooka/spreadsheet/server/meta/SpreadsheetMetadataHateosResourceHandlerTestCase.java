@@ -23,11 +23,13 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlerTestCase<T>
         implements ClassTesting<T>,
         ToStringTesting<T>,
-        TypeNameTesting<T> {
+        TypeNameTesting<T>,
+        SpreadsheetMetadataTesting {
 
     SpreadsheetMetadataHateosResourceHandlerTestCase() {
         super();

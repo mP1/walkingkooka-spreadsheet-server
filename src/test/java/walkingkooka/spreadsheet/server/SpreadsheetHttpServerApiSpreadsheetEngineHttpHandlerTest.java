@@ -44,7 +44,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
@@ -387,7 +386,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
         };
     }
 
-    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
+    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider() {
         return (id) -> this.metadataStore.loadOrFail(id).spreadsheetProvider(
