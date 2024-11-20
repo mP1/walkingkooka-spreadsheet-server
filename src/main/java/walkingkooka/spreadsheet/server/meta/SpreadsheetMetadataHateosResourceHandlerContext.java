@@ -28,19 +28,12 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
-import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
  * A {@link Context} for spreadsheets.
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext {
-
-    /**
-     * Returns a {@link SpreadsheetMetadata} with necessary defaults allocating a new {@link SpreadsheetId}.
-     */
-    SpreadsheetMetadata createMetadata(final Optional<Locale> locale);
 
     /**
      * Saves the given {@link SpreadsheetMetadata}.

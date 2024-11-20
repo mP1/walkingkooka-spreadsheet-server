@@ -233,19 +233,36 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.routeAndCheck(
                 new TestSpreadsheetMetadataHateosResourceHandlerContext() {
                     @Override
-                    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                        return SpreadsheetMetadata.EMPTY
-                                .set(
-                                        SpreadsheetMetadataPropertyName.CREATOR,
-                                        EmailAddress.parse("created@example.com")
-                                ).setOrRemove(
-                                        SpreadsheetMetadataPropertyName.LOCALE,
-                                        locale.orElse(null)
-                                ).set(
+                    public SpreadsheetMetadataStore metadataStore() {
+                        return this.store;
+                    }
+
+                    @Override
+                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                        return this.store.save(
+                                metadata.set(
                                         SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                                         SPREADSHEET_ID
-                                );
+                                )
+                        );
                     }
+
+                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
+                        @Override
+                        public SpreadsheetMetadata create(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                            return SpreadsheetMetadata.EMPTY.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SPREADSHEET_ID
+                            ).set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    creator
+                            ).setOrRemove(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.orElse(null)
+                            );
+                        }
+                    };
                 },
                 HttpMethod.POST,
                 URL + "/spreadsheet/",
@@ -253,7 +270,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 HttpStatusCode.CREATED,
                 "{\n" +
                         "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"created@example.com\"\n" +
+                        "  \"creator\": \"user@example.com\"\n" +
                         "}");
     }
 

@@ -355,7 +355,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 Indentation.SPACES2,
                 LineEnding.NL,
                 systemSpreadsheetProvider(),
-                createMetadata(),
                 this.metadataStore,
                 spreadsheetIdToSpreadsheetProvider(),
                 spreadsheetIdToStoreRepository(),
@@ -377,13 +376,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 SPREADSHEET_IMPORTER_PROVIDER,
                 SPREADSHEET_PARSER_PROVIDER
         );
-    }
-
-    private Function<Optional<Locale>, SpreadsheetMetadata> createMetadata() {
-        return (l) -> {
-            throw new UnsupportedOperationException();
-
-        };
     }
 
     private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();

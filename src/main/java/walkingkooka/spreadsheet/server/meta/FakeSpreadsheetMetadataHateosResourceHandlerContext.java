@@ -34,9 +34,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -44,11 +42,6 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
         implements SpreadsheetMetadataHateosResourceHandlerContext {
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
-
-    @Override
-    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {

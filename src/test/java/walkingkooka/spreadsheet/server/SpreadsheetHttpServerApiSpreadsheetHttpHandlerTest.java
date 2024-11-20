@@ -34,8 +34,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Optional;
 
 public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetHttpHandler>
         implements SpreadsheetMetadataTesting {
@@ -56,7 +54,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
                 this.baseUrl(),
                 Indentation.SPACES2,
                 LineEnding.NL,
-                this::defaultMetadata,
                 SpreadsheetMetadataStores.fake(),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
@@ -75,9 +72,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
 
     private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
         return SpreadsheetProviders.fake();
-    }
-    private SpreadsheetMetadata defaultMetadata(final Optional<Locale> locale) {
-        throw new UnsupportedOperationException();
     }
 
     private SpreadsheetStoreRepository spreadsheetIdToStoreRepository(final SpreadsheetId id) {

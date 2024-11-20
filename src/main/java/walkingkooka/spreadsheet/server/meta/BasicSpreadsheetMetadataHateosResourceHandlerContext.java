@@ -89,7 +89,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegato
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -109,7 +108,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl base,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
-                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -119,7 +117,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(base, "base");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
-        Objects.requireNonNull(createMetadata, "createMetadata");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
@@ -131,7 +128,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 base,
                 indentation,
                 lineEnding,
-                createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
@@ -144,7 +140,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl base,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
-                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -158,7 +153,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.indentation = indentation;
         this.lineEnding = lineEnding;
 
-        this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
@@ -172,13 +166,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
-
-    @Override
-    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        return this.createMetadata.apply(locale);
-    }
-
-    private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)

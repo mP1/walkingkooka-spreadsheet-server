@@ -26,6 +26,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.store.FakeSpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -52,9 +54,28 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                     @Override
-                    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                        return metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.orElse(null));
+                    public SpreadsheetMetadataStore metadataStore() {
+                        return this.store;
                     }
+
+                    @Override
+                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                        return this.store.save(metadata);
+                    }
+
+                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
+                        @Override
+                        public SpreadsheetMetadata create(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                            return metadata.set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    creator
+                            ).setOrRemove(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.orElse(null)
+                            );
+                        }
+                    };
                 },
                 IllegalStateException.class
         );
@@ -78,9 +99,28 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                     @Override
-                    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                        return metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
+                    public SpreadsheetMetadataStore metadataStore() {
+                        return this.store;
                     }
+
+                    @Override
+                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                        return this.store.save(metadata);
+                    }
+
+                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
+                        @Override
+                        public SpreadsheetMetadata create(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                            return metadata.set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    creator
+                            ).set(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.get()
+                            );
+                        }
+                    };
                 },
                 Optional.of(
                         metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)
@@ -100,9 +140,28 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                     @Override
-                    public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-                        return metadata;
+                    public SpreadsheetMetadataStore metadataStore() {
+                        return this.store;
                     }
+
+                    @Override
+                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                        return this.store.save(metadata);
+                    }
+
+                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
+                        @Override
+                        public SpreadsheetMetadata create(final EmailAddress creator,
+                                                          final Optional<Locale> locale) {
+                            return metadata.set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    creator
+                            ).setOrRemove(
+                                    SpreadsheetMetadataPropertyName.LOCALE,
+                                    locale.orElse(null)
+                            );
+                        }
+                    };
                 },
                 Optional.of(metadata)
         );
@@ -148,12 +207,25 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     public SpreadsheetMetadataHateosResourceHandlerContext context() {
         return new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
             @Override
-            public SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
+            public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
                 return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
                         .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
         };
     }
+
+//    private SpreadsheetMetadataHateosResourceHandlerContext context(final Optional<Locale> locale) {
+//        return new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+//
+//
+//
+//            @Override
+//            public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+//                return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
+//                        .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+//            }
+//        };
+//    }
 
     // toString.........................................................................................................
 

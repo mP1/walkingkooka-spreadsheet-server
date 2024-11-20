@@ -125,7 +125,7 @@ public class TestGwtTest extends GWTTestCase {
                                 "  \"spreadsheet-id\": \"1\",\n" +
                                 "  \"cell-character-width\": 10,\n" +
                                 "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
-                                "  \"creator\": \"creator@example.com\",\n" +
+                                "  \"creator\": \"user@example.com\",\n" +
                                 "  \"currency-symbol\": \"$AUD\",\n" +
                                 "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
                                 "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
@@ -143,7 +143,7 @@ public class TestGwtTest extends GWTTestCase {
                                 "  \"general-number-format-digit-count\": 8,\n" +
                                 "  \"group-separator\": \",\",\n" +
                                 "  \"locale\": \"en-AU\",\n" +
-                                "  \"modified-by\": \"modified@example.com\",\n" +
+                                "  \"modified-by\": \"user@example.com\",\n" +
                                 "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
                                 "  \"negative-sign\": \"-\",\n" +
                                 "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
@@ -169,22 +169,13 @@ public class TestGwtTest extends GWTTestCase {
     }
 
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
+        final SpreadsheetId createdId = SpreadsheetId.with(1);
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
-
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
-            SpreadsheetMetadata.EMPTY.setDefaults(
-                    SpreadsheetMetadata.EMPTY.set(
-                            SpreadsheetMetadataPropertyName.LOCALE,
-                            Locale.forLanguageTag("EN-AU")
-                    )
-            ),
-            () -> now
-        );
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
+                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"))
                 .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "$AUD")
                 .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
                 .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
@@ -211,7 +202,7 @@ public class TestGwtTest extends GWTTestCase {
                 .set(SpreadsheetMetadataPropertyName.POSITIVE_SIGN, '+')
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.FLOOR)
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(123))
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, createdId)
                 .set(
                         SpreadsheetMetadataPropertyName.STYLE,
                         TextStyle.EMPTY.set(TextStylePropertyName.WIDTH, Length.pixel(50.0))
@@ -222,6 +213,11 @@ public class TestGwtTest extends GWTTestCase {
                 .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
                 .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
+                metadata,
+                () -> now
+        );
+
         final SpreadsheetStoreRepository repo = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
@@ -229,14 +225,12 @@ public class TestGwtTest extends GWTTestCase {
                 SpreadsheetGroupStores.fake(),
                 SpreadsheetLabelStores.treeMap(),
                 SpreadsheetExpressionReferenceStores.treeMap(),
-                SpreadsheetMetadataStores.fake(),
+                metadataStore,
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetRowStores.treeMap(),
                 SpreadsheetUserStores.fake()
         );
-
-        final AtomicLong nextId = new AtomicLong();
 
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
 
@@ -248,10 +242,6 @@ public class TestGwtTest extends GWTTestCase {
                 LineEnding.NL,
                 () -> now, // now
                 SpreadsheetProviders.fake(),
-                (l) -> metadata.set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SpreadsheetId.with(nextId.incrementAndGet())
-                ),
                 metadataStore,
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JsonNodeMarshallContexts.basic(),

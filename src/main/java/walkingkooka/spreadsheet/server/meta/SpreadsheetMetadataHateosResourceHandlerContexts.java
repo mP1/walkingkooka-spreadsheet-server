@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.meta;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -31,8 +30,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -44,7 +41,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl base,
                                                                         final Indentation indentation,
                                                                         final LineEnding lineEnding,
-                                                                        final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -55,7 +51,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 base,
                 indentation,
                 lineEnding,
-                createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
