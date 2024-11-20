@@ -26,8 +26,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -123,7 +121,6 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
 
     @Test
     public void testHandleIdWithMetadataSaves() {
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
         final SpreadsheetId id = this.id();
         final SpreadsheetMetadata metadata = this.metadata();
 

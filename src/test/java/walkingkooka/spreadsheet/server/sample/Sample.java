@@ -178,9 +178,17 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
     }
 
     private static SpreadsheetHttpServer spreadsheetHttpServer(final TestHttpServer httpServer) {
-        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap();
-
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
+
+        final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
+                SpreadsheetMetadata.EMPTY.setDefaults(
+                        SpreadsheetMetadata.EMPTY.set(
+                                SpreadsheetMetadataPropertyName.LOCALE,
+                                Locale.forLanguageTag("EN-AU")
+                        )
+                ),
+                () -> now
+        );
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)

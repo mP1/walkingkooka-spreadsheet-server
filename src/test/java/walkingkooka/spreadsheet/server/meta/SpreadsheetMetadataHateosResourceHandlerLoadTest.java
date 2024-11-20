@@ -27,8 +27,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
-import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
@@ -72,7 +72,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                         return new FakeSpreadsheetStoreRepository() {
                             @Override
                             public SpreadsheetMetadataStore metadatas() {
-                                return SpreadsheetMetadataStores.treeMap(); // empty
+                                return SpreadsheetMetadataTesting.spreadsheetMetadataStore();
                             }
                         };
                     }
@@ -86,7 +86,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetId id = SpreadsheetId.with(111);
         final SpreadsheetMetadata metadata = this.metadata(id.value());
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(metadata);
 
         this.handleOneAndCheck(
@@ -114,7 +114,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetMetadata metadata1 = metadata(111);
         final SpreadsheetMetadata metadata2 = metadata(222);
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(metadata1);
         store.save(metadata2);
 
@@ -145,7 +145,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetMetadata metadata3 = metadata(3);
         final SpreadsheetMetadata metadata4 = metadata(4);
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(metadata1);
         store.save(metadata2);
         store.save(metadata3);
@@ -181,7 +181,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetMetadata metadata3 = metadata(3);
         final SpreadsheetMetadata metadata4 = metadata(4);
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(metadata1);
         store.save(metadata2);
         store.save(metadata3);
@@ -218,7 +218,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetMetadata metadata2 = metadata(222);
         final SpreadsheetMetadata metadata3 = metadata(333);
 
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataStores.treeMap();
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(metadata1);
         store.save(metadata2);
         store.save(metadata3);
