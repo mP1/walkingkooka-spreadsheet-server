@@ -75,7 +75,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>
         implements SpreadsheetMetadataTesting {
 
-    private final static String BASE_URL = "https://example.com";
+    private final static String SERVER_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
 
     // cell.............................................................................................................
@@ -302,7 +302,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
         final MediaType contentType = MediaType.APPLICATION_JSON;
         return HttpRequests.value(method,
                 HttpTransport.UNSECURED,
-                Url.parseAbsolute(BASE_URL + urlPathAppend).relativeUrl(),
+                Url.parseAbsolute(SERVER_URL + urlPathAppend).relativeUrl(),
                 HttpProtocolVersion.VERSION_1_0,
                 HttpEntity.EMPTY
                         .setContentType(contentType)
@@ -344,14 +344,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createHttpHandler(), BASE_URL + "/api");
+        this.toStringAndCheck(this.createHttpHandler(), SERVER_URL + "/api");
     }
 
     // helpers..........................................................................................................
 
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-                Url.parseAbsolute(BASE_URL + "/api"),
+                Url.parseAbsolute(SERVER_URL + "/api"),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 systemSpreadsheetProvider(),

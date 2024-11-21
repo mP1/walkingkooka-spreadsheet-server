@@ -58,7 +58,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     /**
      * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl baseUrl,
+    static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl serverUrl,
                                                                final Indentation indentation,
                                                                final LineEnding lineEnding,
                                                                final SpreadsheetMetadataStore metadataStore,
@@ -68,7 +68,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                                final Supplier<LocalDateTime> now,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
         return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
-                baseUrl,
+                serverUrl,
                 indentation,
                 lineEnding,
                 metadataStore,
@@ -83,7 +83,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl baseUrl,
+    private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl serverUrl,
                                                            final Indentation indentation,
                                                            final LineEnding lineEnding,
                                                            final SpreadsheetMetadataStore metadataStore,
@@ -94,10 +94,10 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                                            final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
-        this.baseUrl = baseUrl;
+        this.serverUrl = serverUrl;
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
-                baseUrl,
+                serverUrl,
                 indentation,
                 lineEnding,
                 metadataStore,
@@ -111,7 +111,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
         this.context = context;
 
         this.hateosRouter = SpreadsheetMetadataHateosResourceMappings.router(
-                baseUrl,
+                serverUrl,
                 indentation,
                 lineEnding,
                 context
@@ -184,8 +184,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
     @Override
     public String toString() {
-        return this.baseUrl.toString();
+        return this.serverUrl.toString();
     }
 
-    private final AbsoluteUrl baseUrl;
+    private final AbsoluteUrl serverUrl;
 }
