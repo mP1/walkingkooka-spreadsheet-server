@@ -115,7 +115,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private final static EmailAddress CREATOR = EmailAddress.parse("creator@example.com");
 
     @Test
-    public void testWithNullBaseFails() {
+    public void testWithNullServerUrlFails() {
         this.withFails(
                 null,
                 INDENTATION,
@@ -249,7 +249,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         );
     }
 
-    private void withFails(final AbsoluteUrl base,
+    private void withFails(final AbsoluteUrl serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final SpreadsheetMetadataStore metadataStore,
@@ -261,7 +261,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                        base,
+                        serverUrl,
                         indentation,
                         lineEnding,
                         metadataStore,
