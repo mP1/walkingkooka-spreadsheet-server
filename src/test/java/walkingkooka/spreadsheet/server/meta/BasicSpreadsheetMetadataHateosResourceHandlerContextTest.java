@@ -88,6 +88,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -697,7 +698,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private void hateosRouterThenSaveThenLoadAndCheck(final SpreadsheetEngineEvaluation evaluation,
                                                       final String expectedBody) {
-        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
+        final AtomicReference<LocalDateTime> now = new AtomicReference<>();
+        now.set(NOW.get());
+        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(now::get);
         final SpreadsheetId id = this.spreadsheetId();
 
         final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
@@ -708,6 +711,16 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                         SpreadsheetFormula.EMPTY
                                 .setText("=1+2")
                 );
+
+        final LocalDateTime updatedTimestamp = LocalDateTime.of(
+                2000,
+                1,
+                1,
+                1,
+                23,
+                45
+        );
+        now.set(updatedTimestamp);
 
         // save a cell
         {
@@ -818,6 +831,14 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
             this.checkEquals(expected, response, () -> "consumer: " + httpHandler + ", request: " + request);
         }
+
+        this.checkEquals(
+                updatedTimestamp,
+                context.metadataStore()
+                        .loadOrFail(id)
+                        .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME),
+                () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME + " not updated when cell saved"
+        );
     }
 
     @Test
@@ -1065,6 +1086,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Override
     public BasicSpreadsheetMetadataHateosResourceHandlerContext createContext() {
+        return this.createContext(NOW);
+    }
+
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final Supplier<LocalDateTime> now) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 this.base(),
                 INDENTATION,
@@ -1073,7 +1098,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                NOW,
+                now,
                 SPREADSHEET_PROVIDER
         );
     }
