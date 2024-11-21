@@ -28,12 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface SpreadsheetHateosResourceHandlerContextTesting<C extends SpreadsheetMetadataHateosResourceHandlerContext> extends ContextTesting<C>,
         TypeNameTesting<C> {
 
-    @SuppressWarnings("OptionalAssignedToNull")
-    @Test
-    default void testCreateMetadataNullLocaleFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().createMetadata(null));
-    }
-
     @Test
     default void testSaveMetadataNullFails() {
         assertThrows(

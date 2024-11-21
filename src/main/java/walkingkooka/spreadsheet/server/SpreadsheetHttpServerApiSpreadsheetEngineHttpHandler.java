@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
@@ -35,8 +34,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -52,7 +49,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                     final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -63,7 +59,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 indentation,
                 lineEnding,
                 systemSpreadsheetProvider,
-                createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
@@ -79,7 +74,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                 final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -93,7 +87,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
-        this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
@@ -136,7 +129,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.baseUrl,
                 this.indentation,
                 this.lineEnding,
-                this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
@@ -149,8 +141,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
-
-    private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     private final SpreadsheetMetadataStore metadataStore;
 

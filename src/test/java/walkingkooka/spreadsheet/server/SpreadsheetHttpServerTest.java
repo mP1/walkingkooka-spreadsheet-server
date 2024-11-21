@@ -127,7 +127,6 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -244,10 +243,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
-    private final Function<Optional<Locale>, SpreadsheetMetadata> CREATE_METADATA = (l) -> {
-        throw new UnsupportedOperationException();
-    };
-
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
 
     private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.fake();
@@ -276,7 +271,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -294,7 +288,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -313,7 +306,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -332,7 +324,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -348,7 +339,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final LineEnding lineEnding,
                            final Supplier<LocalDateTime> now,
                            final SpreadsheetProvider systemSpreadsheetProvider,
-                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
                            final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -364,7 +354,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         lineEnding,
                         now,
                         systemSpreadsheetProvider,
-                        createMetadata,
                         metadataStore,
                         jsonNodeMarshallUnmarshallContext,
                         spreadsheetIdToSpreadsheetProvider,
@@ -389,7 +378,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -407,7 +395,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -425,7 +412,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 null,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -442,25 +428,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 INDENTATION,
                 LINE_ENDING,
                 NOW,
-                null,
-                CREATE_METADATA,
-                METADATA_STORE,
-                MARSHALL_UNMARSHALL_CONTEXT,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                FILE_SERVER,
-                SERVER
-        );
-    }
-
-    @Test
-    public void testWithNullCreateMetadataFails() {
-        this.withFails(
-                SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
-                NOW,
-                SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
@@ -479,7 +446,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 null,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -497,7 +463,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 null,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -515,7 +480,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 null,
@@ -533,7 +497,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -551,7 +514,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -569,7 +531,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 LINE_ENDING,
                 NOW,
                 SYSTEM_SPREADSHEET_PROVIDER,
-                CREATE_METADATA,
                 METADATA_STORE,
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
@@ -584,7 +545,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final LineEnding lineEnding,
                            final Supplier<LocalDateTime> now,
                            final SpreadsheetProvider systemSpreadsheetProvider,
-                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
                            final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -599,7 +559,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         lineEnding,
                         now,
                         systemSpreadsheetProvider,
-                        createMetadata,
                         metadataStore,
                         jsonNodeMarshallUnmarshallContext,
                         spreadsheetIdToSpreadsheetProvider,
@@ -9904,10 +9863,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_IMPORTER_PROVIDER,
                         SPREADSHEET_PARSER_PROVIDER
                 ),
-                createMetadata(
-                        this.createMetadata(),
-                        this.metadataStore
-                ),
                 this.metadataStore,
                 JsonNodeMarshallUnmarshallContexts.basic(
                         JSON_NODE_MARSHALL_CONTEXT,
@@ -9943,18 +9898,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         return server;
     }
 
-    /**
-     * Creates a function which merges the given {@link Locale} with the given {@link SpreadsheetMetadata} and then saves it to the {@link SpreadsheetMetadataStore}.
-     */
-    private static Function<Optional<Locale>, SpreadsheetMetadata> createMetadata(final SpreadsheetMetadata metadataWithDefaults,
-                                                                                  final SpreadsheetMetadataStore store) {
-        return (locale) ->
-                store.save(locale.map(l -> metadataWithDefaults.set(SpreadsheetMetadataPropertyName.LOCALE, l))
-                        .orElse(metadataWithDefaults));
-    }
 
     private SpreadsheetMetadata createMetadata() {
         return SpreadsheetMetadataTesting.METADATA_EN_AU
+                .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
                 .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy/mm/dd").spreadsheetFormatterSelector())
                 .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("yyyy/mm/dd").spreadsheetParserSelector())
                 .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy/mm/dd hh:mm").spreadsheetFormatterSelector())
@@ -9988,7 +9935,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 );
     }
 
-    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+    private final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
+            createMetadata(),
+            NOW
+    );
 
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository = spreadsheetIdToRepository(Maps.concurrent(),
             storeRepositorySupplier(this.metadataStore));

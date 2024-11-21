@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -104,13 +105,19 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
                                                final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(metadata);
 
-        final SpreadsheetMetadata saved = context.createMetadata(HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
-                .flatMap(this::preferredLocale));
+        final SpreadsheetMetadata saved = context.metadataStore()
+                .create(
+                        CREATOR,
+                        HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
+                                .flatMap(this::preferredLocale)
+                );
         saved.id()
                 .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
 
         return saved;
     }
+
+    private final static EmailAddress CREATOR = EmailAddress.parse("user@example.com");
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {
         return language.value().get(0).value().locale();

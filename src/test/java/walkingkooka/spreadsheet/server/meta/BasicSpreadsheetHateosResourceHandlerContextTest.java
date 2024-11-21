@@ -111,13 +111,14 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
 
     private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
 
+    private final static EmailAddress CREATOR = EmailAddress.parse("creator@example.com");
+
     @Test
     public void testWithNullBaseFails() {
         this.withFails(
                 null,
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -133,7 +134,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 null,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -148,23 +148,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         this.withFails(
                 this.base(),
                 INDENTATION,
-                null,
-                this::createMetadata,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullCreateMetadataFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
                 null,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
@@ -181,7 +164,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -197,7 +179,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
@@ -213,7 +194,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
@@ -229,7 +209,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -245,7 +224,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -261,7 +239,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
@@ -274,7 +251,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     private void withFails(final AbsoluteUrl base,
                            final Indentation indentation,
                            final LineEnding lineEnding,
-                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
@@ -287,7 +263,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                         base,
                         indentation,
                         lineEnding,
-                        createMetadata,
                         metadataStore,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToRepository,
@@ -886,20 +861,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     }
 
     @Test
-    public void testMetadataWithDefaultsWithLocale() {
-        final Optional<Locale> locale = Optional.of(Locale.ENGLISH);
-        this.checkEquals(this.createMetadata(locale),
-                this.createContext().createMetadata(locale));
-    }
-
-    @Test
-    public void testMetadataWithDefaultsWithoutLocale() {
-        final Optional<Locale> locale = Optional.empty();
-        this.checkEquals(this.createMetadata(locale),
-                this.createContext().createMetadata(locale));
-    }
-
-    @Test
     public void testStoreRepositoryUnknownSpreadsheetId() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
         final SpreadsheetId id = SpreadsheetId.with(123);
@@ -959,8 +920,14 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testSaveMetadata() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+        final SpreadsheetMetadata metadata = context.metadataStore()
+                .create(
+                        CREATOR,
+                        Optional.empty()
+                ).set(
+                        SpreadsheetMetadataPropertyName.LOCALE,
+                        Locale.forLanguageTag("EN-AU")
+                );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
         final SpreadsheetName name = SpreadsheetName.with("Spreadsheet234");
@@ -982,7 +949,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testSaveMetadataViewportSelectionCell() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+        final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
@@ -1013,7 +980,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testSaveMetadataViewportSelectionUnknownLabelCleared() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+        final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
@@ -1049,7 +1016,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testSaveMetadataViewportSelectionExistingLabel() {
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
-        final SpreadsheetMetadata metadata = context.createMetadata(Optional.empty())
+        final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ExistingLabel123");
@@ -1102,7 +1069,6 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
-                this::createMetadata,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,

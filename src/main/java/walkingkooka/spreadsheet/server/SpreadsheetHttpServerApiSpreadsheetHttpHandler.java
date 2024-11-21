@@ -45,9 +45,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -63,7 +61,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl baseUrl,
                                                                final Indentation indentation,
                                                                final LineEnding lineEnding,
-                                                               final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                                final SpreadsheetMetadataStore metadataStore,
                                                                final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -74,7 +71,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 baseUrl,
                 indentation,
                 lineEnding,
-                createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
@@ -90,7 +86,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl baseUrl,
                                                            final Indentation indentation,
                                                            final LineEnding lineEnding,
-                                                           final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                                            final SpreadsheetMetadataStore metadataStore,
                                                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -105,7 +100,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 baseUrl,
                 indentation,
                 lineEnding,
-                createMetadata,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,

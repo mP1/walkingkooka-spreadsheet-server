@@ -39,7 +39,6 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -49,9 +48,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -74,7 +71,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final LineEnding lineEnding,
                                              final Supplier<LocalDateTime> now,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
-                                             final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -86,7 +82,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 Objects.requireNonNull(indentation, "indentation"),
                 Objects.requireNonNull(lineEnding, "lineEnding"),
                 Objects.requireNonNull(now, "now"),
-                Objects.requireNonNull(createMetadata, "createMetadata"),
                 Objects.requireNonNull(metadataStore, "metadataStore"),
                 Objects.requireNonNull(jsonNodeMarshallUnmarshallContext, "jsonNodeMarshallUnmarshallContext"),
                 Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
@@ -139,7 +134,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
                                   final Supplier<LocalDateTime> now,
-                                  final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
@@ -153,7 +147,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.lineEnding = lineEnding;
         this.now = now;
 
-        this.createMetadata = createMetadata;
         this.metadataStore = metadataStore;
 
         this.jsonNodeMarshallUnmarshallContext = jsonNodeMarshallUnmarshallContext;
@@ -231,7 +224,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 api,
                 this.indentation,
                 this.lineEnding,
-                this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
@@ -256,7 +248,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.indentation,
                 this.lineEnding,
                 this.systemSpreadsheetProvider,
-                this.createMetadata,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
@@ -268,8 +259,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
-
-    private final Function<Optional<Locale>, SpreadsheetMetadata> createMetadata;
 
     private final SpreadsheetMetadataStore metadataStore;
 
