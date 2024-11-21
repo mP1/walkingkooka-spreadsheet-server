@@ -43,15 +43,18 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
     // toString.........................................................................................................
 
     @Test
-    public void testToString() {
-        this.toStringAndCheck(this.handler(), this.baseUrl().toString());
+    public final void testToString() {
+        this.toStringAndCheck(
+                this.handler(),
+                this.serverUrl().toString()
+        );
     }
 
     // helper...........................................................................................................
 
     private SpreadsheetHttpServerApiSpreadsheetHttpHandler handler() {
         return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
-                this.baseUrl(),
+                this.serverUrl(),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 SpreadsheetMetadataStores.fake(),
@@ -66,7 +69,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
         );
     }
 
-    private AbsoluteUrl baseUrl() {
+    private AbsoluteUrl serverUrl() {
         return Url.parseAbsolute("https://example.com/api/api2");
     }
 
