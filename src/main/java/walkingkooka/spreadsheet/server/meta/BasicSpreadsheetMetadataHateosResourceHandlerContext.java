@@ -255,7 +255,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private Router<HttpRequestAttribute<?>, HttpHandler> createHttpRouter(final SpreadsheetId id) {
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
-        final SpreadsheetEngine engine = SpreadsheetEngines.basic();
+        final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
+                SpreadsheetEngines.basic(),
+                this::stamp
+        );
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
 
@@ -280,6 +283,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 engine,
                 context,
                 this.systemSpreadsheetProvider
+        );
+    }
+
+    private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
+        return metadata.set(
+                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+                this.now.get()
         );
     }
 
