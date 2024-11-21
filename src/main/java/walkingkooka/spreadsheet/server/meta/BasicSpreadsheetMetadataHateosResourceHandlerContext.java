@@ -105,7 +105,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
      */
-    static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl base,
+    static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
                                                                      final SpreadsheetMetadataStore metadataStore,
@@ -114,7 +114,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
                                                                      final Supplier<LocalDateTime> now,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
-        Objects.requireNonNull(base, "base");
+        Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
         Objects.requireNonNull(metadataStore, "metadataStore");
@@ -125,7 +125,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
-                base,
+                serverUrl,
                 indentation,
                 lineEnding,
                 metadataStore,
@@ -137,7 +137,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
     }
 
-    private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl base,
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
                                                                  final SpreadsheetMetadataStore metadataStore,
@@ -148,7 +148,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
-        this.base = base;
+        this.serverUrl = serverUrl;
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
@@ -265,7 +265,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetMetadata metadata = this.load(id);
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                this.base,
+                this.serverUrl,
                 this.now,
                 metadata,
                 engine,
@@ -331,12 +331,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 engine
         );
 
-        final AbsoluteUrl base = this.base;
+        final AbsoluteUrl serverUrl = this.serverUrl;
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         return HateosResourceMapping.router(
-                base.setPath(
-                        base.path()
+                serverUrl.setPath(
+                        serverUrl.path()
                                 .append(
                                         UrlPathName.with(
                                                 id.toString()
@@ -383,7 +383,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         );
     }
 
-    private final AbsoluteUrl base;
+    private final AbsoluteUrl serverUrl;
     private final Indentation indentation;
     private final LineEnding lineEnding;
 
@@ -414,6 +414,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     @Override
     public String toString() {
-        return this.base.toString();
+        return this.serverUrl.toString();
     }
 }

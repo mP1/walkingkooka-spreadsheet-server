@@ -38,7 +38,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
     /**
      * {@see BasicSpreadsheetMetadataHateosResourceHandlerContext}
      */
-    public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl base,
+    public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl serverUrl,
                                                                         final Indentation indentation,
                                                                         final LineEnding lineEnding,
                                                                         final SpreadsheetMetadataStore metadataStore,
@@ -48,7 +48,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Supplier<LocalDateTime> now,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                base,
+                serverUrl,
                 indentation,
                 lineEnding,
                 metadataStore,
