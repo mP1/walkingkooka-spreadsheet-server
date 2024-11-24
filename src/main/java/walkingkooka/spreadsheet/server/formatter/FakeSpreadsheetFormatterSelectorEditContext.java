@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -65,6 +66,11 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
 
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public PluginStore pluginStore() {
         throw new UnsupportedOperationException();
     }
 }

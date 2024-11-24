@@ -22,6 +22,7 @@ import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
@@ -159,6 +160,11 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     // ProviderContext..................................................................................................
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public PluginStore pluginStore() {
         throw new UnsupportedOperationException();
     }
 }

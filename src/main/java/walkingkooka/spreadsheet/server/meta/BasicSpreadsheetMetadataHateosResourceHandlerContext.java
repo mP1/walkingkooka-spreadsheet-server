@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContexts;
+import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -273,7 +274,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                 metadata.spreadsheetProvider(spreadsheetProvider),
                 ProviderContexts.basic(
-                        metadata.environmentContext()
+                        metadata.environmentContext(),
+                        PluginStores.fake()
                 )
         );
 
