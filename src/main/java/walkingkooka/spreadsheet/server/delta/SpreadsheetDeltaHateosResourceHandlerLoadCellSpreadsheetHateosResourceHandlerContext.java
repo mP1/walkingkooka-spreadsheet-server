@@ -18,17 +18,13 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.convert.provider.ConverterProviderDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.header.MediaType;
-import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
@@ -38,7 +34,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegato
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * A {@link SpreadsheetHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetHateosResourceHandlerContext},
@@ -48,8 +43,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
         ConverterProviderDelegator,
         SpreadsheetEngineContextDelegator,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetProviderDelegator,
-        ProviderContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
@@ -81,11 +74,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
     }
 
     // must be overridden because of clashes between various XXXDelegators
-
-    @Override
-    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-        return this.context.environmentValue(name);
-    }
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
@@ -132,13 +120,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
 
     @Override
     public SpreadsheetProvider spreadsheetProvider() {
-        return this.context;
-    }
-
-    // ProviderContext..................................................................................................
-
-    @Override
-    public ProviderContext providerContext() {
         return this.context;
     }
 
