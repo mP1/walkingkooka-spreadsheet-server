@@ -80,7 +80,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
                 "1",
                 SpreadsheetFormatterSelectorEdit.with(
                         Optional.empty(),
-                        "Invalid character '1' at 0 in \"1\" in \"1\"",
+                        "Invalid character '1' at 0 in \"1\"",
                         Lists.empty(),
                         Optional.empty(),
                         Lists.empty()
