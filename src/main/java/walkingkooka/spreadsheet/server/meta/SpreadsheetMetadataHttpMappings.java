@@ -32,7 +32,7 @@ import java.util.function.UnaryOperator;
 /**
  * A collection of factory methods to create various {@link HateosResourceHandler}, {@link Router} etc.
  */
-public final class SpreadsheetMetadataMappings implements PublicStaticHelper {
+public final class SpreadsheetMetadataHttpMappings implements PublicStaticHelper {
 
     /**
      * {@see SpreadsheetMetadataPatchFunction}
@@ -60,7 +60,7 @@ public final class SpreadsheetMetadataMappings implements PublicStaticHelper {
     /**
      * Stop creation.
      */
-    private SpreadsheetMetadataMappings() {
+    private SpreadsheetMetadataHttpMappings() {
         throw new UnsupportedOperationException();
     }
 }

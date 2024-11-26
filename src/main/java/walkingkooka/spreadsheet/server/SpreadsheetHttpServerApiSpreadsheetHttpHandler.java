@@ -38,7 +38,7 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataMappings;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -116,7 +116,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                         this::metadataPatchHttpHandler
                 ).router()
                 .then(
-                        SpreadsheetMetadataMappings.router(
+                        SpreadsheetMetadataHttpMappings.router(
                                 serverUrl,
                                 indentation,
                                 lineEnding,
@@ -141,7 +141,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 HttpHandlers.contentType(
                         MediaType.APPLICATION_JSON,
                         JsonHttpHandlers.json(
-                                (json) -> SpreadsheetMetadataMappings.patch(
+                                (json) -> SpreadsheetMetadataHttpMappings.patch(
                                         SpreadsheetId.parse(
                                                 request.url()
                                                         .path()
