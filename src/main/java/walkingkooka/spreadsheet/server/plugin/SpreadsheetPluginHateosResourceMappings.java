@@ -18,6 +18,8 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -25,10 +27,7 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-
-import java.util.Objects;
 
 public final class SpreadsheetPluginHateosResourceMappings implements PublicStaticHelper {
 
@@ -36,9 +35,9 @@ public final class SpreadsheetPluginHateosResourceMappings implements PublicStat
             Plugin,
             PluginSet,
             Plugin,
-            SpreadsheetHateosResourceHandlerContext> plugin(final SpreadsheetEngine engine) {
-        Objects.requireNonNull(engine, "engine");
-        // cell GET, POST...............................................................................................
+            SpreadsheetHateosResourceHandlerContext> plugin() {
+
+        // plugin GET...................................................................................................
 
         HateosResourceMapping<PluginName,
                 Plugin,
@@ -51,6 +50,10 @@ public final class SpreadsheetPluginHateosResourceMappings implements PublicStat
                 PluginSet.class,
                 Plugin.class,
                 SpreadsheetHateosResourceHandlerContext.class
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                PluginHateosResourceHandlerLoad.INSTANCE
         );
 
         return plugin;
