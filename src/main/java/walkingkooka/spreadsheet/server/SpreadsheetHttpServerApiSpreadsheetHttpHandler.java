@@ -112,8 +112,8 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
-                        patchRouterPredicates(),
-                        this::patchRequestResponseHttpHandler
+                        metadataPatchRouterPredicate(),
+                        this::metadataPatchHttpHandler
                 ).router()
                 .then(
                         SpreadsheetMetadataHateosResourceMappings.router(
@@ -125,8 +125,15 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                 );
     }
 
-    private void patchRequestResponseHttpHandler(final HttpRequest request,
-                                                 final HttpResponse response) {
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> metadataPatchRouterPredicate() {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(UrlPath.parse("/api/spreadsheet/*"))
+                .build();
+    }
+
+    private void metadataPatchHttpHandler(final HttpRequest request,
+                                          final HttpResponse response) {
         // PATCH
         // content type = JSON
         HttpHandlers.methodNotAllowed(
@@ -135,7 +142,12 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                         MediaType.APPLICATION_JSON,
                         JsonHttpHandlers.json(
                                 (json) -> SpreadsheetMetadataHateosResourceMappings.patch(
-                                        SpreadsheetId.parse(request.url().path().name().value()),
+                                        SpreadsheetId.parse(
+                                                request.url()
+                                                        .path()
+                                                        .name()
+                                                        .value()
+                                        ),
                                         this.context
                                 ).apply(json),
                                 SpreadsheetHttpServerApiSpreadsheetHttpHandler::patchPost
@@ -170,15 +182,6 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     }
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
-
-    // patch
-
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRouterPredicates() {
-        return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(UrlPath.parse("/api/spreadsheet/*"))
-                .build();
-    }
 
     // toString.........................................................................................................
 
