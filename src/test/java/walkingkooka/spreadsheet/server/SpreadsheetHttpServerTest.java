@@ -53,6 +53,8 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
@@ -119,7 +121,6 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
@@ -245,7 +246,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
 
-    private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.fake();
+    private final static HateosResourceHandlerContext MARSHALL_UNMARSHALL_CONTEXT = HateosResourceHandlerContexts.fake();
 
     private final static Function<SpreadsheetId, SpreadsheetProvider> SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION = (id) -> {
         throw new UnsupportedOperationException();
@@ -340,7 +341,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final Supplier<LocalDateTime> now,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final SpreadsheetMetadataStore metadataStore,
-                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                            final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -355,7 +356,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         now,
                         systemSpreadsheetProvider,
                         metadataStore,
-                        jsonNodeMarshallUnmarshallContext,
+                        hateosResourceHandlerContext,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToStoreRepository,
                         fileServer,
@@ -546,7 +547,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final Supplier<LocalDateTime> now,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final SpreadsheetMetadataStore metadataStore,
-                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                            final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -560,7 +561,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         now,
                         systemSpreadsheetProvider,
                         metadataStore,
-                        jsonNodeMarshallUnmarshallContext,
+                        hateosResourceHandlerContext,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToStoreRepository,
                         fileServer,
@@ -9864,9 +9865,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_PARSER_PROVIDER
                 ),
                 this.metadataStore,
-                JsonNodeMarshallUnmarshallContexts.basic(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT
+                HateosResourceHandlerContexts.basic(
+                        JsonNodeMarshallUnmarshallContexts.basic(
+                                JSON_NODE_MARSHALL_CONTEXT,
+                                JSON_NODE_UNMARSHALL_CONTEXT
+                        )
                 ),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToRepository,

@@ -27,6 +27,8 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContexts;
@@ -86,8 +88,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
@@ -102,7 +102,7 @@ import java.util.function.Supplier;
  * There is no way to delete existing spreadsheets.
  */
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
-        JsonNodeMarshallUnmarshallContextDelegator {
+        HateosResourceHandlerContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -113,7 +113,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                     final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                      final Supplier<LocalDateTime> now,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
         Objects.requireNonNull(serverUrl, "serverUrl");
@@ -122,7 +122,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
-        Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext");
+        Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
         Objects.requireNonNull(now, "now");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
 
@@ -133,7 +133,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                marshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 now,
                 systemSpreadsheetProvider
         );
@@ -145,7 +145,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                 final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                  final Supplier<LocalDateTime> now,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
@@ -160,7 +160,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
 
-        this.marshallUnmarshallContext = marshallUnmarshallContext;
+        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
         this.now = now;
 
@@ -406,14 +406,14 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         return MediaType.APPLICATION_JSON;
     }
 
-    // JsonNodeMarshallUnmarshallContext marshallUnmarshallContext......................................................
+    // HateosResourceHandlerContext ....................................................................................
 
     @Override
-    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
-        return this.marshallUnmarshallContext;
+    public HateosResourceHandlerContext hateosResourceHandlerContext() {
+        return this.hateosResourceHandlerContext;
     }
 
-    private final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext;
+    private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     // Object...........................................................................................................
 

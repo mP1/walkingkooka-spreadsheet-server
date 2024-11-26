@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -31,7 +32,6 @@ import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHan
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.function.Function;
@@ -52,7 +52,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                     final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                      final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
                 serverUrl,
@@ -62,7 +62,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                jsonNodeMarshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 now
         );
     }
@@ -77,7 +77,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                 final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                  final Supplier<LocalDateTime> now) {
         super();
 
@@ -101,7 +101,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
 
-        this.jsonNodeMarshallUnmarshallContext = jsonNodeMarshallUnmarshallContext;
+        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
         this.now = now;
     }
@@ -132,7 +132,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.jsonNodeMarshallUnmarshallContext,
+                this.hateosResourceHandlerContext,
                 this.now,
                 this.systemSpreadsheetProvider
         ).httpRouter(id);
@@ -151,7 +151,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      */
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
 
-    private final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext;
+    private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     private final Supplier<LocalDateTime> now;
 

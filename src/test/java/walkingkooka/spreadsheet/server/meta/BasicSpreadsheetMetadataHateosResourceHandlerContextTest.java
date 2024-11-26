@@ -41,6 +41,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -78,7 +80,6 @@ import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.RoundingMode;
@@ -105,9 +106,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
-    private final static JsonNodeMarshallUnmarshallContext JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
+    private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
+            JsonNodeMarshallUnmarshallContexts.basic(
+                    JSON_NODE_MARSHALL_CONTEXT,
+                    JSON_NODE_UNMARSHALL_CONTEXT
+            )
     );
 
     private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
@@ -123,7 +126,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
@@ -138,7 +141,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
@@ -153,7 +156,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
@@ -168,7 +171,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
@@ -183,7 +186,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
@@ -198,14 +201,14 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 SPREADSHEET_PROVIDER
         );
     }
 
     @Test
-    public void testWithNullMarshallUnmarshallContextFails() {
+    public void testWithNullHateosResourceHandlerContextFails() {
         this.withFails(
                 this.base(),
                 INDENTATION,
@@ -228,7 +231,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null,
                 SPREADSHEET_PROVIDER
         );
@@ -243,7 +246,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 NOW,
                 null
         );
@@ -255,7 +258,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                           final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                           final HateosResourceHandlerContext hateosResourceHandlerContext,
                            final Supplier<LocalDateTime> now,
                            final SpreadsheetProvider systemSpreadsheetProvider) {
         assertThrows(
@@ -267,7 +270,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                         metadataStore,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToRepository,
-                        marshallUnmarshallContext,
+                        hateosResourceHandlerContext,
                         now,
                         systemSpreadsheetProvider
                 )
@@ -1097,7 +1100,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                JSON_NODE_MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 now,
                 SPREADSHEET_PROVIDER
         );

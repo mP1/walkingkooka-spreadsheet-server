@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
@@ -42,7 +43,6 @@ import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpMappings;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -64,7 +64,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                                                                        final SpreadsheetMetadataStore metadataStore,
                                                                        final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                        final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                       final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                        final Supplier<LocalDateTime> now,
                                                                        final SpreadsheetProvider systemSpreadsheetProvider) {
         return new SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(
@@ -74,7 +74,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                jsonNodeMarshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 now,
                 systemSpreadsheetProvider
         );
@@ -89,7 +89,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                                                                    final SpreadsheetMetadataStore metadataStore,
                                                                    final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                   final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                    final Supplier<LocalDateTime> now,
                                                                    final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
@@ -103,7 +103,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                jsonNodeMarshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 now,
                 systemSpreadsheetProvider
         );
