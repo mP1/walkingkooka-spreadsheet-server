@@ -56,7 +56,7 @@ import java.util.stream.Collectors;
 /**
  * A collection of factory methods to create various {@link HateosResourceHandler}.
  */
-public final class SpreadsheetDeltaHateosResourceMappings implements PublicStaticHelper {
+public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
     // cell................................................................................................................
 
@@ -75,7 +75,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
                 SpreadsheetCell,
                 SpreadsheetHateosResourceHandlerContext> cell = HateosResourceMapping.with(
                 CELL,
-                SpreadsheetDeltaHateosResourceMappings::parseCell,
+                SpreadsheetDeltaHttpMappings::parseCell,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
                 SpreadsheetCell.class,
@@ -241,7 +241,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
 
         return HateosResourceMapping.with(
                 CELL_REFERENCE,
-                SpreadsheetDeltaHateosResourceMappings::parseCellReferenceText,
+                SpreadsheetDeltaHttpMappings::parseCellReferenceText,
                 SpreadsheetExpressionReferenceSimilarities.class,
                 SpreadsheetExpressionReferenceSimilarities.class,
                 SpreadsheetExpressionReferenceSimilarities.class,
@@ -272,7 +272,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
             SpreadsheetHateosResourceHandlerContext> column(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
                 COLUMN,
-                SpreadsheetDeltaHateosResourceMappings::parseColumn,
+                SpreadsheetDeltaHttpMappings::parseColumn,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
                 SpreadsheetColumn.class,
@@ -333,7 +333,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
             SpreadsheetHateosResourceHandlerContext> row(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
                 ROW,
-                SpreadsheetDeltaHateosResourceMappings::parseRow,
+                SpreadsheetDeltaHttpMappings::parseRow,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
                 SpreadsheetRow.class,
@@ -465,7 +465,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetHateosResourceHandlerContext> label(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
                 LABEL,
-                SpreadsheetDeltaHateosResourceMappings::parseLabel,
+                SpreadsheetDeltaHttpMappings::parseLabel,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
                 SpreadsheetLabelMapping.class,
@@ -511,7 +511,7 @@ public final class SpreadsheetDeltaHateosResourceMappings implements PublicStati
     /**
      * Stop creation.
      */
-    private SpreadsheetDeltaHateosResourceMappings() {
+    private SpreadsheetDeltaHttpMappings() {
         throw new UnsupportedOperationException();
     }
 }
