@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -112,6 +113,6 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
 
     @Override
     public String toString() {
-        return PluginStore.class.getSimpleName();
+        return HttpMethod.GET + " " + PluginStore.class.getSimpleName();
     }
 }
