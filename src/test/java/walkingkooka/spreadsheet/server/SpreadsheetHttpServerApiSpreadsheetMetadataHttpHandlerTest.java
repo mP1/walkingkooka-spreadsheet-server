@@ -35,7 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
 
-public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetHttpHandler>
+public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler>
         implements SpreadsheetMetadataTesting {
 
     private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 34);
@@ -52,8 +52,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
 
     // helper...........................................................................................................
 
-    private SpreadsheetHttpServerApiSpreadsheetHttpHandler handler() {
-        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
+    private SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler handler() {
+        return SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler.with(
                 this.serverUrl(),
                 Indentation.SPACES2,
                 LineEnding.NL,
@@ -91,8 +91,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetHttpHandlerTest extends Sp
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetHttpServerApiSpreadsheetHttpHandler> type() {
-        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.class;
+    public Class<SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler> type() {
+        return SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler.class;
     }
 
     // TypeNameTesting..................................................................................................
