@@ -35,17 +35,17 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
+final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         SpreadsheetEngineContextDelegator,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetProviderDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
-    static BasicSpreadsheetHateosResourceHandlerContext with(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
-                                                             final SpreadsheetEngineContext engineContext,
-                                                             final SpreadsheetFormatterContext formatterContext,
-                                                             final SpreadsheetProvider systemSpreadsheetProvider) {
-        return new BasicSpreadsheetHateosResourceHandlerContext(
+    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                                   final SpreadsheetEngineContext engineContext,
+                                                                   final SpreadsheetFormatterContext formatterContext,
+                                                                   final SpreadsheetProvider systemSpreadsheetProvider) {
+        return new BasicSpreadsheetEngineHateosResourceHandlerContext(
                 Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext"),
                 Objects.requireNonNull(engineContext, "engineContext"),
                 Objects.requireNonNull(formatterContext, "formatterContext"),
@@ -53,10 +53,10 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
         );
     }
 
-    private BasicSpreadsheetHateosResourceHandlerContext(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
-                                                         final SpreadsheetEngineContext engineContext,
-                                                         final SpreadsheetFormatterContext formatterContext,
-                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
+    private BasicSpreadsheetEngineHateosResourceHandlerContext(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                               final SpreadsheetEngineContext engineContext,
+                                                               final SpreadsheetFormatterContext formatterContext,
+                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
         this.marshallUnmarshallContext = marshallUnmarshallContext;
         this.engineContext = engineContext;
         this.formatterContext = formatterContext;
@@ -131,7 +131,7 @@ final class BasicSpreadsheetHateosResourceHandlerContext implements SpreadsheetH
 
     private final SpreadsheetFormatterContext formatterContext;
 
-    // SpreadsheetHateosResourceHandlerContext..........................................................................
+    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
 
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {

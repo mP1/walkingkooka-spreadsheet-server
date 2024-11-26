@@ -29,8 +29,8 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.provider.FakeSpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -43,7 +43,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
         ExpressionFunctionName,
         ExpressionFunctionInfo,
         ExpressionFunctionInfoSet,
-        SpreadsheetHateosResourceHandlerContext>,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
@@ -60,7 +60,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
                     .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
     );
 
-    private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
+    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
         @Override
         public SpreadsheetProvider systemSpreadsheetProvider() {
@@ -161,7 +161,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

@@ -71,8 +71,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -498,7 +498,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         };
     }
 
-    private SpreadsheetHateosResourceHandlerContext context() {
+    private SpreadsheetEngineHateosResourceHandlerContext context() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
 
@@ -508,7 +508,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         metadataStore.save(METADATA_EN_AU);
 
-        return new FakeSpreadsheetHateosResourceHandlerContext() {
+        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
             public MediaType contentType() {

@@ -17,21 +17,25 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextTesting;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
-public interface SpreadsheetHateosResourceHandlerContextTesting<C extends SpreadsheetHateosResourceHandlerContext> extends HateosResourceHandlerContextTesting<C>,
-        SpreadsheetEngineContextTesting<C>,
-        SpreadsheetFormatterProviderSamplesContextTesting<C> {
+import java.lang.reflect.Method;
+
+public final class SpreadsheetEngineHateosResourceHandlerContextsTest implements PublicStaticHelperTesting<SpreadsheetEngineHateosResourceHandlerContexts> {
 
     @Override
-    default C createSpreadsheetProvider() {
-        return this.createContext();
+    public Class<SpreadsheetEngineHateosResourceHandlerContexts> type() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.class;
     }
 
     @Override
-    default String typeNameSuffix() {
-        return HateosResourceHandlerContextTesting.super.typeNameSuffix();
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PUBLIC;
+    }
+
+    @Override
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 }

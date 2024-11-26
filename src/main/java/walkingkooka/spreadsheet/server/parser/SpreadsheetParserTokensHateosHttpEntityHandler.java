@@ -33,7 +33,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
@@ -42,11 +42,11 @@ import java.util.Map;
 /**
  * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetParserProvider#spreadsheetParser(SpreadsheetParserSelector)}.
  */
-final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetHateosResourceHandlerContext> {
+final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
@@ -65,7 +65,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
     public HttpEntity handleOne(final SpreadsheetParserName formatterName,
                                 final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                final SpreadsheetHateosResourceHandlerContext context) {
+                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkId(formatterName);
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
@@ -106,7 +106,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
     }
 
     private List<SpreadsheetParserSelectorToken> tokens(final SpreadsheetParserSelector selector,
-                                                        final SpreadsheetHateosResourceHandlerContext context) {
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetParser(
                 selector,
                 context

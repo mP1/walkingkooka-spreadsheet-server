@@ -34,8 +34,8 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -48,7 +48,7 @@ public final class PluginHateosResourceHandlerLoadTest
         PluginName,
         Plugin,
         PluginSet,
-        SpreadsheetHateosResourceHandlerContext>,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<PluginHateosResourceHandlerLoad> {
 
     // hateos...........................................................................................................
@@ -78,7 +78,7 @@ public final class PluginHateosResourceHandlerLoadTest
         );
     }
 
-    private final static SpreadsheetHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetHateosResourceHandlerContext() {
+    private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
         @Override
         public PluginStore pluginStore() {
             final PluginStore store = PluginStores.treeMap();
@@ -180,7 +180,7 @@ public final class PluginHateosResourceHandlerLoadTest
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

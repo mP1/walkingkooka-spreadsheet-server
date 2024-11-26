@@ -82,7 +82,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
-public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext {
+public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
     // SpreadsheetEngineContext.........................................................................................
 
@@ -482,7 +482,7 @@ public class FakeSpreadsheetHateosResourceHandlerContext extends FakeHateosResou
         throw new UnsupportedOperationException();
     }
 
-    // SpreadsheetHateosResourceHandlerContext..........................................................................
+    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
 
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {

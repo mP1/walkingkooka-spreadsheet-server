@@ -23,23 +23,23 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>>
         extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
-        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext>,
+        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<H> {
 
     SpreadsheetDeltaHateosResourceHandlerLabelTestCase() {
         super();
     }
 
-    final TestSpreadsheetHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
-        return new TestSpreadsheetHateosResourceHandlerContext() {
+    final TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetLabelStore store) {
+        return new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
             public SpreadsheetStoreRepository storeRepository() {
@@ -58,7 +58,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
         };
     }
 
-    static class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
+    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
         @Override
         public MediaType contentType() {
             return CONTENT_TYPE;
@@ -66,7 +66,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H exten
     }
 
     @Override
-    public final SpreadsheetHateosResourceHandlerContext context() {
+    public final SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 }

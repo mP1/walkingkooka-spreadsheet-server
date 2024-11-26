@@ -28,7 +28,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetReferenceKind;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Collection;
 import java.util.Map;
@@ -40,7 +40,7 @@ import java.util.Optional;
  * clear a row or range of rows
  */
 final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetRowReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext> {
+        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerClearRows with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerClearRows(
@@ -56,7 +56,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetRowReference row,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(row, "row");
 
         return this.clearCells(
@@ -71,7 +71,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetRowReference> rows,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(rows, "rows");
 
         return this.clearCells(
@@ -85,7 +85,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDe
     private Optional<SpreadsheetDelta> clearCells(final Range<SpreadsheetRowReference> rows,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(rows, "rows");
         HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);

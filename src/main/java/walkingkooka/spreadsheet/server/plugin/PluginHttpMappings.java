@@ -27,7 +27,7 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 public final class PluginHttpMappings implements PublicStaticHelper {
 
@@ -35,7 +35,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
             Plugin,
             PluginSet,
             Plugin,
-            SpreadsheetHateosResourceHandlerContext> plugin() {
+            SpreadsheetEngineHateosResourceHandlerContext> plugin() {
 
         // plugin GET...................................................................................................
 
@@ -43,13 +43,13 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 Plugin,
                 PluginSet,
                 Plugin,
-                SpreadsheetHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
+                SpreadsheetEngineHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
                 PLUGIN,
                 PluginHttpMappings::parsePluginName,
                 Plugin.class,
                 PluginSet.class,
                 Plugin.class,
-                SpreadsheetHateosResourceHandlerContext.class
+                SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -67,7 +67,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
      * Handles parsing the text into a {@link HateosResourceSelection}.
      */
     private static HateosResourceSelection<PluginName> parsePluginName(final String text,
-                                                                       final SpreadsheetHateosResourceHandlerContext context) {
+                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<PluginName> result;
 
         if (text.isEmpty()) {

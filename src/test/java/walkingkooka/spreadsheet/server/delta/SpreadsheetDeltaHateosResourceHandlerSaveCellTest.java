@@ -40,7 +40,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserToken;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -166,7 +166,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                         SpreadsheetCellFindQuery.QUERY,
                         Lists.of(query)
                 ),
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
@@ -391,7 +391,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 

@@ -35,7 +35,7 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicSpreadsheetHateosResourceHandlerContextTest implements SpreadsheetHateosResourceHandlerContextTesting<BasicSpreadsheetHateosResourceHandlerContext>,
+public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetEngineHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting {
 
     private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
@@ -65,7 +65,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testWithNullJsonNodeMarshallUnmarshallContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                         null,
                         SPREADSHEET_ENGINE_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
@@ -78,7 +78,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testWithNullSpreadsheetEngineContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                         MARSHALL_UNMARSHALL_CONTEXT,
                         null,
                         SPREADSHEET_FORMATTER_CONTEXT,
@@ -91,7 +91,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testWithNullSpreadsheetFormatterContextFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                         MARSHALL_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         null,
@@ -104,7 +104,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     public void testWithNullSpreadsheetProviderFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicSpreadsheetHateosResourceHandlerContext.with(
+                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                         MARSHALL_UNMARSHALL_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
@@ -113,7 +113,7 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
         );
     }
 
-    // SpreadsheetHateosResourceHandlerContextTesting...................................................................
+    // SpreadsheetEngineHateosResourceHandlerContextTesting...................................................................
 
     @Override
     public void testResolveLabelWithNullFails() {
@@ -126,8 +126,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     }
 
     @Override
-    public BasicSpreadsheetHateosResourceHandlerContext createContext() {
-        return BasicSpreadsheetHateosResourceHandlerContext.with(
+    public BasicSpreadsheetEngineHateosResourceHandlerContext createContext() {
+        return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 MARSHALL_UNMARSHALL_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
@@ -178,8 +178,8 @@ public final class BasicSpreadsheetHateosResourceHandlerContextTest implements S
     // class............................................................................................................
 
     @Override
-    public Class<BasicSpreadsheetHateosResourceHandlerContext> type() {
-        return BasicSpreadsheetHateosResourceHandlerContext.class;
+    public Class<BasicSpreadsheetEngineHateosResourceHandlerContext> type() {
+        return BasicSpreadsheetEngineHateosResourceHandlerContext.class;
     }
 
     @Override

@@ -26,7 +26,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,7 +36,7 @@ import java.util.Optional;
  * Deleting more than one cell is not supported.
  */
 final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext> {
+        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(
@@ -52,7 +52,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final SpreadsheetHateosResourceHandlerContext context) {
+                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
 
         return deleteCells(
@@ -67,7 +67,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> rangeOfCells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                  final SpreadsheetHateosResourceHandlerContext context) {
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return deleteCells(
                 resource,
                 parameters,
@@ -79,7 +79,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     private Optional<SpreadsheetDelta> deleteCells(final Optional<SpreadsheetDelta> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
                                                    final SpreadsheetSelection cells,
-                                                   final SpreadsheetHateosResourceHandlerContext context) {
+                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);

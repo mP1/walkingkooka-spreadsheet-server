@@ -40,8 +40,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReferencePath;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
@@ -130,7 +130,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
@@ -221,7 +221,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
@@ -312,7 +312,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
@@ -474,8 +474,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

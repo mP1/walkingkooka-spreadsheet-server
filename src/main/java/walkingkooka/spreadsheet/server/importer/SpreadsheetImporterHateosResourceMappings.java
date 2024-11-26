@@ -26,7 +26,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetImporterHateosResourceMappings implements PublicStaticHelper {
@@ -49,7 +49,7 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
             SpreadsheetImporterInfo,
             SpreadsheetImporterInfoSet,
             SpreadsheetImporterInfo,
-            SpreadsheetHateosResourceHandlerContext> importer() {
+            SpreadsheetEngineHateosResourceHandlerContext> importer() {
 
         // importer GET...............................................................................................
 
@@ -57,13 +57,13 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
                 SpreadsheetImporterInfo,
                 SpreadsheetImporterInfoSet,
                 SpreadsheetImporterInfo,
-                SpreadsheetHateosResourceHandlerContext> importer = HateosResourceMapping.with(
+                SpreadsheetEngineHateosResourceHandlerContext> importer = HateosResourceMapping.with(
                 IMPORTER,
                 SpreadsheetImporterHateosResourceMappings::parseImporterSelection,
                 SpreadsheetImporterInfo.class, // valueType
                 SpreadsheetImporterInfoSet.class, // collectionType
                 SpreadsheetImporterInfo.class,// resourceType
-                SpreadsheetHateosResourceHandlerContext.class // context
+                SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -74,7 +74,7 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
     }
 
     private static HateosResourceSelection<SpreadsheetImporterName> parseImporterSelection(final String text,
-                                                                                           final SpreadsheetHateosResourceHandlerContext context) {
+                                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetImporterName> selection;
 
         switch (text) {
