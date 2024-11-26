@@ -110,7 +110,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
         this.context = context;
 
-        this.hateosRouter = SpreadsheetMetadataHateosResourceMappings.router(
+        this.metadataHateosRouter = SpreadsheetMetadataHateosResourceMappings.router(
                 serverUrl,
                 indentation,
                 lineEnding,
@@ -129,7 +129,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                         this::patchRequestResponseHttpHandler
                 )
                 .router()
-                .then(this.hateosRouter)
+                .then(this.metadataHateosRouter)
                 .route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
                 .handle(
@@ -178,7 +178,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
     private final SpreadsheetMetadataHateosResourceHandlerContext context;
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> hateosRouter;
+    private final Router<HttpRequestAttribute<?>, HttpHandler> metadataHateosRouter;
 
     // toString.........................................................................................................
 
