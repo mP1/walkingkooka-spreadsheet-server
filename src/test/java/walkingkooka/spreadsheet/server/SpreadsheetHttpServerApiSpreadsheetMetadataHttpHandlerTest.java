@@ -22,8 +22,6 @@ import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
-import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
@@ -79,13 +77,6 @@ public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest ex
 
     private SpreadsheetStoreRepository spreadsheetIdToStoreRepository(final SpreadsheetId id) {
         throw new UnsupportedOperationException();
-    }
-
-    private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
-        return metadata.set(
-                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
-                MODIFIED_DATE_TIME
-        );
     }
 
     // ClassTesting.....................................................................................................
