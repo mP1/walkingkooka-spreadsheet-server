@@ -190,7 +190,7 @@ public final class PluginHateosResourceHandlerLoadTest
     public void testToString() {
         this.toStringAndCheck(
                 this.createHandler(),
-                "PluginStore"
+                "GET PluginStore"
         );
     }
 
