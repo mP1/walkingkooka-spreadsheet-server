@@ -110,41 +110,19 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
         this.context = context;
 
-        this.metadataHateosRouter = SpreadsheetMetadataHateosResourceMappings.router(
-                serverUrl,
-                indentation,
-                lineEnding,
-                context
-        );
-    }
-
-    // HttpHandler......................................................................................................
-
-    @Override
-    public void handle(final HttpRequest request,
-                       final HttpResponse response) {
-        RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
                         patchRouterPredicates(),
                         this::patchRequestResponseHttpHandler
-                )
-                .router()
-                .then(this.metadataHateosRouter)
-                .route(request.routerParameters())
-                .orElse(SpreadsheetHttpServer::notFound)
-                .handle(
-                        request,
-                        response
+                ).router()
+                .then(
+                        SpreadsheetMetadataHateosResourceMappings.router(
+                                serverUrl,
+                                indentation,
+                                lineEnding,
+                                context
+                        )
                 );
-    }
-
-    // patch
-
-    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRouterPredicates() {
-        return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(UrlPath.parse("/api/spreadsheet/*"))
-                .build();
     }
 
     private void patchRequestResponseHttpHandler(final HttpRequest request,
@@ -158,7 +136,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                         JsonHttpHandlers.json(
                                 (json) -> SpreadsheetMetadataHateosResourceMappings.patch(
                                         SpreadsheetId.parse(request.url().path().name().value()),
-                                        context
+                                        this.context
                                 ).apply(json),
                                 SpreadsheetHttpServerApiSpreadsheetHttpHandler::patchPost
                         )
@@ -178,7 +156,29 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
 
     private final SpreadsheetMetadataHateosResourceHandlerContext context;
 
-    private final Router<HttpRequestAttribute<?>, HttpHandler> metadataHateosRouter;
+    // HttpHandler......................................................................................................
+
+    @Override
+    public void handle(final HttpRequest request,
+                       final HttpResponse response) {
+        this.router.route(request.routerParameters())
+                .orElse(SpreadsheetHttpServer::notFound)
+                .handle(
+                        request,
+                        response
+                );
+    }
+
+    private final Router<HttpRequestAttribute<?>, HttpHandler> router;
+
+    // patch
+
+    private static Map<HttpRequestAttribute<?>, Predicate<?>> patchRouterPredicates() {
+        return HttpRequestAttributeRouting.empty()
+                .method(HttpMethod.PATCH)
+                .path(UrlPath.parse("/api/spreadsheet/*"))
+                .build();
+    }
 
     // toString.........................................................................................................
 
