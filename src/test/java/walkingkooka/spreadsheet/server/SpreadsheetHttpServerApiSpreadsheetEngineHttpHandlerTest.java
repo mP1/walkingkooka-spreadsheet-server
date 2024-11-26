@@ -34,6 +34,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -358,9 +359,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 this.metadataStore,
                 spreadsheetIdToSpreadsheetProvider(),
                 spreadsheetIdToStoreRepository(),
-                JsonNodeMarshallUnmarshallContexts.basic(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT
+                HateosResourceHandlerContexts.basic(
+                        JsonNodeMarshallUnmarshallContexts.basic(
+                                JSON_NODE_MARSHALL_CONTEXT,
+                                JSON_NODE_UNMARSHALL_CONTEXT
+                        )
                 ),
                 LocalDateTime::now
         );

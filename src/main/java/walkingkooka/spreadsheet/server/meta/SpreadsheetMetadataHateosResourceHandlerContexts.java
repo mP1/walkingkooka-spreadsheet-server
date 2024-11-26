@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -26,7 +27,6 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
@@ -44,7 +44,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                        final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                         final Supplier<LocalDateTime> now,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -54,7 +54,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                marshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 now,
                 systemSpreadsheetProvider
         );

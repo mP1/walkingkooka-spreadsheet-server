@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStores;
@@ -58,9 +59,11 @@ public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest ex
                 SpreadsheetMetadataStores.fake(),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
-                JsonNodeMarshallUnmarshallContexts.basic(
-                        JSON_NODE_MARSHALL_CONTEXT,
-                        JSON_NODE_UNMARSHALL_CONTEXT
+                HateosResourceHandlerContexts.basic(
+                        JsonNodeMarshallUnmarshallContexts.basic(
+                                JSON_NODE_MARSHALL_CONTEXT,
+                                JSON_NODE_UNMARSHALL_CONTEXT
+                        )
                 ),
                 LocalDateTime::now,
                 SPREADSHEET_PROVIDER
