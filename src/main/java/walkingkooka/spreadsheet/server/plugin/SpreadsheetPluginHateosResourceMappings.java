@@ -54,6 +54,10 @@ public final class SpreadsheetPluginHateosResourceMappings implements PublicStat
                 LinkRelation.SELF,
                 HttpMethod.GET,
                 PluginHateosResourceHandlerLoad.INSTANCE
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.DELETE,
+                PluginHateosResourceHandlerDelete.INSTANCE
         );
 
         return plugin;
