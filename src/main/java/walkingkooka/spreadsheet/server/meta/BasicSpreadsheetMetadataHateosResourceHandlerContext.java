@@ -27,6 +27,7 @@ import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.PluginStores;
@@ -362,15 +363,17 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.indentation,
                 this.lineEnding,
                 SpreadsheetEngineHateosResourceHandlerContexts.basic(
-                        JsonNodeMarshallUnmarshallContexts.basic(
-                                metadata.jsonNodeMarshallContext(),
-                                metadata.jsonNodeUnmarshallContext()
-                                        .setPreProcessor(
-                                                SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                                                        context.storeRepository()
-                                                                .labels()
+                        HateosResourceHandlerContexts.basic(
+                                JsonNodeMarshallUnmarshallContexts.basic(
+                                        metadata.jsonNodeMarshallContext(),
+                                        metadata.jsonNodeUnmarshallContext()
+                                                .setPreProcessor(
+                                                        SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                                                                context.storeRepository()
+                                                                        .labels()
+                                                        )
                                                 )
-                                        )
+                                )
                         ),
                         context,
                         metadata.spreadsheetFormatterContext(

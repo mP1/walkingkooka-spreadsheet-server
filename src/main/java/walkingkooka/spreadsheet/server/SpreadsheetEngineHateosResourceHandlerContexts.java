@@ -17,23 +17,23 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 public final class SpreadsheetEngineHateosResourceHandlerContexts implements PublicStaticHelper {
 
     /**
      * {@see BasicSpreadsheetEngineHateosResourceHandlerContext}
      */
-    public static SpreadsheetEngineHateosResourceHandlerContext basic(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+    public static SpreadsheetEngineHateosResourceHandlerContext basic(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                       final SpreadsheetEngineContext engineContext,
                                                                       final SpreadsheetFormatterContext formatterContext,
                                                                       final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                marshallUnmarshallContext,
+                hateosResourceHandlerContext,
                 engineContext,
                 formatterContext,
                 systemSpreadsheetProvider
