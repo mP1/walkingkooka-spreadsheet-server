@@ -37,8 +37,6 @@ import java.time.LocalDateTime;
 public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler>
         implements SpreadsheetMetadataTesting {
 
-    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 34);
-
     // toString.........................................................................................................
 
     @Test
