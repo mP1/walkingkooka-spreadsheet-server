@@ -17,18 +17,25 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
+import walkingkooka.plugin.store.PluginStore;
 
-public final class PluginHateosResourceHandlerContexts implements PublicStaticHelper {
+import java.util.Optional;
 
-    /**
-     * {@see FakePluginHateosResourceHandlerContext}
-     */
-    public static PluginHateosResourceHandlerContext fake() {
-        return new FakePluginHateosResourceHandlerContext();
+public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements PluginHateosResourceHandlerContext {
+
+    public FakePluginHateosResourceHandlerContext() {
+        super();
     }
 
-    private PluginHateosResourceHandlerContexts() {
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public PluginStore pluginStore() {
         throw new UnsupportedOperationException();
     }
 }
