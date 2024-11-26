@@ -22,6 +22,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
+/**
+ * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
+ */
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
         SpreadsheetEngineContext,
         SpreadsheetFormatterProviderSamplesContext {
