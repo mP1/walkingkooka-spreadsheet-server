@@ -29,7 +29,7 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 
-public final class SpreadsheetPluginHateosResourceMappings implements PublicStaticHelper {
+public final class PluginHateosResourceMappings implements PublicStaticHelper {
 
     public static HateosResourceMapping<PluginName,
             Plugin,
@@ -45,7 +45,7 @@ public final class SpreadsheetPluginHateosResourceMappings implements PublicStat
                 Plugin,
                 SpreadsheetHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
                 PLUGIN,
-                SpreadsheetPluginHateosResourceMappings::parsePluginName,
+                PluginHateosResourceMappings::parsePluginName,
                 Plugin.class,
                 PluginSet.class,
                 Plugin.class,
@@ -109,7 +109,7 @@ public final class SpreadsheetPluginHateosResourceMappings implements PublicStat
     /**
      * Stop creation.
      */
-    private SpreadsheetPluginHateosResourceMappings() {
+    private PluginHateosResourceMappings() {
         throw new UnsupportedOperationException();
     }
 }
