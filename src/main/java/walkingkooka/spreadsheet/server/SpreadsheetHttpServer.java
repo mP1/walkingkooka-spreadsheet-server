@@ -172,21 +172,21 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
-                        this.spreadsheetRouting(api)
+                        this.routing(api)
                                 .build(),
-                        this.spreadsheetHandler(
+                        this.spreadsheetMetadataHttpHandler(
                                 serverUrl.setPath(api)
                         )
                 ).add(
                         this.spreadsheetEngineRouting(spreadsheet)
                                 .build(),
-                        this.spreadsheetEngineHandler(
+                        this.spreadsheetEngineHttpHandler(
                                 serverUrl.setPath(spreadsheet)
                         )
                 ).add(
                         this.fileServerRouting()
                                 .build(),
-                        this.fileServerHandler(
+                        this.fileServerHttpHandler(
                                 UrlPath.ROOT,
                                 fileServer
                         )
@@ -214,12 +214,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final static UrlPathName WILDCARD = UrlPathName.with("*");
 
 
-    private HttpRequestAttributeRouting spreadsheetRouting(final UrlPath path) {
+    private HttpRequestAttributeRouting routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
                 .path(path);
     }
 
-    private HttpHandler spreadsheetHandler(final AbsoluteUrl api) {
+    private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler.with(
                 api,
                 this.indentation,
@@ -242,7 +242,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .path(path.append(WILDCARD).append(WILDCARD));
     }
 
-    private HttpHandler spreadsheetEngineHandler(final AbsoluteUrl url) {
+    private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
                 url,
                 this.indentation,
@@ -284,8 +284,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 .path(UrlPath.parse("/*"));
     }
 
-    private HttpHandler fileServerHandler(final UrlPath baseUrlPath,
-                                          final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
+    private HttpHandler fileServerHttpHandler(final UrlPath baseUrlPath,
+                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
                 baseUrlPath.normalize(),
                 fileServer
