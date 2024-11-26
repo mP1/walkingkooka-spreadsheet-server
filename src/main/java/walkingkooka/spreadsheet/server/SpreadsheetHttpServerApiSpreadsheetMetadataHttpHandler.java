@@ -53,21 +53,21 @@ import java.util.function.Supplier;
 /**
  * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler}.
  */
-final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandler {
+final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetHttpHandler} handler.
+     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetHttpHandler with(final AbsoluteUrl serverUrl,
-                                                               final Indentation indentation,
-                                                               final LineEnding lineEnding,
-                                                               final SpreadsheetMetadataStore metadataStore,
-                                                               final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                               final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                               final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
-                                                               final Supplier<LocalDateTime> now,
-                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
-        return new SpreadsheetHttpServerApiSpreadsheetHttpHandler(
+    static SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
+                                                                       final Indentation indentation,
+                                                                       final LineEnding lineEnding,
+                                                                       final SpreadsheetMetadataStore metadataStore,
+                                                                       final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                                       final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                       final Supplier<LocalDateTime> now,
+                                                                       final SpreadsheetProvider systemSpreadsheetProvider) {
+        return new SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(
                 serverUrl,
                 indentation,
                 lineEnding,
@@ -83,15 +83,15 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetHttpHandler(final AbsoluteUrl serverUrl,
-                                                           final Indentation indentation,
-                                                           final LineEnding lineEnding,
-                                                           final SpreadsheetMetadataStore metadataStore,
-                                                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                           final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
-                                                           final Supplier<LocalDateTime> now,
-                                                           final SpreadsheetProvider systemSpreadsheetProvider) {
+    private SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
+                                                                   final Indentation indentation,
+                                                                   final LineEnding lineEnding,
+                                                                   final SpreadsheetMetadataStore metadataStore,
+                                                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                                                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                                   final JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext,
+                                                                   final Supplier<LocalDateTime> now,
+                                                                   final SpreadsheetProvider systemSpreadsheetProvider) {
         super();
 
         this.serverUrl = serverUrl;
@@ -150,7 +150,7 @@ final class SpreadsheetHttpServerApiSpreadsheetHttpHandler implements HttpHandle
                                         ),
                                         this.context
                                 ).apply(json),
-                                SpreadsheetHttpServerApiSpreadsheetHttpHandler::patchPost
+                                SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler::patchPost
                         )
                 )
         ).handle(

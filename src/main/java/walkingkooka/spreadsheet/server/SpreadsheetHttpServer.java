@@ -220,7 +220,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler spreadsheetHandler(final AbsoluteUrl api) {
-        return SpreadsheetHttpServerApiSpreadsheetHttpHandler.with(
+        return SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler.with(
                 api,
                 this.indentation,
                 this.lineEnding,
