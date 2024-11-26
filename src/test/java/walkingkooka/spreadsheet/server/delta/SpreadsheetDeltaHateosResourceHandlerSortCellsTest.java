@@ -35,8 +35,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 
 import java.util.List;
 import java.util.Map;
@@ -263,8 +263,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
-        return SpreadsheetHateosResourceHandlerContexts.fake();
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return SpreadsheetEngineHateosResourceHandlerContexts.fake();
     }
 
     // ClassTesting.....................................................................................................

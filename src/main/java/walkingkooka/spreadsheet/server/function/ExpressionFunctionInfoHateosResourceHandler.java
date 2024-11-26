@@ -22,7 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
@@ -34,10 +34,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link ExpressionFunctionInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetHateosResourceHandlerContext> {
+final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     final static ExpressionFunctionInfoHateosResourceHandler INSTANCE = new ExpressionFunctionInfoHateosResourceHandler();
 
@@ -48,7 +48,7 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     @Override
     public Optional<ExpressionFunctionInfoSet> handleAll(final Optional<ExpressionFunctionInfoSet> infos,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                         final SpreadsheetHateosResourceHandlerContext context) {
+                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
@@ -65,7 +65,7 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     public Optional<ExpressionFunctionInfo> handleOne(final ExpressionFunctionName name,
                                                       final Optional<ExpressionFunctionInfo> info,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                      final SpreadsheetHateosResourceHandlerContext context) {
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);

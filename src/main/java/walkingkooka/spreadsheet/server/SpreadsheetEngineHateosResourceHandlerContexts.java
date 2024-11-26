@@ -23,16 +23,16 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
-public final class SpreadsheetHateosResourceHandlerContexts implements PublicStaticHelper {
+public final class SpreadsheetEngineHateosResourceHandlerContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicSpreadsheetHateosResourceHandlerContext}
+     * {@see BasicSpreadsheetEngineHateosResourceHandlerContext}
      */
-    public static SpreadsheetHateosResourceHandlerContext basic(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
-                                                                final SpreadsheetEngineContext engineContext,
-                                                                final SpreadsheetFormatterContext formatterContext,
-                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
-        return BasicSpreadsheetHateosResourceHandlerContext.with(
+    public static SpreadsheetEngineHateosResourceHandlerContext basic(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+                                                                      final SpreadsheetEngineContext engineContext,
+                                                                      final SpreadsheetFormatterContext formatterContext,
+                                                                      final SpreadsheetProvider systemSpreadsheetProvider) {
+        return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
                 marshallUnmarshallContext,
                 engineContext,
                 formatterContext,
@@ -41,16 +41,16 @@ public final class SpreadsheetHateosResourceHandlerContexts implements PublicSta
     }
 
     /**
-     * {see FakeSpreadsheetHateosResourceHandlerContext}
+     * {see FakeSpreadsheetEngineHateosResourceHandlerContext}
      */
-    public static SpreadsheetHateosResourceHandlerContext fake() {
-        return new FakeSpreadsheetHateosResourceHandlerContext();
+    public static SpreadsheetEngineHateosResourceHandlerContext fake() {
+        return new FakeSpreadsheetEngineHateosResourceHandlerContext();
     }
 
     /**
      * Stop creation
      */
-    private SpreadsheetHateosResourceHandlerContexts() {
+    private SpreadsheetEngineHateosResourceHandlerContexts() {
         throw new UnsupportedOperationException();
     }
 }

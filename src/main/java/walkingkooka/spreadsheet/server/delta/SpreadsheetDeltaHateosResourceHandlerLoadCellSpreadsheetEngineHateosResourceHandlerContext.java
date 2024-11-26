@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
@@ -36,25 +36,25 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 
 /**
- * A {@link SpreadsheetHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetHateosResourceHandlerContext},
+ * A {@link SpreadsheetEngineHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetEngineHateosResourceHandlerContext},
  * except for the given {@link SpreadsheetMetadata} which will have the updated {@link walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName#VIEWPORT}.
  */
-final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext implements SpreadsheetHateosResourceHandlerContext,
+final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
         ConverterProviderDelegator,
         SpreadsheetEngineContextDelegator,
         SpreadsheetFormatterContextDelegator,
         JsonNodeMarshallUnmarshallContextDelegator {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
-                                                                                                     final SpreadsheetHateosResourceHandlerContext context) {
-        return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext(
+    static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
+                                                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
                 metadata,
                 context
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResourceHandlerContext(final SpreadsheetMetadata metadata,
-                                                                                                 final SpreadsheetHateosResourceHandlerContext context) {
+    private SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(final SpreadsheetMetadata metadata,
+                                                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         this.metadata = metadata;
         this.context = context;
     }
@@ -66,7 +66,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
 
     private final SpreadsheetMetadata metadata;
 
-    // SpreadsheetHateosResourceHandlerContext.........................................................................
+    // SpreadsheetEngineHateosResourceHandlerContext.........................................................................
 
     @Override
     public MediaType contentType() {
@@ -123,12 +123,12 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetHateosResour
         return this.context;
     }
 
-    // SpreadsheetHateosResourceHandlerContext..........................................................................
+    // SpreadsheetEngineHateosResourceHandlerContext..........................................................................
 
     @Override
     public SpreadsheetProvider systemSpreadsheetProvider() {
         return this.context.systemSpreadsheetProvider();
     }
 
-    private final SpreadsheetHateosResourceHandlerContext context;
+    private final SpreadsheetEngineHateosResourceHandlerContext context;
 }

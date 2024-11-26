@@ -34,8 +34,8 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -48,7 +48,7 @@ public final class PluginHateosResourceHandlerDeleteTest
         PluginName,
         Plugin,
         PluginSet,
-        SpreadsheetHateosResourceHandlerContext>,
+        SpreadsheetEngineHateosResourceHandlerContext>,
         ToStringTesting<PluginHateosResourceHandlerDelete> {
 
     // hateos...........................................................................................................
@@ -78,9 +78,9 @@ public final class PluginHateosResourceHandlerDeleteTest
         );
     }
 
-    static class TestSpreadsheetHateosResourceHandlerContext extends FakeSpreadsheetHateosResourceHandlerContext {
+    static class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
 
-        TestSpreadsheetHateosResourceHandlerContext() {
+        TestSpreadsheetEngineHateosResourceHandlerContext() {
             final PluginStore store = PluginStores.treeMap();
 
             store.save(PLUGIN1);
@@ -101,7 +101,7 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     @Test
     public void testHandleOne() {
-        final SpreadsheetHateosResourceHandlerContext context = new TestSpreadsheetHateosResourceHandlerContext();
+        final SpreadsheetEngineHateosResourceHandlerContext context = new TestSpreadsheetEngineHateosResourceHandlerContext();
 
         this.handleOneAndCheck(
                 PLUGIN1.name(),
@@ -135,7 +135,7 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     @Test
     public void testHandleAll() {
-        final SpreadsheetHateosResourceHandlerContext context = new TestSpreadsheetHateosResourceHandlerContext();
+        final SpreadsheetEngineHateosResourceHandlerContext context = new TestSpreadsheetEngineHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
                 Optional.empty(), // resource
@@ -153,7 +153,7 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     @Test
     public void testHandleRange() {
-        final SpreadsheetHateosResourceHandlerContext context = new TestSpreadsheetHateosResourceHandlerContext();
+        final SpreadsheetEngineHateosResourceHandlerContext context = new TestSpreadsheetEngineHateosResourceHandlerContext();
 
         this.handleRangeAndCheck(
                 Range.greaterThanEquals(PLUGIN2.name())
@@ -223,8 +223,8 @@ public final class PluginHateosResourceHandlerDeleteTest
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
-        return new TestSpreadsheetHateosResourceHandlerContext();
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
+        return new TestSpreadsheetEngineHateosResourceHandlerContext();
     }
 
     // toString.........................................................................................................

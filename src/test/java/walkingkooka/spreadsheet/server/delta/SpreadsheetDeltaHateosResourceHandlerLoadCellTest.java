@@ -54,8 +54,8 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportAnchor;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewportNavigation;
-import walkingkooka.spreadsheet.server.FakeSpreadsheetHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
@@ -238,7 +238,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 id,
                 Optional.empty(),
                 parameters,
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
                         final TextCursorSavePoint begin = formula.save();
@@ -389,7 +389,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                 "query=true()"
                         )
                 ),
-                new TestSpreadsheetHateosResourceHandlerContext() {
+                new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                     @Override
                     public SpreadsheetParserToken parseFormula(final TextCursor formula) {
@@ -751,7 +751,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 ),
                 Optional.empty(),
                 parameters,
-                new FakeSpreadsheetHateosResourceHandlerContext() {
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
                         return METADATA_EN_AU;
@@ -1241,7 +1241,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 ),
                 Optional.empty(),
                 parameters,
-                new FakeSpreadsheetHateosResourceHandlerContext() {
+                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                     @Override
                     public SpreadsheetMetadata spreadsheetMetadata() {
                         return metadata;
@@ -1373,12 +1373,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     }
 
     @Override
-    public SpreadsheetHateosResourceHandlerContext context() {
+    public SpreadsheetEngineHateosResourceHandlerContext context() {
 
         final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         store.save(METADATA);
 
-        return new FakeSpreadsheetHateosResourceHandlerContext() {
+        return new FakeSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {

@@ -28,7 +28,7 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Collection;
 import java.util.Map;
@@ -38,9 +38,9 @@ import java.util.SortedSet;
 /**
  * Provides end points to retrieve one or more {@link Plugin}.
  */
-final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<PluginName, Plugin, PluginSet, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, SpreadsheetHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, SpreadsheetHateosResourceHandlerContext> {
+final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<PluginName, Plugin, PluginSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, SpreadsheetEngineHateosResourceHandlerContext>,
+        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -54,7 +54,7 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     @Override
     public Optional<PluginSet> handleAll(final Optional<PluginSet> infos,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
-                                         final SpreadsheetHateosResourceHandlerContext context) {
+                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
@@ -69,7 +69,7 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     public Optional<Plugin> handleOne(final PluginName name,
                                       final Optional<Plugin> info,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                      final SpreadsheetHateosResourceHandlerContext context) {
+                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
@@ -83,7 +83,7 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     public Optional<PluginSet> handleRange(final Range<PluginName> range,
                                            final Optional<PluginSet> resource,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
-                                           final SpreadsheetHateosResourceHandlerContext context) {
+                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(range);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);

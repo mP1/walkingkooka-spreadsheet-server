@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
 
 import java.util.Objects;
@@ -40,7 +40,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             SpreadsheetFormatterInfo,
             SpreadsheetFormatterInfoSet,
             SpreadsheetFormatterInfo,
-            SpreadsheetHateosResourceHandlerContext> formatter(final SpreadsheetEngineContext context) {
+            SpreadsheetEngineHateosResourceHandlerContext> formatter(final SpreadsheetEngineContext context) {
         Objects.requireNonNull(context, "context");
 
         // formatter GET...............................................................................................
@@ -49,13 +49,13 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 SpreadsheetFormatterInfo,
                 SpreadsheetFormatterInfoSet,
                 SpreadsheetFormatterInfo,
-                SpreadsheetHateosResourceHandlerContext> formatter = HateosResourceMapping.with(
+                SpreadsheetEngineHateosResourceHandlerContext> formatter = HateosResourceMapping.with(
                 FORMATTER,
                 SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
                 SpreadsheetFormatterInfo.class, // valueType
                 SpreadsheetFormatterInfoSet.class, // collectionType
                 SpreadsheetFormatterInfo.class,// resourceType
-                SpreadsheetHateosResourceHandlerContext.class
+                SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -90,7 +90,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
     }
 
     private static HateosResourceSelection<SpreadsheetFormatterName> parseFormatterSelection(final String text,
-                                                                                             final SpreadsheetHateosResourceHandlerContext context) {
+                                                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetFormatterName> selection;
 
         switch (text) {

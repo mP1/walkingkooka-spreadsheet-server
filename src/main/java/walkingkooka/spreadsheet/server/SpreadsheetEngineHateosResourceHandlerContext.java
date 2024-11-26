@@ -22,7 +22,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 
-public interface SpreadsheetHateosResourceHandlerContext extends HateosResourceHandlerContext,
+public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
         SpreadsheetEngineContext,
         SpreadsheetFormatterProviderSamplesContext {
 

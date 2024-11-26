@@ -25,7 +25,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
 import java.util.Optional;
@@ -34,7 +34,7 @@ import java.util.Optional;
  * Abstract base class for DELETE / INSERT a column or row or range of either
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
-        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetHateosResourceHandlerContext> {
+        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine) {
         super(engine);
@@ -44,7 +44,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                      final SpreadsheetHateosResourceHandlerContext context) {
+                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
 
         return Optional.of(
@@ -65,7 +65,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                        final SpreadsheetHateosResourceHandlerContext context) {
+                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
 
         final R lower = columnOrRow.lowerBound()
@@ -92,7 +92,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                                                        final int count,
                                                        final Optional<SpreadsheetDelta> in,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                       final SpreadsheetHateosResourceHandlerContext context) {
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(in);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);

@@ -24,7 +24,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
@@ -62,7 +62,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
     }
 
     @Override
-    public final SpreadsheetHateosResourceHandlerContext context() {
+    public final SpreadsheetEngineHateosResourceHandlerContext context() {
         return CONTEXT;
     }
 }

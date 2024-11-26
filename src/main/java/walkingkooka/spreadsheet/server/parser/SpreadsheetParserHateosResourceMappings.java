@@ -26,7 +26,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
 
 public final class SpreadsheetParserHateosResourceMappings implements PublicStaticHelper {
@@ -37,7 +37,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
             SpreadsheetParserInfo,
             SpreadsheetParserInfoSet,
             SpreadsheetParserInfo,
-            SpreadsheetHateosResourceHandlerContext> parser() {
+            SpreadsheetEngineHateosResourceHandlerContext> parser() {
 
         // parser GET...............................................................................................
 
@@ -45,13 +45,13 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 SpreadsheetParserInfo,
                 SpreadsheetParserInfoSet,
                 SpreadsheetParserInfo,
-                SpreadsheetHateosResourceHandlerContext> parser = HateosResourceMapping.with(
+                SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMapping.with(
                 PARSER,
                 SpreadsheetParserHateosResourceMappings::parseParserSelection,
                 SpreadsheetParserInfo.class, // valueType
                 SpreadsheetParserInfoSet.class, // collectionType
                 SpreadsheetParserInfo.class, // resourceType
-                SpreadsheetHateosResourceHandlerContext.class // context
+                SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -74,7 +74,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
     }
 
     private static HateosResourceSelection<SpreadsheetParserName> parseParserSelection(final String text,
-                                                                                       final SpreadsheetHateosResourceHandlerContext context) {
+                                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetParserName> selection;
 
         switch (text) {

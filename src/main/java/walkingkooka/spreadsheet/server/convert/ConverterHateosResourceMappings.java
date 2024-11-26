@@ -26,7 +26,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.text.CharSequences;
 
 public final class ConverterHateosResourceMappings implements PublicStaticHelper {
@@ -37,7 +37,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
             ConverterInfo,
             ConverterInfoSet,
             ConverterInfo,
-            SpreadsheetHateosResourceHandlerContext> converter() {
+            SpreadsheetEngineHateosResourceHandlerContext> converter() {
 
         // converter GET...............................................................................................
 
@@ -45,13 +45,13 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
                 ConverterInfo,
                 ConverterInfoSet,
                 ConverterInfo,
-                SpreadsheetHateosResourceHandlerContext> converter = HateosResourceMapping.with(
+                SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMapping.with(
                 CONVERTER,
                 ConverterHateosResourceMappings::parseConverterSelection,
                 ConverterInfo.class, // valueType
                 ConverterInfoSet.class, // collectionType
                 ConverterInfo.class,// resourceType
-                SpreadsheetHateosResourceHandlerContext.class // context
+                SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -62,7 +62,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
     }
 
     private static HateosResourceSelection<ConverterName> parseConverterSelection(final String text,
-                                                                                  final SpreadsheetHateosResourceHandlerContext context) {
+                                                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<ConverterName> selection;
 
         switch (text) {
