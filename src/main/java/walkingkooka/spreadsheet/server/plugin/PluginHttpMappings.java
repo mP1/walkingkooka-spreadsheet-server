@@ -27,7 +27,6 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 public final class PluginHttpMappings implements PublicStaticHelper {
 
@@ -35,7 +34,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
             Plugin,
             PluginSet,
             Plugin,
-            SpreadsheetEngineHateosResourceHandlerContext> plugin() {
+            PluginHateosResourceHandlerContext> plugin() {
 
         // plugin GET...................................................................................................
 
@@ -43,13 +42,13 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 Plugin,
                 PluginSet,
                 Plugin,
-                SpreadsheetEngineHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
+                PluginHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
                 PLUGIN,
                 PluginHttpMappings::parsePluginName,
                 Plugin.class,
                 PluginSet.class,
                 Plugin.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+                PluginHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
                 LinkRelation.SELF,
                 HttpMethod.GET,
@@ -67,7 +66,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
      * Handles parsing the text into a {@link HateosResourceSelection}.
      */
     private static HateosResourceSelection<PluginName> parsePluginName(final String text,
-                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                                       final PluginHateosResourceHandlerContext context) {
         final HateosResourceSelection<PluginName> result;
 
         if (text.isEmpty()) {
