@@ -50,7 +50,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
                     throw new UnsupportedOperationException();
                 }
             },
-            PluginStores.fake()
+            PluginStores.treeMap()
     );
 
     @Test

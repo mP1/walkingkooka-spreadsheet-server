@@ -18,8 +18,11 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
@@ -27,6 +30,9 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.route.Router;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 
 public final class PluginHttpMappings implements PublicStaticHelper {
 
@@ -104,6 +110,23 @@ public final class PluginHttpMappings implements PublicStaticHelper {
      * A {@link HateosResourceName} with <code>cell</code>.
      */
     public static final HateosResourceName PLUGIN = HateosResourceName.with("plugin");
+
+    // router...........................................................................................................
+
+    /**
+     * {@see PluginHateosResourceHandlersRouter}
+     */
+    public static Router<HttpRequestAttribute<?>, HttpHandler> router(final AbsoluteUrl baseUrl,
+                                                                      final Indentation indentation,
+                                                                      final LineEnding lineEnding,
+                                                                      final PluginHateosResourceHandlerContext context) {
+        return PluginHateosResourceHandlersRouter.router(
+                baseUrl,
+                indentation,
+                lineEnding,
+                context
+        );
+    }
 
     /**
      * Stop creation.

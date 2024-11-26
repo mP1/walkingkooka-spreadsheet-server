@@ -26,6 +26,17 @@ A swagger-ui is available at:
   present [TODO](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/480)
 - To examine the JSON form examining tests will be required.
 
+### Plugin
+
+A collection of end points to help manage plugins.
+
+- **GET** /api/plugin/*
+- **GET** /api/plugin/$plugin-name
+- **GET** /api/plugin/$from-plugin-name:$to-plugin-name
+- **DELETE** /api/plugin/*
+- **DELETE** /api/plugin/$plugin-name
+- **DELETE** /api/plugin/$from-plugin-name:$to-plugin-name
+
 ### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
 
 A collection of end points that support CRUD operations

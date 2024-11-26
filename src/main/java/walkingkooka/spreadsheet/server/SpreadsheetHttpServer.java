@@ -175,9 +175,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         final UrlPath api = UrlPath.parse(API);
         final UrlPath spreadsheet = UrlPath.parse(SPREADSHEET);
+        final UrlPath plugin = UrlPath.parse(PLUGIN);
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
+                        this.routing(plugin)
+                                .build(),
+                        this.pluginHttpHandler(
+                                serverUrl.setPath(api)
+                        )
+                ).add(
                         this.routing(api)
                                 .build(),
                         this.spreadsheetMetadataHttpHandler(
@@ -217,6 +224,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final static String API = "/api";
     private final static String SPREADSHEET = API + "/spreadsheet";
+    private final static String PLUGIN = API + "/plugin";
     private final static UrlPathName WILDCARD = UrlPathName.with("*");
 
 
@@ -261,6 +269,18 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.spreadsheetIdToStoreRepository,
                 this.hateosResourceHandlerContext,
                 this.now
+        );
+    }
+
+    // plugin...........................................................................................................
+
+    private HttpHandler pluginHttpHandler(final AbsoluteUrl url) {
+        return SpreadsheetHttpServerApiPluginHttpHandler.with(
+                url,
+                this.indentation,
+                this.lineEnding,
+                this.hateosResourceHandlerContext,
+                this.providerContext
         );
     }
 
