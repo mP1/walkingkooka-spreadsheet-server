@@ -17,9 +17,22 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 
 public final class PluginHateosResourceHandlerContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicPluginHateosResourceHandlerContext}
+     */
+    public static PluginHateosResourceHandlerContext basic(final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                                           final ProviderContext providerContext) {
+        return BasicPluginHateosResourceHandlerContext.with(
+                hateosResourceHandlerContext,
+                providerContext
+        );
+    }
 
     /**
      * {@see FakePluginHateosResourceHandlerContext}
