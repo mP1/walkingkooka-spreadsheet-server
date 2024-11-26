@@ -97,7 +97,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTesting2<SpreadsheetDeltaHateosResourceMappings>,
+public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
         SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
@@ -114,7 +114,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     public void testCellWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                () -> SpreadsheetDeltaHttpMappings.cell(
                         null,
                         DEFAULT_MAX
                 )
@@ -125,7 +125,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     public void testCellWithInvalidDefaultMaxFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.cell(
+                () -> SpreadsheetDeltaHttpMappings.cell(
                         SpreadsheetEngines.fake(),
                         -1 // defaultMax
                 )
@@ -366,7 +366,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         final SpreadsheetEngine engine = this.engine();
 
         this.routeAndCheck(
-                SpreadsheetDeltaHateosResourceMappings.cell(
+                SpreadsheetDeltaHttpMappings.cell(
                         engine,
                         DEFAULT_MAX
                 ),
@@ -382,7 +382,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                    final String url,
                                    final String body) {
         return this.route(
-                SpreadsheetDeltaHateosResourceMappings.cell(
+                SpreadsheetDeltaHttpMappings.cell(
                         this.engine(),
                         DEFAULT_MAX
                 ),
@@ -619,7 +619,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     public void testColumnWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.column(
+                () -> SpreadsheetDeltaHttpMappings.column(
                         null
                 )
         );
@@ -717,7 +717,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                      final String body,
                                      final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetDeltaHateosResourceMappings.column(
+                SpreadsheetDeltaHttpMappings.column(
                         this.engine()
                 ),
                 method,
@@ -733,7 +733,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         assertThrows(
                 thrown,
                 () -> this.route(
-                        SpreadsheetDeltaHateosResourceMappings.column(
+                        SpreadsheetDeltaHttpMappings.column(
                                 this.engine()
                         ),
                         method,
@@ -749,7 +749,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     public void testRowWithNullEngineFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceMappings.row(
+                () -> SpreadsheetDeltaHttpMappings.row(
                         null
                 )
         );
@@ -862,7 +862,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
                                   final String body,
                                   final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetDeltaHateosResourceMappings.row(
+                SpreadsheetDeltaHttpMappings.row(
                         this.engine()
                 ),
                 method,
@@ -878,7 +878,7 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
         assertThrows(
                 thrown,
                 () -> this.route(
-                        SpreadsheetDeltaHateosResourceMappings.row(
+                        SpreadsheetDeltaHttpMappings.row(
                                 this.engine()
                         ),
                         method,
@@ -1024,8 +1024,8 @@ public final class SpreadsheetDeltaHateosResourceMappingsTest implements ClassTe
     // ClassTesting.....................................................................................................
 
     @Override
-    public Class<SpreadsheetDeltaHateosResourceMappings> type() {
-        return SpreadsheetDeltaHateosResourceMappings.class;
+    public Class<SpreadsheetDeltaHttpMappings> type() {
+        return SpreadsheetDeltaHttpMappings.class;
     }
 
     @Override

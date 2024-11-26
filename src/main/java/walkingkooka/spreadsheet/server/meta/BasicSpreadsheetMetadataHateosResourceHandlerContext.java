@@ -71,7 +71,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
-import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHateosResourceMappings;
+import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
@@ -302,14 +302,14 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                                               final SpreadsheetEngine engine,
                                                                                               final SpreadsheetEngineContext context,
                                                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
-        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetHateosResourceHandlerContext> cell = SpreadsheetDeltaHateosResourceMappings.cell(
+        final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell(
                 engine,
                 defaultMax
         );
 
-        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHateosResourceMappings.cellReference(context);
+        final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHttpMappings.cellReference(context);
 
-        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetHateosResourceHandlerContext> column = SpreadsheetDeltaHateosResourceMappings.column(
+        final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column(
                 engine
         );
 
@@ -325,11 +325,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetImporterName, SpreadsheetImporterInfo, SpreadsheetImporterInfoSet, SpreadsheetImporterInfo, SpreadsheetHateosResourceHandlerContext> importer = SpreadsheetImporterHateosResourceMappings.importer();
 
-        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetHateosResourceHandlerContext> label = SpreadsheetDeltaHateosResourceMappings.label(engine);
+        final HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetHateosResourceHandlerContext> label = SpreadsheetDeltaHttpMappings.label(engine);
 
         final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
 
-        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetHateosResourceHandlerContext> row = SpreadsheetDeltaHateosResourceMappings.row(
+        final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row(
                 engine
         );
 

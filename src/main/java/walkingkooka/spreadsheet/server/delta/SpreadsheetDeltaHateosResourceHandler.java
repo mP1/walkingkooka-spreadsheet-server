@@ -90,7 +90,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
                                            final SpreadsheetHateosResourceHandlerContext context,
                                            final SpreadsheetDelta out) {
-        return SpreadsheetDeltaHateosResourceMappings.prepareResponse(
+        return SpreadsheetDeltaHttpMappings.prepareResponse(
                 in,
                 parameters,
                 out,
