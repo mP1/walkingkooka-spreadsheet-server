@@ -19,6 +19,8 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
@@ -28,7 +30,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.math.MathContext;
@@ -38,9 +39,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetEngineHateosResourceHandlerContext>,
         SpreadsheetMetadataTesting {
 
-    private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
-            JSON_NODE_MARSHALL_CONTEXT,
-            JSON_NODE_UNMARSHALL_CONTEXT
+    private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
+            JsonNodeMarshallUnmarshallContexts.basic(
+                    JSON_NODE_MARSHALL_CONTEXT,
+                    JSON_NODE_UNMARSHALL_CONTEXT
+            )
     );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
@@ -62,7 +65,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     // with.............................................................................................................
 
     @Test
-    public void testWithNullJsonNodeMarshallUnmarshallContextFails() {
+    public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
@@ -79,7 +82,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        MARSHALL_UNMARSHALL_CONTEXT,
+                        HATEOS_RESOURCE_HANDLER_CONTEXT,
                         null,
                         SPREADSHEET_FORMATTER_CONTEXT,
                         SPREADSHEET_PROVIDER
@@ -92,7 +95,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        MARSHALL_UNMARSHALL_CONTEXT,
+                        HATEOS_RESOURCE_HANDLER_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         null,
                         SPREADSHEET_PROVIDER
@@ -105,7 +108,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        MARSHALL_UNMARSHALL_CONTEXT,
+                        HATEOS_RESOURCE_HANDLER_CONTEXT,
                         SPREADSHEET_ENGINE_CONTEXT,
                         SPREADSHEET_FORMATTER_CONTEXT,
                         null
@@ -128,7 +131,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     @Override
     public BasicSpreadsheetEngineHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                MARSHALL_UNMARSHALL_CONTEXT,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 SPREADSHEET_ENGINE_CONTEXT,
                 SPREADSHEET_FORMATTER_CONTEXT,
                 SPREADSHEET_PROVIDER

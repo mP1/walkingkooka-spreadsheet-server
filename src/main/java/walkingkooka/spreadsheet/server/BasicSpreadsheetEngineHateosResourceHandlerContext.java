@@ -17,7 +17,8 @@
 
 package walkingkooka.spreadsheet.server;
 
-import walkingkooka.net.header.MediaType;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -28,51 +29,44 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
+        HateosResourceHandlerContextDelegator,
         SpreadsheetEngineContextDelegator,
         SpreadsheetFormatterContextDelegator,
-        SpreadsheetProviderDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator {
+        SpreadsheetProviderDelegator {
 
-    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+    static BasicSpreadsheetEngineHateosResourceHandlerContext with(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                    final SpreadsheetEngineContext engineContext,
                                                                    final SpreadsheetFormatterContext formatterContext,
                                                                    final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext"),
+                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
                 Objects.requireNonNull(engineContext, "engineContext"),
                 Objects.requireNonNull(formatterContext, "formatterContext"),
                 Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
         );
     }
 
-    private BasicSpreadsheetEngineHateosResourceHandlerContext(final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext,
+    private BasicSpreadsheetEngineHateosResourceHandlerContext(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                final SpreadsheetEngineContext engineContext,
                                                                final SpreadsheetFormatterContext formatterContext,
                                                                final SpreadsheetProvider systemSpreadsheetProvider) {
-        this.marshallUnmarshallContext = marshallUnmarshallContext;
+        this.hateosResourceHandlerContext = hateosResourceHandlerContext;
         this.engineContext = engineContext;
         this.formatterContext = formatterContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
-    }
-
-    @Override
-    public MediaType contentType() {
-        return MediaType.APPLICATION_JSON;
     }
 
     // 4 methods immediately below are required due to clashes between XXXDelegators
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.marshallUnmarshallContext.expressionNumberKind();
+        return this.hateosResourceHandlerContext.expressionNumberKind();
     }
 
     @Override
@@ -90,14 +84,14 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.resolveLabel(labelName);
     }
 
-    // JsonNodeMarshallUnmarshallContext................................................................................
+    // HateosResourceHandlerContext.....................................................................................
 
     @Override
-    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
-        return this.marshallUnmarshallContext;
+    public HateosResourceHandlerContext hateosResourceHandlerContext() {
+        return this.hateosResourceHandlerContext;
     }
 
-    private final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext;
+    private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     // SpreadsheetEngineContextDelegator................................................................................
 
