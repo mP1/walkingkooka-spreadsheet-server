@@ -27,6 +27,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
@@ -57,6 +58,9 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContexts;
+import walkingkooka.plugin.store.PluginSet;
+import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -612,6 +616,70 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testStartServer() {
         this.startServer();
     }
+
+    // plugin...........................................................................................................
+
+    @Test
+    public void testPluginGetInvalidPluginNameGivesBadRequest() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/plugin/!invalid-plugin-name",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                HttpStatusCode.BAD_REQUEST.setMessage("Invalid character '!' at 0 in \"!invalid-plugin-name\""),
+                ""
+        );
+    }
+
+    @Test
+    public void testPluginGetUnknownPluginName() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/plugin/UnknownPluginName123",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                HttpStatusCode.NO_CONTENT.setMessage("No content"),
+                ""
+        );
+    }
+
+    @Test
+    public void testPluginGetAll() {
+        final TestHttpServer server = this.startServer();
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpMethod.GET,
+                "/api/plugin/*",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "[]",
+                        PluginSet.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testPluginDeleteUnknownPlugin() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.DELETE,
+                "/api/plugin/UnknownPlugin123",
+                NO_HEADERS_TRANSACTION_ID,
+                "",
+                HttpStatusCode.NO_CONTENT.setMessage("No content"),
+                ""
+        );
+    }
+
+    // metadata.........................................................................................................
 
     @Test
     public void testMetadataGetInvalidSpreadsheetIdGivesBadRequest() {
@@ -9900,7 +9968,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_IMPORTER_PROVIDER,
                         SPREADSHEET_PARSER_PROVIDER
                 ),
-                PROVIDER_CONTEXT,
+                ProviderContexts.basic(
+                        EnvironmentContexts.empty(),
+                        PluginStores.treeMap()
+                ),
                 this.metadataStore,
                 HateosResourceHandlerContexts.basic(
                         JsonNodeMarshallUnmarshallContexts.basic(
