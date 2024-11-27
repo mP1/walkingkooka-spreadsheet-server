@@ -26,6 +26,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterProviders;
@@ -243,6 +244,7 @@ public class TestGwtTest extends GWTTestCase {
                 LineEnding.NL,
                 () -> now, // now
                 SpreadsheetProviders.fake(),
+                ProviderContexts.fake(),
                 metadataStore,
                 HateosResourceHandlerContexts.basic(
                         JsonNodeMarshallUnmarshallContexts.basic(
@@ -276,7 +278,6 @@ public class TestGwtTest extends GWTTestCase {
                 }
         );
     }
-
     static final class TestHttpServer implements HttpServer {
 
         TestHttpServer() {

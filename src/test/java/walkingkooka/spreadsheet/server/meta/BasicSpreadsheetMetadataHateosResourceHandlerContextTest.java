@@ -44,6 +44,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
@@ -123,12 +124,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 INDENTATION,
                 LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
+                NOW
         );
     }
 
@@ -138,12 +140,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this.base(),
                 null,
                 LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
+                NOW
         );
     }
 
@@ -153,87 +156,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this.base(),
                 INDENTATION,
                 null,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullMetadataStoreFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                null,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                METADATA_STORE,
-                null,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullSpreadsheetIdRepositoryFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullHateosResourceHandlerContextFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                null,
-                NOW,
-                SPREADSHEET_PROVIDER
-        );
-    }
-
-    @Test
-    public void testWithNullNowFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                null,
-                SPREADSHEET_PROVIDER
+                NOW
         );
     }
 
@@ -243,11 +172,109 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
+                null,
+                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullSystemProviderContextFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                null,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                NOW
+        );
+    }
+
+
+    @Test
+    public void testWithNullMetadataStoreFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                null,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                null,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullSpreadsheetIdRepositoryFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullHateosResourceHandlerContextFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                null,
+                NOW
+        );
+    }
+
+    @Test
+    public void testWithNullNowFails() {
+        this.withFails(
+                this.base(),
+                INDENTATION,
+                LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null
         );
     }
@@ -255,24 +282,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private void withFails(final AbsoluteUrl serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
+                           final SpreadsheetProvider systemSpreadsheetProvider,
+                           final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final HateosResourceHandlerContext hateosResourceHandlerContext,
-                           final Supplier<LocalDateTime> now,
-                           final SpreadsheetProvider systemSpreadsheetProvider) {
+                           final Supplier<LocalDateTime> now) {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                         serverUrl,
                         indentation,
                         lineEnding,
+                        systemSpreadsheetProvider,
+                        providerContext,
                         metadataStore,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToRepository,
                         hateosResourceHandlerContext,
-                        now,
-                        systemSpreadsheetProvider
+                        now
                 )
         );
     }
@@ -1097,12 +1126,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                now,
-                SPREADSHEET_PROVIDER
+                now
         );
     }
 

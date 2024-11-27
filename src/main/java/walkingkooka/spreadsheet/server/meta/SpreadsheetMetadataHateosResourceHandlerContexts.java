@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -41,22 +42,24 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl serverUrl,
                                                                         final Indentation indentation,
                                                                         final LineEnding lineEnding,
+                                                                        final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                        final ProviderContext providerContext,
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                        final Supplier<LocalDateTime> now,
-                                                                        final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                        final Supplier<LocalDateTime> now) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 indentation,
                 lineEnding,
+                systemSpreadsheetProvider,
+                providerContext,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
                 hateosResourceHandlerContext,
-                now,
-                systemSpreadsheetProvider
+                now
         );
     }
 

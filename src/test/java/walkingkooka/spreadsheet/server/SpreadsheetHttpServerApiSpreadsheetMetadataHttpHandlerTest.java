@@ -54,6 +54,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest ex
                 this.serverUrl(),
                 Indentation.SPACES2,
                 LineEnding.NL,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
                 SpreadsheetMetadataStores.fake(),
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToStoreRepository,
@@ -63,8 +65,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest ex
                                 JSON_NODE_UNMARSHALL_CONTEXT
                         )
                 ),
-                LocalDateTime::now,
-                SPREADSHEET_PROVIDER
+                LocalDateTime::now
         );
     }
 

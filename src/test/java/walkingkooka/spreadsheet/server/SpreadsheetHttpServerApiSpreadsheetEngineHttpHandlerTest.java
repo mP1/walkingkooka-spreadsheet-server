@@ -356,6 +356,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 Indentation.SPACES2,
                 LineEnding.NL,
                 systemSpreadsheetProvider(),
+                PROVIDER_CONTEXT,
                 this.metadataStore,
                 spreadsheetIdToSpreadsheetProvider(),
                 spreadsheetIdToStoreRepository(),

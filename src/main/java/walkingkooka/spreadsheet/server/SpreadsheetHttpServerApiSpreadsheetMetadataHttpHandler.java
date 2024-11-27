@@ -31,6 +31,7 @@ import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -61,22 +62,24 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
     static SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
                                                                        final Indentation indentation,
                                                                        final LineEnding lineEnding,
+                                                                       final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                       final ProviderContext providerContext,
                                                                        final SpreadsheetMetadataStore metadataStore,
                                                                        final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                        final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                       final Supplier<LocalDateTime> now,
-                                                                       final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                       final Supplier<LocalDateTime> now) {
         return new SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(
                 serverUrl,
                 indentation,
                 lineEnding,
+                systemSpreadsheetProvider,
+                providerContext,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 hateosResourceHandlerContext,
-                now,
-                systemSpreadsheetProvider
+                now
         );
     }
 
@@ -86,12 +89,13 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
     private SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
                                                                    final Indentation indentation,
                                                                    final LineEnding lineEnding,
+                                                                   final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                   final ProviderContext providerContext,
                                                                    final SpreadsheetMetadataStore metadataStore,
                                                                    final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                    final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                   final Supplier<LocalDateTime> now,
-                                                                   final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                   final Supplier<LocalDateTime> now) {
         super();
 
         this.serverUrl = serverUrl;
@@ -100,12 +104,13 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 serverUrl,
                 indentation,
                 lineEnding,
+                systemSpreadsheetProvider,
+                providerContext,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
                 hateosResourceHandlerContext,
-                now,
-                systemSpreadsheetProvider
+                now
         );
 
         this.context = context;

@@ -24,6 +24,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -49,6 +50,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                     final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -59,6 +61,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 indentation,
                 lineEnding,
                 systemSpreadsheetProvider,
+                providerContext,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
@@ -74,6 +77,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                 final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
@@ -86,6 +90,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.lineEnding = lineEnding;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
+
+        this.providerContext = providerContext;
 
         this.metadataStore = metadataStore;
 
@@ -129,18 +135,21 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.serverUrl,
                 this.indentation,
                 this.lineEnding,
+                this.systemSpreadsheetProvider,
+                this.providerContext,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.hateosResourceHandlerContext,
-                this.now,
-                this.systemSpreadsheetProvider
+                this.now
         ).httpRouter(id);
     }
 
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
+
+    private final ProviderContext providerContext;
 
     private final SpreadsheetMetadataStore metadataStore;
 

@@ -31,8 +31,8 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
@@ -110,50 +110,57 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
+                                                                     final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                     final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final Supplier<LocalDateTime> now,
-                                                                     final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                     final Supplier<LocalDateTime> now) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
+        Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
+        Objects.requireNonNull(providerContext, "providerContext");
         Objects.requireNonNull(metadataStore, "metadataStore");
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
         Objects.requireNonNull(now, "now");
-        Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
                 serverUrl,
                 indentation,
                 lineEnding,
+                systemSpreadsheetProvider,
+                providerContext,
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
                 hateosResourceHandlerContext,
-                now,
-                systemSpreadsheetProvider
+                now
         );
     }
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
+                                                                 final SpreadsheetProvider systemSpreadsheetProvider,
+                                                                 final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                  final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final Supplier<LocalDateTime> now,
-                                                                 final SpreadsheetProvider systemSpreadsheetProvider) {
+                                                                 final Supplier<LocalDateTime> now) {
         super();
 
         this.serverUrl = serverUrl;
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
+
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
+        this.providerContext = providerContext;
 
         this.metadataStore = metadataStore;
 
@@ -163,8 +170,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
         this.now = now;
-
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
     }
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
@@ -266,6 +271,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetMetadata metadata = this.load(id);
 
+        final ProviderContext providerContext = this.providerContext;
+
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 this.serverUrl,
                 this.now,
@@ -275,8 +282,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
                 metadata.spreadsheetProvider(spreadsheetProvider),
                 ProviderContexts.basic(
-                        metadata.environmentContext(),
-                        PluginStores.fake()
+                        metadata.environmentContext(
+                                providerContext
+                        ),
+                        providerContext.pluginStore()
                 )
         );
 
@@ -297,6 +306,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private final Supplier<LocalDateTime> now;
+
+    private final ProviderContext providerContext;
 
     private Router<HttpRequestAttribute<?>, HttpHandler> cellColumnProvidersRowViewportRouter(final SpreadsheetId id,
                                                                                               final int defaultMax,
