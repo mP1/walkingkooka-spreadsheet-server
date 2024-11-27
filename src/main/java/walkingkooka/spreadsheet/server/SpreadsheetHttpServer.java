@@ -37,6 +37,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -71,6 +72,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final LineEnding lineEnding,
                                              final Supplier<LocalDateTime> now,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
+                                             final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
                                              final HateosResourceHandlerContext hateosResourceHandlerContext,
                                              final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
@@ -82,9 +84,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 Objects.requireNonNull(indentation, "indentation"),
                 Objects.requireNonNull(lineEnding, "lineEnding"),
                 Objects.requireNonNull(now, "now"),
+                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
+                Objects.requireNonNull(providerContext, "providerContext"),
                 Objects.requireNonNull(metadataStore, "metadataStore"),
                 Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
                 Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
                 Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
                 Objects.requireNonNull(fileServer, "fileServer"),
@@ -134,9 +137,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
                                   final Supplier<LocalDateTime> now,
+                                  final SpreadsheetProvider systemSpreadsheetProvider,
+                                  final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                   final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
@@ -147,11 +151,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.lineEnding = lineEnding;
         this.now = now;
 
+        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
+
+        this.providerContext = providerContext;
+
         this.metadataStore = metadataStore;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
-
-        this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
  
@@ -224,12 +230,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 api,
                 this.indentation,
                 this.lineEnding,
+                this.systemSpreadsheetProvider,
+                this.providerContext,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
                 this.hateosResourceHandlerContext,
-                this.now,
-                this.systemSpreadsheetProvider
+                this.now
         );
     }
 
@@ -248,6 +255,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.indentation,
                 this.lineEnding,
                 this.systemSpreadsheetProvider,
+                this.providerContext,
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
@@ -260,6 +268,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private final LineEnding lineEnding;
 
+    private final SpreadsheetProvider systemSpreadsheetProvider;
+
+    private final ProviderContext providerContext;
+
     private final SpreadsheetMetadataStore metadataStore;
 
     private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
@@ -271,8 +283,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
     private final Supplier<LocalDateTime> now;
-
-    private final SpreadsheetProvider systemSpreadsheetProvider;
 
     // files............................................................................................................
 
