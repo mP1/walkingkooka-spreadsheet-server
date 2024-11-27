@@ -33,6 +33,8 @@ A collection of end points to help manage plugins.
 - **GET** /api/plugin/*
 - **GET** /api/plugin/$plugin-name
 - **GET** /api/plugin/$from-plugin-name:$to-plugin-name
+- **POST** /api/plugin/$plugin-name
+  Body contains Plugin as JSON.
 - **DELETE** /api/plugin/*
 - **DELETE** /api/plugin/$plugin-name
 - **DELETE** /api/plugin/$from-plugin-name:$to-plugin-name
