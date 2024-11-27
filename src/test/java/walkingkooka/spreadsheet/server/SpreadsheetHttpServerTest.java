@@ -35,6 +35,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETag;
@@ -57,10 +58,13 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
+import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStores;
+import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -676,6 +680,45 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "",
                 HttpStatusCode.NO_CONTENT.setMessage("No content"),
                 ""
+        );
+    }
+
+    @Test
+    public void testPluginSavePlugin() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/plugin/TestPlugin111",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                        Plugin.with(
+                                PluginName.with("TestPlugin111"),
+                                "plugin-TestPlugin111.jar",
+                                Binary.with("Hello".getBytes(Charset.defaultCharset())),
+                                ClassName.with("example.TestPlugin111"),
+                                EmailAddress.parse("user@example.com"),
+                                LocalDateTime.of(
+                                        1999,
+                                        12,
+                                        31,
+                                        12,
+                                        58
+                                )
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        "{\n" +
+                                "  \"name\": \"TestPlugin111\",\n" +
+                                "  \"filename\": \"plugin-TestPlugin111.jar\",\n" +
+                                "  \"archive\": \"SGVsbG8=\",\n" +
+                                "  \"className\": \"example.TestPlugin111\",\n" +
+                                "  \"user\": \"user@example.com\",\n" +
+                                "  \"timestamp\": \"1999-12-31T12:58\"\n" +
+                                "}",
+                        Plugin.class.getSimpleName()
+                )
         );
     }
 
