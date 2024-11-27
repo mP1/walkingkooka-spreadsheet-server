@@ -63,6 +63,10 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 LinkRelation.SELF,
                 HttpMethod.DELETE,
                 PluginHateosResourceHandlerDelete.INSTANCE
+        ).setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.POST,
+                PluginHateosResourceHandlerSave.INSTANCE
         );
 
         return plugin;
