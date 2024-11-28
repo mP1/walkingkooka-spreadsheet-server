@@ -365,8 +365,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                                 JSON_NODE_MARSHALL_CONTEXT,
                                 JSON_NODE_UNMARSHALL_CONTEXT
                         )
-                ),
-                LocalDateTime::now
+                )
         );
     }
 

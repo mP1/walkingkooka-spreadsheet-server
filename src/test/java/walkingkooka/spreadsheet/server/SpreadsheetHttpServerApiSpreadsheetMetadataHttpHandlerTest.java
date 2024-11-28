@@ -32,8 +32,6 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
-import java.time.LocalDateTime;
-
 public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler>
         implements SpreadsheetMetadataTesting {
 
@@ -64,8 +62,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandlerTest ex
                                 JSON_NODE_MARSHALL_CONTEXT,
                                 JSON_NODE_UNMARSHALL_CONTEXT
                         )
-                ),
-                LocalDateTime::now
+                )
         );
     }
 

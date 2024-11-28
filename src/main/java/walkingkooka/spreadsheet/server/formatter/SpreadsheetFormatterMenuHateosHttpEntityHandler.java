@@ -85,7 +85,6 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
                         SpreadsheetFormatterProviderSamplesContexts.basic(
                                 context.spreadsheetMetadata()
                                         .spreadsheetFormatterContext(
-                                                context::now,
                                                 context, // SpreadsheetLabelNameResolver
                                                 context, // ConverterProvider
                                                 context, // SpreadsheetFormatterProvider

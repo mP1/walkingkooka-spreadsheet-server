@@ -48,10 +48,8 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * A spreadsheet server that uses the given {@link HttpServer} and some other dependencies.
@@ -70,7 +68,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
-                                             final Supplier<LocalDateTime> now,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
@@ -83,7 +80,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 checkServerUrl(serverUrl),
                 Objects.requireNonNull(indentation, "indentation"),
                 Objects.requireNonNull(lineEnding, "lineEnding"),
-                Objects.requireNonNull(now, "now"),
                 Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
                 Objects.requireNonNull(providerContext, "providerContext"),
                 Objects.requireNonNull(metadataStore, "metadataStore"),
@@ -136,7 +132,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
-                                  final Supplier<LocalDateTime> now,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
@@ -149,7 +144,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
-        this.now = now;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -243,8 +237,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext,
-                this.now
+                this.hateosResourceHandlerContext
         );
     }
 
@@ -267,8 +260,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext,
-                this.now
+                this.hateosResourceHandlerContext
         );
     }
 
@@ -301,8 +293,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
-
-    private final Supplier<LocalDateTime> now;
 
     // files............................................................................................................
 

@@ -45,11 +45,9 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 /**
  * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler}.
@@ -67,8 +65,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                                                                        final SpreadsheetMetadataStore metadataStore,
                                                                        final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                        final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                       final Supplier<LocalDateTime> now) {
+                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return new SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(
                 serverUrl,
                 indentation,
@@ -78,8 +75,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext,
-                now
+                hateosResourceHandlerContext
         );
     }
 
@@ -94,8 +90,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                                                                    final SpreadsheetMetadataStore metadataStore,
                                                                    final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                    final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                   final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                   final Supplier<LocalDateTime> now) {
+                                                                   final HateosResourceHandlerContext hateosResourceHandlerContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -109,8 +104,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext,
-                now
+                hateosResourceHandlerContext
         );
 
         this.context = context;

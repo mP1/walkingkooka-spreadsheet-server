@@ -21,6 +21,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.store.PluginStore;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements PluginHateosResourceHandlerContext {
@@ -36,6 +37,11 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
 
     @Override
     public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
         throw new UnsupportedOperationException();
     }
 }
