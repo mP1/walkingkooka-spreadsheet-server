@@ -41,6 +41,7 @@ import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -51,6 +52,7 @@ import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
+import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
@@ -63,6 +65,7 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
+import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
@@ -132,6 +135,8 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -141,6 +146,8 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.jar.JarOutputStream;
+import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -586,6 +593,99 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     // plugin...........................................................................................................
+
+    @Test
+    public void testPluginPostMultipartUploadFail() {
+        final TestHttpServer server = this.startServer();
+
+        server.handleAndCheck(
+                HttpRequests.post(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/*/upload"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
+                                .addHeader(
+                                        HttpHeaderName.ACCEPT,
+                                        MediaType.BINARY.accept()
+                                )
+                ), // request
+                HttpStatusCode.BAD_REQUEST.status()
+                        .setMessage("Multipart, content-type missing boundary"),
+                ""
+        );
+    }
+
+    @Test
+    public void testPluginPostMultipartUpload() throws Exception {
+        final TestHttpServer server = this.startServer();
+
+        final PluginName pluginName = PluginName.with("TestPlugin111");
+
+        final String manifest = "Manifest-Version: 1.0\r\n" +
+                "plugin-name: TestPlugin111\r\n" +
+                "plugin-provider-factory-className: example.TestPlugin111\r\n";
+
+        final Binary jar;
+
+        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+            final Manifest manifestEntry = new Manifest();
+            manifestEntry.read(
+                    new ByteArrayInputStream(
+                            manifest.getBytes(Charset.defaultCharset())
+                    )
+            );
+
+            final JarOutputStream jarOut = new JarOutputStream(
+                    bytes,
+                    manifestEntry
+            );
+
+            jarOut.flush();
+            jarOut.finish();
+            jarOut.close();
+
+            jar = Binary.with(
+                    bytes.toByteArray()
+            );
+        }
+
+        server.handleAndCheck(
+                HttpRequests.post(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/*/upload"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.setContentType(
+                                MediaType.MULTIPART_FORM_DATA.setBoundary(
+                                        MediaTypeBoundary.parse("delimiter12345")
+                                )
+                        ).setBodyText(
+                                "--delimiter12345\r\n" +
+                                        "Content-Disposition: form-data; name=\"field2\"; filename=\"TestPlugin111.jar\"\r\n" +
+                                        "\r\n" +
+                                        new String(
+                                                jar.value(),
+                                                HttpEntity.DEFAULT_BODY_CHARSET
+                                        ) +
+                                        "\r\n" +
+                                        "--delimiter12345--"
+                        )
+                ), // request
+                HttpStatusCode.OK.status(),
+                ""
+        );
+
+        this.checkEquals(
+                Plugin.with(
+                        pluginName,
+                        "TestPlugin111.jar",
+                        jar,
+                        ClassName.with("example.TestPlugin111"),
+                        EmailAddress.parse("user@example.com"),
+                        NOW.now()
+                ),
+                server.pluginStore.loadOrFail(pluginName)
+        );
+    }
 
     @Test
     public void testPluginGetInvalidPluginNameGivesBadRequest() {
@@ -9976,7 +10076,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ),
                 ProviderContexts.basic(
                         EnvironmentContexts.empty(NOW),
-                        PluginStores.treeMap()
+                        this.httpServer.pluginStore
                 ),
                 this.metadataStore,
                 HateosResourceHandlerContexts.basic(
@@ -10160,6 +10260,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         private TestHttpServer() {
             super();
+            this.pluginStore = PluginStores.treeMap();
         }
 
         void setHandler(final HttpHandler handler) {
@@ -10233,6 +10334,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         private boolean started;
         private HttpHandler handler;
+
+        private final PluginStore pluginStore;
 
         @Override
         public String toString() {
