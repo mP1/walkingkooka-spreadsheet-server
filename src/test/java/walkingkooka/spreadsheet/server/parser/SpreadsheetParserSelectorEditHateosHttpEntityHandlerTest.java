@@ -247,7 +247,6 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         return formatter.format(
                                 value,
                                 SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
-                                        NOW,
                                         SpreadsheetLabelNameResolvers.fake(),
                                         CONVERTER_PROVIDER,
                                         SPREADSHEET_FORMATTER_PROVIDER,
@@ -264,7 +263,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
 
                     @Override
                     public LocalDateTime now() {
-                        return NOW.get();
+                        return NOW.now();
                     }
                 },
                 this.httpEntity(

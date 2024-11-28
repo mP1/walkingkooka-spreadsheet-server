@@ -27,6 +27,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -106,6 +107,11 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.providerContext.now();
     }
 
     private final ProviderContext providerContext;

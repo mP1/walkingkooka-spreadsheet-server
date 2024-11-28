@@ -90,12 +90,10 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * A {@link SpreadsheetMetadataHateosResourceHandlerContext} that creates a new {@link SpreadsheetStoreRepository} for unknown {@link SpreadsheetId}.
@@ -115,8 +113,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final Supplier<LocalDateTime> now) {
+                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext) {
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
@@ -126,7 +123,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider");
         Objects.requireNonNull(spreadsheetIdToRepository, "spreadsheetIdToRepository");
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
-        Objects.requireNonNull(now, "now");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
                 serverUrl,
@@ -137,8 +133,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                hateosResourceHandlerContext,
-                now
+                hateosResourceHandlerContext
         );
     }
 
@@ -150,8 +145,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final Supplier<LocalDateTime> now) {
+                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -168,8 +162,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.spreadsheetIdToRepository = spreadsheetIdToRepository;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
-
-        this.now = now;
     }
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
@@ -275,7 +267,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
                 this.serverUrl,
-                this.now,
                 metadata,
                 engine,
                 repository,
@@ -301,11 +292,9 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
                 SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
-                this.now.get()
+                this.providerContext.now()
         );
     }
-
-    private final Supplier<LocalDateTime> now;
 
     private final ProviderContext providerContext;
 
@@ -388,7 +377,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         ),
                         context,
                         metadata.spreadsheetFormatterContext(
-                                context::now,
                                 context, // SpreadsheetLabelNameResolver
                                 context, // ConverterProvider
                                 context, // SpreadsheetFormatterProvider

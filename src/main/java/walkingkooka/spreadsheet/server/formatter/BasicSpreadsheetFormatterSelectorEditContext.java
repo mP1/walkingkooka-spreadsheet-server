@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -76,6 +77,11 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.providerContext.now();
     }
 
     private final ProviderContext providerContext;

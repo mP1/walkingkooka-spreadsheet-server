@@ -44,7 +44,9 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
@@ -92,7 +94,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -114,8 +115,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             )
     );
 
-    private final static Supplier<LocalDateTime> NOW = LocalDateTime::now;
-
     private final static EmailAddress CREATOR = EmailAddress.parse("creator@example.com");
 
     @Test
@@ -129,8 +128,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -145,8 +143,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -161,8 +158,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -177,8 +173,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -193,8 +188,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -210,8 +204,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 null,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -226,8 +219,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 null,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -242,8 +234,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                NOW
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -258,23 +249,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                null,
-                NOW
-        );
-    }
-
-    @Test
-    public void testWithNullNowFails() {
-        this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
                 null
         );
     }
@@ -287,8 +261,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                            final SpreadsheetMetadataStore metadataStore,
                            final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                           final HateosResourceHandlerContext hateosResourceHandlerContext,
-                           final Supplier<LocalDateTime> now) {
+                           final HateosResourceHandlerContext hateosResourceHandlerContext) {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
@@ -300,8 +273,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                         metadataStore,
                         spreadsheetIdToSpreadsheetProvider,
                         spreadsheetIdToRepository,
-                        hateosResourceHandlerContext,
-                        now
+                        hateosResourceHandlerContext
                 )
         );
     }
@@ -731,8 +703,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private void hateosRouterThenSaveThenLoadAndCheck(final SpreadsheetEngineEvaluation evaluation,
                                                       final String expectedBody) {
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
-        now.set(NOW.get());
-        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(now::get);
+        now.set(NOW.now());
+        final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
+                new FakeProviderContext() {
+                    @Override
+                    public LocalDateTime now() {
+                        return now.get();
+                    }
+
+                    @Override
+                    public PluginStore pluginStore() {
+                        return PROVIDER_CONTEXT.pluginStore();
+                    }
+                }
+        );
         final SpreadsheetId id = this.spreadsheetId();
 
         final Router<HttpRequestAttribute<?>, HttpHandler> router = context.httpRouter(id);
@@ -1118,21 +1102,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Override
     public BasicSpreadsheetMetadataHateosResourceHandlerContext createContext() {
-        return this.createContext(NOW);
+        return this.createContext(PROVIDER_CONTEXT);
     }
 
-    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final Supplier<LocalDateTime> now) {
+    private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 this.base(),
                 INDENTATION,
                 LINE_ENDING,
                 SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
+                providerContext,
                 METADATA_STORE,
                 this::spreadsheetIdToSpreadsheetProvider,
                 this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                now
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 

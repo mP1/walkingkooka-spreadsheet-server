@@ -34,9 +34,7 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-import java.time.LocalDateTime;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * A handler that routes all spreadsheet API calls.
@@ -54,8 +52,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final SpreadsheetMetadataStore metadataStore,
                                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                     final Supplier<LocalDateTime> now) {
+                                                                     final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
                 serverUrl,
                 indentation,
@@ -65,8 +62,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext,
-                now
+                hateosResourceHandlerContext
         );
     }
 
@@ -81,8 +77,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                  final SpreadsheetMetadataStore metadataStore,
                                                                  final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                  final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                 final Supplier<LocalDateTime> now) {
+                                                                 final HateosResourceHandlerContext hateosResourceHandlerContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -108,8 +103,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
-
-        this.now = now;
     }
 
     // Router...........................................................................................................
@@ -140,8 +133,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                 this.metadataStore,
                 this.spreadsheetIdToSpreadsheetProvider,
                 this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext,
-                this.now
+                this.hateosResourceHandlerContext
         ).httpRouter(id);
     }
 
@@ -161,8 +153,6 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository;
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
-
-    private final Supplier<LocalDateTime> now;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
 

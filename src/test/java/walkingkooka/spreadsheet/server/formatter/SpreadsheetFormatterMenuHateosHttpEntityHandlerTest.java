@@ -212,7 +212,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
 
                     @Override
                     public LocalDateTime now() {
-                        return NOW.get();
+                        return NOW.now();
                     }
 
                     @Override

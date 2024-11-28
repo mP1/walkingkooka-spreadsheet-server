@@ -250,7 +250,6 @@ public class JunitTest {
                 ),
                 Indentation.SPACES2,
                 LineEnding.NL,
-                () -> now, // now
                 SpreadsheetProviders.fake(),
                 ProviderContexts.fake(),
                 metadataStore,

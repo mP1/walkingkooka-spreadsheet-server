@@ -282,7 +282,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
                 Url.parseAbsolute("https://example.com"),
-                LocalDateTime::now,
                 METADATA,
                 SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
                 new FakeSpreadsheetStoreRepository() {

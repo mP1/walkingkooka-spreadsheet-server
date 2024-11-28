@@ -30,9 +30,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
-import java.time.LocalDateTime;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public final class SpreadsheetMetadataHateosResourceHandlerContexts implements PublicStaticHelper {
 
@@ -47,8 +45,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final SpreadsheetMetadataStore metadataStore,
                                                                         final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                                        final Supplier<LocalDateTime> now) {
+                                                                        final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
                 indentation,
@@ -58,8 +55,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                 metadataStore,
                 spreadsheetIdToSpreadsheetProvider,
                 spreadsheetIdToRepository,
-                hateosResourceHandlerContext,
-                now
+                hateosResourceHandlerContext
         );
     }
 
