@@ -90,8 +90,6 @@ public final class PluginHateosResourceHandlerSaveTest
         final PluginStore store;
     }
 
-    ;
-
     @Test
     public void testHandleOneCreate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
