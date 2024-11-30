@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.color.Color;
 import walkingkooka.convert.Converter;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -165,6 +166,11 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
 
     @Override
     public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 }

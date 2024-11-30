@@ -115,8 +115,6 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             )
     );
 
-    private final static EmailAddress CREATOR = EmailAddress.parse("creator@example.com");
-
     @Test
     public void testWithNullServerUrlFails() {
         this.withFails(
@@ -715,6 +713,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     public PluginStore pluginStore() {
                         return PROVIDER_CONTEXT.pluginStore();
                     }
+
+                    @Override
+                    public Optional<EmailAddress> user() {
+                        return PROVIDER_CONTEXT.user();
+                    }
                 }
         );
         final SpreadsheetId id = this.spreadsheetId();
@@ -959,7 +962,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetMetadata metadata = context.metadataStore()
                 .create(
-                        CREATOR,
+                        USER,
                         Optional.empty()
                 ).set(
                         SpreadsheetMetadataPropertyName.LOCALE,

@@ -23,7 +23,6 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.http.HttpEntity;
@@ -66,7 +65,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 pluginName + ".jar",
                 jarFile(pluginName),
                 ClassName.with("example." + pluginName),
-                EmailAddress.parse("user@example.com"),
+                USER,
                 NOW.now()
         );
     }
@@ -105,7 +104,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                                 "old.jar",
                                 jarFile("TestPlugin222"),
                                 ClassName.with("example.Old"),
-                                EmailAddress.parse("user@example.com"),
+                                USER,
                                 NOW.now()
                         )
                 );

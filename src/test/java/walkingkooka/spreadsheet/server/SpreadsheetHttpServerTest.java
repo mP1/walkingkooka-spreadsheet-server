@@ -35,7 +35,6 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ETag;
@@ -680,7 +679,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         "TestPlugin111.jar",
                         jar,
                         ClassName.with("example.TestPlugin111"),
-                        EmailAddress.parse("user@example.com"),
+                        USER,
                         NOW.now()
                 ),
                 server.pluginStore.loadOrFail(pluginName)
@@ -761,7 +760,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "plugin-TestPlugin111.jar",
                                 Binary.with("Hello".getBytes(Charset.defaultCharset())),
                                 ClassName.with("example.TestPlugin111"),
-                                EmailAddress.parse("user@example.com"),
+                                USER,
                                 LocalDateTime.of(
                                         1999,
                                         12,
@@ -10075,7 +10074,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         SPREADSHEET_PARSER_PROVIDER
                 ),
                 ProviderContexts.basic(
-                        EnvironmentContexts.empty(NOW),
+                        EnvironmentContexts.empty(
+                                NOW,
+                                Optional.of(USER)
+                        ),
                         this.httpServer.pluginStore
                 ),
                 this.metadataStore,

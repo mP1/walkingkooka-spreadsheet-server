@@ -25,6 +25,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
@@ -479,6 +480,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 

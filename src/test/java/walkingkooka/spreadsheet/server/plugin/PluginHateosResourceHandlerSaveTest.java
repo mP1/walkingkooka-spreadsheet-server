@@ -33,6 +33,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
@@ -46,7 +47,8 @@ public final class PluginHateosResourceHandlerSaveTest
         Plugin,
         PluginSet,
         PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerSave> {
+        ToStringTesting<PluginHateosResourceHandlerSave>,
+        SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -64,14 +66,8 @@ public final class PluginHateosResourceHandlerSaveTest
                 "plugin-" + n * 111 + ".jar",
                 Binary.with("Hello".getBytes(Charset.defaultCharset())),
                 ClassName.with("example.TestPlugin" + n * 111),
-                EmailAddress.parse("user@example.com"),
-                LocalDateTime.of(
-                        1999,
-                        12,
-                        31,
-                        12,
-                        58
-                )
+                USER,
+                NOW.now()
         );
     }
 

@@ -156,7 +156,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                                         SPREADSHEET_ID
                                                 ).set(
                                                         SpreadsheetMetadataPropertyName.CREATOR,
-                                                        EmailAddress.parse("load@example.com")
+                                                        USER
                                                 )
                                         );
                                     }
@@ -171,7 +171,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 HttpStatusCode.OK,
                 "{\n" +
                         "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"load@example.com\"\n" +
+                        "  \"creator\": \"user@example.com\"\n" +
                         "}"
         );
     }
