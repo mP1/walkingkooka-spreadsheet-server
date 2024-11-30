@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -33,7 +34,8 @@ import java.util.function.Function;
 /**
  * A {@link Context} for spreadsheets.
  */
-public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext {
+public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
+        EnvironmentContext {
 
     /**
      * Saves the given {@link SpreadsheetMetadata}.

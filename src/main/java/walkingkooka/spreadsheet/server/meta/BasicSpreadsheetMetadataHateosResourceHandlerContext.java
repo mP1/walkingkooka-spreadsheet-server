@@ -22,6 +22,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
@@ -100,7 +102,8 @@ import java.util.function.Function;
  * There is no way to delete existing spreadsheets.
  */
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
-        HateosResourceHandlerContextDelegator {
+        HateosResourceHandlerContextDelegator,
+        EnvironmentContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -413,6 +416,13 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
+
+    // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.providerContext;
+    }
 
     // Object...........................................................................................................
 
