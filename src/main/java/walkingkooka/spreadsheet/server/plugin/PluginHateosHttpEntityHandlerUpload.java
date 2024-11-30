@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Binary;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -93,7 +92,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                                             filename.value(), // filename
                                             archive, // archive
                                             pluginArchiveManifest.className(), // classname
-                                            USER, //
+                                            context.userOrFail(), //
                                             context.now()
                                     )
                             );
@@ -115,8 +114,6 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
 
         return response;
     }
-
-    private final static EmailAddress USER = EmailAddress.parse("user@example.com");
 
     @Override
     public String toString() {

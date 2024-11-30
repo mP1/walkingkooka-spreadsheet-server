@@ -23,6 +23,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.http.HttpEntity;
@@ -42,6 +43,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
@@ -251,6 +253,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         }
 
         final PluginStore store;
+
+        @Override
+        public Optional<EmailAddress> user() {
+            return Optional.of(USER);
+        }
     }
 
     // toString.........................................................................................................
