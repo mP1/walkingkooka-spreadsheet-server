@@ -76,6 +76,11 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     }
 
     @Override
+    public void testUser() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public BasicPluginHateosResourceHandlerContext createContext() {
         return BasicPluginHateosResourceHandlerContext.with(
                 HATEOS_RESOURCE_HANDLER_CONTEXT,

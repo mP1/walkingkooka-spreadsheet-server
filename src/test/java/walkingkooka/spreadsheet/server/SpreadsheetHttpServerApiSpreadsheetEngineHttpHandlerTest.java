@@ -404,7 +404,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
     }
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
-        final EmailAddress user = EmailAddress.parse("user@example.com");
+        final EmailAddress user = USER;
         final LocalDateTime now = LocalDateTime.now();
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS

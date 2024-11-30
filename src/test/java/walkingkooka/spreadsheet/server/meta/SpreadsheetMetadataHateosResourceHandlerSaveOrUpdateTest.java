@@ -43,7 +43,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     @Test
     public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
+                .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         this.handleNoneFails(
                 Optional.empty(),
@@ -86,7 +86,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         final SpreadsheetMetadata metadata =
                 SpreadsheetMetadata.EMPTY
                         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-                        .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
+                        .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         final Locale locale = Locale.CANADA_FRENCH;
 
@@ -132,7 +132,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     public void testHandleNoneCreatesMetadataWithoutLocale() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"));
+                .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         this.handleNoneAndCheck(
                 Optional.empty(),

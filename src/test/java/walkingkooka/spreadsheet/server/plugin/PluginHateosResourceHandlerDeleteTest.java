@@ -24,7 +24,6 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.PluginName;
@@ -34,9 +33,9 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -47,7 +46,8 @@ public final class PluginHateosResourceHandlerDeleteTest
         Plugin,
         PluginSet,
         PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerDelete> {
+        ToStringTesting<PluginHateosResourceHandlerDelete>,
+        SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -65,14 +65,8 @@ public final class PluginHateosResourceHandlerDeleteTest
                 "plugin-" + n * 111 + ".jar",
                 Binary.with("Hello".getBytes(Charset.defaultCharset())),
                 ClassName.with("example.TestPlugin" + n * 111),
-                EmailAddress.parse("user@example.com"),
-                LocalDateTime.of(
-                        1999,
-                        12,
-                        31,
-                        12,
-                        58
-                )
+                USER,
+                NOW.now()
         );
     }
 
