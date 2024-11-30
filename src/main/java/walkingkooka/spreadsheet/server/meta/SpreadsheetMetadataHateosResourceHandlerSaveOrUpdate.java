@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -107,7 +106,7 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
 
         final SpreadsheetMetadata saved = context.metadataStore()
                 .create(
-                        CREATOR,
+                        context.userOrFail(),
                         HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
                                 .flatMap(this::preferredLocale)
                 );
@@ -116,8 +115,6 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
 
         return saved;
     }
-
-    private final static EmailAddress CREATOR = EmailAddress.parse("user@example.com");
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {
         return language.value().get(0).value().locale();

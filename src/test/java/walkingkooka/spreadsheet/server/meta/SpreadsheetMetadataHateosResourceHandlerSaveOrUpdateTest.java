@@ -76,6 +76,11 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                             );
                         }
                     };
+
+                    @Override
+                    public Optional<EmailAddress> user() {
+                        return Optional.of(USER);
+                    }
                 },
                 IllegalStateException.class
         );
@@ -121,6 +126,11 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                             );
                         }
                     };
+
+                    @Override
+                    public Optional<EmailAddress> user() {
+                        return Optional.of(USER);
+                    }
                 },
                 Optional.of(
                         metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)
@@ -162,6 +172,11 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                             );
                         }
                     };
+
+                    @Override
+                    public Optional<EmailAddress> user() {
+                        return Optional.of(USER);
+                    }
                 },
                 Optional.of(metadata)
         );
@@ -211,21 +226,13 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
                         .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
+
+            @Override
+            public Optional<EmailAddress> user() {
+                return Optional.of(USER);
+            }
         };
     }
-
-//    private SpreadsheetMetadataHateosResourceHandlerContext context(final Optional<Locale> locale) {
-//        return new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-//
-//
-//
-//            @Override
-//            public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-//                return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
-//                        .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
-//            }
-//        };
-//    }
 
     // toString.........................................................................................................
 
