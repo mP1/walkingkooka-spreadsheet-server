@@ -4,4 +4,6 @@
 **/*Testing.*
 **/*Testing2.*
 
+**/SpreadsheetHttpServerApiPluginHttpHandler.*
+**/plugin/*
 
