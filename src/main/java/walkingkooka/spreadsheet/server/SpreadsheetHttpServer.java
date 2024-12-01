@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
@@ -170,10 +169,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         final UrlPath api = UrlPath.parse(API);
         final UrlPath spreadsheet = UrlPath.parse(SPREADSHEET);
+        final UrlPath plugin = UrlPath.parse(PLUGIN);
 
-        this.router = plugin(
-                RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty(),
-                serverUrl.setPath(api)
+        this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
+                .add(
+                        this.routing(plugin)
+                                .build(),
+                        this.pluginHttpHandler(
+                                serverUrl.setPath(api)
+                        )
                 ).add(
                         this.routing(api)
                                 .build(),
@@ -260,31 +264,13 @@ public final class SpreadsheetHttpServer implements HttpServer {
         );
     }
 
-    // plugin...........................................................................................................
-
-    private RouteMappings<HttpRequestAttribute<?>, HttpHandler> plugin(final RouteMappings<HttpRequestAttribute<?>, HttpHandler> mappings,
-                                                                       final AbsoluteUrl apiPlugin) {
-        return SpreadsheetHttpServerPlugin.httpHandler(
-                this,
-                mappings,
-                apiPlugin
-        );
-    }
-
-    @GwtIncompatible
-    RouteMappings<HttpRequestAttribute<?>, HttpHandler> plugin0(final RouteMappings<HttpRequestAttribute<?>, HttpHandler> mappings,
-                                                                final AbsoluteUrl apiPlugin) {
-        return mappings.add(
-                this.routing(
-                        UrlPath.parse(PLUGIN)
-                ).build(),
-                SpreadsheetHttpServerApiPluginHttpHandler.with(
+    private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
+        return SpreadsheetHttpServerApiPluginHttpHandler.with(
                         apiPlugin,
                         this.indentation,
                         this.lineEnding,
                         this.hateosResourceHandlerContext,
                         this.providerContext
-                )
         );
     }
 
