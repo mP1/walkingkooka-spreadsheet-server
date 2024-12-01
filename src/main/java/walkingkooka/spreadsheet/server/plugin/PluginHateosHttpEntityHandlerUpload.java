@@ -91,7 +91,6 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                                             pluginArchiveManifest.pluginName(), // name
                                             filename.value(), // filename
                                             archive, // archive
-                                            pluginArchiveManifest.className(), // classname
                                             context.userOrFail(), //
                                             context.now()
                                     )

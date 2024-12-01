@@ -31,7 +31,6 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
-import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
@@ -64,7 +63,6 @@ public final class PluginHateosResourceHandlerLoadTest
                 PluginName.with("TestPlugin" + n * 111),
                 "plugin-" + n * 111 + ".jar",
                 Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                ClassName.with("example.TestPlugin" + n * 111),
                 USER,
                 NOW.now()
         );

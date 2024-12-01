@@ -33,7 +33,6 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
-import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
@@ -66,7 +65,6 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 PluginName.with(pluginName),
                 pluginName + ".jar",
                 jarFile(pluginName),
-                ClassName.with("example." + pluginName),
                 USER,
                 NOW.now()
         );
@@ -105,7 +103,6 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                                 PluginName.with("TestPlugin222"),
                                 "old.jar",
                                 jarFile("TestPlugin222"),
-                                ClassName.with("example.Old"),
                                 USER,
                                 NOW.now()
                         )
