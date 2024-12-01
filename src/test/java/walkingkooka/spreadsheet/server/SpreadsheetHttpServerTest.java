@@ -66,7 +66,6 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
-import walkingkooka.reflect.ClassName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
@@ -678,7 +677,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         pluginName,
                         "TestPlugin111.jar",
                         jar,
-                        ClassName.with("example.TestPlugin111"),
                         USER,
                         NOW.now()
                 ),
@@ -759,7 +757,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 PluginName.with("TestPlugin111"),
                                 "plugin-TestPlugin111.jar",
                                 Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                                ClassName.with("example.TestPlugin111"),
                                 USER,
                                 LocalDateTime.of(
                                         1999,
@@ -776,7 +773,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"name\": \"TestPlugin111\",\n" +
                                 "  \"filename\": \"plugin-TestPlugin111.jar\",\n" +
                                 "  \"archive\": \"SGVsbG8=\",\n" +
-                                "  \"className\": \"example.TestPlugin111\",\n" +
                                 "  \"user\": \"user@example.com\",\n" +
                                 "  \"timestamp\": \"1999-12-31T12:58\"\n" +
                                 "}",
