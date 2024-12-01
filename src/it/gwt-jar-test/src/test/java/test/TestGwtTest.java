@@ -7,6 +7,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlScheme;
@@ -27,6 +28,7 @@ import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContexts;
+import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterProviders;
@@ -243,7 +245,15 @@ public class TestGwtTest extends GWTTestCase {
                 Indentation.SPACES2,
                 LineEnding.NL,
                 SpreadsheetProviders.fake(),
-                ProviderContexts.fake(),
+                ProviderContexts.basic(
+                        EnvironmentContexts.empty(
+                                LocalDateTime::now,
+                                Optional.of(
+                                        EmailAddress.parse("user@example.com")
+                                )
+                        ),
+                        PluginStores.treeMap()
+                ),
                 metadataStore,
                 HateosResourceHandlerContexts.basic(
                         JsonNodeMarshallUnmarshallContexts.basic(
