@@ -33,14 +33,9 @@ import walkingkooka.plugin.PluginArchiveManifest;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.text.CharSequences;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
 
 /**
  * Handles uploads of JAR files.
@@ -75,35 +70,23 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
             if (null != filename) {
                 final Binary archive = part.body();
 
-                try (final ByteArrayInputStream bytes = new ByteArrayInputStream(archive.value())) {
-                    final JarInputStream jarInputStream = new JarInputStream(bytes);
+                PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.fromArchive(archive);
 
-                    final Manifest manifest = jarInputStream.getManifest();
-                    if (null == manifest) {
-                        throw new IllegalArgumentException("Archive missing " + CharSequences.quoteAndEscape(PluginArchiveManifest.MANIFEST_MF_PATH));
-                    }
+                context.pluginStore()
+                        .save(
+                                Plugin.with(
+                                        pluginArchiveManifest.pluginName(), // name
+                                        filename.value(), // filename
+                                        archive, // archive
+                                        context.userOrFail(), //
+                                        context.now()
+                                )
+                        );
 
-                    PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.with(manifest);
-
-                    context.pluginStore()
-                            .save(
-                                    Plugin.with(
-                                            pluginArchiveManifest.pluginName(), // name
-                                            filename.value(), // filename
-                                            archive, // archive
-                                            context.userOrFail(), //
-                                            context.now()
-                                    )
-                            );
-
-                    response = HttpEntity.EMPTY
-                            .setContentType(MediaType.BINARY)
-                            .setBody(archive)
-                            .setContentLength();
-                } catch (final IOException cause) {
-                    cause.printStackTrace();
-                    throw new IllegalArgumentException(cause);
-                }
+                response = HttpEntity.EMPTY
+                        .setContentType(MediaType.BINARY)
+                        .setBody(archive)
+                        .setContentLength();
             }
         }
 
