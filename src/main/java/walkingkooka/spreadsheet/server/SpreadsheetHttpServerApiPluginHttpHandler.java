@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
@@ -34,7 +33,6 @@ import walkingkooka.text.LineEnding;
 /**
  * A handler that routes all plugin API calls.
  */
-@GwtIncompatible
 final class SpreadsheetHttpServerApiPluginHttpHandler implements HttpHandler {
 
     /**
