@@ -22,11 +22,11 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class SpreadsheetHttpServerLinkRelationsTest implements PublicStaticHelperTesting<SpreadsheetHttpServerLinkRelations> {
+public final class SpreadsheetServerLinkRelationsTest implements PublicStaticHelperTesting<SpreadsheetServerLinkRelations> {
 
     @Override
-    public Class<SpreadsheetHttpServerLinkRelations> type() {
-        return SpreadsheetHttpServerLinkRelations.class;
+    public Class<SpreadsheetServerLinkRelations> type() {
+        return SpreadsheetServerLinkRelations.class;
     }
 
     @Override

@@ -28,7 +28,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 import java.util.Objects;
 
@@ -61,27 +61,27 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 HttpMethod.GET,
                 SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.EDIT,
+                SpreadsheetServerLinkRelations.EDIT,
                 HttpMethod.POST,
                 SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.FORMAT,
+                SpreadsheetServerLinkRelations.FORMAT,
                 HttpMethod.POST,
                 SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.MENU,
+                SpreadsheetServerLinkRelations.MENU,
                 HttpMethod.GET,
                 SpreadsheetFormatterMenuHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.TOKENS,
+                SpreadsheetServerLinkRelations.TOKENS,
                 HttpMethod.POST,
                 SpreadsheetFormatterTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.NEXT_TOKEN,
+                SpreadsheetServerLinkRelations.NEXT_TOKEN,
                 HttpMethod.POST,
                 SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.SAMPLES,
+                SpreadsheetServerLinkRelations.SAMPLES,
                 HttpMethod.GET,
                 SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
         );

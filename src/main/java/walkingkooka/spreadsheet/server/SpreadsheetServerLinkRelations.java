@@ -20,7 +20,7 @@ package walkingkooka.spreadsheet.server;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.reflect.PublicStaticHelper;
 
-public final class SpreadsheetHttpServerLinkRelations implements PublicStaticHelper {
+public final class SpreadsheetServerLinkRelations implements PublicStaticHelper {
 
     public final static LinkRelation<?> DOWNLOAD = LinkRelation.with("download");
 
@@ -41,7 +41,7 @@ public final class SpreadsheetHttpServerLinkRelations implements PublicStaticHel
     /**
      * Stop creation
      */
-    private SpreadsheetHttpServerLinkRelations() {
+    private SpreadsheetServerLinkRelations() {
         throw new UnsupportedOperationException();
     }
 }
