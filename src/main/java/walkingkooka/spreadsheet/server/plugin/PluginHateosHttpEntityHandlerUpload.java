@@ -33,6 +33,7 @@ import walkingkooka.plugin.PluginArchiveManifest;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
 import java.util.Map;
 import java.util.Objects;
@@ -74,7 +75,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
             if (null == contentType) {
                 throw new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE);
             }
-            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Expected " + MediaType.MULTIPART_FORM_DATA + " or " + MediaType.APPLICATION_JSON);
+            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Expected " + MediaType.MULTIPART_FORM_DATA + " or " + SpreadsheetServerMediaTypes.CONTENT_TYPE);
         }
 
         return response;

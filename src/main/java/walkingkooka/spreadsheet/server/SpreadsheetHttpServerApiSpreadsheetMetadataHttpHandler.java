@@ -19,7 +19,6 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
@@ -138,7 +137,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
         HttpHandlers.methodNotAllowed(
                 HttpMethod.PATCH,
                 HttpHandlers.contentType(
-                        MediaType.APPLICATION_JSON,
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE,
                         JsonHttpHandlers.json(
                                 (json) -> SpreadsheetMetadataHttpMappings.patch(
                                         SpreadsheetId.parse(
