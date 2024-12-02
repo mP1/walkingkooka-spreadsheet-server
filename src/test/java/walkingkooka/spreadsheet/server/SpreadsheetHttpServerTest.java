@@ -140,6 +140,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -865,6 +866,68 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"timestamp\": \"1999-12-31T12:58\"\n" +
                                 "}",
                         Plugin.class.getSimpleName()
+                )
+        );
+    }
+
+    @Test
+    public void testPluginDownloadAbsent() {
+        final TestHttpServer server = this.startServer();
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/download"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.BINARY.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status(),
+                        HttpEntity.EMPTY
+                )
+        );
+    }
+
+    @Test
+    public void testPluginDownload() {
+        final TestHttpServer server = this.startServer();
+
+        final Plugin plugin = Plugin.with(
+                PluginName.with("TestPlugin111"),
+                "TestPlugin111-download.jar",
+                Binary.with("Hello".getBytes(StandardCharsets.UTF_8)),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin);
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/download"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.BINARY.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        ContentDispositionType.ATTACHMENT.setFilename(
+                                                ContentDispositionFileName.notEncoded("TestPlugin111-download.jar")
+                                        )
+                                ).setBody(
+                                        plugin.archive()
+                                ).setContentLength()
                 )
         );
     }
