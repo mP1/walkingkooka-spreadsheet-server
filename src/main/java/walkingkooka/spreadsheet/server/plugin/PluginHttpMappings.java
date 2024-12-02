@@ -69,7 +69,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 HttpMethod.POST,
                 PluginHateosResourceHandlerSave.INSTANCE
         ).setHateosHttpEntityHandler(
-                UPLOAD,
+                SpreadsheetHttpServerLinkRelations.UPLOAD,
                 HttpMethod.POST,
                 PluginHateosHttpEntityHandlerUpload.INSTANCE
         ).setHateosHttpEntityHandler(
@@ -123,8 +123,6 @@ public final class PluginHttpMappings implements PublicStaticHelper {
      * A {@link HateosResourceName} with <code>plugin</code>.
      */
     public static final HateosResourceName PLUGIN = HateosResourceName.with("plugin");
-
-    private final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
 
     // router...........................................................................................................
 
