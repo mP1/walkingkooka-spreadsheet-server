@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.plugin;
 import walkingkooka.Binary;
 import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
-import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -145,13 +144,10 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                         )
                 );
 
-        return HttpEntity.EMPTY
-                .setContentType(MediaType.BINARY)
-                .addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(filename)
-                ).setBody(archive)
-                .setContentLength();
+        return PluginHttpEntity.httpEntity(
+                filename,
+                archive
+        );
     }
 
     @Override
