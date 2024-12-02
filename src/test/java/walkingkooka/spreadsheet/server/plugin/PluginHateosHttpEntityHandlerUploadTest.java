@@ -71,6 +71,38 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
+    public void testHandleAllMissingContentTypeFails() {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                HttpEntity.EMPTY,
+                this.parameters(),
+                new TestPluginHateosResourceHandlerContext(),
+                IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+                "Missing Content-Type",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testHandleAllContentTypeNotMultipartFails() {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.TEXT_PLAIN
+                ),
+                this.parameters(),
+                new TestPluginHateosResourceHandlerContext(),
+                IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+                "Content-Type: Expected multipart/form-data or application/json",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleAllCreate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
