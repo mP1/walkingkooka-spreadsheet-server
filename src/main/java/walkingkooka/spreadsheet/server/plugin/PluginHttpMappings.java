@@ -115,7 +115,7 @@ public final class PluginHttpMappings implements PublicStaticHelper {
     }
 
     /**
-     * A {@link HateosResourceName} with <code>cell</code>.
+     * A {@link HateosResourceName} with <code>plugin</code>.
      */
     public static final HateosResourceName PLUGIN = HateosResourceName.with("plugin");
 
