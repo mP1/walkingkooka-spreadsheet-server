@@ -36,6 +36,8 @@ public final class SpreadsheetHttpServerLinkRelations implements PublicStaticHel
 
     public final static LinkRelation<?> SAMPLES = LinkRelation.with("samples");
 
+    public final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
+
     /**
      * Stop creation
      */
