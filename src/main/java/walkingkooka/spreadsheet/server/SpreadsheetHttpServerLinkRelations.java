@@ -22,6 +22,8 @@ import walkingkooka.reflect.PublicStaticHelper;
 
 public final class SpreadsheetHttpServerLinkRelations implements PublicStaticHelper {
 
+    public final static LinkRelation<?> DOWNLOAD = LinkRelation.with("download");
+
     public final static LinkRelation<?> EDIT = LinkRelation.with("edit");
 
     public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
