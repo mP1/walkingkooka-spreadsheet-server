@@ -63,6 +63,27 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
 
         HttpEntity response = null;
 
+        final MediaType contentType = entity.contentType()
+                .orElse(null);
+        if (MediaType.MULTIPART_FORM_DATA.test(contentType)) {
+            response = this.multipartUpload(
+                    entity,
+                    context
+            );
+        } else {
+            if (null == contentType) {
+                throw new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE);
+            }
+            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Expected " + MediaType.MULTIPART_FORM_DATA + " or " + MediaType.APPLICATION_JSON);
+        }
+
+        return response;
+    }
+
+    private HttpEntity multipartUpload(final HttpEntity entity,
+                                       final PluginHateosResourceHandlerContext context) {
+        HttpEntity response = null;
+
         for (final HttpEntity part : entity.multiparts()) {
             final ContentDisposition contentDisposition = HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(part);
             final ContentDispositionFileName filename = contentDisposition.filename()
