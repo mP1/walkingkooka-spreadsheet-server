@@ -37,6 +37,7 @@ import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.ETag;
@@ -673,7 +674,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
-                                .setBody(
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        ContentDispositionType.ATTACHMENT.setFilename(
+                                                ContentDispositionFileName.notEncoded("TestPlugin111.jar")
+                                        )
+                                ).setBody(
                                         Binary.with(jar.value())
                                 ).setContentLength()
                 )
@@ -725,6 +731,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             );
         }
 
+        final ContentDisposition contentDisposition = ContentDispositionType.ATTACHMENT.setFilename(
+                ContentDispositionFileName.notEncoded("TestPlugin111.jar")
+        );
+
         server.handleAndCheck(
                 HttpRequests.post(
                         HttpTransport.UNSECURED,
@@ -733,18 +743,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
                                 .addHeader(
                                         HttpHeaderName.CONTENT_DISPOSITION,
-                                        ContentDispositionType.ATTACHMENT.setFilename(
-                                                ContentDispositionFileName.notEncoded("TestPlugin111.jar")
-                                        )
-                                )
-                                .setBody(
+                                        contentDisposition
+                                ).setBody(
                                         Binary.with(jar.value())
                                 )
                 ), // request
                 this.response(
                         HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
-                                .setBody(
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        contentDisposition
+                                ).setBody(
                                         Binary.with(jar.value())
                                 ).setContentLength()
                 )
