@@ -32,6 +32,11 @@ public final class SpreadsheetServerMediaTypes implements PublicStaticHelper {
     public final static MediaType CONTENT_TYPE = HateosResourceHandlerContext.HATEOS_DEFAULT_CONTENT_TYPE;
 
     /**
+     * The content-type for binary non multi-part requests.
+     */
+    public final static MediaType BINARY = MediaType.BINARY;
+
+    /**
      * Stop creation
      */
     private SpreadsheetServerMediaTypes() {

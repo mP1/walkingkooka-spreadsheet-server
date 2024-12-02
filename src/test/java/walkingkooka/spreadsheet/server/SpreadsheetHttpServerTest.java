@@ -37,6 +37,8 @@ import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
+import walkingkooka.net.header.ContentDispositionFileName;
+import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -670,6 +672,77 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ), // request
                 HttpStatusCode.OK.status(),
                 ""
+        );
+
+        this.checkEquals(
+                Plugin.with(
+                        pluginName,
+                        "TestPlugin111.jar",
+                        jar,
+                        USER,
+                        NOW.now()
+                ),
+                server.pluginStore.loadOrFail(pluginName)
+        );
+    }
+
+    @Test
+    public void testPluginPostBinaryUpload() throws Exception {
+        final TestHttpServer server = this.startServer();
+
+        final PluginName pluginName = PluginName.with("TestPlugin111");
+
+        final String manifest = "Manifest-Version: 1.0\r\n" +
+                "plugin-name: TestPlugin111\r\n" +
+                "plugin-provider-factory-className: example.TestPlugin111\r\n";
+
+        final Binary jar;
+
+        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
+            final Manifest manifestEntry = new Manifest();
+            manifestEntry.read(
+                    new ByteArrayInputStream(
+                            manifest.getBytes(Charset.defaultCharset())
+                    )
+            );
+
+            final JarOutputStream jarOut = new JarOutputStream(
+                    bytes,
+                    manifestEntry
+            );
+
+            jarOut.flush();
+            jarOut.finish();
+            jarOut.close();
+
+            jar = Binary.with(
+                    bytes.toByteArray()
+            );
+        }
+
+        server.handleAndCheck(
+                HttpRequests.post(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/*/upload"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        ContentDispositionType.ATTACHMENT.setFilename(
+                                                ContentDispositionFileName.notEncoded("TestPlugin111.jar")
+                                        )
+                                )
+                                .setBody(
+                                        Binary.with(jar.value())
+                                )
+                ), // request
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
+                                .setBody(
+                                        Binary.with(jar.value())
+                                ).setContentLength()
+                )
         );
 
         this.checkEquals(
