@@ -31,7 +31,7 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.server.SpreadsheetHttpServerLinkRelations;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
@@ -69,11 +69,11 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 HttpMethod.POST,
                 PluginHateosResourceHandlerSave.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.UPLOAD,
+                SpreadsheetServerLinkRelations.UPLOAD,
                 HttpMethod.POST,
                 PluginHateosHttpEntityHandlerUpload.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetHttpServerLinkRelations.DOWNLOAD,
+                SpreadsheetServerLinkRelations.DOWNLOAD,
                 HttpMethod.GET,
                 PluginHateosHttpEntityHandlerDownloadPluginArchive.INSTANCE
         );
