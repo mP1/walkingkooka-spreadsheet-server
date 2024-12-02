@@ -71,6 +71,10 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 UPLOAD,
                 HttpMethod.POST,
                 PluginHateosHttpEntityHandlerUpload.INSTANCE
+        ).setHateosHttpEntityHandler(
+                DOWNLOAD,
+                HttpMethod.GET,
+                PluginHateosHttpEntityHandlerDownloadPluginArchive.INSTANCE
         );
 
         return plugin;
@@ -120,6 +124,8 @@ public final class PluginHttpMappings implements PublicStaticHelper {
     public static final HateosResourceName PLUGIN = HateosResourceName.with("plugin");
 
     private final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
+
+    private final static LinkRelation<?> DOWNLOAD = LinkRelation.with("download");
 
     // router...........................................................................................................
 
