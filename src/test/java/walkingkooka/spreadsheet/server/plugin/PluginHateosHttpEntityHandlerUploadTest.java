@@ -32,6 +32,7 @@ import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
@@ -40,23 +41,19 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
 
 public final class PluginHateosHttpEntityHandlerUploadTest
         implements HateosHttpEntityHandlerTesting<PluginHateosHttpEntityHandlerUpload,
         PluginName,
         PluginHateosResourceHandlerContext>,
         ToStringTesting<PluginHateosHttpEntityHandlerUpload>,
-        SpreadsheetMetadataTesting {
+        SpreadsheetMetadataTesting,
+        JarFileTesting {
 
     // hateos...........................................................................................................
 
@@ -332,28 +329,15 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                         pluginName
                 );
 
-        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
-            final Manifest manifestEntry = new Manifest();
-            manifestEntry.read(
-                    new ByteArrayInputStream(
-                            manifest.getBytes(Charset.defaultCharset())
+        try {
+            return Binary.with(
+                    JarFileTesting.jarFile(
+                            manifest,
+                            Maps.empty()
                     )
             );
-
-            final JarOutputStream jarOut = new JarOutputStream(
-                    bytes,
-                    manifestEntry
-            );
-
-            jarOut.flush();
-            jarOut.finish();
-            jarOut.close();
-
-            return Binary.with(
-                    bytes.toByteArray()
-            );
-        } catch (final IOException io) {
-            throw new RuntimeException(io);
+        } catch (final IOException cause) {
+            throw new RuntimeException(cause);
         }
     }
 
