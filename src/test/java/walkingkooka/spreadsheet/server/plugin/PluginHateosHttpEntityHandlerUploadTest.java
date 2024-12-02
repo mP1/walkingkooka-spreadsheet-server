@@ -116,6 +116,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context,
                 HttpEntity.EMPTY.setContentType(
                         MediaType.BINARY
+                ).addHeader(
+                        HttpHeaderName.CONTENT_DISPOSITION,
+                        ContentDispositionType.ATTACHMENT.setFilename(
+                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                        )
                 ).setBody(
                         PLUGIN2.archive()
                 ).setContentLength()
@@ -150,6 +155,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context,
                 HttpEntity.EMPTY.setContentType(
                         MediaType.BINARY
+                ).addHeader(
+                        HttpHeaderName.CONTENT_DISPOSITION,
+                        ContentDispositionType.ATTACHMENT.setFilename(
+                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                        )
                 ).setBody(
                         PLUGIN2.archive()
                 ).setContentLength()
@@ -173,6 +183,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context,
                 HttpEntity.EMPTY.setContentType(
                         MediaType.BINARY
+                ).addHeader(
+                        HttpHeaderName.CONTENT_DISPOSITION,
+                        ContentDispositionType.ATTACHMENT.setFilename(
+                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                        )
                 ).setBody(
                         PLUGIN2.archive()
                 ).setContentLength()
@@ -207,6 +222,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context,
                 HttpEntity.EMPTY.setContentType(
                         MediaType.BINARY
+                ).addHeader(
+                        HttpHeaderName.CONTENT_DISPOSITION,
+                        ContentDispositionType.ATTACHMENT.setFilename(
+                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                        )
                 ).setBody(
                         PLUGIN2.archive()
                 ).setContentLength()
