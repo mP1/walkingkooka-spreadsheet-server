@@ -670,8 +670,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         "--delimiter12345--"
                         )
                 ), // request
-                HttpStatusCode.OK.status(),
-                ""
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
+                                .setBody(
+                                        Binary.with(jar.value())
+                                ).setContentLength()
+                )
         );
 
         this.checkEquals(
