@@ -45,6 +45,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenAlternative;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -151,7 +152,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),

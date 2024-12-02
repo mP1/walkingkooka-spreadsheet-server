@@ -74,6 +74,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.server.comparator.SpreadsheetComparatorHateosResourceMappings;
 import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
@@ -405,7 +406,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     @Override
     public MediaType contentType() {
-        return MediaType.APPLICATION_JSON;
+        return SpreadsheetServerMediaTypes.CONTENT_TYPE;
     }
 
     // HateosResourceHandlerContext ....................................................................................

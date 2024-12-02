@@ -61,6 +61,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -111,7 +112,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                         HttpEntity.EMPTY.addHeader(
                                 HttpHeaderName.ACCEPT,
                                 Accept.with(
-                                        Lists.of(MediaType.APPLICATION_JSON)
+                                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                                 )
                         )
                 ),

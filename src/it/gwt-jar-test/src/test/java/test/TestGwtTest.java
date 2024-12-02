@@ -15,7 +15,6 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -46,6 +45,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -103,7 +103,7 @@ public class TestGwtTest extends GWTTestCase {
                         HttpEntity.EMPTY.addHeader(
                                 HttpHeaderName.ACCEPT,
                                 Accept.with(
-                                        Lists.of(MediaType.APPLICATION_JSON)
+                                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                                 )
                         )
                 ),
@@ -120,7 +120,7 @@ public class TestGwtTest extends GWTTestCase {
 
         checkEquals(
                 HttpEntity.EMPTY.setContentType(
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE.setCharset(CharsetName.UTF_8)
                 ).addHeader(
                         HttpHeaderName.with("X-Content-Type-Name"),
                         Cast.to(SpreadsheetMetadata.class.getSimpleName())

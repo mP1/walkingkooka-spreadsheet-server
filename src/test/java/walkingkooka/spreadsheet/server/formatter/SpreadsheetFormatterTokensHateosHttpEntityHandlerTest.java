@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
@@ -152,7 +153,7 @@ public final class SpreadsheetFormatterTokensHateosHttpEntityHandlerTest impleme
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),

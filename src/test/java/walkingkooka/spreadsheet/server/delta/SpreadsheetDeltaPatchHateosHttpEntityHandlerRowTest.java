@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetRow;
@@ -76,7 +75,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),
@@ -122,7 +121,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),
@@ -171,7 +170,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -235,7 +234,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -296,7 +295,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -345,7 +344,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),
@@ -396,7 +395,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),
@@ -445,7 +444,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -509,7 +508,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -570,7 +569,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(
@@ -642,7 +641,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(CONTENT_TYPE)
                         )
                 ),
                 this.parameters(

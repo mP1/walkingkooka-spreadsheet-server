@@ -45,6 +45,7 @@ import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
 import java.util.List;
@@ -132,7 +133,7 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
                 ).addHeader(
                         HttpHeaderName.ACCEPT,
                         Accept.with(
-                                Lists.of(MediaType.APPLICATION_JSON)
+                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                         )
                 ),
                 this.parameters(),
