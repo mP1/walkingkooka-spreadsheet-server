@@ -40,6 +40,7 @@ A collection of end points to help manage plugins.
 - **DELETE** /api/plugin/$from-plugin-name:$to-plugin-name
 - **POST** /api/plugin/*/upload
   Multipart file upload
+  Binary file upload
 
 ### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
 

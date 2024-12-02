@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Handles uploads of JAR files.
+ * Handles uploads of JAR files, supporting multi-part-forms and binary requests.
  */
 final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandler<PluginName, PluginHateosResourceHandlerContext>,
         UnsupportedHateosHttpEntityHandlerHandleNone<PluginName, PluginHateosResourceHandlerContext>,
@@ -71,6 +71,11 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                     entity,
                     context
             );
+        } else if (SpreadsheetServerMediaTypes.BINARY.test(contentType)) {
+            response = this.binaryFile(
+                    entity,
+                    context
+            );
         } else {
             if (null == contentType) {
                 throw new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE);
@@ -86,29 +91,13 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         HttpEntity response = null;
 
         for (final HttpEntity part : entity.multiparts()) {
-            final ContentDisposition contentDisposition = HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(part);
-            final ContentDispositionFileName filename = contentDisposition.filename()
-                    .orElse(null);
+            final ContentDispositionFileName filename = this.fileName(part);
             if (null != filename) {
-                final Binary archive = part.body();
-
-                PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.fromArchive(archive);
-
-                context.pluginStore()
-                        .save(
-                                Plugin.with(
-                                        pluginArchiveManifest.pluginName(), // name
-                                        filename.value(), // filename
-                                        archive, // archive
-                                        context.userOrFail(), //
-                                        context.now()
-                                )
-                        );
-
-                response = HttpEntity.EMPTY
-                        .setContentType(MediaType.BINARY)
-                        .setBody(archive)
-                        .setContentLength();
+                response = this.archive(
+                        filename,
+                        part.body(),
+                        context
+                );
             }
         }
 
@@ -117,6 +106,48 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         }
 
         return response;
+    }
+
+    private HttpEntity binaryFile(final HttpEntity entity,
+                                  final PluginHateosResourceHandlerContext context) {
+        final ContentDispositionFileName filename = this.fileName(entity);
+        if (null == filename) {
+            throw new IllegalArgumentException("Missing filename");
+        }
+
+        return this.archive(
+                filename,
+                entity.body(),
+                context
+        );
+    }
+
+    private ContentDispositionFileName fileName(final HttpEntity entity) {
+        final ContentDisposition contentDisposition = HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(entity);
+        return contentDisposition.filename()
+                .orElse(null);
+    }
+
+    private HttpEntity archive(final ContentDispositionFileName filename,
+                               final Binary archive,
+                               final PluginHateosResourceHandlerContext context) {
+        final PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.fromArchive(archive);
+
+        context.pluginStore()
+                .save(
+                        Plugin.with(
+                                pluginArchiveManifest.pluginName(), // name
+                                filename.value(), // filename
+                                archive, // archive
+                                context.userOrFail(), //
+                                context.now()
+                        )
+                );
+
+        return HttpEntity.EMPTY
+                .setContentType(MediaType.BINARY)
+                .setBody(archive)
+                .setContentLength();
     }
 
     @Override

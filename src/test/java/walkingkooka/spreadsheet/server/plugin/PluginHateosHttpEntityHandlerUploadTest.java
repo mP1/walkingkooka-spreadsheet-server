@@ -24,6 +24,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
+import walkingkooka.net.header.ContentDispositionFileName;
+import walkingkooka.net.header.ContentDispositionType;
+import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.http.HttpEntity;
@@ -35,6 +38,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -103,11 +107,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
-    public void testHandleAllCreate() {
+    public void testHandleMultipartAllCreate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                entity(), // entity
+                this.multipart(), // entity
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
@@ -126,7 +130,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
-    public void testHandleAllUpdate() {
+    public void testHandleMultipartAllUpdate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         context.pluginStore()
@@ -141,7 +145,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 );
 
         this.handleAllAndCheck(
-                entity(), // entity
+                this.multipart(), // entity
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
@@ -156,6 +160,76 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context.pluginStore()
                         .loadOrFail(PLUGIN2.name()),
                 () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
+    public void testHandleBinaryFileAllCreate() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        this.handleAllAndCheck(
+                this.binary(), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.BINARY
+                ).setBody(
+                        PLUGIN2.archive()
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
+    public void testHandleBinaryFileAllUpdate() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        context.pluginStore()
+                .save(
+                        Plugin.with(
+                                PluginName.with("TestPlugin222"),
+                                "old.jar",
+                                jarFile("TestPlugin222"),
+                                USER,
+                                NOW.now()
+                        )
+                );
+
+        this.handleAllAndCheck(
+                this.binary(), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.BINARY
+                ).setBody(
+                        PLUGIN2.archive()
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    private HttpEntity binary() {
+        return HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.BINARY
+        ).addHeader(
+                HttpHeaderName.CONTENT_DISPOSITION,
+                ContentDispositionType.ATTACHMENT.setFilename(
+                        ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                )
+        ).setBody(
+                PLUGIN2.archive()
         );
     }
 
@@ -202,6 +276,10 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     //--delimiter12345--
     @Override
     public HttpEntity entity() {
+        return this.multipart();
+    }
+
+    private HttpEntity multipart() {
         final String boundary = "delimiter12345";
 
         return HttpEntity.EMPTY.setContentType(
