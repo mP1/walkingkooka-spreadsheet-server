@@ -62,6 +62,7 @@ import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
@@ -136,8 +137,6 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -148,14 +147,13 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCase<SpreadsheetHttpServer>
         implements SpreadsheetMetadataTesting,
+        JarFileTesting,
         TreePrintableTesting {
 
     private final static CharsetName CHARSET = CharsetName.UTF_8;
@@ -627,29 +625,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "plugin-name: TestPlugin111\r\n" +
                 "plugin-provider-factory-className: example.TestPlugin111\r\n";
 
-        final Binary jar;
-
-        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
-            final Manifest manifestEntry = new Manifest();
-            manifestEntry.read(
-                    new ByteArrayInputStream(
-                            manifest.getBytes(Charset.defaultCharset())
-                    )
-            );
-
-            final JarOutputStream jarOut = new JarOutputStream(
-                    bytes,
-                    manifestEntry
-            );
-
-            jarOut.flush();
-            jarOut.finish();
-            jarOut.close();
-
-            jar = Binary.with(
-                    bytes.toByteArray()
-            );
-        }
+        final Binary jar = Binary.with(
+                JarFileTesting.jarFile(
+                        manifest,
+                        Maps.empty()
+                )
+        );
 
         server.handleAndCheck(
                 HttpRequests.post(
@@ -680,9 +661,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         ContentDispositionType.ATTACHMENT.setFilename(
                                                 ContentDispositionFileName.notEncoded("TestPlugin111.jar")
                                         )
-                                ).setBody(
-                                        Binary.with(jar.value())
-                                ).setContentLength()
+                                ).setBody(jar)
+                                .setContentLength()
                 )
         );
 
@@ -708,29 +688,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "plugin-name: TestPlugin111\r\n" +
                 "plugin-provider-factory-className: example.TestPlugin111\r\n";
 
-        final Binary jar;
-
-        try (final ByteArrayOutputStream bytes = new ByteArrayOutputStream()) {
-            final Manifest manifestEntry = new Manifest();
-            manifestEntry.read(
-                    new ByteArrayInputStream(
-                            manifest.getBytes(Charset.defaultCharset())
-                    )
-            );
-
-            final JarOutputStream jarOut = new JarOutputStream(
-                    bytes,
-                    manifestEntry
-            );
-
-            jarOut.flush();
-            jarOut.finish();
-            jarOut.close();
-
-            jar = Binary.with(
-                    bytes.toByteArray()
-            );
-        }
+        final Binary jar = Binary.with(
+                JarFileTesting.jarFile(
+                        manifest,
+                        Maps.empty()
+                )
+        );
 
         final ContentDisposition contentDisposition = ContentDispositionType.ATTACHMENT.setFilename(
                 ContentDispositionFileName.notEncoded("TestPlugin111.jar")
