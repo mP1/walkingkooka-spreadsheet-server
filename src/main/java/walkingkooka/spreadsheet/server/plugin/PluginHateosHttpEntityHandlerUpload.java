@@ -63,7 +63,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(context, "context");
 
-        HttpEntity response = null;
+        final HttpEntity response;
 
         final MediaType contentType = entity.contentType()
                 .orElse(null);
