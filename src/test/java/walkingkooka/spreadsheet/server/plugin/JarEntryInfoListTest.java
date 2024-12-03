@@ -29,6 +29,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -85,9 +87,9 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         return JarEntryInfo.with(
                 name,
                 directory,
-                size,
-                size,
-                1, // method
+                OptionalLong.of(size),
+                OptionalLong.of(size),
+                OptionalInt.of(1), // method
                 Optional.of(CREATE),
                 Optional.of(LAST_MODIFIED)
         );

@@ -30,6 +30,8 @@ import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
@@ -92,9 +94,9 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         JarEntryInfo.with(
                 "/Dummy", // name
                 false, // directory
-                0, // size
-                0, // compressedSize
-                1, // method
+                OptionalLong.of(0), // size
+                OptionalLong.of(0), // compressedSize
+                OptionalInt.of(1), // method
                 Optional.of(LocalDateTime.MAX), // create
                 Optional.of(LocalDateTime.MAX) // lastModified
         );
