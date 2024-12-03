@@ -89,7 +89,7 @@ final class JarEntryInfoList extends AbstractList<JarEntryInfo>
 
     static {
         JarEntryInfo.with(
-                "Dummy", // name
+                "/Dummy", // name
                 false, // directory
                 0, // size
                 0, // compressedSize
