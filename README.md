@@ -42,6 +42,7 @@ A collection of end points to help manage plugins.
   Multipart file upload
   Binary file upload
 - **GET** /api/plugin/$plugin-name/download
+- **GET** /api/plugin/$plugin-name/list
 
 ### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
 

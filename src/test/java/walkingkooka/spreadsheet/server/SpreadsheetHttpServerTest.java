@@ -137,6 +137,7 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -890,6 +891,102 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         )
                                 ).setBody(
                                         plugin.archive()
+                                ).setContentLength()
+                )
+        );
+    }
+
+    @Test
+    public void testPluginListAbsent() {
+        final TestHttpServer server = this.startServer();
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/list"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status(),
+                        HttpEntity.EMPTY
+                )
+        );
+    }
+
+    @Test
+    public void testPluginList() throws IOException {
+        final TestHttpServer server = this.startServer();
+
+        final Plugin plugin = Plugin.with(
+                PluginName.with("TestPlugin111"),
+                "TestPlugin111-download.jar",
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n" +
+                                        "plugin-name: PluginName\r\n" +
+                                        "plugin-provider-factory-className: example.PluginName\r\n",
+                                Maps.of(
+                                        "file111.txt",
+                                        "Hello111".getBytes(StandardCharsets.UTF_8),
+                                        "dir222/",
+                                        new byte[0],
+                                        "file333.txt",
+                                        "Hello333".getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin);
+
+        // list all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/list"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                                .setBodyText(
+                                        "[\n" +
+                                                "  {\n" +
+                                                "    \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                                                "    \"method\": 8,\n" +
+                                                "    \"create\": \"1999-12-31T12:58\",\n" +
+                                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                                                "  },\n" +
+                                                "  {\n" +
+                                                "    \"name\": \"/file111.txt\",\n" +
+                                                "    \"method\": 8,\n" +
+                                                "    \"create\": \"1999-12-31T12:58\",\n" +
+                                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                                                "  },\n" +
+                                                "  {\n" +
+                                                "    \"name\": \"/dir222/\",\n" +
+                                                "    \"method\": 8,\n" +
+                                                "    \"create\": \"1999-12-31T12:58\",\n" +
+                                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                                                "  },\n" +
+                                                "  {\n" +
+                                                "    \"name\": \"/file333.txt\",\n" +
+                                                "    \"method\": 8,\n" +
+                                                "    \"create\": \"1999-12-31T12:58\",\n" +
+                                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                                                "  }\n" +
+                                                "]"
                                 ).setContentLength()
                 )
         );
