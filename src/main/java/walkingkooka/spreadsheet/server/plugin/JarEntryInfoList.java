@@ -97,6 +97,7 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
                 OptionalLong.of(0), // size
                 OptionalLong.of(0), // compressedSize
                 OptionalInt.of(1), // method
+                OptionalLong.of(123), // crc
                 Optional.of(LocalDateTime.MAX), // create
                 Optional.of(LocalDateTime.MAX) // lastModified
         );

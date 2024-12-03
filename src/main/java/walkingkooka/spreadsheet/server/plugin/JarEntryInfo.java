@@ -49,6 +49,7 @@ public final class JarEntryInfo implements TreePrintable {
                                     final OptionalLong size,
                                     final OptionalLong compressedSize,
                                     final OptionalInt method,
+                                    final OptionalLong crc,
                                     final Optional<LocalDateTime> create,
                                     final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
@@ -57,6 +58,7 @@ public final class JarEntryInfo implements TreePrintable {
                 checkPositiveNumber(size, "size"),
                 checkPositiveNumber(compressedSize, "compressedSize"),
                 checkPositiveNumber(method, "method"),
+                checkPositiveNumber(crc, "crc"),
                 Objects.requireNonNull(create, "create"),
                 Objects.requireNonNull(lastModified, "lastModified")
         );
@@ -99,6 +101,7 @@ public final class JarEntryInfo implements TreePrintable {
                          final OptionalLong size,
                          final OptionalLong compressedSize,
                          final OptionalInt method,
+                         final OptionalLong crc,
                          final Optional<LocalDateTime> create,
                          final Optional<LocalDateTime> lastModified) {
         this.name = name;
@@ -106,6 +109,7 @@ public final class JarEntryInfo implements TreePrintable {
         this.size = size;
         this.compressedSize = compressedSize;
         this.method = method;
+        this.crc = crc;
         this.create = create;
         this.lastModified = lastModified;
     }
@@ -140,6 +144,12 @@ public final class JarEntryInfo implements TreePrintable {
 
     private final OptionalInt method;
 
+    public OptionalLong crc() {
+        return this.crc;
+    }
+
+    private final OptionalLong crc;
+
     public Optional<LocalDateTime> create() {
         return this.create;
     }
@@ -162,6 +172,7 @@ public final class JarEntryInfo implements TreePrintable {
                 this.size,
                 this.compressedSize,
                 this.method,
+                this.crc,
                 this.create,
                 this.lastModified
         );
@@ -180,6 +191,7 @@ public final class JarEntryInfo implements TreePrintable {
                 this.size.equals(other.size) &&
                 this.compressedSize.equals(other.compressedSize) &&
                 this.method.equals(other.method) &&
+                this.crc.equals(other.crc) &&
                 this.create.equals(other.create) &&
                 this.lastModified.equals(other.lastModified);
     }
@@ -196,6 +208,8 @@ public final class JarEntryInfo implements TreePrintable {
                 .value(this.compressedSize)
                 .label("method")
                 .value(this.method)
+                .label("crc")
+                .value(this.crc)
                 .label("create")
                 .value(this.create)
                 .label("lastModified")
@@ -217,6 +231,7 @@ public final class JarEntryInfo implements TreePrintable {
         Long size = null;
         Long compressedSize = null;
         Integer method = null;
+        Long crc = null;
         LocalDateTime create = null;
         LocalDateTime lastModified = null;
 
@@ -251,6 +266,12 @@ public final class JarEntryInfo implements TreePrintable {
                     method = context.unmarshall(
                             child,
                             Integer.class
+                    );
+                    break;
+                case CRC_PROPERTY_STRING:
+                    crc = context.unmarshall(
+                            child,
+                            Long.class
                     );
                     break;
                 case CREATE_PROPERTY_STRING:
@@ -290,6 +311,9 @@ public final class JarEntryInfo implements TreePrintable {
                 null != method ?
                         OptionalInt.of(method.intValue()) :
                         OptionalInt.empty(),
+                null != crc ?
+                        OptionalLong.of(crc.longValue()) :
+                        OptionalLong.empty(),
                 Optional.ofNullable(create),
                 Optional.ofNullable(lastModified)
         );
@@ -336,6 +360,16 @@ public final class JarEntryInfo implements TreePrintable {
         }
 
         {
+            final OptionalLong crc = this.crc;
+            if (crc.isPresent()) {
+                json = json.set(
+                        CRC_PROPERTY,
+                        context.marshall(crc.getAsLong())
+                );
+            }
+        }
+
+        {
             final LocalDateTime create = this.create.orElse(null);
             if (null != create) {
                 json = json.set(
@@ -367,6 +401,8 @@ public final class JarEntryInfo implements TreePrintable {
 
     private final static String METHOD_PROPERTY_STRING = "method";
 
+    private final static String CRC_PROPERTY_STRING = "crc";
+
     private final static String CREATE_PROPERTY_STRING = "create";
 
     private final static String LAST_MODIFIED_PROPERTY_STRING = "lastModified";
@@ -380,6 +416,8 @@ public final class JarEntryInfo implements TreePrintable {
     final static JsonPropertyName COMPRESSED_SIZE_PROPERTY = JsonPropertyName.with(COMPRESSED_SIZE_PROPERTY_STRING);
 
     final static JsonPropertyName METHOD_PROPERTY = JsonPropertyName.with(METHOD_PROPERTY_STRING);
+
+    final static JsonPropertyName CRC_PROPERTY = JsonPropertyName.with(CRC_PROPERTY_STRING);
 
     final static JsonPropertyName CREATE_PROPERTY = JsonPropertyName.with(CREATE_PROPERTY_STRING);
 
@@ -423,6 +461,13 @@ public final class JarEntryInfo implements TreePrintable {
                 final OptionalInt method = this.method;
                 if (method.isPresent()) {
                     printer.println("method: " + method.getAsInt());
+                }
+            }
+
+            {
+                final OptionalLong crc = this.crc;
+                if (crc.isPresent()) {
+                    printer.println("crc: " + crc.getAsLong());
                 }
             }
 
