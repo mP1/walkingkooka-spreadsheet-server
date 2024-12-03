@@ -17,9 +17,15 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.ImmutableListDefaults;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.time.LocalDateTime;
 import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
@@ -61,5 +67,42 @@ final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         return this.equals(copy) ?
                 this :
                 copy;
+    }
+
+    // json.............................................................................................................
+
+    static JarEntryInfoList unmarshall(final JsonNode node,
+                                       final JsonNodeUnmarshallContext context) {
+        return with(
+                Cast.to(
+                        context.unmarshallList(
+                                node,
+                                JarEntryInfo.class
+                        )
+                )
+        );
+    }
+
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
+        return context.marshallCollection(this);
+    }
+
+    static {
+        JarEntryInfo.with(
+                "Dummy", // name
+                false, // directory
+                0, // size
+                0, // compressedSize
+                1, // method
+                LocalDateTime.MAX, // craate
+                LocalDateTime.MAX // lastModified
+        );
+
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(JarEntryInfoList.class),
+                JarEntryInfoList::unmarshall,
+                JarEntryInfoList::marshall,
+                JarEntryInfoList.class
+        );
     }
 }
