@@ -33,16 +33,16 @@ import java.util.Objects;
 /**
  * An individual file or directory entry within a JAR file.
  */
-public final class JarArchiveEntry {
+public final class JarEntryInfo {
 
-    public static JarArchiveEntry with(final String name,
-                                       final boolean directory,
-                                       final long size,
-                                       final long compressedSize,
-                                       final int method,
-                                       final LocalDateTime create,
-                                       final LocalDateTime lastModified) {
-        return new JarArchiveEntry(
+    public static JarEntryInfo with(final String name,
+                                    final boolean directory,
+                                    final long size,
+                                    final long compressedSize,
+                                    final int method,
+                                    final LocalDateTime create,
+                                    final LocalDateTime lastModified) {
+        return new JarEntryInfo(
                 CharSequences.failIfNullOrEmpty(name, "name"),
                 directory,
                 checkPositiveNumber(size, "size"),
@@ -69,13 +69,13 @@ public final class JarArchiveEntry {
         return value;
     }
 
-    private JarArchiveEntry(final String name,
-                            final boolean directory,
-                            final long size,
-                            final long compressedSize,
-                            final int method,
-                            final LocalDateTime create,
-                            final LocalDateTime lastModified) {
+    private JarEntryInfo(final String name,
+                         final boolean directory,
+                         final long size,
+                         final long compressedSize,
+                         final int method,
+                         final LocalDateTime create,
+                         final LocalDateTime lastModified) {
         this.name = name;
         this.directory = directory;
         this.size = size;
@@ -145,11 +145,11 @@ public final class JarArchiveEntry {
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof JarArchiveEntry &&
+                other instanceof JarEntryInfo &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final JarArchiveEntry other) {
+    private boolean equals0(final JarEntryInfo other) {
         return this.name.equals(other.name) &&
                 this.directory == other.directory &&
                 this.size == other.size &&
@@ -181,10 +181,10 @@ public final class JarArchiveEntry {
     // JsonNodeContext...................................................................................................
 
     /**
-     * Factory that creates a {@link JarArchiveEntry} parse a {@link JsonNode}.
+     * Factory that creates a {@link JarEntryInfo} parse a {@link JsonNode}.
      */
-    static JarArchiveEntry unmarshall(final JsonNode node,
-                                      final JsonNodeUnmarshallContext context) {
+    static JarEntryInfo unmarshall(final JsonNode node,
+                                   final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
         String name = null;
@@ -322,10 +322,10 @@ public final class JarArchiveEntry {
         LocalDateTime.now();
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(JarArchiveEntry.class),
-                JarArchiveEntry::unmarshall,
-                JarArchiveEntry::marshall,
-                JarArchiveEntry.class
+                JsonNodeContext.computeTypeName(JarEntryInfo.class),
+                JarEntryInfo::unmarshall,
+                JarEntryInfo::marshall,
+                JarEntryInfo.class
         );
     }
 }

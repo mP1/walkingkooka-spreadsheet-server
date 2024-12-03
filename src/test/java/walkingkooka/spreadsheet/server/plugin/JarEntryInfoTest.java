@@ -28,9 +28,9 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<JarArchiveEntry>,
-        ToStringTesting<JarArchiveEntry>,
-        JsonNodeMarshallingTesting<JarArchiveEntry> {
+public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<JarEntryInfo>,
+        ToStringTesting<JarEntryInfo>,
+        JsonNodeMarshallingTesting<JarEntryInfo> {
 
     private final static String NAME = "/META-INF/MANIFEST.MF";
 
@@ -66,7 +66,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNullNameFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         null,
                         DIRECTORY,
                         SIZE,
@@ -82,7 +82,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithEmptyNameFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         "",
                         DIRECTORY,
                         SIZE,
@@ -98,7 +98,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNegativeSizeFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         -1,
@@ -114,7 +114,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNegativeCompressedSizeFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -130,7 +130,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNegativeMethodFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -146,7 +146,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNullCreateFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -162,7 +162,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     public void testWithNullLastModifiedFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> JarArchiveEntry.with(
+                () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -179,7 +179,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentName() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         "different",
                         DIRECTORY,
                         SIZE,
@@ -194,7 +194,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentDirectory() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         false == DIRECTORY,
                         SIZE,
@@ -209,7 +209,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentSize() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         10000 + SIZE,
@@ -224,7 +224,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentCompressedSize() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -239,7 +239,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentMethod() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -254,7 +254,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentCreate() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -269,7 +269,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testEqualsDifferentLastModified() {
         this.checkNotEquals(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
                         SIZE,
@@ -282,8 +282,8 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     }
 
     @Override
-    public JarArchiveEntry createObject() {
-        return JarArchiveEntry.with(
+    public JarEntryInfo createObject() {
+        return JarEntryInfo.with(
                 NAME,
                 DIRECTORY,
                 SIZE,
@@ -299,7 +299,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testToStringDirectory() {
         this.toStringAndCheck(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         true,
                         SIZE,
@@ -315,7 +315,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testToStringFile() {
         this.toStringAndCheck(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         false,
                         SIZE,
@@ -331,7 +331,7 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     @Test
     public void testToStringEmptyFile() {
         this.toStringAndCheck(
-                JarArchiveEntry.with(
+                JarEntryInfo.with(
                         NAME,
                         false,
                         0,
@@ -379,23 +379,23 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
     }
 
     @Override
-    public JarArchiveEntry unmarshall(final JsonNode json,
-                                      final JsonNodeUnmarshallContext context) {
-        return JarArchiveEntry.unmarshall(
+    public JarEntryInfo unmarshall(final JsonNode json,
+                                   final JsonNodeUnmarshallContext context) {
+        return JarEntryInfo.unmarshall(
                 json,
                 context
         );
     }
 
     @Override
-    public JarArchiveEntry createJsonNodeMarshallingValue() {
+    public JarEntryInfo createJsonNodeMarshallingValue() {
         return this.createObject();
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<JarArchiveEntry> type() {
-        return JarArchiveEntry.class;
+    public Class<JarEntryInfo> type() {
+        return JarEntryInfo.class;
     }
 }
