@@ -51,7 +51,6 @@ class JarEntryInfoListReadJarFile extends JarEntryInfoListReadJarFileGwt {
                 entries.add(
                         JarEntryInfo.with(
                                 "/" + zipEntry.getName(),
-                                zipEntry.isDirectory(), // file
                                 optionalLong(
                                         zipEntry.getSize()
                                 ), // size

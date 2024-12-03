@@ -39,8 +39,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
 
     private final static String NAME = "/META-INF/MANIFEST.MF";
 
-    private final static boolean DIRECTORY = false;
-
     private final static OptionalLong SIZE = OptionalLong.of(1111);
 
     private final static OptionalLong COMPRESSED_SIZE = OptionalLong.of(222);
@@ -79,7 +77,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         null,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -96,7 +93,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 IllegalArgumentException.class,
                 () -> JarEntryInfo.with(
                         "",
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -113,7 +109,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         null,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -130,7 +125,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 IllegalArgumentException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         OptionalLong.of(-1),
                         COMPRESSED_SIZE,
                         METHOD,
@@ -147,7 +141,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         null,
                         METHOD,
@@ -164,7 +157,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 IllegalArgumentException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         OptionalLong.of(-1),
                         METHOD,
@@ -181,7 +173,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         null,
@@ -198,7 +189,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 IllegalArgumentException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         OptionalInt.of(-1),
@@ -215,7 +205,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -232,7 +221,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -250,23 +238,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         "/different",
-                        DIRECTORY,
-                        SIZE,
-                        COMPRESSED_SIZE,
-                        METHOD,
-                        CRC,
-                        CREATE,
-                        LAST_MODIFIED
-                )
-        );
-    }
-
-    @Test
-    public void testEqualsDifferentDirectory() {
-        this.checkNotEquals(
-                JarEntryInfo.with(
-                        NAME,
-                        false == DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -282,7 +253,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         OptionalLong.of(999),
                         COMPRESSED_SIZE,
                         METHOD,
@@ -298,7 +268,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         OptionalLong.of(999),
                         METHOD,
@@ -314,7 +283,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         OptionalInt.of(999),
@@ -330,7 +298,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -346,7 +313,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.checkNotEquals(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -361,7 +327,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     public JarEntryInfo createObject() {
         return JarEntryInfo.with(
                 NAME,
-                DIRECTORY,
                 SIZE,
                 COMPRESSED_SIZE,
                 METHOD,
@@ -377,8 +342,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     public void testToStringDirectory() {
         this.toStringAndCheck(
                 JarEntryInfo.with(
-                        NAME,
-                        true,
+                        "/dir123/",
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -386,7 +350,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         CREATE,
                         LAST_MODIFIED
                 ),
-                "\"/META-INF/MANIFEST.MF\" \"(directory)\" size=1111 compressedSize=222 method=1 crc=999 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+                "\"/dir123/\" \"(directory)\" size=1111 compressedSize=222 method=1 crc=999 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
         );
     }
 
@@ -395,7 +359,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.toStringAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        false,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -412,7 +375,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.toStringAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        false,
                         OptionalLong.of(0),
                         OptionalLong.of(0),
                         METHOD,
@@ -432,7 +394,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 this.createJsonNodeMarshallingValue(),
                 "{\n" +
                         "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
-                        "  \"directory\": false,\n" +
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
@@ -448,7 +409,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.marshallAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         OptionalLong.empty(), // size
                         OptionalLong.empty(), // compressedSize
                         OptionalInt.empty(), // method
@@ -458,7 +418,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 ),
                 "{\n" +
                         "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
-                        "  \"directory\": false,\n" +
                         "  \"create\": \"1999-12-31T12:58:59\",\n" +
                         "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "}"
@@ -470,7 +429,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.marshallAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -480,7 +438,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 ),
                 "{\n" +
                         "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
-                        "  \"directory\": false,\n" +
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
@@ -494,7 +451,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.unmarshallAndCheck(
                 "{\n" +
                         "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
-                        "  \"directory\": false,\n" +
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
@@ -541,7 +497,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.treePrintAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         OptionalLong.empty(), // size
                         OptionalLong.empty(), // compressedSize
                         OptionalInt.empty(), // method
@@ -560,7 +515,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         this.treePrintAndCheck(
                 JarEntryInfo.with(
                         NAME,
-                        DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,

@@ -45,7 +45,6 @@ public final class JarEntryInfo implements TreePrintable {
     public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
     public static JarEntryInfo with(final String name,
-                                    final boolean directory,
                                     final OptionalLong size,
                                     final OptionalLong compressedSize,
                                     final OptionalInt method,
@@ -54,7 +53,6 @@ public final class JarEntryInfo implements TreePrintable {
                                     final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
                 checkName(name),
-                directory,
                 checkPositiveNumber(size, "size"),
                 checkPositiveNumber(compressedSize, "compressedSize"),
                 checkPositiveNumber(method, "method"),
@@ -97,7 +95,6 @@ public final class JarEntryInfo implements TreePrintable {
     }
 
     private JarEntryInfo(final String name,
-                         final boolean directory,
                          final OptionalLong size,
                          final OptionalLong compressedSize,
                          final OptionalInt method,
@@ -105,7 +102,6 @@ public final class JarEntryInfo implements TreePrintable {
                          final Optional<LocalDateTime> create,
                          final Optional<LocalDateTime> lastModified) {
         this.name = name;
-        this.directory = directory;
         this.size = size;
         this.compressedSize = compressedSize;
         this.method = method;
@@ -121,10 +117,8 @@ public final class JarEntryInfo implements TreePrintable {
     private final String name;
 
     public boolean isDirectory() {
-        return this.directory;
+        return this.name.endsWith(SEPARATOR.string());
     }
-
-    private final boolean directory;
 
     public OptionalLong size() {
         return this.size;
@@ -168,7 +162,6 @@ public final class JarEntryInfo implements TreePrintable {
     public int hashCode() {
         return Objects.hash(
                 this.name,
-                this.directory,
                 this.size,
                 this.compressedSize,
                 this.method,
@@ -187,7 +180,6 @@ public final class JarEntryInfo implements TreePrintable {
 
     private boolean equals0(final JarEntryInfo other) {
         return this.name.equals(other.name) &&
-                this.directory == other.directory &&
                 this.size.equals(other.size) &&
                 this.compressedSize.equals(other.compressedSize) &&
                 this.method.equals(other.method) &&
@@ -201,7 +193,7 @@ public final class JarEntryInfo implements TreePrintable {
         return ToStringBuilder.empty()
                 .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
                 .value(this.name)
-                .value(this.directory ? "(directory)" : "(file)")
+                .value(this.isDirectory() ? "(directory)" : "(file)")
                 .label("size")
                 .value(this.size)
                 .label("compressedSize")
@@ -227,7 +219,6 @@ public final class JarEntryInfo implements TreePrintable {
         Objects.requireNonNull(node, "node");
 
         String name = null;
-        Boolean directory = null;
         Long size = null;
         Long compressedSize = null;
         Integer method = null;
@@ -242,12 +233,6 @@ public final class JarEntryInfo implements TreePrintable {
                     name = context.unmarshall(
                             child,
                             String.class
-                    );
-                    break;
-                case DIRECTORY_PROPERTY_STRING:
-                    directory = context.unmarshall(
-                            child,
-                            Boolean.class
                     );
                     break;
                 case SIZE_PROPERTY_STRING:
@@ -301,7 +286,6 @@ public final class JarEntryInfo implements TreePrintable {
 
         return with(
                 name,
-                directory,
                 null != size ?
                         OptionalLong.of(size.longValue()) :
                         OptionalLong.empty(),
@@ -324,9 +308,6 @@ public final class JarEntryInfo implements TreePrintable {
                 .set(
                         NAME_PROPERTY,
                         context.marshall(this.name)
-                ).set(
-                        DIRECTORY_PROPERTY,
-                        context.marshall(this.directory)
                 );
 
         {
@@ -393,8 +374,6 @@ public final class JarEntryInfo implements TreePrintable {
 
     private final static String NAME_PROPERTY_STRING = "name";
 
-    private final static String DIRECTORY_PROPERTY_STRING = "directory";
-
     private final static String SIZE_PROPERTY_STRING = "size";
 
     private final static String COMPRESSED_SIZE_PROPERTY_STRING = "compressedSize";
@@ -408,8 +387,6 @@ public final class JarEntryInfo implements TreePrintable {
     private final static String LAST_MODIFIED_PROPERTY_STRING = "lastModified";
 
     final static JsonPropertyName NAME_PROPERTY = JsonPropertyName.with(NAME_PROPERTY_STRING);
-
-    final static JsonPropertyName DIRECTORY_PROPERTY = JsonPropertyName.with(DIRECTORY_PROPERTY_STRING);
 
     final static JsonPropertyName SIZE_PROPERTY = JsonPropertyName.with(SIZE_PROPERTY_STRING);
 
@@ -439,7 +416,7 @@ public final class JarEntryInfo implements TreePrintable {
     @Override
     public void printTree(final IndentingPrinter printer) {
         printer.print(this.name);
-        printer.println(this.directory ? " (directory)" : " (file)");
+        printer.println(this.isDirectory() ? " (directory)" : " (file)");
 
         printer.indent();
         {
