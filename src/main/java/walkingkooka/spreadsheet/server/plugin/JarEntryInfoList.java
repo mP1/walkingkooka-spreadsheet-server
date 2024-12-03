@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
@@ -94,8 +95,8 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
                 0, // size
                 0, // compressedSize
                 1, // method
-                LocalDateTime.MAX, // craate
-                LocalDateTime.MAX // lastModified
+                Optional.of(LocalDateTime.MAX), // create
+                Optional.of(LocalDateTime.MAX) // lastModified
         );
 
         JsonNodeContext.register(

@@ -23,6 +23,7 @@ import walkingkooka.ToStringBuilderOption;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -30,6 +31,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An individual file or directory entry within a JAR file.
@@ -43,8 +45,8 @@ public final class JarEntryInfo {
                                     final long size,
                                     final long compressedSize,
                                     final int method,
-                                    final LocalDateTime create,
-                                    final LocalDateTime lastModified) {
+                                    final Optional<LocalDateTime> create,
+                                    final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
                 checkName(name),
                 directory,
@@ -87,8 +89,8 @@ public final class JarEntryInfo {
                          final long size,
                          final long compressedSize,
                          final int method,
-                         final LocalDateTime create,
-                         final LocalDateTime lastModified) {
+                         final Optional<LocalDateTime> create,
+                         final Optional<LocalDateTime> lastModified) {
         this.name = name;
         this.directory = directory;
         this.size = size;
@@ -128,17 +130,17 @@ public final class JarEntryInfo {
 
     private final int method;
 
-    public LocalDateTime create() {
+    public Optional<LocalDateTime> create() {
         return this.create;
     }
 
-    private final LocalDateTime create;
+    private final Optional<LocalDateTime> create;
 
-    public LocalDateTime lastModified() {
+    public Optional<LocalDateTime> lastModified() {
         return this.lastModified;
     }
 
-    private final LocalDateTime lastModified;
+    private final Optional<LocalDateTime> lastModified;
 
     // HashCodeEqualsDefined..........................................................................................
 
@@ -272,13 +274,13 @@ public final class JarEntryInfo {
                 size,
                 compressedSize,
                 method,
-                create,
-                lastModified
+                Optional.ofNullable(create),
+                Optional.ofNullable(lastModified)
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.object()
+        JsonObject json = JsonNode.object()
                 .set(
                         NAME_PROPERTY,
                         context.marshall(this.name)
@@ -294,13 +296,28 @@ public final class JarEntryInfo {
                 ).set(
                         METHOD_PROPERTY,
                         context.marshall(this.method)
-                ).set(
-                        CREATE_PROPERTY,
-                        context.marshall(this.create)
-                ).set(
-                        LAST_MODIFIED_PROPERTY,
-                        context.marshall(this.lastModified)
                 );
+
+        {
+            final LocalDateTime create = this.create.orElse(null);
+            if (null != create) {
+                json = json.set(
+                        CREATE_PROPERTY,
+                        context.marshall(create)
+                );
+            }
+        }
+        {
+            final LocalDateTime lastModified = this.lastModified.orElse(null);
+            if (null != lastModified) {
+                json = json.set(
+                        LAST_MODIFIED_PROPERTY,
+                        context.marshall(lastModified)
+                );
+            }
+        }
+
+        return json;
     }
 
     private final static String NAME_PROPERTY_STRING = "name";
