@@ -90,6 +90,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                 OptionalLong.of(size),
                 OptionalLong.of(size),
                 OptionalInt.of(1), // method
+                OptionalLong.of(999), // crc
                 Optional.of(CREATE),
                 Optional.of(LAST_MODIFIED)
         );
@@ -192,6 +193,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"size\": \"111\",\n" +
                         "    \"compressedSize\": \"111\",\n" +
                         "    \"method\": 1,\n" +
+                        "    \"crc\": \"999\",\n" +
                         "    \"create\": \"1999-12-31T12:58:59\",\n" +
                         "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "  },\n" +
@@ -201,6 +203,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"size\": \"222\",\n" +
                         "    \"compressedSize\": \"222\",\n" +
                         "    \"method\": 1,\n" +
+                        "    \"crc\": \"999\",\n" +
                         "    \"create\": \"1999-12-31T12:58:59\",\n" +
                         "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "  },\n" +
@@ -210,6 +213,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"size\": \"333\",\n" +
                         "    \"compressedSize\": \"333\",\n" +
                         "    \"method\": 1,\n" +
+                        "    \"crc\": \"999\",\n" +
                         "    \"create\": \"1999-12-31T12:58:59\",\n" +
                         "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "  }\n" +

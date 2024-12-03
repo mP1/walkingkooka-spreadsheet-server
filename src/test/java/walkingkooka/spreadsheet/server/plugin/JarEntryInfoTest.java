@@ -47,6 +47,8 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
 
     private final static OptionalInt METHOD = OptionalInt.of(1);
 
+    private final static OptionalLong CRC = OptionalLong.of(999);
+
     private final static Optional<LocalDateTime> CREATE = Optional.of(
             LocalDateTime.of(
                     1999,
@@ -81,6 +83,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -97,6 +100,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -113,6 +117,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         null,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -129,6 +134,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         OptionalLong.of(-1),
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -145,6 +151,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         null,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -161,6 +168,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         OptionalLong.of(-1),
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -177,6 +185,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         null,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -193,6 +202,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         OptionalInt.of(-1),
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -209,6 +219,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         null,
                         LAST_MODIFIED
                 )
@@ -225,6 +236,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         null
                 )
@@ -242,6 +254,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -257,6 +270,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -269,9 +283,10 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
-                        OptionalLong.of(9999),
+                        OptionalLong.of(999),
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -285,8 +300,9 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         NAME,
                         DIRECTORY,
                         SIZE,
-                        OptionalLong.of(9999),
+                        OptionalLong.of(999),
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -302,6 +318,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         OptionalInt.of(999),
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -317,6 +334,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         Optional.empty(),
                         LAST_MODIFIED
                 )
@@ -332,6 +350,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         Optional.of(LocalDateTime.MAX)
                 )
@@ -346,6 +365,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 SIZE,
                 COMPRESSED_SIZE,
                 METHOD,
+                CRC,
                 CREATE,
                 LAST_MODIFIED
         );
@@ -362,10 +382,11 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 ),
-                "\"/META-INF/MANIFEST.MF\" \"(directory)\" size=1111 compressedSize=222 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+                "\"/META-INF/MANIFEST.MF\" \"(directory)\" size=1111 compressedSize=222 method=1 crc=999 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
         );
     }
 
@@ -378,10 +399,11 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 ),
-                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=1111 compressedSize=222 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=1111 compressedSize=222 method=1 crc=999 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
         );
     }
 
@@ -394,10 +416,11 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         OptionalLong.of(0),
                         OptionalLong.of(0),
                         METHOD,
+                        CRC,
                         CREATE,
                         LAST_MODIFIED
                 ),
-                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=0 compressedSize=0 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=0 compressedSize=0 method=1 crc=999 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
         );
     }
 
@@ -413,6 +436,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
+                        "  \"crc\": \"999\",\n" +
                         "  \"create\": \"1999-12-31T12:58:59\",\n" +
                         "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "}"
@@ -420,7 +444,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     }
 
     @Test
-    public void testMarshallMissingSizeCompressedSizeMethod() {
+    public void testMarshallMissingSizeCompressedSizeMethodCrc() {
         this.marshallAndCheck(
                 JarEntryInfo.with(
                         NAME,
@@ -428,6 +452,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         OptionalLong.empty(), // size
                         OptionalLong.empty(), // compressedSize
                         OptionalInt.empty(), // method
+                        OptionalLong.empty(), // crc
                         CREATE,
                         LAST_MODIFIED
                 ),
@@ -449,6 +474,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         Optional.empty(),
                         Optional.empty()
                 ),
@@ -457,7 +483,8 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  \"directory\": false,\n" +
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
-                        "  \"method\": 1\n" +
+                        "  \"method\": 1,\n" +
+                        "  \"crc\": \"999\"\n" +
                         "}"
         );
     }
@@ -471,6 +498,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
+                        "  \"crc\": \"999\",\n" +
                         "  \"create\": \"1999-12-31T12:58:59\",\n" +
                         "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "}",
@@ -502,13 +530,14 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  size: 1111\n" +
                         "  compressedSize: 222\n" +
                         "  method: 1\n" +
+                        "  crc: 999\n" +
                         "  create: 1999-12-31T12:58:59\n" +
                         "  lastModified: 2000-01-02T03:45:59\n"
         );
     }
 
     @Test
-    public void testTreePrintMissingSizeCompressedSizeMethod() {
+    public void testTreePrintMissingSizeCompressedSizeMethodCrc() {
         this.treePrintAndCheck(
                 JarEntryInfo.with(
                         NAME,
@@ -516,6 +545,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         OptionalLong.empty(), // size
                         OptionalLong.empty(), // compressedSize
                         OptionalInt.empty(), // method
+                        OptionalLong.empty(), // crc
                         CREATE,
                         LAST_MODIFIED
                 ),
@@ -534,13 +564,15 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
+                        CRC,
                         Optional.empty(),
                         Optional.empty()
                 ),
                 "/META-INF/MANIFEST.MF (file)\n" +
                         "  size: 1111\n" +
                         "  compressedSize: 222\n" +
-                        "  method: 1\n"
+                        "  method: 1\n" +
+                        "  crc: 999\n"
         );
     }
 
