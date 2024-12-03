@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.plugin;
 import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
+import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -35,6 +36,8 @@ import java.util.Objects;
  */
 public final class JarEntryInfo {
 
+    public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
+
     public static JarEntryInfo with(final String name,
                                     final boolean directory,
                                     final long size,
@@ -43,7 +46,7 @@ public final class JarEntryInfo {
                                     final LocalDateTime create,
                                     final LocalDateTime lastModified) {
         return new JarEntryInfo(
-                CharSequences.failIfNullOrEmpty(name, "name"),
+                checkName(name),
                 directory,
                 checkPositiveNumber(size, "size"),
                 checkPositiveNumber(compressedSize, "compressedSize"),
@@ -51,6 +54,16 @@ public final class JarEntryInfo {
                 Objects.requireNonNull(create, "create"),
                 Objects.requireNonNull(lastModified, "lastModified")
         );
+    }
+
+    private static String checkName(final String name) {
+        CharSequences.failIfNullOrEmpty(name, "name");
+
+        if (false == name.startsWith(SEPARATOR.string())) {
+            throw new IllegalArgumentException("Name must start with '/' but got " + CharSequences.quoteAndEscape(name));
+        }
+
+        return name;
     }
 
     private static int checkPositiveNumber(final int value,

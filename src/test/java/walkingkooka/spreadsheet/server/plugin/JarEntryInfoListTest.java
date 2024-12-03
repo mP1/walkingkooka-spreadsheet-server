@@ -55,25 +55,25 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     );
 
     private final static JarEntryInfo INFO1 = jarEntryInfo(
-            "file111",
+            "/file111",
             false, // directory
             111
     );
 
     private final static JarEntryInfo INFO2 = jarEntryInfo(
-            "file222",
+            "/file222",
             false, // directory
             222
     );
 
     private final static JarEntryInfo INFO3 = jarEntryInfo(
-            "file333",
+            "/file333",
             false, // directory
             333
     );
 
     private final static JarEntryInfo INFO4 = jarEntryInfo(
-            "file444",
+            "/file444",
             false, // directory
             444
     );
@@ -184,7 +184,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                 this.createList(),
                 "[\n" +
                         "  {\n" +
-                        "    \"name\": \"file111\",\n" +
+                        "    \"name\": \"/file111\",\n" +
                         "    \"directory\": false,\n" +
                         "    \"size\": \"111\",\n" +
                         "    \"compressedSize\": \"111\",\n" +
@@ -193,7 +193,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "  },\n" +
                         "  {\n" +
-                        "    \"name\": \"file222\",\n" +
+                        "    \"name\": \"/file222\",\n" +
                         "    \"directory\": false,\n" +
                         "    \"size\": \"222\",\n" +
                         "    \"compressedSize\": \"222\",\n" +
@@ -202,7 +202,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "  },\n" +
                         "  {\n" +
-                        "    \"name\": \"file333\",\n" +
+                        "    \"name\": \"/file333\",\n" +
                         "    \"directory\": false,\n" +
                         "    \"size\": \"333\",\n" +
                         "    \"compressedSize\": \"333\",\n" +

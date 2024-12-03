@@ -180,7 +180,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     public void testEqualsDifferentName() {
         this.checkNotEquals(
                 JarEntryInfo.with(
-                        "different",
+                        "/different",
                         DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
