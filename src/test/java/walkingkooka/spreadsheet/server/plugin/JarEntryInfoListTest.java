@@ -237,6 +237,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }
