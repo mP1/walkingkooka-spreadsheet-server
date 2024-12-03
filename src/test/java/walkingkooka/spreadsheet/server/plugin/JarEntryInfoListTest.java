@@ -47,34 +47,28 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
 
     private final static JarEntryInfo INFO1 = jarEntryInfo(
             "/file111",
-            false, // directory
             111
     );
 
     private final static JarEntryInfo INFO2 = jarEntryInfo(
             "/file222",
-            false, // directory
             222
     );
 
     private final static JarEntryInfo INFO3 = jarEntryInfo(
             "/file333",
-            false, // directory
             333
     );
 
     private final static JarEntryInfo INFO4 = jarEntryInfo(
             "/file444",
-            false, // directory
             444
     );
 
     private static JarEntryInfo jarEntryInfo(final String name,
-                                             final boolean directory,
                                              final long size) {
         return JarEntryInfo.with(
                 name,
-                directory,
                 OptionalLong.of(size),
                 OptionalLong.of(size),
                 OptionalInt.of(1), // method
@@ -196,7 +190,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         Lists.of(
                                 JarEntryInfo.with(
                                         "/META-INF/MANIFEST.MF",
-                                        false, // directory
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -206,7 +199,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                 ),
                                 JarEntryInfo.with(
                                         "/file111",
-                                        false, // directory
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -216,7 +208,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                 ),
                                 JarEntryInfo.with(
                                         "/file222",
-                                        false, // directory
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -226,7 +217,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                 ),
                                 JarEntryInfo.with(
                                         "/file333",
-                                        false, // directory
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -251,7 +241,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                 "[\n" +
                         "  {\n" +
                         "    \"name\": \"/file111\",\n" +
-                        "    \"directory\": false,\n" +
                         "    \"size\": \"111\",\n" +
                         "    \"compressedSize\": \"111\",\n" +
                         "    \"method\": 1,\n" +
@@ -261,7 +250,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "  },\n" +
                         "  {\n" +
                         "    \"name\": \"/file222\",\n" +
-                        "    \"directory\": false,\n" +
                         "    \"size\": \"222\",\n" +
                         "    \"compressedSize\": \"222\",\n" +
                         "    \"method\": 1,\n" +
@@ -271,7 +259,6 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "  },\n" +
                         "  {\n" +
                         "    \"name\": \"/file333\",\n" +
-                        "    \"directory\": false,\n" +
                         "    \"size\": \"333\",\n" +
                         "    \"compressedSize\": \"333\",\n" +
                         "    \"method\": 1,\n" +
