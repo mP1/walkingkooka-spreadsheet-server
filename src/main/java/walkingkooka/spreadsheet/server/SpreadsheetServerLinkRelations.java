@@ -28,6 +28,8 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
 
+    public final static LinkRelation<?> LIST = LinkRelation.with("list");
+
     public final static LinkRelation<?> MENU = LinkRelation.with("menu");
 
     public final static LinkRelation<?> NEXT_TOKEN = LinkRelation.with("next-token");

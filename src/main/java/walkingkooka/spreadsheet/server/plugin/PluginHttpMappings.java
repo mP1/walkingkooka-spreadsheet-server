@@ -76,6 +76,10 @@ public final class PluginHttpMappings implements PublicStaticHelper {
                 SpreadsheetServerLinkRelations.DOWNLOAD,
                 HttpMethod.GET,
                 PluginHateosHttpEntityHandlerDownloadPluginArchive.INSTANCE
+        ).setHateosHttpEntityHandler(
+                SpreadsheetServerLinkRelations.LIST,
+                HttpMethod.GET,
+                PluginHateosHttpEntityHandlerList.INSTANCE
         );
 
         return plugin;
