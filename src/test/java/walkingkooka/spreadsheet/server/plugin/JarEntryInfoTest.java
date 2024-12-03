@@ -26,6 +26,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,11 +39,11 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
 
     private final static boolean DIRECTORY = false;
 
-    private final static long SIZE = 1111;
+    private final static OptionalLong SIZE = OptionalLong.of(1111);
 
-    private final static long COMPRESSED_SIZE = 222;
+    private final static OptionalLong COMPRESSED_SIZE = OptionalLong.of(222);
 
-    private final static int METHOD = 1;
+    private final static OptionalInt METHOD = OptionalInt.of(1);
 
     private final static Optional<LocalDateTime> CREATE = Optional.of(
             LocalDateTime.of(
@@ -100,14 +102,46 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     }
 
     @Test
+    public void testWithNullSizeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        null,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
     public void testWithNegativeSizeFails() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
-                        -1,
+                        OptionalLong.of(-1),
                         COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullCompressedSizeFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        null,
                         METHOD,
                         CREATE,
                         LAST_MODIFIED
@@ -123,8 +157,24 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         NAME,
                         DIRECTORY,
                         SIZE,
-                        -1,
+                        OptionalLong.of(-1),
                         METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullMethodFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        null,
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -140,7 +190,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
-                        -1,
+                        OptionalInt.of(-1),
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -217,7 +267,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 JarEntryInfo.with(
                         NAME,
                         DIRECTORY,
-                        10000 + SIZE,
+                        OptionalLong.of(9999),
                         COMPRESSED_SIZE,
                         METHOD,
                         CREATE,
@@ -233,7 +283,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         NAME,
                         DIRECTORY,
                         SIZE,
-                        10000 + COMPRESSED_SIZE,
+                        OptionalLong.of(9999),
                         METHOD,
                         CREATE,
                         LAST_MODIFIED
@@ -249,7 +299,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         DIRECTORY,
                         SIZE,
                         COMPRESSED_SIZE,
-                        METHOD + 1,
+                        OptionalInt.of(999),
                         CREATE,
                         LAST_MODIFIED
                 )
@@ -339,8 +389,8 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 JarEntryInfo.with(
                         NAME,
                         false,
-                        0,
-                        0,
+                        OptionalLong.of(0),
+                        OptionalLong.of(0),
                         METHOD,
                         CREATE,
                         LAST_MODIFIED
@@ -361,6 +411,27 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  \"size\": \"1111\",\n" +
                         "  \"compressedSize\": \"222\",\n" +
                         "  \"method\": 1,\n" +
+                        "  \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "}"
+        );
+    }
+
+    @Test
+    public void testMarshallMissingSizeCompressedSizeMethod() {
+        this.marshallAndCheck(
+                JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.empty(), // method
+                        CREATE,
+                        LAST_MODIFIED
+                ),
+                "{\n" +
+                        "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                        "  \"directory\": false,\n" +
                         "  \"create\": \"1999-12-31T12:58:59\",\n" +
                         "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
                         "}"

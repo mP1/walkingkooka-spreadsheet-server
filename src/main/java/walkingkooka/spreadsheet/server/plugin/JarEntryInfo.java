@@ -32,6 +32,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 
 /**
  * An individual file or directory entry within a JAR file.
@@ -42,9 +44,9 @@ public final class JarEntryInfo {
 
     public static JarEntryInfo with(final String name,
                                     final boolean directory,
-                                    final long size,
-                                    final long compressedSize,
-                                    final int method,
+                                    final OptionalLong size,
+                                    final OptionalLong compressedSize,
+                                    final OptionalInt method,
                                     final Optional<LocalDateTime> create,
                                     final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
@@ -68,27 +70,33 @@ public final class JarEntryInfo {
         return name;
     }
 
-    private static int checkPositiveNumber(final int value,
-                                           final String label) {
-        if (value < 0) {
-            throw new IllegalArgumentException("Invalid " + label + " " + value + " < 0");
+    private static OptionalInt checkPositiveNumber(final OptionalInt value,
+                                                   final String label) {
+        if (value.isPresent()) {
+            final int intValue = value.getAsInt();
+            if (intValue < 0) {
+                throw new IllegalArgumentException("Invalid " + label + " " + intValue + " < 0");
+            }
         }
         return value;
     }
 
-    private static long checkPositiveNumber(final long value,
-                                            final String label) {
-        if (value < 0) {
-            throw new IllegalArgumentException("Invalid " + label + " " + value + " < 0");
+    private static OptionalLong checkPositiveNumber(final OptionalLong value,
+                                                    final String label) {
+        if (value.isPresent()) {
+            final long longValue = value.getAsLong();
+            if (longValue < 0) {
+                throw new IllegalArgumentException("Invalid " + label + " " + longValue + " < 0");
+            }
         }
         return value;
     }
 
     private JarEntryInfo(final String name,
                          final boolean directory,
-                         final long size,
-                         final long compressedSize,
-                         final int method,
+                         final OptionalLong size,
+                         final OptionalLong compressedSize,
+                         final OptionalInt method,
                          final Optional<LocalDateTime> create,
                          final Optional<LocalDateTime> lastModified) {
         this.name = name;
@@ -112,23 +120,23 @@ public final class JarEntryInfo {
 
     private final boolean directory;
 
-    public long size() {
+    public OptionalLong size() {
         return this.size;
     }
 
-    private final long size;
+    private final OptionalLong size;
 
-    public long compressedSize() {
+    public OptionalLong compressedSize() {
         return this.compressedSize;
     }
 
-    private final long compressedSize;
+    private final OptionalLong compressedSize;
 
-    public int method() {
+    public OptionalInt method() {
         return this.method;
     }
 
-    private final int method;
+    private final OptionalInt method;
 
     public Optional<LocalDateTime> create() {
         return this.create;
@@ -167,9 +175,9 @@ public final class JarEntryInfo {
     private boolean equals0(final JarEntryInfo other) {
         return this.name.equals(other.name) &&
                 this.directory == other.directory &&
-                this.size == other.size &&
-                this.compressedSize == other.compressedSize &&
-                this.method == other.method &&
+                this.size.equals(other.size) &&
+                this.compressedSize.equals(other.compressedSize) &&
+                this.method.equals(other.method) &&
                 this.create.equals(other.create) &&
                 this.lastModified.equals(other.lastModified);
     }
@@ -271,9 +279,15 @@ public final class JarEntryInfo {
         return with(
                 name,
                 directory,
-                size,
-                compressedSize,
-                method,
+                null != size ?
+                        OptionalLong.of(size.longValue()) :
+                        OptionalLong.empty(),
+                null != compressedSize ?
+                        OptionalLong.of(compressedSize.longValue()) :
+                        OptionalLong.empty(),
+                null != method ?
+                        OptionalInt.of(method.intValue()) :
+                        OptionalInt.empty(),
                 Optional.ofNullable(create),
                 Optional.ofNullable(lastModified)
         );
@@ -287,16 +301,37 @@ public final class JarEntryInfo {
                 ).set(
                         DIRECTORY_PROPERTY,
                         context.marshall(this.directory)
-                ).set(
-                        SIZE_PROPERTY,
-                        context.marshall(this.size)
-                ).set(
-                        COMPRESSED_SIZE_PROPERTY,
-                        context.marshall(this.compressedSize)
-                ).set(
-                        METHOD_PROPERTY,
-                        context.marshall(this.method)
                 );
+
+        {
+            final OptionalLong size = this.size;
+            if (size.isPresent()) {
+                json = json.set(
+                        SIZE_PROPERTY,
+                        context.marshall(size.getAsLong())
+                );
+            }
+        }
+
+        {
+            final OptionalLong compressedSize = this.compressedSize;
+            if (compressedSize.isPresent()) {
+                json = json.set(
+                        COMPRESSED_SIZE_PROPERTY,
+                        context.marshall(compressedSize.getAsLong())
+                );
+            }
+        }
+
+        {
+            final OptionalInt method = this.method;
+            if (method.isPresent()) {
+                json = json.set(
+                        METHOD_PROPERTY,
+                        context.marshall(method.getAsInt())
+                );
+            }
+        }
 
         {
             final LocalDateTime create = this.create.orElse(null);
