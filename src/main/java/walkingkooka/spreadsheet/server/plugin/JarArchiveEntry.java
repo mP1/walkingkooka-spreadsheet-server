@@ -21,6 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonPropertyName;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -171,5 +176,156 @@ public final class JarArchiveEntry {
                 .label("lastModified")
                 .value(this.lastModified)
                 .build();
+    }
+
+    // JsonNodeContext...................................................................................................
+
+    /**
+     * Factory that creates a {@link JarArchiveEntry} parse a {@link JsonNode}.
+     */
+    static JarArchiveEntry unmarshall(final JsonNode node,
+                                      final JsonNodeUnmarshallContext context) {
+        Objects.requireNonNull(node, "node");
+
+        String name = null;
+        Boolean directory = null;
+        Long size = null;
+        Long compressedSize = null;
+        Integer method = null;
+        LocalDateTime create = null;
+        LocalDateTime lastModified = null;
+
+        for (final JsonNode child : node.objectOrFail().children()) {
+            final JsonPropertyName jsonPropertyName = child.name();
+            switch (jsonPropertyName.value()) {
+                case NAME_PROPERTY_STRING:
+                    name = context.unmarshall(
+                            child,
+                            String.class
+                    );
+                    break;
+                case DIRECTORY_PROPERTY_STRING:
+                    directory = context.unmarshall(
+                            child,
+                            Boolean.class
+                    );
+                    break;
+                case SIZE_PROPERTY_STRING:
+                    size = context.unmarshall(
+                            child,
+                            Long.class
+                    );
+                    break;
+                case COMPRESSED_SIZE_PROPERTY_STRING:
+                    compressedSize = context.unmarshall(
+                            child,
+                            Long.class
+                    );
+                    break;
+                case METHOD_PROPERTY_STRING:
+                    method = context.unmarshall(
+                            child,
+                            Integer.class
+                    );
+                    break;
+                case CREATE_PROPERTY_STRING:
+                    create = context.unmarshall(
+                            child,
+                            LocalDateTime.class
+                    );
+                    break;
+                case LAST_MODIFIED_PROPERTY_STRING:
+                    lastModified = context.unmarshall(
+                            child,
+                            LocalDateTime.class
+                    );
+                    break;
+                default:
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(
+                            jsonPropertyName,
+                            node
+                    );
+                    break;
+            }
+        }
+
+        if (null == name) {
+            JsonNodeUnmarshallContext.requiredPropertyMissing(NAME_PROPERTY, node);
+        }
+
+        return with(
+                name,
+                directory,
+                size,
+                compressedSize,
+                method,
+                create,
+                lastModified
+        );
+    }
+
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
+        return JsonNode.object()
+                .set(
+                        NAME_PROPERTY,
+                        context.marshall(this.name)
+                ).set(
+                        DIRECTORY_PROPERTY,
+                        context.marshall(this.directory)
+                ).set(
+                        SIZE_PROPERTY,
+                        context.marshall(this.size)
+                ).set(
+                        COMPRESSED_SIZE_PROPERTY,
+                        context.marshall(this.compressedSize)
+                ).set(
+                        METHOD_PROPERTY,
+                        context.marshall(this.method)
+                ).set(
+                        CREATE_PROPERTY,
+                        context.marshall(this.create)
+                ).set(
+                        LAST_MODIFIED_PROPERTY,
+                        context.marshall(this.lastModified)
+                );
+    }
+
+    private final static String NAME_PROPERTY_STRING = "name";
+
+    private final static String DIRECTORY_PROPERTY_STRING = "directory";
+
+    private final static String SIZE_PROPERTY_STRING = "size";
+
+    private final static String COMPRESSED_SIZE_PROPERTY_STRING = "compressedSize";
+
+    private final static String METHOD_PROPERTY_STRING = "method";
+
+    private final static String CREATE_PROPERTY_STRING = "create";
+
+    private final static String LAST_MODIFIED_PROPERTY_STRING = "lastModified";
+
+    final static JsonPropertyName NAME_PROPERTY = JsonPropertyName.with(NAME_PROPERTY_STRING);
+
+    final static JsonPropertyName DIRECTORY_PROPERTY = JsonPropertyName.with(DIRECTORY_PROPERTY_STRING);
+
+    final static JsonPropertyName SIZE_PROPERTY = JsonPropertyName.with(SIZE_PROPERTY_STRING);
+
+    final static JsonPropertyName COMPRESSED_SIZE_PROPERTY = JsonPropertyName.with(COMPRESSED_SIZE_PROPERTY_STRING);
+
+    final static JsonPropertyName METHOD_PROPERTY = JsonPropertyName.with(METHOD_PROPERTY_STRING);
+
+    final static JsonPropertyName CREATE_PROPERTY = JsonPropertyName.with(CREATE_PROPERTY_STRING);
+
+    final static JsonPropertyName LAST_MODIFIED_PROPERTY = JsonPropertyName.with(LAST_MODIFIED_PROPERTY_STRING);
+
+    static {
+        LocalDateTime.now();
+
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(JarArchiveEntry.class),
+                JarArchiveEntry::unmarshall,
+                JarArchiveEntry::marshall,
+                JarArchiveEntry.class
+        );
     }
 }

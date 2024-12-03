@@ -20,13 +20,17 @@ package walkingkooka.spreadsheet.server.plugin;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<JarArchiveEntry>,
-        ToStringTesting<JarArchiveEntry> {
+        ToStringTesting<JarArchiveEntry>,
+        JsonNodeMarshallingTesting<JarArchiveEntry> {
 
     private final static String NAME = "/META-INF/MANIFEST.MF";
 
@@ -338,6 +342,54 @@ public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<
                 ),
                 "\"/META-INF/MANIFEST.MF\" \"(file)\" size=0 compressedSize=0 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
         );
+    }
+
+    // json.............................................................................................................
+
+    @Test
+    public void testMarshall() {
+        this.marshallAndCheck(
+                this.createJsonNodeMarshallingValue(),
+                "{\n" +
+                        "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                        "  \"directory\": false,\n" +
+                        "  \"size\": \"1111\",\n" +
+                        "  \"compressedSize\": \"222\",\n" +
+                        "  \"method\": 1,\n" +
+                        "  \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "}"
+        );
+    }
+
+    @Test
+    public void testUnmarshall() {
+        this.unmarshallAndCheck(
+                "{\n" +
+                        "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                        "  \"directory\": false,\n" +
+                        "  \"size\": \"1111\",\n" +
+                        "  \"compressedSize\": \"222\",\n" +
+                        "  \"method\": 1,\n" +
+                        "  \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "}",
+                this.createJsonNodeMarshallingValue()
+        );
+    }
+
+    @Override
+    public JarArchiveEntry unmarshall(final JsonNode json,
+                                      final JsonNodeUnmarshallContext context) {
+        return JarArchiveEntry.unmarshall(
+                json,
+                context
+        );
+    }
+
+    @Override
+    public JarArchiveEntry createJsonNodeMarshallingValue() {
+        return this.createObject();
     }
 
     // class............................................................................................................
