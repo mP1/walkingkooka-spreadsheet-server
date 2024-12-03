@@ -25,6 +25,7 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.AbstractList;
 import java.util.List;
@@ -35,6 +36,11 @@ import java.util.OptionalLong;
 
 public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
+
+
+    public static JarEntryInfoList readJarFile(final InputStream inputStream) {
+        return JarEntryInfoListReadJarFile.readJarFile(inputStream);
+    }
 
     public static JarEntryInfoList with(final List<JarEntryInfo> infos) {
         Objects.requireNonNull(infos, "infos");

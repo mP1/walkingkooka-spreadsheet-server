@@ -20,6 +20,8 @@ package walkingkooka.spreadsheet.server.plugin;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.ImmutableListTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
+import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
@@ -27,35 +29,21 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
-import java.time.LocalDateTime;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntryInfoList, JarEntryInfo>,
         ClassTesting<JarEntryInfoList>,
         HasTextTesting,
-        JsonNodeMarshallingTesting<JarEntryInfoList> {
-
-    private final static LocalDateTime CREATE = LocalDateTime.of(
-            1999,
-            12,
-            31,
-            12,
-            58,
-            59
-    );
-
-    private final static LocalDateTime LAST_MODIFIED = LocalDateTime.of(
-            2000,
-            1,
-            2,
-            3,
-            45,
-            59
-    );
+        JsonNodeMarshallingTesting<JarEntryInfoList>,
+        JarFileTesting {
 
     private final static JarEntryInfo INFO1 = jarEntryInfo(
             "/file111",
@@ -180,6 +168,80 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         );
     }
 
+    // readJarFile......................................................................................................
+
+    @Test
+    public void testReadJarFileWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarEntryInfoList.readJarFile(null)
+        );
+    }
+
+    @Test
+    public void testReadJarFile() throws IOException {
+        final byte[] jar = JarFileTesting.jarFile(
+                "Manifest-Version: 1.0\r\n" +
+                        "Key111: Value111\r\n" +
+                        "\r\n",
+                Maps.of(
+                        "file111", "File111".getBytes(StandardCharsets.UTF_8),
+                        "file222", "File222".getBytes(StandardCharsets.UTF_8),
+                        "file333", "File333".getBytes(StandardCharsets.UTF_8)
+                )
+        );
+
+        this.checkEquals(
+                JarEntryInfoList.with(
+                        Lists.of(
+                                JarEntryInfo.with(
+                                        "/META-INF/MANIFEST.MF",
+                                        false, // directory
+                                        OptionalLong.empty(), // size
+                                        OptionalLong.empty(), // compressedSize
+                                        OptionalInt.of(8), // method
+                                        OptionalLong.empty(), // crc
+                                        Optional.of(CREATE),
+                                        Optional.of(LAST_MODIFIED)
+                                ),
+                                JarEntryInfo.with(
+                                        "/file111",
+                                        false, // directory
+                                        OptionalLong.empty(), // size
+                                        OptionalLong.empty(), // compressedSize
+                                        OptionalInt.of(8), // method
+                                        OptionalLong.empty(), // crc
+                                        Optional.of(CREATE),
+                                        Optional.of(LAST_MODIFIED)
+                                ),
+                                JarEntryInfo.with(
+                                        "/file222",
+                                        false, // directory
+                                        OptionalLong.empty(), // size
+                                        OptionalLong.empty(), // compressedSize
+                                        OptionalInt.of(8), // method
+                                        OptionalLong.empty(), // crc
+                                        Optional.of(CREATE),
+                                        Optional.of(LAST_MODIFIED)
+                                ),
+                                JarEntryInfo.with(
+                                        "/file333",
+                                        false, // directory
+                                        OptionalLong.empty(), // size
+                                        OptionalLong.empty(), // compressedSize
+                                        OptionalInt.of(8), // method
+                                        OptionalLong.empty(), // crc
+                                        Optional.of(CREATE),
+                                        Optional.of(LAST_MODIFIED)
+                                )
+                        )
+                ),
+                JarEntryInfoList.readJarFile(
+                        new ByteArrayInputStream(jar)
+                )
+        );
+    }
+
     // json.............................................................................................................
 
     @Test
@@ -194,8 +256,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"compressedSize\": \"111\",\n" +
                         "    \"method\": 1,\n" +
                         "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
-                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
                         "  },\n" +
                         "  {\n" +
                         "    \"name\": \"/file222\",\n" +
@@ -204,8 +266,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"compressedSize\": \"222\",\n" +
                         "    \"method\": 1,\n" +
                         "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
-                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
                         "  },\n" +
                         "  {\n" +
                         "    \"name\": \"/file333\",\n" +
@@ -214,8 +276,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         "    \"compressedSize\": \"333\",\n" +
                         "    \"method\": 1,\n" +
                         "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
-                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
                         "  }\n" +
                         "]"
         );
