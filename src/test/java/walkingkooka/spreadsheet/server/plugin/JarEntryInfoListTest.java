@@ -23,6 +23,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.HasTextTesting;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
 
@@ -30,7 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntryInfoList, JarEntryInfo>,
         ClassTesting<JarEntryInfoList>,
-        HasTextTesting {
+        HasTextTesting,
+        JsonNodeMarshallingTesting<JarEntryInfoList> {
 
     private final static LocalDateTime CREATE = LocalDateTime.of(
             1999,
@@ -170,6 +174,58 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                         INFO3
                 )
         );
+    }
+
+    // json.............................................................................................................
+
+    @Test
+    public void testMarshall() {
+        this.marshallAndCheck(
+                this.createList(),
+                "[\n" +
+                        "  {\n" +
+                        "    \"name\": \"file111\",\n" +
+                        "    \"directory\": false,\n" +
+                        "    \"size\": \"111\",\n" +
+                        "    \"compressedSize\": \"111\",\n" +
+                        "    \"method\": 1,\n" +
+                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"file222\",\n" +
+                        "    \"directory\": false,\n" +
+                        "    \"size\": \"222\",\n" +
+                        "    \"compressedSize\": \"222\",\n" +
+                        "    \"method\": 1,\n" +
+                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"file333\",\n" +
+                        "    \"directory\": false,\n" +
+                        "    \"size\": \"333\",\n" +
+                        "    \"compressedSize\": \"333\",\n" +
+                        "    \"method\": 1,\n" +
+                        "    \"create\": \"1999-12-31T12:58:59\",\n" +
+                        "    \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "  }\n" +
+                        "]"
+        );
+    }
+
+    @Override
+    public JarEntryInfoList unmarshall(final JsonNode jsonNode,
+                                       final JsonNodeUnmarshallContext context) {
+        return JarEntryInfoList.unmarshall(
+                jsonNode,
+                context
+        );
+    }
+
+    @Override
+    public JarEntryInfoList createJsonNodeMarshallingValue() {
+        return this.createList();
     }
 
     // class............................................................................................................
