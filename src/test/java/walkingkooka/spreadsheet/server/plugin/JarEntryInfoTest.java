@@ -25,6 +25,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -42,22 +43,26 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
 
     private final static int METHOD = 1;
 
-    private final static LocalDateTime CREATE = LocalDateTime.of(
-            1999,
-            12,
-            31,
-            12,
-            58,
-            59
+    private final static Optional<LocalDateTime> CREATE = Optional.of(
+            LocalDateTime.of(
+                    1999,
+                    12,
+                    31,
+                    12,
+                    58,
+                    59
+            )
     );
 
-    private final static LocalDateTime LAST_MODIFIED = LocalDateTime.of(
-            2000,
-            1,
-            2,
-            3,
-            45,
-            59
+    private final static Optional<LocalDateTime> LAST_MODIFIED = Optional.of(
+            LocalDateTime.of(
+                    2000,
+                    1,
+                    2,
+                    3,
+                    45,
+                    59
+            )
     );
 
     // with.............................................................................................................
@@ -260,7 +265,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
-                        LocalDateTime.MAX,
+                        Optional.empty(),
                         LAST_MODIFIED
                 )
         );
@@ -276,7 +281,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         COMPRESSED_SIZE,
                         METHOD,
                         CREATE,
-                        LocalDateTime.MAX
+                        Optional.of(LocalDateTime.MAX)
                 )
         );
     }
@@ -358,6 +363,28 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                         "  \"method\": 1,\n" +
                         "  \"create\": \"1999-12-31T12:58:59\",\n" +
                         "  \"lastModified\": \"2000-01-02T03:45:59\"\n" +
+                        "}"
+        );
+    }
+
+    @Test
+    public void testMarshallMissingCreateAndLastModified() {
+        this.marshallAndCheck(
+                JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        Optional.empty(),
+                        Optional.empty()
+                ),
+                "{\n" +
+                        "  \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                        "  \"directory\": false,\n" +
+                        "  \"size\": \"1111\",\n" +
+                        "  \"compressedSize\": \"222\",\n" +
+                        "  \"method\": 1\n" +
                         "}"
         );
     }
