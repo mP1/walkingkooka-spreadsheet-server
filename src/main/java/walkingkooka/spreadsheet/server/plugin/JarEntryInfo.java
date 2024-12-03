@@ -22,6 +22,8 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonObject;
 import walkingkooka.tree.json.JsonPropertyName;
@@ -38,7 +40,7 @@ import java.util.OptionalLong;
 /**
  * An individual file or directory entry within a JAR file.
  */
-public final class JarEntryInfo {
+public final class JarEntryInfo implements TreePrintable {
 
     public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
@@ -392,5 +394,51 @@ public final class JarEntryInfo {
                 JarEntryInfo::marshall,
                 JarEntryInfo.class
         );
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.print(this.name);
+        printer.println(this.directory ? " (directory)" : " (file)");
+
+        printer.indent();
+        {
+            {
+                final OptionalLong size = this.size;
+                if (size.isPresent()) {
+                    printer.println("size: " + size.getAsLong());
+                }
+            }
+
+            {
+                final OptionalLong compressedSize = this.compressedSize;
+                if (compressedSize.isPresent()) {
+                    printer.println("compressedSize: " + compressedSize.getAsLong());
+                }
+            }
+
+            {
+                final OptionalInt method = this.method;
+                if (method.isPresent()) {
+                    printer.println("method: " + method.getAsInt());
+                }
+            }
+
+            {
+                Optional<LocalDateTime> create = this.create;
+                if (create.isPresent()) {
+                    printer.println("create: " + create.get());
+                }
+            }
+            {
+                Optional<LocalDateTime> lastModified = this.lastModified;
+                if (lastModified.isPresent()) {
+                    printer.println("lastModified: " + lastModified.get());
+                }
+            }
+        }
+        printer.outdent();
     }
 }

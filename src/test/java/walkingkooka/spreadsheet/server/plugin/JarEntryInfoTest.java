@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.plugin;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -33,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<JarEntryInfo>,
         ToStringTesting<JarEntryInfo>,
-        JsonNodeMarshallingTesting<JarEntryInfo> {
+        JsonNodeMarshallingTesting<JarEntryInfo>,
+        TreePrintableTesting {
 
     private final static String NAME = "/META-INF/MANIFEST.MF";
 
@@ -488,6 +490,58 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     @Override
     public JarEntryInfo createJsonNodeMarshallingValue() {
         return this.createObject();
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        this.treePrintAndCheck(
+                this.createObject(),
+                "/META-INF/MANIFEST.MF (file)\n" +
+                        "  size: 1111\n" +
+                        "  compressedSize: 222\n" +
+                        "  method: 1\n" +
+                        "  create: 1999-12-31T12:58:59\n" +
+                        "  lastModified: 2000-01-02T03:45:59\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintMissingSizeCompressedSizeMethod() {
+        this.treePrintAndCheck(
+                JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.empty(), // method
+                        CREATE,
+                        LAST_MODIFIED
+                ),
+                "/META-INF/MANIFEST.MF (file)\n" +
+                        "  create: 1999-12-31T12:58:59\n" +
+                        "  lastModified: 2000-01-02T03:45:59\n"
+        );
+    }
+
+    @Test
+    public void testTreePrintMissingCreateLastModified() {
+        this.treePrintAndCheck(
+                JarEntryInfo.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        Optional.empty(),
+                        Optional.empty()
+                ),
+                "/META-INF/MANIFEST.MF (file)\n" +
+                        "  size: 1111\n" +
+                        "  compressedSize: 222\n" +
+                        "  method: 1\n"
+        );
     }
 
     // class............................................................................................................
