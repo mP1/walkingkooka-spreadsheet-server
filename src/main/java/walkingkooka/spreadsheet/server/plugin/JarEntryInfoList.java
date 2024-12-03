@@ -30,10 +30,10 @@ import java.util.AbstractList;
 import java.util.List;
 import java.util.Objects;
 
-final class JarEntryInfoList extends AbstractList<JarEntryInfo>
+public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
 
-    static JarEntryInfoList with(final List<JarEntryInfo> infos) {
+    public static JarEntryInfoList with(final List<JarEntryInfo> infos) {
         Objects.requireNonNull(infos, "infos");
 
         return infos instanceof JarEntryInfoList ?
