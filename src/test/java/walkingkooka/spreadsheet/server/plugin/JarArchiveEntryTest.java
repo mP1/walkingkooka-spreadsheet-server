@@ -1,0 +1,349 @@
+/*
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package walkingkooka.spreadsheet.server.plugin;
+
+import org.junit.jupiter.api.Test;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
+import walkingkooka.ToStringTesting;
+
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class JarArchiveEntryTest implements HashCodeEqualsDefinedTesting2<JarArchiveEntry>,
+        ToStringTesting<JarArchiveEntry> {
+
+    private final static String NAME = "/META-INF/MANIFEST.MF";
+
+    private final static boolean DIRECTORY = false;
+
+    private final static long SIZE = 1111;
+
+    private final static long COMPRESSED_SIZE = 222;
+
+    private final static int METHOD = 1;
+
+    private final static LocalDateTime CREATE = LocalDateTime.of(
+            1999,
+            12,
+            31,
+            12,
+            58,
+            59
+    );
+
+    private final static LocalDateTime LAST_MODIFIED = LocalDateTime.of(
+            2000,
+            1,
+            2,
+            3,
+            45,
+            59
+    );
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullNameFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarArchiveEntry.with(
+                        null,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithEmptyNameFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> JarArchiveEntry.with(
+                        "",
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNegativeSizeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        -1,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNegativeCompressedSizeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        -1,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNegativeMethodFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        -1,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullCreateFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        null,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullLastModifiedFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        null
+                )
+        );
+    }
+
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentName() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        "different",
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentDirectory() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        false == DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentSize() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        10000 + SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentCompressedSize() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        10000 + COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentMethod() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD + 1,
+                        CREATE,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentCreate() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        LocalDateTime.MAX,
+                        LAST_MODIFIED
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentLastModified() {
+        this.checkNotEquals(
+                JarArchiveEntry.with(
+                        NAME,
+                        DIRECTORY,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LocalDateTime.MAX
+                )
+        );
+    }
+
+    @Override
+    public JarArchiveEntry createObject() {
+        return JarArchiveEntry.with(
+                NAME,
+                DIRECTORY,
+                SIZE,
+                COMPRESSED_SIZE,
+                METHOD,
+                CREATE,
+                LAST_MODIFIED
+        );
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringDirectory() {
+        this.toStringAndCheck(
+                JarArchiveEntry.with(
+                        NAME,
+                        true,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                ),
+                "\"/META-INF/MANIFEST.MF\" \"(directory)\" size=1111 compressedSize=222 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+        );
+    }
+
+    @Test
+    public void testToStringFile() {
+        this.toStringAndCheck(
+                JarArchiveEntry.with(
+                        NAME,
+                        false,
+                        SIZE,
+                        COMPRESSED_SIZE,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                ),
+                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=1111 compressedSize=222 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+        );
+    }
+
+    @Test
+    public void testToStringEmptyFile() {
+        this.toStringAndCheck(
+                JarArchiveEntry.with(
+                        NAME,
+                        false,
+                        0,
+                        0,
+                        METHOD,
+                        CREATE,
+                        LAST_MODIFIED
+                ),
+                "\"/META-INF/MANIFEST.MF\" \"(file)\" size=0 compressedSize=0 method=1 create=1999-12-31T12:58:59 lastModified=2000-01-02T03:45:59"
+        );
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public Class<JarArchiveEntry> type() {
+        return JarArchiveEntry.class;
+    }
+}
