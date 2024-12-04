@@ -17,7 +17,6 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -28,7 +27,6 @@ import java.util.function.BiFunction;
 
 class PluginFileDownloadHttpHandlerFileExtractorGwt implements StaticHelper {
 
-    @GwtIncompatible
     static HttpEntity extractFile(final Binary binary,
                                   final String filename,
                                   final BiFunction<String, Binary, MediaType> contentTypeDetector) throws IOException {
