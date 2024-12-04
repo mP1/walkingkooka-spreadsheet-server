@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.plugin;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
@@ -31,7 +32,8 @@ import walkingkooka.text.LineEnding;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class PluginHttpHandlerTest implements ClassTesting<PluginHttpHandler> {
+public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHttpHandler>,
+        ClassTesting<PluginHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
@@ -109,6 +111,19 @@ public final class PluginHttpHandlerTest implements ClassTesting<PluginHttpHandl
                         HATEOS_RESOURCE_HANDLER_CONTEXT,
                         null
                 )
+        );
+    }
+
+    // HttpHandler......................................................................................................
+
+    @Override
+    public PluginHttpHandler createHttpHandler() {
+        return PluginHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT
         );
     }
 

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
@@ -30,11 +31,14 @@ import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
 import walkingkooka.net.http.server.HttpHandler;
+import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -68,13 +72,14 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>
-        implements SpreadsheetMetadataTesting {
+public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+        ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+        TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+        SpreadsheetMetadataTesting {
 
     private final static String SERVER_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
@@ -325,32 +330,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
                 );
     }
 
-    private void checkHttpResponse(final HttpResponse httpResponse,
-                                   final HttpStatus status,
-                                   final Object body) {
-        this.checkEquals(Optional.of(status), httpResponse.status(), () -> "status\n" + httpResponse);
-        this.checkEquals(
-                toJsonString(body),
-                httpResponse.entity().bodyText(),
-                httpResponse::toString
-        );
-    }
-
     private static String toJsonString(final Object value) {
         return JSON_NODE_MARSHALL_CONTEXT.marshall(value)
                 .toString();
     }
 
-    // toString.........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createHttpHandler(), SERVER_URL + "/api");
-    }
-
-    // helpers..........................................................................................................
-
-    private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
+    @Override
+    public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
                 Url.parseAbsolute(SERVER_URL + "/api"),
                 Indentation.SPACES2,
@@ -443,11 +429,26 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest exte
 
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createHttpHandler(),
+                SERVER_URL + "/api"
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override
     public Class<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler> type() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.class;
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     // TypeNameTesting..................................................................................................

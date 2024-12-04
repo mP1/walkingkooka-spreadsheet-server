@@ -132,6 +132,9 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     private void metadataPatchHttpHandler(final HttpRequest request,
                                           final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         // PATCH
         // content type = JSON
         HttpHandlers.methodNotAllowed(
