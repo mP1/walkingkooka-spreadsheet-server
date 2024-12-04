@@ -40,7 +40,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -171,22 +170,17 @@ public final class PluginHateosHttpEntityHandlerDownloadPluginArchiveTest
                 "Manifest-Version: 1.0\r\n" +
                         "plugin-name: PluginName\r\n" +
                         "plugin-provider-factory-className: example.PluginName\r\n"
-        )
-                .replace(
-                        "PluginName",
-                        pluginName
-                );
+        ).replace(
+                "PluginName",
+                pluginName
+        );
 
-        try {
-            return Binary.with(
-                    JarFileTesting.jarFile(
-                            manifest,
-                            Maps.empty()
-                    )
-            );
-        } catch (final IOException cause) {
-            throw new RuntimeException(cause);
-        }
+        return Binary.with(
+                JarFileTesting.jarFile(
+                        manifest,
+                        Maps.empty()
+                )
+        );
     }
 
     @Override

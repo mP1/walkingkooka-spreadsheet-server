@@ -40,7 +40,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -82,23 +81,19 @@ public final class PluginHateosHttpEntityHandlerListTest
                         pluginName
                 );
 
-        try {
-            return Binary.with(
-                    JarFileTesting.jarFile(
-                            manifest,
-                            Maps.of(
-                                    "file111.txt",
-                                    "Hello111".getBytes(StandardCharsets.UTF_8),
-                                    "dir222/",
-                                    new byte[0],
-                                    "file333.txt",
-                                    "Hello333".getBytes(StandardCharsets.UTF_8)
-                            )
-                    )
-            );
-        } catch (final IOException cause) {
-            throw new RuntimeException(cause);
-        }
+        return Binary.with(
+                JarFileTesting.jarFile(
+                        manifest,
+                        Maps.of(
+                                "file111.txt",
+                                "Hello111".getBytes(StandardCharsets.UTF_8),
+                                "dir222/",
+                                new byte[0],
+                                "file333.txt",
+                                "Hello333".getBytes(StandardCharsets.UTF_8)
+                        )
+                )
+        );
     }
 
     @Test
