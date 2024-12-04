@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -37,59 +37,59 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpMappings;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
+import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * A handler that routes all spreadsheet API calls, outside {@link SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler}.
+ * A handler that routes all spreadsheet API calls.
  */
-final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements HttpHandler {
+public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler} handler.
+     * Creates a new {@link SpreadsheetMetadataHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
-                                                                       final Indentation indentation,
-                                                                       final LineEnding lineEnding,
-                                                                       final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                       final ProviderContext providerContext,
-                                                                       final SpreadsheetMetadataStore metadataStore,
-                                                                       final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                       final HateosResourceHandlerContext hateosResourceHandlerContext) {
-        return new SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(
-                serverUrl,
-                indentation,
-                lineEnding,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext
+    public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
+                                                      final Indentation indentation,
+                                                      final LineEnding lineEnding,
+                                                      final SpreadsheetProvider systemSpreadsheetProvider,
+                                                      final ProviderContext providerContext,
+                                                      final SpreadsheetMetadataStore metadataStore,
+                                                      final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
+        return new SpreadsheetMetadataHttpHandler(
+                Objects.requireNonNull(serverUrl, "serverUrl"),
+                Objects.requireNonNull(indentation, "indentation"),
+                Objects.requireNonNull(lineEnding, "lineEnding"),
+                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
+                Objects.requireNonNull(providerContext, "providerContext"),
+                Objects.requireNonNull(metadataStore, "metadataStore"),
+                Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
+                Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
+                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext")
         );
     }
 
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
-                                                                   final Indentation indentation,
-                                                                   final LineEnding lineEnding,
-                                                                   final SpreadsheetProvider systemSpreadsheetProvider,
-                                                                   final ProviderContext providerContext,
-                                                                   final SpreadsheetMetadataStore metadataStore,
-                                                                   final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                                                                   final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                                                                   final HateosResourceHandlerContext hateosResourceHandlerContext) {
+    private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
+                                           final Indentation indentation,
+                                           final LineEnding lineEnding,
+                                           final SpreadsheetProvider systemSpreadsheetProvider,
+                                           final ProviderContext providerContext,
+                                           final SpreadsheetMetadataStore metadataStore,
+                                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
+                                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
+                                           final HateosResourceHandlerContext hateosResourceHandlerContext) {
         super();
 
         this.serverUrl = serverUrl;
@@ -114,7 +114,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                         this::metadataPatchHttpHandler
                 ).router()
                 .then(
-                        SpreadsheetMetadataHttpMappings.router(
+                        SpreadsheetMetadataHateosResourceHandlersRouter.with(
                                 serverUrl,
                                 indentation,
                                 lineEnding,
@@ -139,7 +139,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                 HttpHandlers.contentType(
                         SpreadsheetServerMediaTypes.CONTENT_TYPE,
                         JsonHttpHandlers.json(
-                                (json) -> SpreadsheetMetadataHttpMappings.patch(
+                                (json) -> SpreadsheetMetadataPatchFunction.with(
                                         SpreadsheetId.parse(
                                                 request.url()
                                                         .path()
@@ -148,7 +148,7 @@ final class SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler implements Ht
                                         ),
                                         this.context
                                 ).apply(json),
-                                SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler::patchPost
+                                SpreadsheetMetadataHttpHandler::patchPost
                         )
                 )
         ).handle(
