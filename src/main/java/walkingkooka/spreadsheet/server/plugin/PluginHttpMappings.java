@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.collect.Range;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
@@ -137,8 +138,11 @@ final class PluginHttpMappings implements StaticHelper {
                                                                final Indentation indentation,
                                                                final LineEnding lineEnding,
                                                                final PluginHateosResourceHandlerContext context) {
-        return PluginHateosResourceHandlersRouter.router(
+        return HateosResourceMapping.router(
                 baseUrl,
+                Sets.of(
+                        PluginHttpMappings.plugin()
+                ),
                 indentation,
                 lineEnding,
                 context
