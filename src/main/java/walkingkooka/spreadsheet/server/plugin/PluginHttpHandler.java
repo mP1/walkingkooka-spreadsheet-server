@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.spreadsheet.server;
+package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpHandler;
@@ -25,41 +25,42 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
-import walkingkooka.spreadsheet.server.plugin.PluginHateosResourceHandlerContexts;
-import walkingkooka.spreadsheet.server.plugin.PluginHttpMappings;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+
+import java.util.Objects;
 
 /**
  * A handler that routes all plugin API calls.
  */
-final class SpreadsheetHttpServerApiPluginHttpHandler implements HttpHandler {
+public final class PluginHttpHandler implements HttpHandler {
 
     /**
-     * Creates a new {@link SpreadsheetHttpServerApiPluginHttpHandler} handler.
+     * Creates a new {@link PluginHttpHandler} handler.
      */
-    static SpreadsheetHttpServerApiPluginHttpHandler with(final AbsoluteUrl serverUrl,
-                                                          final Indentation indentation,
-                                                          final LineEnding lineEnding,
-                                                          final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                          final ProviderContext providerContext) {
-        return new SpreadsheetHttpServerApiPluginHttpHandler(
-                serverUrl,
-                indentation,
-                lineEnding,
-                hateosResourceHandlerContext,
-                providerContext
+    public static PluginHttpHandler with(final AbsoluteUrl serverUrl,
+                                         final Indentation indentation,
+                                         final LineEnding lineEnding,
+                                         final HateosResourceHandlerContext hateosResourceHandlerContext,
+                                         final ProviderContext providerContext) {
+        return new PluginHttpHandler(
+                Objects.requireNonNull(serverUrl, "serverUrl"),
+                Objects.requireNonNull(indentation, "indentation"),
+                Objects.requireNonNull(lineEnding, "lineEnding"),
+                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+                Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 
     /**
      * Private ctor
      */
-    private SpreadsheetHttpServerApiPluginHttpHandler(final AbsoluteUrl serverUrl,
-                                                      final Indentation indentation,
-                                                      final LineEnding lineEnding,
-                                                      final HateosResourceHandlerContext hateosResourceHandlerContext,
-                                                      final ProviderContext providerContext) {
+    private PluginHttpHandler(final AbsoluteUrl serverUrl,
+                              final Indentation indentation,
+                              final LineEnding lineEnding,
+                              final HateosResourceHandlerContext hateosResourceHandlerContext,
+                              final ProviderContext providerContext) {
         super();
 
         this.serverUrl = serverUrl;
