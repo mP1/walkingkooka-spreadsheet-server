@@ -857,13 +857,21 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownload() {
+    public void testPluginDownload() throws IOException {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
                 PluginName.with("TestPlugin111"),
                 "TestPlugin111-download.jar",
-                Binary.with("Hello".getBytes(StandardCharsets.UTF_8)),
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n\rn",
+                                Maps.of(
+                                        "dir111/file111.txt",
+                                        "Hello".getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
                 USER,
                 NOW.now()
         );
@@ -988,6 +996,75 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                                 "  }\n" +
                                                 "]"
                                 ).setContentLength()
+                )
+        );
+    }
+
+
+    @Test
+    public void testPluginFileDownloadAbsent() {
+        final TestHttpServer server = this.startServer();
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/download/file-absent.txt"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY
+                ),
+                this.response(
+                        HttpStatusCode.NO_CONTENT.status(),
+                        HttpEntity.EMPTY
+                )
+        );
+    }
+
+    @Test
+    public void testPluginFileDownload() throws IOException {
+        final TestHttpServer server = this.startServer();
+
+        final String fileContent = "Hello";
+
+        final Plugin plugin = Plugin.with(
+                PluginName.with("TestPlugin111"),
+                "TestPlugin111-download.jar",
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n\r\n",
+                                Maps.of(
+                                        "example/Example.java",
+                                        fileContent.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin);
+
+        // get all plugins
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/TestPlugin111/download/example/Example.java"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.BINARY.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        HttpEntity.EMPTY.setContentType(MediaType.parse("text/java"))
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        ContentDispositionType.ATTACHMENT.setFilename(
+                                                ContentDispositionFileName.notEncoded("/example/Example.java")
+                                        )
+                                ).setBodyText(fileContent)
+                                .setContentLength()
                 )
         );
     }

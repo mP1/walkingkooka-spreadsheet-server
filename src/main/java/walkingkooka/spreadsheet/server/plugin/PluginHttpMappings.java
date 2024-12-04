@@ -74,10 +74,6 @@ final class PluginHttpMappings implements StaticHelper {
                 HttpMethod.POST,
                 PluginHateosHttpEntityHandlerUpload.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.DOWNLOAD,
-                HttpMethod.GET,
-                PluginHateosHttpEntityHandlerDownloadPluginArchive.INSTANCE
-        ).setHateosHttpEntityHandler(
                 SpreadsheetServerLinkRelations.LIST,
                 HttpMethod.GET,
                 PluginHateosHttpEntityHandlerList.INSTANCE

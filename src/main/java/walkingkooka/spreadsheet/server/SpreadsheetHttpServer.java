@@ -25,6 +25,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -268,11 +269,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
         return PluginHttpHandler.with(
-                        apiPlugin,
-                        this.indentation,
-                        this.lineEnding,
-                        this.hateosResourceHandlerContext,
-                        this.providerContext
+                apiPlugin,
+                this.indentation,
+                this.lineEnding,
+                this.hateosResourceHandlerContext,
+                this.providerContext,
+                (filename, binary) ->
+                        filename.endsWith(".java") ?
+                                MediaType.parse("text/java") :
+                                MediaType.BINARY
         );
     }
 
