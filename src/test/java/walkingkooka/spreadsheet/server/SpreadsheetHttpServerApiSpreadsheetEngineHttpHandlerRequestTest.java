@@ -19,21 +19,26 @@ package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.FakeHttpRequest;
+import walkingkooka.net.http.server.HttpResponses;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTest extends SpreadsheetHttpServerTestCase2<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest> {
 
     @Test
     public void testToString() {
         final String toString = "Request 123";
-        this.toStringAndCheck(SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(new FakeHttpRequest() {
-                                                                                                  @Override
-                                                                                                  public String toString() {
-                                                                                                      return toString;
-                                                                                                  }
-                                                                                              },
-                null,
-                null),
-                toString);
+        this.toStringAndCheck(
+                SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
+                        new FakeHttpRequest() {
+                            @Override
+                            public String toString() {
+                                return toString;
+                            }
+                        },
+                        HttpResponses.fake(),
+                        null
+                ),
+                toString
+        );
     }
 
     // ClassTesting.....................................................................................................

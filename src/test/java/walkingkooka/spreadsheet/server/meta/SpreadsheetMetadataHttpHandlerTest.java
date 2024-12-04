@@ -20,11 +20,11 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContexts;
-import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
@@ -39,7 +39,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class SpreadsheetMetadataHttpHandlerTest implements ClassTesting<SpreadsheetMetadataHttpHandler> {
+public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTesting<SpreadsheetMetadataHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
@@ -223,6 +223,28 @@ public final class SpreadsheetMetadataHttpHandlerTest implements ClassTesting<Sp
                         SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
                         null
                 )
+        );
+    }
+
+    // HttpHandler......................................................................................................
+
+    @Override
+    public void testHandleWithNullResponseFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetMetadataHttpHandler createHttpHandler() {
+        return SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 

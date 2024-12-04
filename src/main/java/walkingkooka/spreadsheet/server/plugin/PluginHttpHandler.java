@@ -81,6 +81,9 @@ public final class PluginHttpHandler implements HttpHandler {
     @Override
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
+        Objects.requireNonNull(request, "request");
+        Objects.requireNonNull(response, "response");
+
         this.router.route(request.routerParameters())
                 .orElse(SpreadsheetHttpServer::notFound)
                 .handle(

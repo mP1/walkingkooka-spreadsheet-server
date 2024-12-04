@@ -25,6 +25,7 @@ import walkingkooka.net.http.server.HttpRequestAttributes;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.spreadsheet.SpreadsheetId;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,7 +36,11 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest with(final HttpRequest request,
                                                                             final HttpResponse response,
                                                                             final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
-        return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(request, response, engine);
+        return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(
+                Objects.requireNonNull(request, "request"),
+                Objects.requireNonNull(response, "response"),
+                engine
+        );
     }
 
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(final HttpRequest request,
