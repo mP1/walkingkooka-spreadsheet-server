@@ -43,6 +43,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CharSequences;
@@ -229,7 +230,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
-        return SpreadsheetHttpServerApiSpreadsheetMetadataHttpHandler.with(
+        return SpreadsheetMetadataHttpHandler.with(
                 api,
                 this.indentation,
                 this.lineEnding,
