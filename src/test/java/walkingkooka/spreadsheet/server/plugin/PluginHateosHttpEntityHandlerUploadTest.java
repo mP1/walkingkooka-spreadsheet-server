@@ -41,7 +41,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -329,16 +328,12 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                         pluginName
                 );
 
-        try {
-            return Binary.with(
-                    JarFileTesting.jarFile(
-                            manifest,
-                            Maps.empty()
-                    )
-            );
-        } catch (final IOException cause) {
-            throw new RuntimeException(cause);
-        }
+        return Binary.with(
+                JarFileTesting.jarFile(
+                        manifest,
+                        Maps.empty()
+                )
+        );
     }
 
     @Override
