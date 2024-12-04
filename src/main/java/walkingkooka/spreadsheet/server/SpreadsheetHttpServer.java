@@ -43,6 +43,7 @@ import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
@@ -121,7 +122,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     /**
      * Reports a resource was not found.
      */
-    static void notFound(final HttpRequest request, final HttpResponse response) {
+    public static void notFound(final HttpRequest request, final HttpResponse response) {
         response.setStatus(HttpStatusCode.NOT_FOUND.status());
         response.setEntity(HttpEntity.EMPTY);
     }
@@ -265,7 +266,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
-        return SpreadsheetHttpServerApiPluginHttpHandler.with(
+        return PluginHttpHandler.with(
                         apiPlugin,
                         this.indentation,
                         this.lineEnding,

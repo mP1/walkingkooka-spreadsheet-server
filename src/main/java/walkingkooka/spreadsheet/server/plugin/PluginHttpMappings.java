@@ -29,15 +29,15 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
-import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 
-public final class PluginHttpMappings implements PublicStaticHelper {
+final class PluginHttpMappings implements StaticHelper {
 
-    public static HateosResourceMapping<PluginName,
+    static HateosResourceMapping<PluginName,
             Plugin,
             PluginSet,
             Plugin,
@@ -133,10 +133,10 @@ public final class PluginHttpMappings implements PublicStaticHelper {
     /**
      * {@see PluginHateosResourceHandlersRouter}
      */
-    public static Router<HttpRequestAttribute<?>, HttpHandler> router(final AbsoluteUrl baseUrl,
-                                                                      final Indentation indentation,
-                                                                      final LineEnding lineEnding,
-                                                                      final PluginHateosResourceHandlerContext context) {
+    static Router<HttpRequestAttribute<?>, HttpHandler> router(final AbsoluteUrl baseUrl,
+                                                               final Indentation indentation,
+                                                               final LineEnding lineEnding,
+                                                               final PluginHateosResourceHandlerContext context) {
         return PluginHateosResourceHandlersRouter.router(
                 baseUrl,
                 indentation,
