@@ -18,17 +18,23 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Binary;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
+import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
-import walkingkooka.plugin.ProviderContexts;
+import walkingkooka.plugin.store.PluginStore;
+import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+
+import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -42,7 +48,14 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
     private final static LineEnding LINE_ENDING = LineEnding.NL;
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.fake();
 
-    private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
+    private final static ProviderContext PROVIDER_CONTEXT = new FakeProviderContext() {
+        @Override
+        public PluginStore pluginStore() {
+            return PluginStores.fake();
+        }
+    };
+
+    private final static BiFunction<String, Binary, MediaType> CONTENT_TYPE_DETECTOR = (filename, binary) -> MediaType.BINARY;
 
     @Test
     public void testWithNullServerUrlFails() {
@@ -53,7 +66,8 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                         INDENTATION,
                         LINE_ENDING,
                         HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT
+                        PROVIDER_CONTEXT,
+                        CONTENT_TYPE_DETECTOR
                 )
         );
     }
@@ -67,7 +81,8 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                         null,
                         LINE_ENDING,
                         HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT
+                        PROVIDER_CONTEXT,
+                        CONTENT_TYPE_DETECTOR
                 )
         );
     }
@@ -81,7 +96,8 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                         INDENTATION,
                         null,
                         HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT
+                        PROVIDER_CONTEXT,
+                        CONTENT_TYPE_DETECTOR
                 )
         );
     }
@@ -95,7 +111,8 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                         INDENTATION,
                         LINE_ENDING,
                         null,
-                        PROVIDER_CONTEXT
+                        PROVIDER_CONTEXT,
+                        CONTENT_TYPE_DETECTOR
                 )
         );
     }
@@ -109,6 +126,22 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                         INDENTATION,
                         LINE_ENDING,
                         HATEOS_RESOURCE_HANDLER_CONTEXT,
+                        null,
+                        CONTENT_TYPE_DETECTOR
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullContentTypeDetectorFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> PluginHttpHandler.with(
+                        SERVER_URL,
+                        INDENTATION,
+                        LINE_ENDING,
+                        HATEOS_RESOURCE_HANDLER_CONTEXT,
+                        PROVIDER_CONTEXT,
                         null
                 )
         );
@@ -123,7 +156,8 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
                 INDENTATION,
                 LINE_ENDING,
                 HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+                PROVIDER_CONTEXT,
+                CONTENT_TYPE_DETECTOR
         );
     }
 
