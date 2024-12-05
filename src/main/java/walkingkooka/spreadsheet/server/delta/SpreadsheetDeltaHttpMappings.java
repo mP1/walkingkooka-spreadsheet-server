@@ -173,7 +173,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 switch (separator) {
                     case -1:
                         result = HateosResourceSelection.one(
-                                parseCell0(
+                                parseCellOrLabel(
                                         cellOrLabel,
                                         context
                                 )
@@ -182,7 +182,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                     case 0:
                         throw new IllegalArgumentException("Missing begin");
                     default:
-                        final SpreadsheetCellReference begin = parseCell0(
+                        final SpreadsheetCellReference begin = parseCellOrLabel(
                                 cellOrLabel.substring(0, separator),
                                 context
                         );
@@ -190,7 +190,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                         if (separator + 1 == cellOrLabel.length()) {
                             throw new IllegalArgumentException("Missing end");
                         }
-                        final SpreadsheetCellReference end = parseCell0(
+                        final SpreadsheetCellReference end = parseCellOrLabel(
                                 cellOrLabel.substring(separator + 1),
                                 context
                         );
@@ -206,8 +206,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Parses the given text as either a cell reference or label name, if the later it is resolved to a {@link SpreadsheetCellReference}.
      */
-    private static SpreadsheetCellReference parseCell0(final String cellOrLabelText,
-                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static SpreadsheetCellReference parseCellOrLabel(final String cellOrLabelText,
+                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.resolveIfLabel(
                 SpreadsheetSelection.parseCellOrLabel(cellOrLabelText)
         ).toCell();
