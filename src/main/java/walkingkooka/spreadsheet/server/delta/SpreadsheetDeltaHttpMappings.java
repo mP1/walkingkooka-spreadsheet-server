@@ -16,6 +16,7 @@
  */
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
@@ -169,48 +170,27 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 result = HateosResourceSelection.all();
                 break;
             default:
-                final int separator = cellOrLabel.indexOf(SpreadsheetSelection.SEPARATOR.character());
-                switch (separator) {
-                    case -1:
-                        result = HateosResourceSelection.one(
-                                parseCellOrLabel(
-                                        cellOrLabel,
-                                        context
-                                )
+                SpreadsheetSelection reference = context.resolveIfLabel(
+                        SpreadsheetSelection.parseExpressionReference(cellOrLabel)
+                );
+                if (reference.isCellReference()) {
+                    result = HateosResourceSelection.one(
+                            reference.toCell()
+                    );
+                } else {
+                    if (reference.isCellRangeReference()) {
+                        result = HateosResourceSelection.range(
+                                reference.toCellRange()
+                                        .range()
                         );
-                        break;
-                    case 0:
-                        throw new IllegalArgumentException("Missing begin");
-                    default:
-                        final SpreadsheetCellReference begin = parseCellOrLabel(
-                                cellOrLabel.substring(0, separator),
-                                context
-                        );
-
-                        if (separator + 1 == cellOrLabel.length()) {
-                            throw new IllegalArgumentException("Missing end");
-                        }
-                        final SpreadsheetCellReference end = parseCellOrLabel(
-                                cellOrLabel.substring(separator + 1),
-                                context
-                        );
-                        result = HateosResourceSelection.range(begin.range(end));
-                        break;
+                    } else {
+                        throw new NeverError("Expected cell or cell-range got " + reference);
+                    }
                 }
                 break;
         }
 
         return result;
-    }
-
-    /**
-     * Parses the given text as either a cell reference or label name, if the later it is resolved to a {@link SpreadsheetCellReference}.
-     */
-    private static SpreadsheetCellReference parseCellOrLabel(final String cellOrLabelText,
-                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return context.resolveIfLabel(
-                SpreadsheetSelection.parseCellOrLabel(cellOrLabelText)
-        ).toCell();
     }
 
     /**
