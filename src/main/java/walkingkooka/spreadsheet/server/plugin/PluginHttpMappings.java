@@ -89,12 +89,14 @@ final class PluginHttpMappings implements StaticHelper {
                                                                        final PluginHateosResourceHandlerContext context) {
         final HateosResourceSelection<PluginName> result;
 
-        if (text.isEmpty()) {
-            result = HateosResourceSelection.none();
-        } else {
-            if (HateosResourceSelection.ALL.equals(text)) {
+        switch (text) {
+            case HateosResourceSelection.NONE:
+                result = HateosResourceSelection.none();
+                break;
+            case HateosResourceSelection.ALL:
                 result = HateosResourceSelection.all();
-            } else {
+                break;
+            default:
                 final int separator = text.indexOf(PluginName.SEPARATOR.character());
                 switch (separator) {
                     case -1:
@@ -114,7 +116,6 @@ final class PluginHttpMappings implements StaticHelper {
                         );
                         break;
                 }
-            }
         }
 
         return result;
