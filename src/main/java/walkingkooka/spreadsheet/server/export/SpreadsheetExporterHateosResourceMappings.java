@@ -78,10 +78,10 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
         final HateosResourceSelection<SpreadsheetExporterName> selection;
 
         switch (text) {
-            case "":
+            case HateosResourceSelection.NONE:
                 selection = HateosResourceSelection.all();
                 break;
-            case "*":
+            case HateosResourceSelection.ALL:
                 throw new IllegalArgumentException("Invalid exporter selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(

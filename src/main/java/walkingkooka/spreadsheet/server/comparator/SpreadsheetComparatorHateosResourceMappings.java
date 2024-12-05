@@ -66,10 +66,10 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
         final HateosResourceSelection<SpreadsheetComparatorName> selection;
 
         switch (text) {
-            case "":
+            case HateosResourceSelection.NONE:
                 selection = HateosResourceSelection.all();
                 break;
-            case "*":
+            case HateosResourceSelection.ALL:
                 throw new IllegalArgumentException("Invalid comparator selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(

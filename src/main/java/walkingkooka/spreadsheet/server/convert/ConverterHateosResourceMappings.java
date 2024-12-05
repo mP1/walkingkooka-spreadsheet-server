@@ -66,10 +66,10 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
         final HateosResourceSelection<ConverterName> selection;
 
         switch (text) {
-            case "":
+            case HateosResourceSelection.NONE:
                 selection = HateosResourceSelection.all();
                 break;
-            case "*":
+            case HateosResourceSelection.ALL:
                 throw new IllegalArgumentException("Invalid converter selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(

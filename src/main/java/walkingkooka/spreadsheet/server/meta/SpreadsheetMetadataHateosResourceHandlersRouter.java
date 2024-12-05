@@ -115,10 +115,10 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
             final HateosResourceSelection<SpreadsheetId> selection;
 
             switch (text) {
-                case "":
+                case HateosResourceSelection.NONE:
                     selection = HateosResourceSelection.none();
                     break;
-                case "*":
+                case HateosResourceSelection.ALL:
                     selection = HateosResourceSelection.all();
                     break;
                 default:
