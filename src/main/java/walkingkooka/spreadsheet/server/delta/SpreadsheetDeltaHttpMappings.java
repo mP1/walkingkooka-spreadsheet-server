@@ -164,7 +164,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         if (cellOrLabel.isEmpty()) {
             result = HateosResourceSelection.none();
         } else {
-            if ("*".equals(cellOrLabel)) {
+            if (HateosResourceSelection.ALL.equals(cellOrLabel)) {
                 result = HateosResourceSelection.all();
             } else {
                 final int separator = cellOrLabel.indexOf(SpreadsheetSelection.SEPARATOR.character());

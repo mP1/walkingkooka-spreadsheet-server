@@ -94,11 +94,11 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         final HateosResourceSelection<SpreadsheetFormatterName> selection;
 
         switch (text) {
-            case "":
+            case HateosResourceSelection.NONE:
                 //GET /formatters
                 selection = HateosResourceSelection.all();
                 break;
-            case "*":
+            case HateosResourceSelection.ALL:
                 //POST /formatters/*/format
                 selection = HateosResourceSelection.all();
                 break;

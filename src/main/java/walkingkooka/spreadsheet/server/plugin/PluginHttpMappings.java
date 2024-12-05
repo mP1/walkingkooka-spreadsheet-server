@@ -92,7 +92,7 @@ final class PluginHttpMappings implements StaticHelper {
         if (text.isEmpty()) {
             result = HateosResourceSelection.none();
         } else {
-            if ("*".equals(text)) {
+            if (HateosResourceSelection.ALL.equals(text)) {
                 result = HateosResourceSelection.all();
             } else {
                 final int separator = text.indexOf(PluginName.SEPARATOR.character());

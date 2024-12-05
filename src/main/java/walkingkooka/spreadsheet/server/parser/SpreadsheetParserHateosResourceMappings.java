@@ -78,10 +78,10 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
         final HateosResourceSelection<SpreadsheetParserName> selection;
 
         switch (text) {
-            case "":
+            case HateosResourceSelection.NONE:
                 selection = HateosResourceSelection.all();
                 break;
-            case "*":
+            case HateosResourceSelection.ALL:
                 selection = HateosResourceSelection.all();
                 break;
             default:
