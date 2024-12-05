@@ -161,12 +161,14 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetCellReference> result;
 
-        if (cellOrLabel.isEmpty()) {
-            result = HateosResourceSelection.none();
-        } else {
-            if (HateosResourceSelection.ALL.equals(cellOrLabel)) {
+        switch (cellOrLabel) {
+            case HateosResourceSelection.NONE:
+                result = HateosResourceSelection.none();
+                break;
+            case HateosResourceSelection.ALL:
                 result = HateosResourceSelection.all();
-            } else {
+                break;
+            default:
                 final int separator = cellOrLabel.indexOf(SpreadsheetSelection.SEPARATOR.character());
                 switch (separator) {
                     case -1:
@@ -195,7 +197,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                         result = HateosResourceSelection.range(begin.range(end));
                         break;
                 }
-            }
+                break;
         }
 
         return result;
