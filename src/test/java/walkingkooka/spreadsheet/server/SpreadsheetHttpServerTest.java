@@ -1191,6 +1191,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
                                 "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"plugins\": \"\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
@@ -4916,6 +4917,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
                                 "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"plugins\": \"\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
@@ -5294,6 +5296,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
                                 "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"plugins\": \"\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
@@ -5470,6 +5473,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                 "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
                                 "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
                                 "  \"percentage-symbol\": \"%\",\n" +
+                                "  \"plugins\": \"\",\n" +
                                 "  \"positive-sign\": \"+\",\n" +
                                 "  \"precision\": 7,\n" +
                                 "  \"rounding-mode\": \"HALF_UP\",\n" +
