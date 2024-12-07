@@ -35,6 +35,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -55,7 +56,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                 this.toSpreadsheetCellRangeReference().range(),
                 this.collectionResource(),
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.empty()
+                        SpreadsheetUrlQueryParameters.FROM, Lists.empty()
                 ),
                 this.context(),
                 IllegalArgumentException.class);
@@ -67,7 +68,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                 this.toSpreadsheetCellRangeReference().range(),
                 this.collectionResource(),
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.of("!INVALID")
+                        SpreadsheetUrlQueryParameters.FROM, Lists.of("!INVALID")
                 ),
                 this.context(),
                 IllegalArgumentException.class
@@ -78,7 +79,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     public void testFillFromParameterPresent() {
         this.handleRangeAndCheck2(
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.of(TO)
+                        SpreadsheetUrlQueryParameters.FROM, Lists.of(TO)
                 ),
                 this.toSpreadsheetCellRangeReference()
         );
@@ -88,7 +89,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     public void testFillFromParameterPresent2() {
         this.handleRangeAndCheck2(
                 Maps.of(
-                        SpreadsheetDeltaHateosResourceHandlerFillCells.FROM, Lists.of(TO, FROM)
+                        SpreadsheetUrlQueryParameters.FROM, Lists.of(TO, FROM)
                 ),
                 this.toSpreadsheetCellRangeReference()
         );
