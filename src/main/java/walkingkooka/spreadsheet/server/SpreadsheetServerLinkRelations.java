@@ -26,6 +26,8 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> EDIT = LinkRelation.with("edit");
 
+    public final static LinkRelation<?> FILTER = LinkRelation.with("filter");
+
     public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
 
     public final static LinkRelation<?> LIST = LinkRelation.with("list");

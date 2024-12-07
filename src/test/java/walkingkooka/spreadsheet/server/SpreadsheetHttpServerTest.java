@@ -25,6 +25,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.EnvironmentContexts;
@@ -1069,6 +1070,88 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testPluginFilter() throws IOException {
+        final TestHttpServer server = this.startServer();
+
+        final String fileContent = "Hello";
+
+        final Plugin plugin1 = Plugin.with(
+                PluginName.with("TestPlugin111"),
+                "TestPlugin111-archive.jar",
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n\r\n",
+                                Maps.of(
+                                        "example/Example.java",
+                                        fileContent.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin1);
+
+        final Plugin plugin2 = Plugin.with(
+                PluginName.with("TestPlugin222"),
+                "TestPlugin222-archive.jar",
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n\r\n",
+                                Maps.of(
+                                        "example/Example.java",
+                                        fileContent.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin2);
+
+        final Plugin plugin3 = Plugin.with(
+                PluginName.with("TestPlugin333"),
+                "TestPlugin333-archive.jar",
+                Binary.with(
+                        JarFileTesting.jarFile(
+                                "Manifest-Version: 1.0\r\n\r\n",
+                                Maps.of(
+                                        "example/Example.java",
+                                        fileContent.getBytes(StandardCharsets.UTF_8)
+                                )
+                        )
+                ),
+                USER,
+                NOW.now()
+        );
+
+        server.pluginStore.save(plugin3);
+
+        server.handleAndCheck(
+                HttpRequests.get(
+                        HttpTransport.UNSECURED,
+                        Url.parseRelative("/api/plugin/*/filter?query=*&offset=1&count=1"),
+                        HttpProtocolVersion.VERSION_1_0,
+                        HttpEntity.EMPTY.addHeader(
+                                HttpHeaderName.ACCEPT,
+                                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+                        )
+                ),
+                this.response(
+                        HttpStatusCode.OK.status(),
+                        toJson(
+                                PluginSet.with(
+                                        SortedSets.of(plugin2)
+                                )
+                        ),
+                        PluginSet.class.getSimpleName()
+                )
+        );
+    }
+    
     // metadata.........................................................................................................
 
     @Test

@@ -74,6 +74,8 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
         }
     }
 
+    public final static UrlParameterName QUERY = UrlParameterName.with("query");
+
     private SpreadsheetUrlQueryParameters() {
         throw new UnsupportedOperationException();
     }

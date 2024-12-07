@@ -69,6 +69,10 @@ final class PluginHttpMappings implements StaticHelper {
                 LinkRelation.SELF,
                 HttpMethod.POST,
                 PluginHateosResourceHandlerSave.INSTANCE
+        ).setHateosResourceHandler(
+                SpreadsheetServerLinkRelations.FILTER,
+                HttpMethod.GET,
+                PluginHateosResourceHandlerFilter.INSTANCE
         ).setHateosHttpEntityHandler(
                 SpreadsheetServerLinkRelations.UPLOAD,
                 HttpMethod.POST,
