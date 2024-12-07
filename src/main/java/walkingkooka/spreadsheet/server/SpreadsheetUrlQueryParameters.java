@@ -44,17 +44,17 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
     public final static UrlParameterName COUNT = UrlParameterName.with("count");
 
     /**
-     * Returns the from parameter as an integer.
+     * Returns the offset parameter as an integer.
      */
-    public static OptionalInt from(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public static OptionalInt offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
-                FROM,
+                OFFSET,
                 parameters
         );
     }
 
     // @VisibleForTesting
-    public final static UrlParameterName FROM = UrlParameterName.with("from");
+    public final static UrlParameterName OFFSET = UrlParameterName.with("offset");
 
     private static OptionalInt get(final UrlParameterName parameter,
                                    final Map<HttpRequestAttribute<?>, Object> parameters) {

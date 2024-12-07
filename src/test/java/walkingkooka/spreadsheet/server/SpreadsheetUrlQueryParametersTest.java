@@ -53,25 +53,25 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
         );
     }
 
-    // from.............................................................................................................
+    // offset.............................................................................................................
 
     @Test
-    public void testFromMissingParameter() {
+    public void testOffsetMissingParameter() {
         this.checkEquals(
                 OptionalInt.empty(),
-                SpreadsheetUrlQueryParameters.from(
+                SpreadsheetUrlQueryParameters.offset(
                         Maps.empty()
                 )
         );
     }
 
     @Test
-    public void testFrom() {
+    public void testOffset() {
         this.checkEquals(
                 OptionalInt.of(123),
-                SpreadsheetUrlQueryParameters.from(
+                SpreadsheetUrlQueryParameters.offset(
                         Maps.of(
-                                SpreadsheetUrlQueryParameters.FROM,
+                                SpreadsheetUrlQueryParameters.OFFSET,
                                 Lists.of("123")
                         )
                 )
