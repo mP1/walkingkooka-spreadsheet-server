@@ -123,7 +123,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 Maps.of(
                         SpreadsheetUrlQueryParameters.FROM,
                         Lists.of("0"),
-                        SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
+                        SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")
                 ),
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
@@ -148,7 +148,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllFails(
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
+                        SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")
                 ),
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
@@ -175,7 +175,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 Maps.of(
                         SpreadsheetUrlQueryParameters.FROM,
                         Lists.of("1"),
-                        SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
+                        SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")
                 ),
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
