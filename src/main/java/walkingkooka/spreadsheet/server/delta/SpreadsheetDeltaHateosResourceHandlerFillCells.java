@@ -33,7 +33,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -64,8 +63,8 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetCellRangeReference from = SpreadsheetUrlQueryParameters.FROM.parameterValue(parameters)
-                .map(SpreadsheetDeltaHateosResourceHandlerFillCells::mapFirstStringValue)
+        final SpreadsheetCellRangeReference from = SpreadsheetUrlQueryParameters.FROM.firstParameterValue(parameters)
+                .map(SpreadsheetExpressionReference::parseCellRange)
                 .orElse(range);
 
         return Optional.of(
@@ -81,14 +80,6 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
                         )
                 )
         );
-    }
-
-    private static SpreadsheetCellRangeReference mapFirstStringValue(final List<String> values) {
-        return values.stream()
-                .limit(1)
-                .map(SpreadsheetExpressionReference::parseCellRange)
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.FROM));
     }
 
     @Override
