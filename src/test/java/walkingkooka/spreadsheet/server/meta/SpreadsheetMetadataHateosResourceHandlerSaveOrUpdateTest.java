@@ -41,6 +41,16 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     // handle...........................................................................................................
 
     @Test
+    public void testHandleAllFails() {
+        this.handleAllFails(
+                this.collectionResource(),
+                this.parameters(),
+                this.context(),
+                UnsupportedOperationException.class
+        );
+    }
+
+    @Test
     public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.CREATOR, USER);

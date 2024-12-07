@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.store.MissingStoreException;
 
 import java.util.Map;
@@ -73,9 +74,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final int from = FROM.firstParameterValue(parameters)
-                .map(Integer::parseInt)
-                .orElse(0);
+        final int from = SpreadsheetUrlQueryParameters.from(parameters);
         final int count = COUNT.firstParameterValue(parameters)
                 .map(Integer::parseInt)
                 .orElse(DEFAULT_COUNT);
@@ -96,9 +95,6 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
                 SpreadsheetMetadataSet.with(all)
         );
     }
-
-    // @VisibleForTesting
-    final static UrlParameterName FROM = UrlParameterName.with("from");
 
     // @VisibleForTesting
     final static UrlParameterName COUNT = UrlParameterName.with("count");

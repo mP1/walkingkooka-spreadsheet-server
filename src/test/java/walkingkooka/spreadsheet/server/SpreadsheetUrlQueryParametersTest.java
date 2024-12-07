@@ -30,6 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetUrlQueryParameters> {
 
+    // count............................................................................................................
+    
     @Test
     public void testCountParameterMissingFails() {
         assertThrows(
@@ -66,6 +68,50 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
                 SpreadsheetUrlQueryParameters.count(
                         Maps.of(
                                 SpreadsheetUrlQueryParameters.COUNT,
+                                Lists.of("123")
+                        )
+                )
+        );
+    }
+
+    // from.............................................................................................................
+
+    @Test
+    public void testFromMissingFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetUrlQueryParameters.from(HateosResourceHandler.NO_PARAMETERS)
+        );
+    }
+
+    @Test
+    public void testFromMissingFails2() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetUrlQueryParameters.from(
+                        Maps.of(SpreadsheetUrlQueryParameters.FROM, Lists.empty())
+                )
+        );
+    }
+
+    @Test
+    public void testFromInvalidMissingFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> SpreadsheetUrlQueryParameters.from(
+                        Maps.of(SpreadsheetUrlQueryParameters.FROM, Lists.of("!invalid"))
+                )
+        );
+        this.checkEquals("Invalid from parameter got \"!invalid\"", thrown.getMessage());
+    }
+
+    @Test
+    public void testFrom() {
+        this.checkEquals(
+                123,
+                SpreadsheetUrlQueryParameters.from(
+                        Maps.of(
+                                SpreadsheetUrlQueryParameters.FROM,
                                 Lists.of("123")
                         )
                 )

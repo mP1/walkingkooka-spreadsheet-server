@@ -34,25 +34,46 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
      * Returns the count parameter as an integer.
      */
     public static int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final List<String> counts = (List<String>) parameters.get(COUNT);
-        if (null == counts) {
-            throw new IllegalArgumentException("Missing count parameter");
-        }
-        switch (counts.size()) {
-            case 0:
-                throw new IllegalArgumentException("Missing count parameter");
-            default:
-                final String countString = counts.get(0);
-                try {
-                    return Integer.parseInt(countString);
-                } catch (final NumberFormatException cause) {
-                    throw new IllegalArgumentException("Invalid count parameter got " + CharSequences.quoteAndEscape(countString));
-                }
-        }
+        return get(
+                COUNT,
+                parameters
+        );
     }
 
     // @VisibleForTesting
     public final static UrlParameterName COUNT = UrlParameterName.with("count");
+
+    /**
+     * Returns the from parameter as an integer, failing if it is missing.
+     */
+    public static int from(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return get(
+                FROM,
+                parameters
+        );
+    }
+
+    // @VisibleForTesting
+    public final static UrlParameterName FROM = UrlParameterName.with("from");
+
+    private static int get(final UrlParameterName parameter,
+                           final Map<HttpRequestAttribute<?>, Object> parameters) {
+        final List<String> values = (List<String>) parameters.get(parameter);
+        if (null == values) {
+            throw new IllegalArgumentException("Missing " + parameter + " parameter");
+        }
+        switch (values.size()) {
+            case 0:
+                throw new IllegalArgumentException("Missing " + parameter + " parameter");
+            default:
+                final String fromString = values.get(0);
+                try {
+                    return Integer.parseInt(fromString);
+                } catch (final NumberFormatException cause) {
+                    throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(fromString));
+                }
+        }
+    }
 
     private SpreadsheetUrlQueryParameters() {
         throw new UnsupportedOperationException();
