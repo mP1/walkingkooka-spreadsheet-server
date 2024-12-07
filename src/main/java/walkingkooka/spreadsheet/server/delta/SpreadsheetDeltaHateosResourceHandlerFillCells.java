@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -31,6 +30,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Collection;
 import java.util.List;
@@ -64,7 +64,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetCellRangeReference from = FROM.parameterValue(parameters)
+        final SpreadsheetCellRangeReference from = SpreadsheetUrlQueryParameters.FROM.parameterValue(parameters)
                 .map(SpreadsheetDeltaHateosResourceHandlerFillCells::mapFirstStringValue)
                 .orElse(range);
 
@@ -88,10 +88,8 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
                 .limit(1)
                 .map(SpreadsheetExpressionReference::parseCellRange)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Required parameter " + FROM + " missing"));
+                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.FROM));
     }
-
-    final static UrlParameterName FROM = UrlParameterName.with("from");
 
     @Override
     String operation() {
