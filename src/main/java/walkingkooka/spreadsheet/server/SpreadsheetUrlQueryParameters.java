@@ -66,11 +66,11 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
             case 0:
                 throw new IllegalArgumentException("Missing " + parameter + " parameter");
             default:
-                final String fromString = values.get(0);
+                final String valueAsString = values.get(0);
                 try {
-                    return Integer.parseInt(fromString);
+                    return Integer.parseInt(valueAsString);
                 } catch (final NumberFormatException cause) {
-                    throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(fromString));
+                    throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(valueAsString));
                 }
         }
     }
