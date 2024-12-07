@@ -40,22 +40,22 @@ import java.util.Optional;
  */
 final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
-    static SpreadsheetDeltaHateosResourceHandlerFindCells with(final int defaultMax,
+    static SpreadsheetDeltaHateosResourceHandlerFindCells with(final int defaultCount,
                                                                final SpreadsheetEngine engine) {
-        if (defaultMax < 0) {
-            throw new IllegalArgumentException("Invalid default max " + defaultMax + " < 0");
+        if (defaultCount < 0) {
+            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerFindCells(
-                defaultMax,
+                defaultCount,
                 check(engine)
         );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerFindCells(final int defaultMax,
+    private SpreadsheetDeltaHateosResourceHandlerFindCells(final int defaultCount,
                                                            final SpreadsheetEngine engine) {
         super(engine);
-        this.defaultMax = defaultMax;
+        this.defaultCount = defaultCount;
     }
 
     @Override
@@ -116,7 +116,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                 cells, // cells
                                 find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
                                 find.offset().orElse(DEFAULT_OFFSET), // offset
-                                find.max().orElse(this.defaultMax), // max
+                                find.count().orElse(this.defaultCount), // count
                                 find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
                                 find.query()
                                         .map(q -> context.toExpression(
@@ -135,7 +135,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
     final static String DEFAULT_VALUE_TYPE = SpreadsheetValueType.ANY;
 
-    private final int defaultMax;
+    private final int defaultCount;
 
     final static Expression DEFAULT_QUERY = Expression.value(true);
 

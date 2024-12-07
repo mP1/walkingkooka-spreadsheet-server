@@ -56,10 +56,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerFindCells,
         SpreadsheetCellReference> {
 
-    private final static int DEFAULT_MAX = 99;
+    private final static int DEFAULT_COUNT = 99;
 
     @Test
-    public void testWithNegativeDefaultMax() {
+    public void testWithNegativeDefaultCount() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> SpreadsheetDeltaHateosResourceHandlerFindCells.with(
@@ -71,7 +71,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
     private final static SpreadsheetCellRangeReferencePath PATH = SpreadsheetCellRangeReferencePath.LRTD;
     private final static int OFFSET = 12;
-    private final static int MAX = 34;
+    private final static int COUNT = 34;
     private final static String VALUE_TYPE = "test-value-type";
     private final static Expression EXPRESSION = Expression.call(
             Expression.namedFunction(
@@ -93,7 +93,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
-        final int max = MAX;
+        final int count = COUNT;
         final String valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
@@ -106,14 +106,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                             public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
                                                                   final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
-                                                                  final int m,
+                                                                  final int c,
                                                                   final String v,
                                                                   final Expression e,
                                                                   final SpreadsheetEngineContext context) {
                                 checkEquals(b2.toCellRange(), r, "range");
                                 checkEquals(path, p, "path");
                                 checkEquals(offset, o, "offset");
-                                checkEquals(max, m, "max");
+                                checkEquals(count, c, "count");
                                 checkEquals(valueType, v, "valueType");
                                 checkEquals(expression, e, "expression");
 
@@ -126,7 +126,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 Maps.of(
                         SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                        SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
+                        SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
@@ -184,7 +184,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final SpreadsheetCellRangeReference range = b2.cellRange(c3);
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
-        final int max = MAX;
+        final int count = COUNT;
         final String valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
@@ -197,14 +197,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                             public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
                                                                   final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
-                                                                  final int m,
+                                                                  final int c,
                                                                   final String v,
                                                                   final Expression e,
                                                                   final SpreadsheetEngineContext context) {
                                 checkEquals(range, r, "range");
                                 checkEquals(path, p, "path");
                                 checkEquals(offset, o, "offset");
-                                checkEquals(max, m, "max");
+                                checkEquals(count, c, "count");
                                 checkEquals(valueType, v, "valueType");
                                 checkEquals(expression, e, "expression");
 
@@ -217,7 +217,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 Maps.of(
                         SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                        SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
+                        SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
@@ -275,7 +275,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
         final SpreadsheetCellRangeReference range = SpreadsheetSelection.ALL_CELLS;
         final SpreadsheetCellRangeReferencePath path = PATH;
         final int offset = OFFSET;
-        final int max = MAX;
+        final int count = COUNT;
         final String valueType = VALUE_TYPE;
         final Expression expression = EXPRESSION;
 
@@ -288,14 +288,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                             public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
                                                                   final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
-                                                                  final int m,
+                                                                  final int c,
                                                                   final String v,
                                                                   final Expression e,
                                                                   final SpreadsheetEngineContext context) {
                                 checkEquals(range, r, "range");
                                 checkEquals(path, p, "path");
                                 checkEquals(offset, o, "offset");
-                                checkEquals(max, m, "max");
+                                checkEquals(count, c, "count");
                                 checkEquals(valueType, v, "valueType");
                                 checkEquals(expression, e, "expression");
 
@@ -308,7 +308,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 Maps.of(
                         SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
                         SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                        SpreadsheetCellFindQuery.MAX, Lists.of("" + max),
+                        SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
                         SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                         SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
                 ), // parameters
@@ -388,21 +388,21 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         this.handleRangeAndCheck(
                 SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                        DEFAULT_MAX,
+                        DEFAULT_COUNT,
                         new FakeSpreadsheetEngine() {
 
                             @Override
                             public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
                                                                   final SpreadsheetCellRangeReferencePath p,
                                                                   final int o,
-                                                                  final int m,
+                                                                  final int c,
                                                                   final String v,
                                                                   final Expression e,
                                                                   final SpreadsheetEngineContext context) {
                                 checkEquals(range, r, "range");
                                 checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_CELL_RANGE_PATH, p, "path");
                                 checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_OFFSET, o, "offset");
-                                checkEquals(DEFAULT_MAX, m, "max");
+                                checkEquals(DEFAULT_COUNT, c, "count");
                                 checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_VALUE_TYPE, v, "valueType");
                                 checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_QUERY, e, "expression");
 
@@ -435,7 +435,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     @Override
     SpreadsheetDeltaHateosResourceHandlerFindCells createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                DEFAULT_MAX,
+                DEFAULT_COUNT,
                 engine
         );
     }
