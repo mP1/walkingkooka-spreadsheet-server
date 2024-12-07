@@ -43,6 +43,8 @@ A collection of end points to help manage plugins.
   Binary file upload
 - **GET** /api/plugin/$plugin-name/download
 - **GET** /api/plugin/$plugin-name/list
+- **GET** /api/plugin/$plugin-name/filter?query=$query&offset=0&count=1
+-
 
 ### [Context](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/engine/SpreadsheetEngineContext.java)
 
