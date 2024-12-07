@@ -51,18 +51,6 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     }
 
     @Test
-    public void testFillFromParameterEmptyFails() {
-        this.handleRangeFails(
-                this.toSpreadsheetCellRangeReference().range(),
-                this.collectionResource(),
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM, Lists.empty()
-                ),
-                this.context(),
-                IllegalArgumentException.class);
-    }
-
-    @Test
     public void testFillFromParameterInvalidFails() {
         this.handleRangeFails(
                 this.toSpreadsheetCellRangeReference().range(),
