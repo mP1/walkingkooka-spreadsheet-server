@@ -72,6 +72,7 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
         final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
                 text,
                 SpreadsheetUrlQueryParameters.count(parameters)
+                        .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
         );
 
         return Optional.of(

@@ -22,8 +22,8 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CharSequences;
 
-import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 
 /**
  * A collection of common query parameters used by various APIs
@@ -33,7 +33,7 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
     /**
      * Returns the count parameter as an integer.
      */
-    public static int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public static OptionalInt count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
                 COUNT,
                 parameters
@@ -44,9 +44,9 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
     public final static UrlParameterName COUNT = UrlParameterName.with("count");
 
     /**
-     * Returns the from parameter as an integer, failing if it is missing.
+     * Returns the from parameter as an integer.
      */
-    public static int from(final Map<HttpRequestAttribute<?>, Object> parameters) {
+    public static OptionalInt from(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
                 FROM,
                 parameters
@@ -56,22 +56,21 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
     // @VisibleForTesting
     public final static UrlParameterName FROM = UrlParameterName.with("from");
 
-    private static int get(final UrlParameterName parameter,
-                           final Map<HttpRequestAttribute<?>, Object> parameters) {
-        final List<String> values = (List<String>) parameters.get(parameter);
-        if (null == values) {
-            throw new IllegalArgumentException("Missing " + parameter + " parameter");
-        }
-        switch (values.size()) {
-            case 0:
-                throw new IllegalArgumentException("Missing " + parameter + " parameter");
-            default:
-                final String valueAsString = values.get(0);
-                try {
-                    return Integer.parseInt(valueAsString);
-                } catch (final NumberFormatException cause) {
-                    throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(valueAsString));
-                }
+    private static OptionalInt get(final UrlParameterName parameter,
+                                   final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return parameter.firstParameterValue(parameters)
+                .map(s -> parseInt(s, parameter))
+                .orElse(OptionalInt.empty());
+    }
+
+    private static OptionalInt parseInt(final String text,
+                                        final UrlParameterName parameter) {
+        try {
+            return OptionalInt.of(
+                    Integer.parseInt(text)
+            );
+        } catch (final NumberFormatException cause) {
+            throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(text));
         }
     }
 

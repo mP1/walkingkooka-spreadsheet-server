@@ -145,15 +145,37 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     @Test
     public void testHandleAllLoadAllMissingFrom() {
-        this.handleAllFails(
+        final SpreadsheetMetadata metadata1 = metadata(1);
+        final SpreadsheetMetadata metadata2 = metadata(2);
+        final SpreadsheetMetadata metadata3 = metadata(3);
+        final SpreadsheetMetadata metadata4 = metadata(4);
+
+        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+        store.save(metadata1);
+        store.save(metadata2);
+        store.save(metadata3);
+        store.save(metadata4);
+
+        this.handleAllAndCheck(
                 Optional.empty(),
                 Maps.of(
                         SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")
                 ),
                 new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                    @Override
+                    public SpreadsheetMetadataStore metadataStore() {
+                        return store;
+                    }
                 },
-                IllegalArgumentException.class
+                Optional.of(
+                        SpreadsheetMetadataSet.with(
+                                Sets.of(
+                                        metadata1,
+                                        metadata2
+                                )
+                        )
+                )
         );
     }
 

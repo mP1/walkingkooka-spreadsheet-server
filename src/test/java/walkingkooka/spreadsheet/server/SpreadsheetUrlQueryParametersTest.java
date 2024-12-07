@@ -20,51 +20,30 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.OptionalInt;
 
 public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelperTesting<SpreadsheetUrlQueryParameters> {
 
     // count............................................................................................................
-    
-    @Test
-    public void testCountParameterMissingFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(HateosResourceHandler.NO_PARAMETERS)
-        );
-    }
 
     @Test
-    public void testCountParameterMissingFails2() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(
-                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty())
-                )
-        );
-    }
-
-    @Test
-    public void testCountParameterInvalidMissingFails() {
-        final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.count(
-                        Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("!invalid"))
-                )
-        );
-        this.checkEquals("Invalid count parameter got \"!invalid\"", thrown.getMessage());
-    }
-
-    @Test
-    public void testCountParameter() {
+    public void testCountMissing() {
         this.checkEquals(
-                123,
+                OptionalInt.empty(),
+                SpreadsheetUrlQueryParameters.count(
+                        Maps.empty()
+                )
+        );
+    }
+
+    @Test
+    public void testCount() {
+        this.checkEquals(
+                OptionalInt.of(123),
                 SpreadsheetUrlQueryParameters.count(
                         Maps.of(
                                 SpreadsheetUrlQueryParameters.COUNT,
@@ -77,38 +56,19 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
     // from.............................................................................................................
 
     @Test
-    public void testFromMissingFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.from(HateosResourceHandler.NO_PARAMETERS)
-        );
-    }
-
-    @Test
-    public void testFromMissingFails2() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.from(
-                        Maps.of(SpreadsheetUrlQueryParameters.FROM, Lists.empty())
+    public void testFromMissingParameter() {
+        this.checkEquals(
+                OptionalInt.empty(),
+                SpreadsheetUrlQueryParameters.from(
+                        Maps.empty()
                 )
         );
-    }
-
-    @Test
-    public void testFromInvalidMissingFails() {
-        final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetUrlQueryParameters.from(
-                        Maps.of(SpreadsheetUrlQueryParameters.FROM, Lists.of("!invalid"))
-                )
-        );
-        this.checkEquals("Invalid from parameter got \"!invalid\"", thrown.getMessage());
     }
 
     @Test
     public void testFrom() {
         this.checkEquals(
-                123,
+                OptionalInt.of(123),
                 SpreadsheetUrlQueryParameters.from(
                         Maps.of(
                                 SpreadsheetUrlQueryParameters.FROM,

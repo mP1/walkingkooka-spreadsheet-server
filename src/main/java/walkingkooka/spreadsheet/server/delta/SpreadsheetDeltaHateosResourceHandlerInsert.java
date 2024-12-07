@@ -60,7 +60,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
                         context,
                         this.insert(
                                 columnOrRow,
-                                SpreadsheetUrlQueryParameters.count(parameters),
+                                count(parameters),
                                 context
                         )
                 )
@@ -93,11 +93,16 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
                         context,
                         this.insert(
                                 columnOrRow,
-                                SpreadsheetUrlQueryParameters.count(parameters),
+                                count(parameters),
                                 context
                         )
                 )
         );
+    }
+
+    private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
+        return SpreadsheetUrlQueryParameters.count(parameters)
+                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT));
     }
 
     abstract String rangeLabel();
