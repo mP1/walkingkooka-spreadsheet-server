@@ -22,7 +22,6 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -384,7 +383,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 this.range(),
                 this.collectionResource(),
                 Maps.of(
-                        UrlParameterName.with("query"),
+                        SpreadsheetCellQuery.QUERY,
                         Lists.of(
                                 "query=true()"
                         )
