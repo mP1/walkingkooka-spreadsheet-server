@@ -73,8 +73,10 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final int from = SpreadsheetUrlQueryParameters.from(parameters);
-        final int count = SpreadsheetUrlQueryParameters.count(parameters);
+        final int from = SpreadsheetUrlQueryParameters.from(parameters)
+                .orElse(0);
+        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+                .orElse(DEFAULT_COUNT);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         all.addAll(
@@ -94,6 +96,8 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     }
 
     // @VisibleForTesting
+
+    private final static int DEFAULT_COUNT = 20;
 
     private final static int MAX_COUNT = 40;
 
