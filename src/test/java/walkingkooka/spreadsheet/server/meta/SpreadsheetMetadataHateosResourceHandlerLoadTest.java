@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.store.MissingStoreException;
@@ -119,40 +120,9 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
         this.handleAllAndCheck(
                 Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return store;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetMetadataSet.with(
-                                Sets.of(
-                                        metadata1,
-                                        metadata2
-                                )
-                        )
-                )
-        );
-    }
-
-    @Test
-    public void testHandleAllLoadAllCountMissingFrom() {
-        final SpreadsheetMetadata metadata1 = metadata(1);
-        final SpreadsheetMetadata metadata2 = metadata(2);
-        final SpreadsheetMetadata metadata3 = metadata(3);
-        final SpreadsheetMetadata metadata4 = metadata(4);
-
-        final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
-        store.save(metadata1);
-        store.save(metadata2);
-        store.save(metadata3);
-        store.save(metadata4);
-
-        this.handleAllAndCheck(
-                Optional.empty(),
                 Maps.of(
+                        SpreadsheetUrlQueryParameters.FROM,
+                        Lists.of("0"),
                         SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
                         Lists.of("2")
                 ),
@@ -174,6 +144,20 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     }
 
     @Test
+    public void testHandleAllLoadAllMissingFrom() {
+        this.handleAllFails(
+                Optional.empty(),
+                Maps.of(
+                        SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
+                        Lists.of("2")
+                ),
+                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                },
+                IllegalArgumentException.class
+        );
+    }
+
+    @Test
     public void testHandleAllLoadAllFromAndCount() {
         final SpreadsheetMetadata metadata1 = metadata(1);
         final SpreadsheetMetadata metadata2 = metadata(2);
@@ -189,7 +173,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetMetadataHateosResourceHandlerLoad.FROM,
+                        SpreadsheetUrlQueryParameters.FROM,
                         Lists.of("1"),
                         SpreadsheetMetadataHateosResourceHandlerLoad.COUNT,
                         Lists.of("2")

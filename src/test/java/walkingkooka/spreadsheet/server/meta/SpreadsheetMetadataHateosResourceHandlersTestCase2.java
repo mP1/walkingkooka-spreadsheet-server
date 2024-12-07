@@ -43,16 +43,6 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
     }
 
     @Test
-    public final void testHandleAllFails() {
-        this.handleAllFails(
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
-        );
-    }
-
-    @Test
     public final void testHandleManyFails() {
         this.handleManyFails(
                 this.manyIds(),

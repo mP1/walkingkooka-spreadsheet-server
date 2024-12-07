@@ -40,6 +40,16 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     // handle...........................................................................................................
 
     @Test
+    public void testHandleAllFails() {
+        this.handleAllFails(
+                this.collectionResource(),
+                this.parameters(),
+                this.context(),
+                UnsupportedOperationException.class
+        );
+    }
+
+    @Test
     public void testHandleIdWithMetadataResourceFails() {
         this.handleOneFails(
                 this.id(),
