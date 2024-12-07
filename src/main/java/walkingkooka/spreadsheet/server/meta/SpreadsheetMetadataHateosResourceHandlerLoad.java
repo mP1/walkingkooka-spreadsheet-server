@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.set.SortedSets;
-import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -75,9 +74,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkContext(context);
 
         final int from = SpreadsheetUrlQueryParameters.from(parameters);
-        final int count = COUNT.firstParameterValue(parameters)
-                .map(Integer::parseInt)
-                .orElse(DEFAULT_COUNT);
+        final int count = SpreadsheetUrlQueryParameters.count(parameters);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         all.addAll(
@@ -97,9 +94,6 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     }
 
     // @VisibleForTesting
-    final static UrlParameterName COUNT = UrlParameterName.with("count");
-
-    private final static int DEFAULT_COUNT = 20;
 
     private final static int MAX_COUNT = 40;
 
