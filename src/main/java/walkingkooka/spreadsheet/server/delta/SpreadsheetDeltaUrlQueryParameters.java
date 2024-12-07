@@ -47,6 +47,8 @@ import java.util.function.Function;
  */
 public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHelper {
 
+    public final static UrlParameterName FROM = UrlParameterName.with("from");
+
     // delta properties parameters.....................................................................................
 
     /**

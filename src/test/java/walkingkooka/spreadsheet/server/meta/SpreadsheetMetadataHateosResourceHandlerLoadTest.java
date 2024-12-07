@@ -121,7 +121,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM,
+                        SpreadsheetUrlQueryParameters.OFFSET,
                         Lists.of("0"),
                         SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")
@@ -144,7 +144,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     }
 
     @Test
-    public void testHandleAllLoadAllMissingFrom() {
+    public void testHandleAllLoadAllMissingOffset() {
         final SpreadsheetMetadata metadata1 = metadata(1);
         final SpreadsheetMetadata metadata2 = metadata(2);
         final SpreadsheetMetadata metadata3 = metadata(3);
@@ -180,7 +180,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     }
 
     @Test
-    public void testHandleAllLoadAllFromAndCount() {
+    public void testHandleAllLoadAllOffsetAndCount() {
         final SpreadsheetMetadata metadata1 = metadata(1);
         final SpreadsheetMetadata metadata2 = metadata(2);
         final SpreadsheetMetadata metadata3 = metadata(3);
@@ -195,7 +195,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         this.handleAllAndCheck(
                 Optional.empty(),
                 Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM,
+                        SpreadsheetUrlQueryParameters.OFFSET,
                         Lists.of("1"),
                         SpreadsheetUrlQueryParameters.COUNT,
                         Lists.of("2")

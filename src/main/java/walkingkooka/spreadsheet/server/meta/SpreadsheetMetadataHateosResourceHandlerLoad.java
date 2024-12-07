@@ -73,7 +73,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final int from = SpreadsheetUrlQueryParameters.from(parameters)
+        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
                 .orElse(0);
         final int count = SpreadsheetUrlQueryParameters.count(parameters)
                 .orElse(DEFAULT_COUNT);
@@ -82,7 +82,7 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         all.addAll(
                 context.metadataStore()
                         .values(
-                                from,
+                                offset,
                                 Math.min(
                                         MAX_COUNT,
                                         count

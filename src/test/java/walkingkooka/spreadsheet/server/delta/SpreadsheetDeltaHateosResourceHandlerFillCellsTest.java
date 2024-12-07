@@ -35,7 +35,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 import walkingkooka.tree.text.TextNode;
 
 import java.util.Collection;
@@ -56,7 +55,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
                 this.toSpreadsheetCellRangeReference().range(),
                 this.collectionResource(),
                 Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM, Lists.of("!INVALID")
+                        SpreadsheetDeltaUrlQueryParameters.FROM, Lists.of("!INVALID")
                 ),
                 this.context(),
                 IllegalArgumentException.class
@@ -67,7 +66,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     public void testFillFromParameterPresent() {
         this.handleRangeAndCheck2(
                 Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM, Lists.of(TO)
+                        SpreadsheetDeltaUrlQueryParameters.FROM, Lists.of(TO)
                 ),
                 this.toSpreadsheetCellRangeReference()
         );
@@ -77,7 +76,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     public void testFillFromParameterPresent2() {
         this.handleRangeAndCheck2(
                 Maps.of(
-                        SpreadsheetUrlQueryParameters.FROM, Lists.of(TO, FROM)
+                        SpreadsheetDeltaUrlQueryParameters.FROM, Lists.of(TO, FROM)
                 ),
                 this.toSpreadsheetCellRangeReference()
         );

@@ -30,7 +30,6 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Collection;
 import java.util.Map;
@@ -63,7 +62,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
-        final SpreadsheetCellRangeReference from = SpreadsheetUrlQueryParameters.FROM.firstParameterValue(parameters)
+        final SpreadsheetCellRangeReference from = SpreadsheetDeltaUrlQueryParameters.FROM.firstParameterValue(parameters)
                 .map(SpreadsheetExpressionReference::parseCellRange)
                 .orElse(range);
 
