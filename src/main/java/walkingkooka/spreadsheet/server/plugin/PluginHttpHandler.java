@@ -29,6 +29,7 @@ import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
@@ -87,7 +88,7 @@ public final class PluginHttpHandler implements HttpHandler {
 
         final HttpHandler fileDownloadHttpHandler = PluginFileDownloadHttpHandler.with(
                 serverUrl.appendPathName(
-                        PluginHttpMappings.PLUGIN.toUrlPathName()
+                        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
                 ),
                 providerContext.pluginStore(),
                 contentTypeDetector
