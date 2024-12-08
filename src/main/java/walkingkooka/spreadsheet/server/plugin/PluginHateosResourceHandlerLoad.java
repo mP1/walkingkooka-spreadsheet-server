@@ -28,6 +28,7 @@ import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Collection;
 import java.util.Map;
@@ -58,11 +59,26 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
+        final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
+                .orElse(0);
+        final int count = SpreadsheetUrlQueryParameters.count(parameters)
+                .orElse(DEFAULT_COUNT);
+
         return pluginSet(
                 context.pluginStore()
-                        .all()
+                        .values(
+                                offset,
+                                Math.min(
+                                        MAX_COUNT,
+                                        count
+                                )
+                        )
         );
     }
+
+    private final static int DEFAULT_COUNT = 20;
+
+    private final static int MAX_COUNT = 40;
 
     @Override
     public Optional<Plugin> handleOne(final PluginName name,
