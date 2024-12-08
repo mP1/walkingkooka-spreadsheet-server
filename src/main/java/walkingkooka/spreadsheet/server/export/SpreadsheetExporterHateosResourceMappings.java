@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.export;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
@@ -31,12 +30,7 @@ import walkingkooka.text.CharSequences;
 
 public final class SpreadsheetExporterHateosResourceMappings implements PublicStaticHelper {
 
-    // exporter.......................................................................................................
-
-    /**
-     * A {@link HateosResourceName} with <code>exporter</code>.
-     */
-    public static final HateosResourceName EXPORTER = HateosResourceName.with("exporter");
+    // exporter........................................................................................................
 
     /**
      * Stop creation
@@ -58,7 +52,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
                 SpreadsheetExporterInfoSet,
                 SpreadsheetExporterInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> exporter = HateosResourceMapping.with(
-                EXPORTER,
+                SpreadsheetExporterName.HATEOS_RESOURCE_NAME,
                 SpreadsheetExporterHateosResourceMappings::parseExporterSelection,
                 SpreadsheetExporterInfo.class, // valueType
                 SpreadsheetExporterInfoSet.class, // collectionType
