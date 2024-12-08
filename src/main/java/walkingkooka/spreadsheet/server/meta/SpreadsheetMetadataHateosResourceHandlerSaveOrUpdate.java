@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -33,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A {@link HateosResourceHandler} that invokes {@link SpreadsheetMetadataHateosResourceHandlerContext#createMetadata(Optional)}
+ * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore#create(EmailAddress, Optional)}.
  */
 final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
         implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
