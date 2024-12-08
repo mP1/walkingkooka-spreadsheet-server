@@ -25,7 +25,6 @@ import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -51,7 +50,7 @@ final class PluginHttpMappings implements StaticHelper {
                 PluginSet,
                 Plugin,
                 PluginHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
-                PLUGIN,
+                Plugin.HATEOS_RESOURCE_NAME,
                 PluginHttpMappings::parsePluginName,
                 Plugin.class,
                 PluginSet.class,
@@ -124,11 +123,6 @@ final class PluginHttpMappings implements StaticHelper {
 
         return result;
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>plugin</code>.
-     */
-    public static final HateosResourceName PLUGIN = HateosResourceName.with("plugin");
 
     // router...........................................................................................................
 
