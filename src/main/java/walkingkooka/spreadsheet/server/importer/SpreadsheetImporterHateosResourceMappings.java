@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.importer;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfo;
@@ -32,11 +31,6 @@ import walkingkooka.text.CharSequences;
 public final class SpreadsheetImporterHateosResourceMappings implements PublicStaticHelper {
 
     // importer.......................................................................................................
-
-    /**
-     * A {@link HateosResourceName} with <code>importer</code>.
-     */
-    public static final HateosResourceName IMPORTER = HateosResourceName.with("importer");
 
     /**
      * Stop creation
@@ -58,7 +52,7 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
                 SpreadsheetImporterInfoSet,
                 SpreadsheetImporterInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> importer = HateosResourceMapping.with(
-                IMPORTER,
+                SpreadsheetImporterName.HATEOS_RESOURCE_NAME,
                 SpreadsheetImporterHateosResourceMappings::parseImporterSelection,
                 SpreadsheetImporterInfo.class, // valueType
                 SpreadsheetImporterInfoSet.class, // collectionType
