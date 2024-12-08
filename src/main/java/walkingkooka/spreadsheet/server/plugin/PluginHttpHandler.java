@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.PluginNameSet;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
@@ -45,6 +46,10 @@ import java.util.function.Predicate;
  * A handler that routes all plugin API calls.
  */
 public final class PluginHttpHandler implements HttpHandler {
+
+    static {
+        PluginNameSet.parse(""); // force json marshaller/unmarshaller registry
+    }
 
     /**
      * Creates a new {@link PluginHttpHandler} handler.
