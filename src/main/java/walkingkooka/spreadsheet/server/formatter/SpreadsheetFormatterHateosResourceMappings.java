@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -50,7 +49,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
                 SpreadsheetFormatterInfoSet,
                 SpreadsheetFormatterInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> formatter = HateosResourceMapping.with(
-                FORMATTER,
+                SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
                 SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
                 SpreadsheetFormatterInfo.class, // valueType
                 SpreadsheetFormatterInfoSet.class, // collectionType
@@ -112,11 +111,6 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
 
         return selection;
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>formatter</code>.
-     */
-    public static final HateosResourceName FORMATTER = HateosResourceName.with("formatter");
 
     /**
      * Stop creation
