@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
@@ -33,6 +34,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -117,6 +119,26 @@ public final class PluginHateosResourceHandlerLoadTest
                                         PLUGIN2,
                                         PLUGIN3,
                                         PLUGIN4
+                                )
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testHandleAllWithOffsetAndCount() {
+        this.handleAllAndCheck(
+                Optional.empty(), // resource
+                Maps.of(
+                        SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
+                        SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+                ), // parameters
+                this.context(),
+                Optional.of(
+                        PluginSet.with(
+                                SortedSets.of(
+                                        PLUGIN2, // offset = 1
+                                        PLUGIN3
                                 )
                         )
                 )
