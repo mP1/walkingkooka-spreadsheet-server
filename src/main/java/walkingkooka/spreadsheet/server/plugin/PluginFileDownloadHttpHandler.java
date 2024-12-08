@@ -153,6 +153,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
             }
         } else {
             response.setStatus(HttpStatusCode.NO_CONTENT.status());
+            response.setEntity(HttpEntity.EMPTY);
         }
     }
 
