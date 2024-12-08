@@ -20,7 +20,6 @@ package walkingkooka.spreadsheet.server.comparator;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
@@ -46,7 +45,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
                 SpreadsheetComparatorInfoSet,
                 SpreadsheetComparatorInfo,
                 SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
-                COMPARATOR,
+                SpreadsheetComparatorName.HATEOS_RESOURCE_NAME,
                 SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
                 SpreadsheetComparatorInfo.class, // valueType
                 SpreadsheetComparatorInfoSet.class, // collectionType
@@ -80,11 +79,6 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
 
         return selection;
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>comparator</code>.
-     */
-    public static final HateosResourceName COMPARATOR = HateosResourceName.with("comparator");
 
     /**
      * Stop creation
