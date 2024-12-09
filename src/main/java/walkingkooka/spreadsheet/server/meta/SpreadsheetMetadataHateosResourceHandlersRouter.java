@@ -25,7 +25,6 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlers;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.StaticHelper;
 import walkingkooka.route.Router;
@@ -46,11 +45,6 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
         // force static initializers for JsonContext
         SpreadsheetMetadata.EMPTY.isEmpty();
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>metadata</code>.
-     */
-    public final static HateosResourceName SPREADSHEET = HateosResourceName.with("spreadsheet");
 
     /**
      * Used to form the metadata load and save services
@@ -78,7 +72,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                 baseUrl,
                 Sets.of(
                         HateosResourceMapping.with(
-                                        SPREADSHEET,
+                                        SpreadsheetMetadata.HATEOS_RESOURCE_NAME,
                                         SpreadsheetMetadataHateosResourceHandlersRouter::parse,
                                         SpreadsheetMetadata.class,
                                         SpreadsheetMetadataSet.class,
