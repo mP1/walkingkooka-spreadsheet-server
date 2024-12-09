@@ -73,6 +73,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
             SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
+    public final static UrlPath API_PLUGIN = API.append(
+            Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
      */
@@ -178,13 +182,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
         );
 
-        final UrlPath plugin = API.append(
-                Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
-        );
-
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
-                        this.routing(plugin)
+                        this.routing(API_PLUGIN)
                                 .build(),
                         this.pluginHttpHandler(
                                 serverUrl.setPath(API)
