@@ -39,9 +39,11 @@ import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
@@ -64,6 +66,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     public final static HttpHeaderName<String> TRANSACTION_ID = HttpHeaderName.with("X-transaction-id")
             .stringValues();
+
+    public final static UrlPath API = UrlPath.parse("/api");
 
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
@@ -170,22 +174,25 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
         );
 
-        final UrlPath api = UrlPath.parse(API);
-        final UrlPath spreadsheet = UrlPath.parse(SPREADSHEET);
-        final UrlPath plugin = UrlPath.parse(PLUGIN);
+        final UrlPath spreadsheet = API.append(
+                SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
+        );
+        final UrlPath plugin = API.append(
+                Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+        );
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
                 .add(
                         this.routing(plugin)
                                 .build(),
                         this.pluginHttpHandler(
-                                serverUrl.setPath(api)
+                                serverUrl.setPath(API)
                         )
                 ).add(
-                        this.routing(api)
+                        this.routing(API)
                                 .build(),
                         this.spreadsheetMetadataHttpHandler(
-                                serverUrl.setPath(api)
+                                serverUrl.setPath(API)
                         )
                 ).add(
                         this.spreadsheetEngineRouting(spreadsheet)
@@ -218,10 +225,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     // mappings.........................................................................................................
-
-    private final static String API = "/api";
-    private final static String SPREADSHEET = API + "/spreadsheet";
-    private final static String PLUGIN = API + "/plugin";
     private final static UrlPathName WILDCARD = UrlPathName.with("*");
 
 

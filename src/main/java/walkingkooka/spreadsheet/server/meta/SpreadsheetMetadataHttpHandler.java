@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.json.JsonHttpHandlers;
@@ -126,9 +127,15 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     private static Map<HttpRequestAttribute<?>, Predicate<?>> metadataPatchRouterPredicate() {
         return HttpRequestAttributeRouting.empty()
                 .method(HttpMethod.PATCH)
-                .path(UrlPath.parse("/api/spreadsheet/*"))
+                .path(API_SPREADSHEET_STAR)
                 .build();
     }
+
+    private final static UrlPath API_SPREADSHEET_STAR = SpreadsheetHttpServer.API.append(
+            SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
+    ).append(
+            UrlPathName.with("*")
+    );
 
     private void metadataPatchHttpHandler(final HttpRequest request,
                                           final HttpResponse response) {
