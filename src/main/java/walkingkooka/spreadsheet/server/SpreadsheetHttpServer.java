@@ -67,7 +67,11 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public final static HttpHeaderName<String> TRANSACTION_ID = HttpHeaderName.with("X-transaction-id")
             .stringValues();
 
-    public final static UrlPath API = UrlPath.parse("/api");
+    public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
+
+    public final static UrlPath API_SPREADSHEET = API.append(
+            SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
 
     /**
      * Creates a new {@link SpreadsheetHttpServer} using the config and the functions to create the actual {@link HttpServer}.
@@ -101,7 +105,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private static AbsoluteUrl checkServerUrl(final AbsoluteUrl serverUrl) {
         Objects.requireNonNull(serverUrl, "serverUrl");
 
-        if (false == serverUrl.path().equals(UrlPath.EMPTY)) {
+        if (false == serverUrl.path().equals(walkingkooka.net.UrlPath.EMPTY)) {
             throw checkServerUrlFail("path", serverUrl);
         }
         if (false == serverUrl.query().equals(UrlQueryString.EMPTY)) {
@@ -174,9 +178,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 )
         );
 
-        final UrlPath spreadsheet = API.append(
-                SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
-        );
         final UrlPath plugin = API.append(
                 Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
         );
@@ -195,10 +196,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                 serverUrl.setPath(API)
                         )
                 ).add(
-                        this.spreadsheetEngineRouting(spreadsheet)
+                        this.spreadsheetEngineRouting(API_SPREADSHEET)
                                 .build(),
                         this.spreadsheetEngineHttpHandler(
-                                serverUrl.setPath(spreadsheet)
+                                serverUrl.setPath(API_SPREADSHEET)
                         )
                 ).add(
                         this.fileServerRouting()

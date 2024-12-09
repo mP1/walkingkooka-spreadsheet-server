@@ -131,9 +131,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                 .build();
     }
 
-    private final static UrlPath API_SPREADSHEET_STAR = SpreadsheetHttpServer.API.append(
-            SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
-    ).append(
+    private final static UrlPath API_SPREADSHEET_STAR = SpreadsheetHttpServer.API_SPREADSHEET.append(
             UrlPathName.with("*")
     );
 
