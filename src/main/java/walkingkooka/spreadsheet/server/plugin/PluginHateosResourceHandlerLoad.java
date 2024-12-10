@@ -52,10 +52,10 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     }
 
     @Override
-    public Optional<PluginSet> handleAll(final Optional<PluginSet> infos,
+    public Optional<PluginSet> handleAll(final Optional<PluginSet> plugins,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final PluginHateosResourceHandlerContext context) {
-        HateosResourceHandler.checkResourceEmpty(infos);
+        HateosResourceHandler.checkResourceEmpty(plugins);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
@@ -82,11 +82,11 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
 
     @Override
     public Optional<Plugin> handleOne(final PluginName name,
-                                      final Optional<Plugin> info,
+                                      final Optional<Plugin> plugin,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
                                       final PluginHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
-        HateosResourceHandler.checkResource(info);
+        HateosResourceHandler.checkResource(plugin);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
