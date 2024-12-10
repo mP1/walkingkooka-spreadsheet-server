@@ -54,10 +54,10 @@ final class PluginHateosResourceHandlerFilter implements HateosResourceHandler<P
     }
 
     @Override
-    public Optional<PluginSet> handleAll(final Optional<PluginSet> infos,
+    public Optional<PluginSet> handleAll(final Optional<PluginSet> pluginSet,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final PluginHateosResourceHandlerContext context) {
-        HateosResourceHandler.checkResourceEmpty(infos);
+        HateosResourceHandler.checkResourceEmpty(pluginSet);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
