@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetColumn;
+import walkingkooka.spreadsheet.SpreadsheetHateosResourceNames;
 import walkingkooka.spreadsheet.SpreadsheetRow;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellQuery;
@@ -75,7 +76,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 SpreadsheetDelta,
                 SpreadsheetCell,
                 SpreadsheetEngineHateosResourceHandlerContext> cell = HateosResourceMapping.with(
-                CELL,
+                SpreadsheetHateosResourceNames.CELL,
                 SpreadsheetDeltaHttpMappings::parseCell,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
@@ -149,11 +150,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
         return cell;
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>cell</code>.
-     */
-    public static final HateosResourceName CELL = HateosResourceName.with("cell");
 
     /**
      * Handles parsing just a cell or label or a range with either, always resolving labels to cells. Labels will never be returned.
@@ -253,7 +249,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetColumn,
             SpreadsheetEngineHateosResourceHandlerContext> column(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                COLUMN,
+                SpreadsheetHateosResourceNames.COLUMN,
                 SpreadsheetDeltaHttpMappings::parseColumn,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
@@ -292,11 +288,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
     }
 
-    /**
-     * A {@link HateosResourceName} with <code>column</code>.
-     */
-    private static final HateosResourceName COLUMN = HateosResourceName.with("column");
-
     private static HateosResourceSelection<SpreadsheetColumnReference> parseColumn(final String selection,
                                                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetColumnRangeReference parsed = SpreadsheetSelection.parseColumnRange(selection);
@@ -314,7 +305,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetRow,
             SpreadsheetEngineHateosResourceHandlerContext> row(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                ROW,
+                SpreadsheetHateosResourceNames.ROW,
                 SpreadsheetDeltaHttpMappings::parseRow,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
@@ -352,11 +343,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 )
         );
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>row</code>.
-     */
-    private static final HateosResourceName ROW = HateosResourceName.with("row");
 
     private static HateosResourceSelection<SpreadsheetRowReference> parseRow(final String selection,
                                                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
@@ -446,7 +432,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
      */
     public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                LABEL,
+                SpreadsheetHateosResourceNames.LABEL,
                 SpreadsheetDeltaHttpMappings::parseLabel,
                 SpreadsheetDelta.class,
                 SpreadsheetDelta.class,
@@ -466,11 +452,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
         );
     }
-
-    /**
-     * A {@link HateosResourceName} with <code>metadata</code>.
-     */
-    public final static HateosResourceName LABEL = HateosResourceName.with("label");
 
     private static HateosResourceSelection<SpreadsheetLabelName> parseLabel(final String text,
                                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
