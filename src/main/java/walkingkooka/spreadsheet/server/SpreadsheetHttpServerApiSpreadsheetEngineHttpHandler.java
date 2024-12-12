@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server;
 
 import walkingkooka.net.AbsoluteUrl;
-import walkingkooka.net.UrlPathName;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -94,13 +93,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
 
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
-        int spreadsheetIdPathComponent = 0;
-
-        for (final UrlPathName name : serverUrl.path()) {
-            spreadsheetIdPathComponent++;
-        }
-
-        this.spreadsheetIdPathComponent = spreadsheetIdPathComponent;
+        this.spreadsheetIdPathComponent = serverUrl.path()
+                .namesList()
+                .size();
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
     }
