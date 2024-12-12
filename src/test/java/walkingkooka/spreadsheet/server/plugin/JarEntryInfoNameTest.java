@@ -21,11 +21,15 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName, JarEntryInfoName> {
+final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName, JarEntryInfoName>,
+        JsonNodeMarshallingTesting<JarEntryInfoName> {
 
     @Test
     public void testWithMissingLeadingSlashFails() {
@@ -128,6 +132,22 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
                 JarEntryInfoName.with("/a"),
                 JarEntryInfoName.MANIFEST_MF
         );
+    }
+
+    // json.............................................................................................................
+
+    @Override
+    public JarEntryInfoName unmarshall(final JsonNode json,
+                                       final JsonNodeUnmarshallContext context) {
+        return JarEntryInfoName.unmarshall(
+                json,
+                context
+        );
+    }
+
+    @Override
+    public JarEntryInfoName createJsonNodeMarshallingValue() {
+        return JarEntryInfoName.with("/dir1/file2.txt");
     }
 
     // Class............................................................................................................

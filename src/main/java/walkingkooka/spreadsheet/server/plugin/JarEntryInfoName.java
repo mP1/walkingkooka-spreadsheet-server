@@ -24,6 +24,10 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 /**
  * The filename of an entry with a JAR file archive.
@@ -174,5 +178,30 @@ public final class JarEntryInfoName implements Name,
         }
 
         return compareTo;
+    }
+
+    // json.............................................................................................................
+
+    static JarEntryInfoName unmarshall(final JsonNode node,
+                                       final JsonNodeUnmarshallContext context) {
+        return with(
+                context.unmarshall(
+                        node,
+                        String.class
+                )
+        );
+    }
+
+    private JsonNode marshall(final JsonNodeMarshallContext context) {
+        return context.marshall(this.value());
+    }
+
+    static {
+        JsonNodeContext.register(
+                JsonNodeContext.computeTypeName(JarEntryInfoName.class),
+                JarEntryInfoName::unmarshall,
+                JarEntryInfoName::marshall,
+                JarEntryInfoName.class
+        );
     }
 }
