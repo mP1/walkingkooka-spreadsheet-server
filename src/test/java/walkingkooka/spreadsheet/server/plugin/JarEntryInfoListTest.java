@@ -68,7 +68,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     private static JarEntryInfo jarEntryInfo(final String name,
                                              final long size) {
         return JarEntryInfo.with(
-                name,
+                JarEntryInfoName.with(name),
                 OptionalLong.of(size),
                 OptionalLong.of(size),
                 OptionalInt.of(1), // method
@@ -189,7 +189,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                 JarEntryInfoList.with(
                         Lists.of(
                                 JarEntryInfo.with(
-                                        "/META-INF/MANIFEST.MF",
+                                        JarEntryInfoName.MANIFEST_MF,
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -198,7 +198,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                         Optional.of(LAST_MODIFIED)
                                 ),
                                 JarEntryInfo.with(
-                                        "/file111",
+                                        JarEntryInfoName.with("/file111"),
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -207,7 +207,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                         Optional.of(LAST_MODIFIED)
                                 ),
                                 JarEntryInfo.with(
-                                        "/file222",
+                                        JarEntryInfoName.with("/file222"),
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
@@ -216,7 +216,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
                                         Optional.of(LAST_MODIFIED)
                                 ),
                                 JarEntryInfo.with(
-                                        "/file333",
+                                        JarEntryInfoName.with("/file333"),
                                         OptionalLong.empty(), // size
                                         OptionalLong.empty(), // compressedSize
                                         OptionalInt.of(8), // method
