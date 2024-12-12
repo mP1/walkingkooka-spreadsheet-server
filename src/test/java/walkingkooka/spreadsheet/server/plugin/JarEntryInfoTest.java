@@ -37,7 +37,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
         JsonNodeMarshallingTesting<JarEntryInfo>,
         TreePrintableTesting {
 
-    private final static String NAME = "/META-INF/MANIFEST.MF";
+    private final static JarEntryInfoName NAME = JarEntryInfoName.MANIFEST_MF;
 
     private final static OptionalLong SIZE = OptionalLong.of(1111);
 
@@ -77,22 +77,6 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
                 NullPointerException.class,
                 () -> JarEntryInfo.with(
                         null,
-                        SIZE,
-                        COMPRESSED_SIZE,
-                        METHOD,
-                        CRC,
-                        CREATE,
-                        LAST_MODIFIED
-                )
-        );
-    }
-
-    @Test
-    public void testWithEmptyNameFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> JarEntryInfo.with(
-                        "",
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -237,7 +221,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     public void testEqualsDifferentName() {
         this.checkNotEquals(
                 JarEntryInfo.with(
-                        "/different",
+                        JarEntryInfoName.with("/different"),
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,
@@ -342,7 +326,7 @@ public final class JarEntryInfoTest implements HashCodeEqualsDefinedTesting2<Jar
     public void testToStringDirectory() {
         this.toStringAndCheck(
                 JarEntryInfo.with(
-                        "/dir123/",
+                        JarEntryInfoName.with("/dir123/"),
                         SIZE,
                         COMPRESSED_SIZE,
                         METHOD,

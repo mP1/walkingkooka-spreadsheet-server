@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.ToStringBuilderOption;
 import walkingkooka.naming.PathSeparator;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -44,7 +43,7 @@ public final class JarEntryInfo implements TreePrintable {
 
     public final static PathSeparator SEPARATOR = PathSeparator.requiredAtStart('/');
 
-    public static JarEntryInfo with(final String name,
+    public static JarEntryInfo with(final JarEntryInfoName name,
                                     final OptionalLong size,
                                     final OptionalLong compressedSize,
                                     final OptionalInt method,
@@ -52,7 +51,7 @@ public final class JarEntryInfo implements TreePrintable {
                                     final Optional<LocalDateTime> create,
                                     final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
-                checkName(name),
+                Objects.requireNonNull(name, "name"),
                 checkPositiveNumber(size, "size"),
                 checkPositiveNumber(compressedSize, "compressedSize"),
                 checkPositiveNumber(method, "method"),
@@ -60,16 +59,6 @@ public final class JarEntryInfo implements TreePrintable {
                 Objects.requireNonNull(create, "create"),
                 Objects.requireNonNull(lastModified, "lastModified")
         );
-    }
-
-    private static String checkName(final String name) {
-        CharSequences.failIfNullOrEmpty(name, "name");
-
-        if (false == name.startsWith(SEPARATOR.string())) {
-            throw new IllegalArgumentException("Name must start with '/' but got " + CharSequences.quoteAndEscape(name));
-        }
-
-        return name;
     }
 
     private static OptionalInt checkPositiveNumber(final OptionalInt value,
@@ -94,7 +83,7 @@ public final class JarEntryInfo implements TreePrintable {
         return value;
     }
 
-    private JarEntryInfo(final String name,
+    private JarEntryInfo(final JarEntryInfoName name,
                          final OptionalLong size,
                          final OptionalLong compressedSize,
                          final OptionalInt method,
@@ -110,14 +99,15 @@ public final class JarEntryInfo implements TreePrintable {
         this.lastModified = lastModified;
     }
 
-    public String name() {
+    public JarEntryInfoName name() {
         return this.name;
     }
 
-    private final String name;
+    private final JarEntryInfoName name;
 
     public boolean isDirectory() {
-        return this.name.endsWith(SEPARATOR.string());
+        return this.name.value()
+                .endsWith(SEPARATOR.string());
     }
 
     public OptionalLong size() {
@@ -192,7 +182,7 @@ public final class JarEntryInfo implements TreePrintable {
     public String toString() {
         return ToStringBuilder.empty()
                 .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .value(this.name)
+                .value(this.name.value()) // String value will add quotes
                 .value(this.isDirectory() ? "(directory)" : "(file)")
                 .label("size")
                 .value(this.size)
@@ -218,7 +208,7 @@ public final class JarEntryInfo implements TreePrintable {
                                    final JsonNodeUnmarshallContext context) {
         Objects.requireNonNull(node, "node");
 
-        String name = null;
+        JarEntryInfoName name = null;
         Long size = null;
         Long compressedSize = null;
         Integer method = null;
@@ -232,7 +222,7 @@ public final class JarEntryInfo implements TreePrintable {
                 case NAME_PROPERTY_STRING:
                     name = context.unmarshall(
                             child,
-                            String.class
+                            JarEntryInfoName.class
                     );
                     break;
                 case SIZE_PROPERTY_STRING:
@@ -415,7 +405,7 @@ public final class JarEntryInfo implements TreePrintable {
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        printer.print(this.name);
+        printer.print(this.name.value());
         printer.println(this.isDirectory() ? " (directory)" : " (file)");
 
         printer.indent();
