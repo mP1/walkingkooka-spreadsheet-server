@@ -106,8 +106,7 @@ public final class JarEntryInfo implements TreePrintable {
     private final JarEntryInfoName name;
 
     public boolean isDirectory() {
-        return this.name.value()
-                .endsWith(SEPARATOR.string());
+        return this.name.isDirectory();
     }
 
     public OptionalLong size() {

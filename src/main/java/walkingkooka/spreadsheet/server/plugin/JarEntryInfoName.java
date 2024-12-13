@@ -126,6 +126,13 @@ public final class JarEntryInfoName implements Name,
         return MANIFEST_MF_STRING.equalsIgnoreCase(this.value());
     }
 
+    /**
+     * Returns true if this name is a directory.
+     */
+    public boolean isDirectory() {
+        return this.value().endsWith("/");
+    }
+
     // Object...........................................................................................................
 
     @Override
