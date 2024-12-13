@@ -226,8 +226,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     // mappings.........................................................................................................
-    private final static UrlPathName WILDCARD = UrlPathName.with("*");
-
 
     private HttpRequestAttributeRouting routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
@@ -254,7 +252,9 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private HttpRequestAttributeRouting spreadsheetEngineRouting(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
-                .path(path.append(WILDCARD).append(WILDCARD));
+                .path(
+                        path.append(UrlPathName.WILDCARD)
+                                .append(UrlPathName.WILDCARD));
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
