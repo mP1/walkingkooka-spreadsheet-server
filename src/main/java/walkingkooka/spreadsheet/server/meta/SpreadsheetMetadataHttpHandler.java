@@ -132,7 +132,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     }
 
     private final static UrlPath API_SPREADSHEET_STAR = SpreadsheetHttpServer.API_SPREADSHEET.append(
-            UrlPathName.with("*")
+            UrlPathName.WILDCARD
     );
 
     private void metadataPatchHttpHandler(final HttpRequest request,
