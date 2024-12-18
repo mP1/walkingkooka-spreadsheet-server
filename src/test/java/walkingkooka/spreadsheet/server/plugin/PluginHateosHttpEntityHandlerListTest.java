@@ -30,6 +30,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -155,7 +156,8 @@ public final class PluginHateosHttpEntityHandlerListTest
                 context,
                 HttpEntity.EMPTY.setContentType(
                         SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
+                        ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
+                        .setBodyText(
                         "[\n" +
                                 "  {\n" +
                                 "    \"name\": \"/META-INF/MANIFEST.MF\",\n" +
