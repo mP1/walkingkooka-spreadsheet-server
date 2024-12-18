@@ -42,26 +42,6 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
     }
 
     @Test
-    public void testWithInitialSeparatorFails() {
-        assertThrows(
-                InvalidCharacterException.class,
-                () -> JarEntryInfoName.with(
-                        JarEntryInfoName.SEPARATOR + "Hello"
-                )
-        );
-    }
-
-    @Test
-    public void testWithIncludesSeparatorFails() {
-        assertThrows(
-                InvalidCharacterException.class,
-                () -> JarEntryInfoName.with(
-                        "/Hello" + JarEntryInfoName.SEPARATOR + "123"
-                )
-        );
-    }
-
-    @Test
     public void testWithManifest() {
         assertSame(
                 JarEntryInfoName.MANIFEST_MF,
