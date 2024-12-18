@@ -22,6 +22,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
@@ -67,6 +68,7 @@ final class PluginHateosHttpEntityHandlerList implements HateosHttpEntityHandler
         return context.pluginStore()
                 .load(pluginName)
                 .map(p -> HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                        .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
                         .setBodyText(
                                 context.marshall(
                                         JarEntryInfoList.readJarFile(

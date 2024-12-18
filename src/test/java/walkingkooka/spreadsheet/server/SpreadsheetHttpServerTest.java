@@ -110,6 +110,7 @@ import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimil
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
+import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -1017,6 +1018,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.response(
                         HttpStatusCode.OK.status(),
                         HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                                .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
                                 .setBodyText(
                                         "[\n" +
                                                 "  {\n" +
