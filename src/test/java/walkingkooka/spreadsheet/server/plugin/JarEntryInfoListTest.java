@@ -79,6 +79,16 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     }
 
     @Test
+    public void testWithEmpty() {
+        assertSame(
+                JarEntryInfoList.EMPTY,
+                JarEntryInfoList.with(
+                        Lists.empty()
+                )
+        );
+    }
+
+    @Test
     public void testDoesntDoubleWrap() {
         final JarEntryInfoList list = this.createList();
         assertSame(
