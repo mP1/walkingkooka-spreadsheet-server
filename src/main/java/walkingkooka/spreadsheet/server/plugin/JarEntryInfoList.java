@@ -37,6 +37,10 @@ import java.util.OptionalLong;
 public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
 
+    /**
+     * Empty
+     */
+    public final static JarEntryInfoList EMPTY = new JarEntryInfoList(Lists.empty());
 
     public static JarEntryInfoList readJarFile(final InputStream inputStream) {
         return JarEntryInfoListReadJarFile.readJarFile(inputStream);
@@ -47,9 +51,15 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
 
         return infos instanceof JarEntryInfoList ?
                 (JarEntryInfoList) infos :
-                new JarEntryInfoList(
+                withCopy(
                         Lists.immutable(infos)
                 );
+    }
+
+    private static JarEntryInfoList withCopy(final List<JarEntryInfo> infos) {
+        return infos.isEmpty() ?
+                EMPTY :
+                new JarEntryInfoList(infos);
     }
 
     private JarEntryInfoList(final List<JarEntryInfo> infos) {
