@@ -38,7 +38,7 @@ public final class JarEntryInfoName implements Name,
     /**
      * Separator character that is itself an illegal character within a {@link JarEntryInfoName} and may be used to form a range.
      */
-    public final static CharacterConstant SEPARATOR = CharacterConstant.with(':');
+    public final static CharacterConstant SEPARATOR = CharacterConstant.with('/');
 
     final static String MANIFEST_MF_STRING = "/META-INF/MANIFEST.MF";
 
@@ -47,10 +47,11 @@ public final class JarEntryInfoName implements Name,
     /**
      * Jar file name must start with slash.
      */
-    final static CharPredicate INITIAL = CharPredicates.is('/');
+    final static CharPredicate INITIAL = CharPredicates.is(
+            SEPARATOR.character()
+    );
 
-    final static CharPredicate PART = CharPredicates.is(SEPARATOR.character())
-            .negate();
+    final static CharPredicate PART = CharPredicates.always();
 
     /**
      * Only requirement is that the name starts with {@link #SEPARATOR}.
@@ -130,7 +131,8 @@ public final class JarEntryInfoName implements Name,
      * Returns true if this name is a directory.
      */
     public boolean isDirectory() {
-        return this.value().endsWith("/");
+        return this.value()
+                .endsWith(SEPARATOR.string());
     }
 
     // Object...........................................................................................................
