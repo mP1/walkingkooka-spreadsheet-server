@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.plugin;
 
 import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Binary;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
@@ -32,13 +33,15 @@ import java.util.zip.ZipInputStream;
 
 /**
  * Given a JAR file tries to extract a file with the requested filename and also identifies the content-type of the response.
+ * If the {@link Accept#test(MediaType)} fails the content-type a null {@link HttpEntity} will be returned.
  */
 class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpHandlerFileExtractorGwt {
 
     @GwtIncompatible
     static HttpEntity extractFile(final Binary binary,
                                   final String filename,
-                                  final BiFunction<String, Binary, MediaType> contentTypeDetector) throws IOException {
+                                  final BiFunction<String, Binary, MediaType> contentTypeDetector,
+                                  final Accept accept) throws IOException {
         HttpEntity response = HttpEntity.EMPTY;
 
         final String filenameWithoutLeadingSlash = filename.substring(1);
@@ -55,18 +58,21 @@ class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpH
                             zipInputStream.readAllBytes()
                     );
 
-                    response = HttpEntity.EMPTY.setContentType(
-                                    contentTypeDetector.apply(
-                                            filename,
-                                            content
-                                    )
-                            ).addHeader(
-                                    HttpHeaderName.CONTENT_DISPOSITION,
-                                    ContentDispositionType.ATTACHMENT.setFilename(
-                                            ContentDispositionFileName.notEncoded(filename)
-                                    )
-                            ).setBody(content)
-                            .setContentLength();
+                    final MediaType contentType = contentTypeDetector.apply(
+                            filename,
+                            content
+                    );
+
+                    if (accept.test(contentType)) {
+                        response = HttpEntity.EMPTY.setContentType(contentType)
+                                .addHeader(
+                                        HttpHeaderName.CONTENT_DISPOSITION,
+                                        ContentDispositionType.ATTACHMENT.setFilename(
+                                                ContentDispositionFileName.notEncoded(filename)
+                                        )
+                                ).setBody(content)
+                                .setContentLength();
+                    }
                     break;
                 }
             }
