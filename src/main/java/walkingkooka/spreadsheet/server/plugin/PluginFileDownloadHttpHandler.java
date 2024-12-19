@@ -36,6 +36,7 @@ import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -74,31 +75,21 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                 .normalize();
 
         // extract plugin name
-        PluginName pluginName = null;
+        final List<UrlPathName> pathNames = path.namesList();
 
-        UrlPath download = this.base.path();
-
-        int i = 0;
-        for (final UrlPathName pathName : path) {
-            switch (i) {
-                case 3:
-                    pluginName = PluginName.with(
-                            pathName.value()
-                    );
-                    download = download.append(pathName)
-                            .append(
-                                    SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
-                            );
-                    break;
-                default:
-                    break;
-            }
-            i++;
-        }
-
-        if (null == pluginName) {
+        if (pathNames.size() < 3) {
             throw new IllegalArgumentException("Missing plugin name from url");
         }
+
+        UrlPath download = this.base.path();
+        final UrlPathName pathName = pathNames.get(3);
+        final PluginName pluginName = PluginName.with(
+                pathName.value()
+        );
+        download = download.append(pathName)
+                .append(
+                        SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
+                );
 
         final Optional<Plugin> maybePlugin = this.pluginStore.load(pluginName);
         if (maybePlugin.isPresent()) {
