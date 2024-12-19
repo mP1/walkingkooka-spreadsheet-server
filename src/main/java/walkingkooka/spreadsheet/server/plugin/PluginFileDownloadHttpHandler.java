@@ -21,6 +21,7 @@ import walkingkooka.Binary;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
@@ -70,6 +71,10 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
         Objects.requireNonNull(request, "request");
         Objects.requireNonNull(response, "response");
 
+        // response will be empty if file content/type is not compatible with Accept
+        final Accept accept = HttpHeaderName.ACCEPT.header(request)
+                .orElse(Accept.DEFAULT);
+
         final UrlPath path = request.url()
                 .path()
                 .normalize();
@@ -92,6 +97,10 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                 );
 
         final Optional<Plugin> maybePlugin = this.pluginStore.load(pluginName);
+
+        // EMPTY means the plugin was not found or the archive or file content-type failed the request header: Accept
+        HttpEntity entity = HttpEntity.EMPTY;
+
         if (maybePlugin.isPresent()) {
             final Plugin plugin = maybePlugin.get();
             final Binary archive = plugin.archive();
@@ -106,46 +115,44 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                 // no file path download whole archive
                 final String pluginFilename = plugin.filename();
 
-                response.setStatus(HttpStatusCode.OK.status());
-                response.setEntity(
-                        HttpEntity.EMPTY.setContentType(
-                                        contentTypeDetector.apply(
-                                                pluginFilename,
-                                                archive
-                                        )
-                                ).addHeader(
-                                        HttpHeaderName.CONTENT_DISPOSITION,
-                                        ContentDispositionType.ATTACHMENT.setFilename(
-                                                ContentDispositionFileName.notEncoded(pluginFilename)
-                                        )
-                                )
-                                .setBody(archive)
-                                .setContentLength()
+                final MediaType contentType = contentTypeDetector.apply(
+                        pluginFilename,
+                        archive
                 );
+                if (accept.test(contentType)) {
+                    entity = HttpEntity.EMPTY.setContentType(contentType)
+                            .addHeader(
+                                    HttpHeaderName.CONTENT_DISPOSITION,
+                                    ContentDispositionType.ATTACHMENT.setFilename(
+                                            ContentDispositionFileName.notEncoded(pluginFilename)
+                                    )
+                            ).setBody(archive)
+                            .setContentLength();
+                }
             } else {
                 // file path present extract file and send that
                 final String filePath = pathString.substring(filePathBegin);
 
                 try {
-                    final HttpEntity entity = PluginFileDownloadHttpHandlerFileExtractor.extractFile(
+                    entity = PluginFileDownloadHttpHandlerFileExtractor.extractFile(
                             archive,
                             filePath,
-                            contentTypeDetector
-                    );
-                    response.setEntity(entity);
-                    response.setStatus(
-                            entity.isEmpty() ?
-                                    HttpStatusCode.NO_CONTENT.status() :
-                                    HttpStatusCode.OK.status()
+                            contentTypeDetector,
+                            accept
                     );
                 } catch (final IOException cause) {
                     throw new RuntimeException(cause);
                 }
             }
-        } else {
-            response.setStatus(HttpStatusCode.NO_CONTENT.status());
-            response.setEntity(HttpEntity.EMPTY);
         }
+
+        response.setStatus(
+                (entity.isEmpty() ?
+                        HttpStatusCode.NO_CONTENT :
+                        HttpStatusCode.OK
+                ).status()
+        );
+        response.setEntity(entity);
     }
 
     // http://server/api/plugin/PluginName/download/

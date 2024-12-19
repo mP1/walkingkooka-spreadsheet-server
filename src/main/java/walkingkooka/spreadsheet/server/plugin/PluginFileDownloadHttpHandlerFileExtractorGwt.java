@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Binary;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.reflect.StaticHelper;
@@ -29,7 +30,8 @@ class PluginFileDownloadHttpHandlerFileExtractorGwt implements StaticHelper {
 
     static HttpEntity extractFile(final Binary binary,
                                   final String filename,
-                                  final BiFunction<String, Binary, MediaType> contentTypeDetector) throws IOException {
+                                  final BiFunction<String, Binary, MediaType> contentTypeDetector,
+                                  final Accept accept) throws IOException {
         throw new UnsupportedOperationException();
     }
 

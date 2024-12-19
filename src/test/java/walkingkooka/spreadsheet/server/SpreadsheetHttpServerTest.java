@@ -36,6 +36,7 @@ import walkingkooka.net.Url;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.UrlScheme;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.ContentDisposition;
@@ -1095,6 +1096,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.pluginStore.save(plugin);
 
+        final String contentType = "text/java";
+
         // get all plugins
         server.handleAndCheck(
                 HttpRequests.get(
@@ -1103,12 +1106,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpProtocolVersion.VERSION_1_0,
                         HttpEntity.EMPTY.addHeader(
                                 HttpHeaderName.ACCEPT,
-                                SpreadsheetServerMediaTypes.BINARY.accept()
+                                Accept.parse(contentType)
                         )
                 ),
                 this.response(
                         HttpStatusCode.OK.status(),
-                        HttpEntity.EMPTY.setContentType(MediaType.parse("text/java"))
+                        HttpEntity.EMPTY.setContentType(MediaType.parse(contentType))
                                 .addHeader(
                                         HttpHeaderName.CONTENT_DISPOSITION,
                                         ContentDispositionType.ATTACHMENT.setFilename(
