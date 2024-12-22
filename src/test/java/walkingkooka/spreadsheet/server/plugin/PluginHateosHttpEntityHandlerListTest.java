@@ -25,7 +25,6 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HeaderException;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -117,8 +116,7 @@ public final class PluginHateosHttpEntityHandlerListTest
     public void testHandleOnContentTypeNotJsonFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
                 PLUGIN1.name(),
-                HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.ACCEPT,
+                HttpEntity.EMPTY.setAccept(
                         MediaType.TEXT_PLAIN.accept()
                 ),
                 this.parameters(),
@@ -224,8 +222,7 @@ public final class PluginHateosHttpEntityHandlerListTest
 
     @Override
     public HttpEntity entity() {
-        return HttpEntity.EMPTY.addHeader(
-                HttpHeaderName.ACCEPT,
+        return HttpEntity.EMPTY.setAccept(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
         );
     }

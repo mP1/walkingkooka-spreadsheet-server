@@ -610,8 +610,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         Url.parseRelative("/api/plugin/*/upload"),
                         HttpProtocolVersion.VERSION_1_0,
                         HttpEntity.EMPTY.setContentType(MediaType.MULTIPART_FORM_DATA)
-                                .addHeader(
-                                        HttpHeaderName.ACCEPT,
+                                .setAccept(
                                         MediaType.BINARY.accept()
                                 )
                 ), // request
@@ -849,8 +848,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/download"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 SpreadsheetServerMediaTypes.BINARY.accept()
                         )
                 ),
@@ -889,8 +887,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/download"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 MediaType.ALL.accept()
                         )
                 ),
@@ -940,8 +937,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/download"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 SpreadsheetServerMediaTypes.BINARY.accept()
                         )
                 ),
@@ -973,8 +969,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/list"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                         )
                 ),
@@ -1019,8 +1014,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/list"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                         )
                 ),
@@ -1112,8 +1106,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/TestPlugin111/download/example/Example.java"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 Accept.parse(contentType)
                         )
                 ),
@@ -1199,8 +1192,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         HttpTransport.UNSECURED,
                         Url.parseRelative("/api/plugin/*/filter?query=*&offset=1&count=1"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                         )
                 ),
@@ -10461,7 +10453,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFileFound() {
         final TestHttpServer server = this.startServer();
 
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+                HttpMethod.POST,
                 FILE.value(),
                 Maps.of(
                         HttpHeaderName.ACCEPT,

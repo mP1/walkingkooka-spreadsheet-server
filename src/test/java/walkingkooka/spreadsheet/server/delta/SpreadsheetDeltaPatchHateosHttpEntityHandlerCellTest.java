@@ -19,10 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.net.header.Accept;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetFormula;
 import walkingkooka.spreadsheet.SpreadsheetViewportRectangle;
@@ -75,11 +72,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                                         )
                                         )
                                 )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 this.context(),
@@ -114,11 +108,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 this.context(),
@@ -154,11 +145,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                         Sets.of(patch)
                                 )
                         ).replace(CELL.toString(), LABEL.toString())
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 this.context(),
@@ -192,11 +180,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
@@ -245,11 +230,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -295,11 +277,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
@@ -345,11 +324,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                                         )
                                         )
                                 )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 this.context(),
@@ -384,11 +360,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 this.context(),
@@ -422,11 +395,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
@@ -475,11 +445,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
@@ -523,11 +490,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                         SpreadsheetDelta.EMPTY.setCells(
                                 Sets.of(patch)
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        CONTENT_TYPE.accept()
                 ),
                 this.parameters(
                         "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString

@@ -25,9 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -107,9 +105,8 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
                 SpreadsheetFormatterName.TEXT_FORMAT_PATTERN,
                 this.entity()
                         .setContentType(MediaType.TEXT_PLAIN)
-                        .addHeader(
-                                HttpHeaderName.ACCEPT,
-                                Accept.parse(MediaType.APPLICATION_JSON.toHeaderText())
+                        .setAccept(
+                                MediaType.APPLICATION_JSON.accept()
                         ),
                 this.parameters(),
                 this.context(),
@@ -130,11 +127,8 @@ public final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandlerT
                 selector.name(), // resource id
                 this.httpEntity(
                         JsonNode.string(selector.valueText())
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

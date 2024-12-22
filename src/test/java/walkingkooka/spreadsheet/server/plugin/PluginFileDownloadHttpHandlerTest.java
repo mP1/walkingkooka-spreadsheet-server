@@ -299,10 +299,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
                         HttpProtocolVersion.VERSION_1_0,
                         null == accept ?
                                 HttpEntity.EMPTY :
-                                HttpEntity.EMPTY.addHeader(
-                                        HttpHeaderName.ACCEPT,
-                                        accept
-                                )
+                                HttpEntity.EMPTY.setAccept(accept)
                 ),
                 expected
         );

@@ -108,8 +108,7 @@ public class JunitTest {
                         HttpTransport.SECURED,
                         Url.parseRelative("/api/spreadsheet"),
                         HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.addHeader(
-                                HttpHeaderName.ACCEPT,
+                        HttpEntity.EMPTY.setAccept(
                                 Accept.with(
                                         Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
                                 )
