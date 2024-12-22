@@ -32,6 +32,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.HttpRequests;
 import walkingkooka.net.http.server.HttpResponse;
@@ -96,6 +97,9 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
                     ContentDispositionType.ATTACHMENT.setFilename(
                             ContentDispositionFileName.notEncoded("/dir111/sub111/Example111.java")
                     )
+            ).addHeader(
+                    JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                    JarEntryInfoName.class.getSimpleName()
             ).setBodyText(CONTENT)
             .setContentLength();
 
@@ -107,6 +111,9 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
                     ContentDispositionType.ATTACHMENT.setFilename(
                             ContentDispositionFileName.notEncoded("TestPlugin123.jar")
                     )
+            ).addHeader(
+                    JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                    JarEntryInfoName.class.getSimpleName()
             ).setBody(JAR_FILE)
             .setContentLength();
 

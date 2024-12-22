@@ -25,6 +25,7 @@ import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
+import walkingkooka.net.http.json.JsonHttpHandlers;
 
 import java.io.IOException;
 import java.util.function.BiFunction;
@@ -70,6 +71,9 @@ class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpH
                                         ContentDispositionType.ATTACHMENT.setFilename(
                                                 ContentDispositionFileName.notEncoded(filename)
                                         )
+                                ).addHeader(
+                                        JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                        JarEntryInfoName.class.getSimpleName()
                                 ).setBody(content)
                                 .setContentLength();
                     }
