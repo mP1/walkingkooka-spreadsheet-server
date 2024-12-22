@@ -28,6 +28,7 @@ import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
+import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpResponse;
@@ -126,6 +127,9 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                                     ContentDispositionType.ATTACHMENT.setFilename(
                                             ContentDispositionFileName.notEncoded(pluginFilename)
                                     )
+                            ).addHeader(
+                                    JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                    JarEntryInfoName.class.getSimpleName()
                             ).setBody(archive)
                             .setContentLength();
                 }

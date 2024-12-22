@@ -53,6 +53,7 @@ import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.HttpTransport;
+import walkingkooka.net.http.json.JsonHttpHandlers;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
@@ -112,6 +113,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdi
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
+import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -900,6 +902,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         ContentDispositionType.ATTACHMENT.setFilename(
                                                 ContentDispositionFileName.notEncoded("TestPlugin111-download.jar")
                                         )
+                                ).addHeader(
+                                        JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                        JarEntryInfoName.class.getSimpleName()
                                 ).setBody(
                                         plugin.archive()
                                 ).setContentLength()
@@ -948,6 +953,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         ContentDispositionType.ATTACHMENT.setFilename(
                                                 ContentDispositionFileName.notEncoded("TestPlugin111-download.jar")
                                         )
+                                ).addHeader(
+                                        JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                        JarEntryInfoName.class.getSimpleName()
                                 ).setBody(
                                         plugin.archive()
                                 ).setContentLength()
@@ -1117,6 +1125,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                         ContentDispositionType.ATTACHMENT.setFilename(
                                                 ContentDispositionFileName.notEncoded("/example/Example.java")
                                         )
+                                ).addHeader(
+                                        JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                        JarEntryInfoName.class.getSimpleName()
                                 ).setBodyText(fileContent)
                                 .setContentLength()
                 )
