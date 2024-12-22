@@ -129,8 +129,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
         final IllegalArgumentException thrown = this.handleAllFails(
                 this.entity()
                         .setContentType(MediaType.APPLICATION_JSON)
-                        .addHeader(
-                                HttpHeaderName.ACCEPT,
+                        .setAccept(
                                 Accept.parse("text/plain")
                         ),
                 this.parameters(),
@@ -149,11 +148,8 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
                 // two format requests
                 this.httpEntity(
                         JsonNode.string("date-format-pattern dd/mm/yyyy").toString()
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                        )
+                ).setAccept(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

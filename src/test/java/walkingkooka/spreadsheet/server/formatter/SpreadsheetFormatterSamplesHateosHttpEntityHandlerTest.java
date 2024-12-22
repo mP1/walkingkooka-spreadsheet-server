@@ -21,14 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -112,13 +109,8 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
         final IllegalArgumentException thrown = this.handleOneFails(
                 this.id(),
                 this.entity()
-                        .addHeader(
-                                HttpHeaderName.ACCEPT,
-                                Accept.with(
-                                        Lists.of(
-                                                MediaType.IMAGE_BMP
-                                        )
-                                )
+                        .setAccept(
+                                MediaType.IMAGE_BMP.accept()
                         ),
                 this.parameters(),
                 this.context(),
@@ -138,11 +130,8 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
         this.handleOneAndCheck(
                 selector.name(), // resource id
-                HttpEntity.EMPTY.addHeader(
-                        HttpHeaderName.ACCEPT,
-                        Accept.with(
-                                Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                        )
+                HttpEntity.EMPTY.setAccept(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
                 ),
                 this.parameters(),
                 new FakeSpreadsheetEngineHateosResourceHandlerContext() {

@@ -26,7 +26,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.color.Color;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
-import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -122,8 +121,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
         final IllegalArgumentException thrown = this.handleAllFails(
                 this.entity()
                         .setContentType(MediaType.APPLICATION_JSON)
-                        .addHeader(
-                                HttpHeaderName.ACCEPT,
+                        .setAccept(
                                 Accept.with(
                                         Lists.of(
                                                 MediaType.ANY_IMAGE
@@ -169,8 +167,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                                         )
                                 )
                         )
-                ).addHeader(
-                        HttpHeaderName.ACCEPT,
+                ).setAccept(
                         Accept.with(
                                 Lists.of(
                                         MediaType.APPLICATION_JSON
