@@ -20,14 +20,23 @@ package walkingkooka.spreadsheet.server.plugin;
 import walkingkooka.Cast;
 import walkingkooka.compare.Comparators;
 import walkingkooka.naming.Name;
+import walkingkooka.net.UrlPath;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * The filename of an entry with a JAR file archive.
@@ -213,4 +222,44 @@ public final class JarEntryInfoName implements Name,
                 JarEntryInfoName.class
         );
     }
+
+    // extract..........................................................................................................
+
+    /**
+     * Helper that extracts the filename part of a api plugin download path.
+     * <pre>
+     * /api/plugin/PluginName/download
+     * </pre>
+     */
+    // 12   3      4          5
+    public static Optional<JarEntryInfoName> pluginDownloadPathExtract(final UrlPath path) {
+        Objects.requireNonNull(path, "path");
+
+        if (false == DOWNLOAD_URL.test(path)) {
+            throw new IllegalArgumentException("Invalid plugin download path =" + path);
+        }
+
+        final String filename = path.namesList()
+                .stream()
+                .skip(5)
+                .map(n -> n.value())
+                .collect(
+                        Collectors.joining(
+                                JarEntryInfoName.SEPARATOR.string()
+                        )
+                );
+
+        return Optional.ofNullable(
+                filename.isEmpty() ?
+                        null :
+                        JarEntryInfoName.with(
+                                JarEntryInfoName.SEPARATOR + filename
+                        )
+        );
+    }
+
+    private final static Predicate<UrlPath> DOWNLOAD_URL = SpreadsheetHttpServer.API_PLUGIN.append(UrlPathName.WILDCARD)
+            .append(SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName())
+            .append(UrlPathName.with("**"))
+            .predicate();
 }

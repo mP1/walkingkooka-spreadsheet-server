@@ -20,10 +20,13 @@ package walkingkooka.spreadsheet.server.plugin;
 import org.junit.jupiter.api.Test;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.naming.NameTesting;
+import walkingkooka.net.UrlPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -128,6 +131,67 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
     @Override
     public JarEntryInfoName createJsonNodeMarshallingValue() {
         return JarEntryInfoName.with("/dir1/file2.txt");
+    }
+
+    // pluginDownloadPathExtract........................................................................................
+
+    @Test
+    public void testPluginDownloadPathExtractWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> JarEntryInfoName.pluginDownloadPathExtract(null)
+        );
+    }
+
+    @Test
+    public void testPluginDownloadPathExtractWithInvalidPathFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> JarEntryInfoName.pluginDownloadPathExtract(
+                        UrlPath.parse("/api/plugin/PluginName/not-download/file2.txt")
+                )
+        );
+
+        this.checkEquals(
+                "Invalid plugin download path =/api/plugin/PluginName/not-download/file2.txt",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testPluginDownloadPathExtractMissingFilename() {
+        this.pluginDownloadPathExtractAndCheck(
+                UrlPath.parse("/api/plugin/PluginName123/download"),
+                Optional.empty()
+        );
+    }
+
+    @Test
+    public void testPluginDownloadPathExtractWithFilename() {
+        this.pluginDownloadPathExtractAndCheck(
+                UrlPath.parse("/api/plugin/PluginName123/download/file123.txt"),
+                Optional.of(
+                        JarEntryInfoName.with("/file123.txt")
+                )
+        );
+    }
+
+    @Test
+    public void testPluginDownloadPathExtractWithFilename2() {
+        this.pluginDownloadPathExtractAndCheck(
+                UrlPath.parse("/api/plugin/PluginName123/download/META-INF/MANIFEST.MF"),
+                Optional.of(
+                        JarEntryInfoName.MANIFEST_MF
+                )
+        );
+    }
+
+    private void pluginDownloadPathExtractAndCheck(final UrlPath path,
+                                                   final Optional<JarEntryInfoName> expected) {
+        this.checkEquals(
+                expected,
+                JarEntryInfoName.pluginDownloadPathExtract(path)
+        );
     }
 
     // Class............................................................................................................
