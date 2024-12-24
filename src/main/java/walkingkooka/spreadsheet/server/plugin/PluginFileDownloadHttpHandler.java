@@ -26,6 +26,7 @@ import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.net.http.json.JsonHttpHandlers;
@@ -41,7 +42,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 /**
  * A {@link HttpHandler} that loads the plugin for a given {@link PluginName} and then returns the file in the file-path portion of the URL.
@@ -50,7 +50,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
     static PluginFileDownloadHttpHandler with(final AbsoluteUrl base,
                                               final PluginStore pluginStore,
-                                              final BiFunction<String, Binary, MediaType> contentTypeDetector) {
+                                              final MediaTypeDetector contentTypeDetector) {
         return new PluginFileDownloadHttpHandler(
                 Objects.requireNonNull(base, "base"),
                 Objects.requireNonNull(pluginStore, "pluginStore"),
@@ -60,7 +60,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
     private PluginFileDownloadHttpHandler(final AbsoluteUrl base,
                                           final PluginStore pluginStore,
-                                          final BiFunction<String, Binary, MediaType> contentTypeDetector) {
+                                          final MediaTypeDetector contentTypeDetector) {
         this.base = base;
         this.pluginStore = pluginStore;
         this.contentTypeDetector = contentTypeDetector;
@@ -105,7 +105,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
         if (maybePlugin.isPresent()) {
             final Plugin plugin = maybePlugin.get();
             final Binary archive = plugin.archive();
-            final BiFunction<String, Binary, MediaType> contentTypeDetector = this.contentTypeDetector;
+            final MediaTypeDetector contentTypeDetector = this.contentTypeDetector;
 
             // extract trailing path...
 
@@ -116,7 +116,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                 // no file path download whole archive
                 final String pluginFilename = plugin.filename();
 
-                final MediaType contentType = contentTypeDetector.apply(
+                final MediaType contentType = contentTypeDetector.detect(
                         pluginFilename,
                         archive
                 );
@@ -166,7 +166,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
     private final PluginStore pluginStore;
 
-    private final BiFunction<String, Binary, MediaType> contentTypeDetector;
+    private final MediaTypeDetector contentTypeDetector;
 
     @Override
     public String toString() {

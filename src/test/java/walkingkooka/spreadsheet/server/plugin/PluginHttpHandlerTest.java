@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Binary;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.server.HttpHandlerTesting;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
@@ -33,8 +33,6 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-
-import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -55,7 +53,7 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
         }
     };
 
-    private final static BiFunction<String, Binary, MediaType> CONTENT_TYPE_DETECTOR = (filename, binary) -> MediaType.BINARY;
+    private final static MediaTypeDetector CONTENT_TYPE_DETECTOR = (filename, binary) -> MediaType.BINARY;
 
     @Test
     public void testWithNullServerUrlFails() {
