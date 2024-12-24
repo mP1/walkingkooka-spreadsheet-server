@@ -46,6 +46,7 @@ import walkingkooka.net.header.ETag;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.header.MediaTypeParameterName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -263,6 +264,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
+    private final static MediaTypeDetector MEDIA_TYPE_DETECTOR = (filename, binary) ->
+            filename.endsWith(".java") ?
+                    MediaType.parse("text/java") :
+                    MediaType.BINARY;
+
     private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
@@ -291,6 +297,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 null,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -308,6 +315,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "http://example.com/path123",
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -326,6 +334,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "http://example.com?path123",
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -344,6 +353,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "http://example.com#fragment456",
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -359,6 +369,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private void withFails(final String serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
+                           final MediaTypeDetector mediaTypeDetector,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
@@ -374,6 +385,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         Url.parseAbsolute(serverUrl),
                         indentation,
                         lineEnding,
+                        mediaTypeDetector,
                         systemSpreadsheetProvider,
                         providerContext,
                         metadataStore,
@@ -398,6 +410,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 null,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -414,6 +427,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         this.withFails(
                 SERVER_URL,
                 INDENTATION,
+                null,
+                MEDIA_TYPE_DETECTOR,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullMediaTypeDetectorFails() {
+        this.withFails(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
                 null,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
@@ -432,6 +464,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 null,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -449,6 +482,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 null,
                 METADATA_STORE,
@@ -466,6 +500,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 null,
@@ -483,6 +518,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -500,6 +536,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -517,6 +554,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -534,6 +572,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -551,6 +590,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
                 SYSTEM_SPREADSHEET_PROVIDER,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -565,6 +605,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private void withFails(final AbsoluteUrl serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
+                           final MediaTypeDetector mediaTypeDetector,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
@@ -579,6 +620,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         serverUrl,
                         indentation,
                         lineEnding,
+                        mediaTypeDetector,
                         systemSpreadsheetProvider,
                         providerContext,
                         metadataStore,
@@ -10492,6 +10534,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ),
                 Indentation.SPACES2,
                 LineEnding.NL,
+                MEDIA_TYPE_DETECTOR,
                 SpreadsheetProviders.basic(
                         CONVERTER_PROVIDER,
                         EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above

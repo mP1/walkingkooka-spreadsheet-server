@@ -33,6 +33,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaTypeDetectors;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -251,6 +252,7 @@ public class JunitTest {
                 ),
                 Indentation.SPACES2,
                 LineEnding.NL,
+                MediaTypeDetectors.fake(),
                 SpreadsheetProviders.fake(),
                 ProviderContexts.basic(
                         EnvironmentContexts.empty(

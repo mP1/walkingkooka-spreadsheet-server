@@ -25,7 +25,7 @@ import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.UrlQueryString;
 import walkingkooka.net.header.HttpHeaderName;
-import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -83,6 +83,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     public static SpreadsheetHttpServer with(final AbsoluteUrl serverUrl,
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
+                                             final MediaTypeDetector mediaTypeDetector,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
@@ -95,6 +96,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 checkServerUrl(serverUrl),
                 Objects.requireNonNull(indentation, "indentation"),
                 Objects.requireNonNull(lineEnding, "lineEnding"),
+                Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
                 Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
                 Objects.requireNonNull(providerContext, "providerContext"),
                 Objects.requireNonNull(metadataStore, "metadataStore"),
@@ -147,6 +149,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private SpreadsheetHttpServer(final AbsoluteUrl serverUrl,
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
+                                  final MediaTypeDetector mediaTypeDetector,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
@@ -159,6 +162,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.indentation = indentation;
         this.lineEnding = lineEnding;
+
+        this.mediaTypeDetector = mediaTypeDetector;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -278,16 +283,15 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.lineEnding,
                 this.hateosResourceHandlerContext,
                 this.providerContext,
-                (filename, binary) ->
-                        filename.endsWith(".java") ?
-                                MediaType.parse("text/java") :
-                                MediaType.BINARY
+                this.mediaTypeDetector
         );
     }
 
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
+
+    private final MediaTypeDetector mediaTypeDetector;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
 
