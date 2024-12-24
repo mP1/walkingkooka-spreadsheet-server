@@ -17,10 +17,9 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
-import walkingkooka.Binary;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
-import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
@@ -39,7 +38,6 @@ import walkingkooka.text.LineEnding;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 /**
@@ -59,7 +57,7 @@ public final class PluginHttpHandler implements HttpHandler {
                                          final LineEnding lineEnding,
                                          final HateosResourceHandlerContext hateosResourceHandlerContext,
                                          final ProviderContext providerContext,
-                                         final BiFunction<String, Binary, MediaType> contentTypeDetector) {
+                                         final MediaTypeDetector contentTypeDetector) {
         return new PluginHttpHandler(
                 Objects.requireNonNull(serverUrl, "serverUrl"),
                 Objects.requireNonNull(indentation, "indentation"),
@@ -78,7 +76,7 @@ public final class PluginHttpHandler implements HttpHandler {
                               final LineEnding lineEnding,
                               final HateosResourceHandlerContext hateosResourceHandlerContext,
                               final ProviderContext providerContext,
-                              final BiFunction<String, Binary, MediaType> contentTypeDetector) {
+                              final MediaTypeDetector contentTypeDetector) {
         super();
 
         this.serverUrl = serverUrl;

@@ -28,6 +28,7 @@ import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpProtocolVersion;
 import walkingkooka.net.http.HttpStatusCode;
@@ -47,7 +48,6 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -117,7 +117,7 @@ public final class PluginFileDownloadHttpHandlerTest implements HttpHandlerTesti
             ).setBody(JAR_FILE)
             .setContentLength();
 
-    private final BiFunction<String, Binary, MediaType> CONTENT_TYPE_DETECTOR = (filename, binary) ->
+    private final MediaTypeDetector CONTENT_TYPE_DETECTOR = (filename, binary) ->
             filename.endsWith(".java") ?
                     FILE_CONTENT_TYPE :
                     JAR_CONTENT_TYPE;

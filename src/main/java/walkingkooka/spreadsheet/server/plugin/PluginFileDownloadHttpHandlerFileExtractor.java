@@ -24,11 +24,11 @@ import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetector;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.json.JsonHttpHandlers;
 
 import java.io.IOException;
-import java.util.function.BiFunction;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -41,7 +41,7 @@ class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpH
     @GwtIncompatible
     static HttpEntity extractFile(final Binary binary,
                                   final String filename,
-                                  final BiFunction<String, Binary, MediaType> contentTypeDetector,
+                                  final MediaTypeDetector contentTypeDetector,
                                   final Accept accept) throws IOException {
         HttpEntity response = HttpEntity.EMPTY;
 
@@ -59,7 +59,7 @@ class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpH
                             zipInputStream.readAllBytes()
                     );
 
-                    final MediaType contentType = contentTypeDetector.apply(
+                    final MediaType contentType = contentTypeDetector.detect(
                             filename,
                             content
                     );
