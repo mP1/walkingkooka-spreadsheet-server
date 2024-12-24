@@ -31,6 +31,7 @@ import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
+import walkingkooka.net.header.MediaTypeDetectors;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.HttpProtocolVersion;
@@ -252,6 +253,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 ),
                 Indentation.SPACES2,
                 LineEnding.NL,
+                MediaTypeDetectors.fake(),
                 SpreadsheetProviders.fake(),
                 ProviderContexts.basic(
                         EnvironmentContexts.empty(
