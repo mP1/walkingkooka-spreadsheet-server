@@ -103,6 +103,32 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
+    public void testHandleAllMultipartMissingFileFails() {
+        final String boundary = "delimiter12345";
+
+        final IllegalArgumentException thrown = this.handleAllFails(
+                HttpEntity.EMPTY.setContentType(
+                        MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
+                ).setBodyText(
+                        "--delimiter12345\r\n" +
+                                "Content-Disposition: form-data; name=\"not-a-file\";\r\n" +
+                                "\r\n" +
+                                binaryToString(PLUGIN2.archive()) +
+                                "\r\n" +
+                                "--delimiter12345--"
+                ),
+                this.parameters(),
+                new TestPluginHateosResourceHandlerContext(),
+                IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+                "Multipart parts missing file",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleMultipartAllCreate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
