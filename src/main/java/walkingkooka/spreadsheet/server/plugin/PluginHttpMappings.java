@@ -107,8 +107,6 @@ final class PluginHttpMappings implements StaticHelper {
                                 PluginName.with(text)
                         );
                         break;
-                    case 0:
-                        throw new IllegalArgumentException("Missing begin");
                     default:
                         result = HateosResourceSelection.range(
                                 Range.parse(
