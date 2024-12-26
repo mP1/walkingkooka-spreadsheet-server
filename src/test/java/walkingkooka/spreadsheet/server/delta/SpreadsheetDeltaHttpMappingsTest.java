@@ -197,24 +197,24 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     }
 
     @Test
-    public void testRouteCellPostSaveCell() {
+    public void testRouteCellPostSaveCellWithEmptyBody() {
         this.routeCellFails(
                 HttpMethod.POST,
                 "/cell/A1",
                 "",
                 IllegalArgumentException.class,
-                "Required resource missing"
+                "Missing resource"
         );
     }
 
     @Test
-    public void testRouteCellPostSaveCellLabel() {
+    public void testRouteCellPostSaveCellLabelWithEmptyBody() {
         this.routeCellFails(
                 HttpMethod.POST,
                 "/cell/Label123",
                 "",
                 IllegalArgumentException.class,
-                "Required resource missing"
+                "Missing resource"
         );
     }
 
