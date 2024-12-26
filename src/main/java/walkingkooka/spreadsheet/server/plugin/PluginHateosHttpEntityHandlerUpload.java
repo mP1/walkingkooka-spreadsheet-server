@@ -102,7 +102,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         }
 
         if (null == response) {
-            throw new IllegalArgumentException("File missing");
+            throw new IllegalArgumentException("Multipart parts missing file");
         }
 
         return response;
