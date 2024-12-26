@@ -270,7 +270,7 @@ public final class JarEntryInfo implements TreePrintable {
         }
 
         if (null == name) {
-            JsonNodeUnmarshallContext.requiredPropertyMissing(NAME_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(NAME_PROPERTY, node);
         }
 
         return with(

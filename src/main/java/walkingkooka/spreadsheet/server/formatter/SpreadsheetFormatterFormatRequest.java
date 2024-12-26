@@ -115,7 +115,7 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
         }
 
         if (null == selector) {
-            JsonNodeUnmarshallContext.requiredPropertyMissing(SELECTOR_PROPERTY, node);
+            JsonNodeUnmarshallContext.missingProperty(SELECTOR_PROPERTY, node);
         }
         return new SpreadsheetFormatterFormatRequest<Object>(
                 selector,
