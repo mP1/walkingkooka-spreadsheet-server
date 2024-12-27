@@ -134,7 +134,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                                final PluginHateosResourceHandlerContext context) {
         final PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.fromArchive(archive);
 
-        context.pluginStore()
+        final Plugin saved = context.pluginStore()
                 .save(
                         Plugin.with(
                                 pluginArchiveManifest.pluginName(), // name
@@ -145,10 +145,11 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                         )
                 );
 
-        return PluginHttpEntity.httpEntity(
-                filename,
-                archive
-        );
+        return HttpEntity.EMPTY.setContentType(context.contentType())
+                .setBodyText(
+                        context.marshall(saved)
+                                .toString()
+                ).setContentLength();
     }
 
     @Override

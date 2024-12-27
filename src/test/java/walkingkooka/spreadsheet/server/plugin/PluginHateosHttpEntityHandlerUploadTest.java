@@ -40,6 +40,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
+import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -137,14 +138,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
-                        MediaType.BINARY
-                ).addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(
-                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                        )
-                ).setBody(
-                        PLUGIN2.archive()
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
                 ).setContentLength()
         );
 
@@ -176,14 +172,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
-                        MediaType.BINARY
-                ).addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(
-                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                        )
-                ).setBody(
-                        PLUGIN2.archive()
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
                 ).setContentLength()
         );
 
@@ -204,14 +195,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
-                        MediaType.BINARY
-                ).addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(
-                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                        )
-                ).setBody(
-                        PLUGIN2.archive()
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
                 ).setContentLength()
         );
 
@@ -243,14 +229,9 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(
-                        MediaType.BINARY
-                ).addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(
-                                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                        )
-                ).setBody(
-                        PLUGIN2.archive()
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
                 ).setContentLength()
         );
 
@@ -362,6 +343,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         );
     }
 
+    private static String toJson(final Plugin plugin) {
+        return JSON_NODE_MARSHALL_CONTEXT.marshall(plugin)
+                .toString();
+    }
+
     @Override
     public PluginHateosResourceHandlerContext context() {
         return new TestPluginHateosResourceHandlerContext();
@@ -389,6 +375,16 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         @Override
         public Optional<EmailAddress> user() {
             return Optional.of(USER);
+        }
+
+        @Override
+        public MediaType contentType() {
+            return SpreadsheetServerMediaTypes.CONTENT_TYPE;
+        }
+
+        @Override
+        public JsonNode marshall(final Object value) {
+            return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
         }
     }
 
