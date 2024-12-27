@@ -97,7 +97,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         );
 
         this.checkEquals(
-                "Content-Type: Expected multipart/form-data or application/json",
+                "Content-Type: Got text/plain, expected multipart/form-data or application/json",
                 thrown.getMessage()
         );
     }
