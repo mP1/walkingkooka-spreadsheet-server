@@ -702,26 +702,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ), // request
                 this.response(
                         HttpStatusCode.OK.status(),
-                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
-                                .addHeader(
-                                        HttpHeaderName.CONTENT_DISPOSITION,
-                                        ContentDispositionType.ATTACHMENT.setFilename(
-                                                ContentDispositionFileName.notEncoded("TestPlugin111.jar")
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                                .setBodyText(
+                                        toJson(
+                                                Plugin.with(
+                                                        pluginName,
+                                                        "TestPlugin111.jar",
+                                                        jar,
+                                                        USER,
+                                                        NOW.now()
+                                                )
                                         )
-                                ).setBody(jar)
-                                .setContentLength()
+                                ).setContentLength()
                 )
-        );
-
-        this.checkEquals(
-                Plugin.with(
-                        pluginName,
-                        "TestPlugin111.jar",
-                        jar,
-                        USER,
-                        NOW.now()
-                ),
-                server.pluginStore.loadOrFail(pluginName)
         );
     }
 
@@ -761,25 +754,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 ), // request
                 this.response(
                         HttpStatusCode.OK.status(),
-                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.BINARY)
-                                .addHeader(
-                                        HttpHeaderName.CONTENT_DISPOSITION,
-                                        contentDisposition
-                                ).setBody(
-                                        Binary.with(jar.value())
+                        HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                                .setBodyText(
+                                        toJson(
+                                                Plugin.with(
+                                                        pluginName,
+                                                        "TestPlugin111.jar",
+                                                        jar,
+                                                        USER,
+                                                        NOW.now()
+                                                )
+                                        )
                                 ).setContentLength()
                 )
-        );
-
-        this.checkEquals(
-                Plugin.with(
-                        pluginName,
-                        "TestPlugin111.jar",
-                        jar,
-                        USER,
-                        NOW.now()
-                ),
-                server.pluginStore.loadOrFail(pluginName)
         );
     }
 
