@@ -118,7 +118,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
                 HeaderException.class
         );
         this.checkEquals(
-                "Required value is absent for Accept",
+                "Missing header Accept",
                 thrown.getMessage()
         );
     }
