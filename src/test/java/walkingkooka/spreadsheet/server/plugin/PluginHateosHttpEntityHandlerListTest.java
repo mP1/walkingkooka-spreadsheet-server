@@ -107,7 +107,7 @@ public final class PluginHateosHttpEntityHandlerListTest
         );
 
         this.checkEquals(
-                "Required value is absent for Accept",
+                "Missing header Accept",
                 thrown.getMessage()
         );
     }
