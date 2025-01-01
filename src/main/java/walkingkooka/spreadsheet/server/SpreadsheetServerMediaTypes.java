@@ -37,6 +37,11 @@ public final class SpreadsheetServerMediaTypes implements PublicStaticHelper {
     public final static MediaType BINARY = MediaType.BINARY;
 
     /**
+     * The content-type for binary payloads that are base64 encoded.
+     */
+    public final static MediaType BASE64 = MediaType.TEXT_BASE64;
+
+    /**
      * Stop creation
      */
     private SpreadsheetServerMediaTypes() {
