@@ -125,7 +125,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         );
 
         this.checkEquals(
-                "Multipart parts missing file",
+                "Missing filename",
                 thrown.getMessage()
         );
     }
