@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Binary;
-import walkingkooka.net.header.ContentDisposition;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -35,8 +34,10 @@ import walkingkooka.plugin.store.Plugin;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
+import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Handles uploads of JAR files, supporting multi-part-forms and binary requests.
@@ -71,6 +72,11 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                     entity,
                     context
             );
+        } else if (SpreadsheetServerMediaTypes.BASE64.test(contentType)) {
+            response = this.base64File(
+                    entity,
+                    context
+            );
         } else if (SpreadsheetServerMediaTypes.BINARY.test(contentType)) {
             response = this.binaryFile(
                     entity,
@@ -92,7 +98,8 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         HttpEntity response = null;
 
         for (final HttpEntity part : entity.multiparts()) {
-            final ContentDispositionFileName filename = this.fileName(part);
+            final ContentDispositionFileName filename = this.fileName(part)
+                    .orElse(null);
             if (null != filename) {
                 response = this.archive(
                         filename,
@@ -109,24 +116,37 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         return response;
     }
 
+    private HttpEntity base64File(final HttpEntity entity,
+                                  final PluginHateosResourceHandlerContext context) {
+        return this.archive(
+                this.fileNameOrFail(entity),
+                Binary.with(
+                        Base64.getDecoder()
+                                .decode(
+                                        entity.bodyText()
+                                )
+                ),
+                context
+        );
+    }
+
     private HttpEntity binaryFile(final HttpEntity entity,
                                   final PluginHateosResourceHandlerContext context) {
-        final ContentDispositionFileName filename = this.fileName(entity);
-        if (null == filename) {
-            throw new IllegalArgumentException("Missing filename");
-        }
-
         return this.archive(
-                filename,
+                this.fileNameOrFail(entity),
                 entity.body(),
                 context
         );
     }
 
-    private ContentDispositionFileName fileName(final HttpEntity entity) {
-        final ContentDisposition contentDisposition = HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(entity);
-        return contentDisposition.filename()
-                .orElse(null);
+    private Optional<ContentDispositionFileName> fileName(final HttpEntity entity) {
+        return HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(entity)
+                .filename();
+    }
+
+    private ContentDispositionFileName fileNameOrFail(final HttpEntity entity) {
+        return this.fileName(entity)
+                .orElseThrow(() -> new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_DISPOSITION));
     }
 
     private HttpEntity archive(final ContentDispositionFileName filename,

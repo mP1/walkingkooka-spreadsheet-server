@@ -43,6 +43,7 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.json.JsonNode;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -183,6 +184,80 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 context.pluginStore()
                         .loadOrFail(PLUGIN2.name()),
                 () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
+    public void testHandleBase64FileAllCreate() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        this.handleAllAndCheck(
+                this.binaryAsBase64(), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
+    public void testHandleBase64FileAllUpdate() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        context.pluginStore()
+                .save(
+                        Plugin.with(
+                                PluginName.with("TestPlugin222"),
+                                "old.jar",
+                                jarFile("TestPlugin222"),
+                                USER,
+                                NOW.now()
+                        )
+                );
+
+        this.handleAllAndCheck(
+                this.binaryAsBase64(), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    private HttpEntity binaryAsBase64() {
+        return HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.BASE64
+        ).addHeader(
+                HttpHeaderName.CONTENT_DISPOSITION,
+                ContentDispositionType.ATTACHMENT.setFilename(
+                        ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+                )
+        ).setBodyText(
+                Base64.getEncoder()
+                        .encodeToString(
+                                PLUGIN2.archive()
+                                        .value()
+                        )
         );
     }
 
