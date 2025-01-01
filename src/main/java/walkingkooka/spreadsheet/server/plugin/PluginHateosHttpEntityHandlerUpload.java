@@ -37,7 +37,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Handles uploads of JAR files, supporting multi-part-forms and binary requests.
@@ -98,15 +97,11 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         HttpEntity response = null;
 
         for (final HttpEntity part : entity.multiparts()) {
-            final ContentDispositionFileName filename = this.fileName(part)
-                    .orElse(null);
-            if (null != filename) {
-                response = this.archive(
-                        filename,
-                        part.body(),
-                        context
-                );
-            }
+            response = this.binaryFile(
+                    part,
+                    context
+            );
+            break;
         }
 
         if (null == response) {
@@ -119,7 +114,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
     private HttpEntity base64File(final HttpEntity entity,
                                   final PluginHateosResourceHandlerContext context) {
         return this.archive(
-                this.fileNameOrFail(entity),
+                this.fileName(entity),
                 Binary.with(
                         Base64.getDecoder()
                                 .decode(
@@ -133,20 +128,16 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
     private HttpEntity binaryFile(final HttpEntity entity,
                                   final PluginHateosResourceHandlerContext context) {
         return this.archive(
-                this.fileNameOrFail(entity),
+                this.fileName(entity),
                 entity.body(),
                 context
         );
     }
 
-    private Optional<ContentDispositionFileName> fileName(final HttpEntity entity) {
+    private ContentDispositionFileName fileName(final HttpEntity entity) {
         return HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(entity)
-                .filename();
-    }
-
-    private ContentDispositionFileName fileNameOrFail(final HttpEntity entity) {
-        return this.fileName(entity)
-                .orElseThrow(() -> new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_DISPOSITION));
+                .filename()
+                .orElseThrow(() -> new IllegalArgumentException("Missing filename"));
     }
 
     private HttpEntity archive(final ContentDispositionFileName filename,
