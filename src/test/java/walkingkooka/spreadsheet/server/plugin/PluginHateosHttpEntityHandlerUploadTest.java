@@ -73,6 +73,21 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
+    public void testHandleAllIncompatibleAcceptFails() {
+        final IllegalArgumentException thrown = this.handleAllFails(
+                HttpEntity.EMPTY.setAccept(MediaType.TEXT_PLAIN.accept()),
+                this.parameters(),
+                new TestPluginHateosResourceHandlerContext(),
+                IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+                "Accept: Got text/plain require application/octet-stream",
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testHandleAllMissingContentTypeFails() {
         final IllegalArgumentException thrown = this.handleAllFails(
                 HttpEntity.EMPTY,
@@ -211,6 +226,30 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     }
 
     @Test
+    public void testHandleBase64FileAllCreateAndAcceptBinary() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        this.handleAllAndCheck(
+                this.binaryAsBase64()
+                        .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
     public void testHandleBase64FileAllUpdate() {
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
@@ -267,6 +306,30 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
                 this.binary(), // entity
+                Maps.empty(), // parameters
+                context,
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).setBodyText(
+                        toJson(PLUGIN2)
+                ).setContentLength()
+        );
+
+        this.checkEquals(
+                PLUGIN2,
+                context.pluginStore()
+                        .loadOrFail(PLUGIN2.name()),
+                () -> context.pluginStore().toString()
+        );
+    }
+
+    @Test
+    public void testHandleBinaryFileAllCreateAndAcceptBinary() {
+        final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
+
+        this.handleAllAndCheck(
+                this.binary()
+                        .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
                 Maps.empty(), // parameters
                 context,
                 HttpEntity.EMPTY.setContentType(

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Binary;
+import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -61,6 +62,10 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         Objects.requireNonNull(entity, "entity");
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(context, "context");
+
+        entity.accept()
+                .orElse(Accept.DEFAULT)
+                .testOrFail(SpreadsheetServerMediaTypes.BINARY);
 
         final HttpEntity response;
 
