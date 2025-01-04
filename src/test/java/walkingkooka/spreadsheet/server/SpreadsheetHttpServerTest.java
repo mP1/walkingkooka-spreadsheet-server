@@ -7162,7 +7162,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        SpreadsheetComparatorInfo.class.getSimpleName()
                 )
         );
     }
@@ -7228,7 +7229,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        ConverterInfo.class.getSimpleName()
                 )
         );
     }
@@ -7286,7 +7288,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        SpreadsheetExporterInfo.class.getSimpleName()
                 )
         );
     }
@@ -7350,7 +7353,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        SpreadsheetFormatterInfo.class.getSimpleName()
                 )
         );
     }
@@ -7851,7 +7855,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        ExpressionFunctionInfo.class.getSimpleName()
                 )
         );
     }
@@ -7909,7 +7914,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        SpreadsheetImporterInfo.class.getSimpleName()
                 )
         );
     }
@@ -7967,7 +7973,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 NO_HEADERS_TRANSACTION_ID,
                 "",
                 this.response(
-                        HttpStatusCode.NO_CONTENT.status()
+                        HttpStatusCode.NO_CONTENT.status(),
+                        SpreadsheetParserInfo.class.getSimpleName()
                 )
         );
     }
@@ -10805,7 +10812,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private static Binary binary(final String body,
                                  final MediaType contentType) {
-        return Binary.with(bytes(body, contentType));
+        return body.isEmpty() ?
+                Binary.EMPTY :
+                Binary.with(
+                        bytes(
+                                body,
+                                contentType
+                        )
+                );
     }
 
     /**
@@ -10900,6 +10914,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     private HttpResponse response(final HttpStatus status,
+                                  final String bodyTypeName) {
+        final HttpResponse response = this.response(status);
+        response.setEntity(
+                HttpEntity.EMPTY.addHeader(
+                        HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                        bodyTypeName
+                )
+        );
+        return response;
+    }
+
+    private HttpResponse response(final HttpStatus status,
                                   final SpreadsheetMetadata body) {
         return this.response(status,
                 NO_TRANSACTION_ID,
@@ -10917,7 +10943,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                         body,
                         CONTENT_TYPE_UTF8
                 ),
-                bodyTypeName);
+                bodyTypeName
+        );
     }
 
     private HttpResponse response(final HttpStatus status,
