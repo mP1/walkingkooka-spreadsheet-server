@@ -45,6 +45,7 @@ import walkingkooka.tree.text.TextNode;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetParserContext implements SpreadsheetParserSelectorEditContext {
     @Override
@@ -161,6 +162,11 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     // ProviderContext..................................................................................................
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }
 
