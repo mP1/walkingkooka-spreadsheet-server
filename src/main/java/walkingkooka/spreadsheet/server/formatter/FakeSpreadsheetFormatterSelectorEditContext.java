@@ -32,6 +32,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetFormatterSelectorEditContext {
     @Override
@@ -67,6 +68,11 @@ public class FakeSpreadsheetFormatterSelectorEditContext extends FakeSpreadsheet
 
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }
 

@@ -24,6 +24,7 @@ import walkingkooka.plugin.store.PluginStore;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements PluginHateosResourceHandlerContext {
 
@@ -33,6 +34,11 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
 
     @Override
     public <T> Optional<T> environmentValue(final EnvironmentValueName<T> environmentValueName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
         throw new UnsupportedOperationException();
     }
 
