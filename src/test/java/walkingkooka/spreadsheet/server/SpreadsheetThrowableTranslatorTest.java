@@ -27,15 +27,15 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.util.FunctionTesting;
 
 public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting<SpreadsheetThrowableTranslator, Throwable, HttpStatus>,
-        ClassTesting<SpreadsheetThrowableTranslator> {
+    ClassTesting<SpreadsheetThrowableTranslator> {
 
     @Test
     public void testMissingStoreExceptionFileNotFound() {
         final String message = "Load failed 12345";
 
         this.applyAndCheck(
-                new MissingStoreException(message),
-                HttpStatusCode.NOT_FOUND.setMessage(message)
+            new MissingStoreException(message),
+            HttpStatusCode.NOT_FOUND.setMessage(message)
         );
     }
 
@@ -44,8 +44,8 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         final String message = "Load failed 12345";
 
         this.applyAndCheck(
-                new MissingStoreException(message + "\n678"),
-                HttpStatusCode.NOT_FOUND.setMessage(message)
+            new MissingStoreException(message + "\n678"),
+            HttpStatusCode.NOT_FOUND.setMessage(message)
         );
     }
 
@@ -54,8 +54,8 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         final String message = "Expected boolean result but got " + CharSequences.quoteIfChars("=1");
 
         this.applyAndCheck(
-                new RuntimeException(message),
-                HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage(message)
+            new RuntimeException(message),
+            HttpStatusCode.INTERNAL_SERVER_ERROR.setMessage(message)
         );
     }
 

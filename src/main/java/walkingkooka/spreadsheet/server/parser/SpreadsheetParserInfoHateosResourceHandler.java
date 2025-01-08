@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class SpreadsheetParserInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -57,8 +57,8 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.systemSpreadsheetProvider()
-                        .spreadsheetParserInfos()
+            context.systemSpreadsheetProvider()
+                .spreadsheetParserInfos()
         );
     }
 
@@ -73,10 +73,10 @@ final class SpreadsheetParserInfoHateosResourceHandler implements HateosResource
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .spreadsheetParserInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .spreadsheetParserInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

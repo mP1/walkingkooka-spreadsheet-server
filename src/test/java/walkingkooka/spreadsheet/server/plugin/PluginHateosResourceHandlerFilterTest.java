@@ -42,13 +42,13 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosResourceHandlerFilterTest
-        implements HateosResourceHandlerTesting<PluginHateosResourceHandlerFilter,
-        PluginName,
-        Plugin,
-        PluginSet,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerFilter>,
-        SpreadsheetMetadataTesting {
+    implements HateosResourceHandlerTesting<PluginHateosResourceHandlerFilter,
+    PluginName,
+    Plugin,
+    PluginSet,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosResourceHandlerFilter>,
+    SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -62,11 +62,11 @@ public final class PluginHateosResourceHandlerFilterTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-                PluginName.with("TestPlugin" + n * 111),
-                "plugin-" + n * 111 + ".jar",
-                Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                USER,
-                NOW.now()
+            PluginName.with("TestPlugin" + n * 111),
+            "plugin-" + n * 111 + ".jar",
+            Binary.with("Hello".getBytes(Charset.defaultCharset())),
+            USER,
+            NOW.now()
         );
     }
 
@@ -87,17 +87,17 @@ public final class PluginHateosResourceHandlerFilterTest
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                this.parameters(), // parameters
-                this.context(),
-                Optional.of(
-                        PluginSet.with(
-                                SortedSets.of(
-                                        PLUGIN2,
-                                        PLUGIN3
-                                )
-                        )
+            Optional.empty(), // resource
+            this.parameters(), // parameters
+            this.context(),
+            Optional.of(
+                PluginSet.with(
+                    SortedSets.of(
+                        PLUGIN2,
+                        PLUGIN3
+                    )
                 )
+            )
         );
     }
 
@@ -114,21 +114,21 @@ public final class PluginHateosResourceHandlerFilterTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name(),
-                PLUGIN3.name(),
-                PLUGIN4.name()
+            PLUGIN1.name(),
+            PLUGIN2.name(),
+            PLUGIN3.name(),
+            PLUGIN4.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -145,9 +145,9 @@ public final class PluginHateosResourceHandlerFilterTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-                SpreadsheetUrlQueryParameters.QUERY, Lists.of("*"),
-                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+            SpreadsheetUrlQueryParameters.QUERY, Lists.of("*"),
+            SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
+            SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
         );
     }
 
@@ -161,8 +161,8 @@ public final class PluginHateosResourceHandlerFilterTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "GET PluginStore/*/filter"
+            this.createHandler(),
+            "GET PluginStore/*/filter"
         );
     }
 

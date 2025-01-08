@@ -41,16 +41,16 @@ import java.time.LocalDateTime;
  * except for the given {@link SpreadsheetMetadata} which will have the updated {@link walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName#VIEWPORT}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
-        ConverterProviderDelegator,
-        SpreadsheetEngineContextDelegator,
-        SpreadsheetFormatterContextDelegator,
-        JsonNodeMarshallUnmarshallContextDelegator {
+    ConverterProviderDelegator,
+    SpreadsheetEngineContextDelegator,
+    SpreadsheetFormatterContextDelegator,
+    JsonNodeMarshallUnmarshallContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
                                                                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
-                metadata,
-                context
+            metadata,
+            context
         );
     }
 

@@ -40,28 +40,28 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
     }
 
     public static HateosResourceMapping<SpreadsheetImporterName,
-            SpreadsheetImporterInfo,
-            SpreadsheetImporterInfoSet,
-            SpreadsheetImporterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> importer() {
+        SpreadsheetImporterInfo,
+        SpreadsheetImporterInfoSet,
+        SpreadsheetImporterInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> importer() {
 
         // importer GET...............................................................................................
 
         HateosResourceMapping<SpreadsheetImporterName,
-                SpreadsheetImporterInfo,
-                SpreadsheetImporterInfoSet,
-                SpreadsheetImporterInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> importer = HateosResourceMapping.with(
-                SpreadsheetImporterName.HATEOS_RESOURCE_NAME,
-                SpreadsheetImporterHateosResourceMappings::parseImporterSelection,
-                SpreadsheetImporterInfo.class, // valueType
-                SpreadsheetImporterInfoSet.class, // collectionType
-                SpreadsheetImporterInfo.class,// resourceType
-                SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetImporterInfo,
+            SpreadsheetImporterInfoSet,
+            SpreadsheetImporterInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> importer = HateosResourceMapping.with(
+            SpreadsheetImporterName.HATEOS_RESOURCE_NAME,
+            SpreadsheetImporterHateosResourceMappings::parseImporterSelection,
+            SpreadsheetImporterInfo.class, // valueType
+            SpreadsheetImporterInfoSet.class, // collectionType
+            SpreadsheetImporterInfo.class,// resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetImporterInfoHateosResourceHandler.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetImporterInfoHateosResourceHandler.INSTANCE
         );
 
         return importer;
@@ -79,7 +79,7 @@ public final class SpreadsheetImporterHateosResourceMappings implements PublicSt
                 throw new IllegalArgumentException("Invalid importer selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                        SpreadsheetImporterName.with(text)
+                    SpreadsheetImporterName.with(text)
                 );
                 break;
         }

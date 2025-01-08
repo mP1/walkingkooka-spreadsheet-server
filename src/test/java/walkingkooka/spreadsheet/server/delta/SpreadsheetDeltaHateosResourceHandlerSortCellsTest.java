@@ -44,7 +44,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerSortCells,
-        SpreadsheetCellReference> {
+    SpreadsheetCellReference> {
 
     @Test
     public void testHandleOneMissingComparatorsParameter() {
@@ -52,31 +52,31 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         final String comparators = "A=day-of-month";
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(
-                Sets.of(
-                        cell.setFormula(SpreadsheetFormula.EMPTY.setText("=1"))
-                )
+            Sets.of(
+                cell.setFormula(SpreadsheetFormula.EMPTY.setText("=1"))
+            )
         );
 
         this.handleOneFails(
-                SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(cell.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
-                                return delta;
-                            }
-                        }
-                ),
-                cell, // reference
-                Optional.empty(), // resource
-                Maps.empty(), // missing COMPARATORS parameters
-                this.context(),
-                IllegalArgumentException.class
+                    @Override
+                    public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
+                                                      final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                      final SpreadsheetEngineContext context) {
+                        checkEquals(cell.toCellRange(), cellRange, "cellRange");
+                        checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
+                        return delta;
+                    }
+                }
+            ),
+            cell, // reference
+            Optional.empty(), // resource
+            Maps.empty(), // missing COMPARATORS parameters
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
@@ -86,35 +86,35 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
         final String comparators = "A=day-of-month";
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(
-                Sets.of(
-                        cell.setFormula(SpreadsheetFormula.EMPTY.setText("=1"))
-                )
+            Sets.of(
+                cell.setFormula(SpreadsheetFormula.EMPTY.setText("=1"))
+            )
         );
 
         this.handleOneAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(cell.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
-                                return delta;
-                            }
-                        }
-                ),
-                cell, // reference
-                Optional.empty(), // resource
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
-                ), // parameters
-                this.context(),
-                Optional.of(
-                        delta
-                )
+                    @Override
+                    public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
+                                                      final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                      final SpreadsheetEngineContext context) {
+                        checkEquals(cell.toCellRange(), cellRange, "cellRange");
+                        checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
+                        return delta;
+                    }
+                }
+            ),
+            cell, // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+            ), // parameters
+            this.context(),
+            Optional.of(
+                delta
+            )
         );
     }
 
@@ -122,48 +122,48 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     public void testHandleRange() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCell a1Cell = a1.setFormula(
-                SpreadsheetFormula.EMPTY.setText("=100")
+            SpreadsheetFormula.EMPTY.setText("=100")
         );
 
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell b2Cell = b2.setFormula(
-                SpreadsheetFormula.EMPTY.setText("=200")
+            SpreadsheetFormula.EMPTY.setText("=200")
         );
 
         final SpreadsheetCellRangeReference cellRange = SpreadsheetSelection.parseCellRange("A1:B2");
         final String comparators = "A=month-of-year";
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(
-                Sets.of(
-                        a1Cell,
-                        b2Cell
-                )
+            Sets.of(
+                a1Cell,
+                b2Cell
+            )
         );
 
         this.handleRangeAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
-                                return delta;
-                            }
-                        }
-                ),
-                cellRange.range(), // reference
-                Optional.empty(), // resource
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
-                ), // parameters
-                this.context(),
-                Optional.of(
-                        delta
-                )
+                    @Override
+                    public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
+                                                      final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                      final SpreadsheetEngineContext context) {
+                        checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
+                        checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
+                        return delta;
+                    }
+                }
+            ),
+            cellRange.range(), // reference
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+            ), // parameters
+            this.context(),
+            Optional.of(
+                delta
+            )
         );
     }
 
@@ -171,46 +171,46 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     public void testHandleAll() {
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetCell a1Cell = a1.setFormula(
-                SpreadsheetFormula.EMPTY.setText("=100")
+            SpreadsheetFormula.EMPTY.setText("=100")
         );
 
         final SpreadsheetCellReference b2 = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell b2Cell = b2.setFormula(
-                SpreadsheetFormula.EMPTY.setText("=200")
+            SpreadsheetFormula.EMPTY.setText("=200")
         );
 
         final String comparators = "A=month-of-year";
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(
-                Sets.of(
-                        a1Cell,
-                        b2Cell
-                )
+            Sets.of(
+                a1Cell,
+                b2Cell
+            )
         );
 
         this.handleAllAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
-                                                              final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
-                                checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
-                                return delta;
-                            }
-                        }
-                ),
-                Optional.empty(), // resource
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
-                ), // parameters
-                this.context(),
-                Optional.of(
-                        delta
-                )
+                    @Override
+                    public SpreadsheetDelta sortCells(final SpreadsheetCellRangeReference cellRange,
+                                                      final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> c,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                      final SpreadsheetEngineContext context) {
+                        checkEquals(cellRange.toCellRange(), cellRange, "cellRange");
+                        checkEquals(SpreadsheetColumnOrRowSpreadsheetComparatorNames.parseList(comparators), c);
+                        return delta;
+                    }
+                }
+            ),
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+            ), // parameters
+            this.context(),
+            Optional.of(
+                delta
+            )
         );
     }
 
@@ -219,15 +219,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                SpreadsheetEngine.class.getSimpleName() + ".sortCells"
+            this.createHandler(),
+            SpreadsheetEngine.class.getSimpleName() + ".sortCells"
         );
     }
 
     @Override
     SpreadsheetDeltaHateosResourceHandlerSortCells createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                engine
+            engine
         );
     }
 
@@ -249,7 +249,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     @Override
     public Range<SpreadsheetCellReference> range() {
         return SpreadsheetSelection.parseCellRange("A1:B2")
-                .range(); // url has TO
+            .range(); // url has TO
     }
 
     @Override

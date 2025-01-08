@@ -43,10 +43,10 @@ import java.util.Map;
  * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetParserProvider#spreadsheetParser(SpreadsheetParserSelector)}.
  */
 final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
@@ -73,48 +73,48 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
 
         final MediaType requiredContentType = context.contentType();
         requiredContentType.requireContentType(
-                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                        .orElse(null)
+            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                .orElse(null)
         );
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // read request body text
         final String text = context.unmarshall(
-                JsonNode.parse(
-                        httpEntity.bodyText()
-                ),
-                String.class
+            JsonNode.parse(
+                httpEntity.bodyText()
+            ),
+            String.class
         );
 
         // format all the individual requests
         final List<SpreadsheetParserSelectorToken> response = tokens(
-                formatterName.setValueText(text), // selector
-                context
+            formatterName.setValueText(text), // selector
+            context
         );
 
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetParserSelectorTokenList.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            SpreadsheetParserSelectorTokenList.class.getSimpleName()
         ).setBodyText(
-                context.marshall(
-                        SpreadsheetParserSelectorTokenList.with(response)
-                ).toString()
+            context.marshall(
+                SpreadsheetParserSelectorTokenList.with(response)
+            ).toString()
         ).setContentLength();
     }
 
     private List<SpreadsheetParserSelectorToken> tokens(final SpreadsheetParserSelector selector,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetParser(
-                selector,
-                context
+            selector,
+            context
         ).tokens(
-                context.spreadsheetMetadata()
-                        .spreadsheetParserContext(
-                                context::now // now provider
-                        )
+            context.spreadsheetMetadata()
+                .spreadsheetParserContext(
+                    context::now // now provider
+                )
         );
     }
 

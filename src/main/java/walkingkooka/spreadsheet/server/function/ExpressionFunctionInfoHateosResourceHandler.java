@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourceHandler<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     final static ExpressionFunctionInfoHateosResourceHandler INSTANCE = new ExpressionFunctionInfoHateosResourceHandler();
 
@@ -54,10 +54,10 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                ExpressionFunctionInfoSet.with(
-                        context.systemSpreadsheetProvider()
-                                .expressionFunctionInfos()
-                )
+            ExpressionFunctionInfoSet.with(
+                context.systemSpreadsheetProvider()
+                    .expressionFunctionInfos()
+            )
         );
     }
 
@@ -72,10 +72,10 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .expressionFunctionInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .expressionFunctionInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H extends SpreadsheetDeltaHateosResourceHandlerInsert<I>,
-        I extends SpreadsheetColumnOrRowReference & Comparable<I>>
-        extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, I> {
+    I extends SpreadsheetColumnOrRowReference & Comparable<I>>
+    extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, I> {
 
     SpreadsheetDeltaHateosResourceHandlerInsertTestCase() {
         super();
@@ -57,7 +57,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
     @Override
     public final Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(
-                SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + COUNT)
+            SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + COUNT)
         );
     }
 

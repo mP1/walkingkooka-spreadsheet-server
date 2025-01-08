@@ -36,53 +36,53 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
     // formatter.......................................................................................................
 
     public static HateosResourceMapping<SpreadsheetFormatterName,
-            SpreadsheetFormatterInfo,
-            SpreadsheetFormatterInfoSet,
-            SpreadsheetFormatterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> formatter(final SpreadsheetEngineContext context) {
+        SpreadsheetFormatterInfo,
+        SpreadsheetFormatterInfoSet,
+        SpreadsheetFormatterInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> formatter(final SpreadsheetEngineContext context) {
         Objects.requireNonNull(context, "context");
 
         // formatter GET...............................................................................................
 
         HateosResourceMapping<SpreadsheetFormatterName,
-                SpreadsheetFormatterInfo,
-                SpreadsheetFormatterInfoSet,
-                SpreadsheetFormatterInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> formatter = HateosResourceMapping.with(
-                SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
-                SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
-                SpreadsheetFormatterInfo.class, // valueType
-                SpreadsheetFormatterInfoSet.class, // collectionType
-                SpreadsheetFormatterInfo.class,// resourceType
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            SpreadsheetFormatterInfo,
+            SpreadsheetFormatterInfoSet,
+            SpreadsheetFormatterInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> formatter = HateosResourceMapping.with(
+            SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
+            SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
+            SpreadsheetFormatterInfo.class, // valueType
+            SpreadsheetFormatterInfoSet.class, // collectionType
+            SpreadsheetFormatterInfo.class,// resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetFormatterInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.EDIT,
-                HttpMethod.POST,
-                SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.EDIT,
+            HttpMethod.POST,
+            SpreadsheetFormatterSelectorEditHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.FORMAT,
-                HttpMethod.POST,
-                SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.FORMAT,
+            HttpMethod.POST,
+            SpreadsheetFormatterFormatHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.MENU,
-                HttpMethod.GET,
-                SpreadsheetFormatterMenuHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.MENU,
+            HttpMethod.GET,
+            SpreadsheetFormatterMenuHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.TOKENS,
-                HttpMethod.POST,
-                SpreadsheetFormatterTokensHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.TOKENS,
+            HttpMethod.POST,
+            SpreadsheetFormatterTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.NEXT_TOKEN,
-                HttpMethod.POST,
-                SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.NEXT_TOKEN,
+            HttpMethod.POST,
+            SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.SAMPLES,
-                HttpMethod.GET,
-                SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.SAMPLES,
+            HttpMethod.GET,
+            SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
         );
 
         return formatter;
@@ -104,7 +104,7 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             default:
                 // POST /formatter/formatter-name
                 selection = HateosResourceSelection.one(
-                        SpreadsheetFormatterName.with(text)
+                    SpreadsheetFormatterName.with(text)
                 );
                 break;
         }

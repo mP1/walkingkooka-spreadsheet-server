@@ -22,7 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextTesting;
 import walkingkooka.plugin.ProviderContextTesting;
 
 public interface PluginHateosResourceHandlerContextTesting<C extends PluginHateosResourceHandlerContext> extends HateosResourceHandlerContextTesting<C>,
-        ProviderContextTesting<C> {
+    ProviderContextTesting<C> {
     @Override
     default String typeNameSuffix() {
         return HateosResourceHandlerContext.class.getSimpleName();

@@ -44,7 +44,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
 
     static SpreadsheetDeltaHateosResourceHandlerSortCells with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerSortCells(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -57,10 +57,10 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
-                SpreadsheetSelection.ALL_CELLS.range(),
-                resource,
-                parameters,
-                context
+            SpreadsheetSelection.ALL_CELLS.range(),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -72,10 +72,10 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
         checkCell(cell);
 
         return this.handleRange(
-                cell.range(cell),
-                resource,
-                parameters,
-                context
+            cell.range(cell),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -87,10 +87,10 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
         HateosResourceHandler.checkIdRange(cells);
 
         return this.sortCells(
-                SpreadsheetSelection.cellRange(cells),
-                resource,
-                parameters,
-                context
+            SpreadsheetSelection.cellRange(cells),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -103,12 +103,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
         HateosResourceHandler.checkContext(context);
 
         return Optional.ofNullable(
-                this.engine.sortCells(
-                        cells, // cells
-                        SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
-                        SpreadsheetDeltaProperties.extract(parameters),
-                        context
-                )
+            this.engine.sortCells(
+                cells, // cells
+                SpreadsheetDeltaUrlQueryParameters.comparators(parameters),
+                SpreadsheetDeltaProperties.extract(parameters),
+                context
+            )
         );
     }
 

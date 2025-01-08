@@ -37,9 +37,9 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that invokes {@link walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore#create(EmailAddress, Optional)}.
  */
 final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends SpreadsheetMetadataHateosResourceHandler
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate INSTANCE = new SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate();
 
@@ -57,11 +57,11 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.saveMetadata(
-                        id,
-                        HateosResourceHandler.checkResourceNotEmpty(resource),
-                        context
-                )
+            this.saveMetadata(
+                id,
+                HateosResourceHandler.checkResourceNotEmpty(resource),
+                context
+            )
         );
     }
 
@@ -88,11 +88,11 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.createMetadata(
-                        resource,
-                        parameters,
-                        context
-                )
+            this.createMetadata(
+                resource,
+                parameters,
+                context
+            )
         );
     }
 
@@ -106,13 +106,13 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         HateosResourceHandler.checkResourceEmpty(metadata);
 
         final SpreadsheetMetadata saved = context.metadataStore()
-                .create(
-                        context.userOrFail(),
-                        HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
-                                .flatMap(this::preferredLocale)
-                );
+            .create(
+                context.userOrFail(),
+                HttpHeaderName.ACCEPT_LANGUAGE.parameterValue(parameters)
+                    .flatMap(this::preferredLocale)
+            );
         saved.id()
-                .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
+            .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
 
         return saved;
     }

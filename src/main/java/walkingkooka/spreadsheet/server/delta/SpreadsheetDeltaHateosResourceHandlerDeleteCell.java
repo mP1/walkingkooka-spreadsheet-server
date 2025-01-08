@@ -36,11 +36,11 @@ import java.util.Optional;
  * Deleting more than one cell is not supported.
  */
 final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -56,10 +56,10 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
         checkCell(cell);
 
         return deleteCells(
-                resource,
-                parameters,
-                cell,
-                context
+            resource,
+            parameters,
+            cell,
+            context
         );
     }
 
@@ -69,10 +69,10 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         return deleteCells(
-                resource,
-                parameters,
-                SpreadsheetSelection.cellRange(rangeOfCells),
-                context
+            resource,
+            parameters,
+            SpreadsheetSelection.cellRange(rangeOfCells),
+            context
         );
     }
 
@@ -85,15 +85,15 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.engine.deleteCells(
-                                cells,
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.engine.deleteCells(
+                    cells,
+                    context
                 )
+            )
         );
     }
 

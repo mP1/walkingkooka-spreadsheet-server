@@ -36,10 +36,10 @@ import java.util.Optional;
  * Provides end points to save a new or replace an existing {@link Plugin}.
  */
 final class PluginHateosResourceHandlerSave implements HateosResourceHandler<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleAll<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleAll<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -61,8 +61,8 @@ final class PluginHateosResourceHandlerSave implements HateosResourceHandler<Plu
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.pluginStore()
-                        .save(plugin.get())
+            context.pluginStore()
+                .save(plugin.get())
         );
     }
 

@@ -33,7 +33,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends Spreadshe
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteColumns with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerDeleteColumns(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -56,9 +56,9 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteColumns extends Spreadshe
                              final int count,
                              final SpreadsheetEngineContext context) {
         return this.engine.deleteColumns(
-                column,
-                count,
-                context
+            column,
+            count,
+            context
         );
     }
 

@@ -46,14 +46,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         this.handleNoneAndCheck(
-                Optional.of(
-                        this.spreadsheetDelta(mapping)
-                ),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(
-                        this.spreadsheetDelta(mapping)
-                )
+            Optional.of(
+                this.spreadsheetDelta(mapping)
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(store),
+            Optional.of(
+                this.spreadsheetDelta(mapping)
+            )
         );
 
         this.checkEquals(mapping, store.loadOrFail(labelName));
@@ -67,15 +67,15 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
         store.save(mapping);
 
         this.handleOneAndCheck(
-                labelName,
-                Optional.of(
-                        this.spreadsheetDelta(mapping)
-                ),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(
-                        this.spreadsheetDelta(mapping)
-                )
+            labelName,
+            Optional.of(
+                this.spreadsheetDelta(mapping)
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(store),
+            Optional.of(
+                this.spreadsheetDelta(mapping)
+            )
         );
 
         this.checkEquals(mapping, store.loadOrFail(labelName));
@@ -93,11 +93,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
             public SpreadsheetDelta saveLabel(final SpreadsheetLabelMapping mapping,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY.setLabels(
-                        Sets.of(
-                                context.storeRepository()
-                                        .labels()
-                                        .save(mapping)
-                        )
+                    Sets.of(
+                        context.storeRepository()
+                            .labels()
+                            .save(mapping)
+                    )
                 );
             }
         };
@@ -121,24 +121,24 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
     @Override
     public Optional<SpreadsheetDelta> resource() {
         return Optional.of(
-                this.spreadsheetDelta(
-                        this.mapping(this.id())
-                )
+            this.spreadsheetDelta(
+                this.mapping(this.id())
+            )
         );
     }
 
     private SpreadsheetLabelMapping mapping(final SpreadsheetLabelName id) {
         return SpreadsheetLabelMapping.with(
-                id,
-                SpreadsheetSelection.parseCell("Z99")
+            id,
+            SpreadsheetSelection.parseCell("Z99")
         );
     }
 
     private SpreadsheetDelta spreadsheetDelta(final SpreadsheetLabelMapping mapping) {
         return SpreadsheetDelta.EMPTY.setLabels(
-                Sets.of(
-                        mapping
-                )
+            Sets.of(
+                mapping
+            )
         );
     }
 

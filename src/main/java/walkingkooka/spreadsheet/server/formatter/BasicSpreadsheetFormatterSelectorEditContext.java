@@ -32,17 +32,17 @@ import java.util.Objects;
  * {@link SpreadsheetFormatterProvider}.
  */
 final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetFormatterSelectorEditContext,
-        SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator,
-        ProviderContextDelegator {
+    SpreadsheetFormatterContextDelegator,
+    SpreadsheetFormatterProviderDelegator,
+    ProviderContextDelegator {
 
     static BasicSpreadsheetFormatterSelectorEditContext with(final SpreadsheetFormatterContext spreadsheetFormatterContext,
                                                              final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                              final ProviderContext providerContext) {
         return new BasicSpreadsheetFormatterSelectorEditContext(
-                Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
-                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
-                Objects.requireNonNull(providerContext, "providerContext")
+            Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
+            Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
+            Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 

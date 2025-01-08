@@ -47,8 +47,8 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         }
 
         return new SpreadsheetDeltaHateosResourceHandlerFindCells(
-                defaultCount,
-                check(engine)
+            defaultCount,
+            check(engine)
         );
     }
 
@@ -63,10 +63,10 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
-                SpreadsheetSelection.ALL_CELLS.range(),
-                resource,
-                parameters,
-                context
+            SpreadsheetSelection.ALL_CELLS.range(),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -78,10 +78,10 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         checkCell(cell);
 
         return this.handleRange(
-                cell.range(cell),
-                resource,
-                parameters,
-                context
+            cell.range(cell),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -93,10 +93,10 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         HateosResourceHandler.checkIdRange(cells);
 
         return this.findCells(
-                SpreadsheetSelection.cellRange(cells),
-                resource,
-                parameters,
-                context
+            SpreadsheetSelection.cellRange(cells),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -111,21 +111,21 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         final SpreadsheetCellFindQuery find = SpreadsheetCellFindQuery.extract(parameters);
 
         return Optional.ofNullable(
-                SpreadsheetDelta.EMPTY.setCells(
-                        this.engine.findCells(
-                                cells, // cells
-                                find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
-                                find.offset().orElse(DEFAULT_OFFSET), // offset
-                                find.count().orElse(this.defaultCount), // count
-                                find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
-                                find.query()
-                                        .map(q -> context.toExpression(
-                                                q.parserToken()
-                                                ).orElse(DEFAULT_QUERY)
-                                        ).orElse(DEFAULT_QUERY), // query
-                                context
-                        )
+            SpreadsheetDelta.EMPTY.setCells(
+                this.engine.findCells(
+                    cells, // cells
+                    find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
+                    find.offset().orElse(DEFAULT_OFFSET), // offset
+                    find.count().orElse(this.defaultCount), // count
+                    find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
+                    find.query()
+                        .map(q -> context.toExpression(
+                                q.parserToken()
+                            ).orElse(DEFAULT_QUERY)
+                        ).orElse(DEFAULT_QUERY), // query
+                    context
                 )
+            )
         );
     }
 

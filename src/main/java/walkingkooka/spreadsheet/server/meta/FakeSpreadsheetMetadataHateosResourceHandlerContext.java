@@ -43,7 +43,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHateosResourceHandlerContext
-        implements SpreadsheetMetadataHateosResourceHandlerContext {
+    implements SpreadsheetMetadataHateosResourceHandlerContext {
 
     // SpreadsheetMetadataHateosResourceHandlerContext..................................................................
 

@@ -31,9 +31,9 @@ public final class SpreadsheetFormatterSelectorEditContexts implements PublicSta
                                                                 final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                                 final ProviderContext providerContext) {
         return BasicSpreadsheetFormatterSelectorEditContext.with(
-                spreadsheetFormatterContext,
-                spreadsheetFormatterProvider,
-                providerContext
+            spreadsheetFormatterContext,
+            spreadsheetFormatterProvider,
+            providerContext
         );
     }
 

@@ -53,15 +53,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
                                                                      final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                                      final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(
-                serverUrl,
-                indentation,
-                lineEnding,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext
+            serverUrl,
+            indentation,
+            lineEnding,
+            systemSpreadsheetProvider,
+            providerContext,
+            metadataStore,
+            spreadsheetIdToSpreadsheetProvider,
+            spreadsheetIdToStoreRepository,
+            hateosResourceHandlerContext
         );
     }
 
@@ -94,8 +94,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.spreadsheetIdPathComponent = serverUrl.path()
-                .namesList()
-                .size();
+            .namesList()
+            .size();
 
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
     }
@@ -106,9 +106,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
         SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
-                request,
-                response,
-                this
+            request,
+            response,
+            this
         ).handle();
     }
 
@@ -120,15 +120,15 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
      */
     Router<HttpRequestAttribute<?>, HttpHandler> router(final SpreadsheetId id) {
         return SpreadsheetMetadataHateosResourceHandlerContexts.basic(
-                this.serverUrl,
-                this.indentation,
-                this.lineEnding,
-                this.systemSpreadsheetProvider,
-                this.providerContext,
-                this.metadataStore,
-                this.spreadsheetIdToSpreadsheetProvider,
-                this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext
+            this.serverUrl,
+            this.indentation,
+            this.lineEnding,
+            this.systemSpreadsheetProvider,
+            this.providerContext,
+            this.metadataStore,
+            this.spreadsheetIdToSpreadsheetProvider,
+            this.spreadsheetIdToStoreRepository,
+            this.hateosResourceHandlerContext
         ).httpRouter(id);
     }
 

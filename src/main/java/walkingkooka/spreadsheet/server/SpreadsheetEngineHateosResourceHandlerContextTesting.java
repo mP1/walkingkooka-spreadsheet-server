@@ -22,8 +22,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
 
 public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends SpreadsheetEngineHateosResourceHandlerContext> extends HateosResourceHandlerContextTesting<C>,
-        SpreadsheetEngineContextTesting<C>,
-        SpreadsheetFormatterProviderSamplesContextTesting<C> {
+    SpreadsheetEngineContextTesting<C>,
+    SpreadsheetFormatterProviderSamplesContextTesting<C> {
 
     @Override
     default C createSpreadsheetProvider() {

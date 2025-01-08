@@ -38,11 +38,11 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#saveCell(SpreadsheetCell, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerSaveCell with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerSaveCell(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -66,16 +66,16 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.engine.saveCell(
-                                cells.iterator()
-                                        .next(),
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.engine.saveCell(
+                    cells.iterator()
+                        .next(),
+                    context
                 )
+            )
         );
     }
 
@@ -90,17 +90,17 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.engine.fillCells(
-                                delta.cells(),
-                                spreadsheetCellRangeReference,
-                                spreadsheetCellRangeReference,
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.engine.fillCells(
+                    delta.cells(),
+                    spreadsheetCellRangeReference,
+                    spreadsheetCellRangeReference,
+                    context
                 )
+            )
         );
     }
 

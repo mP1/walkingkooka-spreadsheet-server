@@ -49,25 +49,25 @@ class JarEntryInfoListReadJarFile extends JarEntryInfoListReadJarFileGwt {
                 }
 
                 entries.add(
-                        JarEntryInfo.with(
-                                JarEntryInfoName.with(
-                                        JarEntryInfoName.SEPARATOR.string() + zipEntry.getName()
-                                ),
-                                optionalLong(
-                                        zipEntry.getSize()
-                                ), // size
-                                optionalLong(
-                                        zipEntry.getCompressedSize()
-                                ), // compressedSize
-                                optionalInt(
-                                        zipEntry.getMethod()
-                                ), // method,
-                                optionalLong(
-                                        zipEntry.getCrc()
-                                ), // crc
-                                toLocalTime(zipEntry.getCreationTime()), // create
-                                toLocalTime(zipEntry.getLastModifiedTime()) // last modified
-                        )
+                    JarEntryInfo.with(
+                        JarEntryInfoName.with(
+                            JarEntryInfoName.SEPARATOR.string() + zipEntry.getName()
+                        ),
+                        optionalLong(
+                            zipEntry.getSize()
+                        ), // size
+                        optionalLong(
+                            zipEntry.getCompressedSize()
+                        ), // compressedSize
+                        optionalInt(
+                            zipEntry.getMethod()
+                        ), // method,
+                        optionalLong(
+                            zipEntry.getCrc()
+                        ), // crc
+                        toLocalTime(zipEntry.getCreationTime()), // create
+                        toLocalTime(zipEntry.getLastModifiedTime()) // last modified
+                    )
                 );
             }
 
@@ -80,26 +80,26 @@ class JarEntryInfoListReadJarFile extends JarEntryInfoListReadJarFileGwt {
     @GwtIncompatible
     private static OptionalInt optionalInt(final int value) {
         return value > -1 ?
-                OptionalInt.of(value) :
-                OptionalInt.empty();
+            OptionalInt.of(value) :
+            OptionalInt.empty();
     }
 
     @GwtIncompatible
     private static OptionalLong optionalLong(final long value) {
         return value > -1 ?
-                OptionalLong.of(value) :
-                OptionalLong.empty();
+            OptionalLong.of(value) :
+            OptionalLong.empty();
     }
 
     @GwtIncompatible
     private static Optional<LocalDateTime> toLocalTime(final FileTime fileTime) {
         return Optional.ofNullable(
-                null != fileTime ?
-                        LocalDateTime.ofInstant(
-                                fileTime.toInstant(),
-                                GMT
-                        ) :
-                        null
+            null != fileTime ?
+                LocalDateTime.ofInstant(
+                    fileTime.toInstant(),
+                    GMT
+                ) :
+                null
         );
     }
 

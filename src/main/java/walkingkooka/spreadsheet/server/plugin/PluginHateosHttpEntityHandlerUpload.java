@@ -43,10 +43,10 @@ import java.util.Objects;
  * Handles uploads of JAR files, supporting multi-part-forms and binary requests.
  */
 final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandler<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<PluginName, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleNone<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<PluginName, PluginHateosResourceHandlerContext> {
 
 
     final static PluginHateosHttpEntityHandlerUpload INSTANCE = new PluginHateosHttpEntityHandlerUpload();
@@ -64,27 +64,27 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         Objects.requireNonNull(context, "context");
 
         entity.accept()
-                .orElse(Accept.DEFAULT)
-                .testOrFail(SpreadsheetServerMediaTypes.BINARY);
+            .orElse(Accept.DEFAULT)
+            .testOrFail(SpreadsheetServerMediaTypes.BINARY);
 
         final HttpEntity response;
 
         final MediaType contentType = entity.contentType()
-                .orElse(null);
+            .orElse(null);
         if (MediaType.MULTIPART_FORM_DATA.test(contentType)) {
             response = this.multipartUpload(
-                    entity,
-                    context
+                entity,
+                context
             );
         } else if (SpreadsheetServerMediaTypes.BASE64.test(contentType)) {
             response = this.base64File(
-                    entity,
-                    context
+                entity,
+                context
             );
         } else if (SpreadsheetServerMediaTypes.BINARY.test(contentType)) {
             response = this.binaryFile(
-                    entity,
-                    context
+                entity,
+                context
             );
         } else {
             if (null == contentType) {
@@ -103,8 +103,8 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
 
         for (final HttpEntity part : entity.multiparts()) {
             response = this.binaryFile(
-                    part,
-                    context
+                part,
+                context
             );
             break;
         }
@@ -119,30 +119,30 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
     private HttpEntity base64File(final HttpEntity entity,
                                   final PluginHateosResourceHandlerContext context) {
         return this.archive(
-                this.fileName(entity),
-                Binary.with(
-                        Base64.getDecoder()
-                                .decode(
-                                        entity.bodyText()
-                                )
-                ),
-                context
+            this.fileName(entity),
+            Binary.with(
+                Base64.getDecoder()
+                    .decode(
+                        entity.bodyText()
+                    )
+            ),
+            context
         );
     }
 
     private HttpEntity binaryFile(final HttpEntity entity,
                                   final PluginHateosResourceHandlerContext context) {
         return this.archive(
-                this.fileName(entity),
-                entity.body(),
-                context
+            this.fileName(entity),
+            entity.body(),
+            context
         );
     }
 
     private ContentDispositionFileName fileName(final HttpEntity entity) {
         return HttpHeaderName.CONTENT_DISPOSITION.headerOrFail(entity)
-                .filename()
-                .orElseThrow(() -> new IllegalArgumentException("Missing filename"));
+            .filename()
+            .orElseThrow(() -> new IllegalArgumentException("Missing filename"));
     }
 
     private HttpEntity archive(final ContentDispositionFileName filename,
@@ -151,21 +151,21 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         final PluginArchiveManifest pluginArchiveManifest = PluginArchiveManifest.fromArchive(archive);
 
         final Plugin saved = context.pluginStore()
-                .save(
-                        Plugin.with(
-                                pluginArchiveManifest.pluginName(), // name
-                                filename.value(), // filename
-                                archive, // archive
-                                context.userOrFail(), //
-                                context.now()
-                        )
-                );
+            .save(
+                Plugin.with(
+                    pluginArchiveManifest.pluginName(), // name
+                    filename.value(), // filename
+                    archive, // archive
+                    context.userOrFail(), //
+                    context.now()
+                )
+            );
 
         return HttpEntity.EMPTY.setContentType(context.contentType())
-                .setBodyText(
-                        context.marshall(saved)
-                                .toString()
-                ).setContentLength();
+            .setBodyText(
+                context.marshall(saved)
+                    .toString()
+            ).setContentLength();
     }
 
     @Override

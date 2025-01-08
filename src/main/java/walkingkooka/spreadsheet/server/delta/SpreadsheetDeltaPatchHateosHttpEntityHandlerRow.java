@@ -40,13 +40,13 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
 
     static SpreadsheetDeltaPatchHateosHttpEntityHandlerRow with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaPatchHateosHttpEntityHandlerRow(
-                engine
+            engine
         );
     }
 
     private SpreadsheetDeltaPatchHateosHttpEntityHandlerRow(final SpreadsheetEngine engine) {
         super(
-                engine
+            engine
         );
     }
 
@@ -75,10 +75,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
 
         for (final SpreadsheetRowReference row : range) {
             loaded.addAll(
-                    engine.loadRow(
-                            row,
-                            context
-                    ).rows()
+                engine.loadRow(
+                    row,
+                    context
+                ).rows()
             );
         }
 
@@ -92,14 +92,14 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                            final Map<HttpRequestAttribute<?>, Object> parameters,
                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta patched = loaded.patchRows(
-                patch,
-                context
+            patch,
+            context
         );
 
         final SpreadsheetViewportWindows window = window(
-                parameters,
-                patched,
-                context
+            parameters,
+            patched,
+            context
         );
 
         // load all the cells for any unhidden rows....
@@ -117,10 +117,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {
                     // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(
-                                    window.cellRanges(),
-                                    context
-                            )
+                        this.loadCells(
+                            window.cellRanges(),
+                            context
+                        )
                     );
                 }
             }
@@ -139,10 +139,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
 
         for (final SpreadsheetRow row : patched.rows()) {
             cells.addAll(
-                    engine.saveRow(
-                            row,
-                            context
-                    ).cells()
+                engine.saveRow(
+                    row,
+                    context
+                ).cells()
             );
         }
 

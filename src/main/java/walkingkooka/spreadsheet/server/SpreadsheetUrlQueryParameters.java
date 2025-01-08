@@ -35,8 +35,8 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
      */
     public static OptionalInt count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
-                COUNT,
-                parameters
+            COUNT,
+            parameters
         );
     }
 
@@ -48,8 +48,8 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
      */
     public static OptionalInt offset(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return get(
-                OFFSET,
-                parameters
+            OFFSET,
+            parameters
         );
     }
 
@@ -59,15 +59,15 @@ public final class SpreadsheetUrlQueryParameters implements PublicStaticHelper {
     private static OptionalInt get(final UrlParameterName parameter,
                                    final Map<HttpRequestAttribute<?>, Object> parameters) {
         return parameter.firstParameterValue(parameters)
-                .map(s -> parseInt(s, parameter))
-                .orElse(OptionalInt.empty());
+            .map(s -> parseInt(s, parameter))
+            .orElse(OptionalInt.empty());
     }
 
     private static OptionalInt parseInt(final String text,
                                         final UrlParameterName parameter) {
         try {
             return OptionalInt.of(
-                    Integer.parseInt(text)
+                Integer.parseInt(text)
             );
         } catch (final NumberFormatException cause) {
             throw new IllegalArgumentException("Invalid " + parameter + " parameter got " + CharSequences.quoteAndEscape(text));

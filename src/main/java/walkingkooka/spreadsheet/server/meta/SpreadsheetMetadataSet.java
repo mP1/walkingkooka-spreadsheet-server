@@ -56,7 +56,7 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     @Override
     public Iterator<SpreadsheetMetadata> iterator() {
         return Iterators.readOnly(
-                this.metadatas.iterator()
+            this.metadatas.iterator()
         );
     }
 
@@ -71,10 +71,10 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetMetadataSet.class),
-                SpreadsheetMetadataSet::unmarshall,
-                SpreadsheetMetadataSet::marshall,
-                SpreadsheetMetadataSet.class
+            JsonNodeContext.computeTypeName(SpreadsheetMetadataSet.class),
+            SpreadsheetMetadataSet::unmarshall,
+            SpreadsheetMetadataSet::marshall,
+            SpreadsheetMetadataSet.class
         );
     }
 
@@ -86,10 +86,10 @@ public final class SpreadsheetMetadataSet extends AbstractSet<SpreadsheetMetadat
     static SpreadsheetMetadataSet unmarshall(final JsonNode node,
                                              final JsonNodeUnmarshallContext context) {
         return with(
-                context.unmarshallSet(
-                        node,
-                        SpreadsheetMetadata.class
-                )
+            context.unmarshallSet(
+                node,
+                SpreadsheetMetadata.class
+            )
         );
     }
 }

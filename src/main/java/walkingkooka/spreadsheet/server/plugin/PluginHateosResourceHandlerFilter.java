@@ -39,10 +39,10 @@ import java.util.TreeSet;
  */
 // GET /api/plugin/*/filter?query=X&offset=1&count=2
 final class PluginHateosResourceHandlerFilter implements HateosResourceHandler<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleOne<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleOne<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -62,18 +62,18 @@ final class PluginHateosResourceHandlerFilter implements HateosResourceHandler<P
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                PluginSet.with(
-                        new TreeSet<>(
-                                context.pluginStore()
-                                        .filter(
-                                                SpreadsheetUrlQueryParameters.QUERY.firstParameterValueOrFail(parameters), // query
-                                                SpreadsheetUrlQueryParameters.offset(parameters)
-                                                        .orElse(0),
-                                                SpreadsheetUrlQueryParameters.count(parameters)
-                                                        .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
-                                        )
+            PluginSet.with(
+                new TreeSet<>(
+                    context.pluginStore()
+                        .filter(
+                            SpreadsheetUrlQueryParameters.QUERY.firstParameterValueOrFail(parameters), // query
+                            SpreadsheetUrlQueryParameters.offset(parameters)
+                                .orElse(0),
+                            SpreadsheetUrlQueryParameters.count(parameters)
+                                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
                         )
                 )
+            )
         );
     }
 

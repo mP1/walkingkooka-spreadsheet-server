@@ -40,24 +40,24 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class ExpressionFunctionInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<ExpressionFunctionInfoHateosResourceHandler,
-        ExpressionFunctionName,
-        ExpressionFunctionInfo,
-        ExpressionFunctionInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
+    ExpressionFunctionName,
+    ExpressionFunctionInfo,
+    ExpressionFunctionInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<ExpressionFunctionInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static ExpressionFunctionInfo INFO1 = ExpressionFunctionInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            ExpressionFunctionName.with("function-1")
-                    .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+        Url.parseAbsolute("https://example.com/1"),
+        ExpressionFunctionName.with("function-1")
+            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
     );
 
     private final static ExpressionFunctionInfo INFO2 = ExpressionFunctionInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            ExpressionFunctionName.with("function-2")
-                    .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+        Url.parseAbsolute("https://example.com/2"),
+        ExpressionFunctionName.with("function-2")
+            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -68,10 +68,10 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
                 @Override
                 public ExpressionFunctionInfoSet expressionFunctionInfos() {
                     return ExpressionFunctionInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -81,40 +81,40 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                ExpressionFunctionName.with("Unknown")
-                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            ExpressionFunctionName.with("Unknown")
+                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        ExpressionFunctionInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                ExpressionFunctionInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -126,22 +126,22 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Override
     public ExpressionFunctionName id() {
         return ExpressionFunctionName.with("id-spreadsheet-function-name")
-                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY);
+            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY);
     }
 
     @Override
     public Set<ExpressionFunctionName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<ExpressionFunctionName> range() {
         return Range.singleton(
-                ExpressionFunctionName.with("range-spreadsheet-function-name")
-                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+            ExpressionFunctionName.with("range-spreadsheet-function-name")
+                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
         );
     }
 
@@ -170,8 +170,8 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "SpreadsheetEngineContext.expressionFunctionInfos"
+            this.createHandler(),
+            "SpreadsheetEngineContext.expressionFunctionInfos"
         );
     }
 

@@ -56,238 +56,238 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterMenuHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        SpreadsheetMetadataTesting,
-        ToStringTesting<SpreadsheetFormatterMenuHateosHttpEntityHandler> {
+    SpreadsheetMetadataTesting,
+    ToStringTesting<SpreadsheetFormatterMenuHateosHttpEntityHandler> {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
     @Test
     public void testHandleOneFails() {
         this.handleOneFails(
-                this.id(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.id(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleNoneFails() {
         this.handleNoneFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleRangeFails() {
         this.handleRangeFails(
-                this.range(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.range(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleAllMissingAcceptApplicationJson() {
         final HeaderException thrown = this.handleAllFails(
-                HttpEntity.EMPTY,
-                this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.APPLICATION_JSON;
-                    }
-                },
-                HeaderException.class
+            HttpEntity.EMPTY,
+            this.parameters(),
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.APPLICATION_JSON;
+                }
+            },
+            HeaderException.class
         );
         this.checkEquals(
-                "Missing header Accept",
-                thrown.getMessage()
+            "Missing header Accept",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                HttpEntity.EMPTY.setAccept(
-                        MediaType.APPLICATION_JSON.accept()
-                ),
-                this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.APPLICATION_JSON;
-                    }
+            HttpEntity.EMPTY.setAccept(
+                MediaType.APPLICATION_JSON.accept()
+            ),
+            this.parameters(),
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.APPLICATION_JSON;
+                }
 
-                    @Override
-                    public <T> T unmarshall(final JsonNode json,
-                                            final Class<T> type) {
-                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                                json,
-                                type
-                        );
-                    }
+                @Override
+                public <T> T unmarshall(final JsonNode json,
+                                        final Class<T> type) {
+                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                        json,
+                        type
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return SpreadsheetMetadataTesting.METADATA_EN_AU;
-                    }
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return SpreadsheetMetadataTesting.METADATA_EN_AU;
+                }
 
-                    @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
-                                                                               final ProviderContext context) {
-                        return CONVERTER_PROVIDER.converter(
-                                selector,
-                                context
-                        );
-                    }
+                @Override
+                public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,
+                                                                           final ProviderContext context) {
+                    return CONVERTER_PROVIDER.converter(
+                        selector,
+                        context
+                    );
+                }
 
-                    @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
-                                                                               final List<?> values,
-                                                                               final ProviderContext context) {
-                        return CONVERTER_PROVIDER.converter(
-                                converterName,
-                                values,
-                                context
-                        );
-                    }
+                @Override
+                public <C extends ConverterContext> Converter<C> converter(final ConverterName converterName,
+                                                                           final List<?> values,
+                                                                           final ProviderContext context) {
+                    return CONVERTER_PROVIDER.converter(
+                        converterName,
+                        values,
+                        context
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
-                                                                     final ProviderContext context) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
-                                selector,
-                                context
-                        );
-                    }
+                @Override
+                public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                 final ProviderContext context) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                        selector,
+                        context
+                    );
+                }
 
-                    @Override
-                    public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector selector) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextToken(selector);
-                    }
+                @Override
+                public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector selector) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterNextToken(selector);
+                }
 
-                    @Override
-                    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-                                name,
-                                context
-                        );
-                    }
+                @Override
+                public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                                    final SpreadsheetFormatterProviderSamplesContext context) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                        name,
+                        context
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterInfos();
-                    }
+                @Override
+                public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterInfos();
+                }
 
-                    @Override
-                    public Optional<TextNode> formatValue(final Object value,
-                                                          final SpreadsheetFormatter formatter) {
-                        return formatter.format(
-                                value,
-                                SPREADSHEET_FORMATTER_CONTEXT
-                        );
-                    }
+                @Override
+                public Optional<TextNode> formatValue(final Object value,
+                                                      final SpreadsheetFormatter formatter) {
+                    return formatter.format(
+                        value,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                    );
+                }
 
-                    @Override
-                    public LocalDateTime now() {
-                        return NOW.now();
-                    }
+                @Override
+                public LocalDateTime now() {
+                    return NOW.now();
+                }
 
-                    @Override
-                    public JsonNode marshall(final Object value) {
-                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                    }
-                },
-                this.httpEntity(
-                        "[\n" +
-                                "  {\n" +
-                                "    \"label\": \"Short\",\n" +
-                                "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Medium\",\n" +
-                                "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Long\",\n" +
-                                "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Full\",\n" +
-                                "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Short\",\n" +
-                                "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Medium\",\n" +
-                                "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Long\",\n" +
-                                "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Full\",\n" +
-                                "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"General\",\n" +
-                                "    \"selector\": \"general\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Number\",\n" +
-                                "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Integer\",\n" +
-                                "    \"selector\": \"number-format-pattern #,##0\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Percent\",\n" +
-                                "    \"selector\": \"number-format-pattern #,##0%\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Currency\",\n" +
-                                "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Default\",\n" +
-                                "    \"selector\": \"text-format-pattern @\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Short\",\n" +
-                                "    \"selector\": \"time-format-pattern h:mm AM/PM\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Long\",\n" +
-                                "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
-                                "  }\n" +
-                                "]"
-                ).addHeader(
-                        HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
-                )
+                @Override
+                public JsonNode marshall(final Object value) {
+                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+                }
+            },
+            this.httpEntity(
+                "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-format-pattern d/m/yy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d/m/yy, h:mm AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d mmm yyyy, h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-time-format-pattern d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"General\",\n" +
+                    "    \"selector\": \"general\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Number\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0.###\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Integer\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Percent\",\n" +
+                    "    \"selector\": \"number-format-pattern #,##0%\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Currency\",\n" +
+                    "    \"selector\": \"number-format-pattern $#,##0.00\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Default\",\n" +
+                    "    \"selector\": \"text-format-pattern @\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"time-format-pattern h:mm AM/PM\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"time-format-pattern h:mm:ss AM/PM\"\n" +
+                    "  }\n" +
+                    "]"
+            ).addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
+            )
         );
     }
 
@@ -304,7 +304,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
     @Override
     public Set<SpreadsheetFormatterName> manyIds() {
         return Sets.of(
-                FORMATTER_NAME
+            FORMATTER_NAME
         );
     }
 
@@ -335,9 +335,9 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
 
     private HttpEntity httpEntity(final String value) {
         return HttpEntity.EMPTY.setContentType(
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                ).setBodyText(value)
-                .setContentLength();
+                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+            ).setBodyText(value)
+            .setContentLength();
     }
 
     // toString.........................................................................................................
@@ -345,8 +345,8 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                SpreadsheetFormatterMenuHateosHttpEntityHandler.class.getSimpleName()
+            this.createHandler(),
+            SpreadsheetFormatterMenuHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 

@@ -32,8 +32,8 @@ public final class SpreadsheetFormatterSelectorMenuContexts implements PublicSta
     public static SpreadsheetFormatterSelectorMenuContext basic(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                                 final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
         return BasicSpreadsheetFormatterSelectorMenuContext.with(
-                spreadsheetFormatterProvider,
-                spreadsheetFormatterProviderSamplesContext
+            spreadsheetFormatterProvider,
+            spreadsheetFormatterProviderSamplesContext
         );
     }
 

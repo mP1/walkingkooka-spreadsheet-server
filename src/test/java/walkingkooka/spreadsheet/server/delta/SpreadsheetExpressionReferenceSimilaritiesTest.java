@@ -37,7 +37,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetExpressionReferenceSimilaritiesTest implements HashCodeEqualsDefinedTesting2<SpreadsheetExpressionReferenceSimilarities>,
-        ClassTesting<SpreadsheetExpressionReferenceSimilarities>, JsonNodeMarshallingTesting<SpreadsheetExpressionReferenceSimilarities>, ToStringTesting<SpreadsheetExpressionReferenceSimilarities> {
+    ClassTesting<SpreadsheetExpressionReferenceSimilarities>, JsonNodeMarshallingTesting<SpreadsheetExpressionReferenceSimilarities>, ToStringTesting<SpreadsheetExpressionReferenceSimilarities> {
 
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetSelection.parseCell("B2");
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
@@ -90,9 +90,9 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                               final SpreadsheetLabelName label,
                               final Set<SpreadsheetLabelMapping> labelMappings) {
         final SpreadsheetExpressionReferenceSimilarities similar = SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.ofNullable(reference),
-                Optional.ofNullable(label),
-                labelMappings
+            Optional.ofNullable(reference),
+            Optional.ofNullable(label),
+            labelMappings
         );
         this.checkEquals(Optional.ofNullable(reference), similar.cellReference(), "cellReference");
         this.checkEquals(labelMappings, similar.labelMappings(), "labelMappings");
@@ -101,90 +101,90 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     @Test
     public void testMarshallReference() {
         this.marshallAndCheck(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.of(REFERENCE),
-                        Optional.empty(),
-                        Sets.of(MAPPING)
-                ),
-                "{\n" +
-                        "  \"cell-reference\": \"B2\",\n" +
-                        "  \"label-mappings\": [\n" +
-                        "    {\n" +
-                        "      \"label\": \"Label234\",\n" +
-                        "      \"target\": \"C3\"\n" +
-                        "    }\n" +
-                        "  ]\n" +
-                        "}"
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.of(REFERENCE),
+                Optional.empty(),
+                Sets.of(MAPPING)
+            ),
+            "{\n" +
+                "  \"cell-reference\": \"B2\",\n" +
+                "  \"label-mappings\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label234\",\n" +
+                "      \"target\": \"C3\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
         );
     }
 
     @Test
     public void testMarshallLabel() {
         this.marshallAndCheck(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.empty(),
-                        Optional.of(LABEL),
-                        Sets.of(MAPPING)
-                ),
-                "{\n" +
-                        "  \"label\": \"Label123\",\n" +
-                        "  \"label-mappings\": [\n" +
-                        "    {\n" +
-                        "      \"label\": \"Label234\",\n" +
-                        "      \"target\": \"C3\"\n" +
-                        "    }\n" +
-                        "  ]\n" +
-                        "}"
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.empty(),
+                Optional.of(LABEL),
+                Sets.of(MAPPING)
+            ),
+            "{\n" +
+                "  \"label\": \"Label123\",\n" +
+                "  \"label-mappings\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label234\",\n" +
+                "      \"target\": \"C3\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
         );
     }
 
     @Test
     public void testMarshallReferenceAndLabel() {
         this.marshallAndCheck(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.of(REFERENCE),
-                        Optional.of(LABEL),
-                        Sets.of(MAPPING)
-                ),
-                "{\n" +
-                        "  \"cell-reference\": \"B2\",\n" +
-                        "  \"label\": \"Label123\",\n" +
-                        "  \"label-mappings\": [\n" +
-                        "    {\n" +
-                        "      \"label\": \"Label234\",\n" +
-                        "      \"target\": \"C3\"\n" +
-                        "    }\n" +
-                        "  ]\n" +
-                        "}"
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.of(REFERENCE),
+                Optional.of(LABEL),
+                Sets.of(MAPPING)
+            ),
+            "{\n" +
+                "  \"cell-reference\": \"B2\",\n" +
+                "  \"label\": \"Label123\",\n" +
+                "  \"label-mappings\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label234\",\n" +
+                "      \"target\": \"C3\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
         );
     }
 
     @Test
     public void testDifferentCellReference() {
         this.checkNotEquals(SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.of(SpreadsheetSelection.parseCell("Z99")),
-                Optional.of(LABEL),
-                Sets.of(MAPPING)
+            Optional.of(SpreadsheetSelection.parseCell("Z99")),
+            Optional.of(LABEL),
+            Sets.of(MAPPING)
         ));
     }
 
     @Test
     public void testDifferentLabel() {
         this.checkNotEquals(SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.of(SpreadsheetSelection.parseCell("Z99")),
-                Optional.of(SpreadsheetSelection.labelName("DifferentLabel99")),
-                Sets.of(MAPPING)
+            Optional.of(SpreadsheetSelection.parseCell("Z99")),
+            Optional.of(SpreadsheetSelection.labelName("DifferentLabel99")),
+            Sets.of(MAPPING)
         ));
     }
 
     @Test
     public void testDifferentLabelMappings() {
         this.checkNotEquals(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.of(REFERENCE),
-                        Optional.of(LABEL),
-                        Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(REFERENCE))
-                )
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.of(REFERENCE),
+                Optional.of(LABEL),
+                Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(REFERENCE))
+            )
         );
     }
 
@@ -196,21 +196,21 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     @Test
     public void testToStringCellReferenceAndMapping2() {
         this.toStringAndCheck(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.of(REFERENCE),
-                        Optional.of(LABEL),
-                        Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(SpreadsheetSelection.parseCell("Z9")))
-                ),
-                "B2 Label123 Label234=C3, Label99=Z9"
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.of(REFERENCE),
+                Optional.of(LABEL),
+                Sets.of(MAPPING, SpreadsheetSelection.labelName("Label99").mapping(SpreadsheetSelection.parseCell("Z9")))
+            ),
+            "B2 Label123 Label234=C3, Label99=Z9"
         );
     }
 
     @Override
     public SpreadsheetExpressionReferenceSimilarities createObject() {
         return SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.of(REFERENCE),
-                Optional.of(LABEL),
-                Sets.of(MAPPING)
+            Optional.of(REFERENCE),
+            Optional.of(LABEL),
+            Sets.of(MAPPING)
         );
     }
 

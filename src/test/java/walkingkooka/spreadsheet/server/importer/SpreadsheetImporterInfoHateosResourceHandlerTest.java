@@ -39,22 +39,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetImporterInfoHateosResourceHandler,
-        SpreadsheetImporterName,
-        SpreadsheetImporterInfo,
-        SpreadsheetImporterInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetImporterInfoHateosResourceHandler> {
+    SpreadsheetImporterName,
+    SpreadsheetImporterInfo,
+    SpreadsheetImporterInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<SpreadsheetImporterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static SpreadsheetImporterInfo INFO1 = SpreadsheetImporterInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            SpreadsheetImporterName.with("importer-1")
+        Url.parseAbsolute("https://example.com/1"),
+        SpreadsheetImporterName.with("importer-1")
     );
 
     private final static SpreadsheetImporterInfo INFO2 = SpreadsheetImporterInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            SpreadsheetImporterName.with("importer-2")
+        Url.parseAbsolute("https://example.com/2"),
+        SpreadsheetImporterName.with("importer-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -65,10 +65,10 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
                 @Override
                 public SpreadsheetImporterInfoSet spreadsheetImporterInfos() {
                     return SpreadsheetImporterInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -78,39 +78,39 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                SpreadsheetImporterName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            SpreadsheetImporterName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        SpreadsheetImporterInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                SpreadsheetImporterInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -127,15 +127,15 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     @Override
     public Set<SpreadsheetImporterName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<SpreadsheetImporterName> range() {
         return Range.singleton(
-                SpreadsheetImporterName.with("range-spreadsheet-importer-name")
+            SpreadsheetImporterName.with("range-spreadsheet-importer-name")
         );
     }
 
@@ -164,8 +164,8 @@ public final class SpreadsheetImporterInfoHateosResourceHandlerTest implements H
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "systemSpreadsheetProvider.spreadsheetImporterInfos"
+            this.createHandler(),
+            "systemSpreadsheetProvider.spreadsheetImporterInfos"
         );
     }
 

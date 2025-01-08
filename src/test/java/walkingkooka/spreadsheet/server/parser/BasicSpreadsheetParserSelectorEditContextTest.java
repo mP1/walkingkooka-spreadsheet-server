@@ -34,75 +34,75 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetParserSelectorEditContextTest implements SpreadsheetParserSelectorEditContextTesting<BasicSpreadsheetParserSelectorEditContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     @Test
     public void testWithNullSpreadsheetParserProviderFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetParserSelectorEditContext.with(
-                        null,
-                        SpreadsheetParserContexts.fake(),
-                        SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.fake(),
-                        PROVIDER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetParserSelectorEditContext.with(
+                null,
+                SpreadsheetParserContexts.fake(),
+                SpreadsheetFormatterContexts.fake(),
+                SpreadsheetFormatterProviders.fake(),
+                PROVIDER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetParserContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetParserSelectorEditContext.with(
-                        SpreadsheetParserProviders.fake(),
-                        null,
-                        SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.fake(),
-                        PROVIDER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetParserSelectorEditContext.with(
+                SpreadsheetParserProviders.fake(),
+                null,
+                SpreadsheetFormatterContexts.fake(),
+                SpreadsheetFormatterProviders.fake(),
+                PROVIDER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetFormatterContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetParserSelectorEditContext.with(
-                        SpreadsheetParserProviders.fake(),
-                        SpreadsheetParserContexts.fake(),
-                        null,
-                        SpreadsheetFormatterProviders.fake(),
-                        PROVIDER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetParserSelectorEditContext.with(
+                SpreadsheetParserProviders.fake(),
+                SpreadsheetParserContexts.fake(),
+                null,
+                SpreadsheetFormatterProviders.fake(),
+                PROVIDER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetFormatterProviderFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetParserSelectorEditContext.with(
-                        SpreadsheetParserProviders.fake(),
-                        SpreadsheetParserContexts.fake(),
-                        SpreadsheetFormatterContexts.fake(),
-                        null,
-                        PROVIDER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetParserSelectorEditContext.with(
+                SpreadsheetParserProviders.fake(),
+                SpreadsheetParserContexts.fake(),
+                SpreadsheetFormatterContexts.fake(),
+                null,
+                PROVIDER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullProviderContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetParserSelectorEditContext.with(
-                        SpreadsheetParserProviders.fake(),
-                        SpreadsheetParserContexts.fake(),
-                        SpreadsheetFormatterContexts.fake(),
-                        SpreadsheetFormatterProviders.fake(),
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetParserSelectorEditContext.with(
+                SpreadsheetParserProviders.fake(),
+                SpreadsheetParserContexts.fake(),
+                SpreadsheetFormatterContexts.fake(),
+                SpreadsheetFormatterProviders.fake(),
+                null
+            )
         );
     }
 
@@ -113,9 +113,9 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
         final SpreadsheetFormatPattern dateTextFormat = SpreadsheetPattern.parseDateFormatPattern("yyyy/mm/dd");
 
         this.spreadsheetFormatterAndCheck(
-                dateTextFormat.spreadsheetFormatterSelector(),
-                PROVIDER_CONTEXT,
-                dateTextFormat.formatter()
+            dateTextFormat.spreadsheetFormatterSelector(),
+            PROVIDER_CONTEXT,
+            dateTextFormat.formatter()
         );
     }
 
@@ -124,9 +124,9 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
         final SpreadsheetParsePattern dateTextParser = SpreadsheetPattern.parseDateParsePattern("yyyy/mm/dd");
 
         this.spreadsheetParserAndCheck(
-                dateTextParser.spreadsheetParserSelector(),
-                PROVIDER_CONTEXT,
-                dateTextParser.parser()
+            dateTextParser.spreadsheetParserSelector(),
+            PROVIDER_CONTEXT,
+            dateTextParser.parser()
         );
     }
 
@@ -135,11 +135,11 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
 
         return BasicSpreadsheetParserSelectorEditContext.with(
-                SPREADSHEET_PARSER_PROVIDER,
-                SPREADSHEET_PARSER_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT,
-                SPREADSHEET_FORMATTER_PROVIDER,
-                PROVIDER_CONTEXT
+            SPREADSHEET_PARSER_PROVIDER,
+            SPREADSHEET_PARSER_CONTEXT,
+            SPREADSHEET_FORMATTER_CONTEXT,
+            SPREADSHEET_FORMATTER_PROVIDER,
+            PROVIDER_CONTEXT
         );
     }
 

@@ -40,51 +40,51 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntryInfoList, JarEntryInfo>,
-        ClassTesting<JarEntryInfoList>,
-        HasTextTesting,
-        JsonNodeMarshallingTesting<JarEntryInfoList>,
-        JarFileTesting {
+    ClassTesting<JarEntryInfoList>,
+    HasTextTesting,
+    JsonNodeMarshallingTesting<JarEntryInfoList>,
+    JarFileTesting {
 
     private final static JarEntryInfo INFO1 = jarEntryInfo(
-            "/file111",
-            111
+        "/file111",
+        111
     );
 
     private final static JarEntryInfo INFO2 = jarEntryInfo(
-            "/file222",
-            222
+        "/file222",
+        222
     );
 
     private final static JarEntryInfo INFO3 = jarEntryInfo(
-            "/file333",
-            333
+        "/file333",
+        333
     );
 
     private final static JarEntryInfo INFO4 = jarEntryInfo(
-            "/file444",
-            444
+        "/file444",
+        444
     );
 
     private static JarEntryInfo jarEntryInfo(final String name,
                                              final long size) {
         return JarEntryInfo.with(
-                JarEntryInfoName.with(name),
-                OptionalLong.of(size),
-                OptionalLong.of(size),
-                OptionalInt.of(1), // method
-                OptionalLong.of(999), // crc
-                Optional.of(CREATE),
-                Optional.of(LAST_MODIFIED)
+            JarEntryInfoName.with(name),
+            OptionalLong.of(size),
+            OptionalLong.of(size),
+            OptionalInt.of(1), // method
+            OptionalLong.of(999), // crc
+            Optional.of(CREATE),
+            Optional.of(LAST_MODIFIED)
         );
     }
 
     @Test
     public void testWithEmpty() {
         assertSame(
-                JarEntryInfoList.EMPTY,
-                JarEntryInfoList.with(
-                        Lists.empty()
-                )
+            JarEntryInfoList.EMPTY,
+            JarEntryInfoList.with(
+                Lists.empty()
+            )
         );
     }
 
@@ -92,26 +92,26 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     public void testDoesntDoubleWrap() {
         final JarEntryInfoList list = this.createList();
         assertSame(
-                list,
-                JarEntryInfoList.with(list)
+            list,
+            JarEntryInfoList.with(list)
         );
     }
 
     @Test
     public void testGet() {
         this.getAndCheck(
-                this.createList(),
-                0, // index
-                INFO1// expected
+            this.createList(),
+            0, // index
+            INFO1// expected
         );
     }
 
     @Test
     public void testSetFails() {
         this.setFails(
-                this.createList(),
-                0, // index
-                INFO4 // expected
+            this.createList(),
+            0, // index
+            INFO4 // expected
         );
     }
 
@@ -120,8 +120,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         final JarEntryInfoList list = this.createList();
 
         this.removeIndexFails(
-                list,
-                0
+            list,
+            0
         );
     }
 
@@ -130,8 +130,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
         final JarEntryInfoList list = this.createList();
 
         this.removeFails(
-                list,
-                list.get(0)
+            list,
+            list.get(0)
         );
     }
 
@@ -140,22 +140,22 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     @Test
     public void testSwap() {
         this.swapAndCheck(
-                JarEntryInfoList.with(
-                        Lists.of(
-                                INFO1,
-                                INFO2,
-                                INFO3
-                        )
-                ),
-                0,
-                2,
-                JarEntryInfoList.with(
-                        Lists.of(
-                                INFO3,
-                                INFO2,
-                                INFO1
-                        )
+            JarEntryInfoList.with(
+                Lists.of(
+                    INFO1,
+                    INFO2,
+                    INFO3
                 )
+            ),
+            0,
+            2,
+            JarEntryInfoList.with(
+                Lists.of(
+                    INFO3,
+                    INFO2,
+                    INFO1
+                )
+            )
         );
     }
 
@@ -164,11 +164,11 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     @Override
     public JarEntryInfoList createList() {
         return JarEntryInfoList.with(
-                Lists.of(
-                        INFO1,
-                        INFO2,
-                        INFO3
-                )
+            Lists.of(
+                INFO1,
+                INFO2,
+                INFO3
+            )
         );
     }
 
@@ -177,68 +177,68 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     @Test
     public void testReadJarFileWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> JarEntryInfoList.readJarFile(null)
+            NullPointerException.class,
+            () -> JarEntryInfoList.readJarFile(null)
         );
     }
 
     @Test
     public void testReadJarFile() throws IOException {
         final byte[] jar = JarFileTesting.jarFile(
-                "Manifest-Version: 1.0\r\n" +
-                        "Key111: Value111\r\n" +
-                        "\r\n",
-                Maps.of(
-                        "file111", "File111".getBytes(StandardCharsets.UTF_8),
-                        "file222", "File222".getBytes(StandardCharsets.UTF_8),
-                        "file333", "File333".getBytes(StandardCharsets.UTF_8)
-                )
+            "Manifest-Version: 1.0\r\n" +
+                "Key111: Value111\r\n" +
+                "\r\n",
+            Maps.of(
+                "file111", "File111".getBytes(StandardCharsets.UTF_8),
+                "file222", "File222".getBytes(StandardCharsets.UTF_8),
+                "file333", "File333".getBytes(StandardCharsets.UTF_8)
+            )
         );
 
         this.checkEquals(
-                JarEntryInfoList.with(
-                        Lists.of(
-                                JarEntryInfo.with(
-                                        JarEntryInfoName.MANIFEST_MF,
-                                        OptionalLong.empty(), // size
-                                        OptionalLong.empty(), // compressedSize
-                                        OptionalInt.of(8), // method
-                                        OptionalLong.empty(), // crc
-                                        Optional.of(CREATE),
-                                        Optional.of(LAST_MODIFIED)
-                                ),
-                                JarEntryInfo.with(
-                                        JarEntryInfoName.with("/file111"),
-                                        OptionalLong.empty(), // size
-                                        OptionalLong.empty(), // compressedSize
-                                        OptionalInt.of(8), // method
-                                        OptionalLong.empty(), // crc
-                                        Optional.of(CREATE),
-                                        Optional.of(LAST_MODIFIED)
-                                ),
-                                JarEntryInfo.with(
-                                        JarEntryInfoName.with("/file222"),
-                                        OptionalLong.empty(), // size
-                                        OptionalLong.empty(), // compressedSize
-                                        OptionalInt.of(8), // method
-                                        OptionalLong.empty(), // crc
-                                        Optional.of(CREATE),
-                                        Optional.of(LAST_MODIFIED)
-                                ),
-                                JarEntryInfo.with(
-                                        JarEntryInfoName.with("/file333"),
-                                        OptionalLong.empty(), // size
-                                        OptionalLong.empty(), // compressedSize
-                                        OptionalInt.of(8), // method
-                                        OptionalLong.empty(), // crc
-                                        Optional.of(CREATE),
-                                        Optional.of(LAST_MODIFIED)
-                                )
-                        )
-                ),
-                JarEntryInfoList.readJarFile(
-                        new ByteArrayInputStream(jar)
+            JarEntryInfoList.with(
+                Lists.of(
+                    JarEntryInfo.with(
+                        JarEntryInfoName.MANIFEST_MF,
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.of(8), // method
+                        OptionalLong.empty(), // crc
+                        Optional.of(CREATE),
+                        Optional.of(LAST_MODIFIED)
+                    ),
+                    JarEntryInfo.with(
+                        JarEntryInfoName.with("/file111"),
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.of(8), // method
+                        OptionalLong.empty(), // crc
+                        Optional.of(CREATE),
+                        Optional.of(LAST_MODIFIED)
+                    ),
+                    JarEntryInfo.with(
+                        JarEntryInfoName.with("/file222"),
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.of(8), // method
+                        OptionalLong.empty(), // crc
+                        Optional.of(CREATE),
+                        Optional.of(LAST_MODIFIED)
+                    ),
+                    JarEntryInfo.with(
+                        JarEntryInfoName.with("/file333"),
+                        OptionalLong.empty(), // size
+                        OptionalLong.empty(), // compressedSize
+                        OptionalInt.of(8), // method
+                        OptionalLong.empty(), // crc
+                        Optional.of(CREATE),
+                        Optional.of(LAST_MODIFIED)
+                    )
                 )
+            ),
+            JarEntryInfoList.readJarFile(
+                new ByteArrayInputStream(jar)
+            )
         );
     }
 
@@ -247,36 +247,36 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     @Test
     public void testMarshall() {
         this.marshallAndCheck(
-                this.createList(),
-                "[\n" +
-                        "  {\n" +
-                        "    \"name\": \"/file111\",\n" +
-                        "    \"size\": \"111\",\n" +
-                        "    \"compressedSize\": \"111\",\n" +
-                        "    \"method\": 1,\n" +
-                        "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58\",\n" +
-                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                        "  },\n" +
-                        "  {\n" +
-                        "    \"name\": \"/file222\",\n" +
-                        "    \"size\": \"222\",\n" +
-                        "    \"compressedSize\": \"222\",\n" +
-                        "    \"method\": 1,\n" +
-                        "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58\",\n" +
-                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                        "  },\n" +
-                        "  {\n" +
-                        "    \"name\": \"/file333\",\n" +
-                        "    \"size\": \"333\",\n" +
-                        "    \"compressedSize\": \"333\",\n" +
-                        "    \"method\": 1,\n" +
-                        "    \"crc\": \"999\",\n" +
-                        "    \"create\": \"1999-12-31T12:58\",\n" +
-                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                        "  }\n" +
-                        "]"
+            this.createList(),
+            "[\n" +
+                "  {\n" +
+                "    \"name\": \"/file111\",\n" +
+                "    \"size\": \"111\",\n" +
+                "    \"compressedSize\": \"111\",\n" +
+                "    \"method\": 1,\n" +
+                "    \"crc\": \"999\",\n" +
+                "    \"create\": \"1999-12-31T12:58\",\n" +
+                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"/file222\",\n" +
+                "    \"size\": \"222\",\n" +
+                "    \"compressedSize\": \"222\",\n" +
+                "    \"method\": 1,\n" +
+                "    \"crc\": \"999\",\n" +
+                "    \"create\": \"1999-12-31T12:58\",\n" +
+                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"name\": \"/file333\",\n" +
+                "    \"size\": \"333\",\n" +
+                "    \"compressedSize\": \"333\",\n" +
+                "    \"method\": 1,\n" +
+                "    \"crc\": \"999\",\n" +
+                "    \"create\": \"1999-12-31T12:58\",\n" +
+                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                "  }\n" +
+                "]"
         );
     }
 
@@ -284,8 +284,8 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     public JarEntryInfoList unmarshall(final JsonNode jsonNode,
                                        final JsonNodeUnmarshallContext context) {
         return JarEntryInfoList.unmarshall(
-                jsonNode,
-                context
+            jsonNode,
+            context
         );
     }
 

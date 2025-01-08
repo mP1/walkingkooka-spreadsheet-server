@@ -86,10 +86,10 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends SpreadsheetDeltaHateosResourceHandler<I>, I extends Comparable<I>>
-        extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
-        implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        SpreadsheetMetadataTesting,
-        ToStringTesting<H> {
+    extends SpreadsheetDeltaHateosResourceHandlerTestCase<H>
+    implements HateosResourceHandlerTesting<H, I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    SpreadsheetMetadataTesting,
+    ToStringTesting<H> {
 
     final static FakeSpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
         @Override
@@ -105,17 +105,17 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     @Test
     public final void testWithNullEngineFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHandler(
-                        null
-                )
+            NullPointerException.class,
+            () -> this.createHandler(
+                null
+            )
         );
     }
 
     @Override
     public final H createHandler() {
         return this.createHandler(
-                this.engine()
+            this.engine()
         );
     }
 
@@ -127,12 +127,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final Map<SpreadsheetColumnReference, Double> map = Maps.sorted();
 
         Arrays.stream(columns.split(","))
-                .forEach(c ->
-                        map.put(
-                                SpreadsheetSelection.parseColumn(c),
-                                COLUMN_WIDTH
-                        )
-                );
+            .forEach(c ->
+                map.put(
+                    SpreadsheetSelection.parseColumn(c),
+                    COLUMN_WIDTH
+                )
+            );
 
         return map;
     }
@@ -143,12 +143,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final Map<SpreadsheetRowReference, Double> map = Maps.sorted();
 
         Arrays.stream(rows.split(","))
-                .forEach(r ->
-                        map.put(
-                                SpreadsheetSelection.parseRow(r),
-                                ROW_HEIGHT
-                        )
-                );
+            .forEach(r ->
+                map.put(
+                    SpreadsheetSelection.parseRow(r),
+                    ROW_HEIGHT
+                )
+            );
 
         return map;
     }
@@ -161,25 +161,25 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final SpreadsheetCell formattedCell(final SpreadsheetCellReference reference,
                                         final String text) {
         return reference.setFormula(
-                SpreadsheetFormula.EMPTY
-                        .setText("'" + text)
-                        .setToken(
-                                Optional.of(
-                                        SpreadsheetParserToken.text(
-                                                List.of(
-                                                        SpreadsheetParserToken.apostropheSymbol("'", "'"),
-                                                        SpreadsheetParserToken.textLiteral(text, text)
-                                                ),
-                                                "'" + text
-                                        )
-                                )
+            SpreadsheetFormula.EMPTY
+                .setText("'" + text)
+                .setToken(
+                    Optional.of(
+                        SpreadsheetParserToken.text(
+                            List.of(
+                                SpreadsheetParserToken.apostropheSymbol("'", "'"),
+                                SpreadsheetParserToken.textLiteral(text, text)
+                            ),
+                            "'" + text
                         )
-                        .setExpression(
-                                Optional.of(
-                                        Expression.value(text)
-                                )
-                        )
-                        .setValue(Optional.of(text))
+                    )
+                )
+                .setExpression(
+                    Optional.of(
+                        Expression.value(text)
+                    )
+                )
+                .setValue(Optional.of(text))
         ).setFormattedValue(Optional.of(Text.text(text)));
     }
 
@@ -189,10 +189,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final SpreadsheetCell cell(final String cellReference, final String formula) {
         return SpreadsheetSelection.parseCell(cellReference)
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText(formula)
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText(formula)
+            );
     }
 
     final Set<SpreadsheetCell> cells() {
@@ -205,9 +205,9 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final Set<SpreadsheetLabelMapping> labels() {
         return Sets.of(
-                this.label().mapping(
-                        this.cell().reference()
-                )
+            this.label().mapping(
+                this.cell().reference()
+            )
         );
     }
 
@@ -219,13 +219,13 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final SpreadsheetViewportWindows window = SpreadsheetViewportWindows.parse("A1:B99");
 
         this.checkEquals(
-                true,
-                window.test(this.cell().reference())
+            true,
+            window.test(this.cell().reference())
         );
 
         this.checkEquals(
-                false,
-                window.test(cellOutsideWindow().reference())
+            false,
+            window.test(cellOutsideWindow().reference())
         );
 
         return window;
@@ -243,31 +243,31 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-            .loadFromLocale()
-            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-            .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
-            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
-            .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-            .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
-            .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
-            .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-            .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-            .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
-            .set(SpreadsheetMetadataPropertyName.FORMAT_CONVERTER, ConverterSelector.parse("general"))
-            .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
-            .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
-            .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-            .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
-            .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetParsePattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector())
-            .set(
-                    SpreadsheetMetadataPropertyName.STYLE,
-                    TextStyle.EMPTY
-                            .set(TextStylePropertyName.WIDTH, Length.pixel(COLUMN_WIDTH))
-                            .set(TextStylePropertyName.HEIGHT, Length.pixel(ROW_HEIGHT))
-            );
+        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+        .loadFromLocale()
+        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+        .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("creator@example.com"))
+        .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+        .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
+        .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 0))
+        .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+        .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
+        .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
+        .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+        .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+        .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
+        .set(SpreadsheetMetadataPropertyName.FORMAT_CONVERTER, ConverterSelector.parse("general"))
+        .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
+        .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
+        .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+        .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 50)
+        .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetParsePattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector())
+        .set(
+            SpreadsheetMetadataPropertyName.STYLE,
+            TextStyle.EMPTY
+                .set(TextStylePropertyName.WIDTH, Length.pixel(COLUMN_WIDTH))
+                .set(TextStylePropertyName.HEIGHT, Length.pixel(ROW_HEIGHT))
+        );
 
     static abstract class TestSpreadsheetEngineHateosResourceHandlerContext extends FakeSpreadsheetEngineHateosResourceHandlerContext {
         @Override
@@ -281,67 +281,67 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     TestSpreadsheetEngineHateosResourceHandlerContext context(final SpreadsheetCellStore store) {
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
-                Url.parseAbsolute("https://example.com"),
-                METADATA,
-                SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
-                new FakeSpreadsheetStoreRepository() {
-                    @Override
-                    public SpreadsheetCellStore cells() {
-                        return store;
-                    }
+            Url.parseAbsolute("https://example.com"),
+            METADATA,
+            SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
+            new FakeSpreadsheetStoreRepository() {
+                @Override
+                public SpreadsheetCellStore cells() {
+                    return store;
+                }
 
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
-                        return this.cellReferences;
-                    }
+                @Override
+                public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
+                    return this.cellReferences;
+                }
 
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
+                private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
 
-                    @Override
-                    public SpreadsheetColumnStore columns() {
-                        return this.columnStore;
-                    }
+                @Override
+                public SpreadsheetColumnStore columns() {
+                    return this.columnStore;
+                }
 
-                    private final SpreadsheetColumnStore columnStore = SpreadsheetColumnStores.treeMap();
+                private final SpreadsheetColumnStore columnStore = SpreadsheetColumnStores.treeMap();
 
-                    @Override
-                    public SpreadsheetLabelStore labels() {
-                        return this.labels;
-                    }
+                @Override
+                public SpreadsheetLabelStore labels() {
+                    return this.labels;
+                }
 
-                    private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
+                private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
 
-                    @Override
-                    public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
-                        return this.labelReferences;
-                    }
+                @Override
+                public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
+                    return this.labelReferences;
+                }
 
-                    private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
+                private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
 
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
-                        return this.rangeToCells;
-                    }
+                @Override
+                public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
+                    return this.rangeToCells;
+                }
 
-                    private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
+                private final SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells = SpreadsheetCellRangeStores.treeMap();
 
-                    @Override
-                    public SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules() {
-                        return this.rangeToConditionalFormattingRules;
-                    }
+                @Override
+                public SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules() {
+                    return this.rangeToConditionalFormattingRules;
+                }
 
-                    private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
+                private final SpreadsheetCellRangeStore<SpreadsheetConditionalFormattingRule> rangeToConditionalFormattingRules = SpreadsheetCellRangeStores.treeMap();
 
-                    @Override
-                    public SpreadsheetRowStore rows() {
-                        return this.rowStore;
-                    }
+                @Override
+                public SpreadsheetRowStore rows() {
+                    return this.rowStore;
+                }
 
-                    private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
-                },
-                SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT
+                private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
+            },
+            SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT
         );
 
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
@@ -355,8 +355,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
                                                        final Optional<SpreadsheetFormatter> formatter) {
                 return engineContext.formatValueAndStyle(
-                        cell,
-                        formatter
+                    cell,
+                    formatter
                 );
             }
 
@@ -364,8 +364,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,
                                                        final ProviderContext context) {
                 return engineContext.spreadsheetParser(
-                        selector,
-                        context
+                    selector,
+                    context
                 );
             }
 
@@ -378,8 +378,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             public Object evaluate(final Expression expression,
                                    final Optional<SpreadsheetCell> cell) {
                 return engineContext.evaluate(
-                        expression,
-                        cell
+                    expression,
+                    cell
                 );
             }
 

@@ -38,48 +38,48 @@ import walkingkooka.text.LineEnding;
 final class PluginHttpMappings implements StaticHelper {
 
     static HateosResourceMapping<PluginName,
-            Plugin,
-            PluginSet,
-            Plugin,
-            PluginHateosResourceHandlerContext> plugin() {
+        Plugin,
+        PluginSet,
+        Plugin,
+        PluginHateosResourceHandlerContext> plugin() {
 
         // plugin GET...................................................................................................
 
         HateosResourceMapping<PluginName,
-                Plugin,
-                PluginSet,
-                Plugin,
-                PluginHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
-                Plugin.HATEOS_RESOURCE_NAME,
-                PluginHttpMappings::parsePluginName,
-                Plugin.class,
-                PluginSet.class,
-                Plugin.class,
-                PluginHateosResourceHandlerContext.class
+            Plugin,
+            PluginSet,
+            Plugin,
+            PluginHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
+            Plugin.HATEOS_RESOURCE_NAME,
+            PluginHttpMappings::parsePluginName,
+            Plugin.class,
+            PluginSet.class,
+            Plugin.class,
+            PluginHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                PluginHateosResourceHandlerLoad.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            PluginHateosResourceHandlerLoad.INSTANCE
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.DELETE,
-                PluginHateosResourceHandlerDelete.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.DELETE,
+            PluginHateosResourceHandlerDelete.INSTANCE
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.POST,
-                PluginHateosResourceHandlerSave.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.POST,
+            PluginHateosResourceHandlerSave.INSTANCE
         ).setHateosResourceHandler(
-                SpreadsheetServerLinkRelations.FILTER,
-                HttpMethod.GET,
-                PluginHateosResourceHandlerFilter.INSTANCE
+            SpreadsheetServerLinkRelations.FILTER,
+            HttpMethod.GET,
+            PluginHateosResourceHandlerFilter.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.UPLOAD,
-                HttpMethod.POST,
-                PluginHateosHttpEntityHandlerUpload.INSTANCE
+            SpreadsheetServerLinkRelations.UPLOAD,
+            HttpMethod.POST,
+            PluginHateosHttpEntityHandlerUpload.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.LIST,
-                HttpMethod.GET,
-                PluginHateosHttpEntityHandlerList.INSTANCE
+            SpreadsheetServerLinkRelations.LIST,
+            HttpMethod.GET,
+            PluginHateosHttpEntityHandlerList.INSTANCE
         );
 
         return plugin;
@@ -104,16 +104,16 @@ final class PluginHttpMappings implements StaticHelper {
                 switch (separator) {
                     case -1:
                         result = HateosResourceSelection.one(
-                                PluginName.with(text)
+                            PluginName.with(text)
                         );
                         break;
                     default:
                         result = HateosResourceSelection.range(
-                                Range.parse(
-                                        text,
-                                        PluginName.SEPARATOR.character(),
-                                        PluginName::with
-                                )
+                            Range.parse(
+                                text,
+                                PluginName.SEPARATOR.character(),
+                                PluginName::with
+                            )
                         );
                         break;
                 }
@@ -132,13 +132,13 @@ final class PluginHttpMappings implements StaticHelper {
                                                                final LineEnding lineEnding,
                                                                final PluginHateosResourceHandlerContext context) {
         return HateosResourceMapping.router(
-                baseUrl,
-                Sets.of(
-                        PluginHttpMappings.plugin()
-                ),
-                indentation,
-                lineEnding,
-                context
+            baseUrl,
+            Sets.of(
+                PluginHttpMappings.plugin()
+            ),
+            indentation,
+            lineEnding,
+            context
         );
     }
 

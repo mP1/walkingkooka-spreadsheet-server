@@ -40,7 +40,7 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerClearColumns,
-        SpreadsheetColumnReference> {
+    SpreadsheetColumnReference> {
 
     private final static Optional<SpreadsheetDelta> RESOURCE = Optional.of(SpreadsheetDelta.EMPTY);
 
@@ -49,7 +49,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
         final SpreadsheetEngine engine = SpreadsheetEngines.basic();
 
         final SpreadsheetDeltaHateosResourceHandlerClearColumns handler = SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
-                engine
+            engine
         );
 
         final SpreadsheetColumnReference a = SpreadsheetSelection.parseColumn("A");
@@ -61,35 +61,35 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
         cellStore.save(
-                a1.setFormula(SpreadsheetFormula.EMPTY)
+            a1.setFormula(SpreadsheetFormula.EMPTY)
         );
         cellStore.save(
-                a1048576.setFormula(SpreadsheetFormula.EMPTY)
+            a1048576.setFormula(SpreadsheetFormula.EMPTY)
         );
         cellStore.save(
-                b2.setFormula(SpreadsheetFormula.EMPTY)
+            b2.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                handler,
-                a,
-                RESOURCE,
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(cellStore),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(a1, a1048576)
-                                ).setColumnWidths(
-                                        columnWidths("A")
-                                ).setRowHeights(
-                                        rowHeights("1,1048576")
-                                ).setColumnCount(
-                                        OptionalInt.of(2)
-                                ).setRowCount(
-                                        OptionalInt.of(2)
-                                )
-                )
+            handler,
+            a,
+            RESOURCE,
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(cellStore),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setDeletedCells(
+                        Sets.of(a1, a1048576)
+                    ).setColumnWidths(
+                        columnWidths("A")
+                    ).setRowHeights(
+                        rowHeights("1,1048576")
+                    ).setColumnCount(
+                        OptionalInt.of(2)
+                    ).setRowCount(
+                        OptionalInt.of(2)
+                    )
+            )
         );
 
         this.checkEquals(Optional.empty(), cellStore.load(a1), "a1 should have been deleted");
@@ -109,43 +109,43 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
         cellStore.save(
-                a1.setFormula(SpreadsheetFormula.EMPTY)
+            a1.setFormula(SpreadsheetFormula.EMPTY)
         );
         cellStore.save(
-                b2.setFormula(SpreadsheetFormula.EMPTY)
+            b2.setFormula(SpreadsheetFormula.EMPTY)
         );
         cellStore.save(
-                c3.setFormula(SpreadsheetFormula.EMPTY)
+            c3.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         cellStore.save(
-                d4.setFormula(SpreadsheetFormula.EMPTY)
+            d4.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         final SpreadsheetDeltaHateosResourceHandlerClearColumns handler = SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
-                engine
+            engine
         );
 
         this.handleRangeAndCheck(
-                handler,
-                b2.column().columnRange(c3.column()).range(),
-                RESOURCE,
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(cellStore),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(b2, c3)
-                                ).setColumnWidths(
-                                        columnWidths("B,C")
-                                ).setRowHeights(
-                                        rowHeights("2,3")
-                                ).setColumnCount(
-                                        OptionalInt.of(4)
-                                ).setRowCount(
-                                        OptionalInt.of(4)
-                                )
-                )
+            handler,
+            b2.column().columnRange(c3.column()).range(),
+            RESOURCE,
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(cellStore),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setDeletedCells(
+                        Sets.of(b2, c3)
+                    ).setColumnWidths(
+                        columnWidths("B,C")
+                    ).setRowHeights(
+                        rowHeights("2,3")
+                    ).setColumnCount(
+                        OptionalInt.of(4)
+                    ).setRowCount(
+                        OptionalInt.of(4)
+                    )
+            )
         );
 
         this.checkNotEquals(Optional.empty(), cellStore.load(a1), "a1 should NOT have been deleted");
@@ -159,7 +159,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(), SpreadsheetEngine.class.getSimpleName() + ".clearColumns"
+            this.createHandler(), SpreadsheetEngine.class.getSimpleName() + ".clearColumns"
         );
     }
 
@@ -186,7 +186,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
     @Override
     public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetSelection.parseColumnRange(RANGE)
-                .range();
+            .range();
     }
 
     private final static String RANGE = "A:C";

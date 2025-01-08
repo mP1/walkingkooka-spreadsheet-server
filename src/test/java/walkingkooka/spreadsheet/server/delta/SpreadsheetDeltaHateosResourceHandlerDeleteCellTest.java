@@ -37,39 +37,39 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerDeleteCell,
-        SpreadsheetCellReference> {
+    SpreadsheetCellReference> {
 
     @Test
     public void testDeleteCell() {
         final SpreadsheetCellReference cell = this.id();
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
-                            @Override
-                            public SpreadsheetDelta deleteCells(final SpreadsheetSelection s,
-                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(cell, s, "selection");
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public SpreadsheetDelta deleteCells(final SpreadsheetSelection s,
+                                                        final SpreadsheetEngineContext context) {
+                        checkEquals(cell, s, "selection");
 
-                                return SpreadsheetDelta.EMPTY
-                                        .setDeletedCells(
-                                                Sets.of(
-                                                        (SpreadsheetCellReference) s
-                                                )
-                                        );
-                            }
-                        }
-                ),
-                this.id(),
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(cell)
+                        return SpreadsheetDelta.EMPTY
+                            .setDeletedCells(
+                                Sets.of(
+                                    (SpreadsheetCellReference) s
                                 )
-                )
+                            );
+                    }
+                }
+            ),
+            this.id(),
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setDeletedCells(
+                        Sets.of(cell)
+                    )
+            )
         );
     }
 
@@ -79,29 +79,29 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
         final SpreadsheetCellReference cell = this.id();
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
-                            @Override
-                            public SpreadsheetDelta deleteCells(final SpreadsheetSelection s,
-                                                                final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetCellRangeReference.cellRange(range), s, "selection");
-                                return SpreadsheetDelta.EMPTY
-                                        .setDeletedCells(
-                                                Sets.of(cell)
-                                        );
-                            }
-                        }
-                ),
-                range,
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setDeletedCells(
-                                        Sets.of(cell)
-                                )
-                )
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public SpreadsheetDelta deleteCells(final SpreadsheetSelection s,
+                                                        final SpreadsheetEngineContext context) {
+                        checkEquals(SpreadsheetCellRangeReference.cellRange(range), s, "selection");
+                        return SpreadsheetDelta.EMPTY
+                            .setDeletedCells(
+                                Sets.of(cell)
+                            );
+                    }
+                }
+            ),
+            range,
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setDeletedCells(
+                        Sets.of(cell)
+                    )
+            )
         );
     }
 

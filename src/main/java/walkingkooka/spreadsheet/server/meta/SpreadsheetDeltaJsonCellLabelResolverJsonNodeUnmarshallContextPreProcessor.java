@@ -44,15 +44,15 @@ final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPrePro
     public JsonNode apply(final JsonNode jsonNode,
                           final Class<?> type) {
         return SpreadsheetDelta.class == type ?
-                handleSpreadsheetDelta(jsonNode.objectOrFail()) :
-                jsonNode;
+            handleSpreadsheetDelta(jsonNode.objectOrFail()) :
+            jsonNode;
     }
 
     private JsonObject handleSpreadsheetDelta(final JsonObject object) {
         return SpreadsheetDelta.resolveCellLabels(
-                object,
-                (e) -> this.store.cellReferenceOrRangeOrFail(e)
-                        .toCell()
+            object,
+            (e) -> this.store.cellReferenceOrRangeOrFail(e)
+                .toCell()
         );
     }
 

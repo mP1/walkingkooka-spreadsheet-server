@@ -33,7 +33,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteRows extends SpreadsheetD
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteRows with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerDeleteRows(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -56,9 +56,9 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteRows extends SpreadsheetD
                              final int count,
                              final SpreadsheetEngineContext context) {
         return this.engine.deleteRows(
-                row,
-                count,
-                context
+            row,
+            count,
+            context
         );
     }
 

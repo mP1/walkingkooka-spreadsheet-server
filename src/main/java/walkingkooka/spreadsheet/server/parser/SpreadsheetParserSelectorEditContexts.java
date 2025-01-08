@@ -35,11 +35,11 @@ public final class SpreadsheetParserSelectorEditContexts implements PublicStatic
                                                              final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                              final ProviderContext providerContext) {
         return BasicSpreadsheetParserSelectorEditContext.with(
-                spreadsheetParserProvider,
-                spreadsheetParserContext,
-                spreadsheetFormatterContext,
-                spreadsheetFormatterProvider,
-                providerContext
+            spreadsheetParserProvider,
+            spreadsheetParserContext,
+            spreadsheetFormatterContext,
+            spreadsheetFormatterProvider,
+            providerContext
         );
     }
 

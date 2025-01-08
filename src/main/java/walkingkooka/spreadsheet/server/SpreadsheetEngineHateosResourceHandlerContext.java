@@ -26,8 +26,8 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
  */
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
-        SpreadsheetEngineContext,
-        SpreadsheetFormatterProviderSamplesContext {
+    SpreadsheetEngineContext,
+    SpreadsheetFormatterProviderSamplesContext {
 
     /**
      * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.

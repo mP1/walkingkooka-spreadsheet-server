@@ -33,44 +33,44 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import java.util.Optional;
 
 public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest extends
-        SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn, SpreadsheetColumnReference> {
+    SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn, SpreadsheetColumnReference> {
 
     @Test
     public void testHandleOne() {
         final SpreadsheetColumnReference column = SpreadsheetSelection.parseColumn("C");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText("=99")
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText("=99")
+            );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+            .setCells(
+                Sets.of(cell)
+            );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
-                                                                  final int count,
-                                                                  final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetSelection.parseColumn("D"), column, "column");
-                                checkEquals(COUNT, count, "count");
+                    @Override
+                    public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
+                                                          final int count,
+                                                          final SpreadsheetEngineContext context) {
+                        checkEquals(SpreadsheetSelection.parseColumn("D"), column, "column");
+                        checkEquals(COUNT, count, "count");
 
-                                return returned;
-                            }
-                        }
-                ),
-                column,
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        returned
-                )
+                        return returned;
+                    }
+                }
+            ),
+            column,
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                returned
+            )
         );
     }
 
@@ -79,37 +79,37 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
         final SpreadsheetColumnRangeReference range = SpreadsheetSelection.parseColumnRange("C:E");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText("=99")
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText("=99")
+            );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+            .setCells(
+                Sets.of(cell)
+            );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
-                                                                  final int count,
-                                                                  final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetSelection.parseColumn("F"), column, "column");
-                                checkEquals(COUNT, count, "count");
+                    @Override
+                    public SpreadsheetDelta insertColumns(final SpreadsheetColumnReference column,
+                                                          final int count,
+                                                          final SpreadsheetEngineContext context) {
+                        checkEquals(SpreadsheetSelection.parseColumn("F"), column, "column");
+                        checkEquals(COUNT, count, "count");
 
-                                return returned;
-                            }
-                        }
-                ),
-                range.range(),
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        returned
-                )
+                        return returned;
+                    }
+                }
+            ),
+            range.range(),
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                returned
+            )
         );
     }
 
@@ -126,7 +126,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
     @Override
     public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetSelection.parseColumnRange("E:G")
-                .range();
+            .range();
     }
 
     @Override

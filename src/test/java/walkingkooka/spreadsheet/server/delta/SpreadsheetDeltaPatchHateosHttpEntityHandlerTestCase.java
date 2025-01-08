@@ -63,10 +63,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H extends SpreadsheetDeltaPatchHateosHttpEntityHandler<S, R>,
-        S extends SpreadsheetSelection & Comparable<S>,
-        R extends SpreadsheetSelection & Comparable<R>> implements
-        HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosResourceHandlerContext>,
-        ClassTesting<H> {
+    S extends SpreadsheetSelection & Comparable<S>,
+    R extends SpreadsheetSelection & Comparable<R>> implements
+    HateosHttpEntityHandlerTesting<H, S, SpreadsheetEngineHateosResourceHandlerContext>,
+    ClassTesting<H> {
 
     SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase() {
         super();
@@ -100,10 +100,10 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     @Test
     public final void testWithNullSpreadsheetEngineFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createHandler(
-                        null
-                )
+            NullPointerException.class,
+            () -> this.createHandler(
+                null
+            )
         );
     }
 
@@ -112,38 +112,38 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     @Test
     public final void testHandleAllFails() {
         this.handleAllFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public final void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public final void testHandleNoneFails() {
         this.handleNoneFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Override
     public final H createHandler() {
         return this.createHandler(
-                ENGINE
+            ENGINE
         );
     }
 
@@ -152,20 +152,20 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
     final HttpEntity httpEntity(final SpreadsheetDelta delta) {
         return this.httpEntity(
                 this.marshall(delta)
-                ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
-                .setContentLength();
+            ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
+            .setContentLength();
     }
 
     final String marshall(final SpreadsheetDelta delta) {
         return JsonNodeMarshallContexts.basic()
-                .marshall(delta)
-                .toString();
+            .marshall(delta)
+            .toString();
     }
 
     final HttpEntity httpEntity(final String json) {
         return HttpEntity.EMPTY
-                .setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
-                .setBodyText(json);
+            .setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
+            .setBodyText(json);
     }
 
     @Override
@@ -180,11 +180,11 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
 
     final Map<HttpRequestAttribute<?>, Object> parameters(final String queryString) {
         return HttpRequests.value(
-                HttpMethod.POST,
-                HttpTransport.SECURED,
-                Url.parseRelative("/api/patch/something?" + queryString),
-                HttpProtocolVersion.VERSION_1_0,
-                HttpEntity.EMPTY // is ignored
+            HttpMethod.POST,
+            HttpTransport.SECURED,
+            Url.parseRelative("/api/patch/something?" + queryString),
+            HttpProtocolVersion.VERSION_1_0,
+            HttpEntity.EMPTY // is ignored
         ).routerParameters();
     }
 
@@ -209,18 +209,18 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         @Override
         public JsonNode marshall(final Object value) {
             return JsonNodeMarshallContexts.basic()
-                    .marshall(value);
+                .marshall(value);
         }
 
         @Override
         public <T> T unmarshall(final JsonNode json,
                                 final Class<T> type) {
             return JsonNodeUnmarshallContexts.basic(
-                    ExpressionNumberKind.DEFAULT,
-                    MathContext.UNLIMITED
+                ExpressionNumberKind.DEFAULT,
+                MathContext.UNLIMITED
             ).unmarshall(
-                    json,
-                    type
+                json,
+                type
             );
         }
 
@@ -245,9 +245,9 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
                         @Override
                         public Optional<SpreadsheetLabelMapping> load(final SpreadsheetLabelName label) {
                             return Optional.ofNullable(
-                                    LABEL.equals(label) ?
-                                            LABEL.mapping(CELL) :
-                                            null
+                                LABEL.equals(label) ?
+                                    LABEL.mapping(CELL) :
+                                    null
                             );
                         }
                     };

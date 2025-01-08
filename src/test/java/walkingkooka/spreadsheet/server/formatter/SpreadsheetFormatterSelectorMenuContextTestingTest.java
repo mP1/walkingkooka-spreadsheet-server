@@ -29,7 +29,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMen
 import java.math.MathContext;
 
 public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements SpreadsheetFormatterSelectorMenuContextTesting<TestSpreadsheetFormatterSelectorMenuContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
     @Override
     public TestSpreadsheetFormatterSelectorMenuContext createContext() {
         return new TestSpreadsheetFormatterSelectorMenuContext();
@@ -90,8 +90,8 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
     }
 
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
-            SpreadsheetFormatterContextDelegator,
-            SpreadsheetFormatterProviderDelegator {
+        SpreadsheetFormatterContextDelegator,
+        SpreadsheetFormatterProviderDelegator {
 
         @Override
         public SpreadsheetFormatterContext spreadsheetFormatterContext() {

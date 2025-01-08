@@ -35,30 +35,30 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
     // function.......................................................................................................
 
     public static HateosResourceMapping<ExpressionFunctionName,
-            ExpressionFunctionInfo,
-            ExpressionFunctionInfoSet,
-            ExpressionFunctionInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> function() {
+        ExpressionFunctionInfo,
+        ExpressionFunctionInfoSet,
+        ExpressionFunctionInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> function() {
 
         // function GET...............................................................................................
 
         HateosResourceMapping<ExpressionFunctionName,
-                ExpressionFunctionInfo,
-                ExpressionFunctionInfoSet,
-                ExpressionFunctionInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMapping.with(
-                        FUNCTION,
-                        ExpressionFunctionHateosResourceMappings::parseFunctionSelection,
-                        ExpressionFunctionInfo.class, // valueType
-                        ExpressionFunctionInfoSet.class, // collectionType
-                        ExpressionFunctionInfo.class,// resourceType
-                        SpreadsheetEngineHateosResourceHandlerContext.class // context
-                )
-                .setHateosResourceHandler(
-                        LinkRelation.SELF,
-                        HttpMethod.GET,
-                        ExpressionFunctionInfoHateosResourceHandler.INSTANCE
-                );
+            ExpressionFunctionInfo,
+            ExpressionFunctionInfoSet,
+            ExpressionFunctionInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMapping.with(
+                FUNCTION,
+                ExpressionFunctionHateosResourceMappings::parseFunctionSelection,
+                ExpressionFunctionInfo.class, // valueType
+                ExpressionFunctionInfoSet.class, // collectionType
+                ExpressionFunctionInfo.class,// resourceType
+                SpreadsheetEngineHateosResourceHandlerContext.class // context
+            )
+            .setHateosResourceHandler(
+                LinkRelation.SELF,
+                HttpMethod.GET,
+                ExpressionFunctionInfoHateosResourceHandler.INSTANCE
+            );
 
         return function;
     }
@@ -75,8 +75,8 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 throw new IllegalArgumentException("Invalid function selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                        ExpressionFunctionName.with(text)
-                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                    ExpressionFunctionName.with(text)
+                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                 );
                 break;
         }

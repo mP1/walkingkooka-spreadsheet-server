@@ -30,7 +30,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
 
     static SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -53,9 +53,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertBefore(
-                column,
-                count,
-                context
+            column,
+            count,
+            context
         );
     }
 
@@ -64,11 +64,11 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertBefore(
-                column.lowerBound()
-                        .value()
-                        .get(),
-                count,
-                context
+            column.lowerBound()
+                .value()
+                .get(),
+            count,
+            context
         );
     }
 
@@ -76,9 +76,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
                                           final int count,
                                           final SpreadsheetEngineContext context) {
         return this.engine.insertRows(
-                column,
-                count,
-                context
+            column,
+            count,
+            context
         );
     }
 
@@ -98,6 +98,6 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow extends Spreads
      * </pre>
      * Needed to avoid the above failure. Note this method is pruned from output.
      */
-    private static void dummy(final HttpRequestAttribute<?> ignored){
+    private static void dummy(final HttpRequestAttribute<?> ignored) {
     }
 }

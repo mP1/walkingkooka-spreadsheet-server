@@ -21,7 +21,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderTesting;
 
 public interface SpreadsheetFormatterSelectorMenuContextTesting<C extends SpreadsheetFormatterSelectorMenuContext> extends SpreadsheetFormatterProviderTesting<C>,
-        SpreadsheetFormatterContextTesting<C> {
+    SpreadsheetFormatterContextTesting<C> {
 
     @Override
     default C createSpreadsheetFormatterProvider() {

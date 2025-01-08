@@ -34,28 +34,28 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
     // converter.......................................................................................................
 
     public static HateosResourceMapping<ConverterName,
-            ConverterInfo,
-            ConverterInfoSet,
-            ConverterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> converter() {
+        ConverterInfo,
+        ConverterInfoSet,
+        ConverterInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> converter() {
 
         // converter GET...............................................................................................
 
         HateosResourceMapping<ConverterName,
-                ConverterInfo,
-                ConverterInfoSet,
-                ConverterInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMapping.with(
-                CONVERTER,
-                ConverterHateosResourceMappings::parseConverterSelection,
-                ConverterInfo.class, // valueType
-                ConverterInfoSet.class, // collectionType
-                ConverterInfo.class,// resourceType
-                SpreadsheetEngineHateosResourceHandlerContext.class // context
+            ConverterInfo,
+            ConverterInfoSet,
+            ConverterInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMapping.with(
+            CONVERTER,
+            ConverterHateosResourceMappings::parseConverterSelection,
+            ConverterInfo.class, // valueType
+            ConverterInfoSet.class, // collectionType
+            ConverterInfo.class,// resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                ConverterInfoHateosResourceHandler.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            ConverterInfoHateosResourceHandler.INSTANCE
         );
 
         return converter;
@@ -73,7 +73,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
                 throw new IllegalArgumentException("Invalid converter selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                        ConverterName.with(text)
+                    ConverterName.with(text)
                 );
                 break;
         }

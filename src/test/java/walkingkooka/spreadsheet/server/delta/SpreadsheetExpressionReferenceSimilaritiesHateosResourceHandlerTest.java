@@ -46,11 +46,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler,
-        String,
-        SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetExpressionReferenceSimilarities,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> {
+    String,
+    SpreadsheetExpressionReferenceSimilarities,
+    SpreadsheetExpressionReferenceSimilarities,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler> {
 
     private final static SpreadsheetCellReference A1 = SpreadsheetSelection.A1;
     private final static SpreadsheetCellReference B2 = SpreadsheetSelection.parseCell("B2");
@@ -91,43 +91,43 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
     @Test
     public void testMissingCountFails() {
         this.handleOneFails(
-                "Abc",
-                Optional.empty(),
-                Maps.empty(),
-                this.context(),
-                IllegalArgumentException.class
+            "Abc",
+            Optional.empty(),
+            Maps.empty(),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
     @Test
     public void testMissingCountFails2() {
         this.handleOneFails(
-                "Abc",
-                Optional.empty(),
-                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty()),
-                this.context(),
-                IllegalArgumentException.class
+            "Abc",
+            Optional.empty(),
+            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty()),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
     @Test
     public void testInvalidCount() {
         this.handleOneFails(
-                "Abc",
-                Optional.empty(),
-                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("???")),
-                this.context(),
-                IllegalArgumentException.class
+            "Abc",
+            Optional.empty(),
+            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("???")),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
     @Test
     public void testHandleCellReference() {
         this.handleOneAndCheck2(
-                "" + A1,
-                2,
-                A1,
-                null
+            "" + A1,
+            2,
+            A1,
+            null
         );
     }
 
@@ -136,58 +136,58 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         final String label = "UnknownLabel999";
 
         this.handleOneAndCheck2(
-                label,
-                2,
-                null,
-                SpreadsheetSelection.labelName(label)
+            label,
+            2,
+            null,
+            SpreadsheetSelection.labelName(label)
         );
     }
 
     @Test
     public void testHandleLabelWithMapping() {
         this.handleOneAndCheck2(
-                "" + LABEL1,
-                2,
-                null,
-                null,
-                MAPPING1
+            "" + LABEL1,
+            2,
+            null,
+            null,
+            MAPPING1
         );
     }
 
     @Test
     public void testHandleLabelWithMapping3() {
         this.handleOneAndCheck2(
-                "Label",
-                4,
-                null,
-                null,
-                MAPPING1,
-                MAPPING2,
-                MAPPING3
+            "Label",
+            4,
+            null,
+            null,
+            MAPPING1,
+            MAPPING2,
+            MAPPING3
         );
     }
 
     @Test
     public void testHandleTextCellAndLabels() {
         this.handleOneAndCheck2(
-                "A",
-                4,
-                null,
-                null,
-                MAPPING1,
-                MAPPING2,
-                MAPPING3
+            "A",
+            4,
+            null,
+            null,
+            MAPPING1,
+            MAPPING2,
+            MAPPING3
         );
     }
 
     @Test
     public void testHandleTextCellAndLabels2() {
         this.handleOneAndCheck2(
-                "1",
-                4,
-                null,
-                null,
-                MAPPING1
+            "1",
+            4,
+            null,
+            null,
+            MAPPING1
         );
     }
 
@@ -197,13 +197,13 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                                     final SpreadsheetLabelName label,
                                     final SpreadsheetLabelMapping... mappings) {
         this.handleOneAndCheck2(
-                text,
-                count,
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.ofNullable(cellReference),
-                        Optional.ofNullable(label),
-                        Sets.of(mappings)
-                )
+            text,
+            count,
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.ofNullable(cellReference),
+                Optional.ofNullable(label),
+                Sets.of(mappings)
+            )
         );
     }
 
@@ -211,11 +211,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
                                     final int count,
                                     final SpreadsheetExpressionReferenceSimilarities expected) {
         this.handleOneAndCheck(
-                text,
-                Optional.empty(),
-                Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
-                this.context(),
-                Optional.ofNullable(expected)
+            text,
+            Optional.empty(),
+            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
+            this.context(),
+            Optional.ofNullable(expected)
         );
     }
 

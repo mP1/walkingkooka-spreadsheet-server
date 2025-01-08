@@ -49,11 +49,11 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     @Test
     public void testHandleOneIdWithMetadataResourceFails() {
         this.handleOneFails(
-                this.id(),
-                Optional.of(this.metadataWithDefaults()),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.id(),
+            Optional.of(this.metadataWithDefaults()),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
@@ -62,22 +62,22 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         final SpreadsheetId id = this.spreadsheetId();
 
         this.handleOneFails(
-                id,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        checkEquals(id, i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return SpreadsheetMetadataTesting.spreadsheetMetadataStore();
-                            }
-                        };
-                    }
-                },
-                MissingStoreException.class
+            id,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                    checkEquals(id, i, "spreadsheetId");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return SpreadsheetMetadataTesting.spreadsheetMetadataStore();
+                        }
+                    };
+                }
+            },
+            MissingStoreException.class
         );
     }
 
@@ -90,22 +90,22 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata);
 
         this.handleOneAndCheck(
-                id,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        checkEquals(id, i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return store;
-                            }
-                        };
-                    }
-                },
-                Optional.of(metadata)
+            id,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                    checkEquals(id, i, "spreadsheetId");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return store;
+                        }
+                    };
+                }
+            },
+            Optional.of(metadata)
         );
     }
 
@@ -119,27 +119,27 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata2);
 
         this.handleAllAndCheck(
-                Optional.empty(),
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.OFFSET,
-                        Lists.of("0"),
-                        SpreadsheetUrlQueryParameters.COUNT,
-                        Lists.of("2")
-                ),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return store;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetMetadataSet.with(
-                                Sets.of(
-                                        metadata1,
-                                        metadata2
-                                )
-                        )
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.OFFSET,
+                Lists.of("0"),
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("2")
+            ),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return store;
+                }
+            },
+            Optional.of(
+                SpreadsheetMetadataSet.with(
+                    Sets.of(
+                        metadata1,
+                        metadata2
+                    )
                 )
+            )
         );
     }
 
@@ -157,25 +157,25 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata4);
 
         this.handleAllAndCheck(
-                Optional.empty(),
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.COUNT,
-                        Lists.of("2")
-                ),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return store;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetMetadataSet.with(
-                                Sets.of(
-                                        metadata1,
-                                        metadata2
-                                )
-                        )
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("2")
+            ),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return store;
+                }
+            },
+            Optional.of(
+                SpreadsheetMetadataSet.with(
+                    Sets.of(
+                        metadata1,
+                        metadata2
+                    )
                 )
+            )
         );
     }
 
@@ -193,27 +193,27 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata4);
 
         this.handleAllAndCheck(
-                Optional.empty(),
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.OFFSET,
-                        Lists.of("1"),
-                        SpreadsheetUrlQueryParameters.COUNT,
-                        Lists.of("2")
-                ),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return store;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetMetadataSet.with(
-                                Sets.of(
-                                        metadata2,
-                                        metadata3
-                                )
-                        )
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.OFFSET,
+                Lists.of("1"),
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("2")
+            ),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return store;
+                }
+            },
+            Optional.of(
+                SpreadsheetMetadataSet.with(
+                    Sets.of(
+                        metadata2,
+                        metadata3
+                    )
                 )
+            )
         );
     }
 
@@ -229,36 +229,36 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         store.save(metadata3);
 
         final SpreadsheetMetadataSet all = SpreadsheetMetadataSet.with(
-                Sets.of(
-                        metadata1,
-                        metadata3
-                )
+            Sets.of(
+                metadata1,
+                metadata3
+            )
         );
 
         this.handleManyAndCheck(
-                all.stream()
-                        .map(m -> m.id().get())
-                        .collect(Collectors.toCollection(SortedSets::tree)),
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return store;
-                    }
-                },
-                Optional.of(all)
+            all.stream()
+                .map(m -> m.id().get())
+                .collect(Collectors.toCollection(SortedSets::tree)),
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return store;
+                }
+            },
+            Optional.of(all)
         );
     }
 
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
+            .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
     }
 
     // helpers..........................................................................................................
@@ -275,7 +275,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     private SpreadsheetMetadata metadataWithDefaults() {
         return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
     }
 
     // toString.........................................................................................................
@@ -283,8 +283,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "loadMetadata"
+            this.createHandler(),
+            "loadMetadata"
         );
     }
 

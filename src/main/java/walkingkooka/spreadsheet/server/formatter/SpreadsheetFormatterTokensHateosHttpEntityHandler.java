@@ -43,10 +43,10 @@ import java.util.Map;
  * A handler that takes the {@link SpreadsheetFormatterName} and request body {@link String} to make a {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatter(SpreadsheetFormatterSelector)}.
  */
 final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetFormatterSelectorTokenList.with(Lists.empty()); // force json registry
@@ -73,52 +73,52 @@ final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosH
 
         final MediaType requiredContentType = context.contentType();
         requiredContentType.requireContentType(
-                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                        .orElse(null)
+            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                .orElse(null)
         );
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // read request body text
         final String text = context.unmarshall(
-                JsonNode.parse(
-                        httpEntity.bodyText()
-                ),
-                String.class
+            JsonNode.parse(
+                httpEntity.bodyText()
+            ),
+            String.class
         );
 
         // format all the individual requests
         final List<SpreadsheetFormatterSelectorToken> response = tokens(
-                formatterName.setValueText(text), // selector
-                context
+            formatterName.setValueText(text), // selector
+            context
         );
 
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            SpreadsheetFormatterSelectorTokenList.class.getSimpleName()
         ).setBodyText(
-                context.marshall(
-                        SpreadsheetFormatterSelectorTokenList.with(response)
-                ).toString()
+            context.marshall(
+                SpreadsheetFormatterSelectorTokenList.with(response)
+            ).toString()
         ).setContentLength();
     }
 
     private List<SpreadsheetFormatterSelectorToken> tokens(final SpreadsheetFormatterSelector selector,
                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetFormatter(
-                selector,
-                context
+            selector,
+            context
         ).tokens(
-                context.spreadsheetMetadata()
-                        .spreadsheetFormatterContext(
-                                context, // SpreadsheetLabelNameResolver
-                                context, // ConverterProvider
-                                context, // SpreadsheetFormatterProvider
-                                context // ProviderContext
-                        )
+            context.spreadsheetMetadata()
+                .spreadsheetFormatterContext(
+                    context, // SpreadsheetLabelNameResolver
+                    context, // ConverterProvider
+                    context, // SpreadsheetFormatterProvider
+                    context // ProviderContext
+                )
         );
     }
 

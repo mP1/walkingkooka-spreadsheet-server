@@ -42,97 +42,97 @@ import java.util.Locale;
 import java.util.Optional;
 
 public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     @Override
     public String currencySymbol() {
         return this.spreadsheetConverterContext()
-                .currencySymbol();
+            .currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
         return this.spreadsheetConverterContext()
-                .decimalSeparator();
+            .decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
         return this.spreadsheetConverterContext()
-                .exponentSymbol();
+            .exponentSymbol();
     }
 
     @Override
     public char groupSeparator() {
         return this.spreadsheetConverterContext()
-                .groupSeparator();
+            .groupSeparator();
     }
 
     @Override
     public MathContext mathContext() {
         return this.spreadsheetConverterContext()
-                .mathContext();
+            .mathContext();
     }
 
     @Override
     public char negativeSign() {
         return this.spreadsheetConverterContext()
-                .negativeSign();
+            .negativeSign();
     }
 
     @Override
     public char percentageSymbol() {
         return this.spreadsheetConverterContext()
-                .percentageSymbol();
+            .percentageSymbol();
     }
 
     @Override
     public char positiveSign() {
         return this.spreadsheetConverterContext()
-                .positiveSign();
+            .positiveSign();
     }
 
     @Override
     public BasicSpreadsheetFormatterSelectorEditContext createContext() {
         return BasicSpreadsheetFormatterSelectorEditContext.with(
-                this.spreadsheetFormatterContext(),
-                SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
-                PROVIDER_CONTEXT
+            this.spreadsheetFormatterContext(),
+            SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
+            PROVIDER_CONTEXT
         );
     }
 
     private SpreadsheetFormatterContext spreadsheetFormatterContext() {
         return SpreadsheetFormatterContexts.basic(
-                this::numberToColor,
-                this::nameToColor,
-                1, // cellCharacterWidth
-                8, // default general-format-number-digit-count
-                SpreadsheetFormatters.fake(), // should never be called
-                this.spreadsheetConverterContext()
+            this::numberToColor,
+            this::nameToColor,
+            1, // cellCharacterWidth
+            8, // default general-format-number-digit-count
+            SpreadsheetFormatters.fake(), // should never be called
+            this.spreadsheetConverterContext()
         );
     }
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
         return SpreadsheetConverterContexts.basic(
-                Converters.objectToString(),
-                SpreadsheetLabelNameResolvers.fake(),
-                ExpressionNumberConverterContexts.basic(
-                        Converters.fake(),
-                        ConverterContexts.basic(
-                                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                Converters.objectToString(),
-                                DateTimeContexts.locale(
-                                        Locale.forLanguageTag("EN-AU"),
-                                        1950, // default year
-                                        50, // two-digit-year
-                                        LocalDateTime::now
-                                ),
-                                DecimalNumberContexts.american(
-                                        MathContext.DECIMAL32
-                                )
-                        ),
-                        ExpressionNumberKind.BIG_DECIMAL
-                )
+            Converters.objectToString(),
+            SpreadsheetLabelNameResolvers.fake(),
+            ExpressionNumberConverterContexts.basic(
+                Converters.fake(),
+                ConverterContexts.basic(
+                    Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                    Converters.objectToString(),
+                    DateTimeContexts.locale(
+                        Locale.forLanguageTag("EN-AU"),
+                        1950, // default year
+                        50, // two-digit-year
+                        LocalDateTime::now
+                    ),
+                    DecimalNumberContexts.american(
+                        MathContext.DECIMAL32
+                    )
+                ),
+                ExpressionNumberKind.BIG_DECIMAL
+            )
         );
     }
 

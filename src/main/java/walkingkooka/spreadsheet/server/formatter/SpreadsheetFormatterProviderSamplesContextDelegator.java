@@ -22,7 +22,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 
 public interface SpreadsheetFormatterProviderSamplesContextDelegator extends SpreadsheetFormatterProviderSamplesContext,
-        SpreadsheetFormatterContextDelegator {
+    SpreadsheetFormatterContextDelegator {
 
     @Override
     default SpreadsheetFormatterContext spreadsheetFormatterContext() {

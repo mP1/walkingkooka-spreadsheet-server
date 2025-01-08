@@ -56,26 +56,26 @@ class PluginFileDownloadHttpHandlerFileExtractor extends PluginFileDownloadHttpH
 
                 if (filenameWithoutLeadingSlash.equals(zipEntry.getName())) {
                     final Binary content = Binary.with(
-                            zipInputStream.readAllBytes()
+                        zipInputStream.readAllBytes()
                     );
 
                     final MediaType contentType = contentTypeDetector.detect(
-                            filename,
-                            content
+                        filename,
+                        content
                     );
 
                     if (accept.test(contentType)) {
                         response = HttpEntity.EMPTY.setContentType(contentType)
-                                .addHeader(
-                                        HttpHeaderName.CONTENT_DISPOSITION,
-                                        ContentDispositionType.ATTACHMENT.setFilename(
-                                                ContentDispositionFileName.notEncoded(filename)
-                                        )
-                                ).addHeader(
-                                        JsonHttpHandlers.X_CONTENT_TYPE_NAME,
-                                        JarEntryInfoName.class.getSimpleName()
-                                ).setBody(content)
-                                .setContentLength();
+                            .addHeader(
+                                HttpHeaderName.CONTENT_DISPOSITION,
+                                ContentDispositionType.ATTACHMENT.setFilename(
+                                    ContentDispositionFileName.notEncoded(filename)
+                                )
+                            ).addHeader(
+                                JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                                JarEntryInfoName.class.getSimpleName()
+                            ).setBody(content)
+                            .setContentLength();
                     }
                     break;
                 }

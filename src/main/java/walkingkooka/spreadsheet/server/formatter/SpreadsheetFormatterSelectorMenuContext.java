@@ -21,5 +21,5 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 
 public interface SpreadsheetFormatterSelectorMenuContext extends SpreadsheetFormatterProvider,
-        SpreadsheetFormatterProviderSamplesContext {
+    SpreadsheetFormatterProviderSamplesContext {
 }

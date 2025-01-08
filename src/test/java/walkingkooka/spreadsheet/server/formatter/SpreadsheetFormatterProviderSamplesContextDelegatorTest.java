@@ -27,7 +27,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterProviderSam
 import java.math.MathContext;
 
 public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements SpreadsheetFormatterProviderSamplesContextTesting<TestSpreadsheetFormatterProviderSamplesContextDelegator>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     @Override
     public TestSpreadsheetFormatterProviderSamplesContextDelegator createContext() {
@@ -39,7 +39,7 @@ public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements 
         @Override
         public SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext() {
             return SpreadsheetFormatterProviderSamplesContexts.basic(
-                    SPREADSHEET_FORMATTER_CONTEXT
+                SPREADSHEET_FORMATTER_CONTEXT
             );
         }
     }

@@ -33,60 +33,60 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterFormatRequestTest implements HashCodeEqualsDefinedTesting2<SpreadsheetFormatterFormatRequest<LocalDate>>,
-        ClassTesting<SpreadsheetFormatterFormatRequest<LocalDate>>,
-        ToStringTesting<SpreadsheetFormatterFormatRequest<LocalDate>> {
+    ClassTesting<SpreadsheetFormatterFormatRequest<LocalDate>>,
+    ToStringTesting<SpreadsheetFormatterFormatRequest<LocalDate>> {
 
     private final static SpreadsheetFormatterSelector SELECTOR = SpreadsheetPattern.parseDateFormatPattern("dd/mm/yyyyy")
-            .spreadsheetFormatterSelector();
+        .spreadsheetFormatterSelector();
 
     private final static LocalDate VALUE = LocalDate.of(1999, 12, 31);
 
     @Test
     public void testWithNullSelectorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterFormatRequest.with(
-                        null,
-                        VALUE
-                )
+            NullPointerException.class,
+            () -> SpreadsheetFormatterFormatRequest.with(
+                null,
+                VALUE
+            )
         );
     }
 
     @Test
     public void testWith() {
         final SpreadsheetFormatterFormatRequest<LocalDate> request = SpreadsheetFormatterFormatRequest.with(
-                SELECTOR,
-                VALUE
+            SELECTOR,
+            VALUE
         );
 
         this.checkEquals(
-                SELECTOR,
-                request.selector(),
-                "selector"
+            SELECTOR,
+            request.selector(),
+            "selector"
         );
         this.checkEquals(
-                VALUE,
-                request.value(),
-                "value"
+            VALUE,
+            request.value(),
+            "value"
         );
     }
 
     @Test
     public void testWithNullValue() {
         final SpreadsheetFormatterFormatRequest<LocalDate> request = SpreadsheetFormatterFormatRequest.with(
-                SELECTOR,
-                null
+            SELECTOR,
+            null
         );
 
         this.checkEquals(
-                SELECTOR,
-                request.selector(),
-                "selector"
+            SELECTOR,
+            request.selector(),
+            "selector"
         );
         this.checkEquals(
-                null,
-                request.value(),
-                "value"
+            null,
+            request.value(),
+            "value"
         );
     }
 
@@ -95,28 +95,28 @@ public final class SpreadsheetFormatterFormatRequestTest implements HashCodeEqua
     @Test
     public void testEqualsDifferentSelector() {
         this.checkNotEquals(
-                SpreadsheetFormatterFormatRequest.with(
-                        SELECTOR.setName(SpreadsheetFormatterName.TEXT_FORMAT_PATTERN),
-                        VALUE
-                )
+            SpreadsheetFormatterFormatRequest.with(
+                SELECTOR.setName(SpreadsheetFormatterName.TEXT_FORMAT_PATTERN),
+                VALUE
+            )
         );
     }
 
     @Test
     public void testEqualsDifferentValue() {
         this.checkNotEquals(
-                SpreadsheetFormatterFormatRequest.with(
-                        SELECTOR,
-                        LocalDateTime.now()
-                )
+            SpreadsheetFormatterFormatRequest.with(
+                SELECTOR,
+                LocalDateTime.now()
+            )
         );
     }
 
     @Override
     public SpreadsheetFormatterFormatRequest<LocalDate> createObject() {
         return SpreadsheetFormatterFormatRequest.with(
-                SELECTOR,
-                VALUE
+            SELECTOR,
+            VALUE
         );
     }
 
@@ -125,33 +125,33 @@ public final class SpreadsheetFormatterFormatRequestTest implements HashCodeEqua
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                SpreadsheetFormatterFormatRequest.with(
-                        SELECTOR,
-                        VALUE
-                ),
-                SELECTOR + " " + VALUE
+            SpreadsheetFormatterFormatRequest.with(
+                SELECTOR,
+                VALUE
+            ),
+            SELECTOR + " " + VALUE
         );
     }
 
     @Test
     public void testToStringStringValue() {
         this.toStringAndCheck(
-                SpreadsheetFormatterFormatRequest.with(
-                        SELECTOR,
-                        "abc"
-                ),
-                SELECTOR + " \"abc\""
+            SpreadsheetFormatterFormatRequest.with(
+                SELECTOR,
+                "abc"
+            ),
+            SELECTOR + " \"abc\""
         );
     }
 
     @Test
     public void testToStringNullValue() {
         this.toStringAndCheck(
-                SpreadsheetFormatterFormatRequest.with(
-                        SELECTOR,
-                        null
-                ),
-                SELECTOR.toString()
+            SpreadsheetFormatterFormatRequest.with(
+                SELECTOR,
+                null
+            ),
+            SELECTOR.toString()
         );
     }
 

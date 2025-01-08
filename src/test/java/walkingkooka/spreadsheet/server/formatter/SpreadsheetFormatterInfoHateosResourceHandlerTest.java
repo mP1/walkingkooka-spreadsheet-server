@@ -39,22 +39,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetFormatterInfoHateosResourceHandler,
-        SpreadsheetFormatterName,
-        SpreadsheetFormatterInfo,
-        SpreadsheetFormatterInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
+    SpreadsheetFormatterName,
+    SpreadsheetFormatterInfo,
+    SpreadsheetFormatterInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<SpreadsheetFormatterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static SpreadsheetFormatterInfo INFO1 = SpreadsheetFormatterInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            SpreadsheetFormatterName.with("formatter-1")
+        Url.parseAbsolute("https://example.com/1"),
+        SpreadsheetFormatterName.with("formatter-1")
     );
 
     private final static SpreadsheetFormatterInfo INFO2 = SpreadsheetFormatterInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            SpreadsheetFormatterName.with("formatter-2")
+        Url.parseAbsolute("https://example.com/2"),
+        SpreadsheetFormatterName.with("formatter-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -65,10 +65,10 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
                 @Override
                 public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
                     return SpreadsheetFormatterInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -78,39 +78,39 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                SpreadsheetFormatterName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            SpreadsheetFormatterName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        SpreadsheetFormatterInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                SpreadsheetFormatterInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -127,15 +127,15 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     @Override
     public Set<SpreadsheetFormatterName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<SpreadsheetFormatterName> range() {
         return Range.singleton(
-                SpreadsheetFormatterName.with("range-spreadsheet-formatter-name")
+            SpreadsheetFormatterName.with("range-spreadsheet-formatter-name")
         );
     }
 
@@ -164,8 +164,8 @@ public final class SpreadsheetFormatterInfoHateosResourceHandlerTest implements 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "systemSpreadsheetProvider.spreadsheetFormatterInfos"
+            this.createHandler(),
+            "systemSpreadsheetProvider.spreadsheetFormatterInfos"
         );
     }
 

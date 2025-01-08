@@ -99,7 +99,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetMetadataHateosResourceHandlerContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -109,84 +109,84 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
-            JsonNodeMarshallUnmarshallContexts.basic(
-                    JSON_NODE_MARSHALL_CONTEXT,
-                    JSON_NODE_UNMARSHALL_CONTEXT
-            )
+        JsonNodeMarshallUnmarshallContexts.basic(
+            JSON_NODE_MARSHALL_CONTEXT,
+            JSON_NODE_UNMARSHALL_CONTEXT
+        )
     );
 
     @Test
     public void testWithNullServerUrlFails() {
         this.withFails(
-                null,
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            null,
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
         this.withFails(
-                this.base(),
-                null,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            null,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                null,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            null,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                null,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            null,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullSystemProviderContextFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                null,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            null,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -194,60 +194,60 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     @Test
     public void testWithNullMetadataStoreFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                null,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            null,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                null,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            null,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdRepositoryFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                null,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            null,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                null
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            null
         );
     }
 
@@ -261,18 +261,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                            final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                            final HateosResourceHandlerContext hateosResourceHandlerContext) {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                        serverUrl,
-                        indentation,
-                        lineEnding,
-                        systemSpreadsheetProvider,
-                        providerContext,
-                        metadataStore,
-                        spreadsheetIdToSpreadsheetProvider,
-                        spreadsheetIdToRepository,
-                        hateosResourceHandlerContext
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                indentation,
+                lineEnding,
+                systemSpreadsheetProvider,
+                providerContext,
+                metadataStore,
+                spreadsheetIdToSpreadsheetProvider,
+                spreadsheetIdToRepository,
+                hateosResourceHandlerContext
+            )
         );
     }
 
@@ -284,417 +284,417 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     @Test
     public void testHateosRouterThenSaveThenLoadClearValueErrorSkipEvaluate() {
         this.hateosRouterThenSaveThenLoadAndCheck(
-                SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE,
-                "{\n" +
-                        "  \"cells\": {\n" +
-                        "    \"B2\": {\n" +
-                        "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
-                        "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
-                        "          \"value\": {\n" +
-                        "            \"value\": [\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"=\",\n" +
-                        "                  \"text\": \"=\"\n" +
-                        "                }\n" +
-                        "              },\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": [\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"1\",\n" +
-                        "                              \"text\": \"1\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"1\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": \"+\",\n" +
-                        "                        \"text\": \"+\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"2\",\n" +
-                        "                              \"text\": \"2\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"2\"\n" +
-                        "                      }\n" +
-                        "                    }\n" +
-                        "                  ],\n" +
-                        "                  \"text\": \"1+2\"\n" +
-                        "                }\n" +
-                        "              }\n" +
-                        "            ],\n" +
-                        "            \"text\": \"=1+2\"\n" +
-                        "          }\n" +
-                        "        }\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"columnWidths\": {\n" +
-                        "    \"B\": 100\n" +
-                        "  },\n" +
-                        "  \"rowHeights\": {\n" +
-                        "    \"2\": 30\n" +
-                        "  },\n" +
-                        "  \"columnCount\": 2,\n" +
-                        "  \"rowCount\": 2\n" +
-                        "}"
+            SpreadsheetEngineEvaluation.CLEAR_VALUE_ERROR_SKIP_EVALUATE,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1+2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"1\",\n" +
+                "                              \"text\": \"1\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"+\",\n" +
+                "                        \"text\": \"+\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"2\",\n" +
+                "                              \"text\": \"2\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1+2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1+2\"\n" +
+                "          }\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 30\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
+                "}"
         );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadComputeIfNecessary() {
         this.hateosRouterThenSaveThenLoadAndCheck(
-                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-                "{\n" +
-                        "  \"cells\": {\n" +
-                        "    \"B2\": {\n" +
-                        "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
-                        "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
-                        "          \"value\": {\n" +
-                        "            \"value\": [\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"=\",\n" +
-                        "                  \"text\": \"=\"\n" +
-                        "                }\n" +
-                        "              },\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": [\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"1\",\n" +
-                        "                              \"text\": \"1\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"1\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": \"+\",\n" +
-                        "                        \"text\": \"+\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"2\",\n" +
-                        "                              \"text\": \"2\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"2\"\n" +
-                        "                      }\n" +
-                        "                    }\n" +
-                        "                  ],\n" +
-                        "                  \"text\": \"1+2\"\n" +
-                        "                }\n" +
-                        "              }\n" +
-                        "            ],\n" +
-                        "            \"text\": \"=1+2\"\n" +
-                        "          }\n" +
-                        "        },\n" +
-                        "        \"expression\": {\n" +
-                        "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"1\"\n" +
-                        "              }\n" +
-                        "            },\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"2\"\n" +
-                        "              }\n" +
-                        "            }\n" +
-                        "          ]\n" +
-                        "        },\n" +
-                        "        \"value\": {\n" +
-                        "          \"type\": \"expression-number\",\n" +
-                        "          \"value\": \"3\"\n" +
-                        "        }\n" +
-                        "      },\n" +
-                        "      \"formatted-value\": {\n" +
-                        "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Number 003.000\"\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"columnWidths\": {\n" +
-                        "    \"B\": 100\n" +
-                        "  },\n" +
-                        "  \"rowHeights\": {\n" +
-                        "    \"2\": 30\n" +
-                        "  },\n" +
-                        "  \"columnCount\": 2,\n" +
-                        "  \"rowCount\": 2\n" +
-                        "}"
+            SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1+2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"1\",\n" +
+                "                              \"text\": \"1\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"+\",\n" +
+                "                        \"text\": \"+\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"2\",\n" +
+                "                              \"text\": \"2\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1+2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1+2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"add-expression\",\n" +
+                "          \"value\": [\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"1\"\n" +
+                "              }\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"2\"\n" +
+                "              }\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"value\": {\n" +
+                "          \"type\": \"expression-number\",\n" +
+                "          \"value\": \"3\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"formatted-value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Number 003.000\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 30\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
+                "}"
         );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadForceRecompute() {
         this.hateosRouterThenSaveThenLoadAndCheck(
-                SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
-                "{\n" +
-                        "  \"cells\": {\n" +
-                        "    \"B2\": {\n" +
-                        "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
-                        "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
-                        "          \"value\": {\n" +
-                        "            \"value\": [\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"=\",\n" +
-                        "                  \"text\": \"=\"\n" +
-                        "                }\n" +
-                        "              },\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": [\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"1\",\n" +
-                        "                              \"text\": \"1\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"1\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": \"+\",\n" +
-                        "                        \"text\": \"+\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"2\",\n" +
-                        "                              \"text\": \"2\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"2\"\n" +
-                        "                      }\n" +
-                        "                    }\n" +
-                        "                  ],\n" +
-                        "                  \"text\": \"1+2\"\n" +
-                        "                }\n" +
-                        "              }\n" +
-                        "            ],\n" +
-                        "            \"text\": \"=1+2\"\n" +
-                        "          }\n" +
-                        "        },\n" +
-                        "        \"expression\": {\n" +
-                        "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"1\"\n" +
-                        "              }\n" +
-                        "            },\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"2\"\n" +
-                        "              }\n" +
-                        "            }\n" +
-                        "          ]\n" +
-                        "        },\n" +
-                        "        \"value\": {\n" +
-                        "          \"type\": \"expression-number\",\n" +
-                        "          \"value\": \"3\"\n" +
-                        "        }\n" +
-                        "      },\n" +
-                        "      \"formatted-value\": {\n" +
-                        "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Number 003.000\"\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"columnWidths\": {\n" +
-                        "    \"B\": 100\n" +
-                        "  },\n" +
-                        "  \"rowHeights\": {\n" +
-                        "    \"2\": 30\n" +
-                        "  },\n" +
-                        "  \"columnCount\": 2,\n" +
-                        "  \"rowCount\": 2\n" +
-                        "}"
+            SpreadsheetEngineEvaluation.FORCE_RECOMPUTE,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1+2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"1\",\n" +
+                "                              \"text\": \"1\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"+\",\n" +
+                "                        \"text\": \"+\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"2\",\n" +
+                "                              \"text\": \"2\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1+2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1+2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"add-expression\",\n" +
+                "          \"value\": [\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"1\"\n" +
+                "              }\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"2\"\n" +
+                "              }\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"value\": {\n" +
+                "          \"type\": \"expression-number\",\n" +
+                "          \"value\": \"3\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"formatted-value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Number 003.000\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 30\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
+                "}"
         );
     }
 
     @Test
     public void testHateosRouterThenSaveThenLoadSkipEvaluate() {
         this.hateosRouterThenSaveThenLoadAndCheck(
-                SpreadsheetEngineEvaluation.SKIP_EVALUATE,
-                "{\n" +
-                        "  \"cells\": {\n" +
-                        "    \"B2\": {\n" +
-                        "      \"formula\": {\n" +
-                        "        \"text\": \"=1+2\",\n" +
-                        "        \"token\": {\n" +
-                        "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
-                        "          \"value\": {\n" +
-                        "            \"value\": [\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": \"=\",\n" +
-                        "                  \"text\": \"=\"\n" +
-                        "                }\n" +
-                        "              },\n" +
-                        "              {\n" +
-                        "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
-                        "                \"value\": {\n" +
-                        "                  \"value\": [\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"1\",\n" +
-                        "                              \"text\": \"1\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"1\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": \"+\",\n" +
-                        "                        \"text\": \"+\"\n" +
-                        "                      }\n" +
-                        "                    },\n" +
-                        "                    {\n" +
-                        "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
-                        "                      \"value\": {\n" +
-                        "                        \"value\": [\n" +
-                        "                          {\n" +
-                        "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
-                        "                            \"value\": {\n" +
-                        "                              \"value\": \"2\",\n" +
-                        "                              \"text\": \"2\"\n" +
-                        "                            }\n" +
-                        "                          }\n" +
-                        "                        ],\n" +
-                        "                        \"text\": \"2\"\n" +
-                        "                      }\n" +
-                        "                    }\n" +
-                        "                  ],\n" +
-                        "                  \"text\": \"1+2\"\n" +
-                        "                }\n" +
-                        "              }\n" +
-                        "            ],\n" +
-                        "            \"text\": \"=1+2\"\n" +
-                        "          }\n" +
-                        "        },\n" +
-                        "        \"expression\": {\n" +
-                        "          \"type\": \"add-expression\",\n" +
-                        "          \"value\": [\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"1\"\n" +
-                        "              }\n" +
-                        "            },\n" +
-                        "            {\n" +
-                        "              \"type\": \"value-expression\",\n" +
-                        "              \"value\": {\n" +
-                        "                \"type\": \"expression-number\",\n" +
-                        "                \"value\": \"2\"\n" +
-                        "              }\n" +
-                        "            }\n" +
-                        "          ]\n" +
-                        "        },\n" +
-                        "        \"value\": {\n" +
-                        "          \"type\": \"expression-number\",\n" +
-                        "          \"value\": \"3\"\n" +
-                        "        }\n" +
-                        "      },\n" +
-                        "      \"formatted-value\": {\n" +
-                        "        \"type\": \"text\",\n" +
-                        "        \"value\": \"Number 003.000\"\n" +
-                        "      }\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  \"columnWidths\": {\n" +
-                        "    \"B\": 100\n" +
-                        "  },\n" +
-                        "  \"rowHeights\": {\n" +
-                        "    \"2\": 30\n" +
-                        "  },\n" +
-                        "  \"columnCount\": 2,\n" +
-                        "  \"rowCount\": 2\n" +
-                        "}"
+            SpreadsheetEngineEvaluation.SKIP_EVALUATE,
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1+2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"1\",\n" +
+                "                              \"text\": \"1\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"+\",\n" +
+                "                        \"text\": \"+\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": [\n" +
+                "                          {\n" +
+                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"value\": {\n" +
+                "                              \"value\": \"2\",\n" +
+                "                              \"text\": \"2\"\n" +
+                "                            }\n" +
+                "                          }\n" +
+                "                        ],\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1+2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1+2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"add-expression\",\n" +
+                "          \"value\": [\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"1\"\n" +
+                "              }\n" +
+                "            },\n" +
+                "            {\n" +
+                "              \"type\": \"value-expression\",\n" +
+                "              \"value\": {\n" +
+                "                \"type\": \"expression-number\",\n" +
+                "                \"value\": \"2\"\n" +
+                "              }\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        },\n" +
+                "        \"value\": {\n" +
+                "          \"type\": \"expression-number\",\n" +
+                "          \"value\": \"3\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"formatted-value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Number 003.000\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 30\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
+                "}"
         );
     }
 
@@ -703,22 +703,22 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final AtomicReference<LocalDateTime> now = new AtomicReference<>();
         now.set(NOW.now());
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext(
-                new FakeProviderContext() {
-                    @Override
-                    public LocalDateTime now() {
-                        return now.get();
-                    }
-
-                    @Override
-                    public PluginStore pluginStore() {
-                        return PROVIDER_CONTEXT.pluginStore();
-                    }
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return PROVIDER_CONTEXT.user();
-                    }
+            new FakeProviderContext() {
+                @Override
+                public LocalDateTime now() {
+                    return now.get();
                 }
+
+                @Override
+                public PluginStore pluginStore() {
+                    return PROVIDER_CONTEXT.pluginStore();
+                }
+
+                @Override
+                public Optional<EmailAddress> user() {
+                    return PROVIDER_CONTEXT.user();
+                }
+            }
         );
         final SpreadsheetId id = this.spreadsheetId();
 
@@ -726,18 +726,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
         final SpreadsheetCell cell = cellReference
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText("=1+2")
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText("=1+2")
+            );
 
         final LocalDateTime updatedTimestamp = LocalDateTime.of(
-                2000,
-                1,
-                1,
-                1,
-                23,
-                45
+            2000,
+            1,
+            1,
+            1,
+            23,
+            45
         );
         now.set(updatedTimestamp);
 
@@ -758,10 +758,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(
-                            HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
-                            HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
-                            HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
+                        HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
+                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                        HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
+                        HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
                     );
                 }
 
@@ -772,8 +772,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 @Override
                 public String bodyText() {
                     return JSON_NODE_MARSHALL_CONTEXT
-                            .marshall(SpreadsheetDelta.EMPTY.setCells(Sets.of(cell)))
-                            .toString();
+                        .marshall(SpreadsheetDelta.EMPTY.setCells(Sets.of(cell)))
+                        .toString();
                 }
 
                 @Override
@@ -788,8 +788,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             final HttpResponse response = HttpResponses.recording();
             @SuppressWarnings("OptionalGetWithoutIsPresent") final HttpHandler httpHandler = mapped.get();
             httpHandler.handle(
-                    request,
-                    response
+                request,
+                response
             );
         }
 
@@ -809,10 +809,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 @Override
                 public Map<HttpHeaderName<?>, List<?>> headers() {
                     return headersMap(
-                            HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
-                            HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
-                            HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
-                            HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
+                        HttpHeaderName.ACCEPT, CONTENT_TYPE.accept(),
+                        HttpHeaderName.ACCEPT_CHARSET, AcceptCharset.parse("UTF-8"),
+                        HttpHeaderName.CONTENT_LENGTH, Long.valueOf(this.bodyText().length()),
+                        HttpHeaderName.CONTENT_TYPE, CONTENT_TYPE
                     );
                 }
 
@@ -833,30 +833,30 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             //noinspection OptionalGetWithoutIsPresent
             final HttpHandler httpHandler = mapped.get();
             httpHandler.handle(
-                    request,
-                    response
+                request,
+                response
             );
 
             final HttpResponse expected = HttpResponses.recording();
             expected.setStatus(HttpStatusCode.OK.status());
 
             expected.setEntity(
-                    HttpEntity.EMPTY
+                HttpEntity.EMPTY
                     .setContentType(CONTENT_TYPE.setCharset(CharsetName.UTF_8))
                     .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
-                            .setContentLength()
+                    .setContentLength()
             );
 
             this.checkEquals(expected, response, () -> "consumer: " + httpHandler + ", request: " + request);
         }
 
         this.checkEquals(
-                updatedTimestamp,
-                context.metadataStore()
-                        .loadOrFail(id)
-                        .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME),
-                () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME + " not updated when cell saved"
+            updatedTimestamp,
+            context.metadataStore()
+                .loadOrFail(id)
+                .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME),
+            () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME + " not updated when cell saved"
         );
     }
 
@@ -894,9 +894,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         final Optional<HttpHandler> mapped = router.route(request.routerParameters());
         this.checkEquals(
-                Optional.empty(),
-                mapped,
-                "request " + request.parameters()
+            Optional.empty(),
+            mapped,
+            "request " + request.parameters()
         );
     }
 
@@ -918,13 +918,13 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         this.countAndCheck(repository.users(), 0);
 
         repository.cells()
-                .save(
-                        SpreadsheetSelection.A1
-                                .setFormula(
-                                        SpreadsheetFormula.EMPTY
-                                                .setText("1+2")
-                                )
-                );
+            .save(
+                SpreadsheetSelection.A1
+                    .setFormula(
+                        SpreadsheetFormula.EMPTY
+                            .setText("1+2")
+                    )
+            );
         this.countAndCheck(repository.cells(), 1);
     }
 
@@ -961,27 +961,27 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = context.metadataStore()
-                .create(
-                        USER,
-                        Optional.empty()
-                ).set(
-                        SpreadsheetMetadataPropertyName.LOCALE,
-                        Locale.forLanguageTag("EN-AU")
-                );
+            .create(
+                USER,
+                Optional.empty()
+            ).set(
+                SpreadsheetMetadataPropertyName.LOCALE,
+                Locale.forLanguageTag("EN-AU")
+            );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetName> propertyName = SpreadsheetMetadataPropertyName.SPREADSHEET_NAME;
         final SpreadsheetName name = SpreadsheetName.with("Spreadsheet234");
 
         final SpreadsheetMetadata updated = metadata.set(
-                propertyName,
-                name
+            propertyName,
+            name
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
 
         this.checkEquals(
-                updated,
-                saved
+            updated,
+            saved
         );
     }
 
@@ -990,29 +990,29 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
         final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-                SpreadsheetSelection.parseCell("B2")
-                        .viewportRectangle(
-                                123,
-                                456
-                        )
+            SpreadsheetSelection.parseCell("B2")
+                .viewportRectangle(
+                    123,
+                    456
+                )
         ).setAnchoredSelection(
-                Optional.of(SpreadsheetSelection.A1.setDefaultAnchor())
+            Optional.of(SpreadsheetSelection.A1.setDefaultAnchor())
         );
 
         final SpreadsheetMetadata updated = metadata.set(
-                propertyName,
-                viewport
+            propertyName,
+            viewport
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
 
         this.checkEquals(
-                updated,
-                saved
+            updated,
+            saved
         );
     }
 
@@ -1021,34 +1021,34 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("UnknownLabel123");
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
         final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-                SpreadsheetSelection.parseCell("B2")
-                        .viewportRectangle(
-                                123,
-                                456
-                        )
+            SpreadsheetSelection.parseCell("B2")
+                .viewportRectangle(
+                    123,
+                    456
+                )
         ).setAnchoredSelection(
-                Optional.of(label.setDefaultAnchor())
+            Optional.of(label.setDefaultAnchor())
         );
 
         final SpreadsheetMetadata updated = metadata.set(
-                propertyName,
-                viewport
+            propertyName,
+            viewport
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
 
         this.checkEquals(
-                updated.set(
-                        propertyName,
-                        viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
-                ),
-                saved
+            updated.set(
+                propertyName,
+                viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
+            ),
+            saved
         );
     }
 
@@ -1057,34 +1057,34 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final BasicSpreadsheetMetadataHateosResourceHandlerContext context = this.createContext();
 
         final SpreadsheetMetadata metadata = this.createMetadata(Optional.empty())
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"));
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ExistingLabel123");
         context.storeRepository(metadata.id().get())
-                .labels()
-                .save(label.mapping(SpreadsheetSelection.A1));
+            .labels()
+            .save(label.mapping(SpreadsheetSelection.A1));
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
         final SpreadsheetViewport viewport = SpreadsheetViewport.with(
-                SpreadsheetSelection.parseCell("B2")
-                        .viewportRectangle(
-                                123,
-                                456
-                        )
+            SpreadsheetSelection.parseCell("B2")
+                .viewportRectangle(
+                    123,
+                    456
+                )
         ).setAnchoredSelection(
-                Optional.of(label.setDefaultAnchor())
+            Optional.of(label.setDefaultAnchor())
         );
 
         final SpreadsheetMetadata updated = metadata.set(
-                propertyName,
-                viewport
+            propertyName,
+            viewport
         );
 
         final SpreadsheetMetadata saved = context.saveMetadata(updated);
 
         this.checkEquals(
-                updated,
-                saved
+            updated,
+            saved
         );
     }
 
@@ -1096,8 +1096,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         context.storeRepository(SpreadsheetId.with(111));
 
         this.toStringAndCheck(
-                context,
-                "https://example.com/api987"
+            context,
+            "https://example.com/api987"
         );
     }
 
@@ -1110,15 +1110,15 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private BasicSpreadsheetMetadataHateosResourceHandlerContext createContext(final ProviderContext providerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                SPREADSHEET_PROVIDER,
-                providerContext,
-                METADATA_STORE,
-                this::spreadsheetIdToSpreadsheetProvider,
-                this::spreadsheetIdToRepository,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            SPREADSHEET_PROVIDER,
+            providerContext,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 
@@ -1133,11 +1133,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
 
         SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
+            .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
         if (locale.isPresent()) {
             metadata = metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
         }
@@ -1146,35 +1146,35 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     private SpreadsheetProvider spreadsheetIdToSpreadsheetProvider(final SpreadsheetId id) {
         return METADATA_STORE.loadOrFail(id)
-                .spreadsheetProvider(
-                        SpreadsheetProviders.basic(
-                                CONVERTER_PROVIDER,
-                                new FakeExpressionFunctionProvider() {
-                                    @Override
-                                    public ExpressionFunctionInfoSet expressionFunctionInfos() {
-                                        return ExpressionFunctionInfoSet.with(
-                                                Sets.of(
-                                                        ExpressionFunctionInfo.with(
-                                                                Url.parseAbsolute("https://example.com/expression-function-1"),
-                                                                ExpressionFunctionName.with("ExpressionFunction1")
-                                                                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
-                                                        ),
-                                                        ExpressionFunctionInfo.with(
-                                                                Url.parseAbsolute("https://example.com/expression-function-2"),
-                                                                ExpressionFunctionName.with("ExpressionFunction2")
-                                                                        .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
-                                                        )
-                                                )
-                                        );
-                                    }
-                                },
-                                SPREADSHEET_COMPARATOR_PROVIDER,
-                                SPREADSHEET_EXPORTER_PROVIDER,
-                                SPREADSHEET_FORMATTER_PROVIDER,
-                                SPREADSHEET_IMPORTER_PROVIDER,
-                                SPREADSHEET_PARSER_PROVIDER
-                        )
-                );
+            .spreadsheetProvider(
+                SpreadsheetProviders.basic(
+                    CONVERTER_PROVIDER,
+                    new FakeExpressionFunctionProvider() {
+                        @Override
+                        public ExpressionFunctionInfoSet expressionFunctionInfos() {
+                            return ExpressionFunctionInfoSet.with(
+                                Sets.of(
+                                    ExpressionFunctionInfo.with(
+                                        Url.parseAbsolute("https://example.com/expression-function-1"),
+                                        ExpressionFunctionName.with("ExpressionFunction1")
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                                    ),
+                                    ExpressionFunctionInfo.with(
+                                        Url.parseAbsolute("https://example.com/expression-function-2"),
+                                        ExpressionFunctionName.with("ExpressionFunction2")
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                                    )
+                                )
+                            );
+                        }
+                    },
+                    SPREADSHEET_COMPARATOR_PROVIDER,
+                    SPREADSHEET_EXPORTER_PROVIDER,
+                    SPREADSHEET_FORMATTER_PROVIDER,
+                    SPREADSHEET_IMPORTER_PROVIDER,
+                    SPREADSHEET_PARSER_PROVIDER
+                )
+            );
     }
 
     private SpreadsheetStoreRepository spreadsheetIdToRepository(final SpreadsheetId id) {
@@ -1187,7 +1187,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             final LocalDateTime now = LocalDateTime.now();
 
             METADATA_STORE.save(
-                    SpreadsheetMetadataTesting.METADATA_EN_AU
+                SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
                     .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
                     .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
@@ -1201,33 +1201,33 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                     .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
-                            .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+                    .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
                     .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
                     .set(SpreadsheetMetadataPropertyName.PRECISION, 10)
                     .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
                     .set(SpreadsheetMetadataPropertyName.STYLE, SpreadsheetMetadata.NON_LOCALE_DEFAULTS.getOrFail(SpreadsheetMetadataPropertyName.STYLE))
                     .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 20)
                     .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("\"Date\" yyyy mm dd").spreadsheetFormatterSelector())
-                            .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("\"Date\" yyyy mm dd").spreadsheetParserSelector())
+                    .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("\"Date\" yyyy mm dd").spreadsheetParserSelector())
                     .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("\"DateTime\" yyyy hh").spreadsheetFormatterSelector())
-                            .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("\"DateTime\" yyyy hh").spreadsheetParserSelector())
+                    .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("\"DateTime\" yyyy hh").spreadsheetParserSelector())
                     .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("\"Number\" 000.000").spreadsheetFormatterSelector())
-                            .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("\"Number\" 000.000").spreadsheetParserSelector())
+                    .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("\"Number\" 000.000").spreadsheetParserSelector())
                     .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("\"Text\" @").spreadsheetFormatterSelector())
                     .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("\"Time\" ss hh").spreadsheetFormatterSelector())
-                            .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector()));
+                    .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector()));
             repository = SpreadsheetStoreRepositories.basic(
-                    SpreadsheetCellStores.treeMap(),
-                    SpreadsheetExpressionReferenceStores.treeMap(),
-                    SpreadsheetColumnStores.treeMap(),
-                    SpreadsheetGroupStores.treeMap(),
-                    SpreadsheetLabelStores.treeMap(),
-                    SpreadsheetExpressionReferenceStores.treeMap(),
-                    METADATA_STORE,
-                    SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetCellRangeStores.treeMap(),
-                    SpreadsheetRowStores.treeMap(),
-                    SpreadsheetUserStores.treeMap()
+                SpreadsheetCellStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
+                SpreadsheetColumnStores.treeMap(),
+                SpreadsheetGroupStores.treeMap(),
+                SpreadsheetLabelStores.treeMap(),
+                SpreadsheetExpressionReferenceStores.treeMap(),
+                METADATA_STORE,
+                SpreadsheetCellRangeStores.treeMap(),
+                SpreadsheetCellRangeStores.treeMap(),
+                SpreadsheetRowStores.treeMap(),
+                SpreadsheetUserStores.treeMap()
             );
             this.spreadsheetIdToRepository.put(id, repository);
         }
@@ -1250,10 +1250,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                                                                        final HttpHeaderName<T4> header4,
                                                                        final T4 value4) {
         return Maps.of(
-                header1, list(value1),
-                header2, list(value2),
-                header3, list(value3),
-                header4, list(value4)
+            header1, list(value1),
+            header2, list(value2),
+            header3, list(value3),
+            header4, list(value4)
         );
     }
 

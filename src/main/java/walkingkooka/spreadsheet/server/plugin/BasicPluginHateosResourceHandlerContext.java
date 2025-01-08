@@ -25,14 +25,14 @@ import walkingkooka.plugin.ProviderContextDelegator;
 import java.util.Objects;
 
 final class BasicPluginHateosResourceHandlerContext implements PluginHateosResourceHandlerContext,
-        HateosResourceHandlerContextDelegator,
-        ProviderContextDelegator {
+    HateosResourceHandlerContextDelegator,
+    ProviderContextDelegator {
 
     static BasicPluginHateosResourceHandlerContext with(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                         final ProviderContext providerContext) {
         return new BasicPluginHateosResourceHandlerContext(
-                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-                Objects.requireNonNull(providerContext, "providerContext")
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 

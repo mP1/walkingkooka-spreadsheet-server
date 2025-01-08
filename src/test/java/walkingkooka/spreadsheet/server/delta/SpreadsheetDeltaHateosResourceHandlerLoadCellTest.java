@@ -82,19 +82,19 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
-        extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerLoadCell,
-        SpreadsheetCellReference> {
+    extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerLoadCell,
+    SpreadsheetCellReference> {
 
     private final static SpreadsheetEngineEvaluation EVALUATION = SpreadsheetEngineEvaluation.FORCE_RECOMPUTE;
 
     @Test
     public void testWithNullEvaluationFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        null,
-                        this.engine()
-                )
+            NullPointerException.class,
+            () -> SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                null,
+                this.engine()
+            )
         );
     }
 
@@ -103,76 +103,76 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Test
     public void testHandleOneLoadCell() {
         this.handleOneAndCheck(
-                this.id(),
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(this.spreadsheetDelta())
+            this.id(),
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(this.spreadsheetDelta())
         );
     }
 
     @Test
     public void testHandleOneLoadCellWithDeltaPropertiesCells() {
         this.handleOneLoadCellAndCheck(
-                "cells",
-                null, // window
-                null, // query
-                METADATA,
-                SpreadsheetDelta.EMPTY
-                        .setCells(this.cells())
+            "cells",
+            null, // window
+            null, // query
+            METADATA,
+            SpreadsheetDelta.EMPTY
+                .setCells(this.cells())
         );
     }
 
     @Test
     public void testHandleOneLoadCellWithDeltaPropertiesCellsAndLabels() {
         this.handleOneLoadCellAndCheck(
-                "cells,labels",
-                null, // window
-                null, // query
-                METADATA,
-                SpreadsheetDelta.EMPTY
-                        .setCells(this.cells())
-                        .setLabels(this.labels())
+            "cells,labels",
+            null, // window
+            null, // query
+            METADATA,
+            SpreadsheetDelta.EMPTY
+                .setCells(this.cells())
+                .setLabels(this.labels())
         );
     }
 
     @Test
     public void testHandleOneLoadCellWithDeltaPropertiesCellsAndQuery() {
         this.handleOneLoadCellAndCheck(
-                "cells",
-                null, // window
-                "true()", // query
-                METADATA,
-                SpreadsheetDelta.EMPTY
-                        .setCells(this.cells())
-                        .setMatchedCells(
-                                cells().stream()
-                                        .map(SpreadsheetCell::reference)
-                                        .collect(Collectors.toSet())
-                        )
+            "cells",
+            null, // window
+            "true()", // query
+            METADATA,
+            SpreadsheetDelta.EMPTY
+                .setCells(this.cells())
+                .setMatchedCells(
+                    cells().stream()
+                        .map(SpreadsheetCell::reference)
+                        .collect(Collectors.toSet())
+                )
         );
     }
 
     @Test
     public void testHandleOneLoadCellWithHighlightingAndFindQuery() {
         this.handleOneLoadCellAndCheck(
-                "cells",
-                null, // window
-                null, // query
-                METADATA.set(
-                        SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING,
-                        true
-                ).set(
-                        SpreadsheetMetadataPropertyName.FIND_QUERY,
-                        SpreadsheetCellQuery.parse("true()")
-                ),
-                SpreadsheetDelta.EMPTY
-                        .setCells(this.cells())
-                        .setMatchedCells(
-                                cells().stream()
-                                        .map(SpreadsheetCell::reference)
-                                        .collect(Collectors.toSet())
-                        )
+            "cells",
+            null, // window
+            null, // query
+            METADATA.set(
+                SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING,
+                true
+            ).set(
+                SpreadsheetMetadataPropertyName.FIND_QUERY,
+                SpreadsheetCellQuery.parse("true()")
+            ),
+            SpreadsheetDelta.EMPTY
+                .setCells(this.cells())
+                .setMatchedCells(
+                    cells().stream()
+                        .map(SpreadsheetCell::reference)
+                        .collect(Collectors.toSet())
+                )
         );
     }
 
@@ -186,8 +186,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final Map<HttpRequestAttribute<?>, Object> parameters = Maps.sorted();
         if (null != deltaProperties) {
             parameters.put(
-                    SpreadsheetDeltaProperties.PROPERTIES,
-                    Lists.of(deltaProperties)
+                SpreadsheetDeltaProperties.PROPERTIES,
+                Lists.of(deltaProperties)
             );
         }
         if (null != window) {
@@ -198,72 +198,72 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         }
 
         this.handleOneAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        EVALUATION,
-                        new FakeSpreadsheetEngine() {
-                            @Override
-                            public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
-                                                              final SpreadsheetEngineEvaluation evaluation,
-                                                              final Set<SpreadsheetDeltaProperties> dp,
-                                                              final SpreadsheetEngineContext context) {
-                                assertSame(EVALUATION, evaluation, "evaluation");
-                                checkEquals(
-                                        SpreadsheetDeltaProperties.parse(deltaProperties),
-                                        dp,
-                                        "deltaProperties"
-                                );
-                                assertNotNull(context, "context");
+            SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
+                    @Override
+                    public SpreadsheetDelta loadCells(final SpreadsheetSelection selection,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> dp,
+                                                      final SpreadsheetEngineContext context) {
+                        assertSame(EVALUATION, evaluation, "evaluation");
+                        checkEquals(
+                            SpreadsheetDeltaProperties.parse(deltaProperties),
+                            dp,
+                            "deltaProperties"
+                        );
+                        assertNotNull(context, "context");
 
-                                SpreadsheetDelta result = SpreadsheetDelta.EMPTY;
-                                if (dp.contains(SpreadsheetDeltaProperties.CELLS)) {
-                                    result = result.setCells(cells());
-                                }
-                                if (dp.contains(SpreadsheetDeltaProperties.LABELS)) {
-                                    result = result.setLabels(labels());
-                                }
-
-                                return result;
-                            }
-
-                            @Override
-                            public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                                    final String valueType,
-                                                                    final Expression expression,
-                                                                    final SpreadsheetEngineContext context) {
-                                return cells;
-                            }
+                        SpreadsheetDelta result = SpreadsheetDelta.EMPTY;
+                        if (dp.contains(SpreadsheetDeltaProperties.CELLS)) {
+                            result = result.setCells(cells());
                         }
-                ),
-                id,
-                Optional.empty(),
-                parameters,
-                new TestSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                        final TextCursorSavePoint begin = formula.save();
-                        formula.end();
-                        final String text = begin.textBetween()
-                                .toString();
-                        checkEquals("true()", text, "formula text");
+                        if (dp.contains(SpreadsheetDeltaProperties.LABELS)) {
+                            result = result.setLabels(labels());
+                        }
 
-                        return SpreadsheetParserToken.functionName(
-                                SpreadsheetFunctionName.with("true"),
-                                text
-                        );
+                        return result;
                     }
 
                     @Override
-                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                        return Optional.of(
-                                Expression.value(true)
-                        );
+                    public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                            final String valueType,
+                                                            final Expression expression,
+                                                            final SpreadsheetEngineContext context) {
+                        return cells;
                     }
+                }
+            ),
+            id,
+            Optional.empty(),
+            parameters,
+            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                    final TextCursorSavePoint begin = formula.save();
+                    formula.end();
+                    final String text = begin.textBetween()
+                        .toString();
+                    checkEquals("true()", text, "formula text");
 
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return metadata;
-                    }
-                },
-                Optional.of(expected)
+                    return SpreadsheetParserToken.functionName(
+                        SpreadsheetFunctionName.with("true"),
+                        text
+                    );
+                }
+
+                @Override
+                public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                    return Optional.of(
+                        Expression.value(true)
+                    );
+                }
+
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return metadata;
+                }
+            },
+            Optional.of(expected)
         );
     }
 
@@ -276,49 +276,49 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final SpreadsheetCell b3 = this.b3();
 
         final SpreadsheetDeltaHateosResourceHandlerLoadCell handler = SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                EVALUATION,
-                new FakeSpreadsheetEngine() {
+            EVALUATION,
+            new FakeSpreadsheetEngine() {
 
 
-                    @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                      final SpreadsheetEngineContext context) {
-                        assertSame(EVALUATION, evaluation, "evaluation");
-                        assertNotNull(context, "context");
+                @Override
+                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
+                                                  final SpreadsheetEngineEvaluation evaluation,
+                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                  final SpreadsheetEngineContext context) {
+                    assertSame(EVALUATION, evaluation, "evaluation");
+                    assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
-                    }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public String toString() {
-                        return "loadCells";
-                    }
+                    return SpreadsheetDelta.EMPTY.setCells(Sets.of(b1, b2, b3));
                 }
+
+                @Override
+                public double columnWidth(final SpreadsheetColumnReference column,
+                                          final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public double rowHeight(final SpreadsheetRowReference row,
+                                        final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public String toString() {
+                    return "loadCells";
+                }
+            }
         );
         this.handleRangeAndCheck(
-                handler,
-                this.range(),
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(b1, b2, b3))
-                )
+            handler,
+            this.range(),
+            this.collectionResource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(Sets.of(b1, b2, b3))
+            )
         );
     }
 
@@ -329,103 +329,103 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final SpreadsheetCell b3 = this.b3();
 
         final SpreadsheetDeltaHateosResourceHandlerLoadCell handler = SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                EVALUATION,
-                new FakeSpreadsheetEngine() {
+            EVALUATION,
+            new FakeSpreadsheetEngine() {
 
 
-                    @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                      final SpreadsheetEngineContext context) {
-                        assertSame(EVALUATION, evaluation, "evaluation");
-                        assertNotNull(context, "context");
+                @Override
+                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
+                                                  final SpreadsheetEngineEvaluation evaluation,
+                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                  final SpreadsheetEngineContext context) {
+                    assertSame(EVALUATION, evaluation, "evaluation");
+                    assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(
-                                        b1,
-                                        b2,
-                                        b3
-                                )
-                        );
-                    }
-
-                    @Override
-                    public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
-                                                            final String valueType,
-                                                            final Expression expression,
-                                                            final SpreadsheetEngineContext context) {
-                        return cells.stream()
-                                .filter(b1::equals)
-                                .collect(Collectors.toSet());
-                    }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public String toString() {
-                        return "loadCells";
-                    }
+                    return SpreadsheetDelta.EMPTY.setCells(
+                        Sets.of(
+                            b1,
+                            b2,
+                            b3
+                        )
+                    );
                 }
+
+                @Override
+                public Set<SpreadsheetCell> filterCells(final Set<SpreadsheetCell> cells,
+                                                        final String valueType,
+                                                        final Expression expression,
+                                                        final SpreadsheetEngineContext context) {
+                    return cells.stream()
+                        .filter(b1::equals)
+                        .collect(Collectors.toSet());
+                }
+
+                @Override
+                public double columnWidth(final SpreadsheetColumnReference column,
+                                          final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public double rowHeight(final SpreadsheetRowReference row,
+                                        final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public String toString() {
+                    return "loadCells";
+                }
+            }
         );
         this.handleRangeAndCheck(
-                handler,
-                this.range(),
-                this.collectionResource(),
-                Maps.of(
-                        SpreadsheetCellQuery.QUERY,
-                        Lists.of(
-                                "query=true()"
-                        )
-                ),
-                new TestSpreadsheetEngineHateosResourceHandlerContext() {
-
-                    @Override
-                    public SpreadsheetParserToken parseFormula(final TextCursor formula) {
-                        final TextCursorSavePoint begin = formula.save();
-                        formula.end();
-                        final String text = begin.textBetween()
-                                .toString();
-                        return SpreadsheetParserToken.functionName(
-                                SpreadsheetFunctionName.with("true"),
-                                text
-                        );
-                    }
-
-                    @Override
-                    public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
-                        return Optional.of(
-                                Expression.value(true)
-                        );
-                    }
-
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return METADATA;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                b1, b2, b3
-                                        )
-                                ).setMatchedCells(
-                                        Sets.of(
-                                                b1.reference()
-                                        )
-                                )
+            handler,
+            this.range(),
+            this.collectionResource(),
+            Maps.of(
+                SpreadsheetCellQuery.QUERY,
+                Lists.of(
+                    "query=true()"
                 )
+            ),
+            new TestSpreadsheetEngineHateosResourceHandlerContext() {
+
+                @Override
+                public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                    final TextCursorSavePoint begin = formula.save();
+                    formula.end();
+                    final String text = begin.textBetween()
+                        .toString();
+                    return SpreadsheetParserToken.functionName(
+                        SpreadsheetFunctionName.with("true"),
+                        text
+                    );
+                }
+
+                @Override
+                public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                    return Optional.of(
+                        Expression.value(true)
+                    );
+                }
+
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return METADATA;
+                }
+            },
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            b1, b2, b3
+                        )
+                    ).setMatchedCells(
+                        Sets.of(
+                            b1.reference()
+                        )
+                    )
+            )
         );
     }
 
@@ -436,64 +436,64 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         final SpreadsheetCell b3 = this.b3();
 
         final SpreadsheetCellRangeReference window = b1.reference()
-                .toCellRange();
+            .toCellRange();
 
         final SpreadsheetDeltaHateosResourceHandlerLoadCell handler = SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                EVALUATION,
-                new FakeSpreadsheetEngine() {
+            EVALUATION,
+            new FakeSpreadsheetEngine() {
 
-                    @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                      final SpreadsheetEngineContext context) {
-                        assertSame(EVALUATION, evaluation, "evaluation");
-                        checkEquals(SpreadsheetDeltaProperties.ALL, deltaProperties, "deltaProperties");
-                        assertNotNull(context, "context");
+                @Override
+                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
+                                                  final SpreadsheetEngineEvaluation evaluation,
+                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                  final SpreadsheetEngineContext context) {
+                    assertSame(EVALUATION, evaluation, "evaluation");
+                    checkEquals(SpreadsheetDeltaProperties.ALL, deltaProperties, "deltaProperties");
+                    assertNotNull(context, "context");
 
-                        return SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(b1, b2, b3));
-                    }
-
-                    @Override
-                    public double columnWidth(final SpreadsheetColumnReference column,
-                                              final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public double rowHeight(final SpreadsheetRowReference row,
-                                            final SpreadsheetEngineContext context) {
-                        return 0;
-                    }
-
-                    @Override
-                    public String toString() {
-                        return "loadCells";
-                    }
+                    return SpreadsheetDelta.EMPTY.setCells(
+                        Sets.of(b1, b2, b3));
                 }
+
+                @Override
+                public double columnWidth(final SpreadsheetColumnReference column,
+                                          final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public double rowHeight(final SpreadsheetRowReference row,
+                                        final SpreadsheetEngineContext context) {
+                    return 0;
+                }
+
+                @Override
+                public String toString() {
+                    return "loadCells";
+                }
+            }
         );
         this.handleRangeAndCheck(
-                handler,
-                this.range(),
-                this.collectionResource(),
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.WINDOW,
-                        List.of(
-                                window.toString()
-                        )
-                ),
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(b1, b2)
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.with(
-                                                Sets.of(window)
-                                        )
-                                )
+            handler,
+            this.range(),
+            this.collectionResource(),
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW,
+                List.of(
+                    window.toString()
                 )
+            ),
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(b1, b2)
+                    ).setWindow(
+                        SpreadsheetViewportWindows.with(
+                            Sets.of(window)
+                        )
+                    )
+            )
         );
     }
 
@@ -502,8 +502,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Test
     public void testLoadCellRangeMissingWindowParametersFails() {
         this.loadCellRangeFails(
-                Maps.empty(),
-                "Missing: home, width, height, includeFrozenColumnsRows");
+            Maps.empty(),
+            "Missing: home, width, height, includeFrozenColumnsRows");
     }
 
     @Test
@@ -516,17 +516,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
         this.loadCellRangeFails(
-                parameters,
-                "Invalid home=\"!Invalid\""
+            parameters,
+            "Invalid home=\"!Invalid\""
         );
     }
 
     private void loadCellRangeFails(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
         final IllegalArgumentException thrown = this.handleAllFails(
-                Optional.empty(),
-                parameters,
-                this.context(),
-                IllegalArgumentException.class
+            Optional.empty(),
+            parameters,
+            this.context(),
+            IllegalArgumentException.class
         );
         this.checkEquals(message, thrown.getMessage(), "message");
     }
@@ -534,105 +534,105 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Test
     public void testLoadCellRangeFilteredNone() {
         this.loadCellRangeFilteredAndCheck(
-                null,
-                null,
-                null,
-                null,
-                null
+            null,
+            null,
+            null,
+            null,
+            null
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredCell() {
         this.loadCellRangeFilteredAndCheck(
-                "cell",
-                "A9",
-                null,
-                null, // deltaProperties
-                SpreadsheetSelection.parseCell("A9")
-                        .setDefaultAnchor()
+            "cell",
+            "A9",
+            null,
+            null, // deltaProperties
+            SpreadsheetSelection.parseCell("A9")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredCellRange() {
         this.loadCellRangeFilteredAndCheck(
-                "cell-range",
-                "A9:A99",
-                SpreadsheetViewportAnchor.TOP_LEFT.kebabText(),
-                null, // deltaProperties
-                SpreadsheetSelection.parseCellRange("A9:A99")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+            "cell-range",
+            "A9:A99",
+            SpreadsheetViewportAnchor.TOP_LEFT.kebabText(),
+            null, // deltaProperties
+            SpreadsheetSelection.parseCellRange("A9:A99")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredColumn() {
         this.loadCellRangeFilteredAndCheck(
-                "column",
-                "B",
-                null, // anchor
-                null, // deltaProperties
-                SpreadsheetSelection.parseColumn("B")
-                        .setDefaultAnchor()
+            "column",
+            "B",
+            null, // anchor
+            null, // deltaProperties
+            SpreadsheetSelection.parseColumn("B")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredColumnRange() {
         this.loadCellRangeFilteredAndCheck(
-                "column-range",
-                "B:D",
-                SpreadsheetViewportAnchor.LEFT.kebabText(),
-                null, // deltaProperties
-                SpreadsheetSelection.parseColumnRange("B:D")
-                        .setAnchor(SpreadsheetViewportAnchor.LEFT)
+            "column-range",
+            "B:D",
+            SpreadsheetViewportAnchor.LEFT.kebabText(),
+            null, // deltaProperties
+            SpreadsheetSelection.parseColumnRange("B:D")
+                .setAnchor(SpreadsheetViewportAnchor.LEFT)
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredRow() {
         this.loadCellRangeFilteredAndCheck(
-                "row",
-                "99",
-                null, // anchor
-                null, // deltaProperties
-                SpreadsheetSelection.parseRow("99")
-                        .setDefaultAnchor()
+            "row",
+            "99",
+            null, // anchor
+            null, // deltaProperties
+            SpreadsheetSelection.parseRow("99")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredrowRange() {
         this.loadCellRangeFilteredAndCheck(
-                "row-range",
-                "98:99",
-                SpreadsheetViewportAnchor.TOP.kebabText(),
-                null, // deltaProperties
-                SpreadsheetSelection.parseRowRange("98:99")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP)
+            "row-range",
+            "98:99",
+            SpreadsheetViewportAnchor.TOP.kebabText(),
+            null, // deltaProperties
+            SpreadsheetSelection.parseRowRange("98:99")
+                .setAnchor(SpreadsheetViewportAnchor.TOP)
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredCells() {
         this.loadCellRangeFilteredAndCheck(
-                null,
-                null,
-                null,
-                "cells",
-                null
+            null,
+            null,
+            null,
+            "cells",
+            null
         );
     }
 
     @Test
     public void testLoadCellRangeFilteredCellsAndLabels() {
         this.loadCellRangeFilteredAndCheck(
-                null,
-                null,
-                null,
-                "cells,labels",
-                null
+            null,
+            null,
+            null,
+            "cells,labels",
+            null
         );
     }
 
@@ -675,133 +675,133 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
         parameters.put(
-                SpreadsheetDeltaProperties.PROPERTIES,
-                Lists.of(deltaProperties)
+            SpreadsheetDeltaProperties.PROPERTIES,
+            Lists.of(deltaProperties)
         );
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         metadataStore.save(METADATA_EN_AU);
 
         this.handleAllAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        EVALUATION,
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                              final SpreadsheetEngineEvaluation evaluation,
-                                                              final Set<SpreadsheetDeltaProperties> dp,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
-                                checkEquals(EVALUATION, evaluation, "evaluation");
-                                checkEquals(
-                                        SpreadsheetDeltaProperties.parse(deltaProperties),
-                                        dp,
-                                        "deltaProperties"
-                                );
-
-                                return SpreadsheetDelta.EMPTY
-                                        .setCells(
-                                                Sets.of(
-                                                        b1, b2, b3, c1, c2, c3
-                                                )
-                                        );
-                            }
-
-                            @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                                     final boolean includeFrozenColumnsRows,
-                                                                     final Optional<SpreadsheetSelection> s,
-                                                                     final SpreadsheetEngineContext context) {
-                                checkEquals(
-                                        SpreadsheetViewportRectangle.with(
-                                                home,
-                                                width,
-                                                height
-                                        ),
-                                        viewportRectangle,
-                                        "viewport"
-                                );
-                                return SpreadsheetViewportWindows.with(
-                                        Sets.of(
-                                                SpreadsheetSelection.cellRange(range)
-                                        )
-                                );
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
+                    @Override
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> dp,
                                                       final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH;
-                            }
+                        checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
+                        checkEquals(EVALUATION, evaluation, "evaluation");
+                        checkEquals(
+                            SpreadsheetDeltaProperties.parse(deltaProperties),
+                            dp,
+                            "deltaProperties"
+                        );
 
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT;
-                            }
-
-                            @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
-                                                                          final SpreadsheetEngineContext context) {
-                                return Optional.of(viewport);
-                            }
-                        }
-                ),
-                Optional.empty(),
-                parameters,
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return METADATA_EN_AU;
-                    }
-
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository() {
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetCellStore cells() {
-                                return SpreadsheetCellStores.fake();
-                            }
-
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return metadataStore;
-                            }
-                        };
-                    }
-
-                    @Override
-                    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                        return selection;
-                    }
-                },
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
-                                .setWindow(
-                                        SpreadsheetViewportWindows.parse("B1:C3")
-                                ).setViewport(
-                                        Optional.of(
-                                                home.viewportRectangle(width, height)
-                                                        .viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.ofNullable(expected)
-                                                        )
-                                        )
+                        return SpreadsheetDelta.EMPTY
+                            .setCells(
+                                Sets.of(
+                                    b1, b2, b3, c1, c2, c3
                                 )
-                )
+                            );
+                    }
+
+                    @Override
+                    public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
+                                                             final boolean includeFrozenColumnsRows,
+                                                             final Optional<SpreadsheetSelection> s,
+                                                             final SpreadsheetEngineContext context) {
+                        checkEquals(
+                            SpreadsheetViewportRectangle.with(
+                                home,
+                                width,
+                                height
+                            ),
+                            viewportRectangle,
+                            "viewport"
+                        );
+                        return SpreadsheetViewportWindows.with(
+                            Sets.of(
+                                SpreadsheetSelection.cellRange(range)
+                            )
+                        );
+                    }
+
+                    @Override
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
+                        return COLUMN_WIDTH;
+                    }
+
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
+                        return ROW_HEIGHT;
+                    }
+
+                    @Override
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                  final SpreadsheetEngineContext context) {
+                        return Optional.of(viewport);
+                    }
+                }
+            ),
+            Optional.empty(),
+            parameters,
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return METADATA_EN_AU;
+                }
+
+                @Override
+                public SpreadsheetStoreRepository storeRepository() {
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetCellStore cells() {
+                            return SpreadsheetCellStores.fake();
+                        }
+
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return metadataStore;
+                        }
+                    };
+                }
+
+                @Override
+                public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                    return selection;
+                }
+            },
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(Sets.of(b1, b2, b3, c1, c2, c3))
+                    .setWindow(
+                        SpreadsheetViewportWindows.parse("B1:C3")
+                    ).setViewport(
+                        Optional.of(
+                            home.viewportRectangle(width, height)
+                                .viewport()
+                                .setAnchoredSelection(
+                                    Optional.ofNullable(expected)
+                                )
+                        )
+                    )
+            )
         );
     }
 
     @Test
     public void testLoadCellRangeNoFrozenColumnRows() {
         this.loadCellRangeFilteredAndCheck(
-                "A1",
-                0, // frozenColumns
-                0, // frozenRows
-                "A1:D4", // range
-                "A1:D4" // window
+            "A1",
+            0, // frozenColumns
+            0, // frozenRows
+            "A1:D4", // range
+            "A1:D4" // window
         );
     }
 
@@ -813,11 +813,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Test
     public void testLoadCellRange1FrozenColumn() {
         this.loadCellRangeFilteredAndCheck(
-                "A1",
-                1, // frozenColumns
-                0, // frozenRows
-                "A1:A4,B1:D4", // range
-                "A1:A4,B1:D4" // window
+            "A1",
+            1, // frozenColumns
+            0, // frozenRows
+            "A1:A4,B1:D4", // range
+            "A1:A4,B1:D4" // window
         );
     }
 
@@ -829,7 +829,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
         final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
         final SpreadsheetCellRangeReference viewportWindowRange = spreadsheetViewportWindows.last()
-                .get();
+            .get();
 
         final double viewportWidth = viewportWindowRange.width() * COLUMN_WIDTH;
         final double viewportHeight = viewportWindowRange.height() * ROW_HEIGHT;
@@ -845,8 +845,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             @Override
             public SpreadsheetMetadata spreadsheetMetadata() {
                 return METADATA_EN_AU
-                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
-                        .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
+                    .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, frozenColumns > 0 ? SpreadsheetReferenceKind.RELATIVE.firstColumn().columnRange(SpreadsheetReferenceKind.RELATIVE.column(frozenColumns - 1)) : null)
+                    .setOrRemove(SpreadsheetMetadataPropertyName.FROZEN_ROWS, frozenRows > 0 ? SpreadsheetReferenceKind.RELATIVE.firstRow().rowRange(SpreadsheetReferenceKind.RELATIVE.row(frozenRows - 1)) : null);
             }
 
             @Override
@@ -877,70 +877,70 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         };
 
         this.handleAllAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        EVALUATION,
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                              final SpreadsheetEngineEvaluation evaluation,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(EVALUATION, evaluation, "evaluation");
-
-                                return SpreadsheetDelta.EMPTY;
-                            }
-
-                            @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                                     final boolean includeFrozenColumnsRows,
-                                                                     final Optional<SpreadsheetSelection> selection,
-                                                                     final SpreadsheetEngineContext context) {
-                                if (range.equals("throw")) {
-                                    throw new UnsupportedOperationException();
-                                }
-                                checkEquals(SpreadsheetDelta.NO_VIEWPORT, selection);
-
-                                return SpreadsheetViewportWindows.parse(range);
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
+                    @Override
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
-                                return COLUMN_WIDTH;
-                            }
+                        checkEquals(EVALUATION, evaluation, "evaluation");
 
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return ROW_HEIGHT;
-                            }
+                        return SpreadsheetDelta.EMPTY;
+                    }
 
-                            @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
-                                                                          final SpreadsheetEngineContext context) {
-                                return Optional.of(viewport);
-                            }
+                    @Override
+                    public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
+                                                             final boolean includeFrozenColumnsRows,
+                                                             final Optional<SpreadsheetSelection> selection,
+                                                             final SpreadsheetEngineContext context) {
+                        if (range.equals("throw")) {
+                            throw new UnsupportedOperationException();
                         }
-                ),
-                Optional.empty(),
-                parameters,
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.parseCell(home)
-                                                        .viewportRectangle(
-                                                                viewportWidth,
-                                                                viewportHeight
-                                                        ).viewport()
-                                        )
-                                )
-                                .setWindow(
-                                        spreadsheetViewportWindows
-                                )
-                )
+                        checkEquals(SpreadsheetDelta.NO_VIEWPORT, selection);
+
+                        return SpreadsheetViewportWindows.parse(range);
+                    }
+
+                    @Override
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
+                        return COLUMN_WIDTH;
+                    }
+
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
+                        return ROW_HEIGHT;
+                    }
+
+                    @Override
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
+                                                                  final SpreadsheetEngineContext context) {
+                        return Optional.of(viewport);
+                    }
+                }
+            ),
+            Optional.empty(),
+            parameters,
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.parseCell(home)
+                                .viewportRectangle(
+                                    viewportWidth,
+                                    viewportHeight
+                                ).viewport()
+                        )
+                    )
+                    .setWindow(
+                        spreadsheetViewportWindows
+                    )
+            )
         );
     }
 
@@ -949,140 +949,140 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Test
     public void testLoadCellRangeNavigateCellLeft() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCell("B2")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.leftColumn()
-                ),
-                SpreadsheetSelection.parseCell("A2")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseCell("B2")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.leftColumn()
+            ),
+            SpreadsheetSelection.parseCell("A2")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellRight() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCell("B2")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.rightColumn()
-                ),
-                SpreadsheetSelection.parseCell("C2")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseCell("B2")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.rightColumn()
+            ),
+            SpreadsheetSelection.parseCell("C2")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateColumnLeft() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseColumn("C")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.leftColumn()
-                ),
-                SpreadsheetSelection.parseColumn("B")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseColumn("C")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.leftColumn()
+            ),
+            SpreadsheetSelection.parseColumn("B")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateColumnDown() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseColumn("C")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.downRow()
-                ),
-                SpreadsheetSelection.parseColumn("C")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseColumn("C")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.downRow()
+            ),
+            SpreadsheetSelection.parseColumn("C")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateRowDown() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseRow("3")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.downRow()
-                ),
-                SpreadsheetSelection.parseRow("4")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseRow("3")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.downRow()
+            ),
+            SpreadsheetSelection.parseRow("4")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellExtendRight() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCell("B2")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendRightColumn()
-                ),
-                SpreadsheetSelection.parseCellRange("B2:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+            "A1",
+            SpreadsheetSelection.parseCell("B2")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendRightColumn()
+            ),
+            SpreadsheetSelection.parseCellRange("B2:C2")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellExtendLeft() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCell("B2")
-                        .setDefaultAnchor(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendLeftColumn()
-                ),
-                SpreadsheetSelection.parseCellRange("A2:B2")
-                        .setAnchor(SpreadsheetViewportAnchor.BOTTOM_RIGHT)
+            "A1",
+            SpreadsheetSelection.parseCell("B2")
+                .setDefaultAnchor(),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendLeftColumn()
+            ),
+            SpreadsheetSelection.parseCellRange("A2:B2")
+                .setAnchor(SpreadsheetViewportAnchor.BOTTOM_RIGHT)
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellRangeExtendRight() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCellRange("A2:B2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendRightColumn()
-                ),
-                SpreadsheetSelection.parseCellRange("A2:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+            "A1",
+            SpreadsheetSelection.parseCellRange("A2:B2")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendRightColumn()
+            ),
+            SpreadsheetSelection.parseCellRange("A2:C2")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellRangeExtendRightBecomesCell() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCellRange("B2:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_RIGHT),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendRightColumn()
-                ),
-                SpreadsheetSelection.parseCell("C2")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseCellRange("B2:C2")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_RIGHT),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendRightColumn()
+            ),
+            SpreadsheetSelection.parseCell("C2")
+                .setDefaultAnchor()
         );
     }
 
     @Test
     public void testLoadCellRangeNavigateCellRangeExtendUpBecomesCell() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                SpreadsheetSelection.parseCellRange("C1:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendUpRow()
-                ),
-                SpreadsheetSelection.parseCell("C1")
-                        .setDefaultAnchor()
+            "A1",
+            SpreadsheetSelection.parseCellRange("C1:C2")
+                .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendUpRow()
+            ),
+            SpreadsheetSelection.parseCell("C1")
+                .setDefaultAnchor()
         );
     }
 
@@ -1091,48 +1091,48 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                                                final List<SpreadsheetViewportNavigation> navigations,
                                                final AnchoredSpreadsheetSelection expected) {
         this.loadCellRangeNavigateAndCheck(
-                home,
-                Optional.of(
-                    anchoredSpreadsheetSelection
-                ),
-                navigations,
-                "A1:E5",
-                home, // expected home
-                Optional.of(expected) // expected selection
+            home,
+            Optional.of(
+                anchoredSpreadsheetSelection
+            ),
+            navigations,
+            "A1:E5",
+            home, // expected home
+            Optional.of(expected) // expected selection
         );
     }
 
     @Test
     public void testLoadCellRangeNavigationRightPixelsWithSelection() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                Optional.of(
+            "A1",
+            Optional.of(
                 SpreadsheetSelection.parseCellRange("C1:C2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
-                ),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendRightPixel(401)
-                ),
-                "F1:J5", // window
-                "F1", // expectedHome
-                Optional.of(
+                    .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+            ),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendRightPixel(401)
+            ),
+            "F1:J5", // window
+            "F1", // expectedHome
+            Optional.of(
                 SpreadsheetSelection.parseCellRange("C1:H2")
-                        .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
-                )// expected selection
+                    .setAnchor(SpreadsheetViewportAnchor.TOP_LEFT)
+            )// expected selection
         );
     }
 
     @Test
     public void testLoadCellRangeNavigationRightPixels() {
         this.loadCellRangeNavigateAndCheck(
-                "A1",
-                Optional.empty(),
-                Lists.of(
-                        SpreadsheetViewportNavigation.extendRightPixel(401)
-                ),
-                "F1:J5", // window
-                "F1", // expectedHome
-                Optional.empty()// expected selection
+            "A1",
+            Optional.empty(),
+            Lists.of(
+                SpreadsheetViewportNavigation.extendRightPixel(401)
+            ),
+            "F1:J5", // window
+            "F1", // expectedHome
+            Optional.empty()// expected selection
         );
     }
 
@@ -1151,153 +1151,153 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         parameters.put(SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("" + height));
         parameters.put(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS, Lists.of("false"));
 
-        if(anchoredSpreadsheetSelection.isPresent()) {
+        if (anchoredSpreadsheetSelection.isPresent()) {
             final SpreadsheetSelection selection = anchoredSpreadsheetSelection.get()
-                    .selection();
+                .selection();
             parameters.put(SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of(selection.toString()));
             parameters.put(SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of(selection.selectionTypeName()));
             parameters.put(
-                    SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR,
-                    Lists.of(
-                            anchoredSpreadsheetSelection.get()
-                                    .anchor()
-                                    .kebabText()
-                    )
+                SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR,
+                Lists.of(
+                    anchoredSpreadsheetSelection.get()
+                        .anchor()
+                        .kebabText()
+                )
             );
 
         }
         parameters.put(
-                SpreadsheetDeltaUrlQueryParameters.NAVIGATION,
-                Lists.of(
-                        SpreadsheetViewport.SEPARATOR.toSeparatedString(
-                                navigations,
-                                SpreadsheetViewportNavigation::text
-                        )
+            SpreadsheetDeltaUrlQueryParameters.NAVIGATION,
+            Lists.of(
+                SpreadsheetViewport.SEPARATOR.toSeparatedString(
+                    navigations,
+                    SpreadsheetViewportNavigation::text
                 )
+            )
         );
 
         final SpreadsheetViewportWindows spreadsheetViewportWindows = SpreadsheetViewportWindows.parse(window);
 
         final SpreadsheetMetadata metadata = METADATA_EN_AU.set(
-                SpreadsheetMetadataPropertyName.STYLE,
-                TextStyle.EMPTY
-                        .set(
-                                TextStylePropertyName.WIDTH,
-                                Length.pixel(COLUMN_WIDTH
-                                )
-                        )
-                        .set(
-                                TextStylePropertyName.HEIGHT,
-                                Length.pixel(ROW_HEIGHT)
-                        )
+            SpreadsheetMetadataPropertyName.STYLE,
+            TextStyle.EMPTY
+                .set(
+                    TextStylePropertyName.WIDTH,
+                    Length.pixel(COLUMN_WIDTH
+                    )
+                )
+                .set(
+                    TextStylePropertyName.HEIGHT,
+                    Length.pixel(ROW_HEIGHT)
+                )
         );
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         metadataStore.save(metadata);
 
         this.handleAllAndCheck(
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        EVALUATION,
-                        new FakeSpreadsheetEngine() {
+            SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                EVALUATION,
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                              final SpreadsheetEngineEvaluation evaluation,
-                                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                              final SpreadsheetEngineContext context) {
-                                checkEquals(EVALUATION, evaluation, "evaluation");
-
-                                return SpreadsheetDelta.EMPTY;
-                            }
-
-                            @Override
-                            public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
-                                                                     final boolean includeFrozenColumnsRows,
-                                                                     final Optional<SpreadsheetSelection> selection,
-                                                                     final SpreadsheetEngineContext context) {
-                                return spreadsheetViewportWindows;
-                            }
-
-                            @Override
-                            public double columnWidth(final SpreadsheetColumnReference column,
+                    @Override
+                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
+                                                      final SpreadsheetEngineEvaluation evaluation,
+                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
                                                       final SpreadsheetEngineContext context) {
-                                return 100;
-                            }
+                        checkEquals(EVALUATION, evaluation, "evaluation");
 
-                            @Override
-                            public double rowHeight(final SpreadsheetRowReference row,
-                                                    final SpreadsheetEngineContext context) {
-                                return 50;
-                            }
+                        return SpreadsheetDelta.EMPTY;
+                    }
 
-                            @Override
-                            public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport s,
-                                                                          final SpreadsheetEngineContext context) {
-                                return SpreadsheetEngines.basic()
-                                        .navigate(s, context);
-                            }
+                    @Override
+                    public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
+                                                             final boolean includeFrozenColumnsRows,
+                                                             final Optional<SpreadsheetSelection> selection,
+                                                             final SpreadsheetEngineContext context) {
+                        return spreadsheetViewportWindows;
+                    }
+
+                    @Override
+                    public double columnWidth(final SpreadsheetColumnReference column,
+                                              final SpreadsheetEngineContext context) {
+                        return 100;
+                    }
+
+                    @Override
+                    public double rowHeight(final SpreadsheetRowReference row,
+                                            final SpreadsheetEngineContext context) {
+                        return 50;
+                    }
+
+                    @Override
+                    public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport s,
+                                                                  final SpreadsheetEngineContext context) {
+                        return SpreadsheetEngines.basic()
+                            .navigate(s, context);
+                    }
+                }
+            ),
+            Optional.empty(),
+            parameters,
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return metadata;
+                }
+
+                @Override
+                public SpreadsheetStoreRepository storeRepository() {
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetCellStore cells() {
+                            return this.cells;
                         }
-                ),
-                Optional.empty(),
-                parameters,
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return metadata;
-                    }
 
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository() {
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetCellStore cells() {
-                                return this.cells;
-                            }
+                        private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
 
-                            private final SpreadsheetCellStore cells = SpreadsheetCellStores.treeMap();
-
-                            @Override
-                            public SpreadsheetColumnStore columns() {
-                                return this.columns;
-                            }
-
-                            private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
-
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return metadataStore;
-                            }
-
-                            @Override
-                            public SpreadsheetRowStore rows() {
-                                return this.rows;
-                            }
-
-                            private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
-                        };
-                    }
-
-                    @Override
-                    public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                        if (selection.isLabelName()) {
-                            throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
+                        @Override
+                        public SpreadsheetColumnStore columns() {
+                            return this.columns;
                         }
-                        return selection;
+
+                        private final SpreadsheetColumnStore columns = SpreadsheetColumnStores.treeMap();
+
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return metadataStore;
+                        }
+
+                        @Override
+                        public SpreadsheetRowStore rows() {
+                            return this.rows;
+                        }
+
+                        private final SpreadsheetRowStore rows = SpreadsheetRowStores.treeMap();
+                    };
+                }
+
+                @Override
+                public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                    if (selection.isLabelName()) {
+                        throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
                     }
-                },
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.parseCell(expectedHome)
-                                                        .viewportRectangle(
-                                                                width,
-                                                                height
-                                                        ).viewport()
-                                                        .setAnchoredSelection(expectedAnchoredSelection)
-                                        )
-                                ).setWindow(spreadsheetViewportWindows)
-                )
+                    return selection;
+                }
+            },
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.parseCell(expectedHome)
+                                .viewportRectangle(
+                                    width,
+                                    height
+                                ).viewport()
+                                .setAnchoredSelection(expectedAnchoredSelection)
+                        )
+                    ).setWindow(spreadsheetViewportWindows)
+            )
         );
     }
 
@@ -1337,8 +1337,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Override
     SpreadsheetDeltaHateosResourceHandlerLoadCell createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                EVALUATION,
-                engine
+            EVALUATION,
+            engine
         );
     }
 
@@ -1409,9 +1409,9 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 Objects.requireNonNull(context, "context");
 
                 checkEquals(
-                        SpreadsheetDeltaHateosResourceHandlerLoadCellTest.this.spreadsheetCellReference(),
-                        selection,
-                        "selection"
+                    SpreadsheetDeltaHateosResourceHandlerLoadCellTest.this.spreadsheetCellReference(),
+                    selection,
+                    "selection"
                 );
                 checkEquals(EVALUATION, evaluation, "evaluation");
                 checkNotEquals(null, context, "context");

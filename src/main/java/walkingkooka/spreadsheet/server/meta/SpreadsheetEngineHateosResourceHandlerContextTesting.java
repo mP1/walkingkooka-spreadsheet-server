@@ -26,24 +26,24 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends SpreadsheetMetadataHateosResourceHandlerContext> extends ContextTesting<C>,
-        TypeNameTesting<C> {
+    TypeNameTesting<C> {
 
     @Test
     default void testSaveMetadataNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext().saveMetadata(null)
+            NullPointerException.class,
+            () -> this.createContext().saveMetadata(null)
         );
     }
 
     @Test
     default void testSaveMetadataMissingSpreadsheetIdFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createContext()
-                        .saveMetadata(
-                                SpreadsheetMetadata.EMPTY
-                        )
+            IllegalArgumentException.class,
+            () -> this.createContext()
+                .saveMetadata(
+                    SpreadsheetMetadata.EMPTY
+                )
         );
     }
 
@@ -51,9 +51,9 @@ public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends 
                                       final SpreadsheetMetadata metadata,
                                       final SpreadsheetMetadata expected) {
         this.checkEquals(
-                expected,
-                context.saveMetadata(metadata),
-                () -> "saveMetadata " + metadata
+            expected,
+            context.saveMetadata(metadata),
+            () -> "saveMetadata " + metadata
         );
     }
 

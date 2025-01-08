@@ -43,10 +43,10 @@ import java.util.Map;
  * returning the result.
  */
 final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetFormatterSelectorTokenList.with(Lists.empty()); // force json registry
@@ -74,25 +74,25 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
         final MediaType requiredContentType = context.contentType();
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // format all the individual requests
         final List<SpreadsheetFormatterSample> response = context.spreadsheetFormatterSamples(
-                formatterName,
-                context
+            formatterName,
+            context
         );
 
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetFormatterSampleList.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            SpreadsheetFormatterSampleList.class.getSimpleName()
         ).setBodyText(
-                context.marshall(
-                        SpreadsheetFormatterSampleList.with(
-                                SpreadsheetFormatterSampleList.with(response)
-                        )
-                ).toString()
+            context.marshall(
+                SpreadsheetFormatterSampleList.with(
+                    SpreadsheetFormatterSampleList.with(response)
+                )
+            ).toString()
         ).setContentLength();
     }
 

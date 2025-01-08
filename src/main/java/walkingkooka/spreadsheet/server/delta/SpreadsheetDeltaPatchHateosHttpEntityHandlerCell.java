@@ -58,11 +58,11 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
     JsonNode preparePatch(final JsonNode delta,
                           final SpreadsheetEngineContext context) {
         return SpreadsheetDelta.resolveCellLabels(
-                delta.objectOrFail(),
-                (e) -> context.storeRepository()
-                        .labels()
-                        .cellReferenceOrRangeOrFail(e)
-                        .toCell()
+            delta.objectOrFail(),
+            (e) -> context.storeRepository()
+                .labels()
+                .cellReferenceOrRangeOrFail(e)
+                .toCell()
         );
     }
 
@@ -70,16 +70,16 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
     SpreadsheetDelta load(final SpreadsheetCellRangeReference cellRange,
                           final SpreadsheetEngineContext context) {
         return this.engine.loadCells(
-                cellRange,
-                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
-                CELL_AND_LABELS,
-                context
+            cellRange,
+            SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
+            CELL_AND_LABELS,
+            context
         );
     }
 
     private final static Set<SpreadsheetDeltaProperties> CELL_AND_LABELS = Sets.of(
-            SpreadsheetDeltaProperties.CELLS,
-            SpreadsheetDeltaProperties.LABELS
+        SpreadsheetDeltaProperties.CELLS,
+        SpreadsheetDeltaProperties.LABELS
     );
 
     @Override
@@ -89,9 +89,9 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
                            final Map<HttpRequestAttribute<?>, Object> parameters,
                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         return loaded.patchCells(
-                cellRange,
-                patch,
-                context
+            cellRange,
+            patch,
+            context
         );
     }
 
@@ -100,8 +100,8 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
                           final SpreadsheetCellRangeReference cellRange,
                           final SpreadsheetEngineContext context) {
         return this.engine.saveCells(
-                patched.cells(),
-                context
+            patched.cells(),
+            context
         );
     }
 }

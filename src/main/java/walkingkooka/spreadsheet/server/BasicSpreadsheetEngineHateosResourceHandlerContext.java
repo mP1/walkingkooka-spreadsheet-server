@@ -35,20 +35,20 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
-        HateosResourceHandlerContextDelegator,
-        SpreadsheetEngineContextDelegator,
-        SpreadsheetFormatterContextDelegator,
-        SpreadsheetProviderDelegator {
+    HateosResourceHandlerContextDelegator,
+    SpreadsheetEngineContextDelegator,
+    SpreadsheetFormatterContextDelegator,
+    SpreadsheetProviderDelegator {
 
     static BasicSpreadsheetEngineHateosResourceHandlerContext with(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                                    final SpreadsheetEngineContext engineContext,
                                                                    final SpreadsheetFormatterContext formatterContext,
                                                                    final SpreadsheetProvider systemSpreadsheetProvider) {
         return new BasicSpreadsheetEngineHateosResourceHandlerContext(
-                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-                Objects.requireNonNull(engineContext, "engineContext"),
-                Objects.requireNonNull(formatterContext, "formatterContext"),
-                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(engineContext, "engineContext"),
+            Objects.requireNonNull(formatterContext, "formatterContext"),
+            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider")
         );
     }
 

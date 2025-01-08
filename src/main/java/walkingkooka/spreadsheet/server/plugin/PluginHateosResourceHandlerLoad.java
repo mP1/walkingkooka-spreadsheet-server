@@ -39,8 +39,8 @@ import java.util.SortedSet;
  * Provides end points to retrieve one or more {@link Plugin}.
  */
 final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -60,19 +60,19 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
         HateosResourceHandler.checkContext(context);
 
         final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
-                .orElse(0);
+            .orElse(0);
         final int count = SpreadsheetUrlQueryParameters.count(parameters)
-                .orElse(DEFAULT_COUNT);
+            .orElse(DEFAULT_COUNT);
 
         return pluginSet(
-                context.pluginStore()
-                        .values(
-                                offset,
-                                Math.min(
-                                        MAX_COUNT,
-                                        count
-                                )
-                        )
+            context.pluginStore()
+                .values(
+                    offset,
+                    Math.min(
+                        MAX_COUNT,
+                        count
+                    )
+                )
         );
     }
 
@@ -91,7 +91,7 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
         HateosResourceHandler.checkContext(context);
 
         return context.pluginStore()
-                .load(name);
+            .load(name);
     }
 
     @Override
@@ -105,15 +105,15 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
         HateosResourceHandler.checkContext(context);
 
         return pluginSet(
-                context.pluginStore()
-                        .between(
-                                range.lowerBound()
-                                        .value()
-                                        .orElseThrow(() -> new IllegalArgumentException("Range missing begin")),
-                                range.upperBound()
-                                        .value()
-                                        .orElseThrow(() -> new IllegalArgumentException("Range missing end"))
-                        )
+            context.pluginStore()
+                .between(
+                    range.lowerBound()
+                        .value()
+                        .orElseThrow(() -> new IllegalArgumentException("Range missing begin")),
+                    range.upperBound()
+                        .value()
+                        .orElseThrow(() -> new IllegalArgumentException("Range missing end"))
+                )
         );
     }
 
@@ -122,7 +122,7 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
         all.addAll(plugins);
 
         return Optional.of(
-                PluginSet.with(all)
+            PluginSet.with(all)
         );
     }
 

@@ -37,9 +37,9 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
                                                                             final HttpResponse response,
                                                                             final SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler engine) {
         return new SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest(
-                Objects.requireNonNull(request, "request"),
-                Objects.requireNonNull(response, "response"),
-                engine
+            Objects.requireNonNull(request, "request"),
+            Objects.requireNonNull(response, "response"),
+            engine
         );
     }
 
@@ -73,7 +73,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
 
     private Optional<UrlPathName> path(final int index) {
         return HttpRequestAttributes.pathComponent(index)
-                .parameterValue(this.request);
+            .parameterValue(this.request);
     }
 
     private void handleSpreadsheetId(final UrlPathName pathName) {
@@ -83,7 +83,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
         } catch (final RuntimeException cause) {
             id = null;
             this.setStatus(HttpStatusCode.BAD_REQUEST,
-                    "Invalid " + SpreadsheetId.class.getSimpleName());
+                "Invalid " + SpreadsheetId.class.getSimpleName());
         }
         if (null != id) {
             this.handleSpreadsheetId0(id);
@@ -95,12 +95,12 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
      */
     private void handleSpreadsheetId0(final SpreadsheetId id) {
         this.handler.router(id)
-                .route(this.request.routerParameters())
-                .orElse(SpreadsheetHttpServer::notFound)
-                .handle(
-                        this.request,
-                        this.response
-                );
+            .route(this.request.routerParameters())
+            .orElse(SpreadsheetHttpServer::notFound)
+            .handle(
+                this.request,
+                this.response
+            );
     }
 
     /**
@@ -108,7 +108,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest {
      */
     private void spreadsheetIdMissing() {
         this.setStatus(HttpStatusCode.BAD_REQUEST,
-                "Missing " + SpreadsheetId.class.getSimpleName());
+            "Missing " + SpreadsheetId.class.getSimpleName());
     }
 
     private void setStatus(final HttpStatusCode status,

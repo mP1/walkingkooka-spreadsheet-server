@@ -51,13 +51,13 @@ public final class JarEntryInfo implements TreePrintable {
                                     final Optional<LocalDateTime> create,
                                     final Optional<LocalDateTime> lastModified) {
         return new JarEntryInfo(
-                Objects.requireNonNull(name, "name"),
-                checkPositiveNumber(size, "size"),
-                checkPositiveNumber(compressedSize, "compressedSize"),
-                checkPositiveNumber(method, "method"),
-                checkPositiveNumber(crc, "crc"),
-                Objects.requireNonNull(create, "create"),
-                Objects.requireNonNull(lastModified, "lastModified")
+            Objects.requireNonNull(name, "name"),
+            checkPositiveNumber(size, "size"),
+            checkPositiveNumber(compressedSize, "compressedSize"),
+            checkPositiveNumber(method, "method"),
+            checkPositiveNumber(crc, "crc"),
+            Objects.requireNonNull(create, "create"),
+            Objects.requireNonNull(lastModified, "lastModified")
         );
     }
 
@@ -150,52 +150,52 @@ public final class JarEntryInfo implements TreePrintable {
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.name,
-                this.size,
-                this.compressedSize,
-                this.method,
-                this.crc,
-                this.create,
-                this.lastModified
+            this.name,
+            this.size,
+            this.compressedSize,
+            this.method,
+            this.crc,
+            this.create,
+            this.lastModified
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof JarEntryInfo &&
-                        this.equals0(Cast.to(other));
+            other instanceof JarEntryInfo &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final JarEntryInfo other) {
         return this.name.equals(other.name) &&
-                this.size.equals(other.size) &&
-                this.compressedSize.equals(other.compressedSize) &&
-                this.method.equals(other.method) &&
-                this.crc.equals(other.crc) &&
-                this.create.equals(other.create) &&
-                this.lastModified.equals(other.lastModified);
+            this.size.equals(other.size) &&
+            this.compressedSize.equals(other.compressedSize) &&
+            this.method.equals(other.method) &&
+            this.crc.equals(other.crc) &&
+            this.create.equals(other.create) &&
+            this.lastModified.equals(other.lastModified);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
-                .value(this.name.value()) // String value will add quotes
-                .value(this.isDirectory() ? "(directory)" : "(file)")
-                .label("size")
-                .value(this.size)
-                .label("compressedSize")
-                .value(this.compressedSize)
-                .label("method")
-                .value(this.method)
-                .label("crc")
-                .value(this.crc)
-                .label("create")
-                .value(this.create)
-                .label("lastModified")
-                .value(this.lastModified)
-                .build();
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .value(this.name.value()) // String value will add quotes
+            .value(this.isDirectory() ? "(directory)" : "(file)")
+            .label("size")
+            .value(this.size)
+            .label("compressedSize")
+            .value(this.compressedSize)
+            .label("method")
+            .value(this.method)
+            .label("crc")
+            .value(this.crc)
+            .label("create")
+            .value(this.create)
+            .label("lastModified")
+            .value(this.lastModified)
+            .build();
     }
 
     // JsonNodeContext...................................................................................................
@@ -220,50 +220,50 @@ public final class JarEntryInfo implements TreePrintable {
             switch (jsonPropertyName.value()) {
                 case NAME_PROPERTY_STRING:
                     name = context.unmarshall(
-                            child,
-                            JarEntryInfoName.class
+                        child,
+                        JarEntryInfoName.class
                     );
                     break;
                 case SIZE_PROPERTY_STRING:
                     size = context.unmarshall(
-                            child,
-                            Long.class
+                        child,
+                        Long.class
                     );
                     break;
                 case COMPRESSED_SIZE_PROPERTY_STRING:
                     compressedSize = context.unmarshall(
-                            child,
-                            Long.class
+                        child,
+                        Long.class
                     );
                     break;
                 case METHOD_PROPERTY_STRING:
                     method = context.unmarshall(
-                            child,
-                            Integer.class
+                        child,
+                        Integer.class
                     );
                     break;
                 case CRC_PROPERTY_STRING:
                     crc = context.unmarshall(
-                            child,
-                            Long.class
+                        child,
+                        Long.class
                     );
                     break;
                 case CREATE_PROPERTY_STRING:
                     create = context.unmarshall(
-                            child,
-                            LocalDateTime.class
+                        child,
+                        LocalDateTime.class
                     );
                     break;
                 case LAST_MODIFIED_PROPERTY_STRING:
                     lastModified = context.unmarshall(
-                            child,
-                            LocalDateTime.class
+                        child,
+                        LocalDateTime.class
                     );
                     break;
                 default:
                     JsonNodeUnmarshallContext.unknownPropertyPresent(
-                            jsonPropertyName,
-                            node
+                        jsonPropertyName,
+                        node
                     );
                     break;
             }
@@ -274,37 +274,37 @@ public final class JarEntryInfo implements TreePrintable {
         }
 
         return with(
-                name,
-                null != size ?
-                        OptionalLong.of(size.longValue()) :
-                        OptionalLong.empty(),
-                null != compressedSize ?
-                        OptionalLong.of(compressedSize.longValue()) :
-                        OptionalLong.empty(),
-                null != method ?
-                        OptionalInt.of(method.intValue()) :
-                        OptionalInt.empty(),
-                null != crc ?
-                        OptionalLong.of(crc.longValue()) :
-                        OptionalLong.empty(),
-                Optional.ofNullable(create),
-                Optional.ofNullable(lastModified)
+            name,
+            null != size ?
+                OptionalLong.of(size.longValue()) :
+                OptionalLong.empty(),
+            null != compressedSize ?
+                OptionalLong.of(compressedSize.longValue()) :
+                OptionalLong.empty(),
+            null != method ?
+                OptionalInt.of(method.intValue()) :
+                OptionalInt.empty(),
+            null != crc ?
+                OptionalLong.of(crc.longValue()) :
+                OptionalLong.empty(),
+            Optional.ofNullable(create),
+            Optional.ofNullable(lastModified)
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObject json = JsonNode.object()
-                .set(
-                        NAME_PROPERTY,
-                        context.marshall(this.name)
-                );
+            .set(
+                NAME_PROPERTY,
+                context.marshall(this.name)
+            );
 
         {
             final OptionalLong size = this.size;
             if (size.isPresent()) {
                 json = json.set(
-                        SIZE_PROPERTY,
-                        context.marshall(size.getAsLong())
+                    SIZE_PROPERTY,
+                    context.marshall(size.getAsLong())
                 );
             }
         }
@@ -313,8 +313,8 @@ public final class JarEntryInfo implements TreePrintable {
             final OptionalLong compressedSize = this.compressedSize;
             if (compressedSize.isPresent()) {
                 json = json.set(
-                        COMPRESSED_SIZE_PROPERTY,
-                        context.marshall(compressedSize.getAsLong())
+                    COMPRESSED_SIZE_PROPERTY,
+                    context.marshall(compressedSize.getAsLong())
                 );
             }
         }
@@ -323,8 +323,8 @@ public final class JarEntryInfo implements TreePrintable {
             final OptionalInt method = this.method;
             if (method.isPresent()) {
                 json = json.set(
-                        METHOD_PROPERTY,
-                        context.marshall(method.getAsInt())
+                    METHOD_PROPERTY,
+                    context.marshall(method.getAsInt())
                 );
             }
         }
@@ -333,8 +333,8 @@ public final class JarEntryInfo implements TreePrintable {
             final OptionalLong crc = this.crc;
             if (crc.isPresent()) {
                 json = json.set(
-                        CRC_PROPERTY,
-                        context.marshall(crc.getAsLong())
+                    CRC_PROPERTY,
+                    context.marshall(crc.getAsLong())
                 );
             }
         }
@@ -343,8 +343,8 @@ public final class JarEntryInfo implements TreePrintable {
             final LocalDateTime create = this.create.orElse(null);
             if (null != create) {
                 json = json.set(
-                        CREATE_PROPERTY,
-                        context.marshall(create)
+                    CREATE_PROPERTY,
+                    context.marshall(create)
                 );
             }
         }
@@ -352,8 +352,8 @@ public final class JarEntryInfo implements TreePrintable {
             final LocalDateTime lastModified = this.lastModified.orElse(null);
             if (null != lastModified) {
                 json = json.set(
-                        LAST_MODIFIED_PROPERTY,
-                        context.marshall(lastModified)
+                    LAST_MODIFIED_PROPERTY,
+                    context.marshall(lastModified)
                 );
             }
         }
@@ -393,10 +393,10 @@ public final class JarEntryInfo implements TreePrintable {
         LocalDateTime.now();
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(JarEntryInfo.class),
-                JarEntryInfo::unmarshall,
-                JarEntryInfo::marshall,
-                JarEntryInfo.class
+            JsonNodeContext.computeTypeName(JarEntryInfo.class),
+            JarEntryInfo::unmarshall,
+            JarEntryInfo::marshall,
+            JarEntryInfo.class
         );
     }
 

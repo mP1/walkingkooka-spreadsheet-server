@@ -37,7 +37,7 @@ import walkingkooka.text.LineEnding;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHttpHandler>,
-        ClassTesting<PluginHttpHandler> {
+    ClassTesting<PluginHttpHandler> {
 
     private final static AbsoluteUrl SERVER_URL = Url.parseAbsolute("https://example.com");
 
@@ -58,90 +58,90 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
     @Test
     public void testWithNullServerUrlFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        null,
-                        INDENTATION,
-                        LINE_ENDING,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        CONTENT_TYPE_DETECTOR
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                CONTENT_TYPE_DETECTOR
+            )
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        SERVER_URL,
-                        null,
-                        LINE_ENDING,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        CONTENT_TYPE_DETECTOR
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                SERVER_URL,
+                null,
+                LINE_ENDING,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                CONTENT_TYPE_DETECTOR
+            )
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        null,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        CONTENT_TYPE_DETECTOR
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                CONTENT_TYPE_DETECTOR
+            )
         );
     }
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        null,
-                        PROVIDER_CONTEXT,
-                        CONTENT_TYPE_DETECTOR
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                null,
+                PROVIDER_CONTEXT,
+                CONTENT_TYPE_DETECTOR
+            )
         );
     }
 
     @Test
     public void testWithNullProviderContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        null,
-                        CONTENT_TYPE_DETECTOR
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null,
+                CONTENT_TYPE_DETECTOR
+            )
         );
     }
 
     @Test
     public void testWithNullContentTypeDetectorFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> PluginHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        null
-                )
+            NullPointerException.class,
+            () -> PluginHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                PROVIDER_CONTEXT,
+                null
+            )
         );
     }
 
@@ -150,12 +150,12 @@ public final class PluginHttpHandlerTest implements HttpHandlerTesting<PluginHtt
     @Override
     public PluginHttpHandler createHttpHandler() {
         return PluginHttpHandler.with(
-                SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT,
-                CONTENT_TYPE_DETECTOR
+            SERVER_URL,
+            INDENTATION,
+            LINE_ENDING,
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            PROVIDER_CONTEXT,
+            CONTENT_TYPE_DETECTOR
         );
     }
 

@@ -33,28 +33,28 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
     // comparator.......................................................................................................
 
     public static HateosResourceMapping<SpreadsheetComparatorName,
-            SpreadsheetComparatorInfo,
-            SpreadsheetComparatorInfoSet,
-            SpreadsheetComparatorInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> comparator() {
+        SpreadsheetComparatorInfo,
+        SpreadsheetComparatorInfoSet,
+        SpreadsheetComparatorInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> comparator() {
 
         // comparator GET...............................................................................................
 
         HateosResourceMapping<SpreadsheetComparatorName,
-                SpreadsheetComparatorInfo,
-                SpreadsheetComparatorInfoSet,
-                SpreadsheetComparatorInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
-                SpreadsheetComparatorName.HATEOS_RESOURCE_NAME,
-                SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
-                SpreadsheetComparatorInfo.class, // valueType
-                SpreadsheetComparatorInfoSet.class, // collectionType
-                SpreadsheetComparatorInfo.class,// resourceType
-                SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetComparatorInfo,
+            SpreadsheetComparatorInfoSet,
+            SpreadsheetComparatorInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
+            SpreadsheetComparatorName.HATEOS_RESOURCE_NAME,
+            SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
+            SpreadsheetComparatorInfo.class, // valueType
+            SpreadsheetComparatorInfoSet.class, // collectionType
+            SpreadsheetComparatorInfo.class,// resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetComparatorInfoHateosResourceHandler.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetComparatorInfoHateosResourceHandler.INSTANCE
         );
 
         return comparator;
@@ -72,7 +72,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
                 throw new IllegalArgumentException("Invalid comparator selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                        SpreadsheetComparatorName.with(text)
+                    SpreadsheetComparatorName.with(text)
                 );
                 break;
         }

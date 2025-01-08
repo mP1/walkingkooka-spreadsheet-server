@@ -49,15 +49,15 @@ import java.util.Objects;
  * </pre>
  */
 public final class SpreadsheetFormatterFormatRequestList extends AbstractList<SpreadsheetFormatterFormatRequest<?>>
-        implements ImmutableListDefaults<SpreadsheetFormatterFormatRequestList, SpreadsheetFormatterFormatRequest<?>> {
+    implements ImmutableListDefaults<SpreadsheetFormatterFormatRequestList, SpreadsheetFormatterFormatRequest<?>> {
 
     public static SpreadsheetFormatterFormatRequestList with(final List<SpreadsheetFormatterFormatRequest<?>> requests) {
         Objects.requireNonNull(requests, "requests");
         return requests instanceof SpreadsheetFormatterFormatRequestList ?
-                (SpreadsheetFormatterFormatRequestList) requests :
-                new SpreadsheetFormatterFormatRequestList(
-                        Lists.immutable(requests)
-                );
+            (SpreadsheetFormatterFormatRequestList) requests :
+            new SpreadsheetFormatterFormatRequestList(
+                Lists.immutable(requests)
+            );
     }
 
     private SpreadsheetFormatterFormatRequestList(final List<SpreadsheetFormatterFormatRequest<?>> requests) {
@@ -80,8 +80,8 @@ public final class SpreadsheetFormatterFormatRequestList extends AbstractList<Sp
     public SpreadsheetFormatterFormatRequestList setElements(final List<SpreadsheetFormatterFormatRequest<?>> requests) {
         final SpreadsheetFormatterFormatRequestList copy = with(requests);
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 
     // json.............................................................................................................
@@ -89,12 +89,12 @@ public final class SpreadsheetFormatterFormatRequestList extends AbstractList<Sp
     static SpreadsheetFormatterFormatRequestList unmarshall(final JsonNode node,
                                                             final JsonNodeUnmarshallContext context) {
         return with(
-                Cast.to(
-                        context.unmarshallList(
-                                node,
-                                SpreadsheetFormatterFormatRequest.class
-                        )
+            Cast.to(
+                context.unmarshallList(
+                    node,
+                    SpreadsheetFormatterFormatRequest.class
                 )
+            )
         );
     }
 
@@ -106,10 +106,10 @@ public final class SpreadsheetFormatterFormatRequestList extends AbstractList<Sp
         SpreadsheetFormatterFormatRequest.SELECTOR_PROPERTY.toString(); // force json-registry
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetFormatterFormatRequestList.class),
-                SpreadsheetFormatterFormatRequestList::unmarshall,
-                SpreadsheetFormatterFormatRequestList::marshall,
-                SpreadsheetFormatterFormatRequestList.class
+            JsonNodeContext.computeTypeName(SpreadsheetFormatterFormatRequestList.class),
+            SpreadsheetFormatterFormatRequestList::unmarshall,
+            SpreadsheetFormatterFormatRequestList::marshall,
+            SpreadsheetFormatterFormatRequestList.class
         );
     }
 }

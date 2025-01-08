@@ -35,10 +35,10 @@ import java.util.Objects;
  * {@link SpreadsheetParserProvider} etc.
  */
 final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetParserSelectorEditContext,
-        SpreadsheetFormatterContextDelegator,
-        SpreadsheetFormatterProviderDelegator,
-        SpreadsheetParserProviderDelegator,
-        ProviderContextDelegator {
+    SpreadsheetFormatterContextDelegator,
+    SpreadsheetFormatterProviderDelegator,
+    SpreadsheetParserProviderDelegator,
+    ProviderContextDelegator {
 
     static BasicSpreadsheetParserSelectorEditContext with(final SpreadsheetParserProvider spreadsheetParserProvider,
                                                           final SpreadsheetParserContext spreadsheetParserContext,
@@ -46,11 +46,11 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
                                                           final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                           final ProviderContext providerContext) {
         return new BasicSpreadsheetParserSelectorEditContext(
-                Objects.requireNonNull(spreadsheetParserProvider, "spreadsheetParserProvider"),
-                Objects.requireNonNull(spreadsheetParserContext, "spreadsheetParserContext"),
-                Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
-                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
-                Objects.requireNonNull(providerContext, "providerContext")
+            Objects.requireNonNull(spreadsheetParserProvider, "spreadsheetParserProvider"),
+            Objects.requireNonNull(spreadsheetParserContext, "spreadsheetParserContext"),
+            Objects.requireNonNull(spreadsheetFormatterContext, "spreadsheetFormatterContext"),
+            Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
+            Objects.requireNonNull(providerContext, "providerContext")
         );
     }
 

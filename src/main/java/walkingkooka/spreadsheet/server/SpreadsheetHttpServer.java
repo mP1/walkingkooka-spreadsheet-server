@@ -65,16 +65,16 @@ public final class SpreadsheetHttpServer implements HttpServer {
      * This header contains the client transaction-id and is used to map responses with the original requests.
      */
     public final static HttpHeaderName<String> TRANSACTION_ID = HttpHeaderName.with("X-transaction-id")
-            .stringValues();
+        .stringValues();
 
     public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
 
     public final static UrlPath API_SPREADSHEET = API.append(
-            SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
+        SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_PLUGIN = API.append(
-            Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     /**
@@ -93,18 +93,18 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
                                              final Function<HttpHandler, HttpServer> server) {
         return new SpreadsheetHttpServer(
-                checkServerUrl(serverUrl),
-                Objects.requireNonNull(indentation, "indentation"),
-                Objects.requireNonNull(lineEnding, "lineEnding"),
-                Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
-                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
-                Objects.requireNonNull(providerContext, "providerContext"),
-                Objects.requireNonNull(metadataStore, "metadataStore"),
-                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-                Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
-                Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
-                Objects.requireNonNull(fileServer, "fileServer"),
-                Objects.requireNonNull(server, "server")
+            checkServerUrl(serverUrl),
+            Objects.requireNonNull(indentation, "indentation"),
+            Objects.requireNonNull(lineEnding, "lineEnding"),
+            Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
+            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
+            Objects.requireNonNull(providerContext, "providerContext"),
+            Objects.requireNonNull(metadataStore, "metadataStore"),
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
+            Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
+            Objects.requireNonNull(fileServer, "fileServer"),
+            Objects.requireNonNull(server, "server")
         );
     }
 
@@ -126,12 +126,12 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private static IllegalArgumentException checkServerUrlFail(final String property,
                                                                final AbsoluteUrl serverUrl) {
         return new IllegalArgumentException(
-                "Url must not have " +
-                        property +
-                        " got " +
-                        CharSequences.quoteAndEscape(
-                                serverUrl.toString()
-                        )
+            "Url must not have " +
+                property +
+                " got " +
+                CharSequences.quoteAndEscape(
+                    serverUrl.toString()
+                )
         );
     }
 
@@ -174,46 +174,46 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.hateosResourceHandlerContext = hateosResourceHandlerContext;
 
         this.spreadsheetIdToSpreadsheetProvider = spreadsheetIdToSpreadsheetProvider;
- 
+
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
         this.server = server.apply(
-                HttpHandlers.stacktraceDumping(
-                        HttpHandlers.headerCopy(
-                                Sets.of(TRANSACTION_ID),
-                                this::handler
-                        ),
-                        SpreadsheetThrowableTranslator.INSTANCE
-                )
+            HttpHandlers.stacktraceDumping(
+                HttpHandlers.headerCopy(
+                    Sets.of(TRANSACTION_ID),
+                    this::handler
+                ),
+                SpreadsheetThrowableTranslator.INSTANCE
+            )
         );
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
-                .add(
-                        this.routing(API_PLUGIN)
-                                .build(),
-                        this.pluginHttpHandler(
-                                serverUrl.setPath(API)
-                        )
-                ).add(
-                        this.routing(API)
-                                .build(),
-                        this.spreadsheetMetadataHttpHandler(
-                                serverUrl.setPath(API)
-                        )
-                ).add(
-                        this.spreadsheetEngineRouting(API_SPREADSHEET)
-                                .build(),
-                        this.spreadsheetEngineHttpHandler(
-                                serverUrl.setPath(API_SPREADSHEET)
-                        )
-                ).add(
-                        this.fileServerRouting()
-                                .build(),
-                        this.fileServerHttpHandler(
-                                UrlPath.ROOT,
-                                fileServer
-                        )
-                ).router();
+            .add(
+                this.routing(API_PLUGIN)
+                    .build(),
+                this.pluginHttpHandler(
+                    serverUrl.setPath(API)
+                )
+            ).add(
+                this.routing(API)
+                    .build(),
+                this.spreadsheetMetadataHttpHandler(
+                    serverUrl.setPath(API)
+                )
+            ).add(
+                this.spreadsheetEngineRouting(API_SPREADSHEET)
+                    .build(),
+                this.spreadsheetEngineHttpHandler(
+                    serverUrl.setPath(API_SPREADSHEET)
+                )
+            ).add(
+                this.fileServerRouting()
+                    .build(),
+                this.fileServerHttpHandler(
+                    UrlPath.ROOT,
+                    fileServer
+                )
+            ).router();
     }
 
     /**
@@ -222,32 +222,32 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private void handler(final HttpRequest request, final HttpResponse response) {
         this.router.route(
-                        request.routerParameters()
-                ).orElse(SpreadsheetHttpServer::notFound)
-                .handle(
-                        request,
-                        response
-                );
+                request.routerParameters()
+            ).orElse(SpreadsheetHttpServer::notFound)
+            .handle(
+                request,
+                response
+            );
     }
 
     // mappings.........................................................................................................
 
     private HttpRequestAttributeRouting routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
-                .path(path);
+            .path(path);
     }
 
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(
-                api,
-                this.indentation,
-                this.lineEnding,
-                this.systemSpreadsheetProvider,
-                this.providerContext,
-                this.metadataStore,
-                this.spreadsheetIdToSpreadsheetProvider,
-                this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext
+            api,
+            this.indentation,
+            this.lineEnding,
+            this.systemSpreadsheetProvider,
+            this.providerContext,
+            this.metadataStore,
+            this.spreadsheetIdToSpreadsheetProvider,
+            this.spreadsheetIdToStoreRepository,
+            this.hateosResourceHandlerContext
         );
     }
 
@@ -257,33 +257,33 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private HttpRequestAttributeRouting spreadsheetEngineRouting(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
-                .path(
-                        path.append(UrlPathName.WILDCARD)
-                                .append(UrlPathName.WILDCARD));
+            .path(
+                path.append(UrlPathName.WILDCARD)
+                    .append(UrlPathName.WILDCARD));
     }
 
     private HttpHandler spreadsheetEngineHttpHandler(final AbsoluteUrl url) {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-                url,
-                this.indentation,
-                this.lineEnding,
-                this.systemSpreadsheetProvider,
-                this.providerContext,
-                this.metadataStore,
-                this.spreadsheetIdToSpreadsheetProvider,
-                this.spreadsheetIdToStoreRepository,
-                this.hateosResourceHandlerContext
+            url,
+            this.indentation,
+            this.lineEnding,
+            this.systemSpreadsheetProvider,
+            this.providerContext,
+            this.metadataStore,
+            this.spreadsheetIdToSpreadsheetProvider,
+            this.spreadsheetIdToStoreRepository,
+            this.hateosResourceHandlerContext
         );
     }
 
     private HttpHandler pluginHttpHandler(final AbsoluteUrl apiPlugin) {
         return PluginHttpHandler.with(
-                apiPlugin,
-                this.indentation,
-                this.lineEnding,
-                this.hateosResourceHandlerContext,
-                this.providerContext,
-                this.mediaTypeDetector
+            apiPlugin,
+            this.indentation,
+            this.lineEnding,
+            this.hateosResourceHandlerContext,
+            this.providerContext,
+            this.mediaTypeDetector
         );
     }
 
@@ -314,14 +314,14 @@ public final class SpreadsheetHttpServer implements HttpServer {
      */
     private HttpRequestAttributeRouting fileServerRouting() {
         return HttpRequestAttributeRouting.empty()
-                .path(UrlPath.parse("/*"));
+            .path(UrlPath.parse("/*"));
     }
 
     private HttpHandler fileServerHttpHandler(final UrlPath baseUrlPath,
                                               final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer) {
         return HttpHandlers.webFile(
-                baseUrlPath.normalize(),
-                fileServer
+            baseUrlPath.normalize(),
+            fileServer
         );
     }
 

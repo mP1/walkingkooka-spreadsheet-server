@@ -44,17 +44,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
         final SpreadsheetLabelName labelName = this.id();
 
         this.handleOneFails(
-                labelName,
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setLabels(
-                                Sets.of(
-                                        this.mapping(labelName)
-                                )
-                        )
-                ),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(),
-                IllegalArgumentException.class
+            labelName,
+            Optional.of(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        this.mapping(labelName)
+                    )
+                )
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
@@ -66,20 +66,20 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
         store.save(mapping);
 
         this.handleOneAndCheck(
-                labelName,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setDeletedLabels(
-                                Sets.of(labelName)
-                        )
+            labelName,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(store),
+            Optional.of(
+                SpreadsheetDelta.EMPTY.setDeletedLabels(
+                    Sets.of(labelName)
                 )
+            )
         );
 
         this.checkEquals(
-                Optional.empty(),
-                store.load(labelName)
+            Optional.empty(),
+            store.load(labelName)
         );
     }
 
@@ -90,13 +90,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
     @Test
     public void testHandleOneDeleteUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
-                SpreadsheetSelection.labelName("UnknownLabel123"),
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(SpreadsheetLabelStores.treeMap()),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                )
+            SpreadsheetSelection.labelName("UnknownLabel123"),
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(SpreadsheetLabelStores.treeMap()),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+            )
         );
     }
 
@@ -114,12 +114,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
                 SpreadsheetDelta response = SpreadsheetDelta.EMPTY;
 
                 final SpreadsheetLabelStore store = context.storeRepository()
-                        .labels();
+                    .labels();
                 if (store.load(label).isPresent()) {
                     store.delete(label);
 
                     response = response.setDeletedLabels(
-                            Sets.of(label)
+                        Sets.of(label)
                     );
                 }
 

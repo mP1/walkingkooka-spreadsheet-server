@@ -38,8 +38,8 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that invokes {@link SpreadsheetMetadataStore#create(EmailAddress, Optional)}.
  */
 final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMetadataHateosResourceHandler
-        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
 
     final static SpreadsheetMetadataHateosResourceHandlerLoad INSTANCE = new SpreadsheetMetadataHateosResourceHandlerLoad();
 
@@ -57,8 +57,8 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkContext(context);
 
         final Optional<SpreadsheetMetadata> loaded = context.storeRepository(id)
-                .metadatas()
-                .load(id);
+            .metadatas()
+            .load(id);
         if (!loaded.isPresent()) {
             throw new MissingStoreException("Unable to load spreadsheet " + id);
         }
@@ -74,24 +74,24 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
         HateosResourceHandler.checkContext(context);
 
         final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
-                .orElse(0);
+            .orElse(0);
         final int count = SpreadsheetUrlQueryParameters.count(parameters)
-                .orElse(DEFAULT_COUNT);
+            .orElse(DEFAULT_COUNT);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());
         all.addAll(
-                context.metadataStore()
-                        .values(
-                                offset,
-                                Math.min(
-                                        MAX_COUNT,
-                                        count
-                                )
-                        )
+            context.metadataStore()
+                .values(
+                    offset,
+                    Math.min(
+                        MAX_COUNT,
+                        count
+                    )
+                )
         );
 
         return Optional.of(
-                SpreadsheetMetadataSet.with(all)
+            SpreadsheetMetadataSet.with(all)
         );
     }
 
@@ -116,11 +116,11 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
 
         for (final SpreadsheetId id : ids) {
             store.load(id)
-                    .ifPresent(all::add);
+                .ifPresent(all::add);
         }
 
         return Optional.of(
-                SpreadsheetMetadataSet.with(all)
+            SpreadsheetMetadataSet.with(all)
         );
     }
 

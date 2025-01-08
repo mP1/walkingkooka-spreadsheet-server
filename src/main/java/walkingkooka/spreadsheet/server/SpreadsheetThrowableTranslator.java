@@ -43,11 +43,11 @@ final class SpreadsheetThrowableTranslator implements Function<Throwable, HttpSt
     @Override
     public HttpStatus apply(final Throwable throwable) {
         return throwable instanceof MissingStoreException ?
-                HttpStatusCode.NOT_FOUND.setMessage(
-                        HttpStatus.firstLineOfText(throwable.getMessage())
-                ) :
-                HttpHandlers.throwableTranslator()
-                        .apply(throwable);
+            HttpStatusCode.NOT_FOUND.setMessage(
+                HttpStatus.firstLineOfText(throwable.getMessage())
+            ) :
+            HttpHandlers.throwableTranslator()
+                .apply(throwable);
     }
 
     public String toString() {

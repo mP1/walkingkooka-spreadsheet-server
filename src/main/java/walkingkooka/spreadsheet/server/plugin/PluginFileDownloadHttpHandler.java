@@ -52,9 +52,9 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                                               final PluginStore pluginStore,
                                               final MediaTypeDetector contentTypeDetector) {
         return new PluginFileDownloadHttpHandler(
-                Objects.requireNonNull(base, "base"),
-                Objects.requireNonNull(pluginStore, "pluginStore"),
-                Objects.requireNonNull(contentTypeDetector, "contentTypeDetector")
+            Objects.requireNonNull(base, "base"),
+            Objects.requireNonNull(pluginStore, "pluginStore"),
+            Objects.requireNonNull(contentTypeDetector, "contentTypeDetector")
         );
     }
 
@@ -74,11 +74,11 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
         // response will be empty if file content/type is not compatible with Accept
         final Accept accept = HttpHeaderName.ACCEPT.header(request)
-                .orElse(Accept.DEFAULT);
+            .orElse(Accept.DEFAULT);
 
         final UrlPath path = request.url()
-                .path()
-                .normalize();
+            .path()
+            .normalize();
 
         // extract plugin name
         final List<UrlPathName> pathNames = path.namesList();
@@ -90,12 +90,12 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
         UrlPath download = this.base.path();
         final UrlPathName pathName = pathNames.get(3);
         final PluginName pluginName = PluginName.with(
-                pathName.value()
+            pathName.value()
         );
         download = download.append(pathName)
-                .append(
-                        SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
-                );
+            .append(
+                SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
+            );
 
         final Optional<Plugin> maybePlugin = this.pluginStore.load(pluginName);
 
@@ -117,21 +117,21 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
                 final String pluginFilename = plugin.filename();
 
                 final MediaType contentType = contentTypeDetector.detect(
-                        pluginFilename,
-                        archive
+                    pluginFilename,
+                    archive
                 );
                 if (accept.test(contentType)) {
                     entity = HttpEntity.EMPTY.setContentType(contentType)
-                            .addHeader(
-                                    HttpHeaderName.CONTENT_DISPOSITION,
-                                    ContentDispositionType.ATTACHMENT.setFilename(
-                                            ContentDispositionFileName.notEncoded(pluginFilename)
-                                    )
-                            ).addHeader(
-                                    JsonHttpHandlers.X_CONTENT_TYPE_NAME,
-                                    JarEntryInfoName.class.getSimpleName()
-                            ).setBody(archive)
-                            .setContentLength();
+                        .addHeader(
+                            HttpHeaderName.CONTENT_DISPOSITION,
+                            ContentDispositionType.ATTACHMENT.setFilename(
+                                ContentDispositionFileName.notEncoded(pluginFilename)
+                            )
+                        ).addHeader(
+                            JsonHttpHandlers.X_CONTENT_TYPE_NAME,
+                            JarEntryInfoName.class.getSimpleName()
+                        ).setBody(archive)
+                        .setContentLength();
                 }
             } else {
                 // file path present extract file and send that
@@ -139,10 +139,10 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
 
                 try {
                     entity = PluginFileDownloadHttpHandlerFileExtractor.extractFile(
-                            archive,
-                            filePath,
-                            contentTypeDetector,
-                            accept
+                        archive,
+                        filePath,
+                        contentTypeDetector,
+                        accept
                     );
                 } catch (final IOException cause) {
                     throw new RuntimeException(cause);
@@ -151,10 +151,10 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
         }
 
         response.setStatus(
-                (entity.isEmpty() ?
-                        HttpStatusCode.NO_CONTENT :
-                        HttpStatusCode.OK
-                ).status()
+            (entity.isEmpty() ?
+                HttpStatusCode.NO_CONTENT :
+                HttpStatusCode.OK
+            ).status()
         );
         response.setEntity(entity);
     }

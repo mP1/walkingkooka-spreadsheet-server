@@ -32,25 +32,25 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu>,
-        ClassTesting<SpreadsheetFormatterSelectorMenuList>,
-        ImmutableListTesting<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu>,
-        JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenuList> {
+    ClassTesting<SpreadsheetFormatterSelectorMenuList>,
+    ImmutableListTesting<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu>,
+    JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenuList> {
 
     private final static SpreadsheetFormatterSelectorMenu MENU1 = SpreadsheetFormatterSelectorMenu.with(
-            "Short",
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yy/mm")
+        "Short",
+        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("yy/mm")
     );
 
     private final static SpreadsheetFormatterSelectorMenu MENU2 = SpreadsheetFormatterSelectorMenu.with(
-            "Long",
-            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("yyyy/mm/dd")
+        "Long",
+        SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("yyyy/mm/dd")
     );
 
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterSelectorMenuList.with(null)
+            NullPointerException.class,
+            () -> SpreadsheetFormatterSelectorMenuList.with(null)
         );
     }
 
@@ -58,35 +58,35 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     public void testDoesntDoubleWrap() {
         final SpreadsheetFormatterSelectorMenuList list = this.createList();
         assertSame(
-                list,
-                SpreadsheetFormatterSelectorMenuList.with(list)
+            list,
+            SpreadsheetFormatterSelectorMenuList.with(list)
         );
     }
 
     @Test
     public void testGet() {
         this.getAndCheck(
-                this.createList(),
-                0, // index
-                MENU1 // expected
+            this.createList(),
+            0, // index
+            MENU1 // expected
         );
     }
 
     @Test
     public void testGet2() {
         this.getAndCheck(
-                this.createList(),
-                1, // index
-                MENU2 // expected
+            this.createList(),
+            1, // index
+            MENU2 // expected
         );
     }
 
     @Test
     public void testSetFails() {
         this.setFails(
-                this.createList(),
-                0, // index
-                MENU1 // expected
+            this.createList(),
+            0, // index
+            MENU1 // expected
         );
     }
 
@@ -95,8 +95,8 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
         final SpreadsheetFormatterSelectorMenuList list = this.createList();
 
         this.removeIndexFails(
-                list,
-                0
+            list,
+            0
         );
     }
 
@@ -105,18 +105,18 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
         final SpreadsheetFormatterSelectorMenuList list = this.createList();
 
         this.removeFails(
-                list,
-                list.get(0)
+            list,
+            list.get(0)
         );
     }
 
     @Override
     public SpreadsheetFormatterSelectorMenuList createList() {
         return SpreadsheetFormatterSelectorMenuList.with(
-                Lists.of(
-                        MENU1,
-                        MENU2
-                )
+            Lists.of(
+                MENU1,
+                MENU2
+            )
         );
     }
 
@@ -133,29 +133,29 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     // Json...........................................................................................................
 
     private final static String JSON = "[\n" +
-            "  {\n" +
-            "    \"label\": \"Short\",\n" +
-            "    \"selector\": \"date-format-pattern yy/mm\"\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"label\": \"Long\",\n" +
-            "    \"selector\": \"text-format-pattern yyyy/mm/dd\"\n" +
-            "  }\n" +
-            "]";
+        "  {\n" +
+        "    \"label\": \"Short\",\n" +
+        "    \"selector\": \"date-format-pattern yy/mm\"\n" +
+        "  },\n" +
+        "  {\n" +
+        "    \"label\": \"Long\",\n" +
+        "    \"selector\": \"text-format-pattern yyyy/mm/dd\"\n" +
+        "  }\n" +
+        "]";
 
     @Test
     public void testMarshall() {
         this.marshallAndCheck(
-                this.createList(),
-                JSON
+            this.createList(),
+            JSON
         );
     }
 
     @Test
     public void testUnmarshall() {
         this.unmarshallAndCheck(
-                JSON,
-                this.createList()
+            JSON,
+            this.createList()
         );
     }
 
@@ -163,8 +163,8 @@ public class SpreadsheetFormatterSelectorMenuListTest implements ListTesting2<Sp
     public SpreadsheetFormatterSelectorMenuList unmarshall(final JsonNode json,
                                                            final JsonNodeUnmarshallContext context) {
         return SpreadsheetFormatterSelectorMenuList.unmarshall(
-                json,
-                context
+            json,
+            context
         );
     }
 

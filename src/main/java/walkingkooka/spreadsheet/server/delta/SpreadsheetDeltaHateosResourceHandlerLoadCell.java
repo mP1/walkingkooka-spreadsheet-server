@@ -53,8 +53,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         Objects.requireNonNull(evaluation, "evaluation");
 
         return new SpreadsheetDeltaHateosResourceHandlerLoadCell(
-                evaluation,
-                check(engine)
+            evaluation,
+            check(engine)
         );
     }
 
@@ -75,9 +75,9 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
         // compute window including navigation.
         final Optional<SpreadsheetViewport> maybeViewport = this.viewport(
-                parameters,
-                resource,
-                true // includeNavigation
+            parameters,
+            resource,
+            true // includeNavigation
         );
 
         if (false == maybeViewport.isPresent()) {
@@ -89,8 +89,8 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         final SpreadsheetEngine engine = this.engine;
 
         final Optional<SpreadsheetViewport> maybeNavigatedViewport = engine.navigate(
-                viewport,
-                context
+            viewport,
+            context
         );
 
         // if the selection moved need to SAVE!
@@ -98,23 +98,23 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
         if (maybeNavigatedViewport.isPresent()) {
             metadata = context.storeRepository()
-                    .metadatas()
-                    .save(
-                            metadata.set(
-                                    SpreadsheetMetadataPropertyName.VIEWPORT,
-                                    maybeNavigatedViewport.get()
-                            )
-                    );
+                .metadatas()
+                .save(
+                    metadata.set(
+                        SpreadsheetMetadataPropertyName.VIEWPORT,
+                        maybeNavigatedViewport.get()
+                    )
+                );
         }
 
         return this.handleAll0(
-                resource,
-                parameters,
-                maybeNavigatedViewport.orElse(viewport),
-                SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
-                        metadata,
-                        context
-                )
+            resource,
+            parameters,
+            maybeNavigatedViewport.orElse(viewport),
+            SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext.with(
+                metadata,
+                context
+            )
         );
     }
 
@@ -126,40 +126,40 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                   final SpreadsheetViewport viewport,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetViewportWindows window = this.engine.window(
-                viewport.rectangle(),
-                true, // includeFrozenColumnsRows,
-                SpreadsheetEngine.NO_SELECTION, // no selection
-                context
+            viewport.rectangle(),
+            true, // includeFrozenColumnsRows,
+            SpreadsheetEngine.NO_SELECTION, // no selection
+            context
         );
 
         // copy all the parameters plus the resolved window, which will be used by prepareResponse.
         final Map<HttpRequestAttribute<?>, Object> parametersPlusWindow = Maps.ordered();
         parametersPlusWindow.putAll(parameters);
         parametersPlusWindow.put(
-                SpreadsheetDeltaUrlQueryParameters.WINDOW,
-                Lists.of(
-                        window.toString()
-                )
+            SpreadsheetDeltaUrlQueryParameters.WINDOW,
+            Lists.of(
+                window.toString()
+            )
         );
 
         return this.handleRange0(
-                window.cellRanges(),
-                resource,
-                Optional.of(viewport),
-                Maps.immutable(
-                        parametersPlusWindow
-                ),
-                context
+            window.cellRanges(),
+            resource,
+            Optional.of(viewport),
+            Maps.immutable(
+                parametersPlusWindow
+            ),
+            context
         );
     }
 
     final static String MISSING_VIEWPORT = "Missing: " +
-            MissingBuilder.empty()
-                    .add(SpreadsheetDeltaUrlQueryParameters.HOME.value())
-                    .add(SpreadsheetDeltaUrlQueryParameters.WIDTH.value())
-                    .add(SpreadsheetDeltaUrlQueryParameters.HEIGHT.value())
-                    .add(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS.value())
-                    .build();
+        MissingBuilder.empty()
+            .add(SpreadsheetDeltaUrlQueryParameters.HOME.value())
+            .add(SpreadsheetDeltaUrlQueryParameters.WIDTH.value())
+            .add(SpreadsheetDeltaUrlQueryParameters.HEIGHT.value())
+            .add(SpreadsheetDeltaUrlQueryParameters.INCLUDE_FROZEN_COLUMNS_ROWS.value())
+            .build();
 
     // handleOne........................................................................................................
 
@@ -174,16 +174,16 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.loadCell(
-                                cell,
-                                SpreadsheetDeltaProperties.extract(parameters),
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.loadCell(
+                    cell,
+                    SpreadsheetDeltaProperties.extract(parameters),
+                    context
                 )
+            )
         );
     }
 
@@ -191,10 +191,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.engine.loadCells(
-                reference,
-                this.evaluation,
-                deltaProperties,
-                context
+            reference,
+            this.evaluation,
+            deltaProperties,
+            context
         );
     }
 
@@ -211,13 +211,13 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         HateosResourceHandler.checkContext(context);
 
         return this.handleRange0(
-                Sets.of(
-                        SpreadsheetSelection.cellRange(ids)
-                ),
-                resource,
-                Optional.empty(), // no viewport ignore query parameters
-                parameters,
-                context
+            Sets.of(
+                SpreadsheetSelection.cellRange(ids)
+            ),
+            resource,
+            Optional.empty(), // no viewport ignore query parameters
+            parameters,
+            context
         );
     }
 
@@ -227,16 +227,16 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
         return Optional.ofNullable(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.loadCells(
-                                window,
-                                SpreadsheetDeltaProperties.extract(parameters),
-                                context
-                        ).setViewport(viewport)
-                )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.loadCells(
+                    window,
+                    SpreadsheetDeltaProperties.extract(parameters),
+                    context
+                ).setViewport(viewport)
+            )
         );
     }
 
@@ -244,10 +244,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                        final Set<SpreadsheetDeltaProperties> deltaProperties,
                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.engine.loadCells(
-                cells,
-                this.evaluation,
-                deltaProperties,
-                context
+            cells,
+            this.evaluation,
+            deltaProperties,
+            context
         );
     }
 

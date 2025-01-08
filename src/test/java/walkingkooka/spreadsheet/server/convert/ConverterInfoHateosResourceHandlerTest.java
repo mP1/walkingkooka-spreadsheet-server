@@ -39,22 +39,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class ConverterInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<ConverterInfoHateosResourceHandler,
-        ConverterName,
-        ConverterInfo,
-        ConverterInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<ConverterInfoHateosResourceHandler> {
+    ConverterName,
+    ConverterInfo,
+    ConverterInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<ConverterInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static ConverterInfo INFO1 = ConverterInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            ConverterName.with("converter-1")
+        Url.parseAbsolute("https://example.com/1"),
+        ConverterName.with("converter-1")
     );
 
     private final static ConverterInfo INFO2 = ConverterInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            ConverterName.with("converter-2")
+        Url.parseAbsolute("https://example.com/2"),
+        ConverterName.with("converter-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -65,10 +65,10 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
                 @Override
                 public ConverterInfoSet converterInfos() {
                     return ConverterInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -78,39 +78,39 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                ConverterName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            ConverterName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        ConverterInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                ConverterInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -127,15 +127,15 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     @Override
     public Set<ConverterName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<ConverterName> range() {
         return Range.singleton(
-                ConverterName.with("range-converter-name")
+            ConverterName.with("range-converter-name")
         );
     }
 
@@ -164,8 +164,8 @@ public final class ConverterInfoHateosResourceHandlerTest implements HateosResou
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "SpreadsheetEngineContext.converterInfos"
+            this.createHandler(),
+            "SpreadsheetEngineContext.converterInfos"
         );
     }
 

@@ -41,13 +41,13 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosResourceHandlerSaveTest
-        implements HateosResourceHandlerTesting<PluginHateosResourceHandlerSave,
-        PluginName,
-        Plugin,
-        PluginSet,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerSave>,
-        SpreadsheetMetadataTesting {
+    implements HateosResourceHandlerTesting<PluginHateosResourceHandlerSave,
+    PluginName,
+    Plugin,
+    PluginSet,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosResourceHandlerSave>,
+    SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -61,11 +61,11 @@ public final class PluginHateosResourceHandlerSaveTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-                PluginName.with("TestPlugin" + n * 111),
-                "plugin-" + n * 111 + ".jar",
-                Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                USER,
-                NOW.now()
+            PluginName.with("TestPlugin" + n * 111),
+            "plugin-" + n * 111 + ".jar",
+            Binary.with("Hello".getBytes(Charset.defaultCharset())),
+            USER,
+            NOW.now()
         );
     }
 
@@ -89,16 +89,16 @@ public final class PluginHateosResourceHandlerSaveTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleOneAndCheck(
-                PLUGIN2.name(),
-                Optional.of(PLUGIN2), // resource
-                Maps.empty(), // parameters
-                context,
-                Optional.of(PLUGIN2)
+            PLUGIN2.name(),
+            Optional.of(PLUGIN2), // resource
+            Maps.empty(), // parameters
+            context,
+            Optional.of(PLUGIN2)
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore().loadOrFail(PLUGIN2.name())
+            PLUGIN2,
+            context.pluginStore().loadOrFail(PLUGIN2.name())
         );
     }
 
@@ -107,54 +107,54 @@ public final class PluginHateosResourceHandlerSaveTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         final Plugin updatePlugin1 = Plugin.with(
-                PLUGIN1.name(),
-                "updated.jar",
-                Binary.with("Updataed".getBytes(Charset.defaultCharset())),
-                EmailAddress.parse("updated@example.com"),
-                LocalDateTime.of(
-                        2000,
-                        1,
-                        1,
-                        11,
-                        28
-                )
+            PLUGIN1.name(),
+            "updated.jar",
+            Binary.with("Updataed".getBytes(Charset.defaultCharset())),
+            EmailAddress.parse("updated@example.com"),
+            LocalDateTime.of(
+                2000,
+                1,
+                1,
+                11,
+                28
+            )
         );
 
         this.handleOneAndCheck(
-                updatePlugin1.name(),
-                Optional.of(updatePlugin1), // resource
-                Maps.empty(), // parameters
-                context,
-                Optional.of(updatePlugin1)
+            updatePlugin1.name(),
+            Optional.of(updatePlugin1), // resource
+            Maps.empty(), // parameters
+            context,
+            Optional.of(updatePlugin1)
         );
 
         this.checkEquals(
-                updatePlugin1,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN1.name())
+            updatePlugin1,
+            context.pluginStore()
+                .loadOrFail(PLUGIN1.name())
         );
     }
 
     @Test
     public void testHandleRange() {
         this.handleRangeFails(
-                Range.greaterThanEquals(PLUGIN1.name()).and(
-                        Range.lessThanEquals(PLUGIN2.name())
-                ),
-                Optional.empty(), // resource
-                this.parameters(), // parameters
-                this.context(),
-                UnsupportedOperationException.class
+            Range.greaterThanEquals(PLUGIN1.name()).and(
+                Range.lessThanEquals(PLUGIN2.name())
+            ),
+            Optional.empty(), // resource
+            this.parameters(), // parameters
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllFails(
-                Optional.empty(), // resource
-                this.parameters(), // parameters
-                this.context(),
-                UnsupportedOperationException.class
+            Optional.empty(), // resource
+            this.parameters(), // parameters
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
@@ -171,21 +171,21 @@ public final class PluginHateosResourceHandlerSaveTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name(),
-                PLUGIN3.name(),
-                PLUGIN4.name()
+            PLUGIN1.name(),
+            PLUGIN2.name(),
+            PLUGIN3.name(),
+            PLUGIN4.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -214,8 +214,8 @@ public final class PluginHateosResourceHandlerSaveTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "POST PluginStore"
+            this.createHandler(),
+            "POST PluginStore"
         );
     }
 
