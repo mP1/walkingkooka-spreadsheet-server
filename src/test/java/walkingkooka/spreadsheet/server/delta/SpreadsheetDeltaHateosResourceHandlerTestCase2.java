@@ -205,7 +205,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final Set<SpreadsheetLabelMapping> labels() {
         return Sets.of(
-            this.label().mapping(
+            this.label().setLabelMappingTarget(
                 this.cell().reference()
             )
         );

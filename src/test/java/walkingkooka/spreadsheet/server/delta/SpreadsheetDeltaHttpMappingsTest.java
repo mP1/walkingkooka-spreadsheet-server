@@ -503,7 +503,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final SpreadsheetLabelName label123 = SpreadsheetExpressionReference.labelName("Label123");
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
-        labelStore.save(label123.mapping(a1));
+        labelStore.save(label123.setLabelMappingTarget(a1));
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
         metadataStore.save(METADATA_EN_AU);
