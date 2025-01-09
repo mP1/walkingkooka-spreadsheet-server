@@ -406,7 +406,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         this.metadataStore.save(metadata);
 
         final SpreadsheetLabelStore labelStore = SpreadsheetLabelStores.treeMap();
-        labelStore.save(LABEL.mapping(SpreadsheetSelection.parseCell("Z99")));
+        labelStore.save(
+            LABEL.setLabelMappingTarget(SpreadsheetSelection.parseCell("Z99"))
+        );
 
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
             SpreadsheetCellStores.treeMap(),

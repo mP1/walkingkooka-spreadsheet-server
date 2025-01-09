@@ -1062,7 +1062,9 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ExistingLabel123");
         context.storeRepository(metadata.id().get())
             .labels()
-            .save(label.mapping(SpreadsheetSelection.A1));
+            .save(
+                label.setLabelMappingTarget(SpreadsheetSelection.A1)
+            );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;
         final SpreadsheetViewport viewport = SpreadsheetViewport.with(
