@@ -56,181 +56,181 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler, SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler>,
-        SpreadsheetMetadataTesting {
+    ToStringTesting<SpreadsheetParserProviderNextTokenHateosHttpEntityHandler>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetParserName PARSER_NAME = SpreadsheetParserName.DATE_PARSER_PATTERN;
 
     @Test
     public void testHandleAllFails() {
         this.handleAllFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleNoneFails() {
         this.handleNoneFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleRangeFails() {
         this.handleRangeFails(
-                this.range(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.range(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleAllContentTypeBadContentType() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                SpreadsheetParserName.DATE_PARSER_PATTERN,
-                this.entity()
-                        .setContentType(MediaType.TEXT_PLAIN),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            SpreadsheetParserName.DATE_PARSER_PATTERN,
+            this.entity()
+                .setContentType(MediaType.TEXT_PLAIN),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
         this.checkEquals(
-                "Content-Type: Got text/plain require application/json",
-                thrown.getMessage()
+            "Content-Type: Got text/plain require application/json",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAllBadAccept() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                SpreadsheetParserName.DATE_PARSER_PATTERN,
-                this.entity()
-                        .setContentType(MediaType.APPLICATION_JSON)
-                        .setAccept(
-                                Accept.parse("text/bad")
-                        ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            SpreadsheetParserName.DATE_PARSER_PATTERN,
+            this.entity()
+                .setContentType(MediaType.APPLICATION_JSON)
+                .setAccept(
+                    Accept.parse("text/bad")
+                ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
         this.checkEquals(
-                "Accept: Got text/bad require application/json",
-                thrown.getMessage()
+            "Accept: Got text/bad require application/json",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleOne() {
         final SpreadsheetParserSelector selector = SpreadsheetPattern.parseDateParsePattern("yyyy")
-                .spreadsheetParserSelector();
+            .spreadsheetParserSelector();
 
         this.handleOneAndCheck(
-                selector.name(), // resource id
-                this.httpEntity(
-                        JsonNode.string(selector.valueText())
-                ).setAccept(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.APPLICATION_JSON;
-                    }
+            selector.name(), // resource id
+            this.httpEntity(
+                JsonNode.string(selector.valueText())
+            ).setAccept(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.APPLICATION_JSON;
+                }
 
-                    @Override
-                    public <T> T unmarshall(final JsonNode json,
-                                            final Class<T> type) {
-                        return fromJson(json, type);
-                    }
+                @Override
+                public <T> T unmarshall(final JsonNode json,
+                                        final Class<T> type) {
+                    return fromJson(json, type);
+                }
 
-                    @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
-                                                                               final List<?> values,
-                                                                               final ProviderContext context) {
-                        return CONVERTER_PROVIDER.converter(
-                                name,
-                                values,
-                                context
-                        );
-                    }
+                @Override
+                public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
+                                                                           final List<?> values,
+                                                                           final ProviderContext context) {
+                    return CONVERTER_PROVIDER.converter(
+                        name,
+                        values,
+                        context
+                    );
+                }
 
-                    @Override
-                    public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector selector) {
-                        return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextToken(selector);
-                    }
+                @Override
+                public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector selector) {
+                    return SPREADSHEET_PARSER_PROVIDER.spreadsheetParserNextToken(selector);
+                }
 
-                    @Override
-                    public JsonNode marshall(final Object value) {
-                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                    }
-                },
-                this.httpEntity(
-                        SpreadsheetParserSelectorToken.with(
-                                "",
-                                "",
-                                Lists.of(
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "d",
-                                                "d"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "dd",
-                                                "dd"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "ddd",
-                                                "ddd"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "dddd",
-                                                "dddd"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "m",
-                                                "m"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "mm",
-                                                "mm"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "mmm",
-                                                "mmm"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "mmmm",
-                                                "mmmm"
-                                        ),
-                                        SpreadsheetParserSelectorTokenAlternative.with(
-                                                "mmmmm",
-                                                "mmmmm"
-                                        )
-                                )
+                @Override
+                public JsonNode marshall(final Object value) {
+                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+                }
+            },
+            this.httpEntity(
+                SpreadsheetParserSelectorToken.with(
+                    "",
+                    "",
+                    Lists.of(
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "d",
+                            "d"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "dd",
+                            "dd"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "ddd",
+                            "ddd"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "dddd",
+                            "dddd"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "m",
+                            "m"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "mm",
+                            "mm"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "mmm",
+                            "mmm"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "mmmm",
+                            "mmmm"
+                        ),
+                        SpreadsheetParserSelectorTokenAlternative.with(
+                            "mmmmm",
+                            "mmmmm"
                         )
-                ).addHeader(
-                        HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetParserSelectorToken.class.getSimpleName()
+                    )
                 )
+            ).addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetParserSelectorToken.class.getSimpleName()
+            )
         );
     }
 
@@ -247,7 +247,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
     @Override
     public Set<SpreadsheetParserName> manyIds() {
         return Sets.of(
-                PARSER_NAME
+            PARSER_NAME
         );
     }
 
@@ -278,18 +278,18 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
 
     private HttpEntity httpEntity(final Object value) {
         return HttpEntity.EMPTY.setContentType(MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8))
-                .setBodyText(
-                        JSON_NODE_MARSHALL_CONTEXT.marshall(value)
-                                .toString()
-        ).setContentLength();
+            .setBodyText(
+                JSON_NODE_MARSHALL_CONTEXT.marshall(value)
+                    .toString()
+            ).setContentLength();
     }
 
     private <T> T fromJson(final JsonNode json,
                            final Class<T> type) {
         return JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32)
-                .unmarshall(json, type);
+                ExpressionNumberKind.BIG_DECIMAL,
+                MathContext.DECIMAL32)
+            .unmarshall(json, type);
     }
 
     // toString.........................................................................................................
@@ -297,8 +297,8 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.class.getSimpleName()
+            this.createHandler(),
+            SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 

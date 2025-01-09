@@ -46,10 +46,10 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
         Objects.requireNonNull(context, "context");
 
         return SpreadsheetFormatterSelectorMenuList.with(
-                context.spreadsheetFormatterInfos()
-                        .stream()
-                        .flatMap(i -> menus(i, context).stream())
-                        .collect(Collectors.toList())
+            context.spreadsheetFormatterInfos()
+                .stream()
+                .flatMap(i -> menus(i, context).stream())
+                .collect(Collectors.toList())
         );
     }
 
@@ -59,12 +59,12 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
 
         try {
             menus = context.spreadsheetFormatterSamples(
-                            info.name(),
-                            context
-                    ).stream()
-                    .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
-                    .distinct()
-                    .collect(Collectors.toList());
+                    info.name(),
+                    context
+                ).stream()
+                .map(s -> SpreadsheetFormatterSelectorMenu.with(s.label(), s.selector()))
+                .distinct()
+                .collect(Collectors.toList());
         } catch (final RuntimeException ignore) {
             // ignore failed samples
             menus = Lists.empty();
@@ -76,17 +76,17 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
     public static SpreadsheetFormatterSelectorMenu with(final String label,
                                                         final SpreadsheetFormatterSelector selector) {
         return new SpreadsheetFormatterSelectorMenu(
-                PluginSelectorMenu.with(
-                        label,
-                        selector
-                )
+            PluginSelectorMenu.with(
+                label,
+                selector
+            )
         );
     }
 
     private SpreadsheetFormatterSelectorMenu(final PluginSelectorMenu<SpreadsheetFormatterSelector, SpreadsheetFormatterName> menu) {
         this.menu = Objects.requireNonNull(
-                menu,
-                "menu"
+            menu,
+            "menu"
         );
     }
 
@@ -112,7 +112,7 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
     @Override
     public boolean equals(final Object other) {
         return other == this ||
-                other instanceof SpreadsheetFormatterSelectorMenu && this.equals0((SpreadsheetFormatterSelectorMenu) other);
+            other instanceof SpreadsheetFormatterSelectorMenu && this.equals0((SpreadsheetFormatterSelectorMenu) other);
     }
 
     private boolean equals0(final SpreadsheetFormatterSelectorMenu other) {
@@ -139,11 +139,11 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
     static SpreadsheetFormatterSelectorMenu unmarshall(final JsonNode node,
                                                        final JsonNodeUnmarshallContext context) {
         return new SpreadsheetFormatterSelectorMenu(
-                PluginSelectorMenu.unmarshall(
-                        node,
-                        context,
-                        SpreadsheetFormatterSelector.class
-                )
+            PluginSelectorMenu.unmarshall(
+                node,
+                context,
+                SpreadsheetFormatterSelector.class
+            )
         );
     }
 
@@ -153,10 +153,10 @@ public final class SpreadsheetFormatterSelectorMenu implements PluginSelectorMen
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetFormatterSelectorMenu.class),
-                SpreadsheetFormatterSelectorMenu::unmarshall,
-                SpreadsheetFormatterSelectorMenu::marshall,
-                SpreadsheetFormatterSelectorMenu.class
+            JsonNodeContext.computeTypeName(SpreadsheetFormatterSelectorMenu.class),
+            SpreadsheetFormatterSelectorMenu::unmarshall,
+            SpreadsheetFormatterSelectorMenu::marshall,
+            SpreadsheetFormatterSelectorMenu.class
         );
     }
 }

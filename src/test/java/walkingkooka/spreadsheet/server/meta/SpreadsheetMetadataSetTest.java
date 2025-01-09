@@ -30,17 +30,17 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 public final class SpreadsheetMetadataSetTest implements HateosResourceSetTesting<SpreadsheetMetadataSet, SpreadsheetMetadata, SpreadsheetId>,
-        SpreadsheetMetadataTesting,
-        ClassTesting<SpreadsheetMetadataSet> {
+    SpreadsheetMetadataTesting,
+    ClassTesting<SpreadsheetMetadataSet> {
 
     // Set..............................................................................................................
 
     @Override
     public SpreadsheetMetadataSet createSet() {
         return SpreadsheetMetadataSet.with(
-                Sets.of(
-                        SpreadsheetMetadataTesting.METADATA_EN_AU
-                )
+            Sets.of(
+                SpreadsheetMetadataTesting.METADATA_EN_AU
+            )
         );
     }
 
@@ -49,44 +49,44 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
     @Test
     public void testMarshallEmpty() {
         this.marshallAndCheck(
-                SpreadsheetMetadataSet.with(Sets.empty()),
-                JsonNode.array()
+            SpreadsheetMetadataSet.with(Sets.empty()),
+            JsonNode.array()
         );
     }
 
     @Test
     public void testMarshallNotEmpty() {
         final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
-                Sets.of(SpreadsheetMetadata.EMPTY)
+            Sets.of(SpreadsheetMetadata.EMPTY)
         );
 
         this.marshallAndCheck(
-                set,
-                JsonNode.array()
-                        .appendChild(
-                                JsonNode.object()
-                        )
+            set,
+            JsonNode.array()
+                .appendChild(
+                    JsonNode.object()
+                )
         );
     }
 
     @Test
     public void testMarshallNotEmpty2() {
         final SpreadsheetMetadataSet set = SpreadsheetMetadataSet.with(
-                Sets.of(
-                        SpreadsheetMetadata.EMPTY.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetId.with(1)
-                        )
+            Sets.of(
+                SpreadsheetMetadata.EMPTY.set(
+                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                    SpreadsheetId.with(1)
                 )
+            )
         );
 
         this.marshallAndCheck(
-                set,
-                "[\n" +
-                        "  {\n" +
-                        "    \"spreadsheet-id\": \"1\"\n" +
-                        "  }\n" +
-                        "]"
+            set,
+            "[\n" +
+                "  {\n" +
+                "    \"spreadsheet-id\": \"1\"\n" +
+                "  }\n" +
+                "]"
         );
     }
 
@@ -96,24 +96,24 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
     public SpreadsheetMetadataSet unmarshall(final JsonNode node,
                                              final JsonNodeUnmarshallContext context) {
         return SpreadsheetMetadataSet.unmarshall(
-                node,
-                context
+            node,
+            context
         );
     }
 
     @Override
     public SpreadsheetMetadataSet createJsonNodeMarshallingValue() {
         return SpreadsheetMetadataSet.with(
-                Sets.of(
-                        SpreadsheetMetadata.EMPTY.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetId.with(1)
-                        ),
-                        SpreadsheetMetadata.EMPTY.set(
-                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                SpreadsheetId.with(2)
-                        )
+            Sets.of(
+                SpreadsheetMetadata.EMPTY.set(
+                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                    SpreadsheetId.with(1)
+                ),
+                SpreadsheetMetadata.EMPTY.set(
+                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                    SpreadsheetId.with(2)
                 )
+            )
         );
     }
 

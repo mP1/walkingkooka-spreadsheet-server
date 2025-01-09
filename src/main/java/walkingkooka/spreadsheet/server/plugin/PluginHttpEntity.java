@@ -33,12 +33,12 @@ final class PluginHttpEntity implements StaticHelper {
     static HttpEntity httpEntity(final ContentDispositionFileName filename,
                                  final Binary archive) {
         return HttpEntity.EMPTY
-                .setContentType(MediaType.BINARY)
-                .addHeader(
-                        HttpHeaderName.CONTENT_DISPOSITION,
-                        ContentDispositionType.ATTACHMENT.setFilename(filename)
-                ).setBody(archive)
-                .setContentLength();
+            .setContentType(MediaType.BINARY)
+            .addHeader(
+                HttpHeaderName.CONTENT_DISPOSITION,
+                ContentDispositionType.ATTACHMENT.setFilename(filename)
+            ).setBody(archive)
+            .setContentLength();
     }
 
     /**

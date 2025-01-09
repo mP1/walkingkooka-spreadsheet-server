@@ -42,9 +42,9 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesting<SpreadsheetMetadataPatchFunction, JsonNode, JsonNode>,
-        ClassTesting<SpreadsheetMetadataPatchFunction>,
-        ToStringTesting<SpreadsheetMetadataPatchFunction>,
-        SpreadsheetMetadataTesting {
+    ClassTesting<SpreadsheetMetadataPatchFunction>,
+    ToStringTesting<SpreadsheetMetadataPatchFunction>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetId ID = SpreadsheetId.with(123);
 
@@ -84,15 +84,15 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         };
 
         final MissingStoreException thrown = assertThrows(
-                MissingStoreException.class,
-                () -> SpreadsheetMetadataPatchFunction.with(ID, context)
-                        .apply(
-                                JsonNode.object()
-                                        .set(
-                                                JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                                                JsonNode.string("NSWD")
-                                        )
+            MissingStoreException.class,
+            () -> SpreadsheetMetadataPatchFunction.with(ID, context)
+                .apply(
+                    JsonNode.object()
+                        .set(
+                            JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
+                            JsonNode.string("NSWD")
                         )
+                )
 
         );
         this.checkEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
@@ -103,17 +103,17 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
         final SpreadsheetMetadata metadata = store.save(
-                SpreadsheetMetadata.EMPTY
-                        .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
-                        .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
-                        .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-                        .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2021, 10, 10, 17, 3, 0))
-                        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-Au"))
-                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
-                        .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
-                        .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
-                        .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                        .loadFromLocale()
+            SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
+                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2021, 10, 10, 17, 3, 0))
+                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-Au"))
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
+                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
+                .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
+                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
+                .loadFromLocale()
         );
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
@@ -147,13 +147,13 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
         final JsonNodeMarshallContext marshallContext = metadata.jsonNodeMarshallContext();
 
         this.applyAndCheck(
-                SpreadsheetMetadataPatchFunction.with(ID, context),
-                JsonNode.object()
-                        .set(
-                                JsonPropertyName.with(propertyName.value()),
-                                marshallContext.marshall(propertyValue)
-                        ),
-                marshallContext.marshall(metadata.set(propertyName, propertyValue))
+            SpreadsheetMetadataPatchFunction.with(ID, context),
+            JsonNode.object()
+                .set(
+                    JsonPropertyName.with(propertyName.value()),
+                    marshallContext.marshall(propertyValue)
+                ),
+            marshallContext.marshall(metadata.set(propertyName, propertyValue))
         );
     }
 

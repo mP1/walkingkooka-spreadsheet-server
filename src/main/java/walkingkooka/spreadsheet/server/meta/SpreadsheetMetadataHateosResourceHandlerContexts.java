@@ -47,15 +47,15 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
                                                                         final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
                                                                         final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
-                serverUrl,
-                indentation,
-                lineEnding,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToRepository,
-                hateosResourceHandlerContext
+            serverUrl,
+            indentation,
+            lineEnding,
+            systemSpreadsheetProvider,
+            providerContext,
+            metadataStore,
+            spreadsheetIdToSpreadsheetProvider,
+            spreadsheetIdToRepository,
+            hateosResourceHandlerContext
         );
     }
 

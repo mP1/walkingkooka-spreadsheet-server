@@ -40,11 +40,11 @@ import java.util.Optional;
  * clear a column or range of columns
  */
 final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetColumnReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerClearColumns with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerClearColumns(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -60,10 +60,10 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
         Objects.requireNonNull(column, "column");
 
         return this.clearCells(
-                column.range(column),
-                resource,
-                parameters,
-                context
+            column.range(column),
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -75,10 +75,10 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
         Objects.requireNonNull(columns, "columns");
 
         return this.clearCells(
-                columns,
-                resource,
-                parameters,
-                context
+            columns,
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -91,28 +91,28 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
         HateosResourceHandler.checkContext(context);
 
         final SpreadsheetCellReference lower = columns.lowerBound()
-                .value()
-                .get()
-                .setRow(SpreadsheetReferenceKind.RELATIVE.firstRow());
+            .value()
+            .get()
+            .setRow(SpreadsheetReferenceKind.RELATIVE.firstRow());
         final SpreadsheetCellReference upper = columns.upperBound()
-                .value()
-                .get()
-                .setRow(SpreadsheetReferenceKind.RELATIVE.lastRow());
+            .value()
+            .get()
+            .setRow(SpreadsheetReferenceKind.RELATIVE.lastRow());
 
         final SpreadsheetCellRangeReference cellRange = lower.cellRange(upper);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.engine.fillCells(
-                                SpreadsheetDelta.NO_CELLS,
-                                cellRange, // from is ignored because cells is empty.
-                                cellRange,
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.engine.fillCells(
+                    SpreadsheetDelta.NO_CELLS,
+                    cellRange, // from is ignored because cells is empty.
+                    cellRange,
+                    context
                 )
+            )
         );
     }
 

@@ -24,5 +24,5 @@ import walkingkooka.plugin.ProviderContext;
  * A {@link HateosResourceHandlerContext} mostly focused on plugin management.
  */
 public interface PluginHateosResourceHandlerContext extends HateosResourceHandlerContext,
-        ProviderContext {
+    ProviderContext {
 }

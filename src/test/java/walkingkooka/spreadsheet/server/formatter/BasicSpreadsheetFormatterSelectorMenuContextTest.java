@@ -30,40 +30,40 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements SpreadsheetFormatterSelectorMenuContextTesting<BasicSpreadsheetFormatterSelectorMenuContext>,
-        SpreadsheetMetadataTesting,
-        ToStringTesting<BasicSpreadsheetFormatterSelectorMenuContext> {
+    SpreadsheetMetadataTesting,
+    ToStringTesting<BasicSpreadsheetFormatterSelectorMenuContext> {
 
     @Test
     public void testWithNullSpreadsheetFormatterProviderFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
-                        null,
-                        SpreadsheetFormatterProviderSamplesContexts.basic(
-                                SPREADSHEET_FORMATTER_CONTEXT
-                        )
+            NullPointerException.class,
+            () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
+                null,
+                SpreadsheetFormatterProviderSamplesContexts.basic(
+                    SPREADSHEET_FORMATTER_CONTEXT
                 )
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetFormatterProviderSamplesContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
-                        SPREADSHEET_FORMATTER_PROVIDER,
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetFormatterSelectorMenuContext.with(
+                SPREADSHEET_FORMATTER_PROVIDER,
+                null
+            )
         );
     }
 
     @Override
     public BasicSpreadsheetFormatterSelectorMenuContext createContext() {
         return BasicSpreadsheetFormatterSelectorMenuContext.with(
-                SPREADSHEET_FORMATTER_PROVIDER,
-                SpreadsheetFormatterProviderSamplesContexts.basic(
-                        SPREADSHEET_FORMATTER_CONTEXT
-                )
+            SPREADSHEET_FORMATTER_PROVIDER,
+            SpreadsheetFormatterProviderSamplesContexts.basic(
+                SPREADSHEET_FORMATTER_CONTEXT
+            )
         );
     }
 
@@ -114,15 +114,15 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
     @Test
     public void testToString() {
         final SpreadsheetFormatterProviderSamplesContext samplesContext = SpreadsheetFormatterProviderSamplesContexts.basic(
-                SPREADSHEET_FORMATTER_CONTEXT
+            SPREADSHEET_FORMATTER_CONTEXT
         );
 
         this.toStringAndCheck(
-                BasicSpreadsheetFormatterSelectorMenuContext.with(
-                        SPREADSHEET_FORMATTER_PROVIDER,
-                        samplesContext
-                ),
-                SPREADSHEET_FORMATTER_PROVIDER + " " + samplesContext
+            BasicSpreadsheetFormatterSelectorMenuContext.with(
+                SPREADSHEET_FORMATTER_PROVIDER,
+                samplesContext
+            ),
+            SPREADSHEET_FORMATTER_PROVIDER + " " + samplesContext
         );
     }
 

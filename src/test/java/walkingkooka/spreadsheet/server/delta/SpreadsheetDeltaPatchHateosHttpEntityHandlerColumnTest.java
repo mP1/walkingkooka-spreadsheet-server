@@ -40,7 +40,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn,
-        SpreadsheetColumnReference, SpreadsheetColumnRangeReference> {
+    SpreadsheetColumnReference, SpreadsheetColumnRangeReference> {
 
     final static SpreadsheetColumnReference COLUMN = SpreadsheetSelection.parseColumn("B");
 
@@ -55,252 +55,252 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
     @Test
     public void testHandleOneWithPatchColumnOutsideFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE
+                )
+            ),
+            COLUMN,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setColumns(
+                        Sets.of(
+                            SpreadsheetSelection.parseColumn("Z")
+                                .column()
                         )
-                ),
-                COLUMN,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setColumns(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseColumn("Z")
-                                                        .column()
-                                        )
-                                )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Patch column(s): " + COLUMN + " includes invalid column Z",
-                thrown.getMessage()
+            "Patch column(s): " + COLUMN + " includes invalid column Z",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleOne() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                COLUMN,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                ) // expected loadedCells + savedColumns
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithQueryStringViewport() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
                         )
-                ),
-                COLUMN,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
-                ) // expected loadedCells + savedColumns
+                    ).setWindow(WINDOWS)
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithColumnInsideQueryStringWindow() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
                         )
-                ),
-                COLUMN,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.parse(CELL.toString())
-                                )
-                ) // expected loadedCells + savedColumns
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse(CELL.toString())
+                    )
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithColumnOutsideQueryStringWindow() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                COLUMN,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
-                        )
-                ) // expected loadedCells + savedColumns
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
+                )
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
@@ -309,276 +309,276 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
     @Test
     public void testHandleRangeWithPatchColumnOutsideFails() {
         final IllegalArgumentException thrown = this.handleRangeFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setColumns(
+                        Sets.of(
+                            SpreadsheetSelection.parseColumn("Z")
+                                .column()
                         )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setColumns(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseColumn("Z")
-                                                        .column()
-                                        )
-                                )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Patch column(s): " + COLUMN_RANGE + " includes invalid column Z",
-                thrown.getMessage()
+            "Patch column(s): " + COLUMN_RANGE + " includes invalid column Z",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleRange() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false),
-                COLUMN2.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false),
+            COLUMN2.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true),
-                COLUMN2.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true),
+            COLUMN2.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY),
-                CELL2.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY),
+            CELL2.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                ) // expected loadedCells + savedColumns
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithQueryStringViewport() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
                         )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
-                ) // expected loadedCells + savedColumns
+                    ).setWindow(WINDOWS)
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithColumnInsideQueryStringWindow() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
                         )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.parse(CELL.toString())
-                                )
-                ) // expected loadedCells + savedColumns
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse(CELL.toString())
+                    )
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithColumnOutsideQueryStringWindow() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false)
         );
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true)
+            COLUMN.column()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
-                        )
-                ) // expected loadedCells + savedColumns
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
+                )
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithColumnInsideAndOutsideQueryStringWindow() {
         final Set<SpreadsheetColumn> loadedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(false),
-                COLUMN2.column()
-                        .setHidden(false)
+            COLUMN.column()
+                .setHidden(false),
+            COLUMN2.column()
+                .setHidden(false)
         );
 
         final SpreadsheetColumn column2 = COLUMN2.column()
-                .setHidden(true);
+            .setHidden(true);
 
         final Set<SpreadsheetColumn> savedColumns = Sets.of(
-                COLUMN.column()
-                        .setHidden(true),
-                column2
+            COLUMN.column()
+                .setHidden(true),
+            column2
         );
 
         final Set<SpreadsheetColumn> storeSaved = Sets.ordered();
@@ -587,52 +587,52 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
         final SpreadsheetCell cell2 = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("inside window"));
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                cell,
-                cell2
+            cell,
+            cell2
         );
 
         final String outsideWindow = "C3:Z99";
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                COLUMN_RANGE,
-                                loadedColumns,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                COLUMN_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(cell2)
-                        ).setColumns(
-                                Sets.of(column2)
-                        ).setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(outsideWindow)
-                        )
-                ) // expected loadedCells + savedColumns
+            this.createHandler(
+                this.spreadsheetEngine(
+                    COLUMN_RANGE,
+                    loadedColumns,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            COLUMN_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(cell2)
+                ).setColumns(
+                    Sets.of(column2)
+                ).setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(outsideWindow)
+                )
+            ) // expected loadedCells + savedColumns
         );
 
         this.checkEquals(
-                savedColumns,
-                storeSaved
+            savedColumns,
+            storeSaved
         );
     }
 
@@ -640,12 +640,12 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
 
     private SpreadsheetEngine spreadsheetEngine(final SpreadsheetColumnRangeReference range) {
         return this.spreadsheetEngine(
-                range,
-                Sets.empty(),
-                Sets.empty(),
-                (column) -> {
-                    throw new UnsupportedOperationException("Unexpected save column " + column);
-                }
+            range,
+            Sets.empty(),
+            Sets.empty(),
+            (column) -> {
+                throw new UnsupportedOperationException("Unexpected save column " + column);
+            }
         );
     }
 
@@ -661,15 +661,15 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 checkColumn(column);
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(
-                                loadedCells.stream()
-                                        .filter(cell -> cell.reference().testColumn(column))
-                                        .collect(Collectors.toSet())
-                        ).setColumns(
-                                loadedColumns.stream()
-                                        .filter(c -> c.reference().testColumn(column))
-                                        .collect(Collectors.toSet())
-                        );
+                    .setCells(
+                        loadedCells.stream()
+                            .filter(cell -> cell.reference().testColumn(column))
+                            .collect(Collectors.toSet())
+                    ).setColumns(
+                        loadedColumns.stream()
+                            .filter(c -> c.reference().testColumn(column))
+                            .collect(Collectors.toSet())
+                    );
             }
 
             @Override
@@ -679,13 +679,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 savedColumns.accept(column);
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(
-                                loadedCells.stream()
-                                        .filter(cell -> cell.reference().testColumn(column.reference()))
-                                        .collect(Collectors.toSet())
-                        ).setColumns(
-                                Sets.of(column)
-                        );
+                    .setCells(
+                        loadedCells.stream()
+                            .filter(cell -> cell.reference().testColumn(column.reference()))
+                            .collect(Collectors.toSet())
+                    ).setColumns(
+                        Sets.of(column)
+                    );
             }
 
             private void checkColumn(final SpreadsheetColumnReference column) {
@@ -712,7 +712,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
     @Override
     SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn.with(
-                engine
+            engine
         );
     }
 
@@ -724,8 +724,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
     @Override
     public Set<SpreadsheetColumnReference> manyIds() {
         return Sets.of(
-                COLUMN,
-                COLUMN2
+            COLUMN,
+            COLUMN2
         );
     }
 

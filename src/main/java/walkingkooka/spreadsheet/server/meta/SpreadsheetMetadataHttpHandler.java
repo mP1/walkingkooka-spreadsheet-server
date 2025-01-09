@@ -67,15 +67,15 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
                                                       final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
                                                       final HateosResourceHandlerContext hateosResourceHandlerContext) {
         return new SpreadsheetMetadataHttpHandler(
-                Objects.requireNonNull(serverUrl, "serverUrl"),
-                Objects.requireNonNull(indentation, "indentation"),
-                Objects.requireNonNull(lineEnding, "lineEnding"),
-                Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
-                Objects.requireNonNull(providerContext, "providerContext"),
-                Objects.requireNonNull(metadataStore, "metadataStore"),
-                Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
-                Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
-                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext")
+            Objects.requireNonNull(serverUrl, "serverUrl"),
+            Objects.requireNonNull(indentation, "indentation"),
+            Objects.requireNonNull(lineEnding, "lineEnding"),
+            Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
+            Objects.requireNonNull(providerContext, "providerContext"),
+            Objects.requireNonNull(metadataStore, "metadataStore"),
+            Objects.requireNonNull(spreadsheetIdToSpreadsheetProvider, "spreadsheetIdToSpreadsheetProvider"),
+            Objects.requireNonNull(spreadsheetIdToStoreRepository, "spreadsheetIdToStoreRepository"),
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext")
         );
     }
 
@@ -96,43 +96,43 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
         this.serverUrl = serverUrl;
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = SpreadsheetMetadataHateosResourceHandlerContexts.basic(
-                serverUrl,
-                indentation,
-                lineEnding,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                hateosResourceHandlerContext
+            serverUrl,
+            indentation,
+            lineEnding,
+            systemSpreadsheetProvider,
+            providerContext,
+            metadataStore,
+            spreadsheetIdToSpreadsheetProvider,
+            spreadsheetIdToStoreRepository,
+            hateosResourceHandlerContext
         );
 
         this.context = context;
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
-                .add(
-                        metadataPatchRouterPredicate(),
-                        this::metadataPatchHttpHandler
-                ).router()
-                .then(
-                        SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                                serverUrl,
-                                indentation,
-                                lineEnding,
-                                context
-                        )
-                );
+            .add(
+                metadataPatchRouterPredicate(),
+                this::metadataPatchHttpHandler
+            ).router()
+            .then(
+                SpreadsheetMetadataHateosResourceHandlersRouter.with(
+                    serverUrl,
+                    indentation,
+                    lineEnding,
+                    context
+                )
+            );
     }
 
     private static Map<HttpRequestAttribute<?>, Predicate<?>> metadataPatchRouterPredicate() {
         return HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.PATCH)
-                .path(API_SPREADSHEET_STAR)
-                .build();
+            .method(HttpMethod.PATCH)
+            .path(API_SPREADSHEET_STAR)
+            .build();
     }
 
     private final static UrlPath API_SPREADSHEET_STAR = SpreadsheetHttpServer.API_SPREADSHEET.append(
-            UrlPathName.WILDCARD
+        UrlPathName.WILDCARD
     );
 
     private void metadataPatchHttpHandler(final HttpRequest request,
@@ -143,32 +143,32 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
         // PATCH
         // content type = JSON
         HttpHandlers.methodNotAllowed(
-                HttpMethod.PATCH,
-                HttpHandlers.contentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE,
-                        JsonHttpHandlers.json(
-                                (json) -> SpreadsheetMetadataPatchFunction.with(
-                                        SpreadsheetId.parse(
-                                                request.url()
-                                                        .path()
-                                                        .name()
-                                                        .value()
-                                        ),
-                                        this.context
-                                ).apply(json),
-                                SpreadsheetMetadataHttpHandler::patchPost
-                        )
+            HttpMethod.PATCH,
+            HttpHandlers.contentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE,
+                JsonHttpHandlers.json(
+                    (json) -> SpreadsheetMetadataPatchFunction.with(
+                        SpreadsheetId.parse(
+                            request.url()
+                                .path()
+                                .name()
+                                .value()
+                        ),
+                        this.context
+                    ).apply(json),
+                    SpreadsheetMetadataHttpHandler::patchPost
                 )
+            )
         ).handle(
-                request,
-                response
+            request,
+            response
         );
     }
 
     private static HttpEntity patchPost(final HttpEntity response) {
         return response.addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetMetadata.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            SpreadsheetMetadata.class.getSimpleName()
         );
     }
 
@@ -180,11 +180,11 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     public void handle(final HttpRequest request,
                        final HttpResponse response) {
         this.router.route(request.routerParameters())
-                .orElse(SpreadsheetHttpServer::notFound)
-                .handle(
-                        request,
-                        response
-                );
+            .orElse(SpreadsheetHttpServer::notFound)
+            .handle(
+                request,
+                response
+            );
     }
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;

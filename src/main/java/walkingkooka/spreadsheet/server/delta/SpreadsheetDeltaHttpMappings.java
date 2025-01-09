@@ -63,89 +63,89 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     // cell................................................................................................................
 
     public static HateosResourceMapping<SpreadsheetCellReference,
-            SpreadsheetDelta,
-            SpreadsheetDelta,
-            SpreadsheetCell,
-            SpreadsheetEngineHateosResourceHandlerContext> cell(final SpreadsheetEngine engine,
-                                                                final int defaultMax) {
+        SpreadsheetDelta,
+        SpreadsheetDelta,
+        SpreadsheetCell,
+        SpreadsheetEngineHateosResourceHandlerContext> cell(final SpreadsheetEngine engine,
+                                                            final int defaultMax) {
         Objects.requireNonNull(engine, "engine");
         // cell GET, POST...............................................................................................
 
         HateosResourceMapping<SpreadsheetCellReference,
-                SpreadsheetDelta,
-                SpreadsheetDelta,
-                SpreadsheetCell,
-                SpreadsheetEngineHateosResourceHandlerContext> cell = HateosResourceMapping.with(
-                SpreadsheetHateosResourceNames.CELL,
-                SpreadsheetDeltaHttpMappings::parseCell,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetCell.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            SpreadsheetDelta,
+            SpreadsheetDelta,
+            SpreadsheetCell,
+            SpreadsheetEngineHateosResourceHandlerContext> cell = HateosResourceMapping.with(
+            SpreadsheetHateosResourceNames.CELL,
+            SpreadsheetDeltaHttpMappings::parseCell,
+            SpreadsheetDelta.class,
+            SpreadsheetDelta.class,
+            SpreadsheetCell.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                        SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, // default SpreadsheetEngineEvaluation
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY, // default SpreadsheetEngineEvaluation
+                engine
+            )
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerSaveCell.with(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerSaveCell.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.DELETE,
-                SpreadsheetDeltaHateosResourceHandlerDeleteCell.with(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.DELETE,
+            SpreadsheetDeltaHateosResourceHandlerDeleteCell.with(
+                engine
+            )
         ).setHateosHttpEntityHandler(
-                LinkRelation.SELF,
-                HttpMethod.PATCH,
-                SpreadsheetDeltaPatchHateosHttpEntityHandler.cell(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.PATCH,
+            SpreadsheetDeltaPatchHateosHttpEntityHandler.cell(
+                engine
+            )
         );
 
         // cell/SpreadsheetEngineEvaluation GET.........................................................................
 
         for (final SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
             cell = cell.setHateosResourceHandler(
-                    evaluation.toLinkRelation(),
-                    HttpMethod.GET,
-                    SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
-                            evaluation,
-                            engine
-                    )
+                evaluation.toLinkRelation(),
+                HttpMethod.GET,
+                SpreadsheetDeltaHateosResourceHandlerLoadCell.with(
+                    evaluation,
+                    engine
+                )
             );
         }
 
         // cell/fill/find/sort POST.....................................................................................
         cell = cell.setHateosResourceHandler(
-                FILL,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerFillCells.with(
-                        engine
-                )
+            FILL,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerFillCells.with(
+                engine
+            )
         );
 
         cell = cell.setHateosResourceHandler(
-                FIND,
-                HttpMethod.GET,
-                SpreadsheetDeltaHateosResourceHandlerFindCells.with(
-                        defaultMax,
-                        engine
-                )
+            FIND,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerFindCells.with(
+                defaultMax,
+                engine
+            )
         );
 
         cell = cell.setHateosResourceHandler(
-                SORT,
-                HttpMethod.GET,
-                SpreadsheetDeltaHateosResourceHandlerSortCells.with(
-                        engine
-                )
+            SORT,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerSortCells.with(
+                engine
+            )
         );
 
         return cell;
@@ -167,17 +167,17 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 break;
             default:
                 SpreadsheetSelection reference = context.resolveIfLabel(
-                        SpreadsheetSelection.parseExpressionReference(cellOrLabel)
+                    SpreadsheetSelection.parseExpressionReference(cellOrLabel)
                 );
                 if (reference.isCellReference()) {
                     result = HateosResourceSelection.one(
-                            reference.toCell()
+                        reference.toCell()
                     );
                 } else {
                     if (reference.isCellRangeReference()) {
                         result = HateosResourceSelection.range(
-                                reference.toCellRange()
-                                        .range()
+                            reference.toCellRange()
+                                .range()
                         );
                     } else {
                         throw new NeverError("Expected cell or cell-range got " + reference);
@@ -212,22 +212,22 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     // cellReference....................................................................................................
 
     public static HateosResourceMapping<String,
-            SpreadsheetExpressionReferenceSimilarities,
-            SpreadsheetExpressionReferenceSimilarities,
-            SpreadsheetExpressionReferenceSimilarities,
-            SpreadsheetEngineHateosResourceHandlerContext> cellReference(final SpreadsheetEngineContext context) {
+        SpreadsheetExpressionReferenceSimilarities,
+        SpreadsheetExpressionReferenceSimilarities,
+        SpreadsheetExpressionReferenceSimilarities,
+        SpreadsheetEngineHateosResourceHandlerContext> cellReference(final SpreadsheetEngineContext context) {
 
         return HateosResourceMapping.with(
-                CELL_REFERENCE,
-                SpreadsheetDeltaHttpMappings::parseCellReferenceText,
-                SpreadsheetExpressionReferenceSimilarities.class,
-                SpreadsheetExpressionReferenceSimilarities.class,
-                SpreadsheetExpressionReferenceSimilarities.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            CELL_REFERENCE,
+            SpreadsheetDeltaHttpMappings::parseCellReferenceText,
+            SpreadsheetExpressionReferenceSimilarities.class,
+            SpreadsheetExpressionReferenceSimilarities.class,
+            SpreadsheetExpressionReferenceSimilarities.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.with(context)
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler.with(context)
         );
     }
 
@@ -244,47 +244,47 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     // column...........................................................................................................
 
     public static HateosResourceMapping<SpreadsheetColumnReference,
-            SpreadsheetDelta,
-            SpreadsheetDelta,
-            SpreadsheetColumn,
-            SpreadsheetEngineHateosResourceHandlerContext> column(final SpreadsheetEngine engine) {
+        SpreadsheetDelta,
+        SpreadsheetDelta,
+        SpreadsheetColumn,
+        SpreadsheetEngineHateosResourceHandlerContext> column(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                SpreadsheetHateosResourceNames.COLUMN,
-                SpreadsheetDeltaHttpMappings::parseColumn,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetColumn.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            SpreadsheetHateosResourceNames.COLUMN,
+            SpreadsheetDeltaHttpMappings::parseColumn,
+            SpreadsheetDelta.class,
+            SpreadsheetDelta.class,
+            SpreadsheetColumn.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                CLEAR,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
-                        engine
-                )
+            CLEAR,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                AFTER,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(
-                        engine
-                )
+            AFTER,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                BEFORE,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-                        engine
-                )
+            BEFORE,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.DELETE,
-                SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.DELETE,
+            SpreadsheetDeltaHateosResourceHandlerDeleteColumns.with(
+                engine
+            )
         ).setHateosHttpEntityHandler(
-                LinkRelation.SELF,
-                HttpMethod.PATCH,
-                SpreadsheetDeltaPatchHateosHttpEntityHandler.column(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.PATCH,
+            SpreadsheetDeltaPatchHateosHttpEntityHandler.column(
+                engine
+            )
         );
     }
 
@@ -293,54 +293,54 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         final SpreadsheetColumnRangeReference parsed = SpreadsheetSelection.parseColumnRange(selection);
 
         return parsed.isSingle() ?
-                HateosResourceSelection.one(parsed.begin()) :
-                HateosResourceSelection.range(parsed.range());
+            HateosResourceSelection.one(parsed.begin()) :
+            HateosResourceSelection.range(parsed.range());
     }
-    
+
     // row..............................................................................................................
 
     public static HateosResourceMapping<SpreadsheetRowReference,
-            SpreadsheetDelta,
-            SpreadsheetDelta,
-            SpreadsheetRow,
-            SpreadsheetEngineHateosResourceHandlerContext> row(final SpreadsheetEngine engine) {
+        SpreadsheetDelta,
+        SpreadsheetDelta,
+        SpreadsheetRow,
+        SpreadsheetEngineHateosResourceHandlerContext> row(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                SpreadsheetHateosResourceNames.ROW,
-                SpreadsheetDeltaHttpMappings::parseRow,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetRow.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            SpreadsheetHateosResourceNames.ROW,
+            SpreadsheetDeltaHttpMappings::parseRow,
+            SpreadsheetDelta.class,
+            SpreadsheetDelta.class,
+            SpreadsheetRow.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                CLEAR,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerClearRows.with(
-                        engine
-                )
+            CLEAR,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerClearRows.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                AFTER,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(
-                        engine
-                )
+            AFTER,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                BEFORE,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.with(
-                        engine
-                )
+            BEFORE,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.with(
+                engine
+            )
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.DELETE,
-                SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.DELETE,
+            SpreadsheetDeltaHateosResourceHandlerDeleteRows.with(
+                engine
+            )
         ).setHateosHttpEntityHandler(
-                LinkRelation.SELF,
-                HttpMethod.PATCH,
-                SpreadsheetDeltaPatchHateosHttpEntityHandler.row(
-                        engine
-                )
+            LinkRelation.SELF,
+            HttpMethod.PATCH,
+            SpreadsheetDeltaPatchHateosHttpEntityHandler.row(
+                engine
+            )
         );
     }
 
@@ -349,8 +349,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         final SpreadsheetRowRangeReference parsed = SpreadsheetSelection.parseRowRange(selection);
 
         return parsed.isSingle() ?
-                HateosResourceSelection.one(parsed.begin()) :
-                HateosResourceSelection.range(parsed.range());
+            HateosResourceSelection.one(parsed.begin()) :
+            HateosResourceSelection.range(parsed.range());
     }
 
     public final static LinkRelation<?> AFTER = LinkRelation.with("after");
@@ -367,36 +367,36 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                             final SpreadsheetEngineContext context) {
 
         final Optional<SpreadsheetCellQuery> query = extractOrMetadataFindHighlightingAndQuery(
-                parameters,
-                context
+            parameters,
+            context
         );
 
         SpreadsheetDelta result = out;
 
         if (query.isPresent()) {
             result = out.setMatchedCells(
-                    engine.filterCells(
-                                    out.cells(),
-                                    SpreadsheetValueType.ANY,
-                                    context.toExpression(
-                                            query.get()
-                                                    .parserToken()
-                                    ).orElse(DEFAULT_EXPRESSION),
-                                    context
-                            ).stream()
-                            .map(
-                                    SpreadsheetCell::reference
-                            ).collect(Collectors.toCollection(Sets::ordered))
+                engine.filterCells(
+                        out.cells(),
+                        SpreadsheetValueType.ANY,
+                        context.toExpression(
+                            query.get()
+                                .parserToken()
+                        ).orElse(DEFAULT_EXPRESSION),
+                        context
+                    ).stream()
+                    .map(
+                        SpreadsheetCell::reference
+                    ).collect(Collectors.toCollection(Sets::ordered))
             );
         }
 
         return result.setWindow(
-                SpreadsheetDeltaUrlQueryParameters.window(
-                        parameters,
-                        in,
-                        engine,
-                        context
-                )
+            SpreadsheetDeltaUrlQueryParameters.window(
+                parameters,
+                in,
+                engine,
+                context
+            )
         );
     }
 
@@ -432,24 +432,24 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
      */
     public static HateosResourceMapping<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetLabelMapping, SpreadsheetEngineHateosResourceHandlerContext> label(final SpreadsheetEngine engine) {
         return HateosResourceMapping.with(
-                SpreadsheetHateosResourceNames.LABEL,
-                SpreadsheetDeltaHttpMappings::parseLabel,
-                SpreadsheetDelta.class,
-                SpreadsheetDelta.class,
-                SpreadsheetLabelMapping.class,
-                SpreadsheetEngineHateosResourceHandlerContext.class
+            SpreadsheetHateosResourceNames.LABEL,
+            SpreadsheetDeltaHttpMappings::parseLabel,
+            SpreadsheetDelta.class,
+            SpreadsheetDelta.class,
+            SpreadsheetLabelMapping.class,
+            SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-                LABEL_LINK_RELATION,
-                HttpMethod.DELETE,
-                SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine)
+            LABEL_LINK_RELATION,
+            HttpMethod.DELETE,
+            SpreadsheetDeltaHateosResourceHandlerDeleteLabel.with(engine)
         ).setHateosResourceHandler(
-                LABEL_LINK_RELATION,
-                HttpMethod.GET,
-                SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(engine)
+            LABEL_LINK_RELATION,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(engine)
         ).setHateosResourceHandler(
-                LABEL_LINK_RELATION,
-                HttpMethod.POST,
-                SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
+            LABEL_LINK_RELATION,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerSaveLabel.with(engine)
         );
     }
 

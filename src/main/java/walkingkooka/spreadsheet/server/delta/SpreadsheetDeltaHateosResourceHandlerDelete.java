@@ -34,7 +34,7 @@ import java.util.Optional;
  * Abstract base class for DELETE / INSERT a column or row or range of either
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
-        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine) {
         super(engine);
@@ -48,13 +48,13 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
         checkReference(columnOrRow);
 
         return Optional.of(
-                this.executeAndPrepareResponse(
-                        columnOrRow,
-                        1,
-                        resource,
-                        parameters,
-                        context
-                )
+            this.executeAndPrepareResponse(
+                columnOrRow,
+                1,
+                resource,
+                parameters,
+                context
+            )
         );
     }
 
@@ -69,20 +69,20 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
         checkRangeBounded(columnOrRow, this.rangeLabel());
 
         final R lower = columnOrRow.lowerBound()
-                .value()
-                .get();
+            .value()
+            .get();
         final R upper = columnOrRow.upperBound()
-                .value()
-                .get();
+            .value()
+            .get();
 
         return Optional.of(
-                this.executeAndPrepareResponse(
-                        lower,
-                        upper.value() - lower.value() + 1,
-                        resource,
-                        parameters,
-                        context
-                )
+            this.executeAndPrepareResponse(
+                lower,
+                upper.value() - lower.value() + 1,
+                resource,
+                parameters,
+                context
+            )
         );
     }
 
@@ -98,14 +98,14 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
         HateosResourceHandler.checkContext(context);
 
         return this.prepareResponse(
-                in,
-                parameters,
-                context,
-                this.execute(
-                        lower,
-                        count,
-                        context
-                )
+            in,
+            parameters,
+            context,
+            this.execute(
+                lower,
+                count,
+                context
+            )
         );
     }
 

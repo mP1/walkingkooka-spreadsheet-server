@@ -33,40 +33,40 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
     // parser.......................................................................................................
 
     public static HateosResourceMapping<SpreadsheetParserName,
-            SpreadsheetParserInfo,
-            SpreadsheetParserInfoSet,
-            SpreadsheetParserInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> parser() {
+        SpreadsheetParserInfo,
+        SpreadsheetParserInfoSet,
+        SpreadsheetParserInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> parser() {
 
         // parser GET...............................................................................................
 
         HateosResourceMapping<SpreadsheetParserName,
-                SpreadsheetParserInfo,
-                SpreadsheetParserInfoSet,
-                SpreadsheetParserInfo,
-                SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMapping.with(
-                SpreadsheetParserName.HATEOS_RESOURCE_NAME,
-                SpreadsheetParserHateosResourceMappings::parseParserSelection,
-                SpreadsheetParserInfo.class, // valueType
-                SpreadsheetParserInfoSet.class, // collectionType
-                SpreadsheetParserInfo.class, // resourceType
-                SpreadsheetEngineHateosResourceHandlerContext.class // context
+            SpreadsheetParserInfo,
+            SpreadsheetParserInfoSet,
+            SpreadsheetParserInfo,
+            SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMapping.with(
+            SpreadsheetParserName.HATEOS_RESOURCE_NAME,
+            SpreadsheetParserHateosResourceMappings::parseParserSelection,
+            SpreadsheetParserInfo.class, // valueType
+            SpreadsheetParserInfoSet.class, // collectionType
+            SpreadsheetParserInfo.class, // resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class // context
         ).setHateosResourceHandler(
-                LinkRelation.SELF,
-                HttpMethod.GET,
-                SpreadsheetParserInfoHateosResourceHandler.INSTANCE
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            SpreadsheetParserInfoHateosResourceHandler.INSTANCE
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.EDIT,
-                HttpMethod.POST,
-                SpreadsheetParserSelectorEditHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.EDIT,
+            HttpMethod.POST,
+            SpreadsheetParserSelectorEditHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.TOKENS,
-                HttpMethod.POST,
-                SpreadsheetParserTokensHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.TOKENS,
+            HttpMethod.POST,
+            SpreadsheetParserTokensHateosHttpEntityHandler.instance()
         ).setHateosHttpEntityHandler(
-                SpreadsheetServerLinkRelations.NEXT_TOKEN,
-                HttpMethod.POST,
-                SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.instance()
+            SpreadsheetServerLinkRelations.NEXT_TOKEN,
+            HttpMethod.POST,
+            SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.instance()
         );
 
         return parser;
@@ -85,7 +85,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
                 break;
             default:
                 selection = HateosResourceSelection.one(
-                        SpreadsheetParserName.with(text)
+                    SpreadsheetParserName.with(text)
                 );
                 break;
         }

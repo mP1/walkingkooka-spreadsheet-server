@@ -36,8 +36,8 @@ import java.util.Optional;
  * with the original column or row and count.
  */
 abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>>
-        extends SpreadsheetDeltaHateosResourceHandler<R>
-        implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    extends SpreadsheetDeltaHateosResourceHandler<R>
+    implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerInsert(final SpreadsheetEngine engine) {
         super(engine);
@@ -54,16 +54,16 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.insert(
-                                columnOrRow,
-                                count(parameters),
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.insert(
+                    columnOrRow,
+                    count(parameters),
+                    context
                 )
+            )
         );
     }
 
@@ -87,22 +87,22 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.insert(
-                                columnOrRow,
-                                count(parameters),
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.insert(
+                    columnOrRow,
+                    count(parameters),
+                    context
                 )
+            )
         );
     }
 
     private int count(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return SpreadsheetUrlQueryParameters.count(parameters)
-                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT));
+            .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT));
     }
 
     abstract String rangeLabel();

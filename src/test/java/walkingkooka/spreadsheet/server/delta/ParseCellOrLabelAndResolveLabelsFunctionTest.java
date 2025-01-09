@@ -29,7 +29,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements FunctionTesting<ParseCellOrLabelAndResolveLabelsFunction, String, SpreadsheetCellReference>,
-        ToStringTesting<ParseCellOrLabelAndResolveLabelsFunction> {
+    ToStringTesting<ParseCellOrLabelAndResolveLabelsFunction> {
 
     private final static SpreadsheetCellReference CELL = SpreadsheetSelection.parseCell("Z99");
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
@@ -42,8 +42,8 @@ public final class ParseCellOrLabelAndResolveLabelsFunctionTest implements Funct
     @Test
     public void testWithNullLabelToCellFails() {
         assertThrows(
-                NullPointerException.class, () ->
-                        ParseCellOrLabelAndResolveLabelsFunction.with(null)
+            NullPointerException.class, () ->
+                ParseCellOrLabelAndResolveLabelsFunction.with(null)
         );
     }
 

@@ -47,12 +47,12 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosHttpEntityHandlerListTest
-        implements HateosHttpEntityHandlerTesting<PluginHateosHttpEntityHandlerList,
-        PluginName,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosHttpEntityHandlerList>,
-        SpreadsheetMetadataTesting,
-        JarFileTesting {
+    implements HateosHttpEntityHandlerTesting<PluginHateosHttpEntityHandlerList,
+    PluginName,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosHttpEntityHandlerList>,
+    SpreadsheetMetadataTesting,
+    JarFileTesting {
 
     // hateos...........................................................................................................
 
@@ -62,71 +62,71 @@ public final class PluginHateosHttpEntityHandlerListTest
 
     private static Plugin plugin(final String pluginName) {
         return Plugin.with(
-                PluginName.with(pluginName),
-                pluginName + ".jar",
-                jarFile(pluginName),
-                USER,
-                NOW.now()
+            PluginName.with(pluginName),
+            pluginName + ".jar",
+            jarFile(pluginName),
+            USER,
+            NOW.now()
         );
     }
 
     private static Binary jarFile(final String pluginName) {
         final String manifest = (
-                "Manifest-Version: 1.0\r\n" +
-                        "plugin-name: PluginName\r\n" +
-                        "plugin-provider-factory-className: example.PluginName\r\n"
+            "Manifest-Version: 1.0\r\n" +
+                "plugin-name: PluginName\r\n" +
+                "plugin-provider-factory-className: example.PluginName\r\n"
         )
-                .replace(
-                        "PluginName",
-                        pluginName
-                );
+            .replace(
+                "PluginName",
+                pluginName
+            );
 
         return Binary.with(
-                JarFileTesting.jarFile(
-                        manifest,
-                        Maps.of(
-                                "file111.txt",
-                                "Hello111".getBytes(StandardCharsets.UTF_8),
-                                "dir222/",
-                                new byte[0],
-                                "file333.txt",
-                                "Hello333".getBytes(StandardCharsets.UTF_8)
-                        )
+            JarFileTesting.jarFile(
+                manifest,
+                Maps.of(
+                    "file111.txt",
+                    "Hello111".getBytes(StandardCharsets.UTF_8),
+                    "dir222/",
+                    new byte[0],
+                    "file333.txt",
+                    "Hello333".getBytes(StandardCharsets.UTF_8)
                 )
+            )
         );
     }
 
     @Test
     public void testHandleOneMissingAcceptContentTypeFails() {
         final HeaderException thrown = this.handleOneFails(
-                PLUGIN1.name(),
-                HttpEntity.EMPTY,
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                HeaderException.class
+            PLUGIN1.name(),
+            HttpEntity.EMPTY,
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            HeaderException.class
         );
 
         this.checkEquals(
-                "Missing header Accept",
-                thrown.getMessage()
+            "Missing header Accept",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleOnContentTypeNotJsonFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                PLUGIN1.name(),
-                HttpEntity.EMPTY.setAccept(
-                        MediaType.TEXT_PLAIN.accept()
-                ),
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                IllegalArgumentException.class
+            PLUGIN1.name(),
+            HttpEntity.EMPTY.setAccept(
+                MediaType.TEXT_PLAIN.accept()
+            ),
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Accept: Got text/plain require application/json",
-                thrown.getMessage()
+            "Accept: Got text/plain require application/json",
+            thrown.getMessage()
         );
     }
 
@@ -135,11 +135,11 @@ public final class PluginHateosHttpEntityHandlerListTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleOneAndCheck(
-                PLUGIN2.name(),
-                this.entity(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY
+            PLUGIN2.name(),
+            this.entity(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY
         );
     }
 
@@ -148,40 +148,40 @@ public final class PluginHateosHttpEntityHandlerListTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleOneAndCheck(
-                PLUGIN1.name(),
-                this.entity(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                        ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
-                        .setBodyText(
-                        "[\n" +
-                                "  {\n" +
-                                "    \"name\": \"/META-INF/MANIFEST.MF\",\n" +
-                                "    \"method\": 8,\n" +
-                                "    \"create\": \"1999-12-31T12:58\",\n" +
-                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"name\": \"/file111.txt\",\n" +
-                                "    \"method\": 8,\n" +
-                                "    \"create\": \"1999-12-31T12:58\",\n" +
-                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"name\": \"/dir222/\",\n" +
-                                "    \"method\": 8,\n" +
-                                "    \"create\": \"1999-12-31T12:58\",\n" +
-                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"name\": \"/file333.txt\",\n" +
-                                "    \"method\": 8,\n" +
-                                "    \"create\": \"1999-12-31T12:58\",\n" +
-                                "    \"lastModified\": \"2000-01-02T04:58\"\n" +
-                                "  }\n" +
-                                "]"
+            PLUGIN1.name(),
+            this.entity(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                    SpreadsheetServerMediaTypes.CONTENT_TYPE
+                ).addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
+                .setBodyText(
+                    "[\n" +
+                        "  {\n" +
+                        "    \"name\": \"/META-INF/MANIFEST.MF\",\n" +
+                        "    \"method\": 8,\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"/file111.txt\",\n" +
+                        "    \"method\": 8,\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"/dir222/\",\n" +
+                        "    \"method\": 8,\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"name\": \"/file333.txt\",\n" +
+                        "    \"method\": 8,\n" +
+                        "    \"create\": \"1999-12-31T12:58\",\n" +
+                        "    \"lastModified\": \"2000-01-02T04:58\"\n" +
+                        "  }\n" +
+                        "]"
                 ).setContentLength()
         );
     }
@@ -199,19 +199,19 @@ public final class PluginHateosHttpEntityHandlerListTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name()
+            PLUGIN1.name(),
+            PLUGIN2.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -223,7 +223,7 @@ public final class PluginHateosHttpEntityHandlerListTest
     @Override
     public HttpEntity entity() {
         return HttpEntity.EMPTY.setAccept(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+            SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
         );
     }
 
@@ -267,8 +267,8 @@ public final class PluginHateosHttpEntityHandlerListTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "GET PluginStore/list"
+            this.createHandler(),
+            "GET PluginStore/list"
         );
     }
 

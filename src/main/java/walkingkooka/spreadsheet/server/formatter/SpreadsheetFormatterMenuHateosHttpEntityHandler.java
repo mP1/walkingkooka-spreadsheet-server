@@ -39,19 +39,19 @@ import java.util.Map;
  * A handler that returns all available {@link SpreadsheetFormatterSelectorMenu}
  */
 final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetFormatterSelectorMenuList.with(
-                Lists.of(
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Label123",
-                                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
-                        )
+            Lists.of(
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Label123",
+                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
                 )
+            )
         ); // force json registry
     }
 
@@ -77,32 +77,32 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
 
         final MediaType requiredContentType = context.contentType();
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         final SpreadsheetFormatterSelectorMenuList response = SpreadsheetFormatterSelectorMenu.prepare(
-                SpreadsheetFormatterSelectorMenuContexts.basic(
-                        context, // SpreadsheetFormatProvider
-                        SpreadsheetFormatterProviderSamplesContexts.basic(
-                                context.spreadsheetMetadata()
-                                        .spreadsheetFormatterContext(
-                                                context, // SpreadsheetLabelNameResolver
-                                                context, // ConverterProvider
-                                                context, // SpreadsheetFormatterProvider
-                                                context // ProviderContext
-                                        )
+            SpreadsheetFormatterSelectorMenuContexts.basic(
+                context, // SpreadsheetFormatProvider
+                SpreadsheetFormatterProviderSamplesContexts.basic(
+                    context.spreadsheetMetadata()
+                        .spreadsheetFormatterContext(
+                            context, // SpreadsheetLabelNameResolver
+                            context, // ConverterProvider
+                            context, // SpreadsheetFormatterProvider
+                            context // ProviderContext
                         )
                 )
+            )
         );
 
         // write TextNodes as JSON response
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                response.getClass().getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            response.getClass().getSimpleName()
         ).setBodyText(
-                context.marshall(response)
-                        .toString()
+            context.marshall(response)
+                .toString()
         ).setContentLength();
     }
 

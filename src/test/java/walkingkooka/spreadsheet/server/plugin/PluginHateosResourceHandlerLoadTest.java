@@ -42,13 +42,13 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosResourceHandlerLoadTest
-        implements HateosResourceHandlerTesting<PluginHateosResourceHandlerLoad,
-        PluginName,
-        Plugin,
-        PluginSet,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerLoad>,
-        SpreadsheetMetadataTesting {
+    implements HateosResourceHandlerTesting<PluginHateosResourceHandlerLoad,
+    PluginName,
+    Plugin,
+    PluginSet,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosResourceHandlerLoad>,
+    SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -62,11 +62,11 @@ public final class PluginHateosResourceHandlerLoadTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-                PluginName.with("TestPlugin" + n * 111),
-                "plugin-" + n * 111 + ".jar",
-                Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                USER,
-                NOW.now()
+            PluginName.with("TestPlugin" + n * 111),
+            "plugin-" + n * 111 + ".jar",
+            Binary.with("Hello".getBytes(Charset.defaultCharset())),
+            USER,
+            NOW.now()
         );
     }
 
@@ -87,61 +87,61 @@ public final class PluginHateosResourceHandlerLoadTest
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                PLUGIN1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(PLUGIN1)
+            PLUGIN1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(PLUGIN1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                PluginName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            PluginName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        PluginSet.with(
-                                SortedSets.of(
-                                        PLUGIN1,
-                                        PLUGIN2,
-                                        PLUGIN3,
-                                        PLUGIN4
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                PluginSet.with(
+                    SortedSets.of(
+                        PLUGIN1,
+                        PLUGIN2,
+                        PLUGIN3,
+                        PLUGIN4
+                    )
                 )
+            )
         );
     }
 
     @Test
     public void testHandleAllWithOffsetAndCount() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
-                        SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
-                ), // parameters
-                this.context(),
-                Optional.of(
-                        PluginSet.with(
-                                SortedSets.of(
-                                        PLUGIN2, // offset = 1
-                                        PLUGIN3
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.of(
+                SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
+                SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
+            ), // parameters
+            this.context(),
+            Optional.of(
+                PluginSet.with(
+                    SortedSets.of(
+                        PLUGIN2, // offset = 1
+                        PLUGIN3
+                    )
                 )
+            )
         );
     }
 
@@ -158,21 +158,21 @@ public final class PluginHateosResourceHandlerLoadTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name(),
-                PLUGIN3.name(),
-                PLUGIN4.name()
+            PLUGIN1.name(),
+            PLUGIN2.name(),
+            PLUGIN3.name(),
+            PLUGIN4.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -201,8 +201,8 @@ public final class PluginHateosResourceHandlerLoadTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "GET PluginStore"
+            this.createHandler(),
+            "GET PluginStore"
         );
     }
 

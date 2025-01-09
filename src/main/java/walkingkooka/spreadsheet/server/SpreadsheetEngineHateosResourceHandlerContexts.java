@@ -33,10 +33,10 @@ public final class SpreadsheetEngineHateosResourceHandlerContexts implements Pub
                                                                       final SpreadsheetFormatterContext formatterContext,
                                                                       final SpreadsheetProvider systemSpreadsheetProvider) {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                hateosResourceHandlerContext,
-                engineContext,
-                formatterContext,
-                systemSpreadsheetProvider
+            hateosResourceHandlerContext,
+            engineContext,
+            formatterContext,
+            systemSpreadsheetProvider
         );
     }
 

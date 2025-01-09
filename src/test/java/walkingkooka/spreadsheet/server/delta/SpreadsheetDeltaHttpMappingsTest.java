@@ -98,7 +98,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<SpreadsheetDeltaHttpMappings>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
@@ -113,118 +113,118 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     @Test
     public void testCellWithNullEngineFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHttpMappings.cell(
-                        null,
-                        DEFAULT_MAX
-                )
+            NullPointerException.class,
+            () -> SpreadsheetDeltaHttpMappings.cell(
+                null,
+                DEFAULT_MAX
+            )
         );
     }
 
     @Test
     public void testCellWithInvalidDefaultMaxFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> SpreadsheetDeltaHttpMappings.cell(
-                        SpreadsheetEngines.fake(),
-                        -1 // defaultMax
-                )
+            IllegalArgumentException.class,
+            () -> SpreadsheetDeltaHttpMappings.cell(
+                SpreadsheetEngines.fake(),
+                -1 // defaultMax
+            )
         );
     }
 
     @Test
     public void testRouteCellInvalidFails() {
         this.routeCellAndCheck(
-                HttpMethod.GET,
-                "/invalid/A1",
-                HttpStatusCode.NOT_FOUND
+            HttpMethod.GET,
+            "/invalid/A1",
+            HttpStatusCode.NOT_FOUND
         );
     }
 
     @Test
     public void testRouteCellGetLoadCell() {
         this.routeCellFails(
-                HttpMethod.GET,
-                "/cell/A1",
-                UnsupportedOperationException.class
+            HttpMethod.GET,
+            "/cell/A1",
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testRouteCellGetLoadCellLabelFails() {
         this.routeCellFails(
-                HttpMethod.GET,
-                "/cell/Label123",
-                UnsupportedOperationException.class
+            HttpMethod.GET,
+            "/cell/Label123",
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testRouteCellGetLoadCellUnknownLabelFails() {
         this.routeCellAndCheck(
-                HttpMethod.GET,
-                "/cell/UnknownLabel123",
-                HttpStatusCode.BAD_REQUEST,
-                "Label not found: UnknownLabel123"
+            HttpMethod.GET,
+            "/cell/UnknownLabel123",
+            HttpStatusCode.BAD_REQUEST,
+            "Label not found: UnknownLabel123"
         );
     }
 
     @Test
     public void testRouteCellGetLoadCellViewport() {
         this.routeCellAndCheck(
-                HttpMethod.GET,
-                "/cell/*?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
-                HttpStatusCode.OK
+            HttpMethod.GET,
+            "/cell/*?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellGetLoadCellViewportEvaluation() {
         this.routeCellAndCheck(
-                HttpMethod.GET,
-                "/cell/*/force-recompute?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
-                HttpStatusCode.OK
+            HttpMethod.GET,
+            "/cell/*/force-recompute?home=A1&width=1000&height=700&includeFrozenColumnsRows=false",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellGetSortCells() {
         this.routeCellAndCheck(
-                HttpMethod.GET,
-                "/cell/A1:C3/sort?comparators=A=day-of-month;B=month-of-year;C=year",
-                HttpStatusCode.OK
+            HttpMethod.GET,
+            "/cell/A1:C3/sort?comparators=A=day-of-month;B=month-of-year;C=year",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellPostSaveCellWithEmptyBody() {
         this.routeCellFails(
-                HttpMethod.POST,
-                "/cell/A1",
-                "",
-                IllegalArgumentException.class,
-                "Missing resource"
+            HttpMethod.POST,
+            "/cell/A1",
+            "",
+            IllegalArgumentException.class,
+            "Missing resource"
         );
     }
 
     @Test
     public void testRouteCellPostSaveCellLabelWithEmptyBody() {
         this.routeCellFails(
-                HttpMethod.POST,
-                "/cell/Label123",
-                "",
-                IllegalArgumentException.class,
-                "Missing resource"
+            HttpMethod.POST,
+            "/cell/Label123",
+            "",
+            IllegalArgumentException.class,
+            "Missing resource"
         );
     }
 
     @Test
     public void testRouteCellPostSaveCellUnknownLabelFails() {
         this.routeCellAndCheck(
-                HttpMethod.POST,
-                "/cell/UnknownLabel456",
-                HttpStatusCode.BAD_REQUEST,
-                "Label not found: UnknownLabel456"
+            HttpMethod.POST,
+            "/cell/UnknownLabel456",
+            HttpStatusCode.BAD_REQUEST,
+            "Label not found: UnknownLabel456"
         );
     }
 
@@ -236,28 +236,28 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     @Test
     public void testRouteCellDelete() {
         this.routeCellAndCheck(
-                HttpMethod.DELETE,
-                "/cell/A1",
-                HttpStatusCode.OK
+            HttpMethod.DELETE,
+            "/cell/A1",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellDeleteLabel() {
         this.routeCellAndCheck(
-                HttpMethod.DELETE,
-                "/cell/Label123",
-                HttpStatusCode.OK
+            HttpMethod.DELETE,
+            "/cell/Label123",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellDeleteLabelUnknownFails() {
         this.routeCellAndCheck(
-                HttpMethod.DELETE,
-                "/cell/UnknownLabel789",
-                HttpStatusCode.BAD_REQUEST,
-                "Label not found: UnknownLabel789"
+            HttpMethod.DELETE,
+            "/cell/UnknownLabel789",
+            HttpStatusCode.BAD_REQUEST,
+            "Label not found: UnknownLabel789"
         );
     }
 
@@ -267,9 +267,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     public void testRouteCellGetLoadCellSpreadsheetEngineEvaluation() {
         for (final SpreadsheetEngineEvaluation evaluation : SpreadsheetEngineEvaluation.values()) {
             this.routeCellFails(
-                    HttpMethod.GET,
-                    "/cell/A1/" + evaluation.toLinkRelation().toString(),
-                    UnsupportedOperationException.class
+                HttpMethod.GET,
+                "/cell/A1/" + evaluation.toLinkRelation().toString(),
+                UnsupportedOperationException.class
             );
         }
     }
@@ -277,47 +277,47 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     @Test
     public void testRouteClearCellsOnePost() {
         this.routeCellAndCheck(
-                HttpMethod.POST,
-                "/cell/A1/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.BAD_REQUEST
+            HttpMethod.POST,
+            "/cell/A1/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.BAD_REQUEST
         );
     }
 
     @Test
     public void testRouteClearCellRangePost() {
         this.routeCellAndCheck(
-                HttpMethod.POST,
-                "/cell/A1:B2/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.BAD_REQUEST
+            HttpMethod.POST,
+            "/cell/A1:B2/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.BAD_REQUEST
         );
     }
 
     @Test
     public void testRouteFillCellsPost() {
         this.routeCellAndCheck(
-                HttpMethod.POST,
-                "/cell/A1:B2/fill",
-                JsonNodeMarshallContexts.basic().marshall(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("B99")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("1")
-                                                        )
-                                        )
+            HttpMethod.POST,
+            "/cell/A1:B2/fill",
+            JsonNodeMarshallContexts.basic().marshall(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("B99")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY
+                                        .setText("1")
                                 )
-                ).toString(),
-                HttpStatusCode.OK
+                        )
+                    )
+            ).toString(),
+            HttpStatusCode.OK
         );
     }
 
@@ -325,10 +325,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String url,
                                    final HttpStatusCode statusCode) {
         this.routeCellAndCheck(
-                method,
-                url,
-                statusCode,
-                null
+            method,
+            url,
+            statusCode,
+            null
         );
     }
 
@@ -337,11 +337,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final HttpStatusCode statusCode,
                                    final String message) {
         this.routeCellAndCheck(
-                method,
-                url,
-                "",
-                statusCode,
-                message
+            method,
+            url,
+            "",
+            statusCode,
+            message
         );
     }
 
@@ -350,11 +350,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String body,
                                    final HttpStatusCode statusCode) {
         this.routeCellAndCheck(
-                method,
-                url,
-                body,
-                statusCode,
-                null
+            method,
+            url,
+            body,
+            statusCode,
+            null
         );
     }
 
@@ -366,15 +366,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         final SpreadsheetEngine engine = this.engine();
 
         this.routeAndCheck(
-                SpreadsheetDeltaHttpMappings.cell(
-                        engine,
-                        DEFAULT_MAX
-                ),
-                method,
-                url,
-                body,
-                statusCode,
-                message
+            SpreadsheetDeltaHttpMappings.cell(
+                engine,
+                DEFAULT_MAX
+            ),
+            method,
+            url,
+            body,
+            statusCode,
+            message
         );
     }
 
@@ -382,13 +382,13 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final String url,
                                    final String body) {
         return this.route(
-                SpreadsheetDeltaHttpMappings.cell(
-                        this.engine(),
-                        DEFAULT_MAX
-                ),
-                method,
-                url,
-                body
+            SpreadsheetDeltaHttpMappings.cell(
+                this.engine(),
+                DEFAULT_MAX
+            ),
+            method,
+            url,
+            body
         );
     }
 
@@ -396,10 +396,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                 final String url,
                                 final Class<? extends Throwable> thrown) {
         this.routeCellFails(
-                method,
-                url,
-                "",
-                thrown
+            method,
+            url,
+            "",
+            thrown
         );
     }
 
@@ -408,12 +408,12 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                      final String body,
                                      final Class<? extends Throwable> thrown) {
         return assertThrows(
-                thrown,
-                () -> this.routeCell(
-                        method,
-                        url,
-                        body
-                )
+            thrown,
+            () -> this.routeCell(
+                method,
+                url,
+                body
+            )
         );
     }
 
@@ -423,15 +423,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                 final Class<? extends Throwable> thrown,
                                 final String message) {
         final Throwable throwable = this.routeCellFails(
-                method,
-                url,
-                body,
-                thrown
+            method,
+            url,
+            body,
+            thrown
         );
         this.checkEquals(
-                message,
-                throwable.getMessage(),
-                "message"
+            message,
+            throwable.getMessage(),
+            "message"
         );
     }
 
@@ -450,11 +450,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public SpreadsheetDelta deleteCells(final SpreadsheetSelection selection,
                                                 final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY
-                        .setDeletedCells(
-                                selection.toCellRange()
-                                        .cellStream()
-                                        .collect(Collectors.toSet())
-                        );
+                    .setDeletedCells(
+                        selection.toCellRange()
+                            .cellStream()
+                            .collect(Collectors.toSet())
+                    );
             }
 
             @Override
@@ -479,9 +479,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY.setCells(
-                        Sets.of(
-                                SpreadsheetSelection.A1.setFormula(SpreadsheetFormula.EMPTY.setText("=1+2"))
-                        )
+                    Sets.of(
+                        SpreadsheetSelection.A1.setFormula(SpreadsheetFormula.EMPTY.setText("=1+2"))
+                    )
                 );
             }
 
@@ -489,9 +489,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public Optional<SpreadsheetViewport> navigate(final SpreadsheetViewport viewport,
                                                           final SpreadsheetEngineContext context) {
                 checkEquals(
-                        Lists.empty(),
-                        viewport.navigations(),
-                        "navigations"
+                    Lists.empty(),
+                    viewport.navigations(),
+                    "navigations"
                 );
                 return Optional.of(viewport);
             }
@@ -540,75 +540,75 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             @Override
             public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
                 return SpreadsheetComparatorInfoSet.EMPTY.concat(
-                        SpreadsheetComparatorInfo.with(
-                                Url.parseAbsolute("https://example.com/comparator-1"),
-                                SpreadsheetComparatorName.with("comparator-1")
-                        )
+                    SpreadsheetComparatorInfo.with(
+                        Url.parseAbsolute("https://example.com/comparator-1"),
+                        SpreadsheetComparatorName.with("comparator-1")
+                    )
                 );
             }
 
             @Override
             public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
                 return SpreadsheetFormatterInfoSet.EMPTY.concat(
-                        SpreadsheetFormatterInfo.with(
-                                Url.parseAbsolute("https://example.com/formatter-1"),
-                                SpreadsheetFormatterName.with("formatter-1")
-                        )
+                    SpreadsheetFormatterInfo.with(
+                        Url.parseAbsolute("https://example.com/formatter-1"),
+                        SpreadsheetFormatterName.with("formatter-1")
+                    )
                 );
             }
 
             @Override
             public ExpressionFunctionInfoSet expressionFunctionInfos() {
                 return ExpressionFunctionInfoSet.with(
-                        Sets.of(
-                                ExpressionFunctionInfo.with(
-                                        Url.parseAbsolute("https://example.com/expression-function-1"),
-                                        ExpressionFunctionName.with("ExpressionFunction1")
-                                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
-                                ),
-                                ExpressionFunctionInfo.with(
-                                        Url.parseAbsolute("https://example.com/expression-function-2"),
-                                        ExpressionFunctionName.with("ExpressionFunction2")
-                                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
-                                )
+                    Sets.of(
+                        ExpressionFunctionInfo.with(
+                            Url.parseAbsolute("https://example.com/expression-function-1"),
+                            ExpressionFunctionName.with("ExpressionFunction1")
+                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                        ),
+                        ExpressionFunctionInfo.with(
+                            Url.parseAbsolute("https://example.com/expression-function-2"),
+                            ExpressionFunctionName.with("ExpressionFunction2")
+                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
                         )
+                    )
                 );
             }
 
             @Override
             public SpreadsheetParserInfoSet spreadsheetParserInfos() {
                 return SpreadsheetParserInfoSet.EMPTY.concat(
-                        SpreadsheetParserInfo.with(
-                                Url.parseAbsolute("https://example.com/parser-1"),
-                                SpreadsheetParserName.with("parser-1")
-                        )
+                    SpreadsheetParserInfo.with(
+                        Url.parseAbsolute("https://example.com/parser-1"),
+                        SpreadsheetParserName.with("parser-1")
+                    )
                 );
             }
 
             @Override
             public JsonNode marshall(final Object value) {
                 return JsonNodeMarshallContexts.basic()
-                        .marshall(value);
+                    .marshall(value);
             }
 
             @Override
             public <T> T unmarshall(final JsonNode json,
                                     final Class<T> type) {
                 return JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.DEFAULT,
-                        MathContext.UNLIMITED
+                    ExpressionNumberKind.DEFAULT,
+                    MathContext.UNLIMITED
                 ).unmarshall(
-                        json,
-                        type
+                    json,
+                    type
                 );
             }
 
             @Override
             public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
                 return this.storeRepository()
-                        .labels()
-                        .cellReferenceOrRangeOrFail(spreadsheetLabelName)
-                        .toCell();
+                    .labels()
+                    .cellReferenceOrRangeOrFail(spreadsheetLabelName)
+                    .toCell();
             }
         };
     }
@@ -618,36 +618,36 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     @Test
     public void testColumnWithNullEngineFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHttpMappings.column(
-                        null
-                )
+            NullPointerException.class,
+            () -> SpreadsheetDeltaHttpMappings.column(
+                null
+            )
         );
     }
 
     @Test
     public void testRouteClearColumnsOnePost() {
         this.routeColumnAndCheck(
-                HttpMethod.POST,
-                "/column/A/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.OK
+            HttpMethod.POST,
+            "/column/A/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteClearColumnRangePost() {
         this.routeColumnAndCheck(
-                HttpMethod.POST,
-                "/column/A:B/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.OK
+            HttpMethod.POST,
+            "/column/A:B/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.OK
         );
     }
 
@@ -660,7 +660,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     public void testRouteColumnRangeInsertAfterPostMissingCountFails() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after", IllegalArgumentException.class);
     }
-    
+
     @Test
     public void testRouteColumnsInsertAfterPost() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after?count=1", UnsupportedOperationException.class);
@@ -680,7 +680,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     public void testRouteColumnRangeInsertBeforePostMissingCountFails() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before", IllegalArgumentException.class);
     }
-    
+
     @Test
     public void testRouteColumnsInsertBeforePost() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before?count=1", UnsupportedOperationException.class);
@@ -690,7 +690,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     public void testRouteColumnRangeInsertBeforePost() {
         this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before?count=1", UnsupportedOperationException.class);
     }
-    
+
     @Test
     public void testRouteColumnsPutFails() {
         this.routeColumnAndCheck(HttpMethod.PUT, "/column/A", HttpStatusCode.METHOD_NOT_ALLOWED);
@@ -705,10 +705,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                      final String url,
                                      final HttpStatusCode statusCode) {
         this.routeColumnAndCheck(
-                method,
-                url,
-                "",
-                statusCode
+            method,
+            url,
+            "",
+            statusCode
         );
     }
 
@@ -717,13 +717,13 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                      final String body,
                                      final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetDeltaHttpMappings.column(
-                        this.engine()
-                ),
-                method,
-                url,
-                body,
-                statusCode
+            SpreadsheetDeltaHttpMappings.column(
+                this.engine()
+            ),
+            method,
+            url,
+            body,
+            statusCode
         );
     }
 
@@ -731,27 +731,27 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                      final String url,
                                      final Class<? extends Throwable> thrown) {
         assertThrows(
-                thrown,
-                () -> this.route(
-                        SpreadsheetDeltaHttpMappings.column(
-                                this.engine()
-                        ),
-                        method,
-                        url,
-                        ""
-                )
+            thrown,
+            () -> this.route(
+                SpreadsheetDeltaHttpMappings.column(
+                    this.engine()
+                ),
+                method,
+                url,
+                ""
+            )
         );
     }
-    
+
     // row...........................................................................................................
 
     @Test
     public void testRowWithNullEngineFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetDeltaHttpMappings.row(
-                        null
-                )
+            NullPointerException.class,
+            () -> SpreadsheetDeltaHttpMappings.row(
+                null
+            )
         );
     }
 
@@ -813,26 +813,26 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     @Test
     public void testRouteRowsClearOnePost() {
         this.routeRowAndCheck(
-                HttpMethod.POST,
-                "/row/1/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.OK
+            HttpMethod.POST,
+            "/row/1/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteRowRangeClearPost() {
         this.routeRowAndCheck(
-                HttpMethod.POST,
-                "/row/1:2/clear",
-                JsonNodeMarshallContexts.basic()
-                        .marshall(
-                                SpreadsheetDelta.EMPTY
-                        ).toString(),
-                HttpStatusCode.OK
+            HttpMethod.POST,
+            "/row/1:2/clear",
+            JsonNodeMarshallContexts.basic()
+                .marshall(
+                    SpreadsheetDelta.EMPTY
+                ).toString(),
+            HttpStatusCode.OK
         );
     }
 
@@ -850,10 +850,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                   final String url,
                                   final HttpStatusCode statusCode) {
         this.routeRowAndCheck(
-                method,
-                url,
-                "",
-                statusCode
+            method,
+            url,
+            "",
+            statusCode
         );
     }
 
@@ -862,13 +862,13 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                   final String body,
                                   final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                SpreadsheetDeltaHttpMappings.row(
-                        this.engine()
-                ),
-                method,
-                url,
-                body,
-                statusCode
+            SpreadsheetDeltaHttpMappings.row(
+                this.engine()
+            ),
+            method,
+            url,
+            body,
+            statusCode
         );
     }
 
@@ -876,15 +876,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                   final String url,
                                   final Class<? extends Throwable> thrown) {
         assertThrows(
-                thrown,
-                () -> this.route(
-                        SpreadsheetDeltaHttpMappings.row(
-                                this.engine()
-                        ),
-                        method,
-                        url,
-                        ""
-                )
+            thrown,
+            () -> this.route(
+                SpreadsheetDeltaHttpMappings.row(
+                    this.engine()
+                ),
+                method,
+                url,
+                ""
+            )
         );
     }
 
@@ -896,12 +896,12 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String requestBody,
                                final HttpStatusCode statusCode) {
         this.routeAndCheck(
-                mapping,
-                method,
-                url,
-                requestBody,
-                statusCode,
-                null
+            mapping,
+            method,
+            url,
+            requestBody,
+            statusCode,
+            null
         );
     }
 
@@ -914,33 +914,33 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
-                        URL,
-                        Sets.of(mapping),
-                        INDENTATION,
-                LINE_ENDING,
-                this.context()
+            URL,
+            Sets.of(mapping),
+            INDENTATION,
+            LINE_ENDING,
+            this.context()
         ).route(request.routerParameters());
 
         this.checkNotEquals(
-                Optional.empty(),
-                possible,
-                () -> method + " " + URL + url
+            Optional.empty(),
+            possible,
+            () -> method + " " + URL + url
         );
 
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get()
-                    .handle(
-                            request,
-                            response
-                    );
+                .handle(
+                    request,
+                    response
+                );
             this.checkEquals(statusCode,
-                    response.status().map(HttpStatus::value).orElse(null),
-                    () -> "status code: " + request + " " + response + "\n" + possible);
+                response.status().map(HttpStatus::value).orElse(null),
+                () -> "status code: " + request + " " + response + "\n" + possible);
             if (null != message) {
                 this.checkEquals(message,
-                        response.status().map(HttpStatus::message).orElse(null),
-                        () -> "status message: " + request + " " + response + "\n" + possible);
+                    response.status().map(HttpStatus::message).orElse(null),
+                    () -> "status message: " + request + " " + response + "\n" + possible);
             }
         }
     }
@@ -951,21 +951,21 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String requestBody) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
-                URL,
-                Sets.of(mapping),
-                INDENTATION,
-                LINE_ENDING,
-                this.context()
+            URL,
+            Sets.of(mapping),
+            INDENTATION,
+            LINE_ENDING,
+            this.context()
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
-                possible,
-                () -> method + " " + URL + url);
+            possible,
+            () -> method + " " + URL + url);
         final HttpResponse response = HttpResponses.recording();
         possible.get()
-                .handle(
-                        request,
-                        response
-                );
+            .handle(
+                request,
+                response
+            );
         return response;
     }
 
@@ -998,9 +998,9 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.of(
-                        HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
-                        HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
-                        HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
+                    HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
+                    HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE.setCharset(CharsetName.UTF_8)),
+                    HttpHeaderName.CONTENT_LENGTH, Lists.of(Long.valueOf(this.bodyLength()))
                 );
             }
 

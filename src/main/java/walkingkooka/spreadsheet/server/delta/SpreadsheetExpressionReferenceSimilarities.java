@@ -56,9 +56,9 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
         Objects.requireNonNull(labelMappings, "labelMappings");
 
         return new SpreadsheetExpressionReferenceSimilarities(
-                cellReference,
-                label,
-                Sets.immutable(labelMappings)
+            cellReference,
+            label,
+            Sets.immutable(labelMappings)
         );
     }
 
@@ -70,7 +70,7 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
         if (label.isPresent()) {
             final SpreadsheetLabelName label2 = label.get();
             if (labelMappings.stream()
-                    .anyMatch(m -> m.label().equals(label2))) {
+                .anyMatch(m -> m.label().equals(label2))) {
                 throw new IllegalArgumentException("Label " + label2 + " present within mappings: " + labelMappings);
             }
         }
@@ -111,21 +111,21 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof SpreadsheetExpressionReferenceSimilarities && this.equals0((SpreadsheetExpressionReferenceSimilarities) other);
+            other instanceof SpreadsheetExpressionReferenceSimilarities && this.equals0((SpreadsheetExpressionReferenceSimilarities) other);
     }
 
     private boolean equals0(final SpreadsheetExpressionReferenceSimilarities other) {
         return this.cellReference.equals(other.cellReference) &&
-                this.labelMappings.equals(other.labelMappings);
+            this.labelMappings.equals(other.labelMappings);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .value(this.cellReference)
-                .value(this.label)
-                .value(this.labelMappings)
-                .build();
+            .value(this.cellReference)
+            .value(this.label)
+            .value(this.labelMappings)
+            .build();
     }
 
     // json.............................................................................................................
@@ -142,12 +142,12 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
             switch (name.value()) {
                 case CELL_REFERENCE_PROPERTY_STRING:
                     cellReference = Optional.of(
-                            context.unmarshall(child, SpreadsheetCellReference.class)
+                        context.unmarshall(child, SpreadsheetCellReference.class)
                     );
                     break;
                 case LABEL_PROPERTY_STRING:
                     label = Optional.of(
-                            context.unmarshall(child, SpreadsheetLabelName.class)
+                        context.unmarshall(child, SpreadsheetLabelName.class)
                     );
                     break;
                 case LABEL_MAPPINGS_PROPERTY_STRING:
@@ -177,13 +177,13 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
         final Set<SpreadsheetLabelMapping> labelMappings = this.labelMappings();
         if (!labelMappings.isEmpty()) {
             children.add(
-                    context.marshallCollection(labelMappings)
-                            .setName(LABEL_MAPPINGS_PROPERTY)
+                context.marshallCollection(labelMappings)
+                    .setName(LABEL_MAPPINGS_PROPERTY)
             );
         }
 
         return JsonNode.object()
-                .setChildren(children);
+            .setChildren(children);
     }
 
     private final static String CELL_REFERENCE_PROPERTY_STRING = "cell-reference";
@@ -200,13 +200,13 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
     static {
         // force static initializers to run, preventing Json type name lookup failures.
         SpreadsheetSelection.labelName("Label")
-                .mapping(SpreadsheetSelection.A1);
+            .mapping(SpreadsheetSelection.A1);
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetExpressionReferenceSimilarities.class),
-                SpreadsheetExpressionReferenceSimilarities::unmarshall,
-                SpreadsheetExpressionReferenceSimilarities::marshall,
-                SpreadsheetExpressionReferenceSimilarities.class
+            JsonNodeContext.computeTypeName(SpreadsheetExpressionReferenceSimilarities.class),
+            SpreadsheetExpressionReferenceSimilarities::unmarshall,
+            SpreadsheetExpressionReferenceSimilarities::marshall,
+            SpreadsheetExpressionReferenceSimilarities.class
         );
     }
 

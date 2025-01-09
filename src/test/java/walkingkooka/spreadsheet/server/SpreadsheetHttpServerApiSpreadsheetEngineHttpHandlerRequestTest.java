@@ -27,17 +27,17 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequestTe
     public void testToString() {
         final String toString = "Request 123";
         this.toStringAndCheck(
-                SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
-                        new FakeHttpRequest() {
-                            @Override
-                            public String toString() {
-                                return toString;
-                            }
-                        },
-                        HttpResponses.fake(),
-                        null
-                ),
-                toString
+            SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerRequest.with(
+                new FakeHttpRequest() {
+                    @Override
+                    public String toString() {
+                        return toString;
+                    }
+                },
+                HttpResponses.fake(),
+                null
+            ),
+            toString
         );
     }
 

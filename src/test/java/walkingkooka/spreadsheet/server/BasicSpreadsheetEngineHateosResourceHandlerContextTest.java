@@ -37,28 +37,28 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implements SpreadsheetEngineHateosResourceHandlerContextTesting<BasicSpreadsheetEngineHateosResourceHandlerContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
-            JsonNodeMarshallUnmarshallContexts.basic(
-                    JSON_NODE_MARSHALL_CONTEXT,
-                    JSON_NODE_UNMARSHALL_CONTEXT
-            )
+        JsonNodeMarshallUnmarshallContexts.basic(
+            JSON_NODE_MARSHALL_CONTEXT,
+            JSON_NODE_UNMARSHALL_CONTEXT
+        )
     );
 
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
-            Url.parseAbsolute("https://example.com"),
-            METADATA_EN_AU,
-            SpreadsheetEngines.fake(),
-            new FakeSpreadsheetStoreRepository() {
-                @Override
-                public SpreadsheetLabelStore labels() {
-                    return SpreadsheetLabelStores.fake();
-                }
-            },
-            SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT
+        Url.parseAbsolute("https://example.com"),
+        METADATA_EN_AU,
+        SpreadsheetEngines.fake(),
+        new FakeSpreadsheetStoreRepository() {
+            @Override
+            public SpreadsheetLabelStore labels() {
+                return SpreadsheetLabelStores.fake();
+            }
+        },
+        SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+        SPREADSHEET_PROVIDER,
+        PROVIDER_CONTEXT
     );
 
     // with.............................................................................................................
@@ -66,52 +66,52 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        null,
-                        SPREADSHEET_ENGINE_CONTEXT,
-                        SPREADSHEET_FORMATTER_CONTEXT,
-                        SPREADSHEET_PROVIDER
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                null,
+                SPREADSHEET_ENGINE_CONTEXT,
+                SPREADSHEET_FORMATTER_CONTEXT,
+                SPREADSHEET_PROVIDER
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetEngineContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        null,
-                        SPREADSHEET_FORMATTER_CONTEXT,
-                        SPREADSHEET_PROVIDER
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null,
+                SPREADSHEET_FORMATTER_CONTEXT,
+                SPREADSHEET_PROVIDER
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetFormatterContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        SPREADSHEET_ENGINE_CONTEXT,
-                        null,
-                        SPREADSHEET_PROVIDER
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ENGINE_CONTEXT,
+                null,
+                SPREADSHEET_PROVIDER
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetProviderFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        SPREADSHEET_ENGINE_CONTEXT,
-                        SPREADSHEET_FORMATTER_CONTEXT,
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicSpreadsheetEngineHateosResourceHandlerContext.with(
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ENGINE_CONTEXT,
+                SPREADSHEET_FORMATTER_CONTEXT,
+                null
+            )
         );
     }
 
@@ -130,10 +130,10 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     @Override
     public BasicSpreadsheetEngineHateosResourceHandlerContext createContext() {
         return BasicSpreadsheetEngineHateosResourceHandlerContext.with(
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                SPREADSHEET_ENGINE_CONTEXT,
-                SPREADSHEET_FORMATTER_CONTEXT,
-                SPREADSHEET_PROVIDER
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SPREADSHEET_ENGINE_CONTEXT,
+            SPREADSHEET_FORMATTER_CONTEXT,
+            SPREADSHEET_PROVIDER
         );
     }
 

@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  * The filename of an entry with a JAR file archive.
  */
 public final class JarEntryInfoName implements Name,
-        Comparable<JarEntryInfoName> {
+    Comparable<JarEntryInfoName> {
 
     /**
      * Separator character that is itself an illegal character within a {@link JarEntryInfoName} and may be used to form a range.
@@ -57,7 +57,7 @@ public final class JarEntryInfoName implements Name,
      * Jar file name must start with slash.
      */
     final static CharPredicate INITIAL = CharPredicates.is(
-            SEPARATOR.character()
+        SEPARATOR.character()
     );
 
     final static CharPredicate PART = CharPredicates.always();
@@ -68,9 +68,9 @@ public final class JarEntryInfoName implements Name,
     public static boolean isChar(final int pos,
                                  final char c) {
         return (
-                0 == pos ?
-                        INITIAL :
-                        PART
+            0 == pos ?
+                INITIAL :
+                PART
         ).test(c);
     }
 
@@ -86,14 +86,14 @@ public final class JarEntryInfoName implements Name,
      */
     public static JarEntryInfoName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-                name,
-                "name",
-                INITIAL,
-                PART
+            name,
+            "name",
+            INITIAL,
+            PART
         );
         return MANIFEST_MF_STRING.equalsIgnoreCase(name) ?
-                MANIFEST_MF :
-                new JarEntryInfoName(name);
+            MANIFEST_MF :
+            new JarEntryInfoName(name);
     }
 
     /**
@@ -116,10 +116,10 @@ public final class JarEntryInfoName implements Name,
      */
     public JarEntryInfoName checkLength(final String label) {
         Name.checkLength(
-                label,
-                this.value(),
-                MIN_LENGTH,
-                MAX_LENGTH
+            label,
+            this.value(),
+            MIN_LENGTH,
+            MAX_LENGTH
         );
 
         return this;
@@ -141,7 +141,7 @@ public final class JarEntryInfoName implements Name,
      */
     public boolean isDirectory() {
         return this.value()
-                .endsWith(SEPARATOR.string());
+            .endsWith(SEPARATOR.string());
     }
 
     // Object...........................................................................................................
@@ -154,8 +154,8 @@ public final class JarEntryInfoName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof JarEntryInfoName &&
-                        this.equals0(Cast.to(other));
+            other instanceof JarEntryInfoName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final JarEntryInfoName other) {
@@ -184,15 +184,15 @@ public final class JarEntryInfoName implements Name,
                 compareTo = Comparators.EQUAL;
             } else {
                 compareTo = manifest ?
-                        Comparators.LESS :
-                        Comparators.MORE;
+                    Comparators.LESS :
+                    Comparators.MORE;
             }
         } else {
             compareTo = CASE_SENSITIVITY.comparator()
-                    .compare(
-                            this.value(),
-                            other.value()
-                    );
+                .compare(
+                    this.value(),
+                    other.value()
+                );
         }
 
         return compareTo;
@@ -203,10 +203,10 @@ public final class JarEntryInfoName implements Name,
     static JarEntryInfoName unmarshall(final JsonNode node,
                                        final JsonNodeUnmarshallContext context) {
         return with(
-                context.unmarshall(
-                        node,
-                        String.class
-                )
+            context.unmarshall(
+                node,
+                String.class
+            )
         );
     }
 
@@ -216,10 +216,10 @@ public final class JarEntryInfoName implements Name,
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(JarEntryInfoName.class),
-                JarEntryInfoName::unmarshall,
-                JarEntryInfoName::marshall,
-                JarEntryInfoName.class
+            JsonNodeContext.computeTypeName(JarEntryInfoName.class),
+            JarEntryInfoName::unmarshall,
+            JarEntryInfoName::marshall,
+            JarEntryInfoName.class
         );
     }
 
@@ -240,26 +240,26 @@ public final class JarEntryInfoName implements Name,
         }
 
         final String filename = path.namesList()
-                .stream()
-                .skip(5)
-                .map(n -> n.value())
-                .collect(
-                        Collectors.joining(
-                                JarEntryInfoName.SEPARATOR.string()
-                        )
-                );
+            .stream()
+            .skip(5)
+            .map(n -> n.value())
+            .collect(
+                Collectors.joining(
+                    JarEntryInfoName.SEPARATOR.string()
+                )
+            );
 
         return Optional.ofNullable(
-                filename.isEmpty() ?
-                        null :
-                        JarEntryInfoName.with(
-                                JarEntryInfoName.SEPARATOR + filename
-                        )
+            filename.isEmpty() ?
+                null :
+                JarEntryInfoName.with(
+                    JarEntryInfoName.SEPARATOR + filename
+                )
         );
     }
 
     private final static Predicate<UrlPath> DOWNLOAD_URL = SpreadsheetHttpServer.API_PLUGIN.append(UrlPathName.WILDCARD)
-            .append(SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName())
-            .append(UrlPathName.with("**"))
-            .predicate();
+        .append(SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName())
+        .append(UrlPathName.with("**"))
+        .predicate();
 }

@@ -34,44 +34,44 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicPluginHateosResourceHandlerContextTest implements PluginHateosResourceHandlerContextTesting<BasicPluginHateosResourceHandlerContext>,
-        SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting {
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
-            JsonNodeMarshallUnmarshallContexts.basic(
-                    JSON_NODE_MARSHALL_CONTEXT,
-                    JSON_NODE_UNMARSHALL_CONTEXT
-            )
+        JsonNodeMarshallUnmarshallContexts.basic(
+            JSON_NODE_MARSHALL_CONTEXT,
+            JSON_NODE_UNMARSHALL_CONTEXT
+        )
     );
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
-            new FakeEnvironmentContext() {
-                @Override
-                public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-                    Objects.requireNonNull(name, "name");
-                    throw new UnsupportedOperationException();
-                }
-            },
-            PluginStores.treeMap()
+        new FakeEnvironmentContext() {
+            @Override
+            public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+                Objects.requireNonNull(name, "name");
+                throw new UnsupportedOperationException();
+            }
+        },
+        PluginStores.treeMap()
     );
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicPluginHateosResourceHandlerContext.with(
-                        null,
-                        PROVIDER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicPluginHateosResourceHandlerContext.with(
+                null,
+                PROVIDER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullProviderContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicPluginHateosResourceHandlerContext.with(
-                        HATEOS_RESOURCE_HANDLER_CONTEXT,
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicPluginHateosResourceHandlerContext.with(
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null
+            )
         );
     }
 
@@ -83,8 +83,8 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     @Override
     public BasicPluginHateosResourceHandlerContext createContext() {
         return BasicPluginHateosResourceHandlerContext.with(
-                HATEOS_RESOURCE_HANDLER_CONTEXT,
-                PROVIDER_CONTEXT
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            PROVIDER_CONTEXT
         );
     }
 

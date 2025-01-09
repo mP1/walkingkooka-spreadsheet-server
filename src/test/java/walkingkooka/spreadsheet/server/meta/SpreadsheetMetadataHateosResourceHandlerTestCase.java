@@ -26,10 +26,10 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlerTestCase<T>
-        implements ClassTesting<T>,
-        ToStringTesting<T>,
-        TypeNameTesting<T>,
-        SpreadsheetMetadataTesting {
+    implements ClassTesting<T>,
+    ToStringTesting<T>,
+    TypeNameTesting<T>,
+    SpreadsheetMetadataTesting {
 
     SpreadsheetMetadataHateosResourceHandlerTestCase() {
         super();

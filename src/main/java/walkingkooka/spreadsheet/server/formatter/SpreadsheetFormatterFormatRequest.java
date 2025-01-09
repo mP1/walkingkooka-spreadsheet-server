@@ -37,8 +37,8 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
     public static <T> SpreadsheetFormatterFormatRequest<T> with(final SpreadsheetFormatterSelector selector,
                                                                 final T value) {
         return new SpreadsheetFormatterFormatRequest(
-                Objects.requireNonNull(selector, "selector"),
-                value
+            Objects.requireNonNull(selector, "selector"),
+            value
         );
     }
 
@@ -65,28 +65,28 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.selector,
-                this.value
+            this.selector,
+            this.value
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return other == this ||
-                other instanceof SpreadsheetFormatterFormatRequest && this.equals0((SpreadsheetFormatterFormatRequest<?>) other);
+            other instanceof SpreadsheetFormatterFormatRequest && this.equals0((SpreadsheetFormatterFormatRequest<?>) other);
     }
 
     private boolean equals0(final SpreadsheetFormatterFormatRequest<?> other) {
         return this.selector.equals(other.selector) &&
-                Objects.equals(this.value, other.value);
+            Objects.equals(this.value, other.value);
     }
 
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .value(this.selector)
-                .value(this.value)
-                .build();
+            .value(this.selector)
+            .value(this.value)
+            .build();
     }
 
     // json.............................................................................................................
@@ -101,8 +101,8 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
             switch (name.value()) {
                 case SELECTOR_PROPERTY_STRING:
                     selector = context.unmarshall(
-                            child,
-                            SpreadsheetFormatterSelector.class
+                        child,
+                        SpreadsheetFormatterSelector.class
                     );
                     break;
                 case VALUE_PROPERTY_STRING:
@@ -118,20 +118,20 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
             JsonNodeUnmarshallContext.missingProperty(SELECTOR_PROPERTY, node);
         }
         return new SpreadsheetFormatterFormatRequest<Object>(
-                selector,
-                value
+            selector,
+            value
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
         JsonObject object = JsonNode.object()
-                .set(SELECTOR_PROPERTY, context.marshall(this.selector));
+            .set(SELECTOR_PROPERTY, context.marshall(this.selector));
 
         final T value = this.value;
         if (null != value) {
             object = object.set(
-                    VALUE_PROPERTY,
-                    context.marshallWithType(value)
+                VALUE_PROPERTY,
+                context.marshallWithType(value)
             );
         }
 
@@ -147,10 +147,10 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
 
     static {
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetFormatterFormatRequest.class),
-                SpreadsheetFormatterFormatRequest::unmarshall,
-                SpreadsheetFormatterFormatRequest::marshall,
-                SpreadsheetFormatterFormatRequest.class
+            JsonNodeContext.computeTypeName(SpreadsheetFormatterFormatRequest.class),
+            SpreadsheetFormatterFormatRequest::unmarshall,
+            SpreadsheetFormatterFormatRequest::marshall,
+            SpreadsheetFormatterFormatRequest.class
         );
     }
 }

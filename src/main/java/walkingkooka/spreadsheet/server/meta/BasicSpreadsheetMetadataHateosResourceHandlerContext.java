@@ -103,8 +103,8 @@ import java.util.function.Function;
  * There is no way to delete existing spreadsheets.
  */
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
-        HateosResourceHandlerContextDelegator,
-        EnvironmentContextDelegator {
+    HateosResourceHandlerContextDelegator,
+    EnvironmentContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -129,15 +129,15 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext");
 
         return new BasicSpreadsheetMetadataHateosResourceHandlerContext(
-                serverUrl,
-                indentation,
-                lineEnding,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToRepository,
-                hateosResourceHandlerContext
+            serverUrl,
+            indentation,
+            lineEnding,
+            systemSpreadsheetProvider,
+            providerContext,
+            metadataStore,
+            spreadsheetIdToSpreadsheetProvider,
+            spreadsheetIdToRepository,
+            hateosResourceHandlerContext
         );
     }
 
@@ -172,8 +172,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private SpreadsheetMetadata load(final SpreadsheetId id) {
         return this.spreadsheetIdToRepository.apply(id)
-                .metadatas()
-                .loadOrFail(id);
+            .metadatas()
+            .loadOrFail(id);
     }
 
     @Override
@@ -181,7 +181,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(metadata, "metadata");
 
         final SpreadsheetStoreRepository repo = this.storeRepository(
-                metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
+            metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID)
         );
 
         SpreadsheetMetadata saved = metadata;
@@ -202,8 +202,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         final SpreadsheetLabelStore labelStore = repo.labels();
                         if (false == labelStore.load(selection.toLabelName()).isPresent()) {
                             saved = saved.set(
-                                    propertyName,
-                                    viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
+                                propertyName,
+                                viewport.setAnchoredSelection(SpreadsheetViewport.NO_ANCHORED_SELECTION)
                             );
                         }
                     }
@@ -213,7 +213,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         // metadata must have id
         return repo.metadatas()
-                .save(saved);
+            .save(saved);
     }
 
     @Override
@@ -231,7 +231,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     private final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider;
-    
+
     // hateosRouter.....................................................................................................
 
     /**
@@ -259,8 +259,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetStoreRepository repository = this.storeRepository(id);
 
         final SpreadsheetEngine engine = SpreadsheetEngines.stamper(
-                SpreadsheetEngines.basic(),
-                this::stamp
+            SpreadsheetEngines.basic(),
+            this::stamp
         );
 
         final SpreadsheetProvider spreadsheetProvider = this.spreadsheetIdToSpreadsheetProvider.apply(id);
@@ -270,33 +270,33 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final ProviderContext providerContext = this.providerContext;
 
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
-                this.serverUrl,
-                metadata,
-                engine,
-                repository,
-                SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-                metadata.spreadsheetProvider(spreadsheetProvider),
-                ProviderContexts.basic(
-                        metadata.environmentContext(
-                                providerContext
-                        ),
-                        providerContext.pluginStore()
-                )
+            this.serverUrl,
+            metadata,
+            engine,
+            repository,
+            SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            metadata.spreadsheetProvider(spreadsheetProvider),
+            ProviderContexts.basic(
+                metadata.environmentContext(
+                    providerContext
+                ),
+                providerContext.pluginStore()
+            )
         );
 
         return this.cellColumnProvidersRowViewportRouter(
-                id,
-                100, // defaultMax
-                engine,
-                context,
-                this.systemSpreadsheetProvider
+            id,
+            100, // defaultMax
+            engine,
+            context,
+            this.systemSpreadsheetProvider
         );
     }
 
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
-                SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
-                this.providerContext.now()
+            SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
+            this.providerContext.now()
         );
     }
 
@@ -308,14 +308,14 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                                               final SpreadsheetEngineContext context,
                                                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
         final HateosResourceMapping<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell(
-                engine,
-                defaultMax
+            engine,
+            defaultMax
         );
 
         final HateosResourceMapping<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHttpMappings.cellReference(context);
 
         final HateosResourceMapping<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetColumn, SpreadsheetEngineHateosResourceHandlerContext> column = SpreadsheetDeltaHttpMappings.column(
-                engine
+            engine
         );
 
         final HateosResourceMapping<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetComparatorInfo, SpreadsheetEngineHateosResourceHandlerContext> comparator = SpreadsheetComparatorHateosResourceMappings.comparator();
@@ -335,59 +335,59 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final HateosResourceMapping<SpreadsheetParserName, SpreadsheetParserInfo, SpreadsheetParserInfoSet, SpreadsheetParserInfo, SpreadsheetEngineHateosResourceHandlerContext> parser = SpreadsheetParserHateosResourceMappings.parser();
 
         final HateosResourceMapping<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetRow, SpreadsheetEngineHateosResourceHandlerContext> row = SpreadsheetDeltaHttpMappings.row(
-                engine
+            engine
         );
 
         final AbsoluteUrl serverUrl = this.serverUrl;
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         return HateosResourceMapping.router(
-                serverUrl.setPath(
-                        serverUrl.path()
-                                .append(
-                                        UrlPathName.with(
-                                                id.toString()
-                                        )
+            serverUrl.setPath(
+                serverUrl.path()
+                    .append(
+                        UrlPathName.with(
+                            id.toString()
+                        )
+                    )
+            ),
+            Sets.of(
+                cell,
+                cellReference,
+                column,
+                comparator, // /comparator
+                converter,
+                exporter,
+                formatter, // formatter
+                expressionFunction, // function
+                importer,
+                label,
+                parser, // /parser
+                row
+            ),
+            this.indentation,
+            this.lineEnding,
+            SpreadsheetEngineHateosResourceHandlerContexts.basic(
+                HateosResourceHandlerContexts.basic(
+                    JsonNodeMarshallUnmarshallContexts.basic(
+                        metadata.jsonNodeMarshallContext(),
+                        metadata.jsonNodeUnmarshallContext()
+                            .setPreProcessor(
+                                SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                                    context.storeRepository()
+                                        .labels()
                                 )
+                            )
+                    )
                 ),
-                Sets.of(
-                        cell,
-                        cellReference,
-                        column,
-                        comparator, // /comparator
-                        converter,
-                        exporter,
-                        formatter, // formatter
-                        expressionFunction, // function
-                        importer,
-                        label,
-                        parser, // /parser
-                        row
+                context,
+                metadata.spreadsheetFormatterContext(
+                    context, // SpreadsheetLabelNameResolver
+                    context, // ConverterProvider
+                    context, // SpreadsheetFormatterProvider
+                    context // ProviderContext
                 ),
-                this.indentation,
-                this.lineEnding,
-                SpreadsheetEngineHateosResourceHandlerContexts.basic(
-                        HateosResourceHandlerContexts.basic(
-                                JsonNodeMarshallUnmarshallContexts.basic(
-                                        metadata.jsonNodeMarshallContext(),
-                                        metadata.jsonNodeUnmarshallContext()
-                                                .setPreProcessor(
-                                                        SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                                                                context.storeRepository()
-                                                                        .labels()
-                                                        )
-                                                )
-                                )
-                        ),
-                        context,
-                        metadata.spreadsheetFormatterContext(
-                                context, // SpreadsheetLabelNameResolver
-                                context, // ConverterProvider
-                                context, // SpreadsheetFormatterProvider
-                                context // ProviderContext
-                        ),
-                        systemSpreadsheetProvider
-                )
+                systemSpreadsheetProvider
+            )
         );
     }
 

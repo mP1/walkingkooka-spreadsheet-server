@@ -22,6 +22,6 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 
 public interface SpreadsheetFormatterSelectorEditContext extends SpreadsheetFormatterProvider,
-        SpreadsheetFormatterContext,
-        ProviderContext {
+    SpreadsheetFormatterContext,
+    ProviderContext {
 }

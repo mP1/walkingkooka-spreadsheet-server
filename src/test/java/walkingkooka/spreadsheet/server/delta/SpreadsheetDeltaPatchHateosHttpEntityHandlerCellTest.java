@@ -42,47 +42,47 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerCell,
-        SpreadsheetCellReference,
-        SpreadsheetCellRangeReference> {
+    SpreadsheetCellReference,
+    SpreadsheetCellRangeReference> {
 
     // handleOne........................................................................................................
 
     @Test
     public void testHandleOneWithPatchCellOutsideFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(
-                                        CELL.setFormula(
-                                                SpreadsheetFormula.EMPTY.setText("=1")
-                                        )
-                                ), // load
-                                Sets.empty() // save
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(
+                        CELL.setFormula(
+                            SpreadsheetFormula.EMPTY.setText("=1")
                         )
-                ),
-                CELL,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("Z99")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY.setText("=2")
-                                                        )
-                                        )
+                    ), // load
+                    Sets.empty() // save
+                )
+            ),
+            CELL,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("Z99")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY.setText("=2")
                                 )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                        )
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Patch includes cells Z99 outside " + CELL,
-                thrown.getMessage()
+            "Patch includes cells Z99 outside " + CELL,
+            thrown.getMessage()
         );
     }
 
@@ -92,32 +92,32 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(saved)
-                        )
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(saved)
+                )
+            )
         );
     }
 
@@ -127,34 +127,34 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL,
-                this.httpEntity(
-                        this.marshall(
-                                SpreadsheetDelta.EMPTY.setCells(
-                                        Sets.of(patch)
-                                )
-                        ).replace(CELL.toString(), LABEL.toString())
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(saved)
-                        )
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL,
+            this.httpEntity(
+                this.marshall(
+                    SpreadsheetDelta.EMPTY.setCells(
+                        Sets.of(patch)
+                    )
+                ).replace(CELL.toString(), LABEL.toString())
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(saved)
+                )
+            )
         );
     }
 
@@ -164,47 +164,47 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(saved)
-                                ).setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(saved)
+                    ).setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
+                        )
+                    ).setWindow(WINDOWS)
+            )
         );
     }
 
@@ -214,44 +214,44 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(saved)
-                                ).setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.parse(CELL.toString())
-                                )
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(saved)
+                    ).setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
+                        )
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse(CELL.toString())
+                    )
+            )
         );
     }
 
@@ -261,39 +261,39 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL.toCellRange(),
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW))
-                ) // patched cells are outside window so do not appear!
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL.toCellRange(),
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
+            CELL,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW))
+            ) // patched cells are outside window so do not appear!
         );
     }
 
@@ -302,39 +302,39 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     @Test
     public void testHandleRangeWithPatchCellOutsideFails() {
         final IllegalArgumentException thrown = this.handleRangeFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL_RANGE,
-                                Sets.of(
-                                        CELL.setFormula(
-                                                SpreadsheetFormula.EMPTY.setText("=1")
-                                        )
-                                ), // load
-                                Sets.empty() // save
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(
+                        CELL.setFormula(
+                            SpreadsheetFormula.EMPTY.setText("=1")
                         )
-                ),
-                CELL_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("Z99")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY.setText("=2")
-                                                        )
-                                        )
+                    ), // load
+                    Sets.empty() // save
+                )
+            ),
+            CELL_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("Z99")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY.setText("=2")
                                 )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                        )
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                thrown.getMessage(),
-                "Patch includes cells Z99 outside " + CELL_RANGE
+            thrown.getMessage(),
+            "Patch includes cells Z99 outside " + CELL_RANGE
         );
     }
 
@@ -344,32 +344,32 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL_RANGE,
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(saved)
-                        )
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(saved)
+                )
+            )
         );
     }
 
@@ -379,47 +379,47 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL_RANGE,
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(saved)
-                                ).setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(saved)
+                    ).setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
+                        )
+                    ).setWindow(WINDOWS)
+            )
         );
     }
 
@@ -429,42 +429,42 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL_RANGE,
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(saved)
-                                ).setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(SpreadsheetViewportWindows.parse("B2"))
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
                 )
+            ),
+            CELL_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(saved)
+                    ).setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
+                        )
+                    ).setWindow(SpreadsheetViewportWindows.parse("B2"))
+            )
         );
     }
 
@@ -474,39 +474,39 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
 
         final TextStyle style = TextStyle.EMPTY.set(TextStylePropertyName.FONT_STYLE, FontStyle.ITALIC);
         final SpreadsheetCell loaded = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("='before"))
-                .setStyle(style);
+            .setStyle(style);
         final SpreadsheetCell saved = patch.setStyle(style);
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                CELL_RANGE,
-                                Sets.of(loaded),
-                                Sets.of(saved)
-                        )
-                ),
-                CELL_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(patch)
-                        )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW))
-                ) // patched cells are outside window so do not appear!
+            this.createHandler(
+                this.spreadsheetEngine(
+                    CELL_RANGE,
+                    Sets.of(loaded),
+                    Sets.of(saved)
+                )
+            ),
+            CELL_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(patch)
+                )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW))
+            ) // patched cells are outside window so do not appear!
         );
     }
 
@@ -522,25 +522,25 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
                                               final SpreadsheetEngineContext context) {
                 checkEquals(
-                        range,
-                        loadSelection,
-                        "selection"
+                    range,
+                    loadSelection,
+                    "selection"
                 );
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(loaded);
+                    .setCells(loaded);
             }
 
             @Override
             public SpreadsheetDelta saveCells(final Set<SpreadsheetCell> cells,
                                               final SpreadsheetEngineContext context) {
                 checkEquals(
-                        saved,
-                        cells,
-                        "saved cells");
+                    saved,
+                    cells,
+                    "saved cells");
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(saved);
+                    .setCells(saved);
             }
 
             @Override
@@ -561,7 +561,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     @Override
     SpreadsheetDeltaPatchHateosHttpEntityHandlerCell createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerCell.with(
-                engine
+            engine
         );
     }
 
@@ -573,8 +573,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
     @Override
     public Set<SpreadsheetCellReference> manyIds() {
         return Sets.of(
-                SpreadsheetSelection.A1,
-                SpreadsheetSelection.parseCell("A2")
+            SpreadsheetSelection.A1,
+            SpreadsheetSelection.parseCell("A2")
         );
     }
 

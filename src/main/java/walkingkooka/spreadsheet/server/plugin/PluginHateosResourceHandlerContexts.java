@@ -29,8 +29,8 @@ public final class PluginHateosResourceHandlerContexts implements PublicStaticHe
     public static PluginHateosResourceHandlerContext basic(final HateosResourceHandlerContext hateosResourceHandlerContext,
                                                            final ProviderContext providerContext) {
         return BasicPluginHateosResourceHandlerContext.with(
-                hateosResourceHandlerContext,
-                providerContext
+            hateosResourceHandlerContext,
+            providerContext
         );
     }
 

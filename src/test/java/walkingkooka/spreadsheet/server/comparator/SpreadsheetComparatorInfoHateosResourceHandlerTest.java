@@ -39,22 +39,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetComparatorInfoHateosResourceHandler,
-        SpreadsheetComparatorName,
-        SpreadsheetComparatorInfo,
-        SpreadsheetComparatorInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetComparatorInfoHateosResourceHandler> {
+    SpreadsheetComparatorName,
+    SpreadsheetComparatorInfo,
+    SpreadsheetComparatorInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<SpreadsheetComparatorInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static SpreadsheetComparatorInfo INFO1 = SpreadsheetComparatorInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            SpreadsheetComparatorName.with("comparator-1")
+        Url.parseAbsolute("https://example.com/1"),
+        SpreadsheetComparatorName.with("comparator-1")
     );
 
     private final static SpreadsheetComparatorInfo INFO2 = SpreadsheetComparatorInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            SpreadsheetComparatorName.with("comparator-2")
+        Url.parseAbsolute("https://example.com/2"),
+        SpreadsheetComparatorName.with("comparator-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -65,10 +65,10 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
                 @Override
                 public SpreadsheetComparatorInfoSet spreadsheetComparatorInfos() {
                     return SpreadsheetComparatorInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -78,39 +78,39 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                SpreadsheetComparatorName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            SpreadsheetComparatorName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        SpreadsheetComparatorInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                SpreadsheetComparatorInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -127,15 +127,15 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     @Override
     public Set<SpreadsheetComparatorName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<SpreadsheetComparatorName> range() {
         return Range.singleton(
-                SpreadsheetComparatorName.with("range-spreadsheet-comparator-name")
+            SpreadsheetComparatorName.with("range-spreadsheet-comparator-name")
         );
     }
 
@@ -164,8 +164,8 @@ public final class SpreadsheetComparatorInfoHateosResourceHandlerTest implements
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "SpreadsheetEngineContext.spreadsheetComparatorInfos"
+            this.createHandler(),
+            "SpreadsheetEngineContext.spreadsheetComparatorInfos"
         );
     }
 

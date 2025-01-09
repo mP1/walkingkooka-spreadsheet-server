@@ -35,7 +35,7 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
-        implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
+    implements ImmutableListDefaults<JarEntryInfoList, JarEntryInfo> {
 
     /**
      * Empty
@@ -50,16 +50,16 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
         Objects.requireNonNull(infos, "infos");
 
         return infos instanceof JarEntryInfoList ?
-                (JarEntryInfoList) infos :
-                withCopy(
-                        Lists.immutable(infos)
-                );
+            (JarEntryInfoList) infos :
+            withCopy(
+                Lists.immutable(infos)
+            );
     }
 
     private static JarEntryInfoList withCopy(final List<JarEntryInfo> infos) {
         return infos.isEmpty() ?
-                EMPTY :
-                new JarEntryInfoList(infos);
+            EMPTY :
+            new JarEntryInfoList(infos);
     }
 
     private JarEntryInfoList(final List<JarEntryInfo> infos) {
@@ -84,8 +84,8 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
     public JarEntryInfoList setElements(final List<JarEntryInfo> infos) {
         final JarEntryInfoList copy = with(infos);
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 
     // json.............................................................................................................
@@ -93,12 +93,12 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
     static JarEntryInfoList unmarshall(final JsonNode node,
                                        final JsonNodeUnmarshallContext context) {
         return with(
-                Cast.to(
-                        context.unmarshallList(
-                                node,
-                                JarEntryInfo.class
-                        )
+            Cast.to(
+                context.unmarshallList(
+                    node,
+                    JarEntryInfo.class
                 )
+            )
         );
     }
 
@@ -108,20 +108,20 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
 
     static {
         JarEntryInfo.with(
-                JarEntryInfoName.with("/Dummy"), // name
-                OptionalLong.of(0), // size
-                OptionalLong.of(0), // compressedSize
-                OptionalInt.of(1), // method
-                OptionalLong.of(123), // crc
-                Optional.of(LocalDateTime.MAX), // create
-                Optional.of(LocalDateTime.MAX) // lastModified
+            JarEntryInfoName.with("/Dummy"), // name
+            OptionalLong.of(0), // size
+            OptionalLong.of(0), // compressedSize
+            OptionalInt.of(1), // method
+            OptionalLong.of(123), // crc
+            Optional.of(LocalDateTime.MAX), // create
+            Optional.of(LocalDateTime.MAX) // lastModified
         );
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(JarEntryInfoList.class),
-                JarEntryInfoList::unmarshall,
-                JarEntryInfoList::marshall,
-                JarEntryInfoList.class
+            JsonNodeContext.computeTypeName(JarEntryInfoList.class),
+            JarEntryInfoList::unmarshall,
+            JarEntryInfoList::marshall,
+            JarEntryInfoList.class
         );
     }
 }

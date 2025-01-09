@@ -73,8 +73,8 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         final Optional<String> selectionString = SELECTION.firstParameterValue(parameters);
         final Optional<String> anchor = SELECTION_ANCHOR.firstParameterValue(parameters); // optional
         final Optional<String> navigations = includeNavigation ?
-                NAVIGATION.firstParameterValue(parameters)
-                : Optional.empty(); // optional
+            NAVIGATION.firstParameterValue(parameters)
+            : Optional.empty(); // optional
 
         SpreadsheetViewport viewport = null;
 
@@ -84,9 +84,9 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 failIfMissing(missing);
 
                 viewport = viewportRectangle(
-                        home.get(),
-                        width.get(),
-                        height.get()
+                    home.get(),
+                    width.get(),
+                    height.get()
                 ).viewport();
 
                 {
@@ -96,18 +96,18 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                     switch (missing.missing()) {
                         case 0:
                             viewport = viewport.setAnchoredSelection(
-                                    Optional.of(
-                                            selection(
-                                                    selectionString.get(),
-                                                    selectionType.get(),
-                                                    anchor
-                                            )
+                                Optional.of(
+                                    selection(
+                                        selectionString.get(),
+                                        selectionType.get(),
+                                        anchor
                                     )
+                                )
                             );
                             break;
                         case 1:
                             throw new IllegalArgumentException(
-                                    missingParameters(missing)
+                                missingParameters(missing)
                             );
                         default:
                             break;
@@ -116,9 +116,9 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
                 if (navigations.isPresent()) {
                     viewport = viewport.setNavigations(
-                            navigations(
-                                    navigations.get()
-                            )
+                        navigations(
+                            navigations.get()
+                        )
                     );
                 }
 
@@ -135,14 +135,14 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
                 if (notRequired.missing() > 0) {
                     throw new IllegalArgumentException(
-                            "Selection missing: " + notRequired.build()
+                        "Selection missing: " + notRequired.build()
                     );
                 }
 
                 viewport = viewportRectangle(
-                        home.get(),
-                        width.get(),
-                        height.get()
+                    home.get(),
+                    width.get(),
+                    height.get()
                 ).viewport();
             }
         }
@@ -167,7 +167,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
         final Optional<String> windowsString = WINDOW.firstParameterValue(parameters);
         if (windowsString.isPresent()) {
             windows = parseWindow(
-                    windowsString.get()
+                windowsString.get()
             );
         } else {
             final Optional<String> home = HOME.firstParameterValue(parameters);
@@ -185,21 +185,21 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                 failIfMissing(missing);
 
                 windows = engine.window(
-                        viewportRectangle(
-                                home.get(),
-                                width.get(),
-                                height.get()
-                        ),
-                        includeFrozenColumnsRows(includeFrozenColumnsRows.get()),
-                        SpreadsheetEngine.NO_SELECTION,
-                        context
+                    viewportRectangle(
+                        home.get(),
+                        width.get(),
+                        height.get()
+                    ),
+                    includeFrozenColumnsRows(includeFrozenColumnsRows.get()),
+                    SpreadsheetEngine.NO_SELECTION,
+                    context
                 );
             } else {
                 if (false == delta.isPresent()) {
                     windows = SpreadsheetViewportWindows.EMPTY;
                 } else {
                     windows = delta.get()
-                            .window();
+                        .window();
                 }
             }
         }
@@ -209,9 +209,9 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
     private static SpreadsheetViewportWindows parseWindow(final String value) {
         return parseQueryParameter(
-                value,
-                SpreadsheetViewportWindows::parse,
-                WINDOW
+            value,
+            SpreadsheetViewportWindows::parse,
+            WINDOW
         );
     }
 
@@ -236,17 +236,17 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                                                                   final String width,
                                                                   final String height) {
         return home(home)
-                .viewportRectangle(
-                        width(width),
-                        height(height)
-                );
+            .viewportRectangle(
+                width(width),
+                height(height)
+            );
     }
 
     private static SpreadsheetCellReference home(final String value) {
         return parseQueryParameter(
-                value,
-                SpreadsheetSelection::parseCell,
-                HOME
+            value,
+            SpreadsheetSelection::parseCell,
+            HOME
         );
     }
 
@@ -255,8 +255,8 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
     private static double height(final String value) {
         return parseDoubleQueryParameter(
-                value,
-                HEIGHT
+            value,
+            HEIGHT
         );
     }
 
@@ -264,8 +264,8 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
     private static double width(final String value) {
         return parseDoubleQueryParameter(
-                value,
-                WIDTH
+            value,
+            WIDTH
         );
     }
 
@@ -275,22 +275,22 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                                                           final String type,
                                                           final Optional<String> anchor) {
         final SpreadsheetSelection spreadsheetSelection = SpreadsheetSelection.parse(
-                selection,
-                type
+            selection,
+            type
         );
 
         return spreadsheetSelection.setAnchor(
-                anchor.map(
-                        SpreadsheetDeltaUrlQueryParameters::parseAnchor
-                ).orElse(spreadsheetSelection.defaultAnchor())
+            anchor.map(
+                SpreadsheetDeltaUrlQueryParameters::parseAnchor
+            ).orElse(spreadsheetSelection.defaultAnchor())
         );
     }
 
     private static SpreadsheetViewportAnchor parseAnchor(final String text) {
         return parseQueryParameter(
-                text,
-                SpreadsheetViewportAnchor::parse,
-                SELECTION_ANCHOR
+            text,
+            SpreadsheetViewportAnchor::parse,
+            SELECTION_ANCHOR
         );
     }
 
@@ -314,9 +314,9 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
     private static SpreadsheetViewportNavigationList navigations(final String value) {
         return parseQueryParameter(
-                value,
-                SpreadsheetViewportNavigationList::parse,
-                NAVIGATION
+            value,
+            SpreadsheetViewportNavigationList::parse,
+            NAVIGATION
         );
     }
 
@@ -328,8 +328,8 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
 
     static List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators(final Map<HttpRequestAttribute<?>, Object> parameters) {
         return COMPARATORS.firstParameterValue(parameters)
-                .map(SpreadsheetColumnOrRowSpreadsheetComparatorNames::parseList)
-                .orElseThrow(() -> new IllegalArgumentException("Missing required " + COMPARATORS));
+            .map(SpreadsheetColumnOrRowSpreadsheetComparatorNames::parseList)
+            .orElseThrow(() -> new IllegalArgumentException("Missing required " + COMPARATORS));
     }
 
     /**
@@ -340,14 +340,14 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     private static double parseDoubleQueryParameter(final String text,
                                                     final UrlParameterName parameterName) {
         final double value = parseQueryParameter(
-                text,
-                Double::parseDouble,
-                parameterName
+            text,
+            Double::parseDouble,
+            parameterName
         );
 
         if (value <= 0) {
             throw new IllegalArgumentException(
-                    invalidQueryParameterMessage(text, parameterName) + " <= 0"
+                invalidQueryParameterMessage(text, parameterName) + " <= 0"
             );
         }
 
@@ -361,9 +361,9 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
             return parser.apply(text);
         } catch (final IllegalArgumentException cause) {
             throw invalidQueryParameter(
-                    text,
-                    queryParameter,
-                    cause
+                text,
+                queryParameter,
+                cause
             );
         }
     }
@@ -372,11 +372,11 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
                                                                   final UrlParameterName parameter,
                                                                   final Throwable cause) {
         return new IllegalArgumentException(
-                invalidQueryParameterMessage(
-                        text,
-                        parameter
-                ),
-                cause
+            invalidQueryParameterMessage(
+                text,
+                parameter
+            ),
+            cause
         );
     }
 
@@ -388,7 +388,7 @@ public final class SpreadsheetDeltaUrlQueryParameters implements PublicStaticHel
     private static void failIfMissing(final MissingBuilder missing) {
         if (missing.missing() > 0) {
             throw new IllegalArgumentException(
-                    missingParameters(missing)
+                missingParameters(missing)
             );
         }
     }

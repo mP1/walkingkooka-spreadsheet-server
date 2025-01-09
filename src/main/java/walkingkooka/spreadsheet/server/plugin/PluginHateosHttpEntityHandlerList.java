@@ -38,10 +38,10 @@ import java.util.Map;
  * Provides a listing of the file/dir entries within a {@link Plugin#archive()}.
  */
 final class PluginHateosHttpEntityHandlerList implements HateosHttpEntityHandler<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<PluginName, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<PluginName, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleAll<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<PluginName, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<PluginName, PluginHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -63,20 +63,20 @@ final class PluginHateosHttpEntityHandlerList implements HateosHttpEntityHandler
         HateosHttpEntityHandler.checkContext(context);
 
         HttpHeaderName.ACCEPT.headerOrFail(entity)
-                .testOrFail(SpreadsheetServerMediaTypes.CONTENT_TYPE);
+            .testOrFail(SpreadsheetServerMediaTypes.CONTENT_TYPE);
 
         return context.pluginStore()
-                .load(pluginName)
-                .map(p -> HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                        .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
-                        .setBodyText(
-                                context.marshall(
-                                        JarEntryInfoList.readJarFile(
-                                                p.archive().inputStream()
-                                        )
-                                ).toString()
-                        ).setContentLength()
-                ).orElse(HttpEntity.EMPTY);
+            .load(pluginName)
+            .map(p -> HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
+                .setBodyText(
+                    context.marshall(
+                        JarEntryInfoList.readJarFile(
+                            p.archive().inputStream()
+                        )
+                    ).toString()
+                ).setContentLength()
+            ).orElse(HttpEntity.EMPTY);
     }
 
     @Override

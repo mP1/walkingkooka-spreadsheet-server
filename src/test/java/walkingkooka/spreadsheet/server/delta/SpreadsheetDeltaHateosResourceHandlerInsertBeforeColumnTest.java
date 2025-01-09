@@ -37,14 +37,14 @@ import java.util.Optional;
 import java.util.OptionalInt;
 
 public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest extends
-        SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn, SpreadsheetColumnReference> {
+    SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn, SpreadsheetColumnReference> {
 
     private final static Optional<SpreadsheetDelta> RESOURCE = Optional.empty();
 
     @Test
     public void testHandleOneInsertBeforeColumn() {
         final SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn handler = SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-                SpreadsheetEngines.basic()
+            SpreadsheetEngines.basic()
         );
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -55,24 +55,24 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
         cellStore.save(
-                a1.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'a1")
-                )
+            a1.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'a1")
+            )
         );
         cellStore.save(
-                b2.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'b2")
-                )
+            b2.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'b2")
+            )
         );
         cellStore.save(
-                c3.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'c3")
-                )
+            c3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'c3")
+            )
         );
         cellStore.save(
-                d4.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'d4")
-                )
+            d4.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'d4")
+            )
         );
 
         final int count = 2;
@@ -81,35 +81,35 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellReference e4 = d4.addColumn(count);
 
         this.handleOneAndCheck(
-                handler,
-                c3.column(),
-                RESOURCE,
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.COUNT,
-                        Lists.of("" + count)
-                ),
-                this.context(cellStore),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                formattedCell(a1, "a1"),
-                                                formattedCell(b2, "b2"),
-                                                formattedCell(d3, "c3"),
-                                                formattedCell(e4, "d4")
-                                        )
-                                ).setDeletedCells(
-                                        Sets.of(c3, d4)
-                                ).setColumnWidths(
-                                        columnWidths("A,B,C,D,E,F")
-                                ).setRowHeights(
-                                        rowHeights("1,2,3,4")
-                                ).setColumnCount(
-                                        OptionalInt.of(6)
-                                ).setRowCount(
-                                        OptionalInt.of(4)
-                                )
-                )
+            handler,
+            c3.column(),
+            RESOURCE,
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("" + count)
+            ),
+            this.context(cellStore),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            formattedCell(a1, "a1"),
+                            formattedCell(b2, "b2"),
+                            formattedCell(d3, "c3"),
+                            formattedCell(e4, "d4")
+                        )
+                    ).setDeletedCells(
+                        Sets.of(c3, d4)
+                    ).setColumnWidths(
+                        columnWidths("A,B,C,D,E,F")
+                    ).setRowHeights(
+                        rowHeights("1,2,3,4")
+                    ).setColumnCount(
+                        OptionalInt.of(6)
+                    ).setRowCount(
+                        OptionalInt.of(4)
+                    )
+            )
         );
 
         this.checkEquals(4, cellStore.count(), "cell count remains unchanged");
@@ -123,7 +123,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
     @Test
     public void testHandleRangeInsertBeforeColumnRange() {
         final SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn handler = SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
-                SpreadsheetEngines.basic()
+            SpreadsheetEngines.basic()
         );
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
@@ -134,24 +134,24 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellStore cellStore = SpreadsheetCellStores.treeMap();
 
         cellStore.save(
-                a1.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'a1")
-                )
+            a1.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'a1")
+            )
         );
         cellStore.save(
-                b2.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'b2")
-                )
+            b2.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'b2")
+            )
         );
         cellStore.save(
-                c3.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'c3")
-                )
+            c3.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'c3")
+            )
         );
         cellStore.save(
-                d4.setFormula(
-                        SpreadsheetFormula.EMPTY.setText("'d4")
-                )
+            d4.setFormula(
+                SpreadsheetFormula.EMPTY.setText("'d4")
+            )
         );
 
         final int count = 2;
@@ -160,35 +160,35 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
         final SpreadsheetCellReference e4 = d4.addColumn(count);
 
         this.handleRangeAndCheck(
-                handler,
-                c3.column().range(d4.column()),
-                RESOURCE,
-                Maps.of(
-                        SpreadsheetUrlQueryParameters.COUNT,
-                        Lists.of("" + count)
-                ),
-                this.context(cellStore),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                formattedCell(a1, "a1"),
-                                                formattedCell(b2, "b2"),
-                                                formattedCell(d3, "c3"),
-                                                formattedCell(e4, "d4")
-                                        )
-                                ).setDeletedCells(
-                                        Sets.of(c3, d4)
-                                ).setColumnWidths(
-                                        columnWidths("A,B,C,D,E,F")
-                                ).setRowHeights(
-                                        rowHeights("1,2,3,4")
-                                ).setColumnCount(
-                                        OptionalInt.of(6)
-                                ).setRowCount(
-                                        OptionalInt.of(4)
-                                )
-                )
+            handler,
+            c3.column().range(d4.column()),
+            RESOURCE,
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("" + count)
+            ),
+            this.context(cellStore),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            formattedCell(a1, "a1"),
+                            formattedCell(b2, "b2"),
+                            formattedCell(d3, "c3"),
+                            formattedCell(e4, "d4")
+                        )
+                    ).setDeletedCells(
+                        Sets.of(c3, d4)
+                    ).setColumnWidths(
+                        columnWidths("A,B,C,D,E,F")
+                    ).setRowHeights(
+                        rowHeights("1,2,3,4")
+                    ).setColumnCount(
+                        OptionalInt.of(6)
+                    ).setRowCount(
+                        OptionalInt.of(4)
+                    )
+            )
         );
 
         this.checkEquals(4, cellStore.count(), "cell count remains unchanged");
@@ -212,7 +212,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumnTest e
     @Override
     public Range<SpreadsheetColumnReference> range() {
         return SpreadsheetSelection.parseColumnRange("E:G")
-                .range();
+            .range();
     }
 
     @Override

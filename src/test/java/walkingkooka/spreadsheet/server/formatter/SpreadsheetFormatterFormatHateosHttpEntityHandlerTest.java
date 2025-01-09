@@ -53,182 +53,182 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler>,
-        SpreadsheetMetadataTesting {
+    ToStringTesting<SpreadsheetFormatterFormatHateosHttpEntityHandler>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
     @Test
     public void testHandleOneFails() {
         this.handleOneFails(
-                this.id(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.id(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleNoneFails() {
         this.handleNoneFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleRangeFails() {
         this.handleRangeFails(
-                this.range(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.range(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleAllContentTypeBadContentType() {
         final IllegalArgumentException thrown = this.handleAllFails(
-                this.entity()
-                        .setContentType(MediaType.TEXT_PLAIN),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.entity()
+                .setContentType(MediaType.TEXT_PLAIN),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
         this.checkEquals(
-                "Content-Type: Got text/plain require application/json",
-                thrown.getMessage()
+            "Content-Type: Got text/plain require application/json",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAllBadAccept() {
         final IllegalArgumentException thrown = this.handleAllFails(
-                this.entity()
-                        .setContentType(MediaType.APPLICATION_JSON)
-                        .setAccept(
-                                Accept.with(
-                                        Lists.of(
-                                                MediaType.ANY_IMAGE
-                                        )
-                                )
-                        ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.entity()
+                .setContentType(MediaType.APPLICATION_JSON)
+                .setAccept(
+                    Accept.with(
+                        Lists.of(
+                            MediaType.ANY_IMAGE
+                        )
+                    )
+                ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
         this.checkEquals(
-                "Accept: Got image/* require application/json",
-                thrown.getMessage()
+            "Accept: Got image/* require application/json",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                // two format requests
-                this.httpEntity(
-                        SpreadsheetFormatterFormatRequestList.with(
-                                Lists.of(
-                                        SpreadsheetFormatterFormatRequest.with(
-                                                SpreadsheetPattern.parseDateFormatPattern("[black]yyyy/mm/dd")
-                                                        .spreadsheetFormatterSelector(),
-                                                LocalDate.of(1999, 12, 31)
-                                        ),
-                                        SpreadsheetFormatterFormatRequest.with(
-                                                SpreadsheetPattern.parseDateTimeFormatPattern("yyyy/mm/dd hh:mm")
-                                                        .spreadsheetFormatterSelector(),
-                                                LocalDateTime.of(1999, 12, 31, 12, 58, 59)
-                                        ),
-                                        SpreadsheetFormatterFormatRequest.with(
-                                                SpreadsheetPattern.parseTextFormatPattern("@")
-                                                        .spreadsheetFormatterSelector(),
-                                                "Hello111"
-                                        ),
-                                        SpreadsheetFormatterFormatRequest.with(
-                                                SpreadsheetPattern.parseTextFormatPattern("@@")
-                                                        .spreadsheetFormatterSelector(),
-                                                "Hello222"
-                                        )
-                                )
+            // two format requests
+            this.httpEntity(
+                SpreadsheetFormatterFormatRequestList.with(
+                    Lists.of(
+                        SpreadsheetFormatterFormatRequest.with(
+                            SpreadsheetPattern.parseDateFormatPattern("[black]yyyy/mm/dd")
+                                .spreadsheetFormatterSelector(),
+                            LocalDate.of(1999, 12, 31)
+                        ),
+                        SpreadsheetFormatterFormatRequest.with(
+                            SpreadsheetPattern.parseDateTimeFormatPattern("yyyy/mm/dd hh:mm")
+                                .spreadsheetFormatterSelector(),
+                            LocalDateTime.of(1999, 12, 31, 12, 58, 59)
+                        ),
+                        SpreadsheetFormatterFormatRequest.with(
+                            SpreadsheetPattern.parseTextFormatPattern("@")
+                                .spreadsheetFormatterSelector(),
+                            "Hello111"
+                        ),
+                        SpreadsheetFormatterFormatRequest.with(
+                            SpreadsheetPattern.parseTextFormatPattern("@@")
+                                .spreadsheetFormatterSelector(),
+                            "Hello222"
                         )
-                ).setAccept(
-                        Accept.with(
-                                Lists.of(
-                                        MediaType.APPLICATION_JSON
-                                )
-                        )
-                ),
-                this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.APPLICATION_JSON;
-                    }
-
-                    @Override
-                    public <T> T unmarshall(final JsonNode json,
-                                            final Class<T> type) {
-                        return fromJson(json, type);
-                    }
-
-                    @Override
-                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
-                                                                     final ProviderContext context) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
-                                selector,
-                                context
-                        );
-                    }
-
-                    @Override
-                    public Optional<TextNode> formatValue(final Object value,
-                                                          final SpreadsheetFormatter formatter) {
-                        return formatter.format(
-                                value,
-                                SPREADSHEET_FORMATTER_CONTEXT
-                        );
-                    }
-
-                    @Override
-                    public JsonNode marshall(final Object value) {
-                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                    }
-                },
-                this.httpEntity(
-                        TextNodeList.with(
-                                Lists.of(
-                                        TextNode.text("1999/12/31")
-                                                .setAttributes(
-                                                        Maps.of(
-                                                                TextStylePropertyName.COLOR,
-                                                                Color.BLACK
-                                                        )
-                                                ),
-                                        TextNode.text("1999/12/31 12:58"),
-                                        TextNode.text("Hello111"),
-                                        TextNode.text("Hello222Hello222")
-                                )
-                        )
-                ).addHeader(
-                        HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        TextNodeList.class.getSimpleName()
+                    )
                 )
+            ).setAccept(
+                Accept.with(
+                    Lists.of(
+                        MediaType.APPLICATION_JSON
+                    )
+                )
+            ),
+            this.parameters(),
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.APPLICATION_JSON;
+                }
+
+                @Override
+                public <T> T unmarshall(final JsonNode json,
+                                        final Class<T> type) {
+                    return fromJson(json, type);
+                }
+
+                @Override
+                public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                 final ProviderContext context) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                        selector,
+                        context
+                    );
+                }
+
+                @Override
+                public Optional<TextNode> formatValue(final Object value,
+                                                      final SpreadsheetFormatter formatter) {
+                    return formatter.format(
+                        value,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                    );
+                }
+
+                @Override
+                public JsonNode marshall(final Object value) {
+                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+                }
+            },
+            this.httpEntity(
+                TextNodeList.with(
+                    Lists.of(
+                        TextNode.text("1999/12/31")
+                            .setAttributes(
+                                Maps.of(
+                                    TextStylePropertyName.COLOR,
+                                    Color.BLACK
+                                )
+                            ),
+                        TextNode.text("1999/12/31 12:58"),
+                        TextNode.text("Hello111"),
+                        TextNode.text("Hello222Hello222")
+                    )
+                )
+            ).addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                TextNodeList.class.getSimpleName()
+            )
         );
     }
 
@@ -245,7 +245,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
     @Override
     public Set<SpreadsheetFormatterName> manyIds() {
         return Sets.of(
-                FORMATTER_NAME
+            FORMATTER_NAME
         );
     }
 
@@ -276,18 +276,18 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
 
     private HttpEntity httpEntity(final Object value) {
         return HttpEntity.EMPTY.setContentType(
-                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+            MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
         ).setBodyText(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(value)
-                        .toString()
+            JSON_NODE_MARSHALL_CONTEXT.marshall(value)
+                .toString()
         ).setContentLength();
     }
 
     private <T> T fromJson(final JsonNode json,
                            final Class<T> type) {
         return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                json,
-                type
+            json,
+            type
         );
     }
 
@@ -296,8 +296,8 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                SpreadsheetFormatterFormatHateosHttpEntityHandler.class.getSimpleName()
+            this.createHandler(),
+            SpreadsheetFormatterFormatHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 

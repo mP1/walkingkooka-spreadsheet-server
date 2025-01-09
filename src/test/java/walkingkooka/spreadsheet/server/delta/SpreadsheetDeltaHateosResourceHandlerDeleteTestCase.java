@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H extends SpreadsheetDeltaHateosResourceHandlerDelete<I>,
-        I extends SpreadsheetColumnOrRowReference & Comparable<I>>
-        extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, I> {
+    I extends SpreadsheetColumnOrRowReference & Comparable<I>>
+    extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, I> {
 
     SpreadsheetDeltaHateosResourceHandlerDeleteTestCase() {
         super();
@@ -40,25 +40,25 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
     @Test
     public final void testHandleOneIdNotEmptyResourceFails() {
         this.handleOneFails(
-                this.id(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class);
+            this.id(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class);
     }
 
     @Test
     public final void testHandleRangeNotEmptyResourceFails() {
         this.handleRangeFails(
-                this.range(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.range(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 

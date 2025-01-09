@@ -34,16 +34,16 @@ import java.util.Objects;
  * A collection of {@link SpreadsheetFormatterSelectorMenu} for a {@link SpreadsheetFormatterSelector}.
  */
 public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<SpreadsheetFormatterSelectorMenu>
-        implements ImmutableListDefaults<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu> {
+    implements ImmutableListDefaults<SpreadsheetFormatterSelectorMenuList, SpreadsheetFormatterSelectorMenu> {
 
     public static SpreadsheetFormatterSelectorMenuList with(final List<SpreadsheetFormatterSelectorMenu> menus) {
         Objects.requireNonNull(menus, "menus");
 
         return menus instanceof SpreadsheetFormatterSelectorMenuList ?
-                (SpreadsheetFormatterSelectorMenuList) menus :
-                new SpreadsheetFormatterSelectorMenuList(
-                        Lists.immutable(menus)
-                );
+            (SpreadsheetFormatterSelectorMenuList) menus :
+            new SpreadsheetFormatterSelectorMenuList(
+                Lists.immutable(menus)
+            );
     }
 
     private SpreadsheetFormatterSelectorMenuList(final List<SpreadsheetFormatterSelectorMenu> menus) {
@@ -66,8 +66,8 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
     public SpreadsheetFormatterSelectorMenuList setElements(final List<SpreadsheetFormatterSelectorMenu> menus) {
         final SpreadsheetFormatterSelectorMenuList copy = with(menus);
         return this.equals(copy) ?
-                this :
-                copy;
+            this :
+            copy;
     }
 
     // json.............................................................................................................
@@ -75,12 +75,12 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
     static SpreadsheetFormatterSelectorMenuList unmarshall(final JsonNode node,
                                                            final JsonNodeUnmarshallContext context) {
         return with(
-                Cast.to(
-                        context.unmarshallList(
-                                node,
-                                SpreadsheetFormatterSelectorMenu.class
-                        )
+            Cast.to(
+                context.unmarshallList(
+                    node,
+                    SpreadsheetFormatterSelectorMenu.class
                 )
+            )
         );
     }
 
@@ -104,15 +104,15 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
 
     static {
         SpreadsheetFormatterSelectorMenu.with(
-                "label",
-                SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
+            "label",
+            SpreadsheetFormatterSelector.DEFAULT_TEXT_FORMAT
         ); // force json-registry
 
         JsonNodeContext.register(
-                JsonNodeContext.computeTypeName(SpreadsheetFormatterSelectorMenuList.class),
-                SpreadsheetFormatterSelectorMenuList::unmarshall,
-                SpreadsheetFormatterSelectorMenuList::marshall,
-                SpreadsheetFormatterSelectorMenuList.class
+            JsonNodeContext.computeTypeName(SpreadsheetFormatterSelectorMenuList.class),
+            SpreadsheetFormatterSelectorMenuList::unmarshall,
+            SpreadsheetFormatterSelectorMenuList::marshall,
+            SpreadsheetFormatterSelectorMenuList.class
         );
     }
 }

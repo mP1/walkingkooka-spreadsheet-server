@@ -42,21 +42,21 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     @Test
     public void testHandleAllFails() {
         this.handleAllFails(
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.collectionResource(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleIdWithMetadataResourceFails() {
         this.handleOneFails(
-                this.id(),
-                Optional.of(this.metadataWithDefaults()),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.id(),
+            Optional.of(this.metadataWithDefaults()),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
@@ -65,22 +65,22 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
         final SpreadsheetId id = this.spreadsheetId();
 
         this.handleOneAndCheck(
-                id,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        checkEquals(id, i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return SpreadsheetMetadataTesting.spreadsheetMetadataStore(); // empty
-                            }
-                        };
-                    }
-                },
-                Optional.empty()
+            id,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                    checkEquals(id, i, "spreadsheetId");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return SpreadsheetMetadataTesting.spreadsheetMetadataStore(); // empty
+                        }
+                    };
+                }
+            },
+            Optional.empty()
         );
     }
 
@@ -93,33 +93,33 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
         store.save(metadata);
 
         this.handleOneAndCheck(
-                id,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
-                        checkEquals(id, i, "spreadsheetId");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return store;
-                            }
-                        };
-                    }
-                },
-                Optional.empty()
+            id,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
+                    checkEquals(id, i, "spreadsheetId");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return store;
+                        }
+                    };
+                }
+            },
+            Optional.empty()
         );
     }
 
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
-                .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
+            .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
     }
 
     @Override
@@ -134,7 +134,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
 
     private SpreadsheetMetadata metadataWithDefaults() {
         return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
     }
 
     // toString.........................................................................................................
@@ -142,8 +142,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "deleteMetadata"
+            this.createHandler(),
+            "deleteMetadata"
         );
     }
 

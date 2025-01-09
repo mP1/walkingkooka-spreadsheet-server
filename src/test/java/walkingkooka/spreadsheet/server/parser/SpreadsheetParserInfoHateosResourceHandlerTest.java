@@ -39,22 +39,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetParserInfoHateosResourceHandlerTest implements HateosResourceHandlerTesting<SpreadsheetParserInfoHateosResourceHandler,
-        SpreadsheetParserName,
-        SpreadsheetParserInfo,
-        SpreadsheetParserInfoSet,
-        SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
+    SpreadsheetParserName,
+    SpreadsheetParserInfo,
+    SpreadsheetParserInfoSet,
+    SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<SpreadsheetParserInfoHateosResourceHandler> {
 
     // hateos...........................................................................................................
 
     private final static SpreadsheetParserInfo INFO1 = SpreadsheetParserInfo.with(
-            Url.parseAbsolute("https://example.com/1"),
-            SpreadsheetParserName.with("parser-1")
+        Url.parseAbsolute("https://example.com/1"),
+        SpreadsheetParserName.with("parser-1")
     );
 
     private final static SpreadsheetParserInfo INFO2 = SpreadsheetParserInfo.with(
-            Url.parseAbsolute("https://example.com/2"),
-            SpreadsheetParserName.with("parser-2")
+        Url.parseAbsolute("https://example.com/2"),
+        SpreadsheetParserName.with("parser-2")
     );
 
     private final static SpreadsheetEngineHateosResourceHandlerContext CONTEXT = new FakeSpreadsheetEngineHateosResourceHandlerContext() {
@@ -65,10 +65,10 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
                 @Override
                 public SpreadsheetParserInfoSet spreadsheetParserInfos() {
                     return SpreadsheetParserInfoSet.with(
-                            Sets.of(
-                                    INFO1,
-                                    INFO2
-                            )
+                        Sets.of(
+                            INFO1,
+                            INFO2
+                        )
                     );
                 }
             };
@@ -78,39 +78,39 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     @Test
     public void testHandleOne() {
         this.handleOneAndCheck(
-                INFO1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(INFO1)
+            INFO1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(INFO1)
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                SpreadsheetParserName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            SpreadsheetParserName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
     @Test
     public void testHandleAll() {
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.of(
-                        SpreadsheetParserInfoSet.with(
-                                Sets.of(
-                                        INFO1,
-                                        INFO2
-                                )
-                        )
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.of(
+                SpreadsheetParserInfoSet.with(
+                    Sets.of(
+                        INFO1,
+                        INFO2
+                    )
                 )
+            )
         );
     }
 
@@ -127,15 +127,15 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     @Override
     public Set<SpreadsheetParserName> manyIds() {
         return Sets.of(
-                INFO1.name(),
-                INFO2.name()
+            INFO1.name(),
+            INFO2.name()
         );
     }
 
     @Override
     public Range<SpreadsheetParserName> range() {
         return Range.singleton(
-                SpreadsheetParserName.with("range-spreadsheet-parser-name")
+            SpreadsheetParserName.with("range-spreadsheet-parser-name")
         );
     }
 
@@ -164,8 +164,8 @@ public final class SpreadsheetParserInfoHateosResourceHandlerTest implements Hat
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "systemSpreadsheetProvider.spreadsheetParserInfos"
+            this.createHandler(),
+            "systemSpreadsheetProvider.spreadsheetParserInfos"
         );
     }
 

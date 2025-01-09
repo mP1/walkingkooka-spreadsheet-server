@@ -40,13 +40,13 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosResourceHandlerDeleteTest
-        implements HateosResourceHandlerTesting<PluginHateosResourceHandlerDelete,
-        PluginName,
-        Plugin,
-        PluginSet,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosResourceHandlerDelete>,
-        SpreadsheetMetadataTesting {
+    implements HateosResourceHandlerTesting<PluginHateosResourceHandlerDelete,
+    PluginName,
+    Plugin,
+    PluginSet,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosResourceHandlerDelete>,
+    SpreadsheetMetadataTesting {
 
     // hateos...........................................................................................................
 
@@ -60,11 +60,11 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     private static Plugin plugin(final int n) {
         return Plugin.with(
-                PluginName.with("TestPlugin" + n * 111),
-                "plugin-" + n * 111 + ".jar",
-                Binary.with("Hello".getBytes(Charset.defaultCharset())),
-                USER,
-                NOW.now()
+            PluginName.with("TestPlugin" + n * 111),
+            "plugin-" + n * 111 + ".jar",
+            Binary.with("Hello".getBytes(Charset.defaultCharset())),
+            USER,
+            NOW.now()
         );
     }
 
@@ -94,32 +94,32 @@ public final class PluginHateosResourceHandlerDeleteTest
         final PluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleOneAndCheck(
-                PLUGIN1.name(),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                context,
-                Optional.empty()
+            PLUGIN1.name(),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            context,
+            Optional.empty()
         );
 
         this.checkEquals(
-                Lists.of(
-                        PLUGIN2,
-                        PLUGIN3,
-                        PLUGIN4
-                ),
-                context.pluginStore()
-                        .all()
+            Lists.of(
+                PLUGIN2,
+                PLUGIN3,
+                PLUGIN4
+            ),
+            context.pluginStore()
+                .all()
         );
     }
 
     @Test
     public void testHandleOneNotFound() {
         this.handleOneAndCheck(
-                PluginName.with("Unknown"),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                this.context(),
-                Optional.empty()
+            PluginName.with("Unknown"),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            this.context(),
+            Optional.empty()
         );
     }
 
@@ -128,16 +128,16 @@ public final class PluginHateosResourceHandlerDeleteTest
         final PluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                context,
-                Optional.empty()
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            context,
+            Optional.empty()
         );
 
         this.checkEquals(
-                Lists.empty(),
-                context.pluginStore()
-                        .all()
+            Lists.empty(),
+            context.pluginStore()
+                .all()
         );
     }
 
@@ -146,23 +146,23 @@ public final class PluginHateosResourceHandlerDeleteTest
         final PluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleRangeAndCheck(
-                Range.greaterThanEquals(PLUGIN2.name())
-                        .and(
-                                Range.lessThanEquals(PLUGIN3.name())
-                        ),
-                Optional.empty(), // resource
-                Maps.empty(), // parameters
-                context,
-                Optional.empty()
+            Range.greaterThanEquals(PLUGIN2.name())
+                .and(
+                    Range.lessThanEquals(PLUGIN3.name())
+                ),
+            Optional.empty(), // resource
+            Maps.empty(), // parameters
+            context,
+            Optional.empty()
         );
 
         this.checkEquals(
-                Lists.of(
-                        PLUGIN1,
-                        PLUGIN4
-                ),
-                context.pluginStore()
-                        .all()
+            Lists.of(
+                PLUGIN1,
+                PLUGIN4
+            ),
+            context.pluginStore()
+                .all()
         );
     }
 
@@ -179,21 +179,21 @@ public final class PluginHateosResourceHandlerDeleteTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name(),
-                PLUGIN3.name(),
-                PLUGIN4.name()
+            PLUGIN1.name(),
+            PLUGIN2.name(),
+            PLUGIN3.name(),
+            PLUGIN4.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -222,8 +222,8 @@ public final class PluginHateosResourceHandlerDeleteTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "DELETE PluginStore"
+            this.createHandler(),
+            "DELETE PluginStore"
         );
     }
 

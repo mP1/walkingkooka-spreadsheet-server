@@ -59,12 +59,12 @@ public final class PluginHttpHandler implements HttpHandler {
                                          final ProviderContext providerContext,
                                          final MediaTypeDetector contentTypeDetector) {
         return new PluginHttpHandler(
-                Objects.requireNonNull(serverUrl, "serverUrl"),
-                Objects.requireNonNull(indentation, "indentation"),
-                Objects.requireNonNull(lineEnding, "lineEnding"),
-                Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
-                Objects.requireNonNull(providerContext, "providerContext"),
-                Objects.requireNonNull(contentTypeDetector, "contentTypeDetector")
+            Objects.requireNonNull(serverUrl, "serverUrl"),
+            Objects.requireNonNull(indentation, "indentation"),
+            Objects.requireNonNull(lineEnding, "lineEnding"),
+            Objects.requireNonNull(hateosResourceHandlerContext, "hateosResourceHandlerContext"),
+            Objects.requireNonNull(providerContext, "providerContext"),
+            Objects.requireNonNull(contentTypeDetector, "contentTypeDetector")
         );
     }
 
@@ -82,37 +82,37 @@ public final class PluginHttpHandler implements HttpHandler {
         this.serverUrl = serverUrl;
 
         final Map<HttpRequestAttribute<?>, Predicate<?>> fileDownloadPredicate = HttpRequestAttributeRouting.empty()
-                .method(HttpMethod.GET)
-                .path(
-                        UrlPath.parse(
-                                serverUrl.path() + "/plugin/*/download"
-                        )
-                ).build();
+            .method(HttpMethod.GET)
+            .path(
+                UrlPath.parse(
+                    serverUrl.path() + "/plugin/*/download"
+                )
+            ).build();
 
         final HttpHandler fileDownloadHttpHandler = PluginFileDownloadHttpHandler.with(
-                serverUrl.appendPathName(
-                        Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
-                ),
-                providerContext.pluginStore(),
-                contentTypeDetector
+            serverUrl.appendPathName(
+                Plugin.HATEOS_RESOURCE_NAME.toUrlPathName()
+            ),
+            providerContext.pluginStore(),
+            contentTypeDetector
         );
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
-                .add(
-                        fileDownloadPredicate,
-                        fileDownloadHttpHandler
-                ).router()
-                .then(
-                        PluginHttpMappings.router(
-                                serverUrl,
-                                indentation,
-                                lineEnding,
-                                PluginHateosResourceHandlerContexts.basic(
-                                        hateosResourceHandlerContext,
-                                        providerContext
-                                )
-                        )
-                );
+            .add(
+                fileDownloadPredicate,
+                fileDownloadHttpHandler
+            ).router()
+            .then(
+                PluginHttpMappings.router(
+                    serverUrl,
+                    indentation,
+                    lineEnding,
+                    PluginHateosResourceHandlerContexts.basic(
+                        hateosResourceHandlerContext,
+                        providerContext
+                    )
+                )
+            );
     }
 
     // HttpHandler......................................................................................................
@@ -124,11 +124,11 @@ public final class PluginHttpHandler implements HttpHandler {
         Objects.requireNonNull(response, "response");
 
         this.router.route(request.routerParameters())
-                .orElse(SpreadsheetHttpServer::notFound)
-                .handle(
-                        request,
-                        response
-                );
+            .orElse(SpreadsheetHttpServer::notFound)
+            .handle(
+                request,
+                response
+            );
     }
 
     private final Router<HttpRequestAttribute<?>, HttpHandler> router;

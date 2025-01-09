@@ -30,9 +30,9 @@ import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerLabelTestCase<H extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>>
-        extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
-        implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<H> {
+    extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, SpreadsheetLabelName>
+    implements HateosResourceHandlerTesting<H, SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    ToStringTesting<H> {
 
     SpreadsheetDeltaHateosResourceHandlerLabelTestCase() {
         super();

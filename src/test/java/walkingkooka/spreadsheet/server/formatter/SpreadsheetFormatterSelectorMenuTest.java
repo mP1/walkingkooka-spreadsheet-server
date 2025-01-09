@@ -35,15 +35,15 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelectorMenuLikeTesting<SpreadsheetFormatterSelectorMenu, SpreadsheetFormatterSelector, SpreadsheetFormatterName>,
-        JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenu>,
-        SpreadsheetMetadataTesting {
+    JsonNodeMarshallingTesting<SpreadsheetFormatterSelectorMenu>,
+    SpreadsheetMetadataTesting {
 
     @Override
     public SpreadsheetFormatterSelectorMenu createPluginSelectorMenu(final String label,
                                                                      final SpreadsheetFormatterSelector selector) {
         return SpreadsheetFormatterSelectorMenu.with(
-                label,
-                selector
+            label,
+            selector
         );
     }
 
@@ -62,92 +62,92 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     @Test
     public void testPrepareWithContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterSelectorMenu.prepare(
-                        null
-                )
+            NullPointerException.class,
+            () -> SpreadsheetFormatterSelectorMenu.prepare(
+                null
+            )
         );
     }
 
     @Test
     public void testPrepare() {
         this.checkEquals(
-                Lists.of(
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Short",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d/m/yy")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Medium",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmm yyyy")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Long",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmmm yyyy")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Full",
-                                SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Short",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Medium",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmm yyyy, h:mm:ss AM/PM")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Long",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Full",
-                                SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "General",
-                                SpreadsheetFormatterName.GENERAL.setValueText("")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Number",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("\"#,##0.###\"")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Integer",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Percent",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0%")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Currency",
-                                SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Default",
-                                SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Short",
-                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm AM/PM")
-                        ),
-                        SpreadsheetFormatterSelectorMenu.with(
-                                "Long",
-                                SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
-                        )
+            Lists.of(
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Short",
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d/m/yy")
                 ),
-                SpreadsheetFormatterSelectorMenu.prepare(
-                        new TestSpreadsheetFormatterSelectorMenuContext()
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Medium",
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmm yyyy")
                 ),
-                "prepare"
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Long",
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("d mmmm yyyy")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Full",
+                    SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Short",
+                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d/m/yy, h:mm AM/PM")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Medium",
+                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmm yyyy, h:mm:ss AM/PM")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Long",
+                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Full",
+                    SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "General",
+                    SpreadsheetFormatterName.GENERAL.setValueText("")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Number",
+                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("\"#,##0.###\"")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Integer",
+                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Percent",
+                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("#,##0%")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Currency",
+                    SpreadsheetFormatterName.NUMBER_FORMAT_PATTERN.setValueText("$#,##0.00")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Default",
+                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Short",
+                    SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm AM/PM")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
+                    "Long",
+                    SpreadsheetFormatterName.TIME_FORMAT_PATTERN.setValueText("h:mm:ss AM/PM")
+                )
+            ),
+            SpreadsheetFormatterSelectorMenu.prepare(
+                new TestSpreadsheetFormatterSelectorMenuContext()
+            ),
+            "prepare"
         );
     }
 
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
-            SpreadsheetFormatterProviderDelegator,
-            SpreadsheetFormatterContextDelegator {
+        SpreadsheetFormatterProviderDelegator,
+        SpreadsheetFormatterContextDelegator {
         @Override
         public SpreadsheetFormatterContext spreadsheetFormatterContext() {
             return SPREADSHEET_FORMATTER_CONTEXT;
@@ -165,16 +165,16 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     public SpreadsheetFormatterSelectorMenu unmarshall(final JsonNode json,
                                                        final JsonNodeUnmarshallContext context) {
         return SpreadsheetFormatterSelectorMenu.unmarshall(
-                json,
-                context
+            json,
+            context
         );
     }
 
     @Override
     public SpreadsheetFormatterSelectorMenu createJsonNodeMarshallingValue() {
         return SpreadsheetFormatterSelectorMenu.with(
-                "Label123",
-                this.createPluginSelector()
+            "Label123",
+            this.createPluginSelector()
         );
     }
 

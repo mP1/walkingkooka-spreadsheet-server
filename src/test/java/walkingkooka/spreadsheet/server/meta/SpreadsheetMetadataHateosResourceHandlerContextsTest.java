@@ -24,7 +24,7 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 import java.lang.reflect.Method;
 
 public class SpreadsheetMetadataHateosResourceHandlerContextsTest implements ClassTesting2<SpreadsheetMetadataHateosResourceHandlerContexts>,
-        PublicStaticHelperTesting<SpreadsheetMetadataHateosResourceHandlerContexts> {
+    PublicStaticHelperTesting<SpreadsheetMetadataHateosResourceHandlerContexts> {
 
     @Override
     public Class<SpreadsheetMetadataHateosResourceHandlerContexts> type() {

@@ -38,14 +38,14 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#saveLabel(SpreadsheetLabelMapping, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>
-        implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerSaveLabel with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerSaveLabel(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -60,9 +60,9 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
-                resource,
-                parameters,
-                context
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -76,9 +76,9 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
         checkLabel(label);
 
         return this.saveOrUpdate(
-                resource,
-                parameters,
-                context
+            resource,
+            parameters,
+            context
         );
     }
 
@@ -99,17 +99,17 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                 throw new IllegalArgumentException("Missing label mappings");
             case 1:
                 labelMapping = mappings.iterator()
-                        .next();
+                    .next();
                 break;
             default:
                 throw new IllegalArgumentException("Got " + count + " labels expected 1");
         }
 
         return Optional.of(
-                this.engine.saveLabel(
-                        labelMapping,
-                        context
-                )
+            this.engine.saveLabel(
+                labelMapping,
+                context
+            )
         );
     }
 

@@ -25,8 +25,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase<T> implements ClassTesting<T>,
-        TypeNameTesting<T>,
-        SpreadsheetMetadataTesting {
+    TypeNameTesting<T>,
+    SpreadsheetMetadataTesting {
 
     SpreadsheetDeltaHateosResourceHandlerTestCase() {
         super();

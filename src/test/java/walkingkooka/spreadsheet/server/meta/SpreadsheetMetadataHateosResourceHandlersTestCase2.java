@@ -35,8 +35,8 @@ import java.util.Optional;
 import java.util.Set;
 
 public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H extends SpreadsheetMetadataHateosResourceHandler>
-        extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
-        implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
+    extends SpreadsheetMetadataHateosResourceHandlerTestCase<H>
+    implements HateosResourceHandlerTesting<H, SpreadsheetId, SpreadsheetMetadata, SpreadsheetMetadataSet, SpreadsheetMetadataHateosResourceHandlerContext> {
 
     SpreadsheetMetadataHateosResourceHandlersTestCase2() {
         super();
@@ -45,22 +45,22 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
     @Test
     public final void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.collectionResource(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public final void testHandleRangeFails() {
         this.handleRangeFails(
-                this.range(),
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.range(),
+            this.collectionResource(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
@@ -88,12 +88,12 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
         final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
 
         return SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.id())
-                .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.id())
+            .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
     }
 
     final SpreadsheetId spreadsheetId() {

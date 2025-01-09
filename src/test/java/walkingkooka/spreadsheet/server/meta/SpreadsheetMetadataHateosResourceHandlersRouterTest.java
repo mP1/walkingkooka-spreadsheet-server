@@ -57,7 +57,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends SpreadsheetMetadataHateosResourceHandlerTestCase<SpreadsheetMetadataHateosResourceHandlersRouter>
-        implements SpreadsheetMetadataTesting {
+    implements SpreadsheetMetadataTesting {
 
     private final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
     private final static Indentation INDENTATION = Indentation.SPACES2;
@@ -83,40 +83,40 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testWithNullBaseFails() {
         this.withFails(
-                null,
-                INDENTATION,
-                LINE_ENDING,
-                CONTEXT
+            null,
+            INDENTATION,
+            LINE_ENDING,
+            CONTEXT
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
         this.withFails(
-                this.base(),
-                null,
-                LINE_ENDING,
-                CONTEXT
+            this.base(),
+            null,
+            LINE_ENDING,
+            CONTEXT
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                null,
-                CONTEXT
+            this.base(),
+            INDENTATION,
+            null,
+            CONTEXT
         );
     }
 
     @Test
     public void testWithNullLoadContextFails() {
         this.withFails(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                null
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            null
         );
     }
 
@@ -125,13 +125,13 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                            final LineEnding lineEnding,
                            final SpreadsheetMetadataHateosResourceHandlerContext context) {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                        base,
-                        indentation,
-                        lineEnding,
-                        context
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
+                base,
+                indentation,
+                lineEnding,
+                context
+            )
         );
     }
 
@@ -140,90 +140,90 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneLoadGet() {
         this.routeAndCheck(
-                new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                        checkEquals(SPREADSHEET_ID, id, "id");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return new FakeSpreadsheetMetadataStore() {
-                                    @Override
-                                    public Optional<SpreadsheetMetadata> load(final SpreadsheetId id) {
-                                        return Optional.of(
-                                                SpreadsheetMetadata.EMPTY.set(
-                                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                                        SPREADSHEET_ID
-                                                ).set(
-                                                        SpreadsheetMetadataPropertyName.CREATOR,
-                                                        USER
-                                                )
-                                        );
-                                    }
-                                };
-                            }
-                        };
-                    }
-                },
-                HttpMethod.GET,
-                URL + "/spreadsheet/12ef",
-                "", // request body
-                HttpStatusCode.OK,
-                "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"user@example.com\"\n" +
-                        "}"
+            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
+                    checkEquals(SPREADSHEET_ID, id, "id");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return new FakeSpreadsheetMetadataStore() {
+                                @Override
+                                public Optional<SpreadsheetMetadata> load(final SpreadsheetId id) {
+                                    return Optional.of(
+                                        SpreadsheetMetadata.EMPTY.set(
+                                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                            SPREADSHEET_ID
+                                        ).set(
+                                            SpreadsheetMetadataPropertyName.CREATOR,
+                                            USER
+                                        )
+                                    );
+                                }
+                            };
+                        }
+                    };
+                }
+            },
+            HttpMethod.GET,
+            URL + "/spreadsheet/12ef",
+            "", // request body
+            HttpStatusCode.OK,
+            "{\n" +
+                "  \"spreadsheet-id\": \"12ef\",\n" +
+                "  \"creator\": \"user@example.com\"\n" +
+                "}"
         );
     }
 
     @Test
     public void testHandleOneLoadGetAll() {
         this.routeAndCheck(
-                new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
 
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return new FakeSpreadsheetMetadataStore() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return new FakeSpreadsheetMetadataStore() {
 
-                            @Override
-                            public List<SpreadsheetMetadata> values(final int offset,
-                                                                    final int count) {
-                                checkEquals(0, offset, "offset");
-                                checkEquals(5, count, "count");
-                                return Lists.of(
-                                        SpreadsheetMetadata.EMPTY.set(
-                                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                                SpreadsheetId.with(1)
-                                        ).set(
-                                                SpreadsheetMetadataPropertyName.CREATOR,
-                                                EmailAddress.parse("load-all@example.com")
-                                        ),
-                                        SpreadsheetMetadata.EMPTY.set(
-                                                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                                SpreadsheetId.with(2)
-                                        ).set(
-                                                SpreadsheetMetadataPropertyName.CREATOR,
-                                                EmailAddress.parse("load-all@example.com")
-                                        )
-                                );
-                            }
-                        };
-                    }
-                },
-                HttpMethod.GET,
-                URL + "/spreadsheet/*?from=0&count=5",
-                "", // request body
-                HttpStatusCode.OK,
-                "[\n" +
-                        "  {\n" +
-                        "    \"spreadsheet-id\": \"1\",\n" +
-                        "    \"creator\": \"load-all@example.com\"\n" +
-                        "  },\n" +
-                        "  {\n" +
-                        "    \"spreadsheet-id\": \"2\",\n" +
-                        "    \"creator\": \"load-all@example.com\"\n" +
-                        "  }\n" +
-                        "]"
+                        @Override
+                        public List<SpreadsheetMetadata> values(final int offset,
+                                                                final int count) {
+                            checkEquals(0, offset, "offset");
+                            checkEquals(5, count, "count");
+                            return Lists.of(
+                                SpreadsheetMetadata.EMPTY.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SpreadsheetId.with(1)
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    EmailAddress.parse("load-all@example.com")
+                                ),
+                                SpreadsheetMetadata.EMPTY.set(
+                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                                    SpreadsheetId.with(2)
+                                ).set(
+                                    SpreadsheetMetadataPropertyName.CREATOR,
+                                    EmailAddress.parse("load-all@example.com")
+                                )
+                            );
+                        }
+                    };
+                }
+            },
+            HttpMethod.GET,
+            URL + "/spreadsheet/*?from=0&count=5",
+            "", // request body
+            HttpStatusCode.OK,
+            "[\n" +
+                "  {\n" +
+                "    \"spreadsheet-id\": \"1\",\n" +
+                "    \"creator\": \"load-all@example.com\"\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"spreadsheet-id\": \"2\",\n" +
+                "    \"creator\": \"load-all@example.com\"\n" +
+                "  }\n" +
+                "]"
         );
     }
 
@@ -231,52 +231,52 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneCreatePost() {
         this.routeAndCheck(
-                new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return this.store;
-                    }
+            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return this.store;
+                }
 
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    return this.store.save(
+                        metadata.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        )
+                    );
+                }
+
+                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
                     @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        return this.store.save(
-                                metadata.set(
-                                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                        SPREADSHEET_ID
-                                )
+                    public SpreadsheetMetadata create(final EmailAddress creator,
+                                                      final Optional<Locale> locale) {
+                        return SpreadsheetMetadata.EMPTY.set(
+                            SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                            SPREADSHEET_ID
+                        ).set(
+                            SpreadsheetMetadataPropertyName.CREATOR,
+                            creator
+                        ).setOrRemove(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.orElse(null)
                         );
                     }
+                };
 
-                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                        @Override
-                        public SpreadsheetMetadata create(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                            return SpreadsheetMetadata.EMPTY.set(
-                                    SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                                    SPREADSHEET_ID
-                            ).set(
-                                    SpreadsheetMetadataPropertyName.CREATOR,
-                                    creator
-                            ).setOrRemove(
-                                    SpreadsheetMetadataPropertyName.LOCALE,
-                                    locale.orElse(null)
-                            );
-                        }
-                    };
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(USER);
-                    }
-                },
-                HttpMethod.POST,
-                URL + "/spreadsheet/",
-                "", // request body
-                HttpStatusCode.CREATED,
-                "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"user@example.com\"\n" +
-                        "}");
+                @Override
+                public Optional<EmailAddress> user() {
+                    return Optional.of(USER);
+                }
+            },
+            HttpMethod.POST,
+            URL + "/spreadsheet/",
+            "", // request body
+            HttpStatusCode.CREATED,
+            "{\n" +
+                "  \"spreadsheet-id\": \"12ef\",\n" +
+                "  \"creator\": \"user@example.com\"\n" +
+                "}");
     }
 
     @Test
@@ -284,46 +284,46 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.saved = null;
 
         final SpreadsheetMetadata unsaved = SpreadsheetMetadata.EMPTY
-                .set(
-                        SpreadsheetMetadataPropertyName.CREATOR,
-                        EmailAddress.parse("saved@example.com")
-                ).set(
-                        SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
-                        SPREADSHEET_ID
-                );
+            .set(
+                SpreadsheetMetadataPropertyName.CREATOR,
+                EmailAddress.parse("saved@example.com")
+            ).set(
+                SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
+                SPREADSHEET_ID
+            );
 
         this.routeAndCheck(
-                new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public <T> T unmarshall(final JsonNode json,
-                                            final Class<T> type) {
-                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                                json,
-                                type
-                        );
-                    }
+            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public <T> T unmarshall(final JsonNode json,
+                                        final Class<T> type) {
+                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                        json,
+                        type
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        SpreadsheetMetadataHateosResourceHandlersRouterTest.this.saved = metadata;
-                        return metadata;
-                    }
-                },
-                HttpMethod.POST,
-                URL + "/spreadsheet/12ef",
-                JSON_NODE_MARSHALL_CONTEXT.marshall(unsaved)
-                        .toString(),
-                HttpStatusCode.OK,
-                "{\n" +
-                        "  \"spreadsheet-id\": \"12ef\",\n" +
-                        "  \"creator\": \"saved@example.com\"\n" +
-                        "}"
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    SpreadsheetMetadataHateosResourceHandlersRouterTest.this.saved = metadata;
+                    return metadata;
+                }
+            },
+            HttpMethod.POST,
+            URL + "/spreadsheet/12ef",
+            JSON_NODE_MARSHALL_CONTEXT.marshall(unsaved)
+                .toString(),
+            HttpStatusCode.OK,
+            "{\n" +
+                "  \"spreadsheet-id\": \"12ef\",\n" +
+                "  \"creator\": \"saved@example.com\"\n" +
+                "}"
         );
 
         this.checkEquals(
-                unsaved,
-                saved,
-                "saved"
+            unsaved,
+            saved,
+            "saved"
         );
     }
 
@@ -332,20 +332,20 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testHandleOneMetadataPut() {
         this.routeAndFail(
-                HttpMethod.PUT,
-                URL + "/spreadsheet/12ef",
-                "", // request body
-                HttpStatusCode.METHOD_NOT_ALLOWED
+            HttpMethod.PUT,
+            URL + "/spreadsheet/12ef",
+            "", // request body
+            HttpStatusCode.METHOD_NOT_ALLOWED
         );
     }
 
     @Test
     public void testRouteGetUnknownFails() {
         this.routeAndFail(
-                HttpMethod.GET,
-                URL + "/unknown?",
-                "", // request body
-                HttpStatusCode.NOT_FOUND
+            HttpMethod.GET,
+            URL + "/unknown?",
+            "", // request body
+            HttpStatusCode.NOT_FOUND
         );
     }
 
@@ -354,36 +354,36 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         this.deleted = true;
 
         this.routeAndCheck(
-                new TestSpreadsheetMetadataHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
-                        checkEquals(SPREADSHEET_ID, id, "id");
-                        return new FakeSpreadsheetStoreRepository() {
-                            @Override
-                            public SpreadsheetMetadataStore metadatas() {
-                                return new FakeSpreadsheetMetadataStore() {
+            new TestSpreadsheetMetadataHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetStoreRepository storeRepository(final SpreadsheetId id) {
+                    checkEquals(SPREADSHEET_ID, id, "id");
+                    return new FakeSpreadsheetStoreRepository() {
+                        @Override
+                        public SpreadsheetMetadataStore metadatas() {
+                            return new FakeSpreadsheetMetadataStore() {
 
-                                    @Override
-                                    public void delete(final SpreadsheetId id) {
-                                        checkEquals(SPREADSHEET_ID, id, "id");
-                                        SpreadsheetMetadataHateosResourceHandlersRouterTest.this.deleted = true;
-                                    }
-                                };
-                            }
-                        };
-                    }
-                },
-                HttpMethod.DELETE,
-                URL + "/spreadsheet/12ef",
-                "", // request body
-                HttpStatusCode.NO_CONTENT,
-                ""
+                                @Override
+                                public void delete(final SpreadsheetId id) {
+                                    checkEquals(SPREADSHEET_ID, id, "id");
+                                    SpreadsheetMetadataHateosResourceHandlersRouterTest.this.deleted = true;
+                                }
+                            };
+                        }
+                    };
+                }
+            },
+            HttpMethod.DELETE,
+            URL + "/spreadsheet/12ef",
+            "", // request body
+            HttpStatusCode.NO_CONTENT,
+            ""
         );
 
         this.checkEquals(
-                true,
-                this.deleted,
-                "deleted"
+            true,
+            this.deleted,
+            "deleted"
         );
     }
 
@@ -391,10 +391,10 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private Router<HttpRequestAttribute<?>, HttpHandler> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
         return SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                this.base(),
-                INDENTATION,
-                LINE_ENDING,
-                context
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
+            context
         );
     }
 
@@ -405,36 +405,36 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                final HttpStatusCode statusCode,
                                final String responseBody) {
         final HttpRequest request = this.request(
-                method,
-                url,
-                requestBody
+            method,
+            url,
+            requestBody
         );
         final Optional<HttpHandler> possible = this.route(
-                context,
-                request
+            context,
+            request
         );
         this.checkNotEquals(
-                Optional.empty(),
-                possible
+            Optional.empty(),
+            possible
         );
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get()
-                    .handle(
-                            request,
-                            response
-                    );
+                .handle(
+                    request,
+                    response
+                );
             this.checkEquals(
-                    statusCode,
-                    response.status()
-                            .map(HttpStatus::value)
-                            .orElse(null),
-                    () -> "status " + request + " " + response + "\n" + possible
+                statusCode,
+                response.status()
+                    .map(HttpStatus::value)
+                    .orElse(null),
+                () -> "status " + request + " " + response + "\n" + possible
             );
 
             this.checkEquals(
-                    responseBody,
-                    response.entity().bodyText()
+                responseBody,
+                response.entity().bodyText()
             );
         }
     }
@@ -444,31 +444,31 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                               final String requestBody,
                               final HttpStatusCode statusCode) {
         final HttpRequest request = this.request(
-                method,
-                url,
-                requestBody
+            method,
+            url,
+            requestBody
         );
         final Optional<HttpHandler> possible = this.route(
-                CONTEXT,
-                request
+            CONTEXT,
+            request
         );
         if (possible.isPresent()) {
             final HttpResponse response = HttpResponses.recording();
             possible.get()
-                    .handle(
-                            request,
-                            response
-                    );
+                .handle(
+                    request,
+                    response
+                );
             this.checkEquals(statusCode,
-                    response.status().map(HttpStatus::value).orElse(null),
-                    () -> "status " + request + " " + response + "\n" + possible);
+                response.status().map(HttpStatus::value).orElse(null),
+                () -> "status " + request + " " + response + "\n" + possible);
         }
     }
 
     private Optional<HttpHandler> route(final TestSpreadsheetMetadataHateosResourceHandlerContext context,
                                         final HttpRequest request) {
         return this.router(context)
-                .route(request.routerParameters());
+            .route(request.routerParameters());
     }
 
     private HttpRequest request(final HttpMethod method,
@@ -489,10 +489,10 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             @Override
             public Map<HttpHeaderName<?>, List<?>> headers() {
                 return Maps.of(
-                        HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
-                        HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
-                        HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE),
-                        HttpHeaderName.CONTENT_LENGTH, Lists.of(this.bodyLength())
+                    HttpHeaderName.ACCEPT, Lists.of(CONTENT_TYPE.accept()),
+                    HttpHeaderName.ACCEPT_CHARSET, Lists.of(AcceptCharset.parse("UTF-8")),
+                    HttpHeaderName.CONTENT_TYPE, Lists.of(CONTENT_TYPE),
+                    HttpHeaderName.CONTENT_LENGTH, Lists.of(this.bodyLength())
                 );
             }
 
@@ -504,7 +504,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             @Override
             public long bodyLength() {
                 return this.bodyText()
-                        .length();
+                    .length();
             }
 
             @Override

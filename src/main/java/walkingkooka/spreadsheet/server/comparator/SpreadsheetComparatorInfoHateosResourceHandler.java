@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetComparatorName, SpreadsheetComparatorInfo, SpreadsheetComparatorInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     final static SpreadsheetComparatorInfoHateosResourceHandler INSTANCE = new SpreadsheetComparatorInfoHateosResourceHandler();
 
@@ -54,10 +54,10 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                SpreadsheetComparatorInfoSet.with(
-                        context.systemSpreadsheetProvider()
-                                .spreadsheetComparatorInfos()
-                )
+            SpreadsheetComparatorInfoSet.with(
+                context.systemSpreadsheetProvider()
+                    .spreadsheetComparatorInfos()
+            )
         );
     }
 
@@ -72,10 +72,10 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .spreadsheetComparatorInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .spreadsheetComparatorInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

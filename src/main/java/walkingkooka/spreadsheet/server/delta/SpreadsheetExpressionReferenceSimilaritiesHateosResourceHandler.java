@@ -42,14 +42,14 @@ import java.util.Set;
  * A {@link HateosResourceHandler} that resolves {@link String text} holding a cell-reference or label or range to a cell-reference.
  */
 final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler implements HateosResourceHandler<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleAll<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler with(final SpreadsheetEngineContext context) {
         return new SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler(
-                Objects.requireNonNull(context, "context")
+            Objects.requireNonNull(context, "context")
         );
     }
 
@@ -70,17 +70,17 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
 
         final SpreadsheetExpressionReference cellOrLabel = parseCellOrLabelOrNull(text);
         final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
-                text,
-                SpreadsheetUrlQueryParameters.count(parameters)
-                        .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
+            text,
+            SpreadsheetUrlQueryParameters.count(parameters)
+                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
         );
 
         return Optional.of(
-                SpreadsheetExpressionReferenceSimilarities.with(
-                        Optional.ofNullable(cellOrLabel instanceof SpreadsheetCellReference ? (SpreadsheetCellReference) cellOrLabel : null),
-                        Optional.ofNullable(cellOrLabel instanceof SpreadsheetLabelName && mappings.isEmpty() ? (SpreadsheetLabelName) cellOrLabel : null),
-                        mappings
-                )
+            SpreadsheetExpressionReferenceSimilarities.with(
+                Optional.ofNullable(cellOrLabel instanceof SpreadsheetCellReference ? (SpreadsheetCellReference) cellOrLabel : null),
+                Optional.ofNullable(cellOrLabel instanceof SpreadsheetLabelName && mappings.isEmpty() ? (SpreadsheetLabelName) cellOrLabel : null),
+                mappings
+            )
         );
     }
 
@@ -104,8 +104,8 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
     private Set<SpreadsheetLabelMapping> findLabelMappings(final String text,
                                                            final int count) {
         return this.context.storeRepository()
-                .labels()
-                .findSimilar(text, count);
+            .labels()
+            .findSimilar(text, count);
     }
 
     private final SpreadsheetEngineContext context;

@@ -49,12 +49,12 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class PluginHateosHttpEntityHandlerUploadTest
-        implements HateosHttpEntityHandlerTesting<PluginHateosHttpEntityHandlerUpload,
-        PluginName,
-        PluginHateosResourceHandlerContext>,
-        ToStringTesting<PluginHateosHttpEntityHandlerUpload>,
-        SpreadsheetMetadataTesting,
-        JarFileTesting {
+    implements HateosHttpEntityHandlerTesting<PluginHateosHttpEntityHandlerUpload,
+    PluginName,
+    PluginHateosResourceHandlerContext>,
+    ToStringTesting<PluginHateosHttpEntityHandlerUpload>,
+    SpreadsheetMetadataTesting,
+    JarFileTesting {
 
     // hateos...........................................................................................................
 
@@ -64,58 +64,58 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
     private static Plugin plugin(final String pluginName) {
         return Plugin.with(
-                PluginName.with(pluginName),
-                pluginName + ".jar",
-                jarFile(pluginName),
-                USER,
-                NOW.now()
+            PluginName.with(pluginName),
+            pluginName + ".jar",
+            jarFile(pluginName),
+            USER,
+            NOW.now()
         );
     }
 
     @Test
     public void testHandleAllIncompatibleAcceptFails() {
         final IllegalArgumentException thrown = this.handleAllFails(
-                HttpEntity.EMPTY.setAccept(MediaType.TEXT_PLAIN.accept()),
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                IllegalArgumentException.class
+            HttpEntity.EMPTY.setAccept(MediaType.TEXT_PLAIN.accept()),
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Accept: Got text/plain require application/octet-stream",
-                thrown.getMessage()
+            "Accept: Got text/plain require application/octet-stream",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAllMissingContentTypeFails() {
         final IllegalArgumentException thrown = this.handleAllFails(
-                HttpEntity.EMPTY,
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                IllegalArgumentException.class
+            HttpEntity.EMPTY,
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Missing Content-Type",
-                thrown.getMessage()
+            "Missing Content-Type",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleAllContentTypeNotMultipartFails() {
         final IllegalArgumentException thrown = this.handleAllFails(
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.TEXT_PLAIN
-                ),
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                IllegalArgumentException.class
+            HttpEntity.EMPTY.setContentType(
+                MediaType.TEXT_PLAIN
+            ),
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Content-Type: Got text/plain, expected multipart/form-data or application/json",
-                thrown.getMessage()
+            "Content-Type: Got text/plain, expected multipart/form-data or application/json",
+            thrown.getMessage()
         );
     }
 
@@ -124,24 +124,24 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final String boundary = "delimiter12345";
 
         final IllegalArgumentException thrown = this.handleAllFails(
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
-                ).setBodyText(
-                        "--delimiter12345\r\n" +
-                                "Content-Disposition: form-data; name=\"not-a-file\";\r\n" +
-                                "\r\n" +
-                                binaryToString(PLUGIN2.archive()) +
-                                "\r\n" +
-                                "--delimiter12345--"
-                ),
-                this.parameters(),
-                new TestPluginHateosResourceHandlerContext(),
-                IllegalArgumentException.class
+            HttpEntity.EMPTY.setContentType(
+                MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
+            ).setBodyText(
+                "--delimiter12345\r\n" +
+                    "Content-Disposition: form-data; name=\"not-a-file\";\r\n" +
+                    "\r\n" +
+                    binaryToString(PLUGIN2.archive()) +
+                    "\r\n" +
+                    "--delimiter12345--"
+            ),
+            this.parameters(),
+            new TestPluginHateosResourceHandlerContext(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Missing filename",
-                thrown.getMessage()
+            "Missing filename",
+            thrown.getMessage()
         );
     }
 
@@ -150,21 +150,21 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                this.multipart(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.multipart(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -173,32 +173,32 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         context.pluginStore()
-                .save(
-                        Plugin.with(
-                                PluginName.with("TestPlugin222"),
-                                "old.jar",
-                                jarFile("TestPlugin222"),
-                                USER,
-                                NOW.now()
-                        )
-                );
+            .save(
+                Plugin.with(
+                    PluginName.with("TestPlugin222"),
+                    "old.jar",
+                    jarFile("TestPlugin222"),
+                    USER,
+                    NOW.now()
+                )
+            );
 
         this.handleAllAndCheck(
-                this.multipart(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.multipart(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -207,21 +207,21 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                this.binaryAsBase64(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binaryAsBase64(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -230,22 +230,22 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                this.binaryAsBase64()
-                        .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binaryAsBase64()
+                .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -254,49 +254,49 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         context.pluginStore()
-                .save(
-                        Plugin.with(
-                                PluginName.with("TestPlugin222"),
-                                "old.jar",
-                                jarFile("TestPlugin222"),
-                                USER,
-                                NOW.now()
-                        )
-                );
+            .save(
+                Plugin.with(
+                    PluginName.with("TestPlugin222"),
+                    "old.jar",
+                    jarFile("TestPlugin222"),
+                    USER,
+                    NOW.now()
+                )
+            );
 
         this.handleAllAndCheck(
-                this.binaryAsBase64(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binaryAsBase64(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
     private HttpEntity binaryAsBase64() {
         return HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.BASE64
+            SpreadsheetServerMediaTypes.BASE64
         ).addHeader(
-                HttpHeaderName.CONTENT_DISPOSITION,
-                ContentDispositionType.ATTACHMENT.setFilename(
-                        ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                )
+            HttpHeaderName.CONTENT_DISPOSITION,
+            ContentDispositionType.ATTACHMENT.setFilename(
+                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+            )
         ).setBodyText(
-                Base64.getEncoder()
-                        .encodeToString(
-                                PLUGIN2.archive()
-                                        .value()
-                        )
+            Base64.getEncoder()
+                .encodeToString(
+                    PLUGIN2.archive()
+                        .value()
+                )
         );
     }
 
@@ -305,21 +305,21 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                this.binary(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binary(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -328,22 +328,22 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         this.handleAllAndCheck(
-                this.binary()
-                        .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binary()
+                .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
@@ -352,45 +352,45 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final TestPluginHateosResourceHandlerContext context = new TestPluginHateosResourceHandlerContext();
 
         context.pluginStore()
-                .save(
-                        Plugin.with(
-                                PluginName.with("TestPlugin222"),
-                                "old.jar",
-                                jarFile("TestPlugin222"),
-                                USER,
-                                NOW.now()
-                        )
-                );
+            .save(
+                Plugin.with(
+                    PluginName.with("TestPlugin222"),
+                    "old.jar",
+                    jarFile("TestPlugin222"),
+                    USER,
+                    NOW.now()
+                )
+            );
 
         this.handleAllAndCheck(
-                this.binary(), // entity
-                Maps.empty(), // parameters
-                context,
-                HttpEntity.EMPTY.setContentType(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE
-                ).setBodyText(
-                        toJson(PLUGIN2)
-                ).setContentLength()
+            this.binary(), // entity
+            Maps.empty(), // parameters
+            context,
+            HttpEntity.EMPTY.setContentType(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE
+            ).setBodyText(
+                toJson(PLUGIN2)
+            ).setContentLength()
         );
 
         this.checkEquals(
-                PLUGIN2,
-                context.pluginStore()
-                        .loadOrFail(PLUGIN2.name()),
-                () -> context.pluginStore().toString()
+            PLUGIN2,
+            context.pluginStore()
+                .loadOrFail(PLUGIN2.name()),
+            () -> context.pluginStore().toString()
         );
     }
 
     private HttpEntity binary() {
         return HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.BINARY
+            SpreadsheetServerMediaTypes.BINARY
         ).addHeader(
-                HttpHeaderName.CONTENT_DISPOSITION,
-                ContentDispositionType.ATTACHMENT.setFilename(
-                        ContentDispositionFileName.notEncoded("TestPlugin222.jar")
-                )
+            HttpHeaderName.CONTENT_DISPOSITION,
+            ContentDispositionType.ATTACHMENT.setFilename(
+                ContentDispositionFileName.notEncoded("TestPlugin222.jar")
+            )
         ).setBody(
-                PLUGIN2.archive()
+            PLUGIN2.archive()
         );
     }
 
@@ -407,19 +407,19 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     @Override
     public Set<PluginName> manyIds() {
         return Sets.of(
-                PLUGIN1.name(),
-                PLUGIN2.name()
+            PLUGIN1.name(),
+            PLUGIN2.name()
         );
     }
 
     @Override
     public Range<PluginName> range() {
         return Range.greaterThanEquals(
-                PLUGIN1.name()
+            PLUGIN1.name()
         ).and(
-                Range.lessThanEquals(
-                        PLUGIN2.name()
-                )
+            Range.lessThanEquals(
+                PLUGIN2.name()
+            )
         );
     }
 
@@ -444,46 +444,46 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final String boundary = "delimiter12345";
 
         return HttpEntity.EMPTY.setContentType(
-                MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
+            MediaType.MULTIPART_FORM_DATA.setBoundary(MediaTypeBoundary.parse(boundary))
         ).setBodyText(
-                "--delimiter12345\r\n" +
-                        "Content-Disposition: form-data; name=\"field2\"; filename=\"TestPlugin222.jar\"\r\n" +
-                        "\r\n" +
-                        binaryToString(PLUGIN2.archive()) +
-                        "\r\n" +
-                        "--delimiter12345--"
+            "--delimiter12345\r\n" +
+                "Content-Disposition: form-data; name=\"field2\"; filename=\"TestPlugin222.jar\"\r\n" +
+                "\r\n" +
+                binaryToString(PLUGIN2.archive()) +
+                "\r\n" +
+                "--delimiter12345--"
         );
     }
 
     private static String binaryToString(final Binary binary) {
         return new String(
-                binary.value(),
-                HttpEntity.DEFAULT_BODY_CHARSET
+            binary.value(),
+            HttpEntity.DEFAULT_BODY_CHARSET
         );
     }
 
     private static Binary jarFile(final String pluginName) {
         final String manifest = (
-                "Manifest-Version: 1.0\r\n" +
-                        "plugin-name: PluginName\r\n" +
-                        "plugin-provider-factory-className: example.PluginName\r\n"
+            "Manifest-Version: 1.0\r\n" +
+                "plugin-name: PluginName\r\n" +
+                "plugin-provider-factory-className: example.PluginName\r\n"
         )
-                .replace(
-                        "PluginName",
-                        pluginName
-                );
+            .replace(
+                "PluginName",
+                pluginName
+            );
 
         return Binary.with(
-                JarFileTesting.jarFile(
-                        manifest,
-                        Maps.empty()
-                )
+            JarFileTesting.jarFile(
+                manifest,
+                Maps.empty()
+            )
         );
     }
 
     private static String toJson(final Plugin plugin) {
         return JSON_NODE_MARSHALL_CONTEXT.marshall(plugin)
-                .toString();
+            .toString();
     }
 
     @Override
@@ -531,8 +531,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "file upload PluginStore"
+            this.createHandler(),
+            "file upload PluginStore"
         );
     }
 

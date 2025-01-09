@@ -39,12 +39,12 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#fillCells(Collection, SpreadsheetCellRangeReference, SpreadsheetCellRangeReference, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference>
-        implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerFillCells with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerFillCells(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -63,21 +63,21 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
         HateosResourceHandler.checkContext(context);
 
         final SpreadsheetCellRangeReference from = SpreadsheetDeltaUrlQueryParameters.FROM.firstParameterValue(parameters)
-                .map(SpreadsheetExpressionReference::parseCellRange)
-                .orElse(range);
+            .map(SpreadsheetExpressionReference::parseCellRange)
+            .orElse(range);
 
         return Optional.of(
-                this.prepareResponse(
-                        resource,
-                        parameters,
-                        context,
-                        this.engine.fillCells(
-                                delta.cells(),
-                                from,
-                                range,
-                                context
-                        )
+            this.prepareResponse(
+                resource,
+                parameters,
+                context,
+                this.engine.fillCells(
+                    delta.cells(),
+                    from,
+                    range,
+                    context
                 )
+            )
         );
     }
 

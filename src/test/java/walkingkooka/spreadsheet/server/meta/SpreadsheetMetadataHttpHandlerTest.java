@@ -66,126 +66,126 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     @Test
     public void testWithNullServerUrlFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        null,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        null,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                null,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        null,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                null,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSystemProviderContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        null,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                null,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullProviderContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        null,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                null,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullMetadataStoreFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        null,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        null,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
@@ -193,36 +193,36 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     @Test
     public void testWithNullSpreadsheetIdSpreadsheetStoreRepositoryFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        null,
-                        HATEOS_RESOURCE_HANDLER_CONTEXT
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetMetadataHttpHandler.with(
-                        SERVER_URL,
-                        INDENTATION,
-                        LINE_ENDING,
-                        SYSTEM_PROVIDER_CONTEXT,
-                        PROVIDER_CONTEXT,
-                        METADATA_STORE,
-                        SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                        SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                        null
-                )
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                null
+            )
         );
     }
 
@@ -236,15 +236,15 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
     @Override
     public SpreadsheetMetadataHttpHandler createHttpHandler() {
         return SpreadsheetMetadataHttpHandler.with(
-                SERVER_URL,
-                INDENTATION,
-                LINE_ENDING,
-                SYSTEM_PROVIDER_CONTEXT,
-                PROVIDER_CONTEXT,
-                METADATA_STORE,
-                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-                HATEOS_RESOURCE_HANDLER_CONTEXT
+            SERVER_URL,
+            INDENTATION,
+            LINE_ENDING,
+            SYSTEM_PROVIDER_CONTEXT,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
         );
     }
 

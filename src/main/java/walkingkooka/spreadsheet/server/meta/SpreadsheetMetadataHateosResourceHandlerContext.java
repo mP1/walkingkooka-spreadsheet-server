@@ -35,7 +35,7 @@ import java.util.function.Function;
  * A {@link Context} for spreadsheets.
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
-        EnvironmentContext {
+    EnvironmentContext {
 
     /**
      * Saves the given {@link SpreadsheetMetadata}.

@@ -30,7 +30,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
 
     static SpreadsheetDeltaHateosResourceHandlerInsertAfterRow with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerInsertAfterRow(
-                Objects.requireNonNull(engine, "engine")
+            Objects.requireNonNull(engine, "engine")
         );
     }
 
@@ -53,9 +53,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertAfter(
-                row.addSaturated(1),
-                count,
-                context
+            row.addSaturated(1),
+            count,
+            context
         );
     }
 
@@ -64,12 +64,12 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertAfter(
-                row.upperBound()
-                        .value()
-                        .get()
-                        .addSaturated(1),
-                count,
-                context
+            row.upperBound()
+                .value()
+                .get()
+                .addSaturated(1),
+            count,
+            context
         );
     }
 
@@ -77,9 +77,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
                                          final int count,
                                          final SpreadsheetEngineContext context) {
         return this.engine.insertRows(
-                row,
-                count,
-                context
+            row,
+            count,
+            context
         );
     }
 
@@ -99,6 +99,6 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRow extends Spreadsh
      * </pre>
      * Needed to avoid the above failure. Note this method is pruned from output.
      */
-    private static void dummy(final HttpRequestAttribute<?> ignored){
+    private static void dummy(final HttpRequestAttribute<?> ignored) {
     }
 }

@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -57,8 +57,8 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.systemSpreadsheetProvider()
-                        .spreadsheetFormatterInfos()
+            context.systemSpreadsheetProvider()
+                .spreadsheetFormatterInfos()
         );
     }
 
@@ -73,10 +73,10 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .spreadsheetFormatterInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .spreadsheetFormatterInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

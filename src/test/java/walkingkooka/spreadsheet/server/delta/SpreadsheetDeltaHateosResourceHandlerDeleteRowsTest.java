@@ -36,7 +36,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<SpreadsheetDeltaHateosResourceHandlerDeleteRows,
-        SpreadsheetRowReference> {
+    SpreadsheetRowReference> {
 
     @Test
     public void testHandleOneDeleteRow() {
@@ -46,26 +46,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final Set<SpreadsheetCell> cells = Sets.of(this.cell());
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(row, r, "row");
-                                checkEquals(1, count, "count");
-                                return SpreadsheetDelta.EMPTY.setCells(cells);
-                            }
-                        }),
-                row,
-                resource,
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(cells)
-                )
+                    @Override
+                    public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
+                                                       final int count,
+                                                       final SpreadsheetEngineContext context) {
+                        checkEquals(row, r, "row");
+                        checkEquals(1, count, "count");
+                        return SpreadsheetDelta.EMPTY.setCells(cells);
+                    }
+                }),
+            row,
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(cells)
+            )
         );
     }
 
@@ -74,13 +74,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
         final Range<SpreadsheetRowReference> range = SpreadsheetColumnOrRowReference.parseRowRange("2:4")
-                .range();
+            .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setCells(cells);
 
         this.handleRangeAndCheck(
-                this.createHandler(
+            this.createHandler(
                 new FakeSpreadsheetEngine() {
 
                     @Override
@@ -92,11 +92,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                         return delta;
                     }
                 }),
-                range, // 3 inclusive
-                resource,
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(),
-                Optional.of(delta)
+            range, // 3 inclusive
+            resource,
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(),
+            Optional.of(delta)
         );
     }
 
@@ -108,33 +108,33 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
         final SpreadsheetViewportWindows window = this.window();
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta deleteRows(final SpreadsheetRowReference c,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(row, c, "row");
-                                checkEquals(1, count, "count");
-                                return SpreadsheetDelta.EMPTY.setCells(cells)
-                                        .setWindow(window);
-                            }
-                        }),
-                row,
-                Optional.empty(),
-                Maps.of(
-                        SpreadsheetDeltaUrlQueryParameters.WINDOW,
-                        Lists.of(
-                                window.toString()
-                        )
-                ),
-                this.context(),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(this.cellsWithinWindow())
-                                .setWindow(window)
+                    @Override
+                    public SpreadsheetDelta deleteRows(final SpreadsheetRowReference c,
+                                                       final int count,
+                                                       final SpreadsheetEngineContext context) {
+                        checkEquals(row, c, "row");
+                        checkEquals(1, count, "count");
+                        return SpreadsheetDelta.EMPTY.setCells(cells)
+                            .setWindow(window);
+                    }
+                }),
+            row,
+            Optional.empty(),
+            Maps.of(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW,
+                Lists.of(
+                    window.toString()
                 )
+            ),
+            this.context(),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(this.cellsWithinWindow())
+                    .setWindow(window)
+            )
         );
     }
 
@@ -155,13 +155,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
         this.checkEquals("Range with both rows required=" + rows,
-                this.handleRangeFails(
-                        rows,
-                        this.collectionResource(),
-                        HateosResourceHandler.NO_PARAMETERS,
-                        this.context(),
-                        IllegalArgumentException.class).getMessage(),
-                "message"
+            this.handleRangeFails(
+                rows,
+                this.collectionResource(),
+                HateosResourceHandler.NO_PARAMETERS,
+                this.context(),
+                IllegalArgumentException.class).getMessage(),
+            "message"
         );
     }
 
@@ -183,7 +183,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     @Override
     public Range<SpreadsheetRowReference> range() {
         return SpreadsheetColumnOrRowReference.parseRowRange("2:4")
-                .range();
+            .range();
     }
 
     @Override

@@ -33,23 +33,23 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
     @Test
     public void testCountMissing() {
         this.checkEquals(
-                OptionalInt.empty(),
-                SpreadsheetUrlQueryParameters.count(
-                        Maps.empty()
-                )
+            OptionalInt.empty(),
+            SpreadsheetUrlQueryParameters.count(
+                Maps.empty()
+            )
         );
     }
 
     @Test
     public void testCount() {
         this.checkEquals(
-                OptionalInt.of(123),
-                SpreadsheetUrlQueryParameters.count(
-                        Maps.of(
-                                SpreadsheetUrlQueryParameters.COUNT,
-                                Lists.of("123")
-                        )
+            OptionalInt.of(123),
+            SpreadsheetUrlQueryParameters.count(
+                Maps.of(
+                    SpreadsheetUrlQueryParameters.COUNT,
+                    Lists.of("123")
                 )
+            )
         );
     }
 
@@ -58,23 +58,23 @@ public final class SpreadsheetUrlQueryParametersTest implements PublicStaticHelp
     @Test
     public void testOffsetMissingParameter() {
         this.checkEquals(
-                OptionalInt.empty(),
-                SpreadsheetUrlQueryParameters.offset(
-                        Maps.empty()
-                )
+            OptionalInt.empty(),
+            SpreadsheetUrlQueryParameters.offset(
+                Maps.empty()
+            )
         );
     }
 
     @Test
     public void testOffset() {
         this.checkEquals(
-                OptionalInt.of(123),
-                SpreadsheetUrlQueryParameters.offset(
-                        Maps.of(
-                                SpreadsheetUrlQueryParameters.OFFSET,
-                                Lists.of("123")
-                        )
+            OptionalInt.of(123),
+            SpreadsheetUrlQueryParameters.offset(
+                Maps.of(
+                    SpreadsheetUrlQueryParameters.OFFSET,
+                    Lists.of("123")
                 )
+            )
         );
     }
 

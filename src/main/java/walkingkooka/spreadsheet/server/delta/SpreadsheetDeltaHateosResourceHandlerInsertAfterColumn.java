@@ -30,7 +30,7 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
 
     static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(
-                check(engine)
+            check(engine)
         );
     }
 
@@ -53,9 +53,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertAfter(
-                column.addSaturated(1),
-                count,
-                context
+            column.addSaturated(1),
+            count,
+            context
         );
     }
 
@@ -64,12 +64,12 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
                             final int count,
                             final SpreadsheetEngineContext context) {
         return this.insertAfter(
-                column.upperBound()
-                        .value()
-                        .get()
-                        .addSaturated(1),
-                count,
-                context
+            column.upperBound()
+                .value()
+                .get()
+                .addSaturated(1),
+            count,
+            context
         );
     }
 
@@ -77,9 +77,9 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
                                          final int count,
                                          final SpreadsheetEngineContext context) {
         return this.engine.insertColumns(
-                column,
-                count,
-                context
+            column,
+            count,
+            context
         );
     }
 
@@ -99,6 +99,6 @@ final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends Sprea
      * </pre>
      * Needed to avoid the above failure. Note this method is pruned from output.
      */
-    private static void dummy(final HttpRequestAttribute<?> ignored){
+    private static void dummy(final HttpRequestAttribute<?> ignored) {
     }
 }

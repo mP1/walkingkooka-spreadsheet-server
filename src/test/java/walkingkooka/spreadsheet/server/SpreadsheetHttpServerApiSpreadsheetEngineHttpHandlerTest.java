@@ -77,9 +77,9 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest implements HttpHandlerTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
-        ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
-        TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
-        SpreadsheetMetadataTesting {
+    ToStringTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+    TypeNameTesting<SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler>,
+    SpreadsheetMetadataTesting {
 
     private final static String SERVER_URL = "https://example.com";
     private final static SpreadsheetId ID = SpreadsheetId.with(1);
@@ -94,8 +94,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteCellPostSaveCell() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.route(HttpMethod.POST, "/api/1/cell/A1", "")
+            IllegalArgumentException.class,
+            () -> this.route(HttpMethod.POST, "/api/1/cell/A1", "")
         );
     }
 
@@ -107,18 +107,18 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteCellDelete() {
         this.routeAndCheck(
-                HttpMethod.DELETE,
-                "/api/1/cell/A1",
-                HttpStatusCode.OK
+            HttpMethod.DELETE,
+            "/api/1/cell/A1",
+            HttpStatusCode.OK
         );
     }
 
     @Test
     public void testRouteCellDeleteRange() {
         this.routeAndCheck(
-                HttpMethod.DELETE,
-                "/api/1/cell/A1:B2",
-                HttpStatusCode.OK
+            HttpMethod.DELETE,
+            "/api/1/cell/A1:B2",
+            HttpStatusCode.OK
         );
     }
 
@@ -141,8 +141,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteCellReferenceGetInvalidFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.route(HttpMethod.GET, "/api/1/cell-reference/!invalid", "")
+            IllegalArgumentException.class,
+            () -> this.route(HttpMethod.GET, "/api/1/cell-reference/!invalid", "")
         );
     }
 
@@ -205,21 +205,21 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteFillCellsPost() {
         this.routeAndCheck(
-                HttpMethod.POST,
-                "/api/1/cell/A1:B2/fill",
-                JSON_NODE_MARSHALL_CONTEXT.marshall(
-                                SpreadsheetDelta.EMPTY
-                                        .setCells(
-                                                Sets.of(
-                                                        SpreadsheetSelection.parseCell("A2")
-                                                                .setFormula(
-                                                                        SpreadsheetFormula.EMPTY
-                                                                                .setText("1")
-                                                                )
-                                                )
-                                        )
-                        ).toString(),
-                HttpStatusCode.OK
+            HttpMethod.POST,
+            "/api/1/cell/A1:B2/fill",
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("A2")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY
+                                        .setText("1")
+                                )
+                        )
+                    )
+            ).toString(),
+            HttpStatusCode.OK
         );
     }
 
@@ -238,9 +238,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testRouteLabelGetNotFound() {
         this.routeAndCheck(
-                HttpMethod.GET,
-                "/api/1/label/UnknownLabel99",
-                HttpStatusCode.OK
+            HttpMethod.GET,
+            "/api/1/label/UnknownLabel99",
+            HttpStatusCode.OK
         );
     }
 
@@ -253,18 +253,18 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                                final String url,
                                final HttpStatusCode statusCode) {
         this.routeAndCheck(method,
-                url,
-                "",
-                statusCode);
+            url,
+            "",
+            statusCode);
     }
 
     private void routeAndFail(final HttpMethod method,
                               final String url) {
         this.routeAndCheck(
-                method,
-                url,
-                "",
-                HttpStatusCode.METHOD_NOT_ALLOWED
+            method,
+            url,
+            "",
+            HttpStatusCode.METHOD_NOT_ALLOWED
         );
     }
 
@@ -273,15 +273,15 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                                final String bodyText,
                                final HttpStatusCode statusCode) {
         final HttpResponse response = this.route(
-                method,
-                url,
-                bodyText
+            method,
+            url,
+            bodyText
         );
 
         this.checkEquals(
-                statusCode,
-                response.status().map(HttpStatus::value).orElse(null),
-                () -> "status\n" + response
+            statusCode,
+            response.status().map(HttpStatus::value).orElse(null),
+            () -> "status\n" + response
         );
     }
 
@@ -289,9 +289,9 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                                final String url,
                                final String bodyText) {
         final HttpRequest request = this.request(
-                method,
-                url,
-                bodyText
+            method,
+            url,
+            bodyText
         );
         final HttpResponse response = HttpResponses.recording();
 
@@ -307,63 +307,63 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                                 final String bodyText) {
         final MediaType contentType = MediaType.APPLICATION_JSON;
         return HttpRequests.value(method,
-                HttpTransport.UNSECURED,
-                Url.parseAbsolute(SERVER_URL + urlPathAppend).relativeUrl(),
-                HttpProtocolVersion.VERSION_1_0,
-                HttpEntity.EMPTY
-                        .setContentType(contentType)
-                        .addHeader(HttpHeaderName.ACCEPT, contentType.accept())
-                        .setBodyText(bodyText)
-                        .setContentLength()
+            HttpTransport.UNSECURED,
+            Url.parseAbsolute(SERVER_URL + urlPathAppend).relativeUrl(),
+            HttpProtocolVersion.VERSION_1_0,
+            HttpEntity.EMPTY
+                .setContentType(contentType)
+                .addHeader(HttpHeaderName.ACCEPT, contentType.accept())
+                .setBodyText(bodyText)
+                .setContentLength()
         );
     }
 
     private void handleRequest(final HttpRequest request,
                                final HttpResponse response) {
         this.createHttpHandler()
-                .router(SpreadsheetId.with(1L))
-                .route(request.routerParameters())
-                .get()
-                .handle(
-                        request,
-                        response
-                );
+            .router(SpreadsheetId.with(1L))
+            .route(request.routerParameters())
+            .get()
+            .handle(
+                request,
+                response
+            );
     }
 
     private static String toJsonString(final Object value) {
         return JSON_NODE_MARSHALL_CONTEXT.marshall(value)
-                .toString();
+            .toString();
     }
 
     @Override
     public SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler createHttpHandler() {
         return SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler.with(
-                Url.parseAbsolute(SERVER_URL + "/api"),
-                Indentation.SPACES2,
-                LineEnding.NL,
-                systemSpreadsheetProvider(),
-                PROVIDER_CONTEXT,
-                this.metadataStore,
-                spreadsheetIdToSpreadsheetProvider(),
-                spreadsheetIdToStoreRepository(),
-                HateosResourceHandlerContexts.basic(
-                        JsonNodeMarshallUnmarshallContexts.basic(
-                                JSON_NODE_MARSHALL_CONTEXT,
-                                JSON_NODE_UNMARSHALL_CONTEXT
-                        )
+            Url.parseAbsolute(SERVER_URL + "/api"),
+            Indentation.SPACES2,
+            LineEnding.NL,
+            systemSpreadsheetProvider(),
+            PROVIDER_CONTEXT,
+            this.metadataStore,
+            spreadsheetIdToSpreadsheetProvider(),
+            spreadsheetIdToStoreRepository(),
+            HateosResourceHandlerContexts.basic(
+                JsonNodeMarshallUnmarshallContexts.basic(
+                    JSON_NODE_MARSHALL_CONTEXT,
+                    JSON_NODE_UNMARSHALL_CONTEXT
                 )
+            )
         );
     }
 
     private SpreadsheetProvider systemSpreadsheetProvider() {
         return SpreadsheetProviders.basic(
-                CONVERTER_PROVIDER,
-                EXPRESSION_FUNCTION_PROVIDER,
-                SPREADSHEET_COMPARATOR_PROVIDER,
-                SPREADSHEET_EXPORTER_PROVIDER,
-                SPREADSHEET_FORMATTER_PROVIDER,
-                SPREADSHEET_IMPORTER_PROVIDER,
-                SPREADSHEET_PARSER_PROVIDER
+            CONVERTER_PROVIDER,
+            EXPRESSION_FUNCTION_PROVIDER,
+            SPREADSHEET_COMPARATOR_PROVIDER,
+            SPREADSHEET_EXPORTER_PROVIDER,
+            SPREADSHEET_FORMATTER_PROVIDER,
+            SPREADSHEET_IMPORTER_PROVIDER,
+            SPREADSHEET_PARSER_PROVIDER
         );
     }
 
@@ -371,21 +371,21 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     private Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider() {
         return (id) -> this.metadataStore.loadOrFail(id).spreadsheetProvider(
-                SpreadsheetProviders.basic(
-                        CONVERTER_PROVIDER,
-                        ExpressionFunctionProviders.basic(
-                                Url.parseAbsolute("https://example.com/functions"),
-                                SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY,
-                                Sets.of(
-                                        ExpressionFunctions.typeName()
-                                )
-                        ),
-                        SPREADSHEET_COMPARATOR_PROVIDER,
-                        SPREADSHEET_EXPORTER_PROVIDER,
-                        SPREADSHEET_FORMATTER_PROVIDER,
-                        SPREADSHEET_IMPORTER_PROVIDER,
-                        SPREADSHEET_PARSER_PROVIDER
-                )
+            SpreadsheetProviders.basic(
+                CONVERTER_PROVIDER,
+                ExpressionFunctionProviders.basic(
+                    Url.parseAbsolute("https://example.com/functions"),
+                    SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY,
+                    Sets.of(
+                        ExpressionFunctions.typeName()
+                    )
+                ),
+                SPREADSHEET_COMPARATOR_PROVIDER,
+                SPREADSHEET_EXPORTER_PROVIDER,
+                SPREADSHEET_FORMATTER_PROVIDER,
+                SPREADSHEET_IMPORTER_PROVIDER,
+                SPREADSHEET_PARSER_PROVIDER
+            )
         );
     }
 
@@ -394,14 +394,14 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         final LocalDateTime now = LocalDateTime.now();
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .loadFromLocale()
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
-                .set(SpreadsheetMetadataPropertyName.CREATOR, user)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+            .loadFromLocale()
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
+            .set(SpreadsheetMetadataPropertyName.CREATOR, user)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
 
         this.metadataStore.save(metadata);
 
@@ -409,17 +409,17 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         labelStore.save(LABEL.mapping(SpreadsheetSelection.parseCell("Z99")));
 
         final SpreadsheetStoreRepository repository = SpreadsheetStoreRepositories.basic(
-                SpreadsheetCellStores.treeMap(),
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                SpreadsheetColumnStores.treeMap(),
-                SpreadsheetGroupStores.treeMap(),
-                labelStore,
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                metadataStore,
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetRowStores.treeMap(),
-                SpreadsheetUserStores.treeMap()
+            SpreadsheetCellStores.treeMap(),
+            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetColumnStores.treeMap(),
+            SpreadsheetGroupStores.treeMap(),
+            labelStore,
+            SpreadsheetExpressionReferenceStores.treeMap(),
+            metadataStore,
+            SpreadsheetCellRangeStores.treeMap(),
+            SpreadsheetCellRangeStores.treeMap(),
+            SpreadsheetRowStores.treeMap(),
+            SpreadsheetUserStores.treeMap()
         );
         return (i) -> {
             this.checkEquals(ID, i, "id");
@@ -434,8 +434,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHttpHandler(),
-                SERVER_URL + "/api"
+            this.createHttpHandler(),
+            SERVER_URL + "/api"
         );
     }
 

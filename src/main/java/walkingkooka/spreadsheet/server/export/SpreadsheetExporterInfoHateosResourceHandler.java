@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class SpreadsheetExporterInfoHateosResourceHandler implements HateosResourceHandler<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -57,8 +57,8 @@ final class SpreadsheetExporterInfoHateosResourceHandler implements HateosResour
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                context.systemSpreadsheetProvider()
-                        .spreadsheetExporterInfos()
+            context.systemSpreadsheetProvider()
+                .spreadsheetExporterInfos()
         );
     }
 
@@ -73,10 +73,10 @@ final class SpreadsheetExporterInfoHateosResourceHandler implements HateosResour
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .spreadsheetExporterInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .spreadsheetExporterInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

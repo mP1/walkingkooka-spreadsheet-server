@@ -105,79 +105,79 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         final HttpResponse response = HttpResponses.recording();
 
         httpServer.handler.handle(
-                HttpRequests.value(
-                        HttpMethod.POST,
-                        HttpTransport.SECURED,
-                        Url.parseRelative("/api/spreadsheet"),
-                        HttpProtocolVersion.VERSION_1_0,
-                        HttpEntity.EMPTY.setAccept(
-                                Accept.with(
-                                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                                )
-                        )
-                ),
-                response
+            HttpRequests.value(
+                HttpMethod.POST,
+                HttpTransport.SECURED,
+                Url.parseRelative("/api/spreadsheet"),
+                HttpProtocolVersion.VERSION_1_0,
+                HttpEntity.EMPTY.setAccept(
+                    Accept.with(
+                        Lists.of(SpreadsheetServerMediaTypes.CONTENT_TYPE)
+                    )
+                )
+            ),
+            response
         );
 
         checkEquals(
-                Optional.of(
-                        HttpStatusCode.CREATED.status()
-                ),
-                response.status(),
-                "POST /api/spreadsheet status"
+            Optional.of(
+                HttpStatusCode.CREATED.status()
+            ),
+            response.status(),
+            "POST /api/spreadsheet status"
         );
 
         checkEquals(
-                HttpEntity.EMPTY.setContentType(
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                ).addHeader(
-                        HttpHeaderName.with("X-Content-Type-Name"),
-                        Cast.to(SpreadsheetMetadata.class.getSimpleName())
-                ).setBodyText(
-                        "{\n" +
-                                "  \"spreadsheet-id\": \"1\",\n" +
-                                "  \"cell-character-width\": 10,\n" +
-                                "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
-                                "  \"creator\": \"user@example.com\",\n" +
-                                "  \"currency-symbol\": \"$AUD\",\n" +
-                                "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
-                                "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
-                                "  \"date-time-formatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
-                                "  \"date-time-offset\": \"0\",\n" +
-                                "  \"date-time-parser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                                "  \"decimal-separator\": \".\",\n" +
-                                "  \"default-year\": 1900,\n" +
-                                "  \"exponent-symbol\": \"E\",\n" +
-                                "  \"expression-number-kind\": \"DOUBLE\",\n" +
-                                "  \"formula-converter\": \"general\",\n" +
-                                "  \"formula-functions\": \"\",\n" +
-                                "  \"frozen-columns\": \"A:B\",\n" +
-                                "  \"frozen-rows\": \"1:2\",\n" +
-                                "  \"general-number-format-digit-count\": 8,\n" +
-                                "  \"group-separator\": \",\",\n" +
-                                "  \"locale\": \"en-AU\",\n" +
-                                "  \"modified-by\": \"user@example.com\",\n" +
-                                "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
-                                "  \"negative-sign\": \"-\",\n" +
-                                "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
-                                "  \"number-parser\": \"number-parse-pattern #\",\n" +
-                                "  \"percentage-symbol\": \"%\",\n" +
-                                "  \"positive-sign\": \"+\",\n" +
-                                "  \"precision\": 123,\n" +
-                                "  \"rounding-mode\": \"FLOOR\",\n" +
-                                "  \"style\": {\n" +
-                                "    \"height\": \"50px\",\n" +
-                                "    \"width\": \"50px\"\n" +
-                                "  },\n" +
-                                "  \"text-formatter\": \"text-format-pattern @@\",\n" +
-                                "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
-                                "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
-                                "  \"two-digit-year\": 31,\n" +
-                                "  \"value-separator\": \",\"\n" +
-                                "}"
-                ).setContentLength(),
-                response.entity(),
-                "POST /api/spreadsheet response"
+            HttpEntity.EMPTY.setContentType(
+                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+            ).addHeader(
+                HttpHeaderName.with("X-Content-Type-Name"),
+                Cast.to(SpreadsheetMetadata.class.getSimpleName())
+            ).setBodyText(
+                "{\n" +
+                    "  \"spreadsheet-id\": \"1\",\n" +
+                    "  \"cell-character-width\": 10,\n" +
+                    "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
+                    "  \"creator\": \"user@example.com\",\n" +
+                    "  \"currency-symbol\": \"$AUD\",\n" +
+                    "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
+                    "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
+                    "  \"date-time-formatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
+                    "  \"date-time-offset\": \"0\",\n" +
+                    "  \"date-time-parser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                    "  \"decimal-separator\": \".\",\n" +
+                    "  \"default-year\": 1900,\n" +
+                    "  \"exponent-symbol\": \"E\",\n" +
+                    "  \"expression-number-kind\": \"DOUBLE\",\n" +
+                    "  \"formula-converter\": \"general\",\n" +
+                    "  \"formula-functions\": \"\",\n" +
+                    "  \"frozen-columns\": \"A:B\",\n" +
+                    "  \"frozen-rows\": \"1:2\",\n" +
+                    "  \"general-number-format-digit-count\": 8,\n" +
+                    "  \"group-separator\": \",\",\n" +
+                    "  \"locale\": \"en-AU\",\n" +
+                    "  \"modified-by\": \"user@example.com\",\n" +
+                    "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
+                    "  \"negative-sign\": \"-\",\n" +
+                    "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
+                    "  \"number-parser\": \"number-parse-pattern #\",\n" +
+                    "  \"percentage-symbol\": \"%\",\n" +
+                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"precision\": 123,\n" +
+                    "  \"rounding-mode\": \"FLOOR\",\n" +
+                    "  \"style\": {\n" +
+                    "    \"height\": \"50px\",\n" +
+                    "    \"width\": \"50px\"\n" +
+                    "  },\n" +
+                    "  \"text-formatter\": \"text-format-pattern @@\",\n" +
+                    "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
+                    "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
+                    "  \"two-digit-year\": 31,\n" +
+                    "  \"value-separator\": \",\"\n" +
+                    "}"
+            ).setContentLength(),
+            response.entity(),
+            "POST /api/spreadsheet response"
         );
     }
 
@@ -186,115 +186,115 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
-                .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"))
-                .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "$AUD")
-                .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
-                .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("DD/MM/YYYY hh:mm").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
-                .set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, '.')
-                .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
-                .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
-                .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
-                .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-                .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.parse(""))
-                .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
-                .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
-                .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
-                .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
-                .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
-                .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
-                .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
-                .set(SpreadsheetMetadataPropertyName.PERCENTAGE_SYMBOL, '%')
-                .set(SpreadsheetMetadataPropertyName.POSITIVE_SIGN, '+')
-                .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
-                .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.FLOOR)
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, createdId)
-                .set(
-                        SpreadsheetMetadataPropertyName.STYLE,
-                        TextStyle.EMPTY.set(TextStylePropertyName.WIDTH, Length.pixel(50.0))
-                                .set(TextStylePropertyName.HEIGHT, Length.pixel(50.0)))
-                .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("@@").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
-                .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
-                .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
-                .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
+            .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
+            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.CREATOR, EmailAddress.parse("user@example.com"))
+            .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "$AUD")
+            .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
+            .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
+            .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+            .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("DD/MM/YYYY hh:mm").spreadsheetFormatterSelector())
+            .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
+            .set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, '.')
+            .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
+            .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
+            .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
+            .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
+            .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.parse(""))
+            .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
+            .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
+            .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
+            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
+            .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
+            .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
+            .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
+            .set(SpreadsheetMetadataPropertyName.PERCENTAGE_SYMBOL, '%')
+            .set(SpreadsheetMetadataPropertyName.POSITIVE_SIGN, '+')
+            .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
+            .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.FLOOR)
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, createdId)
+            .set(
+                SpreadsheetMetadataPropertyName.STYLE,
+                TextStyle.EMPTY.set(TextStylePropertyName.WIDTH, Length.pixel(50.0))
+                    .set(TextStylePropertyName.HEIGHT, Length.pixel(50.0)))
+            .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.parseTextFormatPattern("@@").spreadsheetFormatterSelector())
+            .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
+            .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
+            .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
+            .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
-                metadata,
-                () -> now
+            metadata,
+            () -> now
         );
 
         final SpreadsheetStoreRepository repo = SpreadsheetStoreRepositories.basic(
-                SpreadsheetCellStores.treeMap(),
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                SpreadsheetColumnStores.treeMap(),
-                SpreadsheetGroupStores.fake(),
-                SpreadsheetLabelStores.treeMap(),
-                SpreadsheetExpressionReferenceStores.treeMap(),
-                metadataStore,
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetCellRangeStores.treeMap(),
-                SpreadsheetRowStores.treeMap(),
-                SpreadsheetUserStores.fake()
+            SpreadsheetCellStores.treeMap(),
+            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetColumnStores.treeMap(),
+            SpreadsheetGroupStores.fake(),
+            SpreadsheetLabelStores.treeMap(),
+            SpreadsheetExpressionReferenceStores.treeMap(),
+            metadataStore,
+            SpreadsheetCellRangeStores.treeMap(),
+            SpreadsheetCellRangeStores.treeMap(),
+            SpreadsheetRowStores.treeMap(),
+            SpreadsheetUserStores.fake()
         );
 
         final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
 
         return SpreadsheetHttpServer.with(
-                UrlScheme.HTTPS.andHost(
-                        HostAddress.with("example.com")
+            UrlScheme.HTTPS.andHost(
+                HostAddress.with("example.com")
+            ),
+            Indentation.SPACES2,
+            LineEnding.NL,
+            MediaTypeDetectors.fake(),
+            SpreadsheetProviders.fake(),
+            ProviderContexts.basic(
+                EnvironmentContexts.empty(
+                    LocalDateTime::now,
+                    Optional.of(
+                        EmailAddress.parse("user@example.com")
+                    )
                 ),
-                Indentation.SPACES2,
-                LineEnding.NL,
-                MediaTypeDetectors.fake(),
-                SpreadsheetProviders.fake(),
-                ProviderContexts.basic(
-                        EnvironmentContexts.empty(
-                                LocalDateTime::now,
-                                Optional.of(
-                                        EmailAddress.parse("user@example.com")
-                                )
-                        ),
-                        PluginStores.treeMap()
-                ),
-                metadataStore,
-                HateosResourceHandlerContexts.basic(
-                        JsonNodeMarshallUnmarshallContexts.basic(
-                                JsonNodeMarshallContexts.basic(),
-                                JsonNodeUnmarshallContexts.basic(
-                                        metadata.expressionNumberKind(),
-                                        metadata.mathContext()
-                                )
-                        )
-                ),
-                (id) -> metadata.spreadsheetProvider(
-                        SpreadsheetProviders.basic(
-                                ConverterProviders.converters(),
-                                ExpressionFunctionProviders.expressionFunctions(),
-                                SpreadsheetComparatorProviders.spreadsheetComparators(),
-                                SpreadsheetExporterProviders.spreadsheetExport(),
-                                spreadsheetFormatterProvider,
-                                SpreadsheetImporterProviders.spreadsheetImport(),
-                                SpreadsheetParserProviders.spreadsheetParsePattern(
-                                        spreadsheetFormatterProvider
-                                )
-                        )
-                ),
-                (id) -> repo, // spreadsheetIdToStoreRepository
-                (url) -> {
-                    throw new UnsupportedOperationException(); // fileServer
-                },
-                (handler) -> {
-                    httpServer.handler = handler;
-                    return httpServer;
-                }
+                PluginStores.treeMap()
+            ),
+            metadataStore,
+            HateosResourceHandlerContexts.basic(
+                JsonNodeMarshallUnmarshallContexts.basic(
+                    JsonNodeMarshallContexts.basic(),
+                    JsonNodeUnmarshallContexts.basic(
+                        metadata.expressionNumberKind(),
+                        metadata.mathContext()
+                    )
+                )
+            ),
+            (id) -> metadata.spreadsheetProvider(
+                SpreadsheetProviders.basic(
+                    ConverterProviders.converters(),
+                    ExpressionFunctionProviders.expressionFunctions(),
+                    SpreadsheetComparatorProviders.spreadsheetComparators(),
+                    SpreadsheetExporterProviders.spreadsheetExport(),
+                    spreadsheetFormatterProvider,
+                    SpreadsheetImporterProviders.spreadsheetImport(),
+                    SpreadsheetParserProviders.spreadsheetParsePattern(
+                        spreadsheetFormatterProvider
+                    )
+                )
+            ),
+            (id) -> repo, // spreadsheetIdToStoreRepository
+            (url) -> {
+                throw new UnsupportedOperationException(); // fileServer
+            },
+            (handler) -> {
+                httpServer.handler = handler;
+                return httpServer;
+            }
         );
     }
 

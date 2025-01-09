@@ -57,269 +57,269 @@ import java.util.Optional;
 import java.util.Set;
 
 public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implements HateosHttpEntityHandlerTesting<SpreadsheetFormatterSamplesHateosHttpEntityHandler, SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        ToStringTesting<SpreadsheetFormatterSamplesHateosHttpEntityHandler>,
-        SpreadsheetMetadataTesting {
+    ToStringTesting<SpreadsheetFormatterSamplesHateosHttpEntityHandler>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetFormatterName FORMATTER_NAME = SpreadsheetFormatterName.DATE_FORMAT_PATTERN;
 
     @Test
     public void testHandleAllFails() {
         this.handleAllFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleManyFails() {
         this.handleManyFails(
-                this.manyIds(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.manyIds(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleNoneFails() {
         this.handleNoneFails(
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleRangeFails() {
         this.handleRangeFails(
-                this.range(),
-                this.entity(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.range(),
+            this.entity(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleOneBadAcceptFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                this.id(),
-                this.entity()
-                        .setAccept(
-                                MediaType.IMAGE_BMP.accept()
-                        ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.id(),
+            this.entity()
+                .setAccept(
+                    MediaType.IMAGE_BMP.accept()
+                ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Accept: Got image/bmp require application/json",
-                thrown.getMessage()
+            "Accept: Got image/bmp require application/json",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleOne() {
         final SpreadsheetFormatterSelector selector = SpreadsheetPattern.parseDateFormatPattern("yyyy")
-                .spreadsheetFormatterSelector();
+            .spreadsheetFormatterSelector();
 
         this.handleOneAndCheck(
-                selector.name(), // resource id
-                HttpEntity.EMPTY.setAccept(
-                        SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.APPLICATION_JSON;
-                    }
+            selector.name(), // resource id
+            HttpEntity.EMPTY.setAccept(
+                SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public MediaType contentType() {
+                    return MediaType.APPLICATION_JSON;
+                }
 
-                    @Override
-                    public <T> T unmarshall(final JsonNode json,
-                                            final Class<T> type) {
-                        return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
-                                json,
-                                type
-                        );
-                    }
+                @Override
+                public <T> T unmarshall(final JsonNode json,
+                                        final Class<T> type) {
+                    return JSON_NODE_UNMARSHALL_CONTEXT.unmarshall(
+                        json,
+                        type
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return SpreadsheetMetadataTesting.METADATA_EN_AU;
-                    }
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return SpreadsheetMetadataTesting.METADATA_EN_AU;
+                }
 
-                    @Override
-                    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
-                                name,
-                                context
-                        );
-                    }
+                @Override
+                public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                                    final SpreadsheetFormatterProviderSamplesContext context) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatterSamples(
+                        name,
+                        context
+                    );
+                }
 
-                    @Override
-                    public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
-                                                                               final List<?> values,
-                                                                               final ProviderContext context) {
-                        return CONVERTER_PROVIDER.converter(
-                                name,
-                                values,
-                                context
-                        );
-                    }
+                @Override
+                public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
+                                                                           final List<?> values,
+                                                                           final ProviderContext context) {
+                    return CONVERTER_PROVIDER.converter(
+                        name,
+                        values,
+                        context
+                    );
+                }
 
-                    @Override
-                    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
-                                                                     final ProviderContext context) {
-                        return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
-                                selector,
-                                context
-                        );
-                    }
+                @Override
+                public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
+                                                                 final ProviderContext context) {
+                    return SPREADSHEET_FORMATTER_PROVIDER.spreadsheetFormatter(
+                        selector,
+                        context
+                    );
+                }
 
-                    @Override
-                    public Locale locale() {
-                        return LOCALE;
-                    }
+                @Override
+                public Locale locale() {
+                    return LOCALE;
+                }
 
-                    @Override
-                    public LocalDateTime now() {
-                        return NOW.now();
-                    }
+                @Override
+                public LocalDateTime now() {
+                    return NOW.now();
+                }
 
-                    @Override
-                    public <T> Either<T, String> convert(final Object value,
-                                                         final Class<T> type) {
-                        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.convert(
-                                value,
-                                type
-                        );
-                    }
+                @Override
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> type) {
+                    return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.convert(
+                        value,
+                        type
+                    );
+                }
 
-                    @Override
-                    public Optional<TextNode> formatValue(final Object value,
-                                                          final SpreadsheetFormatter formatter) {
-                        return formatter.format(
-                                value,
-                                SPREADSHEET_FORMATTER_CONTEXT
-                        );
-                    }
+                @Override
+                public Optional<TextNode> formatValue(final Object value,
+                                                      final SpreadsheetFormatter formatter) {
+                    return formatter.format(
+                        value,
+                        SPREADSHEET_FORMATTER_CONTEXT
+                    );
+                }
 
-                    @Override
-                    public List<String> ampms() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.ampms();
-                    }
+                @Override
+                public List<String> ampms() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.ampms();
+                }
 
-                    @Override
-                    public String ampm(final int hourOfDay) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.ampm(hourOfDay);
-                    }
+                @Override
+                public String ampm(final int hourOfDay) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.ampm(hourOfDay);
+                }
 
-                    @Override
-                    public List<String> monthNames() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.monthNames();
-                    }
+                @Override
+                public List<String> monthNames() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.monthNames();
+                }
 
-                    @Override
-                    public String monthName(final int month) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.monthName(month);
-                    }
+                @Override
+                public String monthName(final int month) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.monthName(month);
+                }
 
-                    @Override
-                    public List<String> monthNameAbbreviations() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviations();
-                    }
+                @Override
+                public List<String> monthNameAbbreviations() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviations();
+                }
 
-                    @Override
-                    public String monthNameAbbreviation(final int month) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviation(month);
-                    }
+                @Override
+                public String monthNameAbbreviation(final int month) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.monthNameAbbreviation(month);
+                }
 
-                    @Override
-                    public List<String> weekDayNames() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNames();
-                    }
+                @Override
+                public List<String> weekDayNames() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.weekDayNames();
+                }
 
-                    @Override
-                    public String weekDayName(final int day) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayName(day);
-                    }
+                @Override
+                public String weekDayName(final int day) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.weekDayName(day);
+                }
 
-                    @Override
-                    public List<String> weekDayNameAbbreviations() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviations();
-                    }
+                @Override
+                public List<String> weekDayNameAbbreviations() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviations();
+                }
 
-                    @Override
-                    public String weekDayNameAbbreviation(final int day) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviation(day);
-                    }
+                @Override
+                public String weekDayNameAbbreviation(final int day) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.weekDayNameAbbreviation(day);
+                }
 
-                    @Override
-                    public int defaultYear() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.defaultYear();
-                    }
+                @Override
+                public int defaultYear() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.defaultYear();
+                }
 
-                    @Override
-                    public int twoDigitYear() {
-                        return SPREADSHEET_FORMATTER_CONTEXT.twoDigitYear();
-                    }
+                @Override
+                public int twoDigitYear() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.twoDigitYear();
+                }
 
-                    @Override
-                    public int twoToFourDigitYear(final int year) {
-                        return SPREADSHEET_FORMATTER_CONTEXT.twoToFourDigitYear(year);
-                    }
+                @Override
+                public int twoToFourDigitYear(final int year) {
+                    return SPREADSHEET_FORMATTER_CONTEXT.twoToFourDigitYear(year);
+                }
 
-                    @Override
-                    public JsonNode marshall(final Object value) {
-                        return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
-                    }
-                },
-                this.httpEntity(
-                        "[\n" +
-                                "  {\n" +
-                                "    \"label\": \"Short\",\n" +
-                                "    \"selector\": \"date-format-pattern d/m/yy\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"31/12/99\"\n" +
-                                "    }\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Medium\",\n" +
-                                "    \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"31 Dec. 1999\"\n" +
-                                "    }\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Long\",\n" +
-                                "    \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"31 December 1999\"\n" +
-                                "    }\n" +
-                                "  },\n" +
-                                "  {\n" +
-                                "    \"label\": \"Full\",\n" +
-                                "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
-                                "    \"value\": {\n" +
-                                "      \"type\": \"text\",\n" +
-                                "      \"value\": \"Friday, 31 December 1999\"\n" +
-                                "    }\n" +
-                                "  }\n" +
-                                "]"
-                ).addHeader(
-                        HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                        SpreadsheetFormatterSampleList.class.getSimpleName()
-                )
+                @Override
+                public JsonNode marshall(final Object value) {
+                    return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
+                }
+            },
+            this.httpEntity(
+                "[\n" +
+                    "  {\n" +
+                    "    \"label\": \"Short\",\n" +
+                    "    \"selector\": \"date-format-pattern d/m/yy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31/12/99\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Medium\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31 Dec. 1999\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Long\",\n" +
+                    "    \"selector\": \"date-format-pattern d mmmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"31 December 1999\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"label\": \"Full\",\n" +
+                    "    \"selector\": \"date-format-pattern dddd, d mmmm yyyy\",\n" +
+                    "    \"value\": {\n" +
+                    "      \"type\": \"text\",\n" +
+                    "      \"value\": \"Friday, 31 December 1999\"\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "]"
+            ).addHeader(
+                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                SpreadsheetFormatterSampleList.class.getSimpleName()
+            )
         );
     }
 
@@ -336,7 +336,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
     @Override
     public Set<SpreadsheetFormatterName> manyIds() {
         return Sets.of(
-                FORMATTER_NAME
+            FORMATTER_NAME
         );
     }
 
@@ -367,9 +367,9 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
 
     private HttpEntity httpEntity(final String value) {
         return HttpEntity.EMPTY.setContentType(
-                        MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
-                ).setBodyText(value)
-                .setContentLength();
+                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
+            ).setBodyText(value)
+            .setContentLength();
     }
 
     // toString.........................................................................................................
@@ -377,8 +377,8 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                SpreadsheetFormatterSamplesHateosHttpEntityHandler.class.getSimpleName()
+            this.createHandler(),
+            SpreadsheetFormatterSamplesHateosHttpEntityHandler.class.getSimpleName()
         );
     }
 

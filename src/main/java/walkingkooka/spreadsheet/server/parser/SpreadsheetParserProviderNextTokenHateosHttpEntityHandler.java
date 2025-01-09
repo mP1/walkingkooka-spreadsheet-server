@@ -43,10 +43,10 @@ import java.util.Optional;
  * A handler that takes the {@link SpreadsheetParserName} and request body {@link String} to make a {@link SpreadsheetParserSelector} and then invokes {@link walkingkooka.spreadsheet.parser.SpreadsheetParserProvider#spreadsheetParserNextToken(SpreadsheetParserSelector)}.
  */
 final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetParserName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetParserSelectorTokenList.with(Lists.empty()); // force json registry
@@ -73,42 +73,42 @@ final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandler implements
 
         final MediaType requiredContentType = context.contentType();
         requiredContentType.requireContentType(
-                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                        .orElse(null)
+            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                .orElse(null)
         );
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // read request body text
         final String text = context.unmarshall(
-                JsonNode.parse(
-                        httpEntity.bodyText()
-                ),
-                String.class
+            JsonNode.parse(
+                httpEntity.bodyText()
+            ),
+            String.class
         );
 
         // format all the individual requests
         final Optional<SpreadsheetParserSelectorToken> response = nextTextComponent(
-                formatterName.setValueText(text), // selector
-                context
+            formatterName.setValueText(text), // selector
+            context
         );
 
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                SpreadsheetParserSelectorToken.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            SpreadsheetParserSelectorToken.class.getSimpleName()
         ).setBodyText(
-                response.map(r -> context.marshall(r).toString())
-                        .orElse("")
+            response.map(r -> context.marshall(r).toString())
+                .orElse("")
         ).setContentLength();
     }
 
     private Optional<SpreadsheetParserSelectorToken> nextTextComponent(final SpreadsheetParserSelector selector,
                                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         return context.spreadsheetParserNextToken(
-                selector
+            selector
         );
     }
 

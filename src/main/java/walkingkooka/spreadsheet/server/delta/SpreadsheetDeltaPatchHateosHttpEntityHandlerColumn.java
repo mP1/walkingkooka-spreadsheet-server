@@ -40,13 +40,13 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
 
     static SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn with(final SpreadsheetEngine engine) {
         return new SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn(
-                engine
+            engine
         );
     }
 
     private SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn(final SpreadsheetEngine engine) {
         super(
-                engine
+            engine
         );
     }
 
@@ -75,10 +75,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
 
         for (final SpreadsheetColumnReference column : range) {
             loaded.addAll(
-                    engine.loadColumn(
-                            column,
-                            context
-                    ).columns()
+                engine.loadColumn(
+                    column,
+                    context
+                ).columns()
             );
         }
 
@@ -92,14 +92,14 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
                            final Map<HttpRequestAttribute<?>, Object> parameters,
                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta patched = loaded.patchColumns(
-                patch,
-                context
+            patch,
+            context
         );
 
         final SpreadsheetViewportWindows window = window(
-                parameters,
-                patched,
-                context
+            parameters,
+            patched,
+            context
         );
 
         // load all the cells for any unhidden columns....
@@ -117,10 +117,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
                 if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
                     // column was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                            this.loadCells(
-                                    window.cellRanges(),
-                                    context
-                            )
+                        this.loadCells(
+                            window.cellRanges(),
+                            context
+                        )
                     );
                 }
             }
@@ -139,10 +139,10 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
 
         for (final SpreadsheetColumn column : patched.columns()) {
             cells.addAll(
-                    engine.saveColumn(
-                            column,
-                            context
-                    ).cells()
+                engine.saveColumn(
+                    column,
+                    context
+                ).cells()
             );
         }
 

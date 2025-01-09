@@ -47,28 +47,28 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
         store.save(mapping);
 
         this.handleOneAndCheck(
-                labelName,
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(store),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY.setLabels(
-                                Sets.of(mapping)
-                        )
+            labelName,
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(store),
+            Optional.of(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(mapping)
                 )
+            )
         );
     }
 
     @Test
     public void testHandleOneLoadUnknownSpreadsheetLabel() {
         this.handleOneAndCheck(
-                this.id(),
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                this.context(SpreadsheetLabelStores.treeMap()),
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                )
+            this.id(),
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(SpreadsheetLabelStores.treeMap()),
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+            )
         );
     }
 
@@ -85,11 +85,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
             public SpreadsheetDelta loadLabel(final SpreadsheetLabelName name,
                                               final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY.setLabels(
-                        context.storeRepository()
-                                .labels()
-                                .load(name)
-                                .map(Sets::of)
-                                .orElse(Sets.empty())
+                    context.storeRepository()
+                        .labels()
+                        .load(name)
+                        .map(Sets::of)
+                        .orElse(Sets.empty())
                 );
             }
         };

@@ -32,10 +32,10 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.util.BiFunctionTesting;
 
 public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessorTest implements BiFunctionTesting<SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor,
-        JsonNode,
-        Class<?>,
-        JsonNode>,
-        SpreadsheetMetadataTesting {
+    JsonNode,
+    Class<?>,
+    JsonNode>,
+    SpreadsheetMetadataTesting {
 
     private final static SpreadsheetLabelName LABEL1 = SpreadsheetExpressionReference.labelName("Label123");
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");
@@ -43,150 +43,150 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
     private final static SpreadsheetCellReference CELL1 = SpreadsheetExpressionReference.parseCell("B2");
     private final static SpreadsheetCellReference CELL2 = SpreadsheetExpressionReference.parseCell("C3");
     private static final SpreadsheetFormula FORMULA1 = SpreadsheetFormula.EMPTY
-            .setText("=1+2+3");
+        .setText("=1+2+3");
     private static final SpreadsheetFormula FORMULA2 = SpreadsheetFormula.EMPTY
-            .setText("=4+5");
+        .setText("=4+5");
 
     @Test
     public void testEmpty() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
+            SpreadsheetDelta.EMPTY
         );
     }
 
     @Test
     public void testOnlyLabels() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setLabels(Sets.of(LABEL1.mapping(CELL1), LABEL2.mapping(CELL2)))
+            SpreadsheetDelta.EMPTY
+                .setLabels(Sets.of(LABEL1.mapping(CELL1), LABEL2.mapping(CELL2)))
         );
     }
 
     @Test
     public void testOnlyDeletedCells() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setDeletedCells(Sets.of(CELL1, CELL2))
+            SpreadsheetDelta.EMPTY
+                .setDeletedCells(Sets.of(CELL1, CELL2))
         );
     }
 
     @Test
     public void testOnlyColumnWidths() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setColumnWidths(Maps.of(SpreadsheetExpressionReference.parseColumn("Z"), 99.0))
+            SpreadsheetDelta.EMPTY
+                .setColumnWidths(Maps.of(SpreadsheetExpressionReference.parseColumn("Z"), 99.0))
         );
     }
 
     @Test
     public void testOnlyRowHeights() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setRowHeights(Maps.of(SpreadsheetExpressionReference.parseRow("99"), 98.0))
+            SpreadsheetDelta.EMPTY
+                .setRowHeights(Maps.of(SpreadsheetExpressionReference.parseRow("99"), 98.0))
         );
     }
 
     @Test
     public void testCellsWithOnlyCellReferences() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        CELL1.setFormula(FORMULA1)
-                                )
-                        )
+            SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        CELL1.setFormula(FORMULA1)
+                    )
+                )
         );
     }
 
     @Test
     public void testCellsWithOnlyCellReferences2() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        CELL1.setFormula(FORMULA1),
-                                        CELL2.setFormula(FORMULA2)
-                                )
-                        )
+            SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        CELL1.setFormula(FORMULA1),
+                        CELL2.setFormula(FORMULA2)
+                    )
+                )
         );
     }
 
     @Test
     public void testCellsWithFormulaIncludingLabel() {
         this.applyAndCheck2(
-                SpreadsheetDelta.EMPTY
-                        .setCells(
-                                Sets.of(
-                                        CELL1.setFormula(
-                                                SpreadsheetFormula.EMPTY
-                                                        .setText("=1+" + LABEL1)
-                                        )
-                                )
+            SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        CELL1.setFormula(
+                            SpreadsheetFormula.EMPTY
+                                .setText("=1+" + LABEL1)
                         )
+                    )
+                )
         );
     }
 
     @Test
     public void testCellsWithLabel() {
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(
-                                CELL1.setFormula(FORMULA1)
-                        )
-                );
+            .setCells(
+                Sets.of(
+                    CELL1.setFormula(FORMULA1)
+                )
+            );
         this.applyAndCheck2(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
-                expected
+            JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
+            expected
         );
     }
 
     @Test
     public void testTwoCellsWithEachWithLabel() {
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(
-                                CELL1.setFormula(FORMULA1),
-                                CELL2.setFormula(FORMULA2)
-                        )
-                );
+            .setCells(
+                Sets.of(
+                    CELL1.setFormula(FORMULA1),
+                    CELL2.setFormula(FORMULA2)
+                )
+            );
         this.applyAndCheck2(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
-                        .toString()
-                        .replace(CELL1.toString(), LABEL1.toString())
-                        .replace(CELL2.toString(), LABEL2.toString())
-                ,
-                expected
+            JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
+                .toString()
+                .replace(CELL1.toString(), LABEL1.toString())
+                .replace(CELL2.toString(), LABEL2.toString())
+            ,
+            expected
         );
     }
 
     @Test
     public void testCellsWithLabelAndAnotherCellWithReference() {
         final SpreadsheetDelta expected = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(
-                                CELL1.setFormula(FORMULA1),
-                                CELL2.setFormula(FORMULA2)
-                        )
-                );
+            .setCells(
+                Sets.of(
+                    CELL1.setFormula(FORMULA1),
+                    CELL2.setFormula(FORMULA2)
+                )
+            );
         this.applyAndCheck2(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
-                expected
+            JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString().replace(CELL1.toString(), LABEL1.toString()),
+            expected
         );
     }
 
     private void applyAndCheck2(final SpreadsheetDelta expected) {
         this.applyAndCheck2(
-                JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString(),
-                expected
+            JSON_NODE_MARSHALL_CONTEXT.marshall(expected).toString(),
+            expected
         );
     }
 
     private void applyAndCheck2(final String json,
                                 final SpreadsheetDelta expected) {
         this.applyAndCheck(
-                JsonNode.parse(json),
-                SpreadsheetDelta.class,
-                JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
+            JsonNode.parse(json),
+            SpreadsheetDelta.class,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(expected)
         );
     }
 

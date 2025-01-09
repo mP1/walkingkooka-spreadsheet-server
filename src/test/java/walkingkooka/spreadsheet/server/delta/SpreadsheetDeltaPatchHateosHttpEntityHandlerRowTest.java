@@ -40,8 +40,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<SpreadsheetDeltaPatchHateosHttpEntityHandlerRow,
-        SpreadsheetRowReference,
-        SpreadsheetRowRangeReference> {
+    SpreadsheetRowReference,
+    SpreadsheetRowRangeReference> {
     final static SpreadsheetRowReference ROW = SpreadsheetSelection.parseRow("2");
 
     final static SpreadsheetRowReference ROW2 = SpreadsheetSelection.parseRow("3");
@@ -55,252 +55,252 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
     @Test
     public void testHandleOneWithPatchRowOutsideFails() {
         final IllegalArgumentException thrown = this.handleOneFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE
+                )
+            ),
+            ROW,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setRows(
+                        Sets.of(
+                            SpreadsheetSelection.parseRow("99")
+                                .row()
                         )
-                ),
-                ROW,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setRows(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseRow("99")
-                                                        .row()
-                                        )
-                                )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Patch row(s): " + ROW + " includes invalid row 99",
-                thrown.getMessage()
+            "Patch row(s): " + ROW + " includes invalid row 99",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleOne() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                ROW,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                ) // expected loadedCells + savedRows
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithQueryStringViewport() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
                         )
-                ),
-                ROW,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
-                ) // expected loadedCells + savedRows
+                    ).setWindow(WINDOWS)
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithRowInsideQueryStringWindow() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
                         )
-                ),
-                ROW,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.parse(CELL.toString())
-                                )
-                ) // expected loadedCells + savedRows
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse(CELL.toString())
+                    )
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleOneWithRowOutsideQueryStringWindow() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                ROW,
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
-                        )
-                ) // expected loadedCells + savedRows
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW,
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
+                )
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
@@ -309,276 +309,276 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
     @Test
     public void testHandleRangeWithPatchRowOutsideFails() {
         final IllegalArgumentException thrown = this.handleRangeFails(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY
+                    .setRows(
+                        Sets.of(
+                            SpreadsheetSelection.parseRow("99")
+                                .row()
                         )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY
-                                .setRows(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseRow("99")
-                                                        .row()
-                                        )
-                                )
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+                    )
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
 
         this.checkEquals(
-                "Patch row(s): " + ROW_RANGE + " includes invalid row 99",
-                thrown.getMessage()
+            "Patch row(s): " + ROW_RANGE + " includes invalid row 99",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testHandleRange() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false),
-                ROW2.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false),
+            ROW2.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true),
-                ROW2.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true),
+            ROW2.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY),
-                CELL2.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY),
+            CELL2.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                ) // expected loadedCells + savedRows
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithQueryStringViewport() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            CELL.viewportRectangle(
+                                    WIDTH,
+                                    HEIGHT
+                                ).viewport()
+                                .setAnchoredSelection(
+                                    Optional.of(
+                                        CELL.setDefaultAnchor()
+                                    )
+                                )
                         )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                CELL.viewportRectangle(
-                                                                WIDTH,
-                                                                HEIGHT
-                                                        ).viewport()
-                                                        .setAnchoredSelection(
-                                                                Optional.of(
-                                                                        CELL.setDefaultAnchor()
-                                                                )
-                                                        )
-                                        )
-                                ).setWindow(WINDOWS)
-                ) // expected loadedCells + savedRows
+                    ).setWindow(WINDOWS)
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithRowInsideQueryStringWindow() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+                    .setCells(cells)
+                    .setViewport(
+                        Optional.of(
+                            SpreadsheetSelection.A1.viewportRectangle(
+                                WIDTH,
+                                HEIGHT
+                            ).viewport()
                         )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                                .setCells(cells)
-                                .setViewport(
-                                        Optional.of(
-                                                SpreadsheetSelection.A1.viewportRectangle(
-                                                        WIDTH,
-                                                        HEIGHT
-                                                ).viewport()
-                                        )
-                                ).setWindow(
-                                        SpreadsheetViewportWindows.parse(CELL.toString())
-                                )
-                ) // expected loadedCells + savedRows
+                    ).setWindow(
+                        SpreadsheetViewportWindows.parse(CELL.toString())
+                    )
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithRowOutsideQueryStringWindow() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false)
         );
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true)
+            ROW.row()
+                .setHidden(true)
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                CELL.setFormula(SpreadsheetFormula.EMPTY)
+            CELL.setFormula(SpreadsheetFormula.EMPTY)
         );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
-                        )
-                ) // expected loadedCells + savedRows
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(OUTSIDE_WINDOW)
+                )
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
     @Test
     public void testHandleRangeWithRowInsideAndOutsideQueryStringWindow() {
         final Set<SpreadsheetRow> loadedRows = Sets.of(
-                ROW.row()
-                        .setHidden(false),
-                ROW2.row()
-                        .setHidden(false)
+            ROW.row()
+                .setHidden(false),
+            ROW2.row()
+                .setHidden(false)
         );
 
         final SpreadsheetRow row2 = ROW2.row()
-                .setHidden(true);
+            .setHidden(true);
 
         final Set<SpreadsheetRow> savedRows = Sets.of(
-                ROW.row()
-                        .setHidden(true),
-                row2
+            ROW.row()
+                .setHidden(true),
+            row2
         );
 
         final Set<SpreadsheetRow> storeSaved = Sets.ordered();
@@ -587,52 +587,52 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
         final SpreadsheetCell cell2 = CELL.setFormula(SpreadsheetFormula.EMPTY.setText("inside window"));
 
         final Set<SpreadsheetCell> cells = Sets.of(
-                cell,
-                cell2
+            cell,
+            cell2
         );
 
         final String outsideWindow = "C3:Z99";
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        this.spreadsheetEngine(
-                                ROW_RANGE,
-                                loadedRows,
-                                cells,
-                                (c) -> storeSaved.add(c)
-                        )
-                ),
-                ROW_RANGE.range(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
-                ).setAccept(
-                        CONTENT_TYPE.accept()
-                ),
-                this.parameters(
-                        "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
-                ),
-                this.context(),
-                this.httpEntity(
-                        SpreadsheetDelta.EMPTY.setCells(
-                                Sets.of(cell2)
-                        ).setRows(
-                                Sets.of(row2)
-                        ).setViewport(
-                                Optional.of(
-                                        SpreadsheetSelection.A1.viewportRectangle(
-                                                WIDTH,
-                                                HEIGHT
-                                        ).viewport()
-                                )
-                        ).setWindow(
-                                SpreadsheetViewportWindows.parse(outsideWindow)
-                        )
-                ) // expected loadedCells + savedRows
+            this.createHandler(
+                this.spreadsheetEngine(
+                    ROW_RANGE,
+                    loadedRows,
+                    cells,
+                    (c) -> storeSaved.add(c)
+                )
+            ),
+            ROW_RANGE.range(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setRows(savedRows) // save = patch
+            ).setAccept(
+                CONTENT_TYPE.accept()
+            ),
+            this.parameters(
+                "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
+            ),
+            this.context(),
+            this.httpEntity(
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(cell2)
+                ).setRows(
+                    Sets.of(row2)
+                ).setViewport(
+                    Optional.of(
+                        SpreadsheetSelection.A1.viewportRectangle(
+                            WIDTH,
+                            HEIGHT
+                        ).viewport()
+                    )
+                ).setWindow(
+                    SpreadsheetViewportWindows.parse(outsideWindow)
+                )
+            ) // expected loadedCells + savedRows
         );
 
         this.checkEquals(
-                savedRows,
-                storeSaved
+            savedRows,
+            storeSaved
         );
     }
 
@@ -640,12 +640,12 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
 
     private SpreadsheetEngine spreadsheetEngine(final SpreadsheetRowRangeReference range) {
         return this.spreadsheetEngine(
-                range,
-                Sets.empty(),
-                Sets.empty(),
-                (row) -> {
-                    throw new UnsupportedOperationException("Unexpected save row " + row);
-                }
+            range,
+            Sets.empty(),
+            Sets.empty(),
+            (row) -> {
+                throw new UnsupportedOperationException("Unexpected save row " + row);
+            }
         );
     }
 
@@ -661,15 +661,15 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 checkRow(row);
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(
-                                loadedCells.stream()
-                                        .filter(cell -> cell.reference().testRow(row))
-                                        .collect(Collectors.toSet())
-                        ).setRows(
-                                loadedRows.stream()
-                                        .filter(c -> c.reference().testRow(row))
-                                        .collect(Collectors.toSet())
-                        );
+                    .setCells(
+                        loadedCells.stream()
+                            .filter(cell -> cell.reference().testRow(row))
+                            .collect(Collectors.toSet())
+                    ).setRows(
+                        loadedRows.stream()
+                            .filter(c -> c.reference().testRow(row))
+                            .collect(Collectors.toSet())
+                    );
             }
 
             @Override
@@ -679,13 +679,13 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
                 savedRows.accept(row);
 
                 return SpreadsheetDelta.EMPTY
-                        .setCells(
-                                loadedCells.stream()
-                                        .filter(cell -> cell.reference().testRow(row.reference()))
-                                        .collect(Collectors.toSet())
-                        ).setRows(
-                                Sets.of(row)
-                        );
+                    .setCells(
+                        loadedCells.stream()
+                            .filter(cell -> cell.reference().testRow(row.reference()))
+                            .collect(Collectors.toSet())
+                    ).setRows(
+                        Sets.of(row)
+                    );
             }
 
             private void checkRow(final SpreadsheetRowReference row) {
@@ -712,7 +712,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
     @Override
     SpreadsheetDeltaPatchHateosHttpEntityHandlerRow createHandler(final SpreadsheetEngine engine) {
         return SpreadsheetDeltaPatchHateosHttpEntityHandlerRow.with(
-                engine
+            engine
         );
     }
 
@@ -724,8 +724,8 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRowTest extends S
     @Override
     public Set<SpreadsheetRowReference> manyIds() {
         return Sets.of(
-                ROW,
-                ROW2
+            ROW,
+            ROW2
         );
     }
 

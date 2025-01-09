@@ -24,14 +24,14 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import java.util.Objects;
 
 final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
-        SpreadsheetFormatterProviderDelegator,
-        SpreadsheetFormatterProviderSamplesContextDelegator {
+    SpreadsheetFormatterProviderDelegator,
+    SpreadsheetFormatterProviderSamplesContextDelegator {
 
     static BasicSpreadsheetFormatterSelectorMenuContext with(final SpreadsheetFormatterProvider spreadsheetFormatterProvider,
                                                              final SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext) {
         return new BasicSpreadsheetFormatterSelectorMenuContext(
-                Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
-                Objects.requireNonNull(spreadsheetFormatterProviderSamplesContext, "spreadsheetFormatterProviderSamplesContext")
+            Objects.requireNonNull(spreadsheetFormatterProvider, "spreadsheetFormatterProvider"),
+            Objects.requireNonNull(spreadsheetFormatterProviderSamplesContext, "spreadsheetFormatterProviderSamplesContext")
         );
     }
 

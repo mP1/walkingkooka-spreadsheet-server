@@ -32,35 +32,35 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName, JarEntryInfoName>,
-        JsonNodeMarshallingTesting<JarEntryInfoName> {
+    JsonNodeMarshallingTesting<JarEntryInfoName> {
 
     @Test
     public void testWithMissingLeadingSlashFails() {
         assertThrows(
-                InvalidCharacterException.class,
-                () -> JarEntryInfoName.with(
-                        "Missing-leading-slash"
-                )
+            InvalidCharacterException.class,
+            () -> JarEntryInfoName.with(
+                "Missing-leading-slash"
+            )
         );
     }
 
     @Test
     public void testWithManifest() {
         assertSame(
-                JarEntryInfoName.MANIFEST_MF,
-                JarEntryInfoName.with(
-                        JarEntryInfoName.MANIFEST_MF_STRING
-                )
+            JarEntryInfoName.MANIFEST_MF,
+            JarEntryInfoName.with(
+                JarEntryInfoName.MANIFEST_MF_STRING
+            )
         );
     }
 
     @Test
     public void testWithManifestDifferentCase() {
         assertSame(
-                JarEntryInfoName.MANIFEST_MF,
-                JarEntryInfoName.with(
-                        "/meta-inf/Manifest.MF"
-                )
+            JarEntryInfoName.MANIFEST_MF,
+            JarEntryInfoName.with(
+                "/meta-inf/Manifest.MF"
+            )
         );
     }
 
@@ -96,24 +96,24 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
     @Test
     public void testCompareToManifestWithManifest() {
         this.compareToAndCheckEquals(
-                JarEntryInfoName.MANIFEST_MF,
-                JarEntryInfoName.MANIFEST_MF
+            JarEntryInfoName.MANIFEST_MF,
+            JarEntryInfoName.MANIFEST_MF
         );
     }
 
     @Test
     public void testCompareToManifestWithOther() {
         this.compareToAndCheckLess(
-                JarEntryInfoName.MANIFEST_MF,
-                JarEntryInfoName.with("/z")
+            JarEntryInfoName.MANIFEST_MF,
+            JarEntryInfoName.with("/z")
         );
     }
 
     @Test
     public void testCompareToOtherWithManifest() {
         this.compareToAndCheckMore(
-                JarEntryInfoName.with("/a"),
-                JarEntryInfoName.MANIFEST_MF
+            JarEntryInfoName.with("/a"),
+            JarEntryInfoName.MANIFEST_MF
         );
     }
 
@@ -123,8 +123,8 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
     public JarEntryInfoName unmarshall(final JsonNode json,
                                        final JsonNodeUnmarshallContext context) {
         return JarEntryInfoName.unmarshall(
-                json,
-                context
+            json,
+            context
         );
     }
 
@@ -138,59 +138,59 @@ final public class JarEntryInfoNameTest implements NameTesting<JarEntryInfoName,
     @Test
     public void testPluginDownloadPathExtractWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> JarEntryInfoName.pluginDownloadPathExtract(null)
+            NullPointerException.class,
+            () -> JarEntryInfoName.pluginDownloadPathExtract(null)
         );
     }
 
     @Test
     public void testPluginDownloadPathExtractWithInvalidPathFails() {
         final IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> JarEntryInfoName.pluginDownloadPathExtract(
-                        UrlPath.parse("/api/plugin/PluginName/not-download/file2.txt")
-                )
+            IllegalArgumentException.class,
+            () -> JarEntryInfoName.pluginDownloadPathExtract(
+                UrlPath.parse("/api/plugin/PluginName/not-download/file2.txt")
+            )
         );
 
         this.checkEquals(
-                "Invalid plugin download path =/api/plugin/PluginName/not-download/file2.txt",
-                thrown.getMessage()
+            "Invalid plugin download path =/api/plugin/PluginName/not-download/file2.txt",
+            thrown.getMessage()
         );
     }
 
     @Test
     public void testPluginDownloadPathExtractMissingFilename() {
         this.pluginDownloadPathExtractAndCheck(
-                UrlPath.parse("/api/plugin/PluginName123/download"),
-                Optional.empty()
+            UrlPath.parse("/api/plugin/PluginName123/download"),
+            Optional.empty()
         );
     }
 
     @Test
     public void testPluginDownloadPathExtractWithFilename() {
         this.pluginDownloadPathExtractAndCheck(
-                UrlPath.parse("/api/plugin/PluginName123/download/file123.txt"),
-                Optional.of(
-                        JarEntryInfoName.with("/file123.txt")
-                )
+            UrlPath.parse("/api/plugin/PluginName123/download/file123.txt"),
+            Optional.of(
+                JarEntryInfoName.with("/file123.txt")
+            )
         );
     }
 
     @Test
     public void testPluginDownloadPathExtractWithFilename2() {
         this.pluginDownloadPathExtractAndCheck(
-                UrlPath.parse("/api/plugin/PluginName123/download/META-INF/MANIFEST.MF"),
-                Optional.of(
-                        JarEntryInfoName.MANIFEST_MF
-                )
+            UrlPath.parse("/api/plugin/PluginName123/download/META-INF/MANIFEST.MF"),
+            Optional.of(
+                JarEntryInfoName.MANIFEST_MF
+            )
         );
     }
 
     private void pluginDownloadPathExtractAndCheck(final UrlPath path,
                                                    final Optional<JarEntryInfoName> expected) {
         this.checkEquals(
-                expected,
-                JarEntryInfoName.pluginDownloadPathExtract(path)
+            expected,
+            JarEntryInfoName.pluginDownloadPathExtract(path)
         );
     }
 

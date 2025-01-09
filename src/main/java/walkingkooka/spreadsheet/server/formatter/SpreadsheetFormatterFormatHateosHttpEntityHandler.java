@@ -44,10 +44,10 @@ import java.util.stream.Collectors;
  * A handler that accepts a request with {@link SpreadsheetFormatterFormatRequestList} and proceeds to format each value with the given formatter.
  */
 final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         SpreadsheetFormatterFormatRequestList.with(Lists.empty()); // force json registry
@@ -72,47 +72,47 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
 
         final MediaType requiredContentType = context.contentType();
         requiredContentType.requireContentType(
-                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                        .orElse(null)
+            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                .orElse(null)
         );
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // read json into SpreadsheetFormatterFormatRequestList
         final SpreadsheetFormatterFormatRequestList requests = context.unmarshall(
-                        JsonNode.parse(
-                                httpEntity.bodyText()
-                        ),
-                        SpreadsheetFormatterFormatRequestList.class
-                );
+            JsonNode.parse(
+                httpEntity.bodyText()
+            ),
+            SpreadsheetFormatterFormatRequestList.class
+        );
 
         // format all the individual requests
         final List<TextNode> response = requests.stream()
-                .map(r -> this.format(r, context))
-                .collect(Collectors.toList());
+            .map(r -> this.format(r, context))
+            .collect(Collectors.toList());
 
         // write TextNodes as JSON response
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                TextNodeList.class.getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            TextNodeList.class.getSimpleName()
         ).setBodyText(
-                context.marshall(response)
-                        .toString()
+            context.marshall(response)
+                .toString()
         ).setContentLength();
     }
 
     private TextNode format(final SpreadsheetFormatterFormatRequest<?> request,
                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
-                request.selector(),
-                context
+            request.selector(),
+            context
         );
         return context.formatValue(
-                request.value(),
-                formatter
+            request.value(),
+            formatter
         ).orElse(TextNode.EMPTY_TEXT);
     }
 

@@ -52,17 +52,17 @@ final class SpreadsheetMetadataPatchFunction implements UnaryOperator<JsonNode> 
         try {
             final SpreadsheetMetadataHateosResourceHandlerContext context = this.context;
             final SpreadsheetMetadata loadAndPatched = context.storeRepository(id)
-                    .metadatas()
-                    .loadOrFail(id);
+                .metadatas()
+                .loadOrFail(id);
             final SpreadsheetMetadata saved = context.saveMetadata(
-                    loadAndPatched
-                            .patch(
-                            json,
-                            loadAndPatched.jsonNodeUnmarshallContext()
-                            )
+                loadAndPatched
+                    .patch(
+                        json,
+                        loadAndPatched.jsonNodeUnmarshallContext()
+                    )
             );
             return saved.jsonNodeMarshallContext()
-                    .marshall(saved);
+                .marshall(saved);
         } catch (final MissingStoreException cause) {
             throw new MissingStoreException("Unable to load spreadsheet with id=" + id);
         }

@@ -35,8 +35,8 @@ import java.util.Optional;
  * Provides end points to retrieve one or more {@link Plugin}.
  */
 final class PluginHateosResourceHandlerDelete implements HateosResourceHandler<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<PluginName, Plugin, PluginSet, PluginHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -75,7 +75,7 @@ final class PluginHateosResourceHandlerDelete implements HateosResourceHandler<P
         HateosResourceHandler.checkContext(context);
 
         context.pluginStore()
-                .delete(name);
+            .delete(name);
 
         return Optional.empty();
     }
@@ -93,14 +93,14 @@ final class PluginHateosResourceHandlerDelete implements HateosResourceHandler<P
         final PluginStore store = context.pluginStore();
 
         for (final Plugin plugin : context.pluginStore()
-                .between(
-                        range.lowerBound()
-                                .value()
-                                .orElseThrow(() -> new IllegalArgumentException("Range missing begin")),
-                        range.upperBound()
-                                .value()
-                                .orElseThrow(() -> new IllegalArgumentException("Range missing end"))
-                )) {
+            .between(
+                range.lowerBound()
+                    .value()
+                    .orElseThrow(() -> new IllegalArgumentException("Range missing begin")),
+                range.upperBound()
+                    .value()
+                    .orElseThrow(() -> new IllegalArgumentException("Range missing end"))
+            )) {
             store.delete(plugin.name());
         }
 

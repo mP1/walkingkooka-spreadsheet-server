@@ -44,116 +44,116 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
     @Test
     public void testPrepareResponseViewportAbsent() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         this.prepareResponseAndCheck(
-                Optional.of(delta),
-                HateosResourceHandler.NO_PARAMETERS,
-                delta,
-                delta
+            Optional.of(delta),
+            HateosResourceHandler.NO_PARAMETERS,
+            delta,
+            delta
         );
     }
 
     @Test
     public void testPrepareResponseViewportWithoutSelectionIgnored() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1.viewportRectangle(
-                        100,
-                        30
-                ).viewport()
+            SpreadsheetSelection.A1.viewportRectangle(
+                100,
+                30
+            ).viewport()
         );
 
         this.prepareResponseAndCheck(
-                Optional.of(
-                        delta.setViewport(viewport)
-                ),
-                HateosResourceHandler.NO_PARAMETERS,
-                delta,
-                delta
+            Optional.of(
+                delta.setViewport(viewport)
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            delta,
+            delta
         );
     }
 
     @Test
     public void testPrepareResponseViewportWithSelectionIgnored() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1.viewportRectangle(
-                                100,
-                                30
-                        ).viewport()
-                        .setAnchoredSelection(
-                                Optional.of(
-                                        SpreadsheetSelection.parseCell("B2")
-                                                .setDefaultAnchor()
-                                )
-                        )
+            SpreadsheetSelection.A1.viewportRectangle(
+                    100,
+                    30
+                ).viewport()
+                .setAnchoredSelection(
+                    Optional.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setDefaultAnchor()
+                    )
+                )
         );
 
         this.prepareResponseAndCheck(
-                Optional.of(
-                        delta.setViewport(viewport)
-                ),
-                HateosResourceHandler.NO_PARAMETERS,
-                delta,
-                delta
+            Optional.of(
+                delta.setViewport(viewport)
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            delta,
+            delta
         );
     }
 
     @Test
     public void testPrepareResponseWindowParameter() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         final Optional<SpreadsheetViewport> viewport = Optional.of(
-                SpreadsheetSelection.A1.viewportRectangle(
-                                100,
-                                30
-                        ).viewport()
-                        .setAnchoredSelection(
-                                Optional.of(
-                                        SpreadsheetSelection.parseCell("B2")
-                                                .setDefaultAnchor()
-                                )
-                        )
+            SpreadsheetSelection.A1.viewportRectangle(
+                    100,
+                    30
+                ).viewport()
+                .setAnchoredSelection(
+                    Optional.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setDefaultAnchor()
+                    )
+                )
         );
 
         final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
 
         this.prepareResponseAndCheck(
-                Optional.of(
-                        delta.setViewport(viewport)
-                ),
-                Map.of(
-                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
-                ),
-                delta,
-                delta.setWindow(windows)
+            Optional.of(
+                delta.setViewport(viewport)
+            ),
+            Map.of(
+                SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
+            ),
+            delta,
+            delta.setWindow(windows)
         );
     }
 
     @Test
     public void testPrepareResponseWindowIgnoresSelectionQueryParameters() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         final SpreadsheetCellReference home = SpreadsheetSelection.parseCell("B2");
@@ -165,66 +165,66 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
         final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
 
         this.prepareResponseAndCheck(
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("Z9")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("=1+2")
-                                                        )
-                                        )
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("Z9")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY
+                                        .setText("=1+2")
                                 )
-                ),
-                Map.of(
-                        SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of(home.toString()),
-                        SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of(String.valueOf(width)),
-                        SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of(String.valueOf(height)),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of(selection.toString()),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("cell-range"),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
-                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
-                ),
-                delta,
-                delta.setWindow(windows)
+                        )
+                    )
+            ),
+            Map.of(
+                SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of(home.toString()),
+                SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of(String.valueOf(width)),
+                SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of(String.valueOf(height)),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of(selection.toString()),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("cell-range"),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of(anchor.kebabText()),
+                SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
+            ),
+            delta,
+            delta.setWindow(windows)
         );
     }
 
     @Test
     public void testPrepareResponseWindowIgnoresInvalidSelectionQueryParameters() {
         final SpreadsheetDelta delta = SpreadsheetDelta.EMPTY.setDeletedCells(
-                Sets.of(
-                        SpreadsheetSelection.A1
-                )
+            Sets.of(
+                SpreadsheetSelection.A1
+            )
         );
 
         final SpreadsheetViewportWindows windows = SpreadsheetViewportWindows.parse("A1:B2,C3:D4");
 
         this.prepareResponseAndCheck(
-                Optional.of(
-                        SpreadsheetDelta.EMPTY
-                                .setCells(
-                                        Sets.of(
-                                                SpreadsheetSelection.parseCell("Z9")
-                                                        .setFormula(
-                                                                SpreadsheetFormula.EMPTY
-                                                                        .setText("=1+2")
-                                                        )
-                                        )
+            Optional.of(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("Z9")
+                                .setFormula(
+                                    SpreadsheetFormula.EMPTY
+                                        .setText("=1+2")
                                 )
-                ),
-                Map.of(
-                        SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of("!invalidhome"),
-                        SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of("!invalid-width"),
-                        SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("!invalid height"),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of("!invalid selection"),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("!invalid selection type"),
-                        SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
-                        SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
-                ),
-                delta,
-                delta.setWindow(windows)
+                        )
+                    )
+            ),
+            Map.of(
+                SpreadsheetDeltaUrlQueryParameters.HOME, Lists.of("!invalidhome"),
+                SpreadsheetDeltaUrlQueryParameters.WIDTH, Lists.of("!invalid-width"),
+                SpreadsheetDeltaUrlQueryParameters.HEIGHT, Lists.of("!invalid height"),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION, Lists.of("!invalid selection"),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION_TYPE, Lists.of("!invalid selection type"),
+                SpreadsheetDeltaUrlQueryParameters.SELECTION_ANCHOR, Lists.of("!invalid anchor"),
+                SpreadsheetDeltaUrlQueryParameters.WINDOW, Lists.of(windows.toString())
+            ),
+            delta,
+            delta.setWindow(windows)
         );
     }
 
@@ -233,25 +233,26 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                                          final SpreadsheetDelta output,
                                          final SpreadsheetDelta expected) {
         this.prepareResponseAndCheck(
-                input,
-                parameters,
-                new FakeSpreadsheetEngineHateosResourceHandlerContext() {
-                    @Override
-                    public SpreadsheetMetadata spreadsheetMetadata() {
-                        return SpreadsheetMetadata.EMPTY;
-                    }
-                },
-                output,
-                expected
+            input,
+            parameters,
+            new FakeSpreadsheetEngineHateosResourceHandlerContext() {
+                @Override
+                public SpreadsheetMetadata spreadsheetMetadata() {
+                    return SpreadsheetMetadata.EMPTY;
+                }
+            },
+            output,
+            expected
         );
     }
+
     private void prepareResponseAndCheck(final Optional<SpreadsheetDelta> input,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
                                          final SpreadsheetEngineHateosResourceHandlerContext context,
                                          final SpreadsheetDelta output,
                                          final SpreadsheetDelta expected) {
         final SpreadsheetDelta response = new SpreadsheetDeltaHateosResourceHandler<Integer>(
-                SpreadsheetEngines.fake()
+            SpreadsheetEngines.fake()
         ) {
 
             @Override
@@ -282,16 +283,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
                 throw new UnsupportedOperationException();
             }
         }.prepareResponse(
-                input,
-                parameters,
-                context,
-                output
+            input,
+            parameters,
+            context,
+            output
         );
 
         this.checkEquals(
-                expected,
-                response,
-                () -> "input=" + input + " parameters=" + parameters
+            expected,
+            response,
+            () -> "input=" + input + " parameters=" + parameters
         );
     }
 

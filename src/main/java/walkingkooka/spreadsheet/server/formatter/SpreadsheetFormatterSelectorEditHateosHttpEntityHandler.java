@@ -39,16 +39,16 @@ import java.util.Map;
  * A handler that accepts a request with a possible {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector} and returns a {@link SpreadsheetFormatterSelectorEdit}
  */
 final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosHttpEntityHandlerHandleMany<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleNone<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleOne<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosHttpEntityHandlerHandleRange<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static {
         try {
             SpreadsheetFormatterSelectorEdit.parse(
-                    "date-format-pattern yyyy",
-                    null
+                "date-format-pattern yyyy",
+                null
             ); // force json registry
         } catch (final NullPointerException ignore) {
             // dont care just want to force json registry
@@ -77,45 +77,45 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
 
         final MediaType requiredContentType = context.contentType();
         requiredContentType.requireContentType(
-                HttpHeaderName.CONTENT_TYPE.header(httpEntity)
-                        .orElse(null)
+            HttpHeaderName.CONTENT_TYPE.header(httpEntity)
+                .orElse(null)
         );
 
         HttpHeaderName.ACCEPT.headerOrFail(httpEntity)
-                .testOrFail(requiredContentType);
+            .testOrFail(requiredContentType);
 
         // read the string from the request holding the SpreadsheetFormatterSelector
         final String selector = context.unmarshall(
-                JsonNode.parse(
-                        httpEntity.bodyText()
-                ),
-                String.class
+            JsonNode.parse(
+                httpEntity.bodyText()
+            ),
+            String.class
         );
 
         final SpreadsheetFormatterSelectorEdit response = SpreadsheetFormatterSelectorEdit.parse(
-                selector,
-                SpreadsheetFormatterSelectorEditContexts.basic(
-                        context.spreadsheetMetadata()
-                                .spreadsheetFormatterContext(
-                                        SpreadsheetLabelNameResolvers.fake(),
-                                        context, // ConverterProvider
-                                        context, // // SpreadsheetFormatterProvider
-                                        context // ProviderContext
-                                ),
-                        context, // SpreadsheetLabelNameResolver
+            selector,
+            SpreadsheetFormatterSelectorEditContexts.basic(
+                context.spreadsheetMetadata()
+                    .spreadsheetFormatterContext(
+                        SpreadsheetLabelNameResolvers.fake(),
+                        context, // ConverterProvider
+                        context, // // SpreadsheetFormatterProvider
                         context // ProviderContext
-                )
+                    ),
+                context, // SpreadsheetLabelNameResolver
+                context // ProviderContext
+            )
         );
 
         // write TextNodes as JSON response
         return HttpEntity.EMPTY.setContentType(
-                requiredContentType.setCharset(CharsetName.UTF_8)
+            requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
-                response.getClass().getSimpleName()
+            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            response.getClass().getSimpleName()
         ).setBodyText(
-                context.marshall(response)
-                        .toString()
+            context.marshall(response)
+                .toString()
         ).setContentLength();
     }
 

@@ -35,9 +35,9 @@ import java.util.Optional;
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
 final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-        UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<ConverterName, ConverterInfo, ConverterInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
 
     final static ConverterInfoHateosResourceHandler INSTANCE = new ConverterInfoHateosResourceHandler();
 
@@ -54,10 +54,10 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-                ConverterInfoSet.with(
-                        context.systemSpreadsheetProvider()
-                                .converterInfos()
-                )
+            ConverterInfoSet.with(
+                context.systemSpreadsheetProvider()
+                    .converterInfos()
+            )
         );
     }
 
@@ -72,10 +72,10 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
-                .converterInfos()
-                .stream()
-                .filter(i -> i.name().equals(name))
-                .findFirst();
+            .converterInfos()
+            .stream()
+            .filter(i -> i.name().equals(name))
+            .findFirst();
     }
 
     @Override

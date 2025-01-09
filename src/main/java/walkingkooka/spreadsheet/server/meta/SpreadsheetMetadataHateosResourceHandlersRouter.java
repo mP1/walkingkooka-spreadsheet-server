@@ -69,37 +69,37 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
         // metadata GET, POST...........................................................................................
 
         return HateosResourceMapping.router(
-                baseUrl,
-                Sets.of(
-                        HateosResourceMapping.with(
-                                        SpreadsheetMetadata.HATEOS_RESOURCE_NAME,
-                                        SpreadsheetMetadataHateosResourceHandlersRouter::parse,
-                                        SpreadsheetMetadata.class,
-                                        SpreadsheetMetadataSet.class,
-                                        SpreadsheetMetadata.class,
-                                        SpreadsheetMetadataHateosResourceHandlerContext.class
-                                )
-                                .setHateosResourceHandler(
-                                        METADATA_LINK_RELATION,
-                                        HttpMethod.DELETE,
-                                        SpreadsheetMetadataHateosResourceHandler.delete()
-                                ).setHateosResourceHandler(
-                                        METADATA_LINK_RELATION,
-                                        HttpMethod.GET,
-                                        SpreadsheetMetadataHateosResourceHandler.load()
-                                ).setHateosResourceHandler(
-                                        METADATA_LINK_RELATION,
-                                        HttpMethod.POST,
-                                        SpreadsheetMetadataHateosResourceHandler.saveOrUpdate()
-                                ).setHateosResourceHandler(
-                                        METADATA_LINK_RELATION,
-                                        HttpMethod.PATCH,
-                                        HateosResourceHandlers.fake()
-                                )
-                ),
-                indentation,
-                lineEnding,
-                context
+            baseUrl,
+            Sets.of(
+                HateosResourceMapping.with(
+                        SpreadsheetMetadata.HATEOS_RESOURCE_NAME,
+                        SpreadsheetMetadataHateosResourceHandlersRouter::parse,
+                        SpreadsheetMetadata.class,
+                        SpreadsheetMetadataSet.class,
+                        SpreadsheetMetadata.class,
+                        SpreadsheetMetadataHateosResourceHandlerContext.class
+                    )
+                    .setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.DELETE,
+                        SpreadsheetMetadataHateosResourceHandler.delete()
+                    ).setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.GET,
+                        SpreadsheetMetadataHateosResourceHandler.load()
+                    ).setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.POST,
+                        SpreadsheetMetadataHateosResourceHandler.saveOrUpdate()
+                    ).setHateosResourceHandler(
+                        METADATA_LINK_RELATION,
+                        HttpMethod.PATCH,
+                        HateosResourceHandlers.fake()
+                    )
+            ),
+            indentation,
+            lineEnding,
+            context
         );
     }
 
@@ -117,7 +117,7 @@ final class SpreadsheetMetadataHateosResourceHandlersRouter implements StaticHel
                     break;
                 default:
                     selection = HateosResourceSelection.one(
-                            SpreadsheetId.parse(text)
+                        SpreadsheetId.parse(text)
                     );
                     break;
             }

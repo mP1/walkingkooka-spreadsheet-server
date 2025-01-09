@@ -34,25 +34,25 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<SpreadsheetFormatterFormatRequestList, SpreadsheetFormatterFormatRequest<?>>,
-        ClassTesting<SpreadsheetFormatterFormatRequestList>,
-        ImmutableListTesting<SpreadsheetFormatterFormatRequestList, SpreadsheetFormatterFormatRequest<?>>,
-        JsonNodeMarshallingTesting<SpreadsheetFormatterFormatRequestList> {
+    ClassTesting<SpreadsheetFormatterFormatRequestList>,
+    ImmutableListTesting<SpreadsheetFormatterFormatRequestList, SpreadsheetFormatterFormatRequest<?>>,
+    JsonNodeMarshallingTesting<SpreadsheetFormatterFormatRequestList> {
 
     private final static SpreadsheetFormatterFormatRequest<?> REQUEST1 = SpreadsheetFormatterFormatRequest.with(
-            SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dd/mm/yyyy"),
-            LocalDate.of(1999, 12, 31)
+        SpreadsheetFormatterName.DATE_FORMAT_PATTERN.setValueText("dd/mm/yyyy"),
+        LocalDate.of(1999, 12, 31)
     );
 
     private final static SpreadsheetFormatterFormatRequest<?> REQUEST2 = SpreadsheetFormatterFormatRequest.with(
-            SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@@"),
-            "Hello"
+        SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@@"),
+        "Hello"
     );
 
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> SpreadsheetFormatterFormatRequestList.with(null)
+            NullPointerException.class,
+            () -> SpreadsheetFormatterFormatRequestList.with(null)
         );
     }
 
@@ -60,35 +60,35 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
     public void testDoesntDoubleWrap() {
         final SpreadsheetFormatterFormatRequestList list = this.createList();
         assertSame(
-                list,
-                SpreadsheetFormatterFormatRequestList.with(list)
+            list,
+            SpreadsheetFormatterFormatRequestList.with(list)
         );
     }
 
     @Test
     public void testGet() {
         this.getAndCheck(
-                this.createList(),
-                0, // index
-                REQUEST1 // expected
+            this.createList(),
+            0, // index
+            REQUEST1 // expected
         );
     }
 
     @Test
     public void testGet2() {
         this.getAndCheck(
-                this.createList(),
-                1, // index
-                REQUEST2 // expected
+            this.createList(),
+            1, // index
+            REQUEST2 // expected
         );
     }
 
     @Test
     public void testSetFails() {
         this.setFails(
-                this.createList(),
-                0, // index
-                REQUEST1 // expected
+            this.createList(),
+            0, // index
+            REQUEST1 // expected
         );
     }
 
@@ -97,8 +97,8 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
         final SpreadsheetFormatterFormatRequestList list = this.createList();
 
         this.removeIndexFails(
-                list,
-                0
+            list,
+            0
         );
     }
 
@@ -107,18 +107,18 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
         final SpreadsheetFormatterFormatRequestList list = this.createList();
 
         this.removeFails(
-                list,
-                list.get(0)
+            list,
+            list.get(0)
         );
     }
 
     @Override
     public SpreadsheetFormatterFormatRequestList createList() {
         return SpreadsheetFormatterFormatRequestList.with(
-                Lists.of(
-                        REQUEST1,
-                        REQUEST2
-                )
+            Lists.of(
+                REQUEST1,
+                REQUEST2
+            )
         );
     }
 
@@ -137,40 +137,40 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
     @Test
     public void testMarshall() {
         this.marshallAndCheck(
-                this.createList(),
-                "[\n" +
-                        "  {\n" +
-                        "    \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
-                        "    \"value\": {\n" +
-                        "      \"type\": \"local-date\",\n" +
-                        "      \"value\": \"1999-12-31\"\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  {\n" +
-                        "    \"selector\": \"text-format-pattern @@\",\n" +
-                        "    \"value\": \"Hello\"\n" +
-                        "  }\n" +
-                        "]"
+            this.createList(),
+            "[\n" +
+                "  {\n" +
+                "    \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "    \"value\": {\n" +
+                "      \"type\": \"local-date\",\n" +
+                "      \"value\": \"1999-12-31\"\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"selector\": \"text-format-pattern @@\",\n" +
+                "    \"value\": \"Hello\"\n" +
+                "  }\n" +
+                "]"
         );
     }
 
     @Test
     public void testUnmarshall() {
         this.unmarshallAndCheck(
-                "[\n" +
-                        "  {\n" +
-                        "    \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
-                        "    \"value\": {\n" +
-                        "      \"type\": \"local-date\",\n" +
-                        "      \"value\": \"1999-12-31\"\n" +
-                        "    }\n" +
-                        "  },\n" +
-                        "  {\n" +
-                        "    \"selector\": \"text-format-pattern @@\",\n" +
-                        "    \"value\": \"Hello\"\n" +
-                        "  }\n" +
-                        "]",
-                this.createList()
+            "[\n" +
+                "  {\n" +
+                "    \"selector\": \"date-format-pattern dd/mm/yyyy\",\n" +
+                "    \"value\": {\n" +
+                "      \"type\": \"local-date\",\n" +
+                "      \"value\": \"1999-12-31\"\n" +
+                "    }\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"selector\": \"text-format-pattern @@\",\n" +
+                "    \"value\": \"Hello\"\n" +
+                "  }\n" +
+                "]",
+            this.createList()
         );
     }
 
@@ -178,8 +178,8 @@ public class SpreadsheetFormatterFormatRequestListTest implements ListTesting2<S
     public SpreadsheetFormatterFormatRequestList unmarshall(final JsonNode json,
                                                             final JsonNodeUnmarshallContext context) {
         return SpreadsheetFormatterFormatRequestList.unmarshall(
-                json,
-                context
+            json,
+            context
         );
     }
 

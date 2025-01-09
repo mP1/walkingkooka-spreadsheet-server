@@ -43,163 +43,163 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     @Test
     public void testHandleAllFails() {
         this.handleAllFails(
-                this.collectionResource(),
-                this.parameters(),
-                this.context(),
-                UnsupportedOperationException.class
+            this.collectionResource(),
+            this.parameters(),
+            this.context(),
+            UnsupportedOperationException.class
         );
     }
 
     @Test
     public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
+            .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         this.handleNoneFails(
-                Optional.empty(),
-                Maps.of(
-                        HttpHeaderName.ACCEPT_LANGUAGE,
-                        AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
-                ),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            Optional.empty(),
+            Maps.of(
+                HttpHeaderName.ACCEPT_LANGUAGE,
+                AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
+            ),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return this.store;
+                }
+
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    return this.store.save(metadata);
+                }
+
+                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
                     @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return this.store;
+                    public SpreadsheetMetadata create(final EmailAddress creator,
+                                                      final Optional<Locale> locale) {
+                        return metadata.set(
+                            SpreadsheetMetadataPropertyName.CREATOR,
+                            creator
+                        ).setOrRemove(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.orElse(null)
+                        );
                     }
+                };
 
-                    @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        return this.store.save(metadata);
-                    }
-
-                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                        @Override
-                        public SpreadsheetMetadata create(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                            return metadata.set(
-                                    SpreadsheetMetadataPropertyName.CREATOR,
-                                    creator
-                            ).setOrRemove(
-                                    SpreadsheetMetadataPropertyName.LOCALE,
-                                    locale.orElse(null)
-                            );
-                        }
-                    };
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(USER);
-                    }
-                },
-                IllegalStateException.class
+                @Override
+                public Optional<EmailAddress> user() {
+                    return Optional.of(USER);
+                }
+            },
+            IllegalStateException.class
         );
     }
 
     @Test
     public void testHandleNoneCreatesMetadataWithLocale() {
         final SpreadsheetMetadata metadata =
-                SpreadsheetMetadata.EMPTY
-                        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-                        .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
+            SpreadsheetMetadata.EMPTY
+                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
+                .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         final Locale locale = Locale.CANADA_FRENCH;
 
         this.handleNoneAndCheck(
-                Optional.empty(),
-                Maps.of(
-                        HttpHeaderName.ACCEPT_LANGUAGE,
-                        AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
-                ),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            Optional.empty(),
+            Maps.of(
+                HttpHeaderName.ACCEPT_LANGUAGE,
+                AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
+            ),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return this.store;
+                }
+
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    return this.store.save(metadata);
+                }
+
+                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
                     @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return this.store;
+                    public SpreadsheetMetadata create(final EmailAddress creator,
+                                                      final Optional<Locale> locale) {
+                        return metadata.set(
+                            SpreadsheetMetadataPropertyName.CREATOR,
+                            creator
+                        ).set(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.get()
+                        );
                     }
+                };
 
-                    @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        return this.store.save(metadata);
-                    }
-
-                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                        @Override
-                        public SpreadsheetMetadata create(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                            return metadata.set(
-                                    SpreadsheetMetadataPropertyName.CREATOR,
-                                    creator
-                            ).set(
-                                    SpreadsheetMetadataPropertyName.LOCALE,
-                                    locale.get()
-                            );
-                        }
-                    };
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(USER);
-                    }
-                },
-                Optional.of(
-                        metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)
-                )
+                @Override
+                public Optional<EmailAddress> user() {
+                    return Optional.of(USER);
+                }
+            },
+            Optional.of(
+                metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+            )
         );
     }
 
     @Test
     public void testHandleNoneCreatesMetadataWithoutLocale() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-                .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
+            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
+            .set(SpreadsheetMetadataPropertyName.CREATOR, USER);
 
         this.handleNoneAndCheck(
-                Optional.empty(),
-                HateosResourceHandler.NO_PARAMETERS,
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
+                @Override
+                public SpreadsheetMetadataStore metadataStore() {
+                    return this.store;
+                }
+
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    return this.store.save(metadata);
+                }
+
+                private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
                     @Override
-                    public SpreadsheetMetadataStore metadataStore() {
-                        return this.store;
+                    public SpreadsheetMetadata create(final EmailAddress creator,
+                                                      final Optional<Locale> locale) {
+                        return metadata.set(
+                            SpreadsheetMetadataPropertyName.CREATOR,
+                            creator
+                        ).setOrRemove(
+                            SpreadsheetMetadataPropertyName.LOCALE,
+                            locale.orElse(null)
+                        );
                     }
+                };
 
-                    @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        return this.store.save(metadata);
-                    }
-
-                    private final SpreadsheetMetadataStore store = new FakeSpreadsheetMetadataStore() {
-                        @Override
-                        public SpreadsheetMetadata create(final EmailAddress creator,
-                                                          final Optional<Locale> locale) {
-                            return metadata.set(
-                                    SpreadsheetMetadataPropertyName.CREATOR,
-                                    creator
-                            ).setOrRemove(
-                                    SpreadsheetMetadataPropertyName.LOCALE,
-                                    locale.orElse(null)
-                            );
-                        }
-                    };
-
-                    @Override
-                    public Optional<EmailAddress> user() {
-                        return Optional.of(USER);
-                    }
-                },
-                Optional.of(metadata)
+                @Override
+                public Optional<EmailAddress> user() {
+                    return Optional.of(USER);
+                }
+            },
+            Optional.of(metadata)
         );
     }
 
     @Test
     public void testHandleIdWithoutMetadataResourceFails() {
         this.handleOneFails(
-                this.id(),
-                Optional.empty(),
-                this.parameters(),
-                this.context(),
-                IllegalArgumentException.class
+            this.id(),
+            Optional.empty(),
+            this.parameters(),
+            this.context(),
+            IllegalArgumentException.class
         );
     }
 
@@ -209,17 +209,17 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         final SpreadsheetMetadata metadata = this.metadata();
 
         this.handleOneAndCheck(
-                id,
-                Optional.of(metadata),
-                this.parameters(),
-                new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
+            id,
+            Optional.of(metadata),
+            this.parameters(),
+            new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
-                    @Override
-                    public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
-                        return metadata;
-                    }
-                },
-                Optional.of(metadata)
+                @Override
+                public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
+                    return metadata;
+                }
+            },
+            Optional.of(metadata)
         );
     }
 
@@ -234,7 +234,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             @Override
             public SpreadsheetMetadata saveMetadata(final SpreadsheetMetadata metadata) {
                 return SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest.this.metadata()
-                        .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
+                    .remove(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
             }
 
             @Override
@@ -249,8 +249,8 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createHandler(),
-                "create/saveMetadata"
+            this.createHandler(),
+            "create/saveMetadata"
         );
     }
 

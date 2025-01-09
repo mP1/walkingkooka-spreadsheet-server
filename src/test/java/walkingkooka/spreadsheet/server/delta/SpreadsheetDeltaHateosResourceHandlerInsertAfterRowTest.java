@@ -33,43 +33,43 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import java.util.Optional;
 
 public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest extends
-        SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertAfterRow, SpreadsheetRowReference> {
+    SpreadsheetDeltaHateosResourceHandlerInsertTestCase<SpreadsheetDeltaHateosResourceHandlerInsertAfterRow, SpreadsheetRowReference> {
 
     @Test
     public void testRow() {
         final SpreadsheetRowReference row = SpreadsheetSelection.parseRow("3");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText("=99")
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText("=99")
+            );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+            .setCells(
+                Sets.of(cell)
+            );
 
         this.handleOneAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetSelection.parseRow("4"), row, "row");
-                                checkEquals(COUNT, count, "count");
-                                return returned;
-                            }
-                        }
-                ),
-                row,
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        returned
-                )
+                    @Override
+                    public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
+                                                       final int count,
+                                                       final SpreadsheetEngineContext context) {
+                        checkEquals(SpreadsheetSelection.parseRow("4"), row, "row");
+                        checkEquals(COUNT, count, "count");
+                        return returned;
+                    }
+                }
+            ),
+            row,
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                returned
+            )
         );
     }
 
@@ -78,36 +78,36 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
         final SpreadsheetRowRangeReference range = SpreadsheetSelection.parseRowRange("3:5");
 
         final SpreadsheetCell cell = SpreadsheetSelection.parseCell("C3")
-                .setFormula(
-                        SpreadsheetFormula.EMPTY
-                                .setText("=99")
-                );
+            .setFormula(
+                SpreadsheetFormula.EMPTY
+                    .setText("=99")
+            );
         final SpreadsheetDelta returned = SpreadsheetDelta.EMPTY
-                .setCells(
-                        Sets.of(cell)
-                );
+            .setCells(
+                Sets.of(cell)
+            );
 
         this.handleRangeAndCheck(
-                this.createHandler(
-                        new FakeSpreadsheetEngine() {
+            this.createHandler(
+                new FakeSpreadsheetEngine() {
 
-                            @Override
-                            public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
-                                                               final int count,
-                                                               final SpreadsheetEngineContext context) {
-                                checkEquals(SpreadsheetSelection.parseRow("6"), row, "row");
-                                checkEquals(COUNT, count, "count");
-                                return returned;
-                            }
-                        }
-                ),
-                range.range(),
-                this.resource(),
-                this.parameters(),
-                this.context(),
-                Optional.of(
-                        returned
-                )
+                    @Override
+                    public SpreadsheetDelta insertRows(final SpreadsheetRowReference row,
+                                                       final int count,
+                                                       final SpreadsheetEngineContext context) {
+                        checkEquals(SpreadsheetSelection.parseRow("6"), row, "row");
+                        checkEquals(COUNT, count, "count");
+                        return returned;
+                    }
+                }
+            ),
+            range.range(),
+            this.resource(),
+            this.parameters(),
+            this.context(),
+            Optional.of(
+                returned
+            )
         );
     }
 
@@ -124,7 +124,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
     @Override
     public Range<SpreadsheetRowReference> range() {
         return SpreadsheetSelection.parseRowRange("2:3")
-                .range();
+            .range();
     }
 
     @Override
