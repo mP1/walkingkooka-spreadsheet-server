@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.compare.Comparators;
 import walkingkooka.naming.Name;
 import walkingkooka.net.UrlPath;
@@ -115,7 +116,7 @@ public final class JarEntryInfoName implements Name,
      * Note MIN/MAX length is not tested in the ctor, wrappers should invoke this method after calling new with their label.
      */
     public JarEntryInfoName checkLength(final String label) {
-        Name.checkLength(
+        InvalidTextLengthException.throwIfFail(
             label,
             this.value(),
             MIN_LENGTH,
