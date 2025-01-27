@@ -38,7 +38,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
-import walkingkooka.spreadsheet.formula.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.formula.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -239,21 +239,21 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             parameters,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
-                public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
                         .toString();
                     checkEquals("true()", text, "formula text");
 
-                    return SpreadsheetParserToken.functionName(
+                    return SpreadsheetFormulaParserToken.functionName(
                         SpreadsheetFunctionName.with("true"),
                         text
                     );
                 }
 
                 @Override
-                public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken token) {
                     return Optional.of(
                         Expression.value(true)
                     );
@@ -391,19 +391,19 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
                         .toString();
-                    return SpreadsheetParserToken.functionName(
+                    return SpreadsheetFormulaParserToken.functionName(
                         SpreadsheetFunctionName.with("true"),
                         text
                     );
                 }
 
                 @Override
-                public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken token) {
                     return Optional.of(
                         Expression.value(true)
                     );

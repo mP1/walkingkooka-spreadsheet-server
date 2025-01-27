@@ -38,7 +38,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
-import walkingkooka.spreadsheet.formula.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.formula.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
@@ -165,10 +165,10 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 .setText("'" + text)
                 .setToken(
                     Optional.of(
-                        SpreadsheetParserToken.text(
+                        SpreadsheetFormulaParserToken.text(
                             List.of(
-                                SpreadsheetParserToken.apostropheSymbol("'", "'"),
-                                SpreadsheetParserToken.textLiteral(text, text)
+                                SpreadsheetFormulaParserToken.apostropheSymbol("'", "'"),
+                                SpreadsheetFormulaParserToken.textLiteral(text, text)
                             ),
                             "'" + text
                         )
@@ -347,7 +347,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
-            public SpreadsheetParserToken parseFormula(final TextCursor cursor) {
+            public SpreadsheetFormulaParserToken parseFormula(final TextCursor cursor) {
                 return engineContext.parseFormula(cursor);
             }
 
@@ -370,7 +370,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public Optional<Expression> toExpression(final SpreadsheetParserToken spreadsheetParserToken) {
+            public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken spreadsheetParserToken) {
                 return engineContext.toExpression(spreadsheetParserToken);
             }
 

@@ -1390,18 +1390,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"'Hello123'\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"'\",\n" +
                 "                  \"text\": \"'\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"Hello123'\",\n" +
                 "                  \"text\": \"Hello123'\"\n" +
@@ -1445,39 +1445,39 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"2000/12/31\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"date-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"date-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"year-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"year-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 2000,\n" +
                 "                  \"text\": \"2000\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"/\",\n" +
                 "                  \"text\": \"/\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"month-number-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"month-number-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 12,\n" +
                 "                  \"text\": \"12\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"/\",\n" +
                 "                  \"text\": \"/\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"day-number-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"day-number-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 31,\n" +
                 "                  \"text\": \"31\"\n" +
@@ -1527,67 +1527,67 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"2000/12/31 12:34\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"date-time-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"date-time-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"year-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"year-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 2000,\n" +
                 "                  \"text\": \"2000\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"/\",\n" +
                 "                  \"text\": \"/\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"month-number-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"month-number-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 12,\n" +
                 "                  \"text\": \"12\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"/\",\n" +
                 "                  \"text\": \"/\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"day-number-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"day-number-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 31,\n" +
                 "                  \"text\": \"31\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"whitespace-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"whitespace-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \" \",\n" +
                 "                  \"text\": \" \"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"hour-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"hour-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 12,\n" +
                 "                  \"text\": \"12\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \":\",\n" +
                 "                  \"text\": \":\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"minute-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"minute-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 34,\n" +
                 "                  \"text\": \"34\"\n" +
@@ -1637,25 +1637,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"123.456\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"123\",\n" +
                 "                  \"text\": \"123\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \".\",\n" +
                 "                  \"text\": \".\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"456\",\n" +
                 "                  \"text\": \"456\"\n" +
@@ -1705,25 +1705,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"12:34\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"time-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"time-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"hour-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"hour-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 12,\n" +
                 "                  \"text\": \"12\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \":\",\n" +
                 "                  \"text\": \":\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"minute-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"minute-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": 34,\n" +
                 "                  \"text\": \"34\"\n" +
@@ -1773,36 +1773,36 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"double-quote-symbol-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"double-quote-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"\\\"\",\n" +
                 "                        \"text\": \"\\\"\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"Hello 123\",\n" +
                 "                        \"text\": \"Hello 123\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"double-quote-symbol-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"double-quote-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"\\\"\",\n" +
                 "                        \"text\": \"\\\"\"\n" +
@@ -1850,26 +1850,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"=1+2\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"1\",\n" +
                 "                              \"text\": \"1\"\n" +
@@ -1880,18 +1880,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"+\",\n" +
                 "                        \"text\": \"+\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"2\",\n" +
                 "                              \"text\": \"2\"\n" +
@@ -1962,36 +1962,36 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"=\\\"Hello 123\\\"\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"double-quote-symbol-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"double-quote-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"\\\"\",\n" +
                 "                        \"text\": \"\\\"\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"Hello 123\",\n" +
                 "                        \"text\": \"Hello 123\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"double-quote-symbol-spreadsheet-parser-token\",\n" +
+                "                      \"type\": \"double-quote-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"\\\"\",\n" +
                 "                        \"text\": \"\\\"\"\n" +
@@ -2058,18 +2058,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Zebra'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Zebra'\",\n" +
                     "                  \"text\": \"Zebra'\"\n" +
@@ -2128,18 +2128,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Avacado'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Avacado'\",\n" +
                     "                  \"text\": \"Avacado'\"\n" +
@@ -2188,18 +2188,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Avacado'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Avacado'\",\n" +
                     "                  \"text\": \"Avacado'\"\n" +
@@ -2224,18 +2224,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Zebra'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Zebra'\",\n" +
                     "                  \"text\": \"Zebra'\"\n" +
@@ -2403,26 +2403,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -2433,18 +2433,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -2528,26 +2528,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=4+A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"4\",\n" +
                     "                              \"text\": \"4\"\n" +
@@ -2558,25 +2558,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -2665,26 +2665,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -2695,18 +2695,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -2803,26 +2803,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=3+4\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"3\",\n" +
                     "                              \"text\": \"3\"\n" +
@@ -2833,18 +2833,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"4\",\n" +
                     "                              \"text\": \"4\"\n" +
@@ -2929,26 +2929,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=4+A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"4\",\n" +
                     "                              \"text\": \"4\"\n" +
@@ -2959,25 +2959,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -3067,40 +3067,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=expressionfunction1()\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"named-function-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"named-function-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-name-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-name-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"expressionfunction1\",\n" +
                     "                        \"text\": \"expressionfunction1\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-parameters-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-parameters-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"(\",\n" +
                     "                              \"text\": \"(\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \")\",\n" +
                     "                              \"text\": \")\"\n" +
@@ -3198,26 +3198,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -3228,18 +3228,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -3321,22 +3321,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"2\",\n" +
                     "                        \"text\": \"2\"\n" +
@@ -3410,22 +3410,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=999\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"999\",\n" +
                     "                        \"text\": \"999\"\n" +
@@ -3491,22 +3491,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=999\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"999\",\n" +
                     "                        \"text\": \"999\"\n" +
@@ -3643,18 +3643,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -3717,18 +3717,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'PatchedText123\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"PatchedText123\",\n" +
                     "                  \"text\": \"PatchedText123\"\n" +
@@ -3797,26 +3797,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -3827,18 +3827,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -3929,18 +3929,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'PATCHED\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"PATCHED\",\n" +
                     "                  \"text\": \"PATCHED\"\n" +
@@ -4004,26 +4004,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4034,18 +4034,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -4129,26 +4129,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=4+A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"4\",\n" +
                     "                              \"text\": \"4\"\n" +
@@ -4159,25 +4159,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4254,26 +4254,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1+2\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4284,18 +4284,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"2\",\n" +
                     "                              \"text\": \"2\"\n" +
@@ -4346,26 +4346,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=4+A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"4\",\n" +
                     "                              \"text\": \"4\"\n" +
@@ -4376,25 +4376,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"+\",\n" +
                     "                        \"text\": \"+\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4486,18 +4486,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4555,18 +4555,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4630,18 +4630,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4700,18 +4700,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4775,18 +4775,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4845,18 +4845,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4920,18 +4920,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -4990,18 +4990,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -5170,18 +5170,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -5246,18 +5246,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello'\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello'\",\n" +
                     "                  \"text\": \"Hello'\"\n" +
@@ -5328,40 +5328,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=ExpressionFunction1()\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"named-function-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"named-function-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-name-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-name-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"ExpressionFunction1\",\n" +
                     "                        \"text\": \"ExpressionFunction1\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-parameters-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-parameters-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"(\",\n" +
                     "                              \"text\": \"(\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \")\",\n" +
                     "                              \"text\": \")\"\n" +
@@ -5498,40 +5498,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=ExpressionFunction1()\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"named-function-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"named-function-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-name-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-name-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"ExpressionFunction1\",\n" +
                     "                        \"text\": \"ExpressionFunction1\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-parameters-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-parameters-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"(\",\n" +
                     "                              \"text\": \"(\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \")\",\n" +
                     "                              \"text\": \")\"\n" +
@@ -5675,40 +5675,40 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=ExpressionFunction1()\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"named-function-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"named-function-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-name-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-name-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"ExpressionFunction1\",\n" +
                     "                        \"text\": \"ExpressionFunction1\"\n" +
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"function-parameters-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"function-parameters-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-open-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"(\",\n" +
                     "                              \"text\": \"(\"\n" +
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-parser-token\",\n" +
+                    "                            \"type\": \"parenthesis-close-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \")\",\n" +
                     "                              \"text\": \")\"\n" +
@@ -5819,25 +5819,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -5908,25 +5908,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -6056,18 +6056,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -6169,18 +6169,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -6283,22 +6283,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=123\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"123\",\n" +
                     "                        \"text\": \"123\"\n" +
@@ -6366,22 +6366,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -6439,22 +6439,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -6530,22 +6530,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=123\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"123\",\n" +
                     "                        \"text\": \"123\"\n" +
@@ -6614,22 +6614,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -6687,22 +6687,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -6777,25 +6777,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -6849,25 +6849,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -8283,18 +8283,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -8396,18 +8396,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -8510,22 +8510,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=123\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"123\",\n" +
                     "                        \"text\": \"123\"\n" +
@@ -8594,22 +8594,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -8667,22 +8667,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -8758,22 +8758,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=123\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"123\",\n" +
                     "                        \"text\": \"123\"\n" +
@@ -8842,22 +8842,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -8915,22 +8915,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=456\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"456\",\n" +
                     "                        \"text\": \"456\"\n" +
@@ -9005,25 +9005,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -9077,25 +9077,25 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"1.25\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"1\",\n" +
                     "                  \"text\": \"1\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"decimal-separator-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"decimal-separator-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \".\",\n" +
                     "                  \"text\": \".\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"25\",\n" +
                     "                  \"text\": \"25\"\n" +
@@ -9169,18 +9169,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -9253,18 +9253,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -9339,18 +9339,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -9407,22 +9407,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9498,22 +9498,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9548,22 +9548,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9598,22 +9598,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9648,22 +9648,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9738,18 +9738,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -9834,18 +9834,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -9902,22 +9902,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"=1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"=\",\n" +
                     "                  \"text\": \"=\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"number-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": [\n" +
                     "                    {\n" +
-                    "                      \"type\": \"digits-spreadsheet-parser-token\",\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": \"1\",\n" +
                     "                        \"text\": \"1\"\n" +
@@ -9995,18 +9995,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello\",\n" +
                     "                  \"text\": \"Hello\"\n" +
@@ -10053,18 +10053,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"formula\": {\n" +
                 "        \"text\": \"'Hello\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"'\",\n" +
                 "                  \"text\": \"'\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"Hello\",\n" +
                 "                  \"text\": \"Hello\"\n" +
@@ -10185,18 +10185,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello A1\",\n" +
                     "                  \"text\": \"Hello A1\"\n" +
@@ -10382,18 +10382,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"formula\": {\n" +
                     "        \"text\": \"'Hello A1\",\n" +
                     "        \"token\": {\n" +
-                    "          \"type\": \"text-spreadsheet-parser-token\",\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
                     "          \"value\": {\n" +
                     "            \"value\": [\n" +
                     "              {\n" +
-                    "                \"type\": \"apostrophe-symbol-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"'\",\n" +
                     "                  \"text\": \"'\"\n" +
                     "                }\n" +
                     "              },\n" +
                     "              {\n" +
-                    "                \"type\": \"text-literal-spreadsheet-parser-token\",\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
                     "                \"value\": {\n" +
                     "                  \"value\": \"Hello A1\",\n" +
                     "                  \"text\": \"Hello A1\"\n" +
