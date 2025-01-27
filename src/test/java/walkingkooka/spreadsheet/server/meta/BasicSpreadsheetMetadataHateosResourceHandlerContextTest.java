@@ -291,26 +291,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "      \"formula\": {\n" +
                 "        \"text\": \"=1+2\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"1\",\n" +
                 "                              \"text\": \"1\"\n" +
@@ -321,18 +321,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"+\",\n" +
                 "                        \"text\": \"+\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"2\",\n" +
                 "                              \"text\": \"2\"\n" +
@@ -375,26 +375,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "      \"formula\": {\n" +
                 "        \"text\": \"=1+2\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"1\",\n" +
                 "                              \"text\": \"1\"\n" +
@@ -405,18 +405,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"+\",\n" +
                 "                        \"text\": \"+\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"2\",\n" +
                 "                              \"text\": \"2\"\n" +
@@ -486,26 +486,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "      \"formula\": {\n" +
                 "        \"text\": \"=1+2\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"1\",\n" +
                 "                              \"text\": \"1\"\n" +
@@ -516,18 +516,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"+\",\n" +
                 "                        \"text\": \"+\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"2\",\n" +
                 "                              \"text\": \"2\"\n" +
@@ -597,26 +597,26 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "      \"formula\": {\n" +
                 "        \"text\": \"=1+2\",\n" +
                 "        \"token\": {\n" +
-                "          \"type\": \"spreadsheet-expression-parser-token\",\n" +
+                "          \"type\": \"expression-spreadsheet-parser-token\",\n" +
                 "          \"value\": {\n" +
                 "            \"value\": [\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-equals-symbol-parser-token\",\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": \"=\",\n" +
                 "                  \"text\": \"=\"\n" +
                 "                }\n" +
                 "              },\n" +
                 "              {\n" +
-                "                \"type\": \"spreadsheet-addition-parser-token\",\n" +
+                "                \"type\": \"addition-spreadsheet-parser-token\",\n" +
                 "                \"value\": {\n" +
                 "                  \"value\": [\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"1\",\n" +
                 "                              \"text\": \"1\"\n" +
@@ -627,18 +627,18 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-plus-symbol-parser-token\",\n" +
+                "                      \"type\": \"plus-symbol-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": \"+\",\n" +
                 "                        \"text\": \"+\"\n" +
                 "                      }\n" +
                 "                    },\n" +
                 "                    {\n" +
-                "                      \"type\": \"spreadsheet-number-parser-token\",\n" +
+                "                      \"type\": \"number-spreadsheet-parser-token\",\n" +
                 "                      \"value\": {\n" +
                 "                        \"value\": [\n" +
                 "                          {\n" +
-                "                            \"type\": \"spreadsheet-digits-parser-token\",\n" +
+                "                            \"type\": \"digits-spreadsheet-parser-token\",\n" +
                 "                            \"value\": {\n" +
                 "                              \"value\": \"2\",\n" +
                 "                              \"text\": \"2\"\n" +
