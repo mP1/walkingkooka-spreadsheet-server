@@ -50,7 +50,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
-import walkingkooka.spreadsheet.formula.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.formula.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporter;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
@@ -89,12 +89,12 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
-    public SpreadsheetParserToken parseFormula(final TextCursor textCursor) {
+    public SpreadsheetFormulaParserToken parseFormula(final TextCursor textCursor) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<Expression> toExpression(final SpreadsheetParserToken spreadsheetParserToken) {
+    public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken spreadsheetParserToken) {
         throw new UnsupportedOperationException();
     }
 

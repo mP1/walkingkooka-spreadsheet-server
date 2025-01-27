@@ -35,7 +35,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.expression.SpreadsheetFunctionName;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
-import walkingkooka.spreadsheet.formula.SpreadsheetParserToken;
+import walkingkooka.spreadsheet.formula.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
@@ -169,20 +169,20 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
                         .toString();
                     checkEquals(query, text);
-                    return SpreadsheetParserToken.functionName(
+                    return SpreadsheetFormulaParserToken.functionName(
                         SpreadsheetFunctionName.with("true"),
                         text
                     );
                 }
 
                 @Override
-                public Optional<Expression> toExpression(final SpreadsheetParserToken token) {
+                public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken token) {
                     return Optional.of(
                         Expression.value(true)
                     );
