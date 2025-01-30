@@ -23,6 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellRangeReference;
@@ -111,20 +112,19 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
         final SpreadsheetCellFindQuery find = SpreadsheetCellFindQuery.extract(parameters);
 
         return Optional.ofNullable(
-            SpreadsheetDelta.EMPTY.setCells(
-                this.engine.findCells(
-                    cells, // cells
-                    find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
-                    find.offset().orElse(DEFAULT_OFFSET), // offset
-                    find.count().orElse(this.defaultCount), // count
-                    find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
-                    find.query()
-                        .map(q -> context.toExpression(
-                                q.parserToken()
-                            ).orElse(DEFAULT_QUERY)
-                        ).orElse(DEFAULT_QUERY), // query
-                    context
-                )
+            this.engine.findCells(
+                cells, // cells
+                find.path().orElse(DEFAULT_CELL_RANGE_PATH), // path
+                find.offset().orElse(DEFAULT_OFFSET), // offset
+                find.count().orElse(this.defaultCount), // count
+                find.valueType().orElse(DEFAULT_VALUE_TYPE), // valueType
+                find.query()
+                    .map(q -> context.toExpression(
+                            q.parserToken()
+                        ).orElse(DEFAULT_QUERY)
+                    ).orElse(DEFAULT_QUERY), // query
+                SpreadsheetDeltaProperties.extract(parameters),
+                context
             )
         );
     }

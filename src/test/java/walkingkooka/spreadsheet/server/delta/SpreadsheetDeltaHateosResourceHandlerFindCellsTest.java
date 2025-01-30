@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
+import walkingkooka.spreadsheet.engine.SpreadsheetDeltaProperties;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
@@ -103,13 +104,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final String v,
-                                                          final Expression e,
-                                                          final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                      final SpreadsheetCellRangeReferencePath p,
+                                                      final int o,
+                                                      final int c,
+                                                      final String v,
+                                                      final Expression e,
+                                                      final Set<SpreadsheetDeltaProperties> properties,
+                                                      final SpreadsheetEngineContext context) {
                         checkEquals(b2.toCellRange(), r, "range");
                         checkEquals(path, p, "path");
                         checkEquals(offset, o, "offset");
@@ -117,7 +119,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         checkEquals(valueType, v, "valueType");
                         checkEquals(expression, e, "expression");
 
-                        return found;
+                        return SpreadsheetDelta.EMPTY.setCells(found);
                     }
                 }
             ),
@@ -194,13 +196,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final String v,
-                                                          final Expression e,
-                                                          final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                      final SpreadsheetCellRangeReferencePath p,
+                                                      final int o,
+                                                      final int c,
+                                                      final String v,
+                                                      final Expression e,
+                                                      final Set<SpreadsheetDeltaProperties> properties,
+                                                      final SpreadsheetEngineContext context) {
                         checkEquals(range, r, "range");
                         checkEquals(path, p, "path");
                         checkEquals(offset, o, "offset");
@@ -208,7 +211,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         checkEquals(valueType, v, "valueType");
                         checkEquals(expression, e, "expression");
 
-                        return found;
+                        return SpreadsheetDelta.EMPTY.setCells(found);
                     }
                 }
             ),
@@ -285,13 +288,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final String v,
-                                                          final Expression e,
-                                                          final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                      final SpreadsheetCellRangeReferencePath p,
+                                                      final int o,
+                                                      final int c,
+                                                      final String v,
+                                                      final Expression e,
+                                                      final Set<SpreadsheetDeltaProperties> properties,
+                                                      final SpreadsheetEngineContext context) {
                         checkEquals(range, r, "range");
                         checkEquals(path, p, "path");
                         checkEquals(offset, o, "offset");
@@ -299,7 +303,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         checkEquals(valueType, v, "valueType");
                         checkEquals(expression, e, "expression");
 
-                        return found;
+                        return SpreadsheetDelta.EMPTY.setCells(found);
                     }
                 }
             ),
@@ -392,13 +396,14 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public Set<SpreadsheetCell> findCells(final SpreadsheetCellRangeReference r,
-                                                          final SpreadsheetCellRangeReferencePath p,
-                                                          final int o,
-                                                          final int c,
-                                                          final String v,
-                                                          final Expression e,
-                                                          final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCells(final SpreadsheetCellRangeReference r,
+                                                      final SpreadsheetCellRangeReferencePath p,
+                                                      final int o,
+                                                      final int c,
+                                                      final String v,
+                                                      final Expression e,
+                                                      final Set<SpreadsheetDeltaProperties> properties,
+                                                      final SpreadsheetEngineContext context) {
                         checkEquals(range, r, "range");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_CELL_RANGE_PATH, p, "path");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_OFFSET, o, "offset");
@@ -406,7 +411,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_VALUE_TYPE, v, "valueType");
                         checkEquals(SpreadsheetDeltaHateosResourceHandlerFindCells.DEFAULT_QUERY, e, "expression");
 
-                        return found;
+                        return SpreadsheetDelta.EMPTY.setCells(found);
                     }
                 }
             ),
