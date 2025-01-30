@@ -169,12 +169,12 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 SpreadsheetSelection reference = context.resolveIfLabel(
                     SpreadsheetSelection.parseExpressionReference(cellOrLabel)
                 );
-                if (reference.isCellReference()) {
+                if (reference.isCell()) {
                     result = HateosResourceSelection.one(
                         reference.toCell()
                     );
                 } else {
-                    if (reference.isCellRangeReference()) {
+                    if (reference.isCellRange()) {
                         result = HateosResourceSelection.range(
                             reference.toCellRange()
                                 .range()
