@@ -658,7 +658,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             ), // request
             HttpStatusCode.BAD_REQUEST.status()
                 .setMessage("Multipart, content-type missing boundary"),
-            ""
+            "java.lang.IllegalArgumentException: Multipart, content-type missing boundary"
         );
     }
 
@@ -780,7 +780,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.BAD_REQUEST.setMessage("Invalid character '!' at 0 in \"!invalid-plugin-name\""),
-            ""
+            "walkingkooka.InvalidCharacterException: Invalid character '!' at 0 in \"!invalid-plugin-name\""
         );
     }
 
@@ -1249,7 +1249,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             "",
             HttpStatusCode.BAD_REQUEST.setMessage("Invalid id \"XYZ\""),
-            ""
+            "java.lang.IllegalArgumentException: Invalid id \"XYZ\""
         );
     }
 
@@ -2321,7 +2321,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 )
                 .toString(),
             HttpStatusCode.NOT_FOUND.setMessage("Unable to load spreadsheet with id=1"),
-            ""
+            "walkingkooka.store.MissingStoreException: Unable to load spreadsheet with id=1"
         );
     }
 
@@ -3167,7 +3167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "}",
             HttpStatusCode.BAD_REQUEST
                 .setMessage("Invalid character '!' at 0 in \"!\""),
-            ""
+            "Invalid character '!' at 0 in \"!\""
         );
     }
 
@@ -10773,12 +10773,27 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             final HttpResponse response = this.handle(request);
             checkEquals(status, response.status().orElse(null), "status");
 
-            final String body = response.entity().bodyText();
-            checkEquals(
-                true,
-                body.contains(bodyTextContains),
-                () -> "" + request + "\n" + response
-            );
+            final String body = response.entity()
+                .bodyText();
+            if (body.isEmpty()) {
+                checkEquals(
+                    bodyTextContains,
+                    body,
+                    () -> "REQUEST\n" + request + "\nRESPONE\n" + response
+                );
+            } else {
+                checkNotEquals(
+                    "",
+                    bodyTextContains,
+                    "bodyTextContains must not be empty"
+                );
+
+                checkEquals(
+                    true,
+                    body.contains(bodyTextContains),
+                    () -> "REQUEST\n" + request + "\nRESPONE\n" + response
+                );
+            }
         }
 
         void handleAndCheck(final HttpMethod method,
