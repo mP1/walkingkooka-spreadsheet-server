@@ -10085,7 +10085,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "        \"value\": \"Text Hello\"\n" +
                 "      }\n" +
                 "    }\n" +
-                "  }\n" +
+                "  },\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 50\n" +
+                "  },\n" +
+                "  \"columnCount\": 2,\n" +
+                "  \"rowCount\": 2\n" +
                 "}"
         );
     }
