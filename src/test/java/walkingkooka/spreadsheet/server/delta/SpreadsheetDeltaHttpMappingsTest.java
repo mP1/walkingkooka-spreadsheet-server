@@ -607,7 +607,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
                 return this.storeRepository()
                     .labels()
-                    .cellOrRangeOrFail(spreadsheetLabelName)
+                    .resolveLabelOrFail(spreadsheetLabelName)
                     .toCell();
             }
         };

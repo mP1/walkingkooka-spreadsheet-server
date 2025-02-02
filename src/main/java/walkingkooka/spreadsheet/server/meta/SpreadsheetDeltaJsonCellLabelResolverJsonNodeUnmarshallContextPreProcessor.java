@@ -51,7 +51,7 @@ final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPrePro
     private JsonObject handleSpreadsheetDelta(final JsonObject object) {
         return SpreadsheetDelta.resolveCellLabels(
             object,
-            (e) -> this.store.cellOrRangeOrFail(e)
+            (e) -> this.store.resolveLabelOrFail(e)
                 .toCell()
         );
     }

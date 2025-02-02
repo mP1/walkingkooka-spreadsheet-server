@@ -61,7 +61,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCell extends Spreadsheet
             delta.objectOrFail(),
             (e) -> context.storeRepository()
                 .labels()
-                .cellOrRangeOrFail(e)
+                .resolveLabelOrFail(e)
                 .toCell()
         );
     }
