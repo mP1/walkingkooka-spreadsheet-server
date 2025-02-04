@@ -50,7 +50,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
-import walkingkooka.spreadsheet.formula.SpreadsheetFormulaParserToken;
+import walkingkooka.spreadsheet.formula.parser.SpreadsheetFormulaParserToken;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporter;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterInfoSet;
 import walkingkooka.spreadsheet.importer.SpreadsheetImporterName;
