@@ -2576,7 +2576,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -2977,7 +2977,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4177,7 +4177,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
@@ -4394,7 +4394,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                            }\n" +
                     "                          },\n" +
                     "                          {\n" +
-                    "                            \"type\": \"row-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"1\",\n" +
                     "                              \"text\": \"1\"\n" +
