@@ -2565,7 +2565,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
@@ -2966,7 +2966,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
@@ -4166,7 +4166,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
@@ -4383,7 +4383,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      }\n" +
                     "                    },\n" +
                     "                    {\n" +
-                    "                      \"type\": \"cell-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
