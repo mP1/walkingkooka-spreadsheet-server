@@ -2569,7 +2569,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
@@ -2970,7 +2970,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
@@ -4170,7 +4170,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
@@ -4387,7 +4387,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "                      \"value\": {\n" +
                     "                        \"value\": [\n" +
                     "                          {\n" +
-                    "                            \"type\": \"column-reference-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
                     "                            \"value\": {\n" +
                     "                              \"value\": \"A\",\n" +
                     "                              \"text\": \"A\"\n" +
