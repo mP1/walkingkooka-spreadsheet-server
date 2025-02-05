@@ -165,7 +165,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.GET,
             "/cell/UnknownLabel123",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: UnknownLabel123"
+            "Label not found: \"UnknownLabel123\""
         );
     }
 
@@ -224,7 +224,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.POST,
             "/cell/UnknownLabel456",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: UnknownLabel456"
+            "Label not found: \"UnknownLabel456\""
         );
     }
 
@@ -257,7 +257,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.DELETE,
             "/cell/UnknownLabel789",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: UnknownLabel789"
+            "Label not found: \"UnknownLabel789\""
         );
     }
 
