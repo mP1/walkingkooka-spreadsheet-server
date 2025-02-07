@@ -117,7 +117,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumn extends Spreadshe
                 if (!afterColumn.isPresent() || !afterColumn.get().hidden()) {
                     // column was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                        this.loadCells(
+                        this.loadMultipleCellRanges(
                             window.cellRanges(),
                             context
                         )

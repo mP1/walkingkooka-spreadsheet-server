@@ -117,7 +117,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                 if (!afterRow.isPresent() || !afterRow.get().hidden()) {
                     // row was hidden now shown, load all the cells within that window.
                     unhidden.addAll(
-                        this.loadCells(
+                        this.loadMultipleCellRanges(
                             window.cellRanges(),
                             context
                         )

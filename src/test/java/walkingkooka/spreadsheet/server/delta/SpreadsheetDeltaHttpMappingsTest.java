@@ -439,10 +439,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         return new FakeSpreadsheetEngine() {
 
             @Override
-            public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                              final SpreadsheetEngineEvaluation evaluation,
-                                              final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                              final SpreadsheetEngineContext context) {
+            public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> range,
+                                                           final SpreadsheetEngineEvaluation evaluation,
+                                                           final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                           final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY;
             }
 
