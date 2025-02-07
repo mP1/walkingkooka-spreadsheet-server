@@ -231,7 +231,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                 resource,
                 parameters,
                 context,
-                this.loadCells(
+                this.loadMultipleCellRanges(
                     window,
                     SpreadsheetDeltaProperties.extract(parameters),
                     context
@@ -240,10 +240,10 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
         );
     }
 
-    private SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> cells,
-                                       final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return this.engine.loadCells(
+    private SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> cells,
+                                                    final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
+        return this.engine.loadMultipleCellRanges(
             cells,
             this.evaluation,
             deltaProperties,

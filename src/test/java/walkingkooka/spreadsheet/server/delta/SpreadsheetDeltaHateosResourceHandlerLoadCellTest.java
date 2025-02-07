@@ -281,10 +281,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
 
                 @Override
-                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                  final SpreadsheetEngineEvaluation evaluation,
-                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                  final SpreadsheetEngineContext context) {
+                public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> range,
+                                                               final SpreadsheetEngineEvaluation evaluation,
+                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                               final SpreadsheetEngineContext context) {
                     assertSame(EVALUATION, evaluation, "evaluation");
                     assertNotNull(context, "context");
 
@@ -334,10 +334,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
 
 
                 @Override
-                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                  final SpreadsheetEngineEvaluation evaluation,
-                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                  final SpreadsheetEngineContext context) {
+                public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> range,
+                                                               final SpreadsheetEngineEvaluation evaluation,
+                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                               final SpreadsheetEngineContext context) {
                     assertSame(EVALUATION, evaluation, "evaluation");
                     assertNotNull(context, "context");
 
@@ -443,16 +443,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             new FakeSpreadsheetEngine() {
 
                 @Override
-                public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> range,
-                                                  final SpreadsheetEngineEvaluation evaluation,
-                                                  final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                  final SpreadsheetEngineContext context) {
+                public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> range,
+                                                               final SpreadsheetEngineEvaluation evaluation,
+                                                               final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                               final SpreadsheetEngineContext context) {
                     assertSame(EVALUATION, evaluation, "evaluation");
                     checkEquals(SpreadsheetDeltaProperties.ALL, deltaProperties, "deltaProperties");
                     assertNotNull(context, "context");
 
                     return SpreadsheetDelta.EMPTY.setCells(
-                        Sets.of(b1, b2, b3));
+                        Sets.of(b1, b2, b3)
+                    );
                 }
 
                 @Override
@@ -688,11 +689,17 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> dp,
-                                                      final SpreadsheetEngineContext context) {
-                        checkEquals(Sets.of(SpreadsheetSelection.cellRange(range)), r, "range");
+                    public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> r,
+                                                                   final SpreadsheetEngineEvaluation evaluation,
+                                                                   final Set<SpreadsheetDeltaProperties> dp,
+                                                                   final SpreadsheetEngineContext context) {
+                        checkEquals(
+                            Sets.of(
+                                SpreadsheetSelection.cellRange(range)
+                            ),
+                            r,
+                            "range"
+                        );
                         checkEquals(EVALUATION, evaluation, "evaluation");
                         checkEquals(
                             SpreadsheetDeltaProperties.parse(deltaProperties),
@@ -882,10 +889,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                      final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> r,
+                                                                   final SpreadsheetEngineEvaluation evaluation,
+                                                                   final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(EVALUATION, evaluation, "evaluation");
 
                         return SpreadsheetDelta.EMPTY;
@@ -1201,10 +1208,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta loadCells(final Set<SpreadsheetCellRangeReference> r,
-                                                      final SpreadsheetEngineEvaluation evaluation,
-                                                      final Set<SpreadsheetDeltaProperties> deltaProperties,
-                                                      final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> r,
+                                                                   final SpreadsheetEngineEvaluation evaluation,
+                                                                   final Set<SpreadsheetDeltaProperties> deltaProperties,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(EVALUATION, evaluation, "evaluation");
 
                         return SpreadsheetDelta.EMPTY;

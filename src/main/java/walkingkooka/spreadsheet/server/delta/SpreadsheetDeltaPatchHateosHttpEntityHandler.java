@@ -240,9 +240,9 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     /**
      * Used to load all the cells within an unhidden column or row.
      */
-    final Set<SpreadsheetCell> loadCells(final Set<SpreadsheetCellRangeReference> window,
-                                         final SpreadsheetEngineContext context) {
-        return this.engine.loadCells(
+    final Set<SpreadsheetCell> loadMultipleCellRanges(final Set<SpreadsheetCellRangeReference> window,
+                                                      final SpreadsheetEngineContext context) {
+        return this.engine.loadMultipleCellRanges(
             window,
             SpreadsheetEngineEvaluation.COMPUTE_IF_NECESSARY,
             CELLS,
