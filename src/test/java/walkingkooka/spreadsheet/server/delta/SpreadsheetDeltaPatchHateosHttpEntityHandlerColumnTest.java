@@ -106,7 +106,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN,
@@ -152,7 +152,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN,
@@ -213,7 +213,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN,
@@ -271,7 +271,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN,
@@ -365,7 +365,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN_RANGE.range(),
@@ -411,7 +411,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN_RANGE.range(),
@@ -472,7 +472,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN_RANGE.range(),
@@ -530,7 +530,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN_RANGE.range(),
@@ -599,7 +599,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                     COLUMN_RANGE,
                     loadedColumns,
                     cells,
-                    (c) -> storeSaved.add(c)
+                    storeSaved::add
                 )
             ),
             COLUMN_RANGE.range(),
