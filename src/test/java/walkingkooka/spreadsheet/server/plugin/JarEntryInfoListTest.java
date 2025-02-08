@@ -30,7 +30,6 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -183,7 +182,7 @@ public final class JarEntryInfoListTest implements ImmutableListTesting<JarEntry
     }
 
     @Test
-    public void testReadJarFile() throws IOException {
+    public void testReadJarFile() {
         final byte[] jar = JarFileTesting.jarFile(
             "Manifest-Version: 1.0\r\n" +
                 "Key111: Value111\r\n" +
