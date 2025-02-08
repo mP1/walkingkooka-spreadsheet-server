@@ -59,6 +59,7 @@ public final class SpreadsheetThrowableTranslatorTest implements FunctionTesting
         );
     }
 
+    @Override
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }

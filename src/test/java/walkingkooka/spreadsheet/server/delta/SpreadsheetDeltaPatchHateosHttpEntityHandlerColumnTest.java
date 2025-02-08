@@ -700,6 +700,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 return Optional.of(viewport);
             }
 
+            @Override
             public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle viewportRectangle,
                                                      final boolean includeFrozenColumnsRows,
                                                      final Optional<SpreadsheetSelection> selection,

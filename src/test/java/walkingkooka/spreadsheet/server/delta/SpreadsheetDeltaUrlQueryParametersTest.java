@@ -178,6 +178,7 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
             ),
             Optional.empty(),
             new FakeSpreadsheetEngine() {
+                @Override
                 public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle rectangle,
                                                          final boolean includeFrozenColumnsRows,
                                                          final Optional<SpreadsheetSelection> selection,
@@ -209,6 +210,7 @@ public final class SpreadsheetDeltaUrlQueryParametersTest implements PublicStati
             ),
             Optional.empty(),
             new FakeSpreadsheetEngine() {
+                @Override
                 public SpreadsheetViewportWindows window(final SpreadsheetViewportRectangle rectangle,
                                                          final boolean includeFrozenColumnsRows,
                                                          final Optional<SpreadsheetSelection> selection,
