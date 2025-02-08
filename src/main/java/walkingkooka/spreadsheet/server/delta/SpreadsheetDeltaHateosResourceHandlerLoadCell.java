@@ -44,7 +44,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#loadCells(Set, SpreadsheetEngineEvaluation, Set, SpreadsheetEngineContext)}.
+ * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#loadCells(SpreadsheetSelection, SpreadsheetEngineEvaluation, Set, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetCellReference> {
 
