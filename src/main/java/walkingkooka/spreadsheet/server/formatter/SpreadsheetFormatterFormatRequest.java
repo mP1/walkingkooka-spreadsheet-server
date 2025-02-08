@@ -36,7 +36,7 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
 
     public static <T> SpreadsheetFormatterFormatRequest<T> with(final SpreadsheetFormatterSelector selector,
                                                                 final T value) {
-        return new SpreadsheetFormatterFormatRequest(
+        return new SpreadsheetFormatterFormatRequest<>(
             Objects.requireNonNull(selector, "selector"),
             value
         );
