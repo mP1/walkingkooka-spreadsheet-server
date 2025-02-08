@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
@@ -38,7 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A handler that takes the {@link SpreadsheetFormatterName} and request body {@link String} to make a {@link SpreadsheetFormatterSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatter(SpreadsheetFormatterSelector)}.
+ * A handler that takes the {@link SpreadsheetFormatterName} and request body {@link String} to make a {@link SpreadsheetFormatterSelector} and then invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatter(SpreadsheetFormatterSelector, ProviderContext)}.
  */
 final class SpreadsheetFormatterProviderNextTokenHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosHttpEntityHandlerHandleAll<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,

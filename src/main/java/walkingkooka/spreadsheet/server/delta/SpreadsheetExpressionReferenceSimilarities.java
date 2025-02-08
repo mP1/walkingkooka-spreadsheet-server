@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Holds the results of invoking a {@link walkingkooka.spreadsheet.reference.store.SpreadsheetLabelStore#findSimilar(String, int)}.
+ * Holds the results of invoking a {@link walkingkooka.spreadsheet.store.SpreadsheetLabelStore#findSimilar(String, int)}.
  */
 public final class SpreadsheetExpressionReferenceSimilarities implements HateosResource<String> {
 

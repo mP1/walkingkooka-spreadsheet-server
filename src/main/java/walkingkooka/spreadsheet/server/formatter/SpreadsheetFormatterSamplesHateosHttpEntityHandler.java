@@ -30,6 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
@@ -39,7 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A handler that takes the {@link SpreadsheetFormatterName} and invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatterSamples(SpreadsheetFormatterName)},
+ * A handler that takes the {@link SpreadsheetFormatterName} and invokes {@link walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider#spreadsheetFormatterSamples(SpreadsheetFormatterName, SpreadsheetFormatterProviderSamplesContext)}.
  * returning the result.
  */
 final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements HateosHttpEntityHandler<SpreadsheetFormatterName, SpreadsheetEngineHateosResourceHandlerContext>,
