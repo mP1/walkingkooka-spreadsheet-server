@@ -143,7 +143,6 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -663,7 +662,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginPostMultipartUpload() throws Exception {
+    public void testPluginPostMultipartUpload() {
         final TestHttpServer server = this.startServer();
 
         final PluginName pluginName = PluginName.with("TestPlugin111");
@@ -719,7 +718,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginPostBinaryUpload() throws Exception {
+    public void testPluginPostBinaryUpload() {
         final TestHttpServer server = this.startServer();
 
         final PluginName pluginName = PluginName.with("TestPlugin111");
@@ -889,7 +888,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownloadWithAcceptAll() throws IOException {
+    public void testPluginDownloadWithAcceptAll() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -939,7 +938,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginDownloadWithAcceptBinary() throws IOException {
+    public void testPluginDownloadWithAcceptBinary() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -1010,7 +1009,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginList() throws IOException {
+    public void testPluginList() {
         final TestHttpServer server = this.startServer();
 
         final Plugin plugin = Plugin.with(
@@ -1104,7 +1103,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginFileDownload() throws IOException {
+    public void testPluginFileDownload() {
         final TestHttpServer server = this.startServer();
 
         final String fileContent = "Hello";
@@ -1157,7 +1156,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
-    public void testPluginFilter() throws IOException {
+    public void testPluginFilter() {
         final TestHttpServer server = this.startServer();
 
         final String fileContent = "Hello";
