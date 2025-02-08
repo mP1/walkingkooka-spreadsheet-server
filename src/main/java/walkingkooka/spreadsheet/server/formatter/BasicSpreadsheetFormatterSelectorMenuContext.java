@@ -43,6 +43,7 @@ final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetF
 
     // SpreadsheetFormatterProvider.....................................................................................
 
+    @Override
     public SpreadsheetFormatterProvider spreadsheetFormatterProvider() {
         return this.spreadsheetFormatterProvider;
     }
@@ -51,6 +52,7 @@ final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetF
 
     // SpreadsheetFormatterProviderSamplesContext.......................................................................
 
+    @Override
     public SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext() {
         return this.spreadsheetFormatterProviderSamplesContext;
     }

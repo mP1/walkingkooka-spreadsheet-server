@@ -259,6 +259,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     );
                 }
 
+                @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
                     return metadata;
                 }
@@ -1391,6 +1392,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 return METADATA_EN_AU;
             }
 
+            @Override
             public SpreadsheetStoreRepository storeRepository() {
                 return new FakeSpreadsheetStoreRepository() {
                     @Override

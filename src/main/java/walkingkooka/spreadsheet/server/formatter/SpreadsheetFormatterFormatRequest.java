@@ -54,6 +54,7 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
 
     private final SpreadsheetFormatterSelector selector;
 
+    @Override
     public T value() {
         return this.value;
     }
