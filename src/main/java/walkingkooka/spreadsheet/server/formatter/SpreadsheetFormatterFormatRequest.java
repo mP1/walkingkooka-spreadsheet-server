@@ -59,7 +59,7 @@ public final class SpreadsheetFormatterFormatRequest<T> implements Value<T> {
         return this.value;
     }
 
-    private T value;
+    private final T value;
 
     // Object...........................................................................................................
 

@@ -139,7 +139,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         return this.tokens;
     }
 
-    private List<SpreadsheetFormatterSelectorToken> tokens;
+    private final List<SpreadsheetFormatterSelectorToken> tokens;
 
     public Optional<SpreadsheetFormatterSelectorToken> next() {
         return this.next;

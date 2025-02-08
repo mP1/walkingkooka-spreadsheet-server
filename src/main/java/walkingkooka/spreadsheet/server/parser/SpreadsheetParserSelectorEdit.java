@@ -150,7 +150,7 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return this.tokens;
     }
 
-    private List<SpreadsheetParserSelectorToken> tokens;
+    private final List<SpreadsheetParserSelectorToken> tokens;
 
     public Optional<SpreadsheetParserSelectorToken> next() {
         return this.next;
