@@ -21,6 +21,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 /**
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
@@ -33,4 +34,12 @@ public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosRes
      * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.
      */
     SpreadsheetProvider systemSpreadsheetProvider();
+
+    // HasMissingCellNumberValue........................................................................................
+
+    @Override
+    default ExpressionNumber missingCellNumberValue() {
+        return this.spreadsheetMetadata()
+            .missingCellNumberValue();
+    }
 }
