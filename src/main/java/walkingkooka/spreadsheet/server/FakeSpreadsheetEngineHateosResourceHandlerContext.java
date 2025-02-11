@@ -30,8 +30,6 @@ import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetCellRange;
-import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparator;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorName;
@@ -82,7 +80,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
@@ -124,13 +121,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     @Override
     public SpreadsheetCell formatValueAndStyle(final SpreadsheetCell cell,
                                                final Optional<SpreadsheetFormatter> formatter) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetCellRange sortCells(final SpreadsheetCellRange cells,
-                                          final List<SpreadsheetColumnOrRowSpreadsheetComparatorNames> comparators,
-                                          final BiConsumer<SpreadsheetCell, SpreadsheetCell> movedFromTo) {
         throw new UnsupportedOperationException();
     }
 
