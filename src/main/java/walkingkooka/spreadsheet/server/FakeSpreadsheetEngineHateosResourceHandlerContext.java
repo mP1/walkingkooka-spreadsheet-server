@@ -86,17 +86,17 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     // SpreadsheetEngineContext.........................................................................................
 
     @Override
+    public SpreadsheetEngineContext spreadsheetEngineContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetFormulaParserToken parseFormula(final TextCursor textCursor) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public Optional<Expression> toExpression(final SpreadsheetFormulaParserToken spreadsheetParserToken) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetEngineContext spreadsheetEngineContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases) {
         throw new UnsupportedOperationException();
     }
 
