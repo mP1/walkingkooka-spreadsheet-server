@@ -35,6 +35,8 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -375,12 +377,8 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public Object evaluate(final Expression expression,
-                                   final Optional<SpreadsheetCell> cell) {
-                return engineContext.evaluate(
-                    expression,
-                    cell
-                );
+            public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell) {
+                return SpreadsheetExpressionEvaluationContexts.fake();
             }
 
             @Override
