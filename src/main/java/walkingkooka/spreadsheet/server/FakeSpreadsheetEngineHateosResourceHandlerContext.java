@@ -40,6 +40,7 @@ import walkingkooka.spreadsheet.export.SpreadsheetExporter;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterSelector;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
@@ -101,14 +102,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Object evaluate(final Expression expression,
-                           final Optional<SpreadsheetCell> optional) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean evaluateAsBoolean(final Expression expression,
-                                     final Optional<SpreadsheetCell> optional) {
+    public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(Optional<SpreadsheetCell> optional) {
         throw new UnsupportedOperationException();
     }
 
