@@ -272,7 +272,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetEngineContext context = SpreadsheetEngineContexts.basic(
             this.serverUrl,
             metadata,
-            engine,
             repository,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             metadata.spreadsheetProvider(spreadsheetProvider),

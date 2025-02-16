@@ -36,7 +36,6 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
-import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -48,6 +47,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoader;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -285,7 +285,6 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         final SpreadsheetEngineContext engineContext = SpreadsheetEngineContexts.basic(
             Url.parseAbsolute("https://example.com"),
             METADATA,
-            SpreadsheetDeltaHateosResourceHandlerTestCase2.this.engine(),
             new FakeSpreadsheetStoreRepository() {
                 @Override
                 public SpreadsheetCellStore cells() {
@@ -377,8 +376,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
             }
 
             @Override
-            public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell) {
-                return SpreadsheetExpressionEvaluationContexts.fake();
+            public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell,
+                                                                                                 final SpreadsheetExpressionReferenceLoader loader) {
+                return engineContext.spreadsheetExpressionEvaluationContext(
+                    cell,
+                    loader
+                );
             }
 
             @Override
