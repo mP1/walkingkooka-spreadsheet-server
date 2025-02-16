@@ -25,6 +25,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
@@ -85,6 +86,11 @@ import java.util.Set;
 public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext {
 
     // SpreadsheetEngineContext.........................................................................................
+
+    @Override
+    public AbsoluteUrl serverUrl() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public SpreadsheetEngineContext spreadsheetEngineContext(final SpreadsheetMetadataPropertyName<ExpressionFunctionAliasSet> functionAliases) {
