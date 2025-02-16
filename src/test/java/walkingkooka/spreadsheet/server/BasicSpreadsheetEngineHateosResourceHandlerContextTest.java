@@ -24,7 +24,6 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
-import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
@@ -49,7 +48,6 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     private final static SpreadsheetEngineContext SPREADSHEET_ENGINE_CONTEXT = SpreadsheetEngineContexts.basic(
         Url.parseAbsolute("https://example.com"),
         METADATA_EN_AU,
-        SpreadsheetEngines.fake(),
         new FakeSpreadsheetStoreRepository() {
             @Override
             public SpreadsheetLabelStore labels() {

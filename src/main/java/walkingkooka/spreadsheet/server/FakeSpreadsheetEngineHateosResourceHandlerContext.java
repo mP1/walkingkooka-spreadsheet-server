@@ -63,6 +63,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoader;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -108,7 +109,8 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(Optional<SpreadsheetCell> optional) {
+    public SpreadsheetExpressionEvaluationContext spreadsheetExpressionEvaluationContext(final Optional<SpreadsheetCell> cell,
+                                                                                         final SpreadsheetExpressionReferenceLoader loader) {
         throw new UnsupportedOperationException();
     }
 
