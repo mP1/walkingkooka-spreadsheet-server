@@ -183,7 +183,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                     Sets.of(TRANSACTION_ID),
                     this::handler
                 ),
-                SpreadsheetThrowableTranslator.INSTANCE
+                HttpHandlers.throwableTranslator()
             )
         );
 
