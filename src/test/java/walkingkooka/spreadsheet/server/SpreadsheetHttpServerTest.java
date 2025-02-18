@@ -3593,7 +3593,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("ZZZ");
         final SpreadsheetCellReference cellReference = SpreadsheetSelection.parseCell("B2");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(cellReference);
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(cellReference);
 
         server.handleAndCheck(
             HttpMethod.POST,
@@ -3678,7 +3678,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"labels\": [\n" +
                     "    {\n" +
                     "      \"label\": \"ZZZ\",\n" +
-                    "      \"target\": \"B2\"\n" +
+                    "      \"reference\": \"B2\"\n" +
                     "    }\n" +
                     "  ],\n" +
                     "  \"columnWidths\": {\n" +
@@ -3752,7 +3752,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"labels\": [\n" +
                     "    {\n" +
                     "      \"label\": \"ZZZ\",\n" +
-                    "      \"target\": \"B2\"\n" +
+                    "      \"reference\": \"B2\"\n" +
                     "    }\n" +
                     "  ],\n" +
                     "  \"columnWidths\": {\n" +
@@ -5121,7 +5121,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetCellReference a1 = SpreadsheetSelection.A1;
         final SpreadsheetLabelName label123 = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label123.setLabelMappingTarget(a1);
+        final SpreadsheetLabelMapping mapping = label123.setLabelMappingReference(a1);
 
         server.handleAndCheck(
             HttpMethod.POST,
@@ -5205,7 +5205,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"labels\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Label123\",\n" +
-                    "      \"target\": \"A1\"\n" +
+                    "      \"reference\": \"A1\"\n" +
                     "    }\n" +
                     "  ],\n" +
                     "  \"columnWidths\": {\n" +
@@ -5281,7 +5281,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"labels\": [\n" +
                     "    {\n" +
                     "      \"label\": \"Label123\",\n" +
-                    "      \"target\": \"A1\"\n" +
+                    "      \"reference\": \"A1\"\n" +
                     "    }\n" +
                     "  ],\n" +
                     "  \"columnWidths\": {\n" +
@@ -5974,7 +5974,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(
             SpreadsheetSelection.parseCell("A99")
         );
 
@@ -6918,7 +6918,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(reference);
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
 
         server.handleAndCheck(
             HttpMethod.POST,
@@ -6951,7 +6951,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(reference);
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
 
         server.handleAndCheck(
             HttpMethod.POST,
@@ -7000,7 +7000,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(reference);
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
 
         server.handleAndCheck(
             HttpMethod.POST,
@@ -7051,7 +7051,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         final SpreadsheetCellReference reference = SpreadsheetSelection.parseCell("A99");
         final SpreadsheetLabelName label = SpreadsheetSelection.labelName("Label123");
-        final SpreadsheetLabelMapping mapping = label.setLabelMappingTarget(reference);
+        final SpreadsheetLabelMapping mapping = label.setLabelMappingReference(reference);
 
         server.handleAndCheck(
             HttpMethod.POST,
