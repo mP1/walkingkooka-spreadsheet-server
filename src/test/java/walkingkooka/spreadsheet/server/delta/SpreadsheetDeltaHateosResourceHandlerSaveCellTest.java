@@ -256,7 +256,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     public void testHandleCollectionBatchSaves() {
         final SpreadsheetCell b2 = this.cell("B2", "1");
         final SpreadsheetCell c3 = this.cell("C3", "2");
-        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.fromCells(Lists.of(b2.reference(), c3.reference()));
+        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.bounds(
+            Lists.of(
+                b2.reference(),
+                c3.reference()
+            )
+        );
 
         final SpreadsheetCell d4 = this.cell("C4", "3");
         final SpreadsheetDelta result = SpreadsheetDelta.EMPTY
@@ -298,7 +303,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         final SpreadsheetCell unsaved1 = this.cell("B2", "1");
         final SpreadsheetCell unsaved2 = this.cell("B3", "2");
 
-        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.fromCells(Lists.of(unsaved1.reference(), unsaved2.reference()));
+        final SpreadsheetCellRangeReference range = SpreadsheetCellRangeReference.bounds(
+            Lists.of(
+                unsaved1.reference(),
+                unsaved2.reference()
+            )
+        );
 
         final SpreadsheetCell saved1 = unsaved1.setFormattedValue(Optional.of(TextNode.text("FORMATTED1")));
         final SpreadsheetCell saved2 = unsaved2.setFormattedValue(Optional.of(TextNode.text("FORMATTED2")));
