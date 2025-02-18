@@ -1066,7 +1066,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         context.storeRepository(metadata.id().get())
             .labels()
             .save(
-                label.setLabelMappingTarget(SpreadsheetSelection.A1)
+                label.setLabelMappingReference(SpreadsheetSelection.A1)
             );
 
         final SpreadsheetMetadataPropertyName<SpreadsheetViewport> propertyName = SpreadsheetMetadataPropertyName.VIEWPORT;

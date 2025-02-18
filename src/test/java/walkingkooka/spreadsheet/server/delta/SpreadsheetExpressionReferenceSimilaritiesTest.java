@@ -42,7 +42,8 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
     private final static SpreadsheetCellReference REFERENCE = SpreadsheetSelection.parseCell("B2");
     private final static SpreadsheetLabelName LABEL = SpreadsheetSelection.labelName("Label123");
     private final static SpreadsheetCellReference LABEL_REFERENCE = SpreadsheetSelection.parseCell("C3");
-    private final static SpreadsheetLabelMapping MAPPING = SpreadsheetSelection.labelName("Label234").setLabelMappingTarget(LABEL_REFERENCE);
+    private final static SpreadsheetLabelMapping MAPPING = SpreadsheetSelection.labelName("Label234")
+        .setLabelMappingReference(LABEL_REFERENCE);
 
     @Test
     public void testWithNullReferenceFails() {
@@ -67,7 +68,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 Optional.of(REFERENCE),
                 Optional.of(LABEL),
                 Set.of(
-                    LABEL.setLabelMappingTarget(REFERENCE)
+                    LABEL.setLabelMappingReference(REFERENCE)
                 )
             )
         );
@@ -120,7 +121,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 "  \"label-mappings\": [\n" +
                 "    {\n" +
                 "      \"label\": \"Label234\",\n" +
-                "      \"target\": \"C3\"\n" +
+                "      \"reference\": \"C3\"\n" +
                 "    }\n" +
                 "  ]\n" +
                 "}"
@@ -140,7 +141,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 "  \"label-mappings\": [\n" +
                 "    {\n" +
                 "      \"label\": \"Label234\",\n" +
-                "      \"target\": \"C3\"\n" +
+                "      \"reference\": \"C3\"\n" +
                 "    }\n" +
                 "  ]\n" +
                 "}"
@@ -161,7 +162,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 "  \"label-mappings\": [\n" +
                 "    {\n" +
                 "      \"label\": \"Label234\",\n" +
-                "      \"target\": \"C3\"\n" +
+                "      \"reference\": \"C3\"\n" +
                 "    }\n" +
                 "  ]\n" +
                 "}"
@@ -195,7 +196,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 Sets.of(
                     MAPPING,
                     SpreadsheetSelection.labelName("Label99")
-                        .setLabelMappingTarget(REFERENCE)
+                        .setLabelMappingReference(REFERENCE)
                 )
             )
         );
@@ -215,7 +216,7 @@ public final class SpreadsheetExpressionReferenceSimilaritiesTest implements Has
                 Sets.of(
                     MAPPING,
                     SpreadsheetSelection.labelName("Label99")
-                        .setLabelMappingTarget(SpreadsheetSelection.parseCell("Z9")
+                        .setLabelMappingReference(SpreadsheetSelection.parseCell("Z9")
                         )
                 )
             ),

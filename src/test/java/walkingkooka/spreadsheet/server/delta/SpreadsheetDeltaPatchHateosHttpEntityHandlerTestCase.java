@@ -246,7 +246,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
                         public Optional<SpreadsheetLabelMapping> load(final SpreadsheetLabelName label) {
                             return Optional.ofNullable(
                                 LABEL.equals(label) ?
-                                    LABEL.setLabelMappingTarget(CELL) :
+                                    LABEL.setLabelMappingReference(CELL) :
                                     null
                             );
                         }

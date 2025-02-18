@@ -60,8 +60,8 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
             SpreadsheetDelta.EMPTY
                 .setLabels(
                     Sets.of(
-                        LABEL1.setLabelMappingTarget(CELL1),
-                        LABEL2.setLabelMappingTarget(CELL2)
+                        LABEL1.setLabelMappingReference(CELL1),
+                        LABEL2.setLabelMappingReference(CELL2)
                     )
                 )
         );
@@ -199,8 +199,12 @@ public final class SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContex
     public SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor createBiFunction() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
-        store.save(LABEL1.setLabelMappingTarget(CELL1));
-        store.save(LABEL2.setLabelMappingTarget(CELL2));
+        store.save(
+            LABEL1.setLabelMappingReference(CELL1)
+        );
+        store.save(
+            LABEL2.setLabelMappingReference(CELL2)
+        );
 
         return SpreadsheetDeltaJsonCellLabelResolverJsonNodeUnmarshallContextPreProcessor.with(store);
     }

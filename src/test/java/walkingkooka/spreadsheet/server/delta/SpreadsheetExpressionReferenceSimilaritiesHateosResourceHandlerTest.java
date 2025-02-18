@@ -60,9 +60,9 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
     private final static SpreadsheetLabelName LABEL2 = SpreadsheetExpressionReference.labelName("Label456");
     private final static SpreadsheetLabelName LABEL3 = SpreadsheetExpressionReference.labelName("Label789");
 
-    private final static SpreadsheetLabelMapping MAPPING1 = LABEL1.setLabelMappingTarget(A1);
-    private final static SpreadsheetLabelMapping MAPPING2 = LABEL2.setLabelMappingTarget(B2);
-    private final static SpreadsheetLabelMapping MAPPING3 = LABEL3.setLabelMappingTarget(C3);
+    private final static SpreadsheetLabelMapping MAPPING1 = LABEL1.setLabelMappingReference(A1);
+    private final static SpreadsheetLabelMapping MAPPING2 = LABEL2.setLabelMappingReference(B2);
+    private final static SpreadsheetLabelMapping MAPPING3 = LABEL3.setLabelMappingReference(C3);
 
     private final static SpreadsheetEngineContext ENGINE_CONTEXT = new FakeSpreadsheetEngineContext() {
 
