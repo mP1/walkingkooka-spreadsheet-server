@@ -123,17 +123,17 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     @Override
-    public <T> List<T> unmarshallWithTypeList(final JsonNode json) {
+    public <T> List<T> unmarshallListWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> Set<T> unmarshallWithTypeSet(final JsonNode json) {
+    public <T> Set<T> unmarshallSetWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <K, V> Map<K, V> unmarshallWithTypeMap(final JsonNode json) {
+    public <K, V> Map<K, V> unmarshallMapWithType(final JsonNode json) {
         throw new UnsupportedOperationException();
     }
 
