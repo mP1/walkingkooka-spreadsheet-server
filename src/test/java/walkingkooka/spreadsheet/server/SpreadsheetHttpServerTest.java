@@ -3681,6 +3681,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"reference\": \"B2\"\n" +
                     "    }\n" +
                     "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"B2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"ZZZ\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
                     "  \"columnWidths\": {\n" +
                     "    \"B\": 100\n" +
                     "  },\n" +
@@ -3755,6 +3763,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"reference\": \"B2\"\n" +
                     "    }\n" +
                     "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"B2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"ZZZ\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
                     "  \"columnWidths\": {\n" +
                     "    \"B\": 100\n" +
                     "  },\n" +
@@ -5208,6 +5224,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"reference\": \"A1\"\n" +
                     "    }\n" +
                     "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"A1\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"Label123\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
                     "  \"columnWidths\": {\n" +
                     "    \"A\": 100\n" +
                     "  },\n" +
