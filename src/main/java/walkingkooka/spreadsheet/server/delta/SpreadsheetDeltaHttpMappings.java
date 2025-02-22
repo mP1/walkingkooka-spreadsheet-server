@@ -141,6 +141,15 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHateosResourceHandler(
+            LABELS,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
+                defaultMax,
+                engine
+            )
+        );
+
+        cell = cell.setHateosResourceHandler(
             SORT,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerSortCells.with(
@@ -203,6 +212,11 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
      * A {@link LinkRelation} with <code>find</code>.
      */
     public static final LinkRelation<?> FIND = LinkRelation.with("find");
+
+    /**
+     * A {@link LinkRelation} with <code>labels</code>.
+     */
+    public static final LinkRelation<?> LABELS = LinkRelation.with("labels");
 
     /**
      * A {@link LinkRelation} with <code>sort</code>.
