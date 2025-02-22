@@ -89,9 +89,12 @@ clicking a context menu command.
 - **POST** /api/spreadsheet/$spreadsheet-id/cell/A1
 - **DELETE** /api/spreadsheet/$spreadsheet-id/cell/A1
 - **DELETE** /api/spreadsheet/$spreadsheet-id/cell/A1:B2
-- **POST** /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill  
+- **POST** /api/spreadsheet/$spreadsheet-id/cell/A1-B2/fill
   input includes region of cells to be the fill content  
   This has many purposes including functionality such as filling a range, pasting previously copied cells etc.
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/labels?offset=0&count=1
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/A1-B2/labels?offset=0&count=1
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/*/labels?offset=0&count=1
 
 #### [Column](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetColumn.java)
 

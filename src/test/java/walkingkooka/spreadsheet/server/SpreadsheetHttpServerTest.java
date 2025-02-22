@@ -10121,6 +10121,59 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // findLabelsWithReference..........................................................................................
+
+    @Test
+    public void testFindLabelsWithReference() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save label
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setLabels(
+                        Sets.of(
+                            SpreadsheetSelection.labelName("Label123")
+                                .setLabelMappingReference(SpreadsheetSelection.A1)
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                "{\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label123\",\n" +
+                    "      \"reference\": \"A1\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnCount\": 0,\n" +
+                    "  \"rowCount\": 0\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/A1/labels",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"labels\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label123\",\n" +
+                "      \"reference\": \"A1\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}"
+        );
+    }
+
     // column...........................................................................................................
 
     @Test
