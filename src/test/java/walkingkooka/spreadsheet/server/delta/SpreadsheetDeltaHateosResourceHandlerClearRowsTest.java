@@ -43,7 +43,7 @@ import java.util.OptionalInt;
 public final class SpreadsheetDeltaHateosResourceHandlerClearRowsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerClearRows,
     SpreadsheetRowReference> {
 
-    private final static Optional<SpreadsheetDelta> RESOURCE = Optional.of(SpreadsheetDelta.EMPTY);
+    private final static Optional<SpreadsheetDelta> RESOURCE = Optional.empty();
 
     @Test
     public void testHandleOneClearRow() {

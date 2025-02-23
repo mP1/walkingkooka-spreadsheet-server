@@ -87,7 +87,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDe
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(rows, "rows");
-        HateosResourceHandler.checkResourceNotEmpty(resource);
+        HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
