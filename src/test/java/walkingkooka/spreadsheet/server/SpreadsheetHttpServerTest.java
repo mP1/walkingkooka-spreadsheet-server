@@ -6451,7 +6451,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/column/C/after?count=1",
+            "/api/spreadsheet/1/column/C/insert-after?count=1",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -6699,7 +6699,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/column/D/before?count=1",
+            "/api/spreadsheet/1/column/D/insert-before?count=1",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8679,7 +8679,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/row/3/after?count=1",
+            "/api/spreadsheet/1/row/3/insert-after?count=1",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8927,7 +8927,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.POST,
-            "/api/spreadsheet/1/row/4/before?count=1",
+            "/api/spreadsheet/1/row/4/insert-before?count=1",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(

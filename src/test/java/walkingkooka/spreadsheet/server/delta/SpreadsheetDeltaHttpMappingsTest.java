@@ -649,42 +649,42 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     @Test
     public void testRouteColumnsInsertAfterPostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after", IllegalArgumentException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/insert-after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertAfterPostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after", IllegalArgumentException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/insert-after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnsInsertAfterPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/after?count=1", UnsupportedOperationException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/insert-after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertAfterPost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/after?count=1", UnsupportedOperationException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/insert-after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnsInsertBeforePostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before", IllegalArgumentException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/insert-before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertBeforePostMissingCountFails() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before", IllegalArgumentException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/insert-before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteColumnsInsertBeforePost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/before?count=1", UnsupportedOperationException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A/insert-before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteColumnRangeInsertBeforePost() {
-        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/before?count=1", UnsupportedOperationException.class);
+        this.routeColumnAndCheck(HttpMethod.POST, "/column/A:B/insert-before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
@@ -768,42 +768,42 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     @Test
     public void testRouteRowsAfterPostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after", IllegalArgumentException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/insert-after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowRangeAfterPostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after", IllegalArgumentException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/insert-after", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowsAfterPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/after?count=1", UnsupportedOperationException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/insert-after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowRangeAfterPost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/after?count=1", UnsupportedOperationException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/insert-after?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowsBeforePostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before", IllegalArgumentException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/insert-before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowRangeBeforePostMissingCountFails() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before", IllegalArgumentException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/insert-before", IllegalArgumentException.class);
     }
 
     @Test
     public void testRouteRowsBeforePost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1/before?count=1", UnsupportedOperationException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1/insert-before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
     public void testRouteRowRangeBeforePost() {
-        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/before?count=1", UnsupportedOperationException.class);
+        this.routeRowAndCheck(HttpMethod.POST, "/row/1:2/insert-before?count=1", UnsupportedOperationException.class);
     }
 
     @Test
