@@ -44,7 +44,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
 
         return new SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference(
             defaultCount,
-            check(engine)
+            engine
         );
     }
 

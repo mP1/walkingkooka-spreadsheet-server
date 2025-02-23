@@ -43,9 +43,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetColumnReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerClearColumns with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerClearColumns(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerClearColumns(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerClearColumns(final SpreadsheetEngine engine) {

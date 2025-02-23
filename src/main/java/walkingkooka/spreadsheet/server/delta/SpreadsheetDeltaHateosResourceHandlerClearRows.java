@@ -43,9 +43,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearRows extends SpreadsheetDe
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetRowReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerClearRows with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerClearRows(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerClearRows(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerClearRows(final SpreadsheetEngine engine) {

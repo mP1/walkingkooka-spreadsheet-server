@@ -42,9 +42,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final SpreadsheetEngine engine) {

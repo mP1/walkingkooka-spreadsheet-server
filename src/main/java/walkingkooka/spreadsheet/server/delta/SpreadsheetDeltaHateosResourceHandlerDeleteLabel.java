@@ -42,9 +42,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteLabel(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerDeleteLabel(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerDeleteLabel(final SpreadsheetEngine engine) {

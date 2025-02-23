@@ -50,7 +50,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
 
         return new SpreadsheetDeltaHateosResourceHandlerFindCells(
             defaultCount,
-            check(engine)
+            engine
         );
     }
 

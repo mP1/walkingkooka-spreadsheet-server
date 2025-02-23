@@ -41,9 +41,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerSaveCell with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSaveCell(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerSaveCell(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerSaveCell(final SpreadsheetEngine engine) {
