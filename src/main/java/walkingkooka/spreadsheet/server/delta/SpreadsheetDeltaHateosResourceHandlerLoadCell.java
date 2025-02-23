@@ -54,7 +54,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
 
         return new SpreadsheetDeltaHateosResourceHandlerLoadCell(
             evaluation,
-            check(engine)
+            engine
         );
     }
 

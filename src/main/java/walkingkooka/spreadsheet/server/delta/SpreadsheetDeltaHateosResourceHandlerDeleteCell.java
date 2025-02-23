@@ -39,9 +39,7 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteCell with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerDeleteCell(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerDeleteCell(final SpreadsheetEngine engine) {

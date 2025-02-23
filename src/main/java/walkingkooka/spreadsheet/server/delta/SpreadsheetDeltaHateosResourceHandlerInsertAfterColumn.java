@@ -29,9 +29,7 @@ import java.util.Objects;
 final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn extends SpreadsheetDeltaHateosResourceHandlerInsert<SpreadsheetColumnReference> {
 
     static SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn(final SpreadsheetEngine engine) {

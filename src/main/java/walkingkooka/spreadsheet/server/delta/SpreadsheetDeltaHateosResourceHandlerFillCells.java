@@ -43,9 +43,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFillCells extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleOne<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerFillCells with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerFillCells(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerFillCells(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerFillCells(final SpreadsheetEngine engine) {

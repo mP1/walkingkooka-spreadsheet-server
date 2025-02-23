@@ -41,13 +41,6 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    /**
-     * Checks required {@link SpreadsheetEngine} is not null.
-     */
-    static SpreadsheetEngine check(final SpreadsheetEngine engine) {
-        return Objects.requireNonNull(engine, "engine");
-    }
-
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
     }
@@ -73,7 +66,7 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
      */
     SpreadsheetDeltaHateosResourceHandler(final SpreadsheetEngine engine) {
         super();
-        this.engine = engine;
+        this.engine = Objects.requireNonNull(engine, "engine");
     }
 
     @Override

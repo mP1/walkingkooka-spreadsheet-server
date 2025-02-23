@@ -44,9 +44,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     static SpreadsheetDeltaHateosResourceHandlerSaveLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerSaveLabel(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerSaveLabel(engine);
     }
 
     // handleNone.......................................................................................................

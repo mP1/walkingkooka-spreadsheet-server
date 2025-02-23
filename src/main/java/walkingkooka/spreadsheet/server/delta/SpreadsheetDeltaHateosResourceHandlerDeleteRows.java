@@ -32,9 +32,7 @@ import java.util.Objects;
 final class SpreadsheetDeltaHateosResourceHandlerDeleteRows extends SpreadsheetDeltaHateosResourceHandlerDelete<SpreadsheetRowReference> {
 
     static SpreadsheetDeltaHateosResourceHandlerDeleteRows with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerDeleteRows(
-            check(engine)
-        );
+        return new SpreadsheetDeltaHateosResourceHandlerDeleteRows(engine);
     }
 
     private SpreadsheetDeltaHateosResourceHandlerDeleteRows(final SpreadsheetEngine engine) {
