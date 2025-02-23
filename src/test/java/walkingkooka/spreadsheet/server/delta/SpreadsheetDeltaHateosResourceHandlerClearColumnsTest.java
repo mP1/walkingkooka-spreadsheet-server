@@ -42,7 +42,7 @@ import java.util.OptionalInt;
 public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends SpreadsheetDeltaHateosResourceHandlerTestCase2<SpreadsheetDeltaHateosResourceHandlerClearColumns,
     SpreadsheetColumnReference> {
 
-    private final static Optional<SpreadsheetDelta> RESOURCE = Optional.of(SpreadsheetDelta.EMPTY);
+    private final static Optional<SpreadsheetDelta> RESOURCE = Optional.empty();
 
     @Test
     public void testClearColumn() {

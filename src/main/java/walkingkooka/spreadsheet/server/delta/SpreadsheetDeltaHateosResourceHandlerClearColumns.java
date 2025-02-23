@@ -86,7 +86,7 @@ final class SpreadsheetDeltaHateosResourceHandlerClearColumns extends Spreadshee
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
-        HateosResourceHandler.checkResourceNotEmpty(resource);
+        HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkContext(context);
 
