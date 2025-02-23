@@ -276,13 +276,13 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 engine
             )
         ).setHateosResourceHandler(
-            AFTER,
+            INSERT_AFTER,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(
                 engine
             )
         ).setHateosResourceHandler(
-            BEFORE,
+            INSERT_BEFORE,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
                 engine
@@ -332,13 +332,13 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                 engine
             )
         ).setHateosResourceHandler(
-            AFTER,
+            INSERT_AFTER,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(
                 engine
             )
         ).setHateosResourceHandler(
-            BEFORE,
+            INSERT_BEFORE,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.with(
                 engine
@@ -367,9 +367,9 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             HateosResourceSelection.range(parsed.range());
     }
 
-    public final static LinkRelation<?> AFTER = LinkRelation.with("after");
+    public final static LinkRelation<?> INSERT_AFTER = LinkRelation.with("insert-after");
 
-    public final static LinkRelation<?> BEFORE = LinkRelation.with("before");
+    public final static LinkRelation<?> INSERT_BEFORE = LinkRelation.with("insert-before");
 
     /**
      * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.
