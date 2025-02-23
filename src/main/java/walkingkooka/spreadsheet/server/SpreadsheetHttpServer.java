@@ -136,10 +136,11 @@ public final class SpreadsheetHttpServer implements HttpServer {
     }
 
     /**
-     * Reports a resource was not found.
+     * Reports a resource was not found as an empty response body and {@link HttpStatusCode#NO_CONTENT}.
+     * This hopefully leaves 404 responses for only invalid resource urls.
      */
     public static void notFound(final HttpRequest request, final HttpResponse response) {
-        response.setStatus(HttpStatusCode.NOT_FOUND.status());
+        response.setStatus(HttpStatusCode.NO_CONTENT.status());
         response.setEntity(HttpEntity.EMPTY);
     }
 

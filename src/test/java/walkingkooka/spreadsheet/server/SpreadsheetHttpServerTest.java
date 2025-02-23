@@ -1261,7 +1261,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/99",
             NO_HEADERS_TRANSACTION_ID,
             "",
-            HttpStatusCode.NOT_FOUND.status()
+            HttpStatusCode.NO_CONTENT.status()
                 .setMessage("Unable to load spreadsheet 99"),
             "Unable to load spreadsheet 99"
         );
@@ -2308,7 +2308,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testPatchFails() {
         final TestHttpServer server = this.startServer();
 
-        // patch metadata will fail with 404
+        // patch metadata will fail with 204
         server.handleAndCheck(
             HttpMethod.PATCH,
             "/api/spreadsheet/1",
@@ -2319,7 +2319,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     JsonNode.string("NSWD")
                 )
                 .toString(),
-            HttpStatusCode.NOT_FOUND.setMessage("Unable to load spreadsheet with id=1"),
+            HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
             "walkingkooka.store.MissingStoreException: Unable to load spreadsheet with id=1"
         );
     }
