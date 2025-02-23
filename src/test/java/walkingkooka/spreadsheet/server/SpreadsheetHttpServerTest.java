@@ -6129,7 +6129,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(HttpMethod.POST,
             "/api/spreadsheet/1/column/B/clear",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY),
+            "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
@@ -6242,7 +6242,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(HttpMethod.POST,
             "/api/spreadsheet/1/column/A:C/clear",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY),
+            "",
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
