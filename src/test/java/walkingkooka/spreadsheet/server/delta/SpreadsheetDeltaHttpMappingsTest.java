@@ -811,10 +811,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         this.routeRowAndCheck(
             HttpMethod.POST,
             "/row/1/clear",
-            JsonNodeMarshallContexts.basic()
-                .marshall(
-                    SpreadsheetDelta.EMPTY
-                ).toString(),
+            "",
             HttpStatusCode.OK
         );
     }
@@ -824,10 +821,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         this.routeRowAndCheck(
             HttpMethod.POST,
             "/row/1:2/clear",
-            JsonNodeMarshallContexts.basic()
-                .marshall(
-                    SpreadsheetDelta.EMPTY
-                ).toString(),
+            "",
             HttpStatusCode.OK
         );
     }
