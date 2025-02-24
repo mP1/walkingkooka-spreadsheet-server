@@ -69,6 +69,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
@@ -1223,7 +1224,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("\"Time\" ss hh").spreadsheetParserSelector()));
             repository = SpreadsheetStoreRepositories.basic(
                 SpreadsheetCellStores.treeMap(),
-                SpreadsheetExpressionReferenceStores.treeMap(),
+                SpreadsheetCellReferencesStores.treeMap(),
                 SpreadsheetColumnStores.treeMap(),
                 SpreadsheetGroupStores.treeMap(),
                 SpreadsheetLabelStores.treeMap(),

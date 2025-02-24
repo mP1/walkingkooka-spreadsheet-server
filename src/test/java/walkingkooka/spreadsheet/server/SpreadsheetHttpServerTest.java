@@ -116,6 +116,7 @@ import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
@@ -10734,7 +10735,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private static Supplier<SpreadsheetStoreRepository> storeRepositorySupplier(final SpreadsheetMetadataStore metadataStore) {
         return () -> SpreadsheetStoreRepositories.basic(
             SpreadsheetCellStores.treeMap(),
-            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
             SpreadsheetGroupStores.treeMap(),
             SpreadsheetLabelStores.treeMap(),
