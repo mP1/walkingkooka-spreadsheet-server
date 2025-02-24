@@ -95,6 +95,7 @@ clicking a context menu command.
 - **GET** /api/spreadsheet/$spreadsheet-id/cell/A1/labels?offset=0&count=1
 - **GET** /api/spreadsheet/$spreadsheet-id/cell/A1-B2/labels?offset=0&count=1
 - **GET** /api/spreadsheet/$spreadsheet-id/cell/*/labels?offset=0&count=1
+- **GET** /api/spreadsheet/$spreadsheet-id/cell/*/references?offset=0&count=1
 
 #### [Column](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetColumn.java)
 

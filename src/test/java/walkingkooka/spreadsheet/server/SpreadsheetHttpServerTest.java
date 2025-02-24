@@ -10175,6 +10175,216 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // findCellsWithReferences..........................................................................................
+
+    @Test
+    public void testFindCellsWithReferences() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/A1:A2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.A1
+                                .setFormula(
+                                    formula("=A2")
+                                ),
+                            SpreadsheetSelection.parseCell("A2")
+                                .setFormula(
+                                    formula("'Zebra'")
+                                )
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"A1\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=A2\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"A\",\n" +
+                    "                        \"text\": \"A\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"2\",\n" +
+                    "                        \"text\": \"2\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"A2\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=A2\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"reference-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "            \"value\": \"A2\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": \"Zebra'\"\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Zebra'\"\n" +
+                    "      }\n" +
+                    "    },\n" +
+                    "    \"A2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"'Zebra'\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"text-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"apostrophe-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"'\",\n" +
+                    "                  \"text\": \"'\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"text-literal-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"Zebra'\",\n" +
+                    "                  \"text\": \"Zebra'\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"'Zebra'\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": \"Zebra'\"\n" +
+                    "        },\n" +
+                    "        \"value\": \"Zebra'\"\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Text Zebra'\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"references\": {\n" +
+                    "    \"A2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "        \"value\": \"A1\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"A\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 1,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/A2/references",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"A1\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=A2\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"A\",\n" +
+                "                        \"text\": \"A\"\n" +
+                "                      }\n" +
+                "                    },\n" +
+                "                    {\n" +
+                "                      \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"2\",\n" +
+                "                        \"text\": \"2\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"A2\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=A2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"reference-expression\",\n" +
+                "          \"value\": {\n" +
+                "            \"type\": \"spreadsheet-cell-reference\",\n" +
+                "            \"value\": \"A2\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"value\": \"Zebra'\"\n" +
+                "      },\n" +
+                "      \"formatted-value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Text Zebra'\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}"
+        );
+    }
+    
     // column...........................................................................................................
 
     @Test
