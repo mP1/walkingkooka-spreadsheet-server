@@ -15,6 +15,7 @@ import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeDetectors;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -48,6 +49,7 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
@@ -224,7 +226,7 @@ public class TestGwtTest extends GWTTestCase {
 
         final SpreadsheetStoreRepository repo = SpreadsheetStoreRepositories.basic(
             SpreadsheetCellStores.treeMap(),
-            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
             SpreadsheetGroupStores.fake(),
             SpreadsheetLabelStores.treeMap(),

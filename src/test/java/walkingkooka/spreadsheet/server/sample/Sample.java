@@ -64,6 +64,7 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.SpreadsheetHttpServer;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
 import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
@@ -233,7 +234,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
 
         final SpreadsheetStoreRepository repo = SpreadsheetStoreRepositories.basic(
             SpreadsheetCellStores.treeMap(),
-            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
             SpreadsheetGroupStores.fake(),
             SpreadsheetLabelStores.treeMap(),

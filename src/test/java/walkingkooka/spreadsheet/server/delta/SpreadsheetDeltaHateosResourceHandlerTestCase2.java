@@ -56,6 +56,8 @@ import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandle
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStore;
 import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStore;
+import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
@@ -294,11 +296,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 }
 
                 @Override
-                public SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences() {
+                public SpreadsheetCellReferencesStore cellReferences() {
                     return this.cellReferences;
                 }
 
-                private final SpreadsheetExpressionReferenceStore<SpreadsheetCellReference> cellReferences = SpreadsheetExpressionReferenceStores.treeMap();
+                private final SpreadsheetCellReferencesStore cellReferences = SpreadsheetCellReferencesStores.treeMap();
 
                 @Override
                 public SpreadsheetColumnStore columns() {
