@@ -21,13 +21,13 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
-import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
 import java.util.Map;
 import java.util.Optional;
@@ -36,17 +36,26 @@ import java.util.Optional;
  * A {@link HateosResourceHandler} that calls {@link SpreadsheetEngine#loadLabel(SpreadsheetLabelName, SpreadsheetEngineContext)}.
  */
 final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDeltaHateosResourceHandler<SpreadsheetLabelName>
-    implements UnsupportedHateosResourceHandlerHandleNone<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
+    implements UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleRange<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleAll<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
+    UnsupportedHateosResourceHandlerHandleMany<SpreadsheetLabelName, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final SpreadsheetEngine engine) {
-        return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(engine);
+    static SpreadsheetDeltaHateosResourceHandlerLoadLabel with(final int defaultCount,
+                                                               final SpreadsheetEngine engine) {
+        if (defaultCount < 0) {
+            throw new IllegalArgumentException("Invalid default count " + defaultCount + " < 0");
+        }
+
+        return new SpreadsheetDeltaHateosResourceHandlerLoadLabel(
+            defaultCount,
+            engine
+        );
     }
 
-    private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final SpreadsheetEngine engine) {
+    private SpreadsheetDeltaHateosResourceHandlerLoadLabel(final int defaultCount,
+                                                           final SpreadsheetEngine engine) {
         super(engine);
+        this.defaultCount = defaultCount;
     }
 
     // handleOne........................................................................................................
@@ -68,6 +77,27 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadLabel extends SpreadsheetDe
             )
         );
     }
+
+    @Override
+    public Optional<SpreadsheetDelta> handleNone(final Optional<SpreadsheetDelta> resource,
+                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
+        HateosResourceHandler.checkResourceEmpty(resource);
+        HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkContext(context);
+
+        return Optional.of(
+            this.engine.loadLabels(
+                SpreadsheetUrlQueryParameters.offset(parameters)
+                    .orElse(0),
+                SpreadsheetUrlQueryParameters.count(parameters)
+                    .orElse(this.defaultCount),
+                context
+            )
+        );
+    }
+
+    private final int defaultCount;
 
     @Override
     String operation() {

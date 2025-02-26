@@ -19,8 +19,10 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlParameterName;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -36,8 +38,11 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends SpreadsheetDeltaHateosResourceHandlerLabelTestCase<SpreadsheetDeltaHateosResourceHandlerLoadLabel> {
+
+    private final static int DEFAULT_COUNT = 3;
 
     @Test
     public void testHandleOneLoad() {
@@ -72,9 +77,88 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
         );
     }
 
+    @Test
+    public void testHandleNone() {
+        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
+
+        final SpreadsheetLabelMapping mapping1 = store.save(
+            SpreadsheetSelection.labelName("Label1")
+                .setLabelMappingReference(SpreadsheetSelection.A1)
+        );
+        final SpreadsheetLabelMapping mapping2 = store.save(
+            SpreadsheetSelection.labelName("Label2")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
+        );
+        final SpreadsheetLabelMapping mapping3 = store.save(
+            SpreadsheetSelection.labelName("Label3")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"))
+        );
+        final SpreadsheetLabelMapping mapping4 = store.save(
+            SpreadsheetSelection.labelName("Label4")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"))
+        );
+
+        this.handleNoneAndCheck(
+            Optional.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(store),
+            Optional.of(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        mapping1,
+                        mapping2,
+                        mapping3
+                        // mapping4 defaultCount=3
+                    )
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testHandleNoneWithOffsetAndCount() {
+        final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
+        store.save(
+            SpreadsheetSelection.labelName("Label1")
+                .setLabelMappingReference(SpreadsheetSelection.A1)
+        );
+        final SpreadsheetLabelMapping mapping2 = store.save(
+            SpreadsheetSelection.labelName("Label2")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
+        );
+        final SpreadsheetLabelMapping mapping3 = store.save(
+            SpreadsheetSelection.labelName("Label3")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"))
+        );
+        store.save(
+            SpreadsheetSelection.labelName("Label4")
+                .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"))
+        );
+
+        this.handleNoneAndCheck(
+            Optional.empty(),
+            Maps.of(
+                UrlParameterName.with("offset"), Lists.of("1"),
+                UrlParameterName.with("count"), Lists.of("2")
+            ),
+            this.context(store),
+            Optional.of(
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        mapping2,
+                        mapping3
+                    )
+                )
+            )
+        );
+    }
+
     @Override
     SpreadsheetDeltaHateosResourceHandlerLoadLabel createHandler(final SpreadsheetEngine engine) {
-        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(engine);
+        return SpreadsheetDeltaHateosResourceHandlerLoadLabel.with(
+            DEFAULT_COUNT,
+            engine
+        );
     }
 
     @Override
@@ -90,6 +174,22 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
                         .load(name)
                         .map(Sets::of)
                         .orElse(Sets.empty())
+                );
+            }
+
+            @Override
+            public SpreadsheetDelta loadLabels(final int offset,
+                                               final int count,
+                                               final SpreadsheetEngineContext context) {
+                return SpreadsheetDelta.EMPTY.setLabels(
+                    new TreeSet<>(
+                        context.storeRepository()
+                            .labels()
+                            .values(
+                                offset,
+                                count
+                            )
+                    )
                 );
             }
         };
