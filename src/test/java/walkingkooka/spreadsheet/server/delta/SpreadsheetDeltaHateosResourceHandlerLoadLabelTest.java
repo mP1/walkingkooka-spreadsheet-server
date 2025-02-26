@@ -78,7 +78,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
     }
 
     @Test
-    public void testHandleNone() {
+    public void testHandleAll() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
 
         final SpreadsheetLabelMapping mapping1 = store.save(
@@ -98,7 +98,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
                 .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"))
         );
 
-        this.handleNoneAndCheck(
+        this.handleAllAndCheck(
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
             this.context(store),
@@ -116,7 +116,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
     }
 
     @Test
-    public void testHandleNoneWithOffsetAndCount() {
+    public void testHandleAllWithOffsetAndCount() {
         final SpreadsheetLabelStore store = SpreadsheetLabelStores.treeMap();
         store.save(
             SpreadsheetSelection.labelName("Label1")
@@ -135,7 +135,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
                 .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"))
         );
 
-        this.handleNoneAndCheck(
+        this.handleAllAndCheck(
             Optional.empty(),
             Maps.of(
                 UrlParameterName.with("offset"), Lists.of("1"),
