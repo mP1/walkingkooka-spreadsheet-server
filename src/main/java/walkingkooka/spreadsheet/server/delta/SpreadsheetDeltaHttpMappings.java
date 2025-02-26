@@ -490,10 +490,18 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         try {
             HateosResourceSelection<SpreadsheetLabelName> selection;
 
-            if (text.isEmpty()) {
-                selection = HateosResourceSelection.none();
-            } else {
-                selection = HateosResourceSelection.one(SpreadsheetSelection.labelName(text));
+            switch (text) {
+                case HateosResourceSelection.NONE:
+                    selection = HateosResourceSelection.none();
+                    break;
+                case HateosResourceSelection.ALL:
+                    selection = HateosResourceSelection.all();
+                    break;
+                default:
+                    selection = HateosResourceSelection.one(
+                        SpreadsheetSelection.labelName(text)
+                    );
+                    break;
             }
 
             return selection;

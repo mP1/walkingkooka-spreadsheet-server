@@ -7111,11 +7111,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/label?offset=1&count=2",
+            "/api/spreadsheet/1/label/*?offset=1&count=2",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
-                HttpStatusCode.CREATED.status(),
+                HttpStatusCode.OK.status(),
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setLabels(
                         Sets.of(
