@@ -7071,6 +7071,65 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testLabelLoadsWithOffsetAndCount() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
+            .setLabelMappingReference(SpreadsheetSelection.A1);
+        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
+        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
+        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
+
+        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                            Sets.of(mapping)
+                        ).setColumnCount(
+                            OptionalInt.of(0)
+                        ).setRowCount(
+                            OptionalInt.of(0)
+                        )
+                    ),
+                    SpreadsheetDelta.class.getSimpleName()
+                )
+            );
+        }
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label?offset=1&count=2",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(
+                            mapping2,
+                            mapping3
+                        )
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
     public void testLabelDelete() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
