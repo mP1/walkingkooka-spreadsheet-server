@@ -47,6 +47,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
 
@@ -124,7 +125,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
         // cell/fill/find/sort POST.....................................................................................
         cell = cell.setHateosResourceHandler(
-            FILL,
+            SpreadsheetServerLinkRelations.FILL,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerFillCells.with(
                 engine
@@ -132,7 +133,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHateosResourceHandler(
-            FIND,
+            SpreadsheetServerLinkRelations.FIND,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
                 defaultMax,
@@ -141,7 +142,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHateosResourceHandler(
-            LABELS,
+            SpreadsheetServerLinkRelations.LABELS,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference.with(
                 defaultMax,
@@ -150,7 +151,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHateosResourceHandler(
-            REFERENCES,
+            SpreadsheetServerLinkRelations.REFERENCES,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences.with(
                 defaultMax,
@@ -159,7 +160,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
 
         cell = cell.setHateosResourceHandler(
-            SORT,
+            SpreadsheetServerLinkRelations.SORT,
             HttpMethod.GET,
             SpreadsheetDeltaHateosResourceHandlerSortCells.with(
                 engine
@@ -206,36 +207,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
         return result;
     }
-
-    /**
-     * A {@link LinkRelation} with <code>clear</code>.
-     */
-    public static final LinkRelation<?> CLEAR = LinkRelation.with("clear");
-
-    /**
-     * A {@link LinkRelation} with <code>fill</code>.
-     */
-    public static final LinkRelation<?> FILL = LinkRelation.with("fill");
-
-    /**
-     * A {@link LinkRelation} with <code>find</code>.
-     */
-    public static final LinkRelation<?> FIND = LinkRelation.with("find");
-
-    /**
-     * A {@link LinkRelation} with <code>labels</code>.
-     */
-    public static final LinkRelation<?> LABELS = LinkRelation.with("labels");
-
-    /**
-     * A {@link LinkRelation} with <code>references</code>.
-     */
-    public static final LinkRelation<?> REFERENCES = LinkRelation.with("references");
-
-    /**
-     * A {@link LinkRelation} with <code>sort</code>.
-     */
-    public static final LinkRelation<?> SORT = LinkRelation.with("sort");
 
     // cellReference....................................................................................................
 
@@ -284,19 +255,19 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetColumn.class,
             SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-            CLEAR,
+            SpreadsheetServerLinkRelations.CLEAR,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerClearColumns.with(
                 engine
             )
         ).setHateosResourceHandler(
-            INSERT_AFTER,
+            SpreadsheetServerLinkRelations.INSERT_AFTER,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertAfterColumn.with(
                 engine
             )
         ).setHateosResourceHandler(
-            INSERT_BEFORE,
+            SpreadsheetServerLinkRelations.INSERT_BEFORE,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertBeforeColumn.with(
                 engine
@@ -340,19 +311,19 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetRow.class,
             SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
-            CLEAR,
+            SpreadsheetServerLinkRelations.CLEAR,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerClearRows.with(
                 engine
             )
         ).setHateosResourceHandler(
-            INSERT_AFTER,
+            SpreadsheetServerLinkRelations.INSERT_AFTER,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertAfterRow.with(
                 engine
             )
         ).setHateosResourceHandler(
-            INSERT_BEFORE,
+            SpreadsheetServerLinkRelations.INSERT_BEFORE,
             HttpMethod.POST,
             SpreadsheetDeltaHateosResourceHandlerInsertBeforeRow.with(
                 engine
@@ -380,10 +351,6 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             HateosResourceSelection.one(parsed.begin()) :
             HateosResourceSelection.range(parsed.range());
     }
-
-    public final static LinkRelation<?> INSERT_AFTER = LinkRelation.with("insert-after");
-
-    public final static LinkRelation<?> INSERT_BEFORE = LinkRelation.with("insert-before");
 
     /**
      * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.

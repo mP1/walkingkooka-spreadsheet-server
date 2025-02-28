@@ -22,13 +22,39 @@ import walkingkooka.reflect.PublicStaticHelper;
 
 public final class SpreadsheetServerLinkRelations implements PublicStaticHelper {
 
+    /**
+     * A {@link LinkRelation} with <code>clear</code>.
+     */
+    public static final LinkRelation<?> CLEAR = LinkRelation.with("clear");
+
     public final static LinkRelation<?> DOWNLOAD = LinkRelation.with("download");
 
     public final static LinkRelation<?> EDIT = LinkRelation.with("edit");
 
+
+    /**
+     * A {@link LinkRelation} with <code>fill</code>.
+     */
+    public static final LinkRelation<?> FILL = LinkRelation.with("fill");
+
+
     public final static LinkRelation<?> FILTER = LinkRelation.with("filter");
 
+    /**
+     * A {@link LinkRelation} with <code>find</code>.
+     */
+    public static final LinkRelation<?> FIND = LinkRelation.with("find");
+
     public final static LinkRelation<?> FORMAT = LinkRelation.with("format");
+
+    public final static LinkRelation<?> INSERT_AFTER = LinkRelation.with("insert-after");
+
+    public final static LinkRelation<?> INSERT_BEFORE = LinkRelation.with("insert-before");
+
+    /**
+     * A {@link LinkRelation} with <code>labels</code>.
+     */
+    public static final LinkRelation<?> LABELS = LinkRelation.with("labels");
 
     public final static LinkRelation<?> LIST = LinkRelation.with("list");
 
@@ -36,9 +62,19 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> NEXT_TOKEN = LinkRelation.with("next-token");
 
-    public final static LinkRelation<?> TOKENS = LinkRelation.with("tokens");
+    /**
+     * A {@link LinkRelation} with <code>references</code>.
+     */
+    public static final LinkRelation<?> REFERENCES = LinkRelation.with("references");
 
     public final static LinkRelation<?> SAMPLES = LinkRelation.with("samples");
+
+    /**
+     * A {@link LinkRelation} with <code>sort</code>.
+     */
+    public static final LinkRelation<?> SORT = LinkRelation.with("sort");
+
+    public final static LinkRelation<?> TOKENS = LinkRelation.with("tokens");
 
     public final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
 
