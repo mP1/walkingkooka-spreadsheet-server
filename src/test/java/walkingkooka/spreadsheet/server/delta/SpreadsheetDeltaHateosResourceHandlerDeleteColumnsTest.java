@@ -28,8 +28,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
 import java.util.Set;
@@ -72,7 +72,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
     public void testHandleRangeDeleteSeveralColumns() {
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
-        final Range<SpreadsheetColumnReference> range = SpreadsheetColumnOrRowReference.parseColumnRange("C:E")
+        final Range<SpreadsheetColumnReference> range = SpreadsheetSelection.parseColumnRange("C:E")
             .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
@@ -86,7 +86,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
                     public SpreadsheetDelta deleteColumns(final SpreadsheetColumnReference c,
                                                           final int count,
                                                           final SpreadsheetEngineContext context) {
-                        checkEquals(SpreadsheetColumnOrRowReference.parseColumn("C"), c, "column");
+                        checkEquals(SpreadsheetSelection.parseColumn("C"), c, "column");
                         checkEquals(3, count, "count"); // C, D & E
                         return delta;
                     }
@@ -145,12 +145,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
 
     @Test
     public void testDeleteOpenRangeBeginFails() {
-        this.handleRangeFails2(Range.lessThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
+        this.handleRangeFails2(Range.lessThanEquals(SpreadsheetSelection.parseColumn("A")));
     }
 
     @Test
     public void testDeleteOpenRangeEndFails() {
-        this.handleRangeFails2(Range.greaterThanEquals(SpreadsheetColumnOrRowReference.parseColumn("A")));
+        this.handleRangeFails2(Range.greaterThanEquals(SpreadsheetSelection.parseColumn("A")));
     }
 
     private void handleRangeFails2(final Range<SpreadsheetColumnReference> columns) {
@@ -179,12 +179,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteColumnsTest extend
 
     @Override
     public SpreadsheetColumnReference id() {
-        return SpreadsheetColumnOrRowReference.parseColumn("C");
+        return SpreadsheetSelection.parseColumn("C");
     }
 
     @Override
     public Range<SpreadsheetColumnReference> range() {
-        return SpreadsheetColumnOrRowReference.parseColumnRange("C:E")
+        return SpreadsheetSelection.parseColumnRange("C:E")
             .range();
     }
 
