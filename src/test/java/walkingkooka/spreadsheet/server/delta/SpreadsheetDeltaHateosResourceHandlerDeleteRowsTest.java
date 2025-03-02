@@ -29,8 +29,8 @@ import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 
 import java.util.Optional;
 import java.util.Set;
@@ -73,7 +73,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     public void testHandleRangeDeleteSeveralRows() {
         final Optional<SpreadsheetDelta> resource = this.collectionResource();
 
-        final Range<SpreadsheetRowReference> range = SpreadsheetColumnOrRowReference.parseRowRange("2:4")
+        final Range<SpreadsheetRowReference> range = SpreadsheetSelection.parseRowRange("2:4")
             .range();
         final Set<SpreadsheetCell> cells = this.cells();
 
@@ -87,7 +87,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                     public SpreadsheetDelta deleteRows(final SpreadsheetRowReference r,
                                                        final int count,
                                                        final SpreadsheetEngineContext context) {
-                        checkEquals(SpreadsheetColumnOrRowReference.parseRow("2"), r, "row");
+                        checkEquals(SpreadsheetSelection.parseRow("2"), r, "row");
                         checkEquals(3, count, "count"); // 2, 3 & 4
                         return delta;
                     }
@@ -145,12 +145,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
 
     @Test
     public void testDeleteOpenRangeBeginFails() {
-        this.handleRangeFails2(Range.lessThanEquals(SpreadsheetColumnOrRowReference.parseRow("2")));
+        this.handleRangeFails2(Range.lessThanEquals(SpreadsheetSelection.parseRow("2")));
     }
 
     @Test
     public void testDeleteOpenRangeEndFails() {
-        this.handleRangeFails2(Range.greaterThanEquals(SpreadsheetColumnOrRowReference.parseRow("3")));
+        this.handleRangeFails2(Range.greaterThanEquals(SpreadsheetSelection.parseRow("3")));
     }
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
@@ -177,12 +177,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
 
     @Override
     public SpreadsheetRowReference id() {
-        return SpreadsheetColumnOrRowReference.parseRow("2");
+        return SpreadsheetSelection.parseRow("2");
     }
 
     @Override
     public Range<SpreadsheetRowReference> range() {
-        return SpreadsheetColumnOrRowReference.parseRowRange("2:4")
+        return SpreadsheetSelection.parseRowRange("2:4")
             .range();
     }
 
