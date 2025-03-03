@@ -24,7 +24,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
@@ -35,7 +35,7 @@ import java.util.Optional;
  * Base clas for either of the insert before or after which handles basic validation and then execute a template method
  * with the original column or row and count.
  */
-abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetColumnOrRowReference & Comparable<R>>
+abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends SpreadsheetSelection & Comparable<R>>
     extends SpreadsheetDeltaHateosResourceHandler<R>
     implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
