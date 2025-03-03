@@ -291,7 +291,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetColumnRangeReference parsed = SpreadsheetSelection.parseColumnRange(selection);
 
-        return parsed.isSingle() ?
+        return parsed.isUnit() ?
             HateosResourceSelection.one(parsed.begin()) :
             HateosResourceSelection.range(parsed.range());
     }
@@ -347,7 +347,7 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetRowRangeReference parsed = SpreadsheetSelection.parseRowRange(selection);
 
-        return parsed.isSingle() ?
+        return parsed.isUnit() ?
             HateosResourceSelection.one(parsed.begin()) :
             HateosResourceSelection.range(parsed.range());
     }
