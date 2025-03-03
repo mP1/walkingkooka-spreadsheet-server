@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetUrlQueryParameters;
 
@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H extends SpreadsheetDeltaHateosResourceHandlerInsert<I>,
-    I extends SpreadsheetColumnOrRowReference & Comparable<I>>
+    I extends SpreadsheetSelection & Comparable<I>>
     extends SpreadsheetDeltaHateosResourceHandlerTestCase2<H, I> {
 
     SpreadsheetDeltaHateosResourceHandlerInsertTestCase() {

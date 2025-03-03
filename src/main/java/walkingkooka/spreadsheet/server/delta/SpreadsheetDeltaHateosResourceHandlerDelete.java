@@ -24,7 +24,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandl
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
-import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetColumnOrRowReferenceKind;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
@@ -33,7 +34,7 @@ import java.util.Optional;
 /**
  * Abstract base class for DELETE / INSERT a column or row or range of either
  */
-abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetColumnOrRowReference & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
+abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends SpreadsheetSelection & Comparable<R>> extends SpreadsheetDeltaHateosResourceHandler<R>
     implements UnsupportedHateosResourceHandlerHandleAll<R, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
     SpreadsheetDeltaHateosResourceHandlerDelete(final SpreadsheetEngine engine) {
@@ -75,10 +76,12 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
             .value()
             .get();
 
+        final SpreadsheetColumnOrRowReferenceKind kind = lower.columnOrRowReferenceKind();
+
         return Optional.of(
             this.executeAndPrepareResponse(
                 lower,
-                upper.value() - lower.value() + 1,
+                kind.value(upper) - kind.value(lower) + 1,
                 resource,
                 parameters,
                 context
