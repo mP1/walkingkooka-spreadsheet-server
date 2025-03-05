@@ -10181,6 +10181,397 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
+    // find Response missing references
+    @Test
+    public void testFindCellsNonBooleanQueryWithLabelsAndReferences() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("B2")
+                            .setFormula(
+                                formula("=1")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // save cell C3
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/C3?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(SpreadsheetDelta.EMPTY
+                .setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("C3")
+                            .setFormula(
+                                formula("=B2+1000")
+                            )
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"C3\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=B2+1000\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"addition-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"cell-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": [\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"column-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"B\",\n" +
+                    "                              \"text\": \"B\"\n" +
+                    "                            }\n" +
+                    "                          },\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"row-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"2\",\n" +
+                    "                              \"text\": \"2\"\n" +
+                    "                            }\n" +
+                    "                          }\n" +
+                    "                        ],\n" +
+                    "                        \"text\": \"B2\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"plus-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"+\",\n" +
+                    "                        \"text\": \"+\"\n" +
+                    "                      }\n" +
+                    "                    },\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": [\n" +
+                    "                          {\n" +
+                    "                            \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                            \"value\": {\n" +
+                    "                              \"value\": \"1000\",\n" +
+                    "                              \"text\": \"1000\"\n" +
+                    "                            }\n" +
+                    "                          }\n" +
+                    "                        ],\n" +
+                    "                        \"text\": \"1000\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"B2+1000\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=B2+1000\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"add-expression\",\n" +
+                    "          \"value\": [\n" +
+                    "            {\n" +
+                    "              \"type\": \"reference-expression\",\n" +
+                    "              \"value\": {\n" +
+                    "                \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "                \"value\": \"B2\"\n" +
+                    "              }\n" +
+                    "            },\n" +
+                    "            {\n" +
+                    "              \"type\": \"value-expression\",\n" +
+                    "              \"value\": {\n" +
+                    "                \"type\": \"expression-number\",\n" +
+                    "                \"value\": \"1000\"\n" +
+                    "              }\n" +
+                    "            }\n" +
+                    "          ]\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1001\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 1001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"C\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"3\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 3,\n" +
+                    "  \"rowCount\": 3\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1371
+        // refereneces should be present but are missing
+        //
+        // save label
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/label",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setLabels(
+                        Sets.of(
+                            SpreadsheetSelection.labelName("Label123")
+                                .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=1\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"1\",\n" +
+                    "                        \"text\": \"1\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"1\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"1\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"value\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"1\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 001.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label123\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 3,\n" +
+                    "  \"rowCount\": 3\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        // https://github.com/mP1/walkingkooka-spreadsheet-server/issues/1370
+        // Response missing references.
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/cell/B2/find?query=1",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            HttpStatusCode.OK.status(),
+            "{\n" +
+                "  \"cells\": {\n" +
+                "    \"B2\": {\n" +
+                "      \"formula\": {\n" +
+                "        \"text\": \"=1\",\n" +
+                "        \"token\": {\n" +
+                "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                "          \"value\": {\n" +
+                "            \"value\": [\n" +
+                "              {\n" +
+                "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": \"=\",\n" +
+                "                  \"text\": \"=\"\n" +
+                "                }\n" +
+                "              },\n" +
+                "              {\n" +
+                "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                "                \"value\": {\n" +
+                "                  \"value\": [\n" +
+                "                    {\n" +
+                "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                "                      \"value\": {\n" +
+                "                        \"value\": \"1\",\n" +
+                "                        \"text\": \"1\"\n" +
+                "                      }\n" +
+                "                    }\n" +
+                "                  ],\n" +
+                "                  \"text\": \"1\"\n" +
+                "                }\n" +
+                "              }\n" +
+                "            ],\n" +
+                "            \"text\": \"=1\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"expression\": {\n" +
+                "          \"type\": \"value-expression\",\n" +
+                "          \"value\": {\n" +
+                "            \"type\": \"expression-number\",\n" +
+                "            \"value\": \"1\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        \"value\": {\n" +
+                "          \"type\": \"expression-number\",\n" +
+                "          \"value\": \"1\"\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"formatted-value\": {\n" +
+                "        \"type\": \"text\",\n" +
+                "        \"value\": \"Number 001.000\"\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"labels\": [\n" +
+                "    {\n" +
+                "      \"label\": \"Label123\",\n" +
+                "      \"reference\": \"B2\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"columnWidths\": {\n" +
+                "    \"B\": 100\n" +
+                "  },\n" +
+                "  \"rowHeights\": {\n" +
+                "    \"2\": 50\n" +
+                "  },\n" +
+                "  \"columnCount\": 3,\n" +
+                "  \"rowCount\": 3\n" +
+                "}"
+        );
+    }
+
     // findLabelsWithReference..........................................................................................
 
     @Test
