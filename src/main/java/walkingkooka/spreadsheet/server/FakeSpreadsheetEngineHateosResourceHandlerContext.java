@@ -115,7 +115,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<TextNode> formatValue(final Object value,
+    public Optional<TextNode> formatValue(final Optional<Object> value,
                                           final SpreadsheetFormatter spreadsheetFormatter) {
         throw new UnsupportedOperationException();
     }
@@ -329,7 +329,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public Optional<TextNode> format(final Object value) {
+    public Optional<TextNode> format(final Optional<Object> value) {
         throw new UnsupportedOperationException();
     }
 

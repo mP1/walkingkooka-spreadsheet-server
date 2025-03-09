@@ -231,7 +231,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 }
 
                 @Override
-                public Optional<TextNode> formatValue(final Object value,
+                public Optional<TextNode> formatValue(final Optional<Object> value,
                                                       final SpreadsheetFormatter formatter) {
                     return formatter.format(
                         value,
