@@ -94,7 +94,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     }
 
     @Override
-    public Optional<TextNode> format(final Object value) {
+    public Optional<TextNode> format(final Optional<Object> value) {
         throw new UnsupportedOperationException();
     }
 

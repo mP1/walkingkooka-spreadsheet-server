@@ -38,6 +38,7 @@ import walkingkooka.tree.text.TextNodeList;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -111,7 +112,9 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
             context
         );
         return context.formatValue(
-            request.value(),
+            Optional.ofNullable(
+                request.value()
+            ),
             formatter
         ).orElse(TextNode.EMPTY_TEXT);
     }
