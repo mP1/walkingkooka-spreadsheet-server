@@ -1329,7 +1329,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                     "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
-                    "  \"creator\": \"user@example.com\",\n" +
+                    "  \"created-by\": \"user@example.com\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
                     "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
@@ -5071,7 +5071,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                     "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
-                    "  \"creator\": \"user@example.com\",\n" +
+                    "  \"created-by\": \"user@example.com\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
                     "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
@@ -5458,7 +5458,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                     "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
-                    "  \"creator\": \"user@example.com\",\n" +
+                    "  \"created-by\": \"user@example.com\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
                     "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
@@ -5635,7 +5635,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-selection\",\n" +
                     "  \"create-date-time\": \"1999-12-31T12:58\",\n" +
-                    "  \"creator\": \"user@example.com\",\n" +
+                    "  \"created-by\": \"user@example.com\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
                     "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +

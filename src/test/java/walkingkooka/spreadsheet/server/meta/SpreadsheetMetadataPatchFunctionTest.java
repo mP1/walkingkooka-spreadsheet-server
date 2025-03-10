@@ -104,7 +104,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
 
         final SpreadsheetMetadata metadata = store.save(
             SpreadsheetMetadata.EMPTY
-                .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
+                .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
                 .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2021, 10, 10, 17, 3, 0))

@@ -254,7 +254,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
-            .set(SpreadsheetMetadataPropertyName.CREATOR, USER)
+            .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
             .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
