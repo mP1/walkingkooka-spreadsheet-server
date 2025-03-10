@@ -1140,7 +1140,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
-            .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+            .set(SpreadsheetMetadataPropertyName.CREATED_BY, creatorEmail)
             .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
@@ -1195,7 +1195,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             METADATA_STORE.save(
                 SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
-                    .set(SpreadsheetMetadataPropertyName.CREATOR, creator)
+                    .set(SpreadsheetMetadataPropertyName.CREATED_BY, creator)
                     .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)

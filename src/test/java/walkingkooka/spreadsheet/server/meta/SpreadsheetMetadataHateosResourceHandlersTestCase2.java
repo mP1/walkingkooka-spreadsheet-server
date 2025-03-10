@@ -89,7 +89,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
 
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.id())
-            .set(SpreadsheetMetadataPropertyName.CREATOR, creatorEmail)
+            .set(SpreadsheetMetadataPropertyName.CREATED_BY, creatorEmail)
             .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)

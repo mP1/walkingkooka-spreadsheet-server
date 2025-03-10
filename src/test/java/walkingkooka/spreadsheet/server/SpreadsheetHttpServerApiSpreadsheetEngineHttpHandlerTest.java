@@ -398,7 +398,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
             .loadFromLocale()
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
-            .set(SpreadsheetMetadataPropertyName.CREATOR, user)
+            .set(SpreadsheetMetadataPropertyName.CREATED_BY, user)
             .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
