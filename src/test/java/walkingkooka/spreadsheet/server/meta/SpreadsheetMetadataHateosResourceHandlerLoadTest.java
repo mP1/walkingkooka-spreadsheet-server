@@ -255,7 +255,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
             .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
+            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
@@ -275,7 +275,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     private SpreadsheetMetadata metadataWithDefaults() {
         return SpreadsheetMetadata.EMPTY
-            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
+            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
     }
 
     // toString.........................................................................................................

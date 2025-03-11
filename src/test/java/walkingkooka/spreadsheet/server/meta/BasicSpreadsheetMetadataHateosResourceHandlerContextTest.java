@@ -1141,7 +1141,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
             .set(SpreadsheetMetadataPropertyName.CREATED_BY, creatorEmail)
-            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, createDateTime)
+            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, createDateTime)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
         if (locale.isPresent()) {
@@ -1196,7 +1196,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
                     .set(SpreadsheetMetadataPropertyName.CREATED_BY, creator)
-                    .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+                    .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
                     .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
