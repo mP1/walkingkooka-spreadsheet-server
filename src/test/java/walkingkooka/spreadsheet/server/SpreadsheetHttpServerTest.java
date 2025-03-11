@@ -180,7 +180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static Optional<String> NO_TRANSACTION_ID = Optional.empty();
     private final static Map<HttpHeaderName<?>, List<?>> NO_HEADERS_TRANSACTION_ID = HttpRequest.NO_HEADERS;
 
-    private final static LocalDateTime MODIFIED_DATE_TIME = LocalDateTime.of(2021, 7, 15, 20, 33);
+    private final static LocalDateTime MODIFIED_TIMESTAMP = LocalDateTime.of(2021, 7, 15, 20, 33);
     private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
 
     private static final ExpressionFunctionProvider EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider() {
@@ -1353,7 +1353,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
+                    "  \"modified-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -5095,7 +5095,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
+                    "  \"modified-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -5482,7 +5482,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
+                    "  \"modified-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -5659,7 +5659,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-date-time\": \"1999-12-31T12:58\",\n" +
+                    "  \"modified-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
@@ -11462,8 +11462,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     private SpreadsheetMetadata spreadsheetMetadataStamper(final SpreadsheetMetadata metadata) {
         return metadata.set(
-            SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME,
-            MODIFIED_DATE_TIME
+            SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP,
+            MODIFIED_TIMESTAMP
         );
     }
 

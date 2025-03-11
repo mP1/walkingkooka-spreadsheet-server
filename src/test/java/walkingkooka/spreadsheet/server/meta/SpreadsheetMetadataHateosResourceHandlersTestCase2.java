@@ -93,7 +93,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
             .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, createDateTime)
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, modifiedDateTime);
     }
 
     final SpreadsheetId spreadsheetId() {

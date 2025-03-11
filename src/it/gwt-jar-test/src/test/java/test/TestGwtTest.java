@@ -150,7 +150,7 @@ public class TestGwtTest extends GWTTestCase {
                     "  \"group-separator\": \",\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
                     "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-date-time\": \"1999-12-31T12:58:59\",\n" +
+                    "  \"modified-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
                     "  \"number-parser\": \"number-parse-pattern #\",\n" +
@@ -199,7 +199,7 @@ public class TestGwtTest extends GWTTestCase {
             .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, now)
             .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)

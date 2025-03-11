@@ -107,7 +107,7 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                 .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
                 .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
                 .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-                .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2021, 10, 10, 17, 3, 0))
+                .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, LocalDateTime.of(2021, 10, 10, 17, 3, 0))
                 .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-Au"))
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
