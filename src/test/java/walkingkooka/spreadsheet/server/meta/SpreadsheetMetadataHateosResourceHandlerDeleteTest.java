@@ -119,7 +119,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
     }
 
     @Override

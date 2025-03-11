@@ -858,8 +858,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             updatedTimestamp,
             context.metadataStore()
                 .loadOrFail(id)
-                .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME),
-            () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME + " not updated when cell saved"
+                .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP),
+            () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP + " not updated when cell saved"
         );
     }
 
@@ -1143,7 +1143,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             .set(SpreadsheetMetadataPropertyName.CREATED_BY, creatorEmail)
             .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, createDateTime)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, modifiedDateTime);
+            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, modifiedDateTime);
         if (locale.isPresent()) {
             metadata = metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
         }
@@ -1198,7 +1198,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                     .set(SpreadsheetMetadataPropertyName.CREATED_BY, creator)
                     .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
                     .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
-                    .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
+                    .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, now)
                     .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .loadFromLocale()
