@@ -399,7 +399,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             .loadFromLocale()
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
             .set(SpreadsheetMetadataPropertyName.CREATED_BY, user)
-            .set(SpreadsheetMetadataPropertyName.CREATE_DATE_TIME, now)
+            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
             .set(SpreadsheetMetadataPropertyName.MODIFIED_DATE_TIME, now)
             .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
