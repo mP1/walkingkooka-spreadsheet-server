@@ -127,10 +127,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             Optional.empty(), // resource
             Maps.of(
                 SpreadsheetCellFindQuery.CELL_RANGE_PATH, Lists.of(path.name()),
-                SpreadsheetCellFindQuery.OFFSET, Lists.of("" + offset),
-                SpreadsheetCellFindQuery.COUNT, Lists.of("" + count),
-                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
-                SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
+                SpreadsheetCellFindQuery.OFFSET, Lists.of(String.valueOf(offset)),
+                SpreadsheetCellFindQuery.COUNT, Lists.of(String.valueOf(count)),
+                SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of(String.valueOf(valueType)),
+                SpreadsheetCellFindQuery.QUERY, Lists.of(String.valueOf(expression))
             ), // parameters
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
