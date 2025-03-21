@@ -4458,6 +4458,15 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
+                    "  \"references\": {\n" +
+                    "    \"A1\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                    "        \"value\": \"B2\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"deletedCells\": \"B1,A2\",\n" +
                     "  \"columnWidths\": {\n" +
                     "    \"A\": 100,\n" +
                     "    \"B\": 100\n" +
@@ -4604,11 +4613,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
+                    "  \"deletedCells\": \"B1,A2,B2\",\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
                     "  },\n" +
                     "  \"columnCount\": 1,\n" +
                     "  \"rowCount\": 1,\n" +
@@ -4749,11 +4761,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
+                    "  \"deletedCells\": \"B1,A2,B2\",\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
                     "  },\n" +
                     "  \"columnCount\": 1,\n" +
                     "  \"rowCount\": 1,\n" +
@@ -4894,11 +4909,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
+                    "  \"deletedCells\": \"B1,A2,B2\",\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
                     "  },\n" +
                     "  \"columnCount\": 1,\n" +
                     "  \"rowCount\": 1,\n" +
@@ -5039,11 +5057,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      }\n" +
                     "    }\n" +
                     "  },\n" +
+                    "  \"deletedCells\": \"B1,A2,B2\",\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
                     "  },\n" +
                     "  \"columnCount\": 1,\n" +
                     "  \"rowCount\": 1,\n" +
@@ -5309,11 +5330,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "      \"reference\": \"A1\"\n" +
                     "    }\n" +
                     "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"A1\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"Label123\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"deletedCells\": \"B1,A2,B2\",\n" +
                     "  \"columnWidths\": {\n" +
-                    "    \"A\": 100\n" +
+                    "    \"A\": 100,\n" +
+                    "    \"B\": 100\n" +
                     "  },\n" +
                     "  \"rowHeights\": {\n" +
-                    "    \"1\": 50\n" +
+                    "    \"1\": 50,\n" +
+                    "    \"2\": 50\n" +
                     "  },\n" +
                     "  \"columnCount\": 1,\n" +
                     "  \"rowCount\": 1,\n" +
@@ -6158,6 +6190,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
                     "  \"columnCount\": 0,\n" +
                     "  \"rowCount\": 0\n" +
                     "}",
@@ -6271,6 +6309,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
                     "  \"columnCount\": 0,\n" +
                     "  \"rowCount\": 0\n" +
                     "}",
@@ -8445,6 +8489,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
                     "  \"columnCount\": 0,\n" +
                     "  \"rowCount\": 0\n" +
                     "}",
@@ -8558,6 +8608,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "{\n" +
                     "  \"deletedCells\": \"B2\",\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
                     "  \"columnCount\": 0,\n" +
                     "  \"rowCount\": 0\n" +
                     "}",
@@ -10561,6 +10617,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "      \"reference\": \"B2\"\n" +
                 "    }\n" +
                 "  ],\n" +
+                "  \"references\": {\n" +
+                "    \"B2\": [\n" +
+                "      {\n" +
+                "        \"type\": \"spreadsheet-cell-reference\",\n" +
+                "        \"value\": \"C3\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "        \"type\": \"spreadsheet-label-name\",\n" +
+                "        \"value\": \"Label123\"\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  },\n" +
                 "  \"columnWidths\": {\n" +
                 "    \"B\": 100\n" +
                 "  },\n" +
