@@ -69,6 +69,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.storage.StorageStore;
+import walkingkooka.storage.StorageStores;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -343,6 +345,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 }
 
                 private final SpreadsheetRowStore rowStore = SpreadsheetRowStores.treeMap();
+
+                @Override
+                public StorageStore storage() {
+                    return StorageStores.fake();
+                }
             },
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             SPREADSHEET_PROVIDER,
