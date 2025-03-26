@@ -77,6 +77,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.storage.StorageStores;
 import walkingkooka.store.Store;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -1233,6 +1234,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetCellRangeStores.treeMap(),
                 SpreadsheetRowStores.treeMap(),
+                StorageStores.tree(STORAGE_STORE_CONTEXT),
                 SpreadsheetUserStores.treeMap()
             );
             this.spreadsheetIdToRepository.put(id, repository);
