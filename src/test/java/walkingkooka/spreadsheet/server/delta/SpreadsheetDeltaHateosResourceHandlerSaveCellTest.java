@@ -421,7 +421,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             .setFormula(
                 SpreadsheetFormula.EMPTY
                     .setText("1+2")
-                    .setValue(
+                    .setExpressionValue(
                         Optional.of(
                             SpreadsheetErrorKind.VALUE.setMessage("Error something")
                         )
