@@ -8397,8 +8397,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -8516,8 +8516,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -8636,15 +8636,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/C3",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.parseCell("C3")
-                                .setFormula(
-                                    formula("=123")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("C3")
+                            .setFormula(
+                                formula("=123")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -8720,15 +8719,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/D4",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.parseCell("D4")
-                                .setFormula(
-                                    formula("=456")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("D4")
+                            .setFormula(
+                                formula("=456")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -8884,15 +8882,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/C3",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.parseCell("C3")
-                                .setFormula(
-                                    formula("=123")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("C3")
+                            .setFormula(
+                                formula("=123")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -8968,15 +8965,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/D4",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.parseCell("D4")
-                                .setFormula(
-                                    formula("=456")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("D4")
+                            .setFormula(
+                                formula("=456")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -9131,15 +9127,14 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/C3",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.parseCell("C3")
-                                .setFormula(
-                                    formula("1.25")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.parseCell("C3")
+                            .setFormula(
+                                formula("1.25")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -9295,8 +9290,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -9360,7 +9355,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // clear A1:B2
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+            HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2/clear",
             NO_HEADERS_TRANSACTION_ID,
             toJson(SpreadsheetDelta.EMPTY),
@@ -9379,8 +9375,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -9465,8 +9461,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -9530,7 +9526,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // fill A1:B2
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+            HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1:B2/fill",
             NO_HEADERS_TRANSACTION_ID,
             toJson(SpreadsheetDelta.EMPTY
@@ -9620,19 +9617,19 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
         // fill A1:B2 from A1
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+            HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1:B2/fill?from=A1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.A1
-                                .setFormula(
-                                    formula("=1")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=1")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -9864,8 +9861,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -9929,7 +9926,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // fill A1:B2
-        server.handleAndCheck(HttpMethod.POST,
+        server.handleAndCheck(
+            HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1:B2/fill",
             NO_HEADERS_TRANSACTION_ID,
             toJson(SpreadsheetDelta.EMPTY),
@@ -9960,8 +9958,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -10028,8 +10026,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         server.handleAndCheck(HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1:B2/fill",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.A1
                             .setFormula(
@@ -10121,8 +10119,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -10253,8 +10251,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/B2?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("B2")
                             .setFormula(
@@ -10336,8 +10334,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/C3?home=A1&width=900&height=700&selectionType=cell&selection=C3&window=",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.parseCell("C3")
                             .setFormula(
@@ -10472,13 +10470,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/label",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setLabels(
-                        Sets.of(
-                            SpreadsheetSelection.labelName("Label123")
-                                .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
-                        )
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        SpreadsheetSelection.labelName("Label123")
+                            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"))
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.CREATED.status(),
@@ -10657,13 +10654,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/label",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setLabels(
-                        Sets.of(
-                            SpreadsheetSelection.labelName("Label123")
-                                .setLabelMappingReference(SpreadsheetSelection.A1)
-                        )
+                SpreadsheetDelta.EMPTY.setLabels(
+                    Sets.of(
+                        SpreadsheetSelection.labelName("Label123")
+                            .setLabelMappingReference(SpreadsheetSelection.A1)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.CREATED.status(),
@@ -10710,19 +10706,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/cell/A1:A2",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setCells(
-                        Sets.of(
-                            SpreadsheetSelection.A1
-                                .setFormula(
-                                    formula("=A2")
-                                ),
-                            SpreadsheetSelection.parseCell("A2")
-                                .setFormula(
-                                    formula("'Zebra'")
-                                )
-                        )
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        SpreadsheetSelection.A1
+                            .setFormula(
+                                formula("=A2")
+                            ),
+                        SpreadsheetSelection.parseCell("A2")
+                            .setFormula(
+                                formula("'Zebra'")
+                            )
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -10985,8 +10980,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.A1
                             .setFormula(
@@ -11054,14 +11049,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/column/A?window=A1:B2",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setColumns(
-                        Sets.of(
-                            SpreadsheetSelection.parseColumn("A")
-                                .column()
-                                .setHidden(true)
-                        )
+                SpreadsheetDelta.EMPTY.setColumns(
+                    Sets.of(
+                        SpreadsheetSelection.parseColumn("A")
+                            .column()
+                            .setHidden(true)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11082,14 +11076,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/column/A?window=A1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setColumns(
-                        Sets.of(
-                            SpreadsheetSelection.parseColumn("A")
-                                .column()
-                                .setHidden(false)
-                        )
+                SpreadsheetDelta.EMPTY.setColumns(
+                    Sets.of(
+                        SpreadsheetSelection.parseColumn("A")
+                            .column()
+                            .setHidden(false)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11117,14 +11110,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/row/1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setRows(
-                        Sets.of(
-                            SpreadsheetSelection.parseRow("1")
-                                .row()
-                                .setHidden(true)
-                        )
+                SpreadsheetDelta.EMPTY.setRows(
+                    Sets.of(
+                        SpreadsheetSelection.parseRow("1")
+                            .row()
+                            .setHidden(true)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11149,14 +11141,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/row/1?window=A1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setRows(
-                        Sets.of(
-                            SpreadsheetSelection.parseRow("1")
-                                .row()
-                                .setHidden(true)
-                        )
+                SpreadsheetDelta.EMPTY.setRows(
+                    Sets.of(
+                        SpreadsheetSelection.parseRow("1")
+                            .row()
+                            .setHidden(true)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11182,8 +11173,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpMethod.POST,
             "/api/spreadsheet/1/cell/A1",
             NO_HEADERS_TRANSACTION_ID,
-            toJson(SpreadsheetDelta.EMPTY
-                .setCells(
+            toJson(
+                SpreadsheetDelta.EMPTY.setCells(
                     Sets.of(
                         SpreadsheetSelection.A1
                             .setFormula(
@@ -11251,14 +11242,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/row/1?window=A1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setRows(
-                        Sets.of(
-                            SpreadsheetSelection.parseRow("1")
-                                .row()
-                                .setHidden(true)
-                        )
+                SpreadsheetDelta.EMPTY.setRows(
+                    Sets.of(
+                        SpreadsheetSelection.parseRow("1")
+                            .row()
+                            .setHidden(true)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11279,14 +11269,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/spreadsheet/1/row/1?window=A1",
             NO_HEADERS_TRANSACTION_ID,
             toJson(
-                SpreadsheetDelta.EMPTY
-                    .setRows(
-                        Sets.of(
-                            SpreadsheetSelection.parseRow("1")
-                                .row()
-                                .setHidden(false)
-                        )
+                SpreadsheetDelta.EMPTY.setRows(
+                    Sets.of(
+                        SpreadsheetSelection.parseRow("1")
+                            .row()
+                            .setHidden(false)
                     )
+                )
             ),
             this.response(
                 HttpStatusCode.OK.status(),
@@ -11317,9 +11306,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Lists.of(MediaType.ALL.accept())
             ),
             "",
-            this.response(HttpStatusCode.OK.status(),
-                HttpEntity.EMPTY
-                    .setContentType(FILE_CONTENT_TYPE)
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(FILE_CONTENT_TYPE)
                     .addHeader(HttpHeaderName.CONTENT_LENGTH, 6L)
                     .addHeader(HttpHeaderName.LAST_MODIFIED, FILE_LAST_MODIFIED)
                     .setBody(FILE_BINARY)));
