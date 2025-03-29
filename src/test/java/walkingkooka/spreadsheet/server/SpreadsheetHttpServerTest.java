@@ -11675,14 +11675,31 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                                        final Map<HttpHeaderName<?>, List<?>> headers,
                                        final String body) {
         final Map<HttpHeaderName<?>, List<?>> headers2 = Maps.sorted();
-        headers2.put(HttpHeaderName.ACCEPT, list(CONTENT_TYPE_UTF8.accept()));
-        headers2.put(HttpHeaderName.ACCEPT_CHARSET, list(AcceptCharset.parse(CHARSET.toHeaderText())));
-        headers2.put(HttpHeaderName.CONTENT_TYPE, list(CONTENT_TYPE_UTF8));
+        headers2.put(
+            HttpHeaderName.ACCEPT,
+            Lists.of(CONTENT_TYPE_UTF8.accept()
+            )
+        );
+        headers2.put(
+            HttpHeaderName.ACCEPT_CHARSET,
+            Lists.of(
+                AcceptCharset.parse(CHARSET.toHeaderText())
+            )
+        );
+        headers2.put(
+            HttpHeaderName.CONTENT_TYPE,
+            Lists.of(CONTENT_TYPE_UTF8)
+        );
         headers2.putAll(headers);
 
         final byte[] bodyBytes = bytes(body, CONTENT_TYPE_UTF8);
         if (null != bodyBytes) {
-            headers2.put(HttpHeaderName.CONTENT_LENGTH, list((long) bodyBytes.length));
+            headers2.put(
+                HttpHeaderName.CONTENT_LENGTH,
+                Lists.of(
+                    Long.valueOf(bodyBytes.length)
+                )
+            );
         }
         return new HttpRequest() {
             @Override
@@ -11737,10 +11754,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 return method + " " + url + "\n" + headers.entrySet().stream().map(e -> e.getKey() + ": " + e.getValue() + "\n").collect(Collectors.joining()) + "\n" + body;
             }
         };
-    }
-
-    private static <T> List<T> list(final T... values) {
-        return Lists.of(values);
     }
 
     private HttpResponse response(final HttpStatus status) {
