@@ -7057,6 +7057,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setLabels(
                         Sets.of(mapping)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
                     )
                 ),
                 SpreadsheetDelta.class.getSimpleName()
@@ -7167,8 +7171,232 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             mapping2,
                             mapping3
                         )
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
                     )
                 ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLabelLoadsWithOffsetAndCountWithCellReferences() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final SpreadsheetLabelMapping mapping1 = SpreadsheetSelection.labelName("Label111")
+            .setLabelMappingReference(SpreadsheetSelection.A1);
+        final SpreadsheetLabelMapping mapping2 = SpreadsheetSelection.labelName("Label222")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("B2"));
+        final SpreadsheetLabelMapping mapping3 = SpreadsheetSelection.labelName("Label333")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("C3"));
+        final SpreadsheetLabelMapping mapping4 = SpreadsheetSelection.labelName("Label444")
+            .setLabelMappingReference(SpreadsheetSelection.parseCell("D4"));
+
+        for (final SpreadsheetLabelMapping mapping : Lists.of(mapping1, mapping2, mapping3, mapping4)) {
+            server.handleAndCheck(
+                HttpMethod.POST,
+                "/api/spreadsheet/1/label/",
+                NO_HEADERS_TRANSACTION_ID,
+                toJson(
+                    SpreadsheetDelta.EMPTY.setLabels(
+                        Sets.of(mapping)
+                    )
+                ),
+                this.response(
+                    HttpStatusCode.CREATED.status(),
+                    this.toJson(
+                        SpreadsheetDelta.EMPTY.setLabels(
+                            Sets.of(mapping)
+                        ).setColumnCount(
+                            OptionalInt.of(0)
+                        ).setRowCount(
+                            OptionalInt.of(0)
+                        )
+                    ),
+                    SpreadsheetDelta.class.getSimpleName()
+                )
+            );
+        }
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/cell/B2",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY
+                    .setCells(
+                        Sets.of(
+                            SpreadsheetSelection.parseCell("B2")
+                                .setFormula(
+                                    formula("=100")
+                                )
+                        )
+                    )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=100\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"100\",\n" +
+                    "                        \"text\": \"100\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"100\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expressionValue\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"100\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 100.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label222\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"references\": {\n" +
+                    "    \"B2\": [\n" +
+                    "      {\n" +
+                    "        \"type\": \"spreadsheet-label-name\",\n" +
+                    "        \"value\": \"Label222\"\n" +
+                    "      }\n" +
+                    "    ]\n" +
+                    "  },\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
+                DELTA
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/label/*?offset=1&count=2",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"cells\": {\n" +
+                    "    \"B2\": {\n" +
+                    "      \"formula\": {\n" +
+                    "        \"text\": \"=100\",\n" +
+                    "        \"token\": {\n" +
+                    "          \"type\": \"expression-spreadsheet-formula-parser-token\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"value\": [\n" +
+                    "              {\n" +
+                    "                \"type\": \"equals-symbol-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": \"=\",\n" +
+                    "                  \"text\": \"=\"\n" +
+                    "                }\n" +
+                    "              },\n" +
+                    "              {\n" +
+                    "                \"type\": \"number-spreadsheet-formula-parser-token\",\n" +
+                    "                \"value\": {\n" +
+                    "                  \"value\": [\n" +
+                    "                    {\n" +
+                    "                      \"type\": \"digits-spreadsheet-formula-parser-token\",\n" +
+                    "                      \"value\": {\n" +
+                    "                        \"value\": \"100\",\n" +
+                    "                        \"text\": \"100\"\n" +
+                    "                      }\n" +
+                    "                    }\n" +
+                    "                  ],\n" +
+                    "                  \"text\": \"100\"\n" +
+                    "                }\n" +
+                    "              }\n" +
+                    "            ],\n" +
+                    "            \"text\": \"=100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expression\": {\n" +
+                    "          \"type\": \"value-expression\",\n" +
+                    "          \"value\": {\n" +
+                    "            \"type\": \"expression-number\",\n" +
+                    "            \"value\": \"100\"\n" +
+                    "          }\n" +
+                    "        },\n" +
+                    "        \"expressionValue\": {\n" +
+                    "          \"type\": \"expression-number\",\n" +
+                    "          \"value\": \"100\"\n" +
+                    "        }\n" +
+                    "      },\n" +
+                    "      \"formatted-value\": {\n" +
+                    "        \"type\": \"text\",\n" +
+                    "        \"value\": \"Number 100.000\"\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"labels\": [\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label222\",\n" +
+                    "      \"reference\": \"B2\"\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"label\": \"Label333\",\n" +
+                    "      \"reference\": \"C3\"\n" +
+                    "    }\n" +
+                    "  ],\n" +
+                    "  \"columnWidths\": {\n" +
+                    "    \"B\": 100\n" +
+                    "  },\n" +
+                    "  \"rowHeights\": {\n" +
+                    "    \"2\": 50\n" +
+                    "  },\n" +
+                    "  \"columnCount\": 2,\n" +
+                    "  \"rowCount\": 2\n" +
+                    "}",
                 SpreadsheetDelta.class.getSimpleName()
             )
         );
