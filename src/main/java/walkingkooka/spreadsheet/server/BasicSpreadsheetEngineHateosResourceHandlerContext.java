@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 final class BasicSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
     HateosResourceHandlerContextDelegator,
@@ -80,7 +81,7 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     }
 
     @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName labelName) {
+    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName labelName) {
         return this.engineContext.resolveLabel(labelName);
     }
 

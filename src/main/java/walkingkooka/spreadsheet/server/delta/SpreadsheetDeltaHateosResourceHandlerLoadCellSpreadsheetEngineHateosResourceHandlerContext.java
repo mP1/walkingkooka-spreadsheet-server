@@ -35,6 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegato
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * A {@link SpreadsheetEngineHateosResourceHandlerContext} which delegates all methods to the given {@link SpreadsheetEngineHateosResourceHandlerContext},
@@ -92,7 +93,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName label) {
+    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName label) {
         return this.context.resolveLabel(label);
     }
 

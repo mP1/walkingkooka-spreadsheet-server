@@ -155,7 +155,7 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     }
 
     @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName labelName) {
+    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName labelName) {
         throw new UnsupportedOperationException();
     }
 
