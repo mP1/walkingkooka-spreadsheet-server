@@ -142,7 +142,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
+    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
         throw new UnsupportedOperationException();
     }
 

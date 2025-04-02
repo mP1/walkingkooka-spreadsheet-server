@@ -17,6 +17,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
@@ -165,7 +166,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.GET,
             "/cell/UnknownLabel123",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: \"UnknownLabel123\""
+            "Label \"UnknownLabel123\" not found"
         );
     }
 
@@ -224,7 +225,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.POST,
             "/cell/UnknownLabel456",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: \"UnknownLabel456\""
+            "Label \"UnknownLabel456\" not found"
         );
     }
 
@@ -257,7 +258,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             HttpMethod.DELETE,
             "/cell/UnknownLabel789",
             HttpStatusCode.BAD_REQUEST,
-            "Label not found: \"UnknownLabel789\""
+            "Label \"UnknownLabel789\" not found"
         );
     }
 
@@ -606,11 +607,12 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             }
 
             @Override
-            public SpreadsheetSelection resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
-                return this.storeRepository()
+            public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName spreadsheetLabelName) {
+                return Cast.to(
+                    this.storeRepository()
                     .labels()
-                    .resolveLabelOrFail(spreadsheetLabelName)
-                    .toCell();
+                        .resolveLabel(spreadsheetLabelName)
+                );
             }
         };
     }
