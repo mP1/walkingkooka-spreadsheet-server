@@ -365,7 +365,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             SPREADSHEET_EXPORTER_PROVIDER,
             SPREADSHEET_FORMATTER_PROVIDER,
             SPREADSHEET_IMPORTER_PROVIDER,
-            SPREADSHEET_PARSER_PROVIDER
+            SPREADSHEET_PARSER_PROVIDER,
+            VALIDATOR_PROVIDER
         );
     }
 
@@ -386,7 +387,8 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
                 SPREADSHEET_EXPORTER_PROVIDER,
                 SPREADSHEET_FORMATTER_PROVIDER,
                 SPREADSHEET_IMPORTER_PROVIDER,
-                SPREADSHEET_PARSER_PROVIDER
+                SPREADSHEET_PARSER_PROVIDER,
+                VALIDATOR_PROVIDER
             )
         );
     }

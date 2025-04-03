@@ -70,6 +70,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
+import walkingkooka.validation.provider.ValidatorAliasSet;
+import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -168,6 +170,7 @@ public class TestGwtTest extends GWTTestCase {
                     "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"two-digit-year\": 31,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\"\n" +
                     "}"
             ).setContentLength(),
@@ -219,6 +222,7 @@ public class TestGwtTest extends GWTTestCase {
             .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
+            .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
