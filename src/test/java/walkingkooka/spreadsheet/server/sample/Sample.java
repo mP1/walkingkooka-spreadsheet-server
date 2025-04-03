@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.sample;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converters;
@@ -103,6 +104,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
         this.testCreateSpreadsheet();
     }
 
+    @Test
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
