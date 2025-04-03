@@ -1374,6 +1374,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"two-digit-year\": 50,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -5137,6 +5138,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"two-digit-year\": 50,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\",\n" +
                     "  \"viewport\": {\n" +
                     "    \"rectangle\": \"A1:200.0:60.0\",\n" +
@@ -5535,6 +5537,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"two-digit-year\": 50,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
@@ -5712,6 +5715,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"two-digit-year\": 50,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
