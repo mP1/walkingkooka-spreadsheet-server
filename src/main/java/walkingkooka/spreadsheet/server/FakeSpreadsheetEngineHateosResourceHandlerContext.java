@@ -77,6 +77,12 @@ import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionSelector;
 import walkingkooka.tree.text.TextNode;
+import walkingkooka.validation.ValidationReference;
+import walkingkooka.validation.Validator;
+import walkingkooka.validation.ValidatorContext;
+import walkingkooka.validation.provider.ValidatorInfoSet;
+import walkingkooka.validation.provider.ValidatorName;
+import walkingkooka.validation.provider.ValidatorSelector;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -310,6 +316,24 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public SpreadsheetParserInfoSet spreadsheetParserInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <R extends ValidationReference, C extends ValidatorContext<R>> Validator<R, C> validator(final ValidatorSelector validatorSelector,
+                                                                                                    final ProviderContext providerContext) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <R extends ValidationReference, C extends ValidatorContext<R>> Validator<R, C> validator(final ValidatorName validatorName,
+                                                                                                    final List<?> values,
+                                                                                                    final ProviderContext providerContext) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ValidatorInfoSet validatorInfos() {
         throw new UnsupportedOperationException();
     }
 

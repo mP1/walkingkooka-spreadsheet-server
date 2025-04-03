@@ -85,6 +85,8 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
+import walkingkooka.validation.provider.ValidatorAliasSet;
+import walkingkooka.validation.provider.ValidatorProviders;
 
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -140,7 +142,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 "{\n" +
                     "  \"spreadsheet-id\": \"1\",\n" +
                     "  \"cell-character-width\": 10,\n" +
-                    "  \"create-date-time\": \"1999-12-31T12:58:59\",\n" +
+                    "  \"create-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
                     "  \"currency-symbol\": \"$AUD\",\n" +
                     "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
@@ -176,6 +178,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"two-digit-year\": 31,\n" +
+                    "  \"validators\": \"\",\n" +
                     "  \"value-separator\": \",\"\n" +
                     "}"
             ).setContentLength(),
@@ -227,6 +230,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
+            .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
@@ -302,7 +306,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     SpreadsheetImporterProviders.spreadsheetImport(),
                     SpreadsheetParserProviders.spreadsheetParsePattern(
                         spreadsheetFormatterProvider
-                    )
+                    ),
+                    ValidatorProviders.validators()
                 )
             ),
             (id) -> repo, // spreadsheetIdToStoreRepository
