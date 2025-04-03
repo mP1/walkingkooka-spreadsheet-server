@@ -142,8 +142,8 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 "{\n" +
                     "  \"spreadsheet-id\": \"1\",\n" +
                     "  \"cell-character-width\": 10,\n" +
-                    "  \"create-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
+                    "  \"created-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"currency-symbol\": \"$AUD\",\n" +
                     "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
                     "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +

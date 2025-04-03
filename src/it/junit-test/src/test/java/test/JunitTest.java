@@ -95,8 +95,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 
 // copied from Sample
 @J2clTestInput(JunitTest.class)
@@ -134,7 +132,7 @@ public class JunitTest {
 
         checkEquals(
             HttpEntity.EMPTY.setContentType(
-                SpreadsheetServerMediaTypes.CONTENT_TYPE.setCharset(CharsetName.UTF_8)
+                MediaType.APPLICATION_JSON.setCharset(CharsetName.UTF_8)
             ).addHeader(
                 HttpHeaderName.with("X-Content-Type-Name"),
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
@@ -306,7 +304,8 @@ public class JunitTest {
                     SpreadsheetImporterProviders.spreadsheetImport(),
                     SpreadsheetParserProviders.spreadsheetParsePattern(
                         spreadsheetFormatterProvider
-                    )
+                    ),
+                    ValidatorProviders.validators()
                 )
             ),
             (id) -> repo, // spreadsheetIdToStoreRepository
