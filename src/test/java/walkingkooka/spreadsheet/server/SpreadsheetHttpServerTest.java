@@ -144,6 +144,8 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
+import walkingkooka.validation.provider.ValidatorInfo;
+import walkingkooka.validation.provider.ValidatorInfoSet;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -11528,6 +11530,64 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // validators........................................................................................................
+
+    @Test
+    public void testValidators() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/validator",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/collection collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null\"\n" +
+                    "]",
+                ValidatorInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testValidatorsWithName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/validator/non-null",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null\"",
+                ValidatorInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testValidatorsWithNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/validator/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                ValidatorInfo.class.getSimpleName()
+            )
+        );
+    }
+    
     // file server......................................................................................................
 
     @Test

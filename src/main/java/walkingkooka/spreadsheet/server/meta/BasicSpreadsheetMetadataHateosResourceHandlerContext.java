@@ -84,6 +84,7 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResou
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserHateosResourceMappings;
+import walkingkooka.spreadsheet.server.validation.ValidationHateosResourceMappings;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
@@ -92,6 +93,9 @@ import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
+import walkingkooka.validation.provider.ValidatorInfo;
+import walkingkooka.validation.provider.ValidatorInfoSet;
+import walkingkooka.validation.provider.ValidatorName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -340,6 +344,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             engine
         );
 
+        final HateosResourceMapping<ValidatorName, ValidatorInfo, ValidatorInfoSet, ValidatorInfo, SpreadsheetEngineHateosResourceHandlerContext> validator = ValidationHateosResourceMappings.validator();
+
         final AbsoluteUrl serverUrl = this.serverUrl;
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
@@ -364,7 +370,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 importer,
                 label,
                 parser, // /parser
-                row
+                row,
+                validator
             ),
             this.indentation,
             this.lineEnding,
