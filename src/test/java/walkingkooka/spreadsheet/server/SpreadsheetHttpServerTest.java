@@ -1348,6 +1348,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"general-number-format-digit-count\": 8,\n" +
                     "  \"group-separator\": \",\",\n" +
@@ -5112,6 +5113,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"general-number-format-digit-count\": 8,\n" +
                     "  \"group-separator\": \",\",\n" +
@@ -5511,6 +5513,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction2\",\n" +
+                    "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"general-number-format-digit-count\": 8,\n" +
                     "  \"group-separator\": \",\",\n" +
@@ -5689,6 +5692,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1\",\n" +
+                    "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"general-number-format-digit-count\": 8,\n" +
                     "  \"group-separator\": \",\",\n" +
