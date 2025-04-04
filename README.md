@@ -210,6 +210,15 @@ Many of these are very closed mapped to the context menu that appears when row/r
 - **DELETE** /api/spreadsheet/$spreadsheet-id/row/1
 - **DELETE** /api/spreadsheet/$spreadsheet-id/row/1:2
 
+#### [Validator](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/validation/Validator.java)
+
+These end points may be used to work with
+available [ValidatorInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/validator/ValidatorInfoSet.java)
+
+- **GET** /api/spreadsheet/$spreadsheet-id/validator
+- **GET** /api/spreadsheet/$
+  spreadsheet-id/validator/[ValidatorName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/provider/ValidatorName.java)
+
 #### url / query string parameters
 
 - `selection-type` & `selection`  
