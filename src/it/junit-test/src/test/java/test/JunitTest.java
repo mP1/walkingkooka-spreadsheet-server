@@ -154,6 +154,7 @@ public class JunitTest {
                     "  \"expression-number-kind\": \"DOUBLE\",\n" +
                     "  \"formula-converter\": \"general\",\n" +
                     "  \"formula-functions\": \"\",\n" +
+                    "  \"formula-validators\": \"\",\n" +
                     "  \"frozen-columns\": \"A:B\",\n" +
                     "  \"frozen-rows\": \"1:2\",\n" +
                     "  \"general-number-format-digit-count\": 8,\n" +
@@ -205,6 +206,7 @@ public class JunitTest {
             .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.FORMULA_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
             .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
