@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.Either;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
@@ -30,6 +31,18 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
 
     public FakePluginHateosResourceHandlerContext() {
         super();
+    }
+
+    @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type) {
+        throw new UnsupportedOperationException();
     }
 
     @Override

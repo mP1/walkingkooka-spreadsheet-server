@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.sample;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
@@ -282,6 +283,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             MediaTypeDetectors.fake(),
             SpreadsheetProviders.fake(),
             ProviderContexts.basic(
+                ConverterContexts.fake(), // CanConvert
                 EnvironmentContexts.empty(
                     LocalDateTime::now,
                     Optional.of(

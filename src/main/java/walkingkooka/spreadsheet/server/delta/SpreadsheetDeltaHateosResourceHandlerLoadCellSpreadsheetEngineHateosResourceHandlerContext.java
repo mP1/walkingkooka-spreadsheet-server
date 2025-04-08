@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.convert.CanConvert;
 import walkingkooka.convert.provider.ConverterProviderDelegator;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -69,6 +70,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     private final SpreadsheetMetadata metadata;
 
     // SpreadsheetEngineHateosResourceHandlerContext.........................................................................
+
+    @Override
+    public CanConvert canConvert() {
+        return this.context;
+    }
 
     @Override
     public MediaType contentType() {

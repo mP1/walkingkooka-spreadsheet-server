@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.convert.CanConvert;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -58,6 +59,11 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
 
     @Override
     public SpreadsheetFormatterContext spreadsheetFormatterContext() {
+        return this.spreadsheetFormatterContext;
+    }
+
+    @Override
+    public CanConvert canConvert() {
         return this.spreadsheetFormatterContext;
     }
 

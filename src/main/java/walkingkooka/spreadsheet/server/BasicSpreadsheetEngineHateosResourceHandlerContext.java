@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.convert.CanConvert;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
@@ -83,6 +84,13 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
     @Override
     public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName labelName) {
         return this.engineContext.resolveLabel(labelName);
+    }
+
+    // CanConvertDelegator..............................................................................................
+
+    @Override
+    public CanConvert canConvert() {
+        return this.formatterContext; // engineContext will delegate to ProviderContext
     }
 
     // HateosResourceHandlerContext.....................................................................................
