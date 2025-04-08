@@ -280,6 +280,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
             metadata.spreadsheetProvider(spreadsheetProvider),
             ProviderContexts.basic(
+                providerContext,
                 metadata.environmentContext(
                     providerContext
                 ),

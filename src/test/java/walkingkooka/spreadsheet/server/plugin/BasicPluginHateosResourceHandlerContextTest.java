@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.environment.FakeEnvironmentContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
@@ -43,6 +44,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
         )
     );
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.basic(
+        ConverterContexts.fake(), // CanConvert
         new FakeEnvironmentContext() {
             @Override
             public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {

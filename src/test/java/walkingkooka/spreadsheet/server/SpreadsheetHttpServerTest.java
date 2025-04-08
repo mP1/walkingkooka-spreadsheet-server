@@ -26,6 +26,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.EnvironmentContexts;
@@ -11645,6 +11646,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 VALIDATOR_PROVIDER
             ),
             ProviderContexts.basic(
+                ConverterContexts.fake(), // CanConvert
                 EnvironmentContexts.empty(
                     NOW,
                     Optional.of(USER)

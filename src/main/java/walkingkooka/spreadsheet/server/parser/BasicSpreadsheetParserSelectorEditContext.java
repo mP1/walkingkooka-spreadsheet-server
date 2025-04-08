@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.convert.CanConvert;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
@@ -107,6 +108,11 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     @Override
     public ProviderContext providerContext() {
         return this.providerContext;
+    }
+
+    @Override
+    public CanConvert canConvert() {
+        return this.spreadsheetFormatterContext; // ProviderContext from SpreadsheetMetadataTesting#PROVIDER_CONTEXT will throw UOE
     }
 
     @Override

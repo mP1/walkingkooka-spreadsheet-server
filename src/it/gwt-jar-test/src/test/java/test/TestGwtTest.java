@@ -4,6 +4,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
@@ -270,6 +271,7 @@ public class TestGwtTest extends GWTTestCase {
             MediaTypeDetectors.fake(),
             SpreadsheetProviders.fake(),
             ProviderContexts.basic(
+                ConverterContexts.fake(), // CanConvert
                 EnvironmentContexts.empty(
                     LocalDateTime::now,
                     Optional.of(
