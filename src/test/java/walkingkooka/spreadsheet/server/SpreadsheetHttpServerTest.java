@@ -1331,7 +1331,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"color-Black\": 1,\n" +
                     "  \"color-White\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
                     "  \"created-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
@@ -1349,7 +1349,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"find-functions\": \"\",\n" +
                     "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -5096,7 +5096,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"color-Black\": 1,\n" +
                     "  \"color-White\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
                     "  \"created-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
@@ -5114,7 +5114,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"find-functions\": \"\",\n" +
                     "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -5496,7 +5496,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"color-Black\": 1,\n" +
                     "  \"color-White\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
                     "  \"created-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
@@ -5514,7 +5514,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"find-functions\": \"\",\n" +
                     "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction2\",\n" +
                     "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -5675,7 +5675,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"color-Black\": 1,\n" +
                     "  \"color-White\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
                     "  \"created-by\": \"user@example.com\",\n" +
                     "  \"created-timestamp\": \"1999-12-31T12:58\",\n" +
                     "  \"currency-symbol\": \"$\",\n" +
@@ -5693,7 +5693,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"find-functions\": \"\",\n" +
                     "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formula-functions\": \"ExpressionFunction1\",\n" +
                     "  \"formula-validators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
@@ -7562,6 +7562,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-error string-to-error\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-expression string-to-expression\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-selection string-to-selection\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-spreadsheet-id string-to-spreadsheet-id\",\n" +
