@@ -11548,6 +11548,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 HttpStatusCode.OK.status(),
                 "[\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/collection collection\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/Validator/expression expression\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-validation/Validator/non-null non-null\"\n" +
                     "]",
                 ValidatorInfoSet.class.getSimpleName()
