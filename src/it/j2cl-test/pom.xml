@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>walkingkooka</groupId>
-    <artifactId>walkingkooka-spreadsheet-server-it-junit-test</artifactId>
+    <artifactId>walkingkooka-spreadsheet-server-it-j2cl-test</artifactId>
     <version>1.0</version>
 
     <licenses>
@@ -81,7 +81,7 @@
                 <version>1.0-SNAPSHOT</version>
                 <executions>
                     <execution>
-                        <id>walkingkooka-spreadsheet-server-it-junit-test</id>
+                        <id>walkingkooka-spreadsheet-server-it-j2cl-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>test</goal>

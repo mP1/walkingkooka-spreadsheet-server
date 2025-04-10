@@ -98,8 +98,8 @@ import java.util.Locale;
 import java.util.Optional;
 
 // copied from Sample
-@J2clTestInput(JunitTest.class)
-public class JunitTest {
+@J2clTestInput(J2clTest.class)
+public class J2clTest {
 
     @Test
     public void testCreateSpreadsheet() {
