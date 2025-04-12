@@ -178,8 +178,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "", // request body
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"audit-info\": {\n" +
+                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                 "    \"modifiedBy\": \"user@example.com\",\n" +
@@ -229,8 +229,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             HttpStatusCode.OK,
             "[\n" +
                 "  {\n" +
-                "    \"spreadsheet-id\": \"1\",\n" +
-                "    \"audit-info\": {\n" +
+                "    \"spreadsheetId\": \"1\",\n" +
+                "    \"auditInfo\": {\n" +
                 "      \"createdBy\": \"user@example.com\",\n" +
                 "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                 "      \"modifiedBy\": \"user@example.com\",\n" +
@@ -238,8 +238,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 "    }\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"spreadsheet-id\": \"2\",\n" +
-                "    \"audit-info\": {\n" +
+                "    \"spreadsheetId\": \"2\",\n" +
+                "    \"auditInfo\": {\n" +
                 "      \"createdBy\": \"user@example.com\",\n" +
                 "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                 "      \"modifiedBy\": \"user@example.com\",\n" +
@@ -297,8 +297,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "", // request body
             HttpStatusCode.CREATED,
             "{\n" +
-                "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"audit-info\": {\n" +
+                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                 "    \"modifiedBy\": \"user@example.com\",\n" +
@@ -346,8 +346,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 .toString(),
             HttpStatusCode.OK,
             "{\n" +
-                "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"audit-info\": {\n" +
+                "  \"spreadsheetId\": \"12ef\",\n" +
+                "  \"auditInfo\": {\n" +
                 "    \"createdBy\": \"user@example.com\",\n" +
                 "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                 "    \"modifiedBy\": \"saved@example.com\",\n" +

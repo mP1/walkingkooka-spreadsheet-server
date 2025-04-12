@@ -144,49 +144,49 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 Cast.to(SpreadsheetMetadata.class.getSimpleName())
             ).setBodyText(
                 "{\n" +
-                    "  \"spreadsheet-id\": \"1\",\n" +
-                    "  \"audit-info\": {\n" +
+                    "  \"spreadsheetId\": \"1\",\n" +
+                    "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
-                    "  \"cell-character-width\": 10,\n" +
-                    "  \"currency-symbol\": \"$AUD\",\n" +
-                    "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
-                    "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
-                    "  \"date-time-formatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
-                    "  \"date-time-offset\": \"0\",\n" +
-                    "  \"date-time-parser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                    "  \"decimal-separator\": \".\",\n" +
-                    "  \"default-year\": 1900,\n" +
-                    "  \"exponent-symbol\": \"E\",\n" +
-                    "  \"expression-number-kind\": \"DOUBLE\",\n" +
-                    "  \"formula-converter\": \"general\",\n" +
-                    "  \"formula-functions\": \"\",\n" +
-                    "  \"formula-validators\": \"\",\n" +
-                    "  \"frozen-columns\": \"A:B\",\n" +
-                    "  \"frozen-rows\": \"1:2\",\n" +
-                    "  \"general-number-format-digit-count\": 8,\n" +
-                    "  \"group-separator\": \",\",\n" +
+                    "  \"cellCharacterWidth\": 10,\n" +
+                    "  \"currencySymbol\": \"$AUD\",\n" +
+                    "  \"dateFormatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
+                    "  \"dateParser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
+                    "  \"dateTimeFormatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
+                    "  \"dateTimeOffset\": \"0\",\n" +
+                    "  \"dateTimeParser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
+                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"defaultYear\": 1900,\n" +
+                    "  \"exponentSymbol\": \"E\",\n" +
+                    "  \"expressionNumberKind\": \"DOUBLE\",\n" +
+                    "  \"formulaConverter\": \"general\",\n" +
+                    "  \"formulaFunctions\": \"\",\n" +
+                    "  \"formulaValidators\": \"\",\n" +
+                    "  \"frozenColumns\": \"A:B\",\n" +
+                    "  \"frozenRows\": \"1:2\",\n" +
+                    "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"groupSeparator\": \",\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negative-sign\": \"-\",\n" +
-                    "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
-                    "  \"number-parser\": \"number-parse-pattern #\",\n" +
-                    "  \"percentage-symbol\": \"%\",\n" +
-                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"negativeSign\": \"-\",\n" +
+                    "  \"numberFormatter\": \"number-format-pattern #0.0\",\n" +
+                    "  \"numberParser\": \"number-parse-pattern #\",\n" +
+                    "  \"percentageSymbol\": \"%\",\n" +
+                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 123,\n" +
-                    "  \"rounding-mode\": \"FLOOR\",\n" +
+                    "  \"roundingMode\": \"FLOOR\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"50px\"\n" +
                     "  },\n" +
-                    "  \"text-formatter\": \"text-format-pattern @@\",\n" +
-                    "  \"time-formatter\": \"time-format-pattern hh:mm\",\n" +
-                    "  \"time-parser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
-                    "  \"two-digit-year\": 31,\n" +
+                    "  \"textFormatter\": \"text-format-pattern @@\",\n" +
+                    "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
+                    "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
+                    "  \"twoDigitYear\": 31,\n" +
                     "  \"validators\": \"\",\n" +
-                    "  \"value-separator\": \",\"\n" +
+                    "  \"valueSeparator\": \",\"\n" +
                     "}"
             ).setContentLength(),
             response.entity(),

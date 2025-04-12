@@ -84,7 +84,7 @@ public final class SpreadsheetMetadataSetTest implements HateosResourceSetTestin
             set,
             "[\n" +
                 "  {\n" +
-                "    \"spreadsheet-id\": \"1\"\n" +
+                "    \"spreadsheetId\": \"1\"\n" +
                 "  }\n" +
                 "]"
         );
