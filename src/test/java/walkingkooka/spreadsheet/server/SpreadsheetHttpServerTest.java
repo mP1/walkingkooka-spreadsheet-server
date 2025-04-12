@@ -1324,64 +1324,64 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"spreadsheet-id\": \"1\",\n" +
-                    "  \"audit-info\": {\n" +
+                    "  \"spreadsheetId\": \"1\",\n" +
+                    "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
-                    "  \"cell-character-width\": 1,\n" +
-                    "  \"color-1\": \"#000000\",\n" +
-                    "  \"color-2\": \"#ffffff\",\n" +
-                    "  \"color-Black\": 1,\n" +
-                    "  \"color-White\": 2,\n" +
+                    "  \"cellCharacterWidth\": 1,\n" +
+                    "  \"color1\": \"#000000\",\n" +
+                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"colorBlack\": 1,\n" +
+                    "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
-                    "  \"currency-symbol\": \"$\",\n" +
-                    "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
-                    "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
-                    "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
-                    "  \"date-time-offset\": \"-25569\",\n" +
-                    "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimal-separator\": \".\",\n" +
-                    "  \"default-year\": 2000,\n" +
-                    "  \"exponent-symbol\": \"e\",\n" +
+                    "  \"currencySymbol\": \"$\",\n" +
+                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                    "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeOffset\": \"-25569\",\n" +
+                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"defaultYear\": 2000,\n" +
+                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
-                    "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                    "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"find-functions\": \"\",\n" +
-                    "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
+                    "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findFunctions\": \"\",\n" +
+                    "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"formula-validators\": \"\",\n" +
+                    "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaFunctions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaValidators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"general-number-format-digit-count\": 8,\n" +
-                    "  \"group-separator\": \",\",\n" +
+                    "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negative-sign\": \"-\",\n" +
-                    "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
-                    "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                    "  \"negativeSign\": \"-\",\n" +
+                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentage-symbol\": \"%\",\n" +
+                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
-                    "  \"rounding-mode\": \"HALF_UP\",\n" +
-                    "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"roundingMode\": \"HALF_UP\",\n" +
+                    "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
+                    "  \"sortConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
-                    "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
-                    "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
-                    "  \"two-digit-year\": 50,\n" +
+                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"twoDigitYear\": 50,\n" +
                     "  \"validators\": \"\",\n" +
-                    "  \"value-separator\": \",\"\n" +
+                    "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
             )
@@ -5091,64 +5091,64 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"spreadsheet-id\": \"1\",\n" +
-                    "  \"audit-info\": {\n" +
+                    "  \"spreadsheetId\": \"1\",\n" +
+                    "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
-                    "  \"cell-character-width\": 1,\n" +
-                    "  \"color-1\": \"#000000\",\n" +
-                    "  \"color-2\": \"#ffffff\",\n" +
-                    "  \"color-Black\": 1,\n" +
-                    "  \"color-White\": 2,\n" +
+                    "  \"cellCharacterWidth\": 1,\n" +
+                    "  \"color1\": \"#000000\",\n" +
+                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"colorBlack\": 1,\n" +
+                    "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
-                    "  \"currency-symbol\": \"$\",\n" +
-                    "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
-                    "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
-                    "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
-                    "  \"date-time-offset\": \"-25569\",\n" +
-                    "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimal-separator\": \".\",\n" +
-                    "  \"default-year\": 2000,\n" +
-                    "  \"exponent-symbol\": \"e\",\n" +
+                    "  \"currencySymbol\": \"$\",\n" +
+                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                    "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeOffset\": \"-25569\",\n" +
+                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"defaultYear\": 2000,\n" +
+                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
-                    "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                    "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"find-functions\": \"\",\n" +
-                    "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
+                    "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findFunctions\": \"\",\n" +
+                    "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formula-functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"formula-validators\": \"\",\n" +
+                    "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaFunctions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaValidators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"general-number-format-digit-count\": 8,\n" +
-                    "  \"group-separator\": \",\",\n" +
+                    "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negative-sign\": \"-\",\n" +
-                    "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
-                    "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                    "  \"negativeSign\": \"-\",\n" +
+                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentage-symbol\": \"%\",\n" +
+                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
-                    "  \"rounding-mode\": \"HALF_UP\",\n" +
-                    "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"roundingMode\": \"HALF_UP\",\n" +
+                    "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
+                    "  \"sortConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
-                    "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
-                    "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
-                    "  \"two-digit-year\": 50,\n" +
+                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"twoDigitYear\": 50,\n" +
                     "  \"validators\": \"\",\n" +
-                    "  \"value-separator\": \",\",\n" +
+                    "  \"valueSeparator\": \",\",\n" +
                     "  \"viewport\": {\n" +
                     "    \"rectangle\": \"A1:200.0:60.0\",\n" +
                     "    \"anchoredSelection\": {\n" +
@@ -5493,64 +5493,64 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"spreadsheet-id\": \"1\",\n" +
-                    "  \"audit-info\": {\n" +
+                    "  \"spreadsheetId\": \"1\",\n" +
+                    "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
-                    "  \"cell-character-width\": 1,\n" +
-                    "  \"color-1\": \"#000000\",\n" +
-                    "  \"color-2\": \"#ffffff\",\n" +
-                    "  \"color-Black\": 1,\n" +
-                    "  \"color-White\": 2,\n" +
+                    "  \"cellCharacterWidth\": 1,\n" +
+                    "  \"color1\": \"#000000\",\n" +
+                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"colorBlack\": 1,\n" +
+                    "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
-                    "  \"currency-symbol\": \"$\",\n" +
-                    "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
-                    "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
-                    "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
-                    "  \"date-time-offset\": \"-25569\",\n" +
-                    "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimal-separator\": \".\",\n" +
-                    "  \"default-year\": 2000,\n" +
-                    "  \"exponent-symbol\": \"e\",\n" +
+                    "  \"currencySymbol\": \"$\",\n" +
+                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                    "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeOffset\": \"-25569\",\n" +
+                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"defaultYear\": 2000,\n" +
+                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
-                    "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                    "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"find-functions\": \"\",\n" +
-                    "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
+                    "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findFunctions\": \"\",\n" +
+                    "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formula-functions\": \"ExpressionFunction2\",\n" +
-                    "  \"formula-validators\": \"\",\n" +
+                    "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaFunctions\": \"ExpressionFunction2\",\n" +
+                    "  \"formulaValidators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"general-number-format-digit-count\": 8,\n" +
-                    "  \"group-separator\": \",\",\n" +
+                    "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negative-sign\": \"-\",\n" +
-                    "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
-                    "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                    "  \"negativeSign\": \"-\",\n" +
+                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentage-symbol\": \"%\",\n" +
+                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
-                    "  \"rounding-mode\": \"HALF_UP\",\n" +
-                    "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"roundingMode\": \"HALF_UP\",\n" +
+                    "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
+                    "  \"sortConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
-                    "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
-                    "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
-                    "  \"two-digit-year\": 50,\n" +
+                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"twoDigitYear\": 50,\n" +
                     "  \"validators\": \"\",\n" +
-                    "  \"value-separator\": \",\"\n" +
+                    "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
             )
@@ -5674,64 +5674,64 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "{\n" +
-                    "  \"spreadsheet-id\": \"1\",\n" +
-                    "  \"audit-info\": {\n" +
+                    "  \"spreadsheetId\": \"1\",\n" +
+                    "  \"auditInfo\": {\n" +
                     "    \"createdBy\": \"user@example.com\",\n" +
                     "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
                     "    \"modifiedBy\": \"user@example.com\",\n" +
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
                     "  },\n" +
-                    "  \"cell-character-width\": 1,\n" +
-                    "  \"color-1\": \"#000000\",\n" +
-                    "  \"color-2\": \"#ffffff\",\n" +
-                    "  \"color-Black\": 1,\n" +
-                    "  \"color-White\": 2,\n" +
+                    "  \"cellCharacterWidth\": 1,\n" +
+                    "  \"color1\": \"#000000\",\n" +
+                    "  \"color2\": \"#ffffff\",\n" +
+                    "  \"colorBlack\": 1,\n" +
+                    "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name\",\n" +
-                    "  \"currency-symbol\": \"$\",\n" +
-                    "  \"date-formatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
-                    "  \"date-parser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
-                    "  \"date-time-formatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
-                    "  \"date-time-offset\": \"-25569\",\n" +
-                    "  \"date-time-parser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimal-separator\": \".\",\n" +
-                    "  \"default-year\": 2000,\n" +
-                    "  \"exponent-symbol\": \"e\",\n" +
+                    "  \"currencySymbol\": \"$\",\n" +
+                    "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
+                    "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
+                    "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
+                    "  \"dateTimeOffset\": \"-25569\",\n" +
+                    "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
+                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"defaultYear\": 2000,\n" +
+                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
-                    "  \"expression-number-kind\": \"BIG_DECIMAL\",\n" +
-                    "  \"find-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"find-functions\": \"\",\n" +
-                    "  \"format-converter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
+                    "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findFunctions\": \"\",\n" +
+                    "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formula-converter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formula-functions\": \"ExpressionFunction1\",\n" +
-                    "  \"formula-validators\": \"\",\n" +
+                    "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaFunctions\": \"ExpressionFunction1\",\n" +
+                    "  \"formulaValidators\": \"\",\n" +
                     "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"general-number-format-digit-count\": 8,\n" +
-                    "  \"group-separator\": \",\",\n" +
+                    "  \"generalNumberFormatDigitCount\": 8,\n" +
+                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negative-sign\": \"-\",\n" +
-                    "  \"number-formatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
-                    "  \"number-parser\": \"number-parse-pattern 000.000\",\n" +
+                    "  \"negativeSign\": \"-\",\n" +
+                    "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
+                    "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentage-symbol\": \"%\",\n" +
+                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positive-sign\": \"+\",\n" +
+                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
-                    "  \"rounding-mode\": \"HALF_UP\",\n" +
-                    "  \"sort-comparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sort-converter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"roundingMode\": \"HALF_UP\",\n" +
+                    "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
+                    "  \"sortConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
                     "  },\n" +
-                    "  \"text-formatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
-                    "  \"time-formatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
-                    "  \"time-parser\": \"time-parse-pattern hh:mm\",\n" +
-                    "  \"two-digit-year\": 50,\n" +
+                    "  \"textFormatter\": \"text-format-pattern \\\"Text\\\" @\",\n" +
+                    "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
+                    "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
+                    "  \"twoDigitYear\": 50,\n" +
                     "  \"validators\": \"\",\n" +
-                    "  \"value-separator\": \",\"\n" +
+                    "  \"valueSeparator\": \",\"\n" +
                     "}",
                 SpreadsheetMetadata.class.getSimpleName()
             )
