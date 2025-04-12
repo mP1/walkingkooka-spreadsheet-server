@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -64,6 +65,13 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     private final static LineEnding LINE_ENDING = LineEnding.SYSTEM;
 
     private final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(0x12ef);
+
+    private final static AuditInfo AUDIT_INFO = AuditInfo.with(
+        USER,
+        NOW.now(),
+        USER,
+        NOW.now()
+    );
 
     private final TestSpreadsheetMetadataHateosResourceHandlerContext CONTEXT = new TestSpreadsheetMetadataHateosResourceHandlerContext();
 
@@ -155,8 +163,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                             SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                                             SPREADSHEET_ID
                                         ).set(
-                                            SpreadsheetMetadataPropertyName.CREATED_BY,
-                                            USER
+                                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                            AUDIT_INFO
                                         )
                                     );
                                 }
@@ -171,7 +179,12 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             HttpStatusCode.OK,
             "{\n" +
                 "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"created-by\": \"user@example.com\"\n" +
+                "  \"audit-info\": {\n" +
+                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"modifiedBy\": \"user@example.com\",\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "  }\n" +
                 "}"
         );
     }
@@ -195,15 +208,15 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                                     SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                                     SpreadsheetId.with(1)
                                 ).set(
-                                    SpreadsheetMetadataPropertyName.CREATED_BY,
-                                    EmailAddress.parse("load-all@example.com")
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    AUDIT_INFO
                                 ),
                                 SpreadsheetMetadata.EMPTY.set(
                                     SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                                     SpreadsheetId.with(2)
                                 ).set(
-                                    SpreadsheetMetadataPropertyName.CREATED_BY,
-                                    EmailAddress.parse("load-all@example.com")
+                                    SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                                    AUDIT_INFO
                                 )
                             );
                         }
@@ -217,11 +230,21 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             "[\n" +
                 "  {\n" +
                 "    \"spreadsheet-id\": \"1\",\n" +
-                "    \"created-by\": \"load-all@example.com\"\n" +
+                "    \"audit-info\": {\n" +
+                "      \"createdBy\": \"user@example.com\",\n" +
+                "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "      \"modifiedBy\": \"user@example.com\",\n" +
+                "      \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "    }\n" +
                 "  },\n" +
                 "  {\n" +
                 "    \"spreadsheet-id\": \"2\",\n" +
-                "    \"created-by\": \"load-all@example.com\"\n" +
+                "    \"audit-info\": {\n" +
+                "      \"createdBy\": \"user@example.com\",\n" +
+                "      \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "      \"modifiedBy\": \"user@example.com\",\n" +
+                "      \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "    }\n" +
                 "  }\n" +
                 "]"
         );
@@ -255,8 +278,8 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                             SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                             SPREADSHEET_ID
                         ).set(
-                            SpreadsheetMetadataPropertyName.CREATED_BY,
-                            creator
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            AUDIT_INFO.setCreatedBy(creator)
                         ).setOrRemove(
                             SpreadsheetMetadataPropertyName.LOCALE,
                             locale.orElse(null)
@@ -275,8 +298,14 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             HttpStatusCode.CREATED,
             "{\n" +
                 "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"created-by\": \"user@example.com\"\n" +
-                "}");
+                "  \"audit-info\": {\n" +
+                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"modifiedBy\": \"user@example.com\",\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "  }\n" +
+                "}"
+        );
     }
 
     @Test
@@ -285,8 +314,10 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
         final SpreadsheetMetadata unsaved = SpreadsheetMetadata.EMPTY
             .set(
-                SpreadsheetMetadataPropertyName.CREATED_BY,
-                EmailAddress.parse("saved@example.com")
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AUDIT_INFO.setModifiedBy(
+                    EmailAddress.parse("saved@example.com")
+                )
             ).set(
                 SpreadsheetMetadataPropertyName.SPREADSHEET_ID,
                 SPREADSHEET_ID
@@ -316,7 +347,12 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
             HttpStatusCode.OK,
             "{\n" +
                 "  \"spreadsheet-id\": \"12ef\",\n" +
-                "  \"created-by\": \"saved@example.com\"\n" +
+                "  \"audit-info\": {\n" +
+                "    \"createdBy\": \"user@example.com\",\n" +
+                "    \"createdTimestamp\": \"1999-12-31T12:58\",\n" +
+                "    \"modifiedBy\": \"saved@example.com\",\n" +
+                "    \"modifiedTimestamp\": \"1999-12-31T12:58\"\n" +
+                "  }\n" +
                 "}"
         );
 

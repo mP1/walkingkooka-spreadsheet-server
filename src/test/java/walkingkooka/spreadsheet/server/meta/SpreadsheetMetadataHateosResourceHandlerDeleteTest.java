@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -115,11 +116,15 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    USER,
+                    LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                    USER,
+                    LocalDateTime.of(2024, 4, 2, 15, 25, 0)
+                )
+            ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH);
     }
 
     @Override
@@ -133,16 +138,13 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
     }
 
     private SpreadsheetMetadata metadataWithDefaults() {
-        return SpreadsheetMetadata.EMPTY
-            .set(
-                SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP,
-                LocalDateTime.of(
-                    2000,
-                    12,
-                    31,
-                    12,
-                    58,
-                    59
+        return SpreadsheetMetadata.EMPTY.set(
+            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+            AuditInfo.with(
+                USER,
+                LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                USER,
+                LocalDateTime.of(1999, 12, 31, 12, 58, 59)
                 )
             );
     }

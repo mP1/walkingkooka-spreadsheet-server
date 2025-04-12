@@ -22,6 +22,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.MediaType;
@@ -255,11 +256,15 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
         .loadFromLocale()
         .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
-        .set(SpreadsheetMetadataPropertyName.CREATED_BY, EmailAddress.parse("creator@example.com"))
-        .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 0))
-        .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-        .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 0))
-        .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+        .set(
+            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+            AuditInfo.with(
+                EmailAddress.parse("creator@example.com"),
+                LocalDateTime.of(1999, 12, 31, 12, 0),
+                EmailAddress.parse("modified@example.com"),
+                LocalDateTime.of(1999, 12, 31, 12, 0)
+            )
+        ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
         .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
         .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
