@@ -299,8 +299,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
-            SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP,
-            this.providerContext.now()
+            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+            this.providerContext.refreshModifiedAuditInfo(
+                metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+            )
         );
     }
 

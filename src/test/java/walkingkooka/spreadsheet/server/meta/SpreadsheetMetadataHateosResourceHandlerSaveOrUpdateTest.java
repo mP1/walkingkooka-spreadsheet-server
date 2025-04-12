@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -29,14 +30,18 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.meta.store.FakeSpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 
 public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest extends SpreadsheetMetadataHateosResourceHandlersTestCase2<SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate> {
 
-    SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest() {
-        super();
-    }
+    private final static AuditInfo AUDIT_INFO = AuditInfo.with(
+        USER,
+        LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+        USER,
+        LocalDateTime.of(2024, 4, 2, 15, 25, 0)
+    );
 
     // handle...........................................................................................................
 
@@ -53,7 +58,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     @Test
     public void testHandleNoneCreatesMetadataWithLocaleWithoutIdFails() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER);
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AUDIT_INFO
+            );
 
         this.handleNoneFails(
             Optional.empty(),
@@ -78,8 +86,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                     public SpreadsheetMetadata create(final EmailAddress creator,
                                                       final Optional<Locale> locale) {
                         return metadata.set(
-                            SpreadsheetMetadataPropertyName.CREATED_BY,
-                            creator
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(creator)
+                                .setModifiedBy(creator)
                         ).setOrRemove(
                             SpreadsheetMetadataPropertyName.LOCALE,
                             locale.orElse(null)
@@ -101,7 +111,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         final SpreadsheetMetadata metadata =
             SpreadsheetMetadata.EMPTY
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-                .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER);
+                .set(SpreadsheetMetadataPropertyName.AUDIT_INFO, AUDIT_INFO);
 
         final Locale locale = Locale.CANADA_FRENCH;
 
@@ -128,8 +138,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                     public SpreadsheetMetadata create(final EmailAddress creator,
                                                       final Optional<Locale> locale) {
                         return metadata.set(
-                            SpreadsheetMetadataPropertyName.CREATED_BY,
-                            creator
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(creator)
+                                .setModifiedBy(creator)
                         ).set(
                             SpreadsheetMetadataPropertyName.LOCALE,
                             locale.get()
@@ -152,7 +164,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     public void testHandleNoneCreatesMetadataWithoutLocale() {
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, this.spreadsheetId())
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER);
+            .set(SpreadsheetMetadataPropertyName.AUDIT_INFO, AUDIT_INFO);
 
         this.handleNoneAndCheck(
             Optional.empty(),
@@ -174,8 +186,10 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                     public SpreadsheetMetadata create(final EmailAddress creator,
                                                       final Optional<Locale> locale) {
                         return metadata.set(
-                            SpreadsheetMetadataPropertyName.CREATED_BY,
-                            creator
+                            SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                            metadata.getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO)
+                                .setCreatedBy(creator)
+                                .setModifiedBy(creator)
                         ).setOrRemove(
                             SpreadsheetMetadataPropertyName.LOCALE,
                             locale.orElse(null)

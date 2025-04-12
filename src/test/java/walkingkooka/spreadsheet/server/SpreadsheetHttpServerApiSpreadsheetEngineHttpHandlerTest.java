@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
@@ -395,17 +396,21 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
 
     private Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository() {
         final EmailAddress user = USER;
-        final LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime now = NOW.now();
 
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
             .loadFromLocale()
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, user)
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, user)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, now)
-            .set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    user,
+                    now,
+                    user,
+                    now
+                )
+            ).set(SpreadsheetMetadataPropertyName.TEXT_FORMATTER, SpreadsheetPattern.DEFAULT_TEXT_FORMAT_PATTERN.spreadsheetFormatterSelector());
 
         this.metadataStore.save(metadata);
 

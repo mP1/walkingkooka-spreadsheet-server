@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -254,11 +255,15 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
     private SpreadsheetMetadata metadata(final long id) {
         return SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(id))
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(1999, 12, 31, 12, 58, 59))
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, USER)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, LocalDateTime.of(2024, 4, 2, 15, 25, 0));
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    USER,
+                    LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                    USER,
+                    LocalDateTime.of(2024, 4, 2, 15, 25, 0)
+                )
+            ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH);
     }
 
     // helpers..........................................................................................................
@@ -275,7 +280,15 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
 
     private SpreadsheetMetadata metadataWithDefaults() {
         return SpreadsheetMetadata.EMPTY
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, LocalDateTime.of(2000, 12, 31, 12, 58, 59));
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    USER,
+                    LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                    USER,
+                    LocalDateTime.of(2024, 4, 2, 15, 25, 0)
+                )
+            );
     }
 
     // toString.........................................................................................................

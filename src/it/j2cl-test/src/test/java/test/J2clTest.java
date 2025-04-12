@@ -26,6 +26,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -140,9 +141,13 @@ public class J2clTest {
             ).setBodyText(
                 "{\n" +
                     "  \"spreadsheet-id\": \"1\",\n" +
+                    "  \"audit-info\": {\n" +
+                    "    \"createdBy\": \"user@example.com\",\n" +
+                    "    \"createdTimestamp\": \"1999-12-31T12:58:59\",\n" +
+                    "    \"modifiedBy\": \"user@example.com\",\n" +
+                    "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
+                    "  },\n" +
                     "  \"cell-character-width\": 10,\n" +
-                    "  \"created-by\": \"user@example.com\",\n" +
-                    "  \"created-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"currency-symbol\": \"$AUD\",\n" +
                     "  \"date-formatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
                     "  \"date-parser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
@@ -161,8 +166,6 @@ public class J2clTest {
                     "  \"general-number-format-digit-count\": 8,\n" +
                     "  \"group-separator\": \",\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"modified-by\": \"user@example.com\",\n" +
-                    "  \"modified-timestamp\": \"1999-12-31T12:58:59\",\n" +
                     "  \"negative-sign\": \"-\",\n" +
                     "  \"number-formatter\": \"number-format-pattern #0.0\",\n" +
                     "  \"number-parser\": \"number-parse-pattern #\",\n" +
@@ -191,10 +194,15 @@ public class J2clTest {
         final SpreadsheetId createdId = SpreadsheetId.with(1);
         final LocalDateTime now = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
 
-        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
-            .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, EmailAddress.parse("user@example.com"))
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
+        final SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY.set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    EmailAddress.parse("creator@example.com"),
+                    now,
+                    EmailAddress.parse("modified@example.com"),
+                    now
+                )
+            ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
             .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "$AUD")
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
@@ -212,8 +220,6 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
             .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, EmailAddress.parse("modified@example.com"))
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, now)
             .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)

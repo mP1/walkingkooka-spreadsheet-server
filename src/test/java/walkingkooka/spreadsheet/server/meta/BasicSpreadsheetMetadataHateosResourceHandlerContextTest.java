@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.environment.AuditInfo;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -859,8 +860,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             updatedTimestamp,
             context.metadataStore()
                 .loadOrFail(id)
-                .getOrFail(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP),
-            () -> "Metadata " + SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP + " not updated when cell saved"
+                .getOrFail(SpreadsheetMetadataPropertyName.AUDIT_INFO).modifiedTimestamp(),
+            () -> "Metadata " + SpreadsheetMetadataPropertyName.AUDIT_INFO + ".modifiedTimestamp not updated when cell saved"
         );
     }
 
@@ -1134,17 +1135,17 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     }
 
     private SpreadsheetMetadata createMetadata(final Optional<Locale> locale) {
-        final EmailAddress creatorEmail = EmailAddress.parse("creator@example.com");
-        final LocalDateTime createDateTime = LocalDateTime.of(1999, 12, 31, 12, 58, 59);
-        final EmailAddress modifiedEmail = EmailAddress.parse("modified@example.com");
-        final LocalDateTime modifiedDateTime = LocalDateTime.of(2000, 1, 2, 12, 58, 59);
-
         SpreadsheetMetadata metadata = SpreadsheetMetadata.EMPTY
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(999))
-            .set(SpreadsheetMetadataPropertyName.CREATED_BY, creatorEmail)
-            .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, createDateTime)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, modifiedEmail)
-            .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, modifiedDateTime);
+            .set(
+                SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                AuditInfo.with(
+                    EmailAddress.parse("creator@example.com"),
+                    LocalDateTime.of(1999, 12, 31, 12, 58, 59),
+                    EmailAddress.parse("modified@example.com"),
+                    LocalDateTime.of(2000, 1, 2, 12, 58, 59)
+                )
+            );
         if (locale.isPresent()) {
             metadata = metadata.set(SpreadsheetMetadataPropertyName.LOCALE, locale.get());
         }
@@ -1192,16 +1193,20 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
         if (null == repository) {
             final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
-            final LocalDateTime now = LocalDateTime.now();
+            final LocalDateTime now = NOW.now();
 
             METADATA_STORE.save(
                 SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
-                    .set(SpreadsheetMetadataPropertyName.CREATED_BY, creator)
-                    .set(SpreadsheetMetadataPropertyName.CREATED_TIMESTAMP, now)
-                    .set(SpreadsheetMetadataPropertyName.MODIFIED_BY, creator)
-                    .set(SpreadsheetMetadataPropertyName.MODIFIED_TIMESTAMP, now)
-                    .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+                    .set(
+                        SpreadsheetMetadataPropertyName.AUDIT_INFO,
+                        AuditInfo.with(
+                            creator,
+                            now,
+                            creator,
+                            now
+                        )
+                    ).set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .loadFromLocale()
                     .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
