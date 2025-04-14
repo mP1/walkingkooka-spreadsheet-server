@@ -77,6 +77,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.FakeStorageStoreContext;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.text.Indentation;
@@ -103,6 +104,7 @@ import java.util.Optional;
 public class J2clTest {
 
     @Test
+
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
@@ -249,6 +251,7 @@ public class J2clTest {
             SpreadsheetCellStores.treeMap(),
             SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
+            SpreadsheetFormStores.treeMap(),
             SpreadsheetGroupStores.fake(),
             SpreadsheetLabelStores.treeMap(),
             SpreadsheetExpressionReferenceStores.treeMap(),

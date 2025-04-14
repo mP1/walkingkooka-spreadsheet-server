@@ -66,6 +66,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -425,6 +426,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             SpreadsheetCellStores.treeMap(),
             SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
+            SpreadsheetFormStores.treeMap(),
             SpreadsheetGroupStores.treeMap(),
             labelStore,
             SpreadsheetExpressionReferenceStores.treeMap(),
