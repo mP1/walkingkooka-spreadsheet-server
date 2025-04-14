@@ -125,6 +125,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
@@ -11769,6 +11770,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             SpreadsheetCellStores.treeMap(),
             SpreadsheetCellReferencesStores.treeMap(),
             SpreadsheetColumnStores.treeMap(),
+            SpreadsheetFormStores.treeMap(),
             SpreadsheetGroupStores.treeMap(),
             SpreadsheetLabelStores.treeMap(),
             SpreadsheetExpressionReferenceStores.treeMap(),
