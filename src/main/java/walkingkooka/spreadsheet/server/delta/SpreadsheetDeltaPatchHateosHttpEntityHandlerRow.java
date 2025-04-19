@@ -71,7 +71,7 @@ final class SpreadsheetDeltaPatchHateosHttpEntityHandlerRow extends SpreadsheetD
                           final SpreadsheetEngineContext context) {
         final SpreadsheetEngine engine = this.engine;
 
-        final Set<SpreadsheetRow> loaded = SortedSets.tree();
+        final Set<SpreadsheetRow> loaded = SortedSets.tree(SpreadsheetRow.REFERENCE_COMPARATOR);
 
         for (final SpreadsheetRowReference row : range) {
             loaded.addAll(
