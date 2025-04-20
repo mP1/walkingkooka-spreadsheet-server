@@ -368,7 +368,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
     /**
      * Factory that creates a form end points
      */
-    public static HateosResourceMapping<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final SpreadsheetEngine engine) {
+    public static HateosResourceMapping<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount,
+                                                                                                                                                                                final SpreadsheetEngine engine) {
         final Class<Form<SpreadsheetExpressionReference>> formSpreadsheetExpressionReference = Cast.to(Form.class);
 
         return HateosResourceMapping.with(
@@ -378,6 +379,13 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetDelta.class,
             formSpreadsheetExpressionReference,
             SpreadsheetEngineHateosResourceHandlerContext.class
+        ).setHateosResourceHandler(
+            FORM_LINK_RELATION,
+            HttpMethod.GET,
+            SpreadsheetDeltaHateosResourceHandlerLoadForm.with(
+                defaultCount,
+                engine
+            )
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
             HttpMethod.POST,
@@ -472,6 +480,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         return query;
     }
 
+    // LABEL............................................................................................................
+    
     /**
      * Used to form the metadata load and save services
      * <pre>
