@@ -65,7 +65,7 @@ import java.util.stream.Collectors;
  */
 public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
 
-    // cell................................................................................................................
+    // cell.............................................................................................................
 
     public static HateosResourceMapping<SpreadsheetCellReference,
         SpreadsheetDelta,
@@ -418,72 +418,10 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         }
     }
 
-    /**
-     * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.
-     */
-    static SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
-                                            final Map<HttpRequestAttribute<?>, Object> parameters,
-                                            final SpreadsheetDelta out,
-                                            final SpreadsheetEngine engine,
-                                            final SpreadsheetEngineContext context) {
-
-        final Optional<SpreadsheetCellQuery> query = extractOrMetadataFindHighlightingAndQuery(
-            parameters,
-            context
-        );
-
-        SpreadsheetDelta result = out;
-
-        if (query.isPresent()) {
-            result = out.setMatchedCells(
-                engine.filterCells(
-                        out.cells(),
-                        SpreadsheetValueType.ANY,
-                        context.toExpression(
-                            query.get()
-                                .parserToken()
-                        ).orElse(DEFAULT_EXPRESSION),
-                        context
-                    ).stream()
-                    .map(
-                        SpreadsheetCell::reference
-                    ).collect(Collectors.toCollection(Sets::ordered))
-            );
-        }
-
-        return result.setWindow(
-            SpreadsheetDeltaUrlQueryParameters.window(
-                parameters,
-                in,
-                engine,
-                context
-            )
-        );
-    }
-
-    private final static Expression DEFAULT_EXPRESSION = Expression.value(Boolean.TRUE);
-
-    /**
-     * Helper which attempts to read the {@link SpreadsheetCellQuery} from the given parameters and if that is missing
-     * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#FIND_QUERY}.
-     */
-    private static Optional<SpreadsheetCellQuery> extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                                                            final SpreadsheetEngineContext context) {
-        Optional<SpreadsheetCellQuery> query = SpreadsheetCellQuery.extract(parameters);
-        if (false == query.isPresent()) {
-            final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
-            if (metadata.get(SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING).orElse(false)) {
-                query = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY);
-            }
-        }
-
-        return query;
-    }
-
     // LABEL............................................................................................................
-    
+
     /**
-     * Used to form the metadata load and save services
+     * Used to support CRUD operations upon labels.
      * <pre>
      * /api/spreadsheet/$spreadsheet-id/label
      * </pre>
@@ -545,6 +483,69 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         }
     }
 
+    // prepareResponse..................................................................................................
+
+    /**
+     * Prepares a {@link SpreadsheetDelta} response honouring any present query and window query parameters.
+     */
+    static SpreadsheetDelta prepareResponse(final Optional<SpreadsheetDelta> in,
+                                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                                            final SpreadsheetDelta out,
+                                            final SpreadsheetEngine engine,
+                                            final SpreadsheetEngineContext context) {
+
+        final Optional<SpreadsheetCellQuery> query = extractOrMetadataFindHighlightingAndQuery(
+            parameters,
+            context
+        );
+
+        SpreadsheetDelta result = out;
+
+        if (query.isPresent()) {
+            result = out.setMatchedCells(
+                engine.filterCells(
+                        out.cells(),
+                        SpreadsheetValueType.ANY,
+                        context.toExpression(
+                            query.get()
+                                .parserToken()
+                        ).orElse(DEFAULT_EXPRESSION),
+                        context
+                    ).stream()
+                    .map(
+                        SpreadsheetCell::reference
+                    ).collect(Collectors.toCollection(Sets::ordered))
+            );
+        }
+
+        return result.setWindow(
+            SpreadsheetDeltaUrlQueryParameters.window(
+                parameters,
+                in,
+                engine,
+                context
+            )
+        );
+    }
+
+    private final static Expression DEFAULT_EXPRESSION = Expression.value(Boolean.TRUE);
+
+    /**
+     * Helper which attempts to read the {@link SpreadsheetCellQuery} from the given parameters and if that is missing
+     * then tries if highlighting is enabled {@link SpreadsheetMetadataPropertyName#FIND_QUERY}.
+     */
+    private static Optional<SpreadsheetCellQuery> extractOrMetadataFindHighlightingAndQuery(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                                            final SpreadsheetEngineContext context) {
+        Optional<SpreadsheetCellQuery> query = SpreadsheetCellQuery.extract(parameters);
+        if (false == query.isPresent()) {
+            final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+            if (metadata.get(SpreadsheetMetadataPropertyName.FIND_HIGHLIGHTING).orElse(false)) {
+                query = metadata.get(SpreadsheetMetadataPropertyName.FIND_QUERY);
+            }
+        }
+
+        return query;
+    }
 
     /**
      * Stop creation.
