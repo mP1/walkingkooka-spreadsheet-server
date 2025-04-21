@@ -105,6 +105,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorTokenList;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.provider.SpreadsheetProviders;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -146,6 +147,9 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
+import walkingkooka.validation.form.Form;
+import walkingkooka.validation.form.FormField;
+import walkingkooka.validation.form.FormName;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 
@@ -7472,6 +7476,61 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 this.toJson(
                     SpreadsheetDelta.EMPTY.setDeletedLabels(
                         Sets.of(label)
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    // form.............................................................................................................
+
+    @Test
+    public void testFormSave() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+            .setFields(
+                Lists.of(
+                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                        .setLabel("FieldLabel1")
+                )
+            );
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(
+                        form
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(
+                            form
+                        )
+                    ).setDeletedCells(
+                        Sets.of(SpreadsheetSelection.A1)
+                    ).setColumnWidths(
+                        Maps.of(
+                            SpreadsheetSelection.parseColumn("A"),
+                            100.0
+                        )
+                    ).setRowHeights(
+                        Maps.of(
+                            SpreadsheetSelection.parseRow("1"),
+                            50.0
+                        )
                     ).setColumnCount(
                         OptionalInt.of(0)
                     ).setRowCount(

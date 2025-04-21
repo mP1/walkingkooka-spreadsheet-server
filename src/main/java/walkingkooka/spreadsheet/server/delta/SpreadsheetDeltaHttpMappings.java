@@ -16,6 +16,7 @@
  */
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.LinkRelation;
@@ -41,6 +42,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataPropertyName;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnRangeReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowRangeReference;
@@ -50,6 +52,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.validation.form.Form;
+import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -350,6 +354,60 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         return parsed.isUnit() ?
             HateosResourceSelection.one(parsed.begin()) :
             HateosResourceSelection.range(parsed.range());
+    }
+
+    // FORM.............................................................................................................
+
+    /**
+     * <pre>
+     * /api/spreadsheet/$spreadsheet-id/form
+     * </pre>
+     */
+    private final static LinkRelation<?> FORM_LINK_RELATION = LinkRelation.SELF;
+
+    /**
+     * Factory that creates a form end points
+     */
+    public static HateosResourceMapping<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final SpreadsheetEngine engine) {
+        final Class<Form<SpreadsheetExpressionReference>> formSpreadsheetExpressionReference = Cast.to(Form.class);
+
+        return HateosResourceMapping.with(
+            Form.HATEOS_RESOURCE_NAME,
+            SpreadsheetDeltaHttpMappings::parseForm,
+            SpreadsheetDelta.class,
+            SpreadsheetDelta.class,
+            formSpreadsheetExpressionReference,
+            SpreadsheetEngineHateosResourceHandlerContext.class
+        ).setHateosResourceHandler(
+            FORM_LINK_RELATION,
+            HttpMethod.POST,
+            SpreadsheetDeltaHateosResourceHandlerSaveForm.with(engine)
+        );
+    }
+
+    private static HateosResourceSelection<FormName> parseForm(final String text,
+                                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
+        try {
+            HateosResourceSelection<FormName> selection;
+
+            switch (text) {
+                case HateosResourceSelection.NONE:
+                    selection = HateosResourceSelection.none();
+                    break;
+                case HateosResourceSelection.ALL:
+                    selection = HateosResourceSelection.all();
+                    break;
+                default:
+                    selection = HateosResourceSelection.one(
+                        FormName.with(text)
+                    );
+                    break;
+            }
+
+            return selection;
+        } catch (final Exception cause) {
+            throw new IllegalArgumentException("Invalid form name " + CharSequences.quoteAndEscape(text));
+        }
     }
 
     /**
