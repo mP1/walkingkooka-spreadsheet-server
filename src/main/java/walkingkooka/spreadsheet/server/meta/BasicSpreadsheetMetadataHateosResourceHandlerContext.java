@@ -333,7 +333,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMapping<SpreadsheetExporterName, SpreadsheetExporterInfo, SpreadsheetExporterInfoSet, SpreadsheetExporterInfo, SpreadsheetEngineHateosResourceHandlerContext> exporter = SpreadsheetExporterHateosResourceMappings.exporter();
 
-        final HateosResourceMapping<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form(engine);
+        final HateosResourceMapping<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form = SpreadsheetDeltaHttpMappings.form(
+            defaultMax,
+            engine
+        );
 
         final HateosResourceMapping<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
