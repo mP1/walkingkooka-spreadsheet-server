@@ -462,7 +462,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formatted-value\": {\n" +
+                "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
@@ -573,7 +573,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formatted-value\": {\n" +
+                "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
@@ -684,7 +684,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
                 "      },\n" +
-                "      \"formatted-value\": {\n" +
+                "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
                 "        \"value\": \"Number 003.000\"\n" +
                 "      }\n" +
