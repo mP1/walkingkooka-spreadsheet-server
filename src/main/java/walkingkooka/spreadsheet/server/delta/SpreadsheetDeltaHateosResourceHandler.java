@@ -29,6 +29,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
 import java.util.Objects;
@@ -43,6 +44,10 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
 
     static void checkCell(final SpreadsheetCellReference cell) {
         Objects.requireNonNull(cell, "cell");
+    }
+
+    static FormName checkFormName(final FormName formName) {
+        return Objects.requireNonNull(formName, "formName");
     }
 
     static SpreadsheetLabelName checkLabel(final SpreadsheetLabelName label) {
