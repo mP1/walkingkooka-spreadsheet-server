@@ -7542,6 +7542,59 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    @Test
+    public void testFormUpdate() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+            .setFields(
+                Lists.of(
+                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                        .setLabel("FieldLabel1")
+                )
+            );
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form/Form1",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(
+                        form
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(
+                            form
+                        )
+                    ).setDeletedCells(
+                        Sets.of(SpreadsheetSelection.A1)
+                    ).setColumnWidths(
+                        Maps.of(
+                            SpreadsheetSelection.parseColumn("A"),
+                            100.0
+                        )
+                    ).setRowHeights(
+                        Maps.of(
+                            SpreadsheetSelection.parseRow("1"),
+                            50.0
+                        )
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
     // comparators......................................................................................................
 
     @Test
