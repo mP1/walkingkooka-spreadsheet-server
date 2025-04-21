@@ -140,6 +140,11 @@ available [SpreadsheetExporterInfoSet](https://github.com/mP1/walkingkooka-sprea
 - **GET**
   /api/spreadsheet/$spreadsheet-id/exporter/[SpreadsheetExporterName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/export/SpreadsheetExporterName.java)
 
+#### [Form](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/Form.java)
+
+- **POST** /api/spreadsheet/$spreadsheet-id/form
+- **POST** /api/spreadsheet/$spreadsheet-id/form/[FormName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/FormName.java)
+
 #### [Formatter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatter.java)
 
 These end points may be used to work with
