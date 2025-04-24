@@ -91,6 +91,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
+import walkingkooka.validation.form.provider.FormHandlerAliasSet;
 import walkingkooka.validation.provider.ValidatorAliasSet;
 import walkingkooka.validation.provider.ValidatorProviders;
 
@@ -182,6 +183,7 @@ public class J2clTest {
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
+                    "  \"validatorFormHandlers\": \"\",\n" +
                     "  \"validatorFunctions\": \"\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
