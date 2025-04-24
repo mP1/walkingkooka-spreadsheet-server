@@ -162,7 +162,6 @@ public class J2clTest {
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formulaConverter\": \"general\",\n" +
                     "  \"formulaFunctions\": \"\",\n" +
-                    "  \"formulaValidators\": \"\",\n" +
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -183,6 +182,7 @@ public class J2clTest {
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
+                    "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}"
@@ -217,7 +217,6 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
-            .set(SpreadsheetMetadataPropertyName.FORMULA_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
             .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
@@ -240,6 +239,7 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
             .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.VALIDATOR_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
