@@ -1207,7 +1207,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                             creator,
                             now
                         )
-                    ).set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
+                    ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
                     .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
                     .loadFromLocale()
                     .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
