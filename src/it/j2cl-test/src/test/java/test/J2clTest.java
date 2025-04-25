@@ -92,6 +92,7 @@ import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.validation.form.provider.FormHandlerAliasSet;
+import walkingkooka.validation.form.provider.FormHandlerSelector;
 import walkingkooka.validation.provider.ValidatorAliasSet;
 import walkingkooka.validation.provider.ValidatorProviders;
 
@@ -183,7 +184,7 @@ public class J2clTest {
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
-                    "  \"validatorFormHandlers\": \"\",\n" +
+                    "  \"validatorFormHandler\": \"non-null\",\n" +
                     "  \"validatorFunctions\": \"\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -241,6 +242,7 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
+            .set(SpreadsheetMetadataPropertyName.VALIDATOR_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
