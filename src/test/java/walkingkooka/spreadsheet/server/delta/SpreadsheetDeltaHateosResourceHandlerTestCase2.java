@@ -265,7 +265,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 LocalDateTime.of(1999, 12, 31, 12, 0)
             )
         ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
-        .set(SpreadsheetMetadataPropertyName.DATETIME_OFFSET, 0L)
+        .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, 0L)
         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
         .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
         .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
