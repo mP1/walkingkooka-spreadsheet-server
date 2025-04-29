@@ -79,6 +79,11 @@ import walkingkooka.tree.text.TextNode;
 import walkingkooka.validation.ValidationReference;
 import walkingkooka.validation.Validator;
 import walkingkooka.validation.ValidatorContext;
+import walkingkooka.validation.form.FormHandler;
+import walkingkooka.validation.form.FormHandlerContext;
+import walkingkooka.validation.form.provider.FormHandlerInfoSet;
+import walkingkooka.validation.form.provider.FormHandlerName;
+import walkingkooka.validation.form.provider.FormHandlerSelector;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
 import walkingkooka.validation.provider.ValidatorSelector;
@@ -209,6 +214,26 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public SpreadsheetExporterInfoSet spreadsheetExporterInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    // FormHandlerProvider..............................................................................................
+
+    @Override
+    public <R extends ValidationReference, S, C extends FormHandlerContext<R, S>> FormHandler<R, S, C> formHandler(final FormHandlerSelector selector,
+                                                                                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <R extends ValidationReference, S, C extends FormHandlerContext<R, S>> FormHandler<R, S, C> formHandler(final FormHandlerName name,
+                                                                                                                   final List<?> values,
+                                                                                                                   final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public FormHandlerInfoSet formHandlerInfos() {
         throw new UnsupportedOperationException();
     }
 
