@@ -84,6 +84,7 @@ import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
@@ -132,7 +133,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintableTesting;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -192,12 +192,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     private final static LocalDateTime MODIFIED_TIMESTAMP = LocalDateTime.of(2021, 7, 15, 20, 33);
     private static final SpreadsheetId SPREADSHEET_ID = SpreadsheetId.with(1L);
 
-    private static final ExpressionFunctionProvider EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider() {
+    private static final ExpressionFunctionProvider<SpreadsheetExpressionEvaluationContext> EXPRESSION_FUNCTION_PROVIDER = new FakeExpressionFunctionProvider<>() {
 
         @Override
-        public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
-                                                                                     final List<?> values,
-                                                                                     final ProviderContext context) {
+        public ExpressionFunction<?, SpreadsheetExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name,
+                                                                                                final List<?> values,
+                                                                                                final ProviderContext context) {
             switch (name.value().toLowerCase()) {
                 case "expressionfunction1":
                     return Cast.to(
@@ -235,7 +235,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         }
     };
 
-    static class TestFunction extends FakeExpressionFunction<Object, ExpressionEvaluationContext> {
+    static class TestFunction extends FakeExpressionFunction<Object, SpreadsheetExpressionEvaluationContext> {
 
         TestFunction(final ExpressionFunctionName name) {
             this.name = name;
@@ -243,7 +243,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         @Override
         public Object apply(final List<Object> parameters,
-                            final ExpressionEvaluationContext context) {
+                            final SpreadsheetExpressionEvaluationContext context) {
             return context.expressionNumberKind().create(123);
         }
 
@@ -255,7 +255,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         private final ExpressionFunctionName name;
 
         @Override
-        public ExpressionFunction<Object, ExpressionEvaluationContext> setName(final Optional<ExpressionFunctionName> name) {
+        public ExpressionFunction<Object, SpreadsheetExpressionEvaluationContext> setName(final Optional<ExpressionFunctionName> name) {
             return new TestFunction(name.get());
         }
 
