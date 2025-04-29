@@ -92,6 +92,7 @@ import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.TextStyle;
 import walkingkooka.tree.text.TextStylePropertyName;
 import walkingkooka.validation.form.provider.FormHandlerAliasSet;
+import walkingkooka.validation.form.provider.FormHandlerProviders;
 import walkingkooka.validation.form.provider.FormHandlerSelector;
 import walkingkooka.validation.provider.ValidatorAliasSet;
 import walkingkooka.validation.provider.ValidatorProviders;
@@ -106,7 +107,6 @@ import java.util.Optional;
 public class J2clTest {
 
     @Test
-
     public void testCreateSpreadsheet() {
         final TestHttpServer httpServer = new TestHttpServer();
         spreadsheetHttpServer(httpServer);
@@ -162,6 +162,7 @@ public class J2clTest {
                     "  \"defaultYear\": 1900,\n" +
                     "  \"exponentSymbol\": \"E\",\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
+                    "  \"formHandlers\": \"basic\",\n" +
                     "  \"formulaConverter\": \"general\",\n" +
                     "  \"formulaFunctions\": \"\",\n" +
                     "  \"frozenColumns\": \"A:B\",\n" +
@@ -219,6 +220,7 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
             .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
+            .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
@@ -242,10 +244,10 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.TIME_FORMATTER, SpreadsheetPattern.parseTimeFormatPattern("hh:mm").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
+            .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_VALIDATORS, ValidatorAliasSet.EMPTY)
-            .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
@@ -320,6 +322,7 @@ public class J2clTest {
                     SpreadsheetComparatorProviders.spreadsheetComparators(),
                     SpreadsheetExporterProviders.spreadsheetExport(),
                     spreadsheetFormatterProvider,
+                    FormHandlerProviders.validation(),
                     SpreadsheetImporterProviders.spreadsheetImport(),
                     SpreadsheetParserProviders.spreadsheetParsePattern(
                         spreadsheetFormatterProvider
