@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.convert.CanConvert;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.ProviderContextDelegator;
@@ -27,6 +28,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.parser.Parser;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -77,6 +80,15 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
     private final SpreadsheetParserProvider spreadsheetParserProvider;
 
     // SpreadsheetParserContext.........................................................................................
+
+    @Override
+    public InvalidCharacterException invalidCharacterException(final Parser<?> parser,
+                                                               final TextCursor cursor) {
+        return this.spreadsheetParserContext.invalidCharacterException(
+            parser,
+            cursor
+        );
+    }
 
     @Override
     public char valueSeparator() {
