@@ -81,7 +81,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
             "1",
             SpreadsheetParserSelectorEdit.with(
                 Optional.empty(),
-                "Invalid character '1' at 0 in \"1\"",
+                "Invalid character '1' at 0",
                 Lists.empty(),
                 Optional.empty(),
                 Lists.empty()

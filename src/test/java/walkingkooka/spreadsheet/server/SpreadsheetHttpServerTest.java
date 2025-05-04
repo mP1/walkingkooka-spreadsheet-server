@@ -788,8 +788,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "/api/plugin/!invalid-plugin-name",
             NO_HEADERS_TRANSACTION_ID,
             "",
-            HttpStatusCode.BAD_REQUEST.setMessage("Invalid character '!' at 0 in \"!invalid-plugin-name\""),
-            "walkingkooka.InvalidCharacterException: Invalid character '!' at 0 in \"!invalid-plugin-name\""
+            HttpStatusCode.BAD_REQUEST.setMessage("Invalid character '!' at 0"),
+            "walkingkooka.InvalidCharacterException: Invalid character '!' at 0"
         );
     }
 
@@ -3183,8 +3183,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "  }\n" +
                 "}",
             HttpStatusCode.BAD_REQUEST
-                .setMessage("Invalid character '!' at 0 in \"!\""),
-            "Invalid character '!' at 0 in \"!\""
+                .setMessage("Invalid character '!' at 0"),
+            "Invalid character '!' at 0"
         );
     }
 
