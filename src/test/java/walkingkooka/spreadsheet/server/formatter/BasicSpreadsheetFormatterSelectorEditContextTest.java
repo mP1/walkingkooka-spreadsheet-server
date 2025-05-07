@@ -21,6 +21,7 @@ import walkingkooka.color.Color;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -37,6 +38,7 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -113,6 +115,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     }
 
     private SpreadsheetConverterContext spreadsheetConverterContext() {
+        final Locale locale = Locale.forLanguageTag("EN-AU");
+
         return SpreadsheetConverterContexts.basic(
             Converters.objectToString(),
             SpreadsheetLabelNameResolvers.fake(),
@@ -121,8 +125,11 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                 ConverterContexts.basic(
                     Converters.JAVA_EPOCH_OFFSET, // dateOffset
                     Converters.objectToString(),
-                    DateTimeContexts.locale(
-                        Locale.forLanguageTag("EN-AU"),
+                    DateTimeContexts.basic(
+                        DateTimeSymbols.fromDateFormatSymbols(
+                            new DateFormatSymbols(locale)
+                        ),
+                        locale,
                         1950, // default year
                         50, // two-digit-year
                         LocalDateTime::now
