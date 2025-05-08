@@ -5654,7 +5654,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"message\": \"Function not found: \\\"ExpressionFunction1\\\"\",\n" +
                     "            \"value\": {\n" +
                     "              \"type\": \"expression-function-name\",\n" +
-                    "              \"value\": \"ExpressionFunction1\"\n" +
+                    "              \"value\": \"@ExpressionFunction1\"\n" +
                     "            }\n" +
                     "          }\n" +
                     "        }\n" +
