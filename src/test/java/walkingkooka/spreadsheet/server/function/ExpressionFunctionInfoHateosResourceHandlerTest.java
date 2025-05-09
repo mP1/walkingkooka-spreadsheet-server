@@ -105,7 +105,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
             Maps.empty(), // parameters
             this.context(),
             Optional.of(
-                ExpressionFunctionInfoSet.with(
+                SpreadsheetExpressionFunctions.infoSet(
                     Sets.of(
                         INFO1,
                         INFO2
