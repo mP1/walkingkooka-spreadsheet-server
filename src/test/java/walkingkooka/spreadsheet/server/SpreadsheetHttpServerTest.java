@@ -202,8 +202,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 case "expressionfunction1":
                     return Cast.to(
                         new TestFunction(
-                            ExpressionFunctionName.with("ExpressionFunction1")
-                                .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
+                            SpreadsheetExpressionFunctions.name("ExpressionFunction1")
                         )
                     );
                 default:
@@ -217,13 +216,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 Sets.of(
                     ExpressionFunctionInfo.with(
                         Url.parseAbsolute("https://example.com/expression-function-1"),
-                        ExpressionFunctionName.with("ExpressionFunction1")
-                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
+                        SpreadsheetExpressionFunctions.name("ExpressionFunction1")
                     ),
                     ExpressionFunctionInfo.with(
                         Url.parseAbsolute("https://example.com/expression-function-2"),
-                        ExpressionFunctionName.with("ExpressionFunction2")
-                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
+                        SpreadsheetExpressionFunctions.name("ExpressionFunction2")
                     )
                 )
             );

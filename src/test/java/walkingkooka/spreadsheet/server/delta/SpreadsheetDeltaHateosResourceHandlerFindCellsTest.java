@@ -46,7 +46,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.Map;
 import java.util.Optional;
@@ -76,8 +75,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     private final static String VALUE_TYPE = "test-value-type";
     private final static Expression EXPRESSION = Expression.call(
         Expression.namedFunction(
-            ExpressionFunctionName.with("test123")
-                .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
+            SpreadsheetExpressionFunctions.name("test123")
         ),
         Expression.NO_CHILDREN
     );
