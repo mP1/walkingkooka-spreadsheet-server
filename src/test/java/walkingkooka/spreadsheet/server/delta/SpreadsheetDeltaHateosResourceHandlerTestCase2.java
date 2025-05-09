@@ -37,6 +37,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContexts;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
@@ -75,7 +76,6 @@ import walkingkooka.storage.StorageStores;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.text.Length;
 import walkingkooka.tree.text.Text;
 import walkingkooka.tree.text.TextStyle;
@@ -269,7 +269,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 20)
         .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
         .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-        .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
+        .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
         .set(SpreadsheetMetadataPropertyName.FORMAT_CONVERTER, ConverterSelector.parse("general"))
         .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
         .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
