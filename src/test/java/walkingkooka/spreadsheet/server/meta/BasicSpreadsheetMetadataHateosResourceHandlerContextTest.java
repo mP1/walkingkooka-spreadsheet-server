@@ -83,7 +83,6 @@ import walkingkooka.storage.StorageStores;
 import walkingkooka.store.Store;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.FakeExpressionFunctionProvider;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -1162,11 +1161,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                         public ExpressionFunctionInfoSet expressionFunctionInfos() {
                             return SpreadsheetExpressionFunctions.infoSet(
                                 Sets.of(
-                                    ExpressionFunctionInfo.with(
+                                    SpreadsheetExpressionFunctions.info(
                                         Url.parseAbsolute("https://example.com/expression-function-1"),
                                         SpreadsheetExpressionFunctions.name("ExpressionFunction1")
                                     ),
-                                    ExpressionFunctionInfo.with(
+                                    SpreadsheetExpressionFunctions.info(
                                         Url.parseAbsolute("https://example.com/expression-function-2"),
                                         SpreadsheetExpressionFunctions.name("ExpressionFunction2")
                                     )

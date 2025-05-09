@@ -48,12 +48,12 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
 
     // hateos...........................................................................................................
 
-    private final static ExpressionFunctionInfo INFO1 = ExpressionFunctionInfo.with(
+    private final static ExpressionFunctionInfo INFO1 = SpreadsheetExpressionFunctions.info(
         Url.parseAbsolute("https://example.com/1"),
         SpreadsheetExpressionFunctions.name("function-1")
     );
 
-    private final static ExpressionFunctionInfo INFO2 = ExpressionFunctionInfo.with(
+    private final static ExpressionFunctionInfo INFO2 = SpreadsheetExpressionFunctions.info(
         Url.parseAbsolute("https://example.com/2"),
         SpreadsheetExpressionFunctions.name("function-2")
     );
