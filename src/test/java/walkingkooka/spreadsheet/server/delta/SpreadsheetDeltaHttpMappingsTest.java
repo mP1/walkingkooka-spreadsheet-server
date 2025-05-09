@@ -81,7 +81,6 @@ import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
@@ -563,11 +562,11 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             public ExpressionFunctionInfoSet expressionFunctionInfos() {
                 return SpreadsheetExpressionFunctions.infoSet(
                     Sets.of(
-                        ExpressionFunctionInfo.with(
+                        SpreadsheetExpressionFunctions.info(
                             Url.parseAbsolute("https://example.com/expression-function-1"),
                             SpreadsheetExpressionFunctions.name("ExpressionFunction1")
                         ),
-                        ExpressionFunctionInfo.with(
+                        SpreadsheetExpressionFunctions.info(
                             Url.parseAbsolute("https://example.com/expression-function-2"),
                             SpreadsheetExpressionFunctions.name("ExpressionFunction2")
                         )

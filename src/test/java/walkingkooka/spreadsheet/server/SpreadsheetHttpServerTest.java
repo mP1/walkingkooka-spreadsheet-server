@@ -214,11 +214,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         public ExpressionFunctionInfoSet expressionFunctionInfos() {
             return SpreadsheetExpressionFunctions.infoSet(
                 Sets.of(
-                    ExpressionFunctionInfo.with(
+                    SpreadsheetExpressionFunctions.info(
                         Url.parseAbsolute("https://example.com/expression-function-1"),
                         SpreadsheetExpressionFunctions.name("ExpressionFunction1")
                     ),
-                    ExpressionFunctionInfo.with(
+                    SpreadsheetExpressionFunctions.info(
                         Url.parseAbsolute("https://example.com/expression-function-2"),
                         SpreadsheetExpressionFunctions.name("ExpressionFunction2")
                     )
