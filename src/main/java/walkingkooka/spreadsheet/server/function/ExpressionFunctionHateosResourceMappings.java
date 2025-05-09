@@ -75,8 +75,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 throw new IllegalArgumentException("Invalid function selection " + CharSequences.quoteAndEscape(text));
             default:
                 selection = HateosResourceSelection.one(
-                    ExpressionFunctionName.with(text)
-                        .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
+                    SpreadsheetExpressionFunctions.name(text)
                 );
                 break;
         }
