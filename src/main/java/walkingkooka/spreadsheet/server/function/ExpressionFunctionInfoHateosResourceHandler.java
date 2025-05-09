@@ -22,6 +22,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
@@ -54,7 +55,7 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            ExpressionFunctionInfoSet.with(
+            SpreadsheetExpressionFunctions.infoSet(
                 context.systemSpreadsheetProvider()
                     .expressionFunctionInfos()
             )

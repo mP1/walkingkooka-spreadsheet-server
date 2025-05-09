@@ -212,7 +212,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         @Override
         public ExpressionFunctionInfoSet expressionFunctionInfos() {
-            return ExpressionFunctionInfoSet.with(
+            return SpreadsheetExpressionFunctions.infoSet(
                 Sets.of(
                     ExpressionFunctionInfo.with(
                         Url.parseAbsolute("https://example.com/expression-function-1"),
