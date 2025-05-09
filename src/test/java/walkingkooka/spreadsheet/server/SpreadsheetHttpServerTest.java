@@ -76,7 +76,6 @@ import walkingkooka.plugin.store.PluginSet;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
@@ -85,6 +84,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSampleList;
@@ -203,7 +203,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     return Cast.to(
                         new TestFunction(
                             ExpressionFunctionName.with("ExpressionFunction1")
-                                .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                                .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
                         )
                     );
                 default:
@@ -218,12 +218,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     ExpressionFunctionInfo.with(
                         Url.parseAbsolute("https://example.com/expression-function-1"),
                         ExpressionFunctionName.with("ExpressionFunction1")
-                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
                     ),
                     ExpressionFunctionInfo.with(
                         Url.parseAbsolute("https://example.com/expression-function-2"),
                         ExpressionFunctionName.with("ExpressionFunction2")
-                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
                     )
                 )
             );
@@ -231,7 +231,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         @Override
         public CaseSensitivity expressionFunctionNameCaseSensitivity() {
-            return SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY;
+            return SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY;
         }
     };
 

@@ -50,11 +50,11 @@ import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
-import walkingkooka.spreadsheet.SpreadsheetExpressionFunctionNames;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetName;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineEvaluation;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -1166,12 +1166,12 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                                     ExpressionFunctionInfo.with(
                                         Url.parseAbsolute("https://example.com/expression-function-1"),
                                         ExpressionFunctionName.with("ExpressionFunction1")
-                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
                                     ),
                                     ExpressionFunctionInfo.with(
                                         Url.parseAbsolute("https://example.com/expression-function-2"),
                                         ExpressionFunctionName.with("ExpressionFunction2")
-                                            .setCaseSensitivity(SpreadsheetExpressionFunctionNames.CASE_SENSITIVITY)
+                                            .setCaseSensitivity(SpreadsheetExpressionFunctions.NAME_CASE_SENSITIVITY)
                                     )
                                 )
                             );
