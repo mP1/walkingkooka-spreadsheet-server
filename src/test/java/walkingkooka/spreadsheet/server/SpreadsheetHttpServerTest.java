@@ -138,7 +138,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProvider;
@@ -5497,7 +5496,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS.patch(
-                    ExpressionFunctionAliasSet.parse("ExpressionFunction2")
+                    SpreadsheetExpressionFunctions.parseAliasSet("ExpressionFunction2")
                 )
             ),
             this.response(
@@ -5682,7 +5681,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             toJson(
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS.patch(
-                    ExpressionFunctionAliasSet.parse("ExpressionFunction1")
+                    SpreadsheetExpressionFunctions.parseAliasSet("ExpressionFunction1")
                 )
             ),
             this.response(
@@ -12014,10 +12013,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mm").spreadsheetParserSelector())
             .set(
                 SpreadsheetMetadataPropertyName.FUNCTIONS,
-                ExpressionFunctionAliasSet.parse("ExpressionFunction1, ExpressionFunction2")
+                SpreadsheetExpressionFunctions.parseAliasSet("ExpressionFunction1, ExpressionFunction2")
             ).set(
                 SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
-                ExpressionFunctionAliasSet.parse("ExpressionFunction1, ExpressionFunction2")
+                SpreadsheetExpressionFunctions.parseAliasSet("ExpressionFunction1, ExpressionFunction2")
             );
     }
 

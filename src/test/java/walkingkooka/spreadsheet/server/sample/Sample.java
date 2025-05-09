@@ -51,6 +51,7 @@ import walkingkooka.plugin.store.PluginStores;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorProviders;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterProviders;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionFunctions;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetPattern;
@@ -81,7 +82,6 @@ import walkingkooka.storage.StorageStores;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionProviders;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
@@ -226,7 +226,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
-            .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
             .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
@@ -250,7 +250,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
             .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
-            .set(SpreadsheetMetadataPropertyName.VALIDATOR_FUNCTIONS, ExpressionFunctionAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.VALIDATOR_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.VALIDATOR_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
