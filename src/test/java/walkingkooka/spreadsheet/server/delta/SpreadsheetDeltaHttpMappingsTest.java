@@ -561,7 +561,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
             @Override
             public ExpressionFunctionInfoSet expressionFunctionInfos() {
-                return ExpressionFunctionInfoSet.with(
+                return SpreadsheetExpressionFunctions.infoSet(
                     Sets.of(
                         ExpressionFunctionInfo.with(
                             Url.parseAbsolute("https://example.com/expression-function-1"),

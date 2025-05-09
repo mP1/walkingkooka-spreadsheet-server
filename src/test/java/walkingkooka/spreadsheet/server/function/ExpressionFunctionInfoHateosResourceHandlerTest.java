@@ -65,7 +65,7 @@ public final class ExpressionFunctionInfoHateosResourceHandlerTest implements Ha
             return new FakeSpreadsheetProvider() {
                 @Override
                 public ExpressionFunctionInfoSet expressionFunctionInfos() {
-                    return ExpressionFunctionInfoSet.with(
+                    return SpreadsheetExpressionFunctions.infoSet(
                         Sets.of(
                             INFO1,
                             INFO2
