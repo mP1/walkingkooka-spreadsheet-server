@@ -8499,8 +8499,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 "[\n" +
-                    "  \"https://example.com/expression-function-1 ExpressionFunction1\",\n" +
-                    "  \"https://example.com/expression-function-2 ExpressionFunction2\"\n" +
+                    "  \"@https://example.com/expression-function-1 ExpressionFunction1\",\n" +
+                    "  \"@https://example.com/expression-function-2 ExpressionFunction2\"\n" +
                     "]",
                 ExpressionFunctionInfoSet.class.getSimpleName()
             )
@@ -8518,7 +8518,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                "\"https://example.com/expression-function-1 ExpressionFunction1\"",
+                "\"@https://example.com/expression-function-1 ExpressionFunction1\"",
                 ExpressionFunctionInfo.class.getSimpleName()
             )
         );
