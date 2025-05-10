@@ -1156,7 +1156,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             .spreadsheetProvider(
                 SpreadsheetProviders.basic(
                     CONVERTER_PROVIDER,
-                    new FakeExpressionFunctionProvider() {
+                    new FakeExpressionFunctionProvider<>() {
                         @Override
                         public ExpressionFunctionInfoSet expressionFunctionInfos() {
                             return SpreadsheetExpressionFunctions.infoSet(
