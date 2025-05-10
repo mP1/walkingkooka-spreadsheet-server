@@ -168,7 +168,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formHandlers\": \"basic\",\n" +
                     "  \"formulaConverter\": \"general\",\n" +
-                    "  \"formulaFunctions\": \"\",\n" +
+                    "  \"formulaFunctions\": \"@\",\n" +
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -190,7 +190,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"\",\n" +
+                    "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +

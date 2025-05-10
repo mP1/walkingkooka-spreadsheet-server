@@ -1351,13 +1351,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"findFunctions\": \"\",\n" +
+                    "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formulaFunctions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -1383,7 +1383,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validatorConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"\",\n" +
+                    "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
@@ -5122,13 +5122,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"findFunctions\": \"\",\n" +
+                    "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formulaFunctions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
-                    "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -5154,7 +5154,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validatorConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"\",\n" +
+                    "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\",\n" +
@@ -5528,13 +5528,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"findFunctions\": \"\",\n" +
+                    "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formulaFunctions\": \"ExpressionFunction2\",\n" +
-                    "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
+                    "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -5560,7 +5560,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validatorConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"\",\n" +
+                    "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
@@ -5713,13 +5713,13 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"findFunctions\": \"\",\n" +
+                    "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatConverter\": \"collection(error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
                     "  \"formulaConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
-                    "  \"formulaFunctions\": \"ExpressionFunction1\",\n" +
-                    "  \"functions\": \"ExpressionFunction1, ExpressionFunction2\",\n" +
+                    "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
+                    "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
                     "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
@@ -5745,7 +5745,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validatorConverter\": \"collection(error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"\",\n" +
+                    "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
