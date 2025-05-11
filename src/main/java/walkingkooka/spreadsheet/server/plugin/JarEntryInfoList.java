@@ -81,6 +81,11 @@ public final class JarEntryInfoList extends AbstractList<JarEntryInfo>
     // ImmutableList....................................................................................................
 
     @Override
+    public void elementCheck(final JarEntryInfo info) {
+        Objects.requireNonNull(info, "info");
+    }
+
+    @Override
     public JarEntryInfoList setElements(final List<JarEntryInfo> infos) {
         final JarEntryInfoList copy = with(infos);
         return this.equals(copy) ?

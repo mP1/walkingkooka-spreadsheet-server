@@ -77,6 +77,11 @@ public final class SpreadsheetFormatterFormatRequestList extends AbstractList<Sp
     private final List<SpreadsheetFormatterFormatRequest<?>> requests;
 
     @Override
+    public void elementCheck(final SpreadsheetFormatterFormatRequest<?> request) {
+        Objects.requireNonNull(request, "request");
+    }
+
+    @Override
     public SpreadsheetFormatterFormatRequestList setElements(final List<SpreadsheetFormatterFormatRequest<?>> requests) {
         final SpreadsheetFormatterFormatRequestList copy = with(requests);
         return this.equals(copy) ?
