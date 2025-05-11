@@ -63,6 +63,11 @@ public final class SpreadsheetFormatterSelectorMenuList extends AbstractList<Spr
     private final List<SpreadsheetFormatterSelectorMenu> menus;
 
     @Override
+    public void elementCheck(final SpreadsheetFormatterSelectorMenu menu) {
+        Objects.requireNonNull(menu, "menu");
+    }
+
+    @Override
     public SpreadsheetFormatterSelectorMenuList setElements(final List<SpreadsheetFormatterSelectorMenu> menus) {
         final SpreadsheetFormatterSelectorMenuList copy = with(menus);
         return this.equals(copy) ?
