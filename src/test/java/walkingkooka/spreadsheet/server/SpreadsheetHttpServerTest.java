@@ -153,6 +153,7 @@ import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 
 import java.io.InputStream;
+import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -1339,15 +1340,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error\",\n" +
-                    "  \"currencySymbol\": \"$\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
                     "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"percentageSymbol\": \"%\"\n" +
+                    "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
@@ -1359,16 +1367,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
-                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negativeSign\": \"-\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
@@ -2299,7 +2303,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // patch metadata
-        final String currency = "NSWD";
+        final RoundingMode roundingMode = RoundingMode.FLOOR;
 
         server.handleAndCheck(
             HttpMethod.PATCH,
@@ -2307,13 +2311,18 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             JsonNode.object()
                 .set(
-                    JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                    JsonNode.string(currency)
+                    JsonPropertyName.with(
+                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
+                    ),
+                    JsonNode.string(roundingMode.name())
                 )
                 .toString(),
             this.response(
                 HttpStatusCode.OK.status(),
-                loaded.set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, currency)
+                loaded.set(
+                    SpreadsheetMetadataPropertyName.ROUNDING_MODE,
+                    roundingMode
+                )
             )
         );
     }
@@ -2329,8 +2338,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             NO_HEADERS_TRANSACTION_ID,
             JsonNode.object()
                 .set(
-                    JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                    JsonNode.string("NSWD")
+                    JsonPropertyName.with(
+                        SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()
+                    ),
+                    JsonNode.string(
+                        RoundingMode.FLOOR.name()
+                    )
                 )
                 .toString(),
             HttpStatusCode.NO_CONTENT.setMessage("Unable to load spreadsheet with id=1"),
@@ -5110,15 +5123,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error\",\n" +
-                    "  \"currencySymbol\": \"$\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
                     "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"percentageSymbol\": \"%\"\n" +
+                    "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
@@ -5130,16 +5150,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
-                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negativeSign\": \"-\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
@@ -5516,15 +5532,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error\",\n" +
-                    "  \"currencySymbol\": \"$\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
                     "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"percentageSymbol\": \"%\"\n" +
+                    "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
@@ -5536,16 +5559,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
-                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negativeSign\": \"-\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
@@ -5701,15 +5720,22 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
                     "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, plugin-selector-like-to-string, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error\",\n" +
-                    "  \"currencySymbol\": \"$\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"-25569\",\n" +
                     "  \"dateTimeParser\": \"date-time-parse-pattern yyyy/mm/dd hh:mm\",\n" +
-                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"percentageSymbol\": \"%\"\n" +
+                    "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
-                    "  \"exponentSymbol\": \"e\",\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
                     "  \"findConverter\": \"collection(error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
@@ -5721,16 +5747,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
-                    "  \"groupSeparator\": \",\",\n" +
                     "  \"importers\": \"collection, empty, json\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negativeSign\": \"-\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern \\\"Number\\\" 000.000\",\n" +
                     "  \"numberParser\": \"number-parse-pattern 000.000\",\n" +
                     "  \"parsers\": \"date-parse-pattern, date-time-parse-pattern, number-parse-pattern, time-parse-pattern\",\n" +
-                    "  \"percentageSymbol\": \"%\",\n" +
                     "  \"plugins\": \"\",\n" +
-                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
@@ -5972,7 +5994,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
 
         // update metadata with a different decimal separator.
-        final SpreadsheetMetadata updated = initial.set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, ',');
+        final SpreadsheetMetadata updated = initial.set(
+            SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS,
+            DECIMAL_NUMBER_SYMBOLS.setGroupSeparator('*')
+                .setDecimalSeparator(',')
+                .setGroupSeparator('\u00a0')
+        );
 
         server.handleAndCheck(
             HttpMethod.POST,

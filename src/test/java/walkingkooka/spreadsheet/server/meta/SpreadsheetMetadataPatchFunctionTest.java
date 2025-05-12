@@ -90,13 +90,16 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                 .apply(
                     JsonNode.object()
                         .set(
-                            JsonPropertyName.with(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL.value()),
-                            JsonNode.string("NSWD")
+                            JsonPropertyName.with(SpreadsheetMetadataPropertyName.ROUNDING_MODE.value()),
+                            JsonNode.string(RoundingMode.HALF_DOWN.name())
                         )
                 )
 
         );
-        this.checkEquals("Unable to load spreadsheet with id=7b", thrown.getMessage());
+        this.checkEquals(
+            "Unable to load spreadsheet with id=7b",
+            thrown.getMessage()
+        );
     }
 
     @Test
@@ -146,8 +149,8 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
             }
         };
 
-        final SpreadsheetMetadataPropertyName<String> propertyName = SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL;
-        final String propertyValue = "NSWD";
+        final SpreadsheetMetadataPropertyName<RoundingMode> propertyName = SpreadsheetMetadataPropertyName.ROUNDING_MODE;
+        final RoundingMode propertyValue = RoundingMode.FLOOR;
 
         final JsonNodeMarshallContext marshallContext = metadata.jsonNodeMarshallContext();
 
@@ -158,7 +161,12 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                     JsonPropertyName.with(propertyName.value()),
                     marshallContext.marshall(propertyValue)
                 ),
-            marshallContext.marshall(metadata.set(propertyName, propertyValue))
+            marshallContext.marshall(
+                metadata.set(
+                    propertyName,
+                    propertyValue
+                )
+            )
         );
     }
 

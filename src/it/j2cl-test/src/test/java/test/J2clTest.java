@@ -28,6 +28,8 @@ import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
 import walkingkooka.net.UrlScheme;
@@ -152,15 +154,22 @@ public class J2clTest {
                     "    \"modifiedTimestamp\": \"1999-12-31T12:58:59\"\n" +
                     "  },\n" +
                     "  \"cellCharacterWidth\": 10,\n" +
-                    "  \"currencySymbol\": \"$AUD\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern DD/MM/YYYY\",\n" +
                     "  \"dateParser\": \"date-parse-pattern DD/MM/YYYYDDMMYYYY\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern DD/MM/YYYY hh:mm\",\n" +
                     "  \"dateTimeOffset\": \"0\",\n" +
                     "  \"dateTimeParser\": \"date-time-parse-pattern DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM\",\n" +
-                    "  \"decimalSeparator\": \".\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$AUD\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"E\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"percentageSymbol\": \"%\"\n" +
+                    "  },\n" +
                     "  \"defaultYear\": 1900,\n" +
-                    "  \"exponentSymbol\": \"E\",\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formHandlers\": \"basic\",\n" +
                     "  \"formulaConverter\": \"general\",\n" +
@@ -168,13 +177,9 @@ public class J2clTest {
                     "  \"frozenColumns\": \"A:B\",\n" +
                     "  \"frozenRows\": \"1:2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
-                    "  \"groupSeparator\": \",\",\n" +
                     "  \"locale\": \"en-AU\",\n" +
-                    "  \"negativeSign\": \"-\",\n" +
                     "  \"numberFormatter\": \"number-format-pattern #0.0\",\n" +
                     "  \"numberParser\": \"number-parse-pattern #\",\n" +
-                    "  \"percentageSymbol\": \"%\",\n" +
-                    "  \"positiveSign\": \"+\",\n" +
                     "  \"precision\": 123,\n" +
                     "  \"roundingMode\": \"FLOOR\",\n" +
                     "  \"style\": {\n" +
@@ -210,29 +215,34 @@ public class J2clTest {
                     now
                 )
             ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 10)
-            .set(SpreadsheetMetadataPropertyName.CURRENCY_SYMBOL, "$AUD")
             .set(SpreadsheetMetadataPropertyName.DATE_FORMATTER, SpreadsheetPattern.parseDateFormatPattern("DD/MM/YYYY").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_PARSER, SpreadsheetPattern.parseDateParsePattern("DD/MM/YYYYDDMMYYYY").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_FORMATTER, SpreadsheetPattern.parseDateTimeFormatPattern("DD/MM/YYYY hh:mm").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
             .set(SpreadsheetMetadataPropertyName.DATE_TIME_PARSER, SpreadsheetPattern.parseDateTimeParsePattern("DD/MM/YYYY hh:mmDDMMYYYYHHMMDDMMYYYY HHMM").spreadsheetParserSelector())
-            .set(SpreadsheetMetadataPropertyName.DECIMAL_SEPARATOR, '.')
+            .set(
+                SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS,
+                DecimalNumberSymbols.with(
+                    '-',
+                    '+',
+                    DecimalNumberContext.ZERO_DIGIT,
+                    "$AUD",
+                    '.',
+                    "E",
+                    ',',
+                    '%'
+                ))
             .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
-            .set(SpreadsheetMetadataPropertyName.EXPONENT_SYMBOL, "E")
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.FROZEN_COLUMNS, SpreadsheetSelection.parseColumnRange("A:B"))
             .set(SpreadsheetMetadataPropertyName.FROZEN_ROWS, SpreadsheetSelection.parseRowRange("1:2"))
-            .set(SpreadsheetMetadataPropertyName.GROUP_SEPARATOR, ',')
             .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-            .set(SpreadsheetMetadataPropertyName.NEGATIVE_SIGN, '-')
             .set(SpreadsheetMetadataPropertyName.NUMBER_FORMATTER, SpreadsheetPattern.parseNumberFormatPattern("#0.0").spreadsheetFormatterSelector())
             .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
             .set(SpreadsheetMetadataPropertyName.NUMBER_PARSER, SpreadsheetPattern.parseNumberParsePattern("#").spreadsheetParserSelector())
-            .set(SpreadsheetMetadataPropertyName.PERCENTAGE_SYMBOL, '%')
-            .set(SpreadsheetMetadataPropertyName.POSITIVE_SIGN, '+')
             .set(SpreadsheetMetadataPropertyName.PRECISION, 123)
             .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.FLOOR)
             .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, createdId)
