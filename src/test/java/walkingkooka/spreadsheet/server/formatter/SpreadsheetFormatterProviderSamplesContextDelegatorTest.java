@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
@@ -27,7 +28,8 @@ import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterProviderSam
 import java.math.MathContext;
 
 public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements SpreadsheetFormatterProviderSamplesContextTesting<TestSpreadsheetFormatterProviderSamplesContextDelegator>,
-    SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting,
+    DecimalNumberContextDelegator {
 
     @Override
     public TestSpreadsheetFormatterProviderSamplesContextDelegator createContext() {
@@ -45,43 +47,15 @@ public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements 
     }
 
     @Override
-    public String currencySymbol() {
-        return DECIMAL_NUMBER_CONTEXT.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return DECIMAL_NUMBER_CONTEXT.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return DECIMAL_NUMBER_CONTEXT.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return DECIMAL_NUMBER_CONTEXT.groupSeparator();
-    }
-
-    @Override
     public MathContext mathContext() {
         return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
-    @Override
-    public char negativeSign() {
-        return DECIMAL_NUMBER_CONTEXT.negativeSign();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char percentSymbol() {
-        return DECIMAL_NUMBER_CONTEXT.percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return DECIMAL_NUMBER_CONTEXT.positiveSign();
+    public DecimalNumberContext decimalNumberContext() {
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext();

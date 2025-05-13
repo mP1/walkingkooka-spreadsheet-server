@@ -26,7 +26,6 @@ import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -233,7 +232,7 @@ public final class Sample implements walkingkooka.text.printer.TreePrintableTest
                 DecimalNumberSymbols.with(
                     '-',
                     '+',
-                    DecimalNumberContext.ZERO_DIGIT,
+                    '0',
                     "$AUD",
                     '.',
                     "E",

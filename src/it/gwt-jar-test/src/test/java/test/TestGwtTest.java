@@ -221,7 +221,7 @@ public class TestGwtTest extends GWTTestCase {
                 DecimalNumberSymbols.with(
                     '-',
                     '+',
-                    DecimalNumberContext.ZERO_DIGIT,
+                    '0',
                     "$AUD",
                     '.',
                     "E",

@@ -494,7 +494,17 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public char percentSymbol() {
+    public String infinitySymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char monetaryDecimalSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String nanSymbol() {
         throw new UnsupportedOperationException();
     }
 
@@ -504,7 +514,22 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public char percentSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char permillSymbol() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char positiveSign() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public char zeroDigit() {
         throw new UnsupportedOperationException();
     }
 
