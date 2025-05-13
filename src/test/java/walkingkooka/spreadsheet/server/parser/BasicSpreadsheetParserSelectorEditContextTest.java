@@ -174,8 +174,8 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     }
 
     @Override
-    public char percentageSymbol() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.percentageSymbol();
+    public char percentSymbol() {
+        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.percentSymbol();
     }
 
     @Override

@@ -494,7 +494,7 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public char percentageSymbol() {
+    public char percentSymbol() {
         throw new UnsupportedOperationException();
     }
 
