@@ -167,7 +167,11 @@ public class J2clTest {
                     "    \"decimalSeparator\": \".\",\n" +
                     "    \"exponentSymbol\": \"E\",\n" +
                     "    \"groupSeparator\": \",\",\n" +
-                    "    \"percentageSymbol\": \"%\"\n" +
+                    "    \"infinitySymbol\": \"Infinity!\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"Nan!\",\n" +
+                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"^\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 1900,\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
@@ -230,9 +234,13 @@ public class J2clTest {
                     '.',
                     "E",
                     ',',
-                    '%'
-                ))
-            .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
+                    "Infinity!",
+                    '.',
+                    "Nan!",
+                    '%',
+                    '^'
+                )
+            ).set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
             .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
