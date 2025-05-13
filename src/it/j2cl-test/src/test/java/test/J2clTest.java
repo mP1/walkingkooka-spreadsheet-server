@@ -229,7 +229,7 @@ public class J2clTest {
                 DecimalNumberSymbols.with(
                     '-',
                     '+',
-                    DecimalNumberContext.ZERO_DIGIT,
+                    '0',
                     "$AUD",
                     '.',
                     "E",

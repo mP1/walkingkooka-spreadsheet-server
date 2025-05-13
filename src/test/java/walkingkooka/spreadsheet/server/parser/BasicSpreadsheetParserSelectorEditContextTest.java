@@ -18,6 +18,8 @@
 package walkingkooka.spreadsheet.server.parser;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
@@ -34,7 +36,8 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicSpreadsheetParserSelectorEditContextTest implements SpreadsheetParserSelectorEditContextTesting<BasicSpreadsheetParserSelectorEditContext>,
-    SpreadsheetMetadataTesting {
+    SpreadsheetMetadataTesting,
+    DecimalNumberContextDelegator {
 
     @Test
     public void testWithNullSpreadsheetParserProviderFails() {
@@ -144,43 +147,15 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
     }
 
     @Override
-    public String currencySymbol() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.groupSeparator();
-    }
-
-    @Override
     public MathContext mathContext() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.mathContext();
+        return SPREADSHEET_FORMATTER_CONTEXT.mathContext();
     }
 
-    @Override
-    public char negativeSign() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.negativeSign();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char percentSymbol() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return SPREADSHEET_FORMULA_CONVERTER_CONTEXT.positiveSign();
+    public DecimalNumberContext decimalNumberContext() {
+        return SPREADSHEET_FORMATTER_CONTEXT;
     }
 
     // class............................................................................................................

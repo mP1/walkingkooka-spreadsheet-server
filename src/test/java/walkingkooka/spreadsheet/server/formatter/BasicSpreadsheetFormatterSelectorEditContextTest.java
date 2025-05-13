@@ -22,6 +22,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
@@ -44,31 +46,8 @@ import java.util.Locale;
 import java.util.Optional;
 
 public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext>,
-    SpreadsheetMetadataTesting {
-
-    @Override
-    public String currencySymbol() {
-        return this.spreadsheetConverterContext()
-            .currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.spreadsheetConverterContext()
-            .decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.spreadsheetConverterContext()
-            .exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.spreadsheetConverterContext()
-            .groupSeparator();
-    }
+    SpreadsheetMetadataTesting,
+    DecimalNumberContextDelegator {
 
     @Override
     public MathContext mathContext() {
@@ -76,22 +55,11 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             .mathContext();
     }
 
-    @Override
-    public char negativeSign() {
-        return this.spreadsheetConverterContext()
-            .negativeSign();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char percentSymbol() {
-        return this.spreadsheetConverterContext()
-            .percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.spreadsheetConverterContext()
-            .positiveSign();
+    public DecimalNumberContext decimalNumberContext() {
+        return this.spreadsheetConverterContext();
     }
 
     @Override
