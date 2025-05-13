@@ -1353,7 +1353,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"decimalSeparator\": \".\",\n" +
                     "    \"exponentSymbol\": \"e\",\n" +
                     "    \"groupSeparator\": \",\",\n" +
-                    "    \"percentageSymbol\": \"%\"\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
@@ -5136,7 +5140,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"decimalSeparator\": \".\",\n" +
                     "    \"exponentSymbol\": \"e\",\n" +
                     "    \"groupSeparator\": \",\",\n" +
-                    "    \"percentageSymbol\": \"%\"\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
@@ -5545,7 +5553,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"decimalSeparator\": \".\",\n" +
                     "    \"exponentSymbol\": \"e\",\n" +
                     "    \"groupSeparator\": \",\",\n" +
-                    "    \"percentageSymbol\": \"%\"\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
@@ -5733,7 +5745,11 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"decimalSeparator\": \".\",\n" +
                     "    \"exponentSymbol\": \"e\",\n" +
                     "    \"groupSeparator\": \",\",\n" +
-                    "    \"percentageSymbol\": \"%\"\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
