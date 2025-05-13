@@ -83,9 +83,9 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     }
 
     @Override
-    public char percentageSymbol() {
+    public char percentSymbol() {
         return this.spreadsheetConverterContext()
-            .percentageSymbol();
+            .percentSymbol();
     }
 
     @Override

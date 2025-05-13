@@ -1356,7 +1356,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"infinitySymbol\": \"∞\",\n" +
                     "    \"monetaryDecimalSeparator\": \".\",\n" +
                     "    \"nanSymbol\": \"NaN\",\n" +
-                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
@@ -5143,7 +5143,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"infinitySymbol\": \"∞\",\n" +
                     "    \"monetaryDecimalSeparator\": \".\",\n" +
                     "    \"nanSymbol\": \"NaN\",\n" +
-                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
@@ -5556,7 +5556,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"infinitySymbol\": \"∞\",\n" +
                     "    \"monetaryDecimalSeparator\": \".\",\n" +
                     "    \"nanSymbol\": \"NaN\",\n" +
-                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +
@@ -5748,7 +5748,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"infinitySymbol\": \"∞\",\n" +
                     "    \"monetaryDecimalSeparator\": \".\",\n" +
                     "    \"nanSymbol\": \"NaN\",\n" +
-                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 2000,\n" +

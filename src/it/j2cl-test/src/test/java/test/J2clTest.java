@@ -170,7 +170,7 @@ public class J2clTest {
                     "    \"infinitySymbol\": \"Infinity!\",\n" +
                     "    \"monetaryDecimalSeparator\": \".\",\n" +
                     "    \"nanSymbol\": \"Nan!\",\n" +
-                    "    \"percentageSymbol\": \"%\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"^\"\n" +
                     "  },\n" +
                     "  \"defaultYear\": 1900,\n" +
