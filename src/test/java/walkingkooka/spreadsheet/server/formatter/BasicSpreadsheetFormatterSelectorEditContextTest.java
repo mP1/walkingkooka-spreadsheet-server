@@ -36,8 +36,8 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatters;
 import walkingkooka.spreadsheet.format.SpreadsheetText;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
