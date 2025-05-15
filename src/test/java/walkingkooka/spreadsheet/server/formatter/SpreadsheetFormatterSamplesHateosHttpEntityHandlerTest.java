@@ -277,6 +277,11 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                 }
 
                 @Override
+                public char zeroDigit() {
+                    return SPREADSHEET_FORMATTER_CONTEXT.zeroDigit();
+                }
+
+                @Override
                 public JsonNode marshall(final Object value) {
                     return JSON_NODE_MARSHALL_CONTEXT.marshall(value);
                 }
