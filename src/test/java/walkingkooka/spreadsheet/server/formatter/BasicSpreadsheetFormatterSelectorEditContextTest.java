@@ -86,6 +86,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
         final Locale locale = Locale.forLanguageTag("EN-AU");
 
         return SpreadsheetConverterContexts.basic(
+            SpreadsheetConverterContexts.NO_METADATA,
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
             SpreadsheetLabelNameResolvers.fake(),
