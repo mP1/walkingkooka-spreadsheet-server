@@ -5731,7 +5731,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
