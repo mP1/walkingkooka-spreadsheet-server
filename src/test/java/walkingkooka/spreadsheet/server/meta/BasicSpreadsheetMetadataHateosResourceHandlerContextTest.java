@@ -1262,15 +1262,11 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                                                                        final HttpHeaderName<T4> header4,
                                                                        final T4 value4) {
         return Maps.of(
-            header1, list(value1),
-            header2, list(value2),
-            header3, list(value3),
-            header4, list(value4)
+            header1, Lists.of(value1),
+            header2, Lists.of(value2),
+            header3, Lists.of(value3),
+            header4, Lists.of(value4)
         );
-    }
-
-    private static <T> List<T> list(final T... values) {
-        return Lists.of(values);
     }
 
     abstract static class TestHttpRequest extends FakeHttpRequest {
