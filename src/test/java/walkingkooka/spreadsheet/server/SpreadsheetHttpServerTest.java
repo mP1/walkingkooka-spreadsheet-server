@@ -1339,7 +1339,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -1362,12 +1362,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
-                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -1380,7 +1380,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
@@ -1389,7 +1389,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
                     "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
@@ -5126,7 +5126,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5149,12 +5149,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
-                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5167,7 +5167,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
@@ -5176,7 +5176,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
                     "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
@@ -5539,7 +5539,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5562,12 +5562,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
-                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5580,7 +5580,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
@@ -5589,7 +5589,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
                     "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
@@ -5731,7 +5731,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-string, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, error-to-string, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, string-to-error, string-to-expression, string-to-selection, string-to-spreadsheet-id, string-to-spreadsheet-metadata-property-name, string-to-spreadsheet-name, string-to-validation-error, text-to-text\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5754,12 +5754,12 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
-                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"findConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
-                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formatConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-to-string, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5772,7 +5772,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"precision\": 7,\n" +
                     "  \"roundingMode\": \"HALF_UP\",\n" +
                     "  \"sortComparators\": \"date,datetime,day-of-month,day-of-year,hour-of-ampm,hour-of-day,minute-of-hour,month-of-year,nano-of-second,number,seconds-of-minute,text,text-case-insensitive,time,year\",\n" +
-                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"sortConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-expression, string-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"style\": {\n" +
                     "    \"height\": \"50px\",\n" +
                     "    \"width\": \"100px\"\n" +
@@ -5781,7 +5781,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-string, general)\",\n" +
+                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, string-to-error, string-to-expression, string-to-selection, string-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"validatorFormHandler\": \"non-null\",\n" +
                     "  \"validatorFunctions\": \"@\",\n" +
                     "  \"validatorValidators\": \"\",\n" +
@@ -7910,7 +7910,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/null-to-number null-to-number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/number-to-number number-to-number\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-selection selection-to-selection\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-string selection-to-string\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/selection-to-text selection-to-text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/spreadsheet-cell-to spreadsheet-cell-to\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-error string-to-error\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/string-to-expression string-to-expression\",\n" +
