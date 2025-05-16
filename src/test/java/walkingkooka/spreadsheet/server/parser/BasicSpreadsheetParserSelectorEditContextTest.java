@@ -22,7 +22,6 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContexts;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviders;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetFormatPattern;
 import walkingkooka.spreadsheet.format.pattern.SpreadsheetParsePattern;
@@ -135,8 +134,6 @@ public final class BasicSpreadsheetParserSelectorEditContextTest implements Spre
 
     @Override
     public BasicSpreadsheetParserSelectorEditContext createContext() {
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
-
         return BasicSpreadsheetParserSelectorEditContext.with(
             SPREADSHEET_PARSER_PROVIDER,
             SPREADSHEET_PARSER_CONTEXT,
