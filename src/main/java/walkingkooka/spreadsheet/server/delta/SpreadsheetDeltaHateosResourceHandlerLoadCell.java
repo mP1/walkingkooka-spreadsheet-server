@@ -226,7 +226,7 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCell extends SpreadsheetDel
                                                     final Optional<SpreadsheetViewport> viewport,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
-        return Optional.ofNullable(
+        return Optional.of(
             this.prepareResponse(
                 resource,
                 parameters,
