@@ -25,6 +25,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
@@ -530,6 +531,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public char zeroDigit() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public DecimalNumberSymbols decimalNumberSymbols() {
         throw new UnsupportedOperationException();
     }
 
