@@ -22,6 +22,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterProviderSamplesContextDelegatorTest.TestSpreadsheetFormatterProviderSamplesContextDelegator;
 
@@ -58,7 +59,7 @@ public class SpreadsheetFormatterProviderSamplesContextDelegatorTest implements 
         return DECIMAL_NUMBER_CONTEXT;
     }
 
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext();
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext(SpreadsheetMetadata.NO_CELL);
 
     @Override
     public void testCheckToStringOverridden() {
