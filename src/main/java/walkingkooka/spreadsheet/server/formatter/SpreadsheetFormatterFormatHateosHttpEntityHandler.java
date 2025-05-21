@@ -31,6 +31,8 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
+import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.text.TextNode;
@@ -112,6 +114,7 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
             context
         );
         return context.formatValue(
+            SpreadsheetSelection.A1.setFormula(SpreadsheetFormula.EMPTY),
             Optional.ofNullable(
                 request.value()
             ),

@@ -34,6 +34,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorTokenList;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.tree.json.JsonNode;
 
@@ -115,6 +116,7 @@ final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosH
         ).tokens(
             context.spreadsheetMetadata()
                 .spreadsheetFormatterContext(
+                    SpreadsheetMetadata.NO_CELL,
                     context, // SpreadsheetLabelNameResolver
                     context, // ConverterProvider
                     context, // SpreadsheetFormatterProvider
