@@ -24,6 +24,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 
 import java.math.MathContext;
@@ -81,7 +82,7 @@ public final class BasicSpreadsheetFormatterSelectorMenuContextTest implements S
         return DECIMAL_NUMBER_CONTEXT;
     }
 
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext();
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext(SpreadsheetMetadata.NO_CELL);
 
     // toString.........................................................................................................
 
