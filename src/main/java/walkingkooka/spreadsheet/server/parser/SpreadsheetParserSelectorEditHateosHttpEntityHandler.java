@@ -28,6 +28,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
@@ -98,6 +99,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 context, // SpreadsheetParserProvider
                 context.spreadsheetMetadata().spreadsheetParserContext(context), // SpreadsheetParserContext,
                 context.spreadsheetMetadata().spreadsheetFormatterContext(
+                    SpreadsheetMetadata.NO_CELL,
                     SpreadsheetLabelNameResolvers.fake(),
                     context, // ConverterProvider
                     context, // // SpreadsheetFormatterProvider

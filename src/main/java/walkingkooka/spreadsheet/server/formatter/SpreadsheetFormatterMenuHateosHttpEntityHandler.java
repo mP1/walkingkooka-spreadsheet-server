@@ -31,6 +31,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContexts;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 
 import java.util.Map;
@@ -85,6 +86,7 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
                 SpreadsheetFormatterProviderSamplesContexts.basic(
                     context.spreadsheetMetadata()
                         .spreadsheetFormatterContext(
+                            SpreadsheetMetadata.NO_CELL,
                             context, // SpreadsheetLabelNameResolver
                             context, // ConverterProvider
                             context, // SpreadsheetFormatterProvider

@@ -402,6 +402,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 ),
                 context,
                 metadata.spreadsheetFormatterContext(
+                    SpreadsheetMetadata.NO_CELL,
                     context, // SpreadsheetLabelNameResolver
                     context, // ConverterProvider
                     context, // SpreadsheetFormatterProvider
