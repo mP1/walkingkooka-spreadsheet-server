@@ -93,12 +93,17 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
             String.class
         );
 
+        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+
         final SpreadsheetParserSelectorEdit response = SpreadsheetParserSelectorEdit.parse(
             selector,
             SpreadsheetParserSelectorEditContexts.basic(
                 context, // SpreadsheetParserProvider
-                context.spreadsheetMetadata().spreadsheetParserContext(context), // SpreadsheetParserContext,
-                context.spreadsheetMetadata().spreadsheetFormatterContext(
+                metadata.spreadsheetParserContext(
+                    SpreadsheetMetadata.NO_CELL,
+                    context
+                ), // SpreadsheetParserContext,
+                metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
                     SpreadsheetLabelNameResolvers.fake(),
                     context, // ConverterProvider
