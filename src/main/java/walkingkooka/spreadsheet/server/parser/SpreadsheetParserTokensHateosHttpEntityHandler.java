@@ -30,6 +30,7 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
@@ -114,6 +115,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
         ).tokens(
             context.spreadsheetMetadata()
                 .spreadsheetParserContext(
+                    SpreadsheetMetadata.NO_CELL,
                     context::now // now provider
                 )
         );

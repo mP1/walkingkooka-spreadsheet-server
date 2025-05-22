@@ -111,7 +111,8 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
-    public SpreadsheetFormulaParserToken parseFormula(final TextCursor textCursor) {
+    public SpreadsheetFormulaParserToken parseFormula(final TextCursor textCursor,
+                                                      final Optional<SpreadsheetCell> cell) {
         throw new UnsupportedOperationException();
     }
 

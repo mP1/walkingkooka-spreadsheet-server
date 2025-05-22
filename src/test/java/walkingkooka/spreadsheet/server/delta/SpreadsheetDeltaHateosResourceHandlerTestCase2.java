@@ -365,8 +365,12 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         return new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
             @Override
-            public SpreadsheetFormulaParserToken parseFormula(final TextCursor cursor) {
-                return engineContext.parseFormula(cursor);
+            public SpreadsheetFormulaParserToken parseFormula(final TextCursor cursor,
+                                                              final Optional<SpreadsheetCell> cell) {
+                return engineContext.parseFormula(
+                    cursor,
+                    cell
+                );
             }
 
             @Override

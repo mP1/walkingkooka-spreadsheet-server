@@ -138,7 +138,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 }
 
                 @Override
-                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
+                                                                  final Optional<SpreadsheetCell> cell) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
@@ -230,7 +231,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 }
 
                 @Override
-                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
+                                                                  final Optional<SpreadsheetCell> cell) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
@@ -322,7 +324,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 }
 
                 @Override
-                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
+                                                                  final Optional<SpreadsheetCell> cell) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
@@ -369,7 +372,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
 
         new FakeSpreadsheetEngineContext() {
             @Override
-            public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
+            public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
+                                                              final Optional<SpreadsheetCell> cell) {
                 final TextCursorSavePoint begin = formula.save();
                 formula.end();
                 final String text = begin.textBetween()

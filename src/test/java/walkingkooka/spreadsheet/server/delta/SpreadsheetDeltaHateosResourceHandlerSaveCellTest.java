@@ -169,7 +169,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
-                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula) {
+                public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
+                                                                  final Optional<SpreadsheetCell> cell) {
                     final TextCursorSavePoint begin = formula.save();
                     formula.end();
                     final String text = begin.textBetween()
