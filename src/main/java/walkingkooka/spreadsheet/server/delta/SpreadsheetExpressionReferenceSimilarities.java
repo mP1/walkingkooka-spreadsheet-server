@@ -166,12 +166,16 @@ public final class SpreadsheetExpressionReferenceSimilarities implements HateosR
 
         final Optional<SpreadsheetCellReference> reference = this.cellReference();
         if (reference.isPresent()) {
-            children.add(context.marshall(reference.get()).setName(CELL_REFERENCE_PROPERTY));
+            children.add(
+                context.marshallOptional(reference)
+                    .setName(CELL_REFERENCE_PROPERTY));
         }
 
         final Optional<SpreadsheetLabelName> label = this.label();
         if (label.isPresent()) {
-            children.add(context.marshall(label.get()).setName(LABEL_PROPERTY));
+            children.add(
+                context.marshallOptional(label)
+                    .setName(LABEL_PROPERTY));
         }
 
         final Set<SpreadsheetLabelMapping> labelMappings = this.labelMappings();

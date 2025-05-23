@@ -265,17 +265,17 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
      */
     static SpreadsheetFormatterSelectorEdit unmarshall(final JsonNode node,
                                                        final JsonNodeUnmarshallContext context) {
-        SpreadsheetFormatterSelector selector = null;
+        Optional<SpreadsheetFormatterSelector> selector = Optional.empty();
         String message = null;
         List<SpreadsheetFormatterSelectorToken> tokens = null;
-        SpreadsheetFormatterSelectorToken next = null;
+        Optional<SpreadsheetFormatterSelectorToken> next = Optional.empty();
         List<SpreadsheetFormatterSample> samples = null;
 
         for (JsonNode child : node.objectOrFail().children()) {
             final JsonPropertyName name = child.name();
             switch (name.value()) {
                 case SELECTOR_PROPERTY_STRING:
-                    selector = context.unmarshall(
+                    selector = context.unmarshallOptional(
                         child,
                         SpreadsheetFormatterSelector.class
                     );
@@ -293,7 +293,7 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
                     );
                     break;
                 case NEXT_PROPERTY_STRING:
-                    next = context.unmarshall(
+                    next = context.unmarshallOptional(
                         child,
                         SpreadsheetFormatterSelectorToken.class
                     );
@@ -311,10 +311,10 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         }
 
         return with(
-            Optional.ofNullable(selector),
+            selector,
             message,
             tokens,
-            Optional.ofNullable(next),
+            next,
             samples
         );
     }
@@ -465,11 +465,16 @@ public final class SpreadsheetFormatterSelectorEdit implements TreePrintable {
         return JsonNode.object()
             .setChildren(
                 Lists.of(
-                    context.marshall(this.selector.orElse(null)).setName(SELECTOR_PROPERTY),
-                    context.marshall(this.message).setName(MESSAGE_PROPERTY),
-                    context.marshall(this.tokens).setName(TOKENS_PROPERTY),
-                    context.marshall(this.next.orElse(null)).setName(NEXT_PROPERTY),
-                    context.marshall(this.samples).setName(SAMPLES_PROPERTY)
+                    context.marshallOptional(this.selector)
+                        .setName(SELECTOR_PROPERTY),
+                    context.marshall(this.message)
+                        .setName(MESSAGE_PROPERTY),
+                    context.marshall(this.tokens)
+                        .setName(TOKENS_PROPERTY),
+                    context.marshallOptional(this.next)
+                        .setName(NEXT_PROPERTY),
+                    context.marshall(this.samples)
+                        .setName(SAMPLES_PROPERTY)
                 )
             );
     }
