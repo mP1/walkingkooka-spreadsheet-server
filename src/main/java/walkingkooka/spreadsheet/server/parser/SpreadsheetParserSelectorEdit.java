@@ -476,11 +476,16 @@ public final class SpreadsheetParserSelectorEdit implements TreePrintable {
         return JsonNode.object()
             .setChildren(
                 Lists.of(
-                    context.marshall(this.selector.orElse(null)).setName(SELECTOR_PROPERTY),
-                    context.marshall(this.message).setName(MESSAGE_PROPERTY),
-                    context.marshall(this.tokens).setName(TOKENS_PROPERTY),
-                    context.marshall(this.next.orElse(null)).setName(NEXT_PROPERTY),
-                    context.marshall(this.samples).setName(SAMPLES_PROPERTY)
+                    context.marshallOptional(this.selector)
+                        .setName(SELECTOR_PROPERTY),
+                    context.marshall(this.message)
+                        .setName(MESSAGE_PROPERTY),
+                    context.marshall(this.tokens)
+                        .setName(TOKENS_PROPERTY),
+                    context.marshallOptional(this.next)
+                        .setName(NEXT_PROPERTY),
+                    context.marshall(this.samples)
+                        .setName(SAMPLES_PROPERTY)
                 )
             );
     }

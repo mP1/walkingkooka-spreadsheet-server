@@ -100,6 +100,12 @@ public class FakeSpreadsheetMetadataHateosResourceHandlerContext extends FakeHat
     }
 
     @Override
+    public <T> Optional<T> unmarshallOptional(final JsonNode json,
+                                              final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> List<T> unmarshallList(final JsonNode json,
                                       final Class<T> type) {
         throw new UnsupportedOperationException();
