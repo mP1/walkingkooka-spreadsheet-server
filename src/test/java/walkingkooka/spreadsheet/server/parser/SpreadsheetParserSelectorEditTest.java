@@ -78,7 +78,7 @@ public final class SpreadsheetParserSelectorEditTest implements ParseStringTesti
     @Test
     public void testParseInvalidSpreadsheetParserName() {
         this.parseStringAndCheck(
-            "1",
+            "12",
             SpreadsheetParserSelectorEdit.with(
                 Optional.empty(),
                 "Invalid character '1' at 0",
