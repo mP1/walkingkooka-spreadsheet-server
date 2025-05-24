@@ -77,7 +77,7 @@ public final class SpreadsheetFormatterSelectorEditTest implements ParseStringTe
     @Test
     public void testParseInvalidSpreadsheetFormatterName() {
         this.parseStringAndCheck(
-            "1",
+            "123",
             SpreadsheetFormatterSelectorEdit.with(
                 Optional.empty(),
                 "Invalid character '1' at 0",

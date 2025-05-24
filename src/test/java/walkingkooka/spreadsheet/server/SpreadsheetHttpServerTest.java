@@ -3240,7 +3240,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
         server.handleAndCheck(
             HttpMethod.PATCH,
-            "/api/spreadsheet/1/cell/!",
+            "/api/spreadsheet/1/cell/!!",
             NO_HEADERS_TRANSACTION_ID,
             "{\n" +
                 "  \"formulaXXX\": {\n" +
