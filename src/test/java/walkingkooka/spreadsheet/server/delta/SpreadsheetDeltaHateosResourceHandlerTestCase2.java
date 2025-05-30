@@ -185,7 +185,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                     Optional.of(
                         Expression.value(text)
                     )
-                ).setExpressionValue(
+                ).setValue(
                     Optional.of(text)
                 )
         ).setFormattedValue(Optional.of(Text.text(text)));

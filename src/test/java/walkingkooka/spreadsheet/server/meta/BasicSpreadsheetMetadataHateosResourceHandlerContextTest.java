@@ -455,7 +455,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "            }\n" +
                 "          ]\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
@@ -566,7 +566,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "            }\n" +
                 "          ]\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
@@ -677,7 +677,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 "            }\n" +
                 "          ]\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"3\"\n" +
                 "        }\n" +

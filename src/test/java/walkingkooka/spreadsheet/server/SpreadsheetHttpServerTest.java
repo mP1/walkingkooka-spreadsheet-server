@@ -1488,7 +1488,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "          \"type\": \"value-expression\",\n" +
                 "          \"value\": \"Hello123'\"\n" +
                 "        },\n" +
-                "        \"expressionValue\": \"Hello123'\"\n" +
+                "        \"value\": \"Hello123'\"\n" +
                 "      },\n" +
                 "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
@@ -1567,7 +1567,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"2000-12-31\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"local-date\",\n" +
                 "          \"value\": \"2000-12-31\"\n" +
                 "        }\n" +
@@ -1677,7 +1677,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"2000-12-31T12:34\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"local-date-time\",\n" +
                 "          \"value\": \"2000-12-31T12:34\"\n" +
                 "        }\n" +
@@ -1745,7 +1745,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"123.456\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"123.456\"\n" +
                 "        }\n" +
@@ -1813,7 +1813,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"12:34\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"local-time\",\n" +
                 "          \"value\": \"12:34\"\n" +
                 "        }\n" +
@@ -1893,7 +1893,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "          \"type\": \"value-expression\",\n" +
                 "          \"value\": \"Hello 123\"\n" +
                 "        },\n" +
-                "        \"expressionValue\": \"Hello 123\"\n" +
+                "        \"value\": \"Hello 123\"\n" +
                 "      },\n" +
                 "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
@@ -2001,7 +2001,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            }\n" +
                 "          ]\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"3\"\n" +
                 "        }\n" +
@@ -2082,7 +2082,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "          \"type\": \"value-expression\",\n" +
                 "          \"value\": \"Hello 123\"\n" +
                 "        },\n" +
-                "        \"expressionValue\": \"Hello 123\"\n" +
+                "        \"value\": \"Hello 123\"\n" +
                 "      },\n" +
                 "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
@@ -2156,7 +2156,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Zebra'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Zebra'\"\n" +
+                    "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -2226,7 +2226,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Avacado'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Avacado'\"\n" +
+                    "        \"value\": \"Avacado'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -2286,7 +2286,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Avacado'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Avacado'\"\n" +
+                    "        \"value\": \"Avacado'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -2322,7 +2322,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Zebra'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Zebra'\"\n" +
+                    "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -2563,7 +2563,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -2695,7 +2695,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
@@ -2825,7 +2825,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -2963,7 +2963,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
@@ -3096,7 +3096,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
@@ -3209,7 +3209,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -3358,7 +3358,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -3439,7 +3439,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"2\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"2\"\n" +
                     "        }\n" +
@@ -3528,7 +3528,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"999\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
@@ -3609,7 +3609,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"999\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"999\"\n" +
                     "        }\n" +
@@ -3750,7 +3750,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -3832,7 +3832,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"PatchedText123\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"PatchedText123\"\n" +
+                    "        \"value\": \"PatchedText123\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -3973,7 +3973,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -4052,7 +4052,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"PATCHED\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"PATCHED\"\n" +
+                    "        \"value\": \"PATCHED\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4180,7 +4180,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -4312,7 +4312,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
@@ -4430,7 +4430,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"3\"\n" +
                     "        }\n" +
@@ -4529,7 +4529,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"7\"\n" +
                     "        }\n" +
@@ -4618,7 +4618,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4687,7 +4687,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4765,7 +4765,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4835,7 +4835,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4913,7 +4913,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -4983,7 +4983,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -5061,7 +5061,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -5131,7 +5131,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -5381,7 +5381,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -5465,7 +5465,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello'\"\n" +
+                    "        \"value\": \"Hello'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -5593,7 +5593,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -5830,7 +5830,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"spreadsheet-error\",\n" +
                     "          \"value\": {\n" +
                     "            \"kind\": \"NAME\",\n" +
@@ -6074,7 +6074,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -6193,7 +6193,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -6287,7 +6287,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -6425,7 +6425,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -6544,7 +6544,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -6675,7 +6675,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"123\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -6758,7 +6758,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -6831,7 +6831,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -6922,7 +6922,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"123\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -7006,7 +7006,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -7079,7 +7079,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -7168,7 +7168,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -7240,7 +7240,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -7567,7 +7567,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"100\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"100\"\n" +
                     "        }\n" +
@@ -7654,7 +7654,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"100\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"100\"\n" +
                     "        }\n" +
@@ -9242,7 +9242,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -9361,7 +9361,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -9491,7 +9491,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"123\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -9574,7 +9574,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -9647,7 +9647,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -9737,7 +9737,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"123\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"123\"\n" +
                     "        }\n" +
@@ -9820,7 +9820,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -9893,7 +9893,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"456\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"456\"\n" +
                     "        }\n" +
@@ -9981,7 +9981,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -10053,7 +10053,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1.25\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1.25\"\n" +
                     "        }\n" +
@@ -10135,7 +10135,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -10220,7 +10220,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -10306,7 +10306,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -10386,7 +10386,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10477,7 +10477,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10527,7 +10527,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10577,7 +10577,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10627,7 +10627,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10706,7 +10706,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -10803,7 +10803,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -10882,7 +10882,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -10964,7 +10964,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello\"\n" +
+                    "        \"value\": \"Hello\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -11022,7 +11022,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "          \"type\": \"value-expression\",\n" +
                 "          \"value\": \"Hello\"\n" +
                 "        },\n" +
-                "        \"expressionValue\": \"Hello\"\n" +
+                "        \"value\": \"Hello\"\n" +
                 "      },\n" +
                 "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
@@ -11107,7 +11107,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -11239,7 +11239,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            }\n" +
                     "          ]\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1001\"\n" +
                     "        }\n" +
@@ -11323,7 +11323,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"1\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": {\n" +
+                    "        \"value\": {\n" +
                     "          \"type\": \"expression-number\",\n" +
                     "          \"value\": \"1\"\n" +
                     "        }\n" +
@@ -11403,7 +11403,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"1\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": {\n" +
+                "        \"value\": {\n" +
                 "          \"type\": \"expression-number\",\n" +
                 "          \"value\": \"1\"\n" +
                 "        }\n" +
@@ -11572,7 +11572,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "            \"value\": \"A2\"\n" +
                     "          }\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Zebra'\"\n" +
+                    "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -11608,7 +11608,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Zebra'\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Zebra'\"\n" +
+                    "        \"value\": \"Zebra'\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -11693,7 +11693,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 "            \"value\": \"A2\"\n" +
                 "          }\n" +
                 "        },\n" +
-                "        \"expressionValue\": \"Zebra'\"\n" +
+                "        \"value\": \"Zebra'\"\n" +
                 "      },\n" +
                 "      \"formattedValue\": {\n" +
                 "        \"type\": \"text\",\n" +
@@ -11825,7 +11825,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello A1\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello A1\"\n" +
+                    "        \"value\": \"Hello A1\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
@@ -12018,7 +12018,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "          \"type\": \"value-expression\",\n" +
                     "          \"value\": \"Hello A1\"\n" +
                     "        },\n" +
-                    "        \"expressionValue\": \"Hello A1\"\n" +
+                    "        \"value\": \"Hello A1\"\n" +
                     "      },\n" +
                     "      \"formattedValue\": {\n" +
                     "        \"type\": \"text\",\n" +
