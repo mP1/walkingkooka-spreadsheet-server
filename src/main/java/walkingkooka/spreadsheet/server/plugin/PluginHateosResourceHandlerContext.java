@@ -19,10 +19,14 @@ package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 /**
  * A {@link HateosResourceHandlerContext} mostly focused on plugin management.
  */
 public interface PluginHateosResourceHandlerContext extends HateosResourceHandlerContext,
     ProviderContext {
+
+    @Override
+    PluginHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

@@ -26,11 +26,13 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -148,6 +150,12 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
         SpreadsheetFormatterProviderDelegator,
         SpreadsheetFormatterContextDelegator {
+
+        @Override
+        public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            throw new UnsupportedOperationException();
+        }
+
         @Override
         public SpreadsheetFormatterContext spreadsheetFormatterContext() {
             return SPREADSHEET_FORMATTER_CONTEXT;

@@ -31,8 +31,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
@@ -45,8 +44,7 @@ import java.util.Optional;
 final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext implements SpreadsheetEngineHateosResourceHandlerContext,
     ConverterProviderDelegator,
     SpreadsheetEngineContextDelegator,
-    SpreadsheetFormatterContextDelegator,
-    JsonNodeMarshallUnmarshallContextDelegator {
+    SpreadsheetFormatterContextDelegator {
 
     static SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext with(final SpreadsheetMetadata metadata,
                                                                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
@@ -60,6 +58,18 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
                                                                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         this.metadata = metadata;
         this.context = context;
+    }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final SpreadsheetEngineHateosResourceHandlerContext before = this.context;
+        final SpreadsheetEngineHateosResourceHandlerContext after = before.setPreProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateosResourceHandlerContext(
+                this.metadata,
+                after
+            );
     }
 
     @Override
@@ -101,13 +111,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     @Override
     public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName label) {
         return this.context.resolveLabel(label);
-    }
-
-    // JsonNodeMarshallUnmarshallContext................................................................................
-
-    @Override
-    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
-        return this.context;
     }
 
     // SpreadsheetEngineContext.........................................................................................

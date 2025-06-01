@@ -22,6 +22,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.hateos.FakeHateosResourceHandlerContext;
 import walkingkooka.plugin.store.PluginStore;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -67,6 +68,11 @@ public class FakePluginHateosResourceHandlerContext extends FakeHateosResourceHa
 
     @Override
     public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public PluginHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         throw new UnsupportedOperationException();
     }
 }

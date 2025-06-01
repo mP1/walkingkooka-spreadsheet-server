@@ -38,6 +38,9 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelNameResolvers;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
+import walkingkooka.tree.json.convert.JsonNodeConverterContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
@@ -90,25 +93,29 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             SpreadsheetConverterContexts.NO_VALIDATION_REFERENCE,
             Converters.objectToString(),
             SpreadsheetLabelNameResolvers.fake(),
-            ExpressionNumberConverterContexts.basic(
-                Converters.fake(),
-                ConverterContexts.basic(
-                    Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                    Converters.objectToString(),
-                    DateTimeContexts.basic(
-                        DateTimeSymbols.fromDateFormatSymbols(
-                            new DateFormatSymbols(locale)
+            JsonNodeConverterContexts.basic(
+                ExpressionNumberConverterContexts.basic(
+                    Converters.fake(),
+                    ConverterContexts.basic(
+                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                        Converters.objectToString(),
+                        DateTimeContexts.basic(
+                            DateTimeSymbols.fromDateFormatSymbols(
+                                new DateFormatSymbols(locale)
+                            ),
+                            locale,
+                            1950, // default year
+                            50, // two-digit-year
+                            LocalDateTime::now
                         ),
-                        locale,
-                        1950, // default year
-                        50, // two-digit-year
-                        LocalDateTime::now
+                        DecimalNumberContexts.american(
+                            MathContext.DECIMAL32
+                        )
                     ),
-                    DecimalNumberContexts.american(
-                        MathContext.DECIMAL32
-                    )
+                    ExpressionNumberKind.BIG_DECIMAL
                 ),
-                ExpressionNumberKind.BIG_DECIMAL
+                JsonNodeMarshallContexts.fake(),
+                JsonNodeUnmarshallContexts.fake()
             )
         );
     }
