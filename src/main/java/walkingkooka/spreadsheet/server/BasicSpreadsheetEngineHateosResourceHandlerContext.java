@@ -31,9 +31,7 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
@@ -112,20 +110,10 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.formatterContext; // engineContext will delegate to ProviderContext
     }
 
-    // JsonNodeXXXContext...............................................................................................
+    // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override
-    public JsonNodeContext jsonNodeContext() {
-        return this.hateosResourceHandlerContext;
-    }
-
-    @Override
-    public JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.hateosResourceHandlerContext;
-    }
-
-    @Override
-    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
         return this.hateosResourceHandlerContext;
     }
 
