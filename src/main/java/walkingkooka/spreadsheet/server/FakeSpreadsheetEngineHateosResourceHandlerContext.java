@@ -77,6 +77,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionAliasSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionSelector;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.text.TextNode;
 import walkingkooka.validation.ValidationReference;
 import walkingkooka.validation.Validator;
@@ -164,6 +165,13 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     public boolean isPure(final ExpressionFunctionName name) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ConverterProvider................................................................................................
 
     @Override
     public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector,

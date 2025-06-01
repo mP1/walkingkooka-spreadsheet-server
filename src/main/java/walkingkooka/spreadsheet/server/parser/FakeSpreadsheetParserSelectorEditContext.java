@@ -17,15 +17,12 @@
 
 package walkingkooka.spreadsheet.server.parser;
 
-import walkingkooka.Either;
-import walkingkooka.color.Color;
-import walkingkooka.convert.Converter;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
-import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
-import walkingkooka.spreadsheet.format.SpreadsheetColorName;
+import walkingkooka.spreadsheet.format.FakeSpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
@@ -33,23 +30,91 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSample;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelector;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterSelectorToken;
-import walkingkooka.spreadsheet.parser.FakeSpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParser;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfoSet;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserName;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelector;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserSelectorToken;
-import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
-import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
-import walkingkooka.tree.text.TextNode;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetParserContext implements SpreadsheetParserSelectorEditContext {
+public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetFormatterContext implements SpreadsheetParserSelectorEditContext {
+
+    public FakeSpreadsheetParserSelectorEditContext() {
+        super();
+    }
+
     @Override
-    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector selector,
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override 
+    public char valueSeparator() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public InvalidCharacterException invalidCharacterException(final Parser<?> parser,
+                                                               final TextCursor textCursor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override 
+    public PluginStore pluginStore() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector formatter,
+                                                     final ProviderContext providerContext) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name, 
+                                                     final List<?> values, 
+                                                     final ProviderContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector formatter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
+                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public SpreadsheetParser spreadsheetParser(final SpreadsheetParserSelector parser,
                                                final ProviderContext context) {
         throw new UnsupportedOperationException();
     }
@@ -62,121 +127,17 @@ public class FakeSpreadsheetParserSelectorEditContext extends FakeSpreadsheetPar
     }
 
     @Override
-    public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector selector) {
+    public Optional<SpreadsheetParserSelectorToken> spreadsheetParserNextToken(final SpreadsheetParserSelector parser) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector selector) {
+    public Optional<SpreadsheetFormatterSelector> spreadsheetFormatterSelector(final SpreadsheetParserSelector parser) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public SpreadsheetParserInfoSet spreadsheetParserInfos() {
-        throw new UnsupportedOperationException();
-    }
-
-    // SpreadsheetFormatterContext......................................................................................
-
-    @Override
-    public int cellCharacterWidth() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<Color> colorNumber(final int number) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<Color> colorName(final SpreadsheetColorName name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<TextNode> format(final Optional<Object> value) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int generalFormatNumberDigitCount() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long dateOffset() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean canConvert(final Object value,
-                              final Class<?> type) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Converter<SpreadsheetConverterContext> converter() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector,
-                                                     final ProviderContext context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterName name,
-                                                     final List<?> values,
-                                                     final ProviderContext context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<SpreadsheetFormatterSelectorToken> spreadsheetFormatterNextToken(final SpreadsheetFormatterSelector selector) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<SpreadsheetFormatterSample> spreadsheetFormatterSamples(final SpreadsheetFormatterName name,
-                                                                        final SpreadsheetFormatterProviderSamplesContext context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public SpreadsheetFormatterInfoSet spreadsheetFormatterInfos() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<SpreadsheetSelection> resolveLabel(final SpreadsheetLabelName labelName) {
-        throw new UnsupportedOperationException();
-    }
-
-    // ProviderContext..................................................................................................
-    @Override
-    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Set<EnvironmentValueName<?>> environmentValueNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public PluginStore pluginStore() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Optional<EmailAddress> user() {
         throw new UnsupportedOperationException();
     }
 }

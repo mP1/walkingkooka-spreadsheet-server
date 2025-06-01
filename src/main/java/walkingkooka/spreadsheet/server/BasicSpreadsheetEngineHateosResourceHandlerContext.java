@@ -31,6 +31,10 @@ import walkingkooka.spreadsheet.provider.SpreadsheetProviderDelegator;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.marshall.JsonNodeContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
@@ -87,11 +91,42 @@ final class BasicSpreadsheetEngineHateosResourceHandlerContext implements Spread
         return this.engineContext.resolveLabel(labelName);
     }
 
+    @Override
+    public SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetEngineHateosResourceHandlerContext(
+                after,
+                this.engineContext,
+                this.formatterContext.setPreProcessor(processor),
+                this.systemSpreadsheetProvider
+            );
+    }
+
     // CanConvertDelegator..............................................................................................
 
     @Override
     public CanConvert canConvert() {
         return this.formatterContext; // engineContext will delegate to ProviderContext
+    }
+
+    // JsonNodeXXXContext...............................................................................................
+
+    @Override
+    public JsonNodeContext jsonNodeContext() {
+        return this.hateosResourceHandlerContext;
+    }
+
+    @Override
+    public JsonNodeMarshallContext jsonNodeMarshallContext() {
+        return this.hateosResourceHandlerContext;
+    }
+
+    @Override
+    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
+        return this.hateosResourceHandlerContext;
     }
 
     // HateosResourceHandlerContext.....................................................................................

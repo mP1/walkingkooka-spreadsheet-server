@@ -24,9 +24,11 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
+import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadataTesting;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuContextTestingTest.TestSpreadsheetFormatterSelectorMenuContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 
@@ -67,6 +69,11 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
     static class TestSpreadsheetFormatterSelectorMenuContext implements SpreadsheetFormatterSelectorMenuContext,
         SpreadsheetFormatterContextDelegator,
         SpreadsheetFormatterProviderDelegator {
+
+        @Override
+        public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public SpreadsheetFormatterContext spreadsheetFormatterContext() {

@@ -94,6 +94,7 @@ import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfo;
 import walkingkooka.tree.expression.function.provider.ExpressionFunctionInfoSet;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
 import walkingkooka.validation.provider.ValidatorInfo;
@@ -392,12 +393,6 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     JsonNodeMarshallUnmarshallContexts.basic(
                         metadata.jsonNodeMarshallContext(),
                         metadata.jsonNodeUnmarshallContext()
-                            .setPreProcessor(
-                                SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                                    context.storeRepository()
-                                        .labels()
-                                )
-                            )
                     )
                 ),
                 context,
@@ -409,6 +404,11 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                     context // ProviderContext
                 ),
                 systemSpreadsheetProvider
+            ).setPreProcessor(
+                SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                    context.storeRepository()
+                        .labels()
+                )
             )
         );
     }
@@ -432,6 +432,26 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     }
 
     // HateosResourceHandlerContext ....................................................................................
+
+    @Override
+    public SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final HateosResourceHandlerContext before = this.hateosResourceHandlerContext;
+        final HateosResourceHandlerContext after = before.setPreProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetMetadataHateosResourceHandlerContext(
+                this.serverUrl,
+                this.indentation,
+                this.lineEnding,
+                this.systemSpreadsheetProvider,
+                this.providerContext,
+                this.metadataStore,
+                this.spreadsheetIdToSpreadsheetProvider,
+                this.spreadsheetIdToRepository,
+                after
+            );
+    }
 
     @Override
     public HateosResourceHandlerContext hateosResourceHandlerContext() {

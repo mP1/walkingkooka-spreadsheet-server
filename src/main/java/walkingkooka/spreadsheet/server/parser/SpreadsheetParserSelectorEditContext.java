@@ -22,10 +22,14 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserContext;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 public interface SpreadsheetParserSelectorEditContext extends SpreadsheetParserProvider,
     SpreadsheetParserContext,
     SpreadsheetFormatterProvider,
     SpreadsheetFormatterContext,
     ProviderContext {
+
+    @Override
+    SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

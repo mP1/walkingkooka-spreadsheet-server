@@ -28,6 +28,7 @@ import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.function.Function;
 
@@ -36,6 +37,9 @@ import java.util.function.Function;
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
     EnvironmentContext {
+
+    @Override
+    SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 
     /**
      * Saves the given {@link SpreadsheetMetadata}.

@@ -22,6 +22,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 /**
  * A {@link HateosResourceHandlerContext} that includes {@link SpreadsheetEngineContext}.
@@ -29,6 +30,9 @@ import walkingkooka.tree.expression.ExpressionNumber;
 public interface SpreadsheetEngineHateosResourceHandlerContext extends HateosResourceHandlerContext,
     SpreadsheetEngineContext,
     SpreadsheetFormatterProviderSamplesContext {
+
+    @Override
+    SpreadsheetEngineHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 
     /**
      * Returns a {@link SpreadsheetProvider} which may be queried to discover all available {@link walkingkooka.plugin.PluginInfoSetLike}.

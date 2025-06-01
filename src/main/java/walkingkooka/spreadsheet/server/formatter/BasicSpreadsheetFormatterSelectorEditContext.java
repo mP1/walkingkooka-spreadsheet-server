@@ -24,6 +24,7 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterContextDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -56,6 +57,20 @@ final class BasicSpreadsheetFormatterSelectorEditContext implements SpreadsheetF
     }
 
     // SpreadsheetFormatterContext......................................................................................
+
+    @Override
+    public SpreadsheetFormatterSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
+        final SpreadsheetFormatterContext after = before.setPreProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetFormatterSelectorEditContext(
+                after,
+                this.spreadsheetFormatterProvider,
+                this.providerContext
+            );
+    }
 
     @Override
     public SpreadsheetFormatterContext spreadsheetFormatterContext() {

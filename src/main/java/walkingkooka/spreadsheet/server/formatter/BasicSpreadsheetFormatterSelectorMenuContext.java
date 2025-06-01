@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.formatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProvider;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderDelegator;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Objects;
 
@@ -51,6 +52,19 @@ final class BasicSpreadsheetFormatterSelectorMenuContext implements SpreadsheetF
     private final SpreadsheetFormatterProvider spreadsheetFormatterProvider;
 
     // SpreadsheetFormatterProviderSamplesContext.......................................................................
+
+    @Override
+    public SpreadsheetFormatterProviderSamplesContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final SpreadsheetFormatterProviderSamplesContext before = this.spreadsheetFormatterProviderSamplesContext;
+        final SpreadsheetFormatterProviderSamplesContext after = before.setPreProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetFormatterSelectorMenuContext(
+                this.spreadsheetFormatterProvider,
+                after
+            );
+    }
 
     @Override
     public SpreadsheetFormatterProviderSamplesContext spreadsheetFormatterProviderSamplesContext() {

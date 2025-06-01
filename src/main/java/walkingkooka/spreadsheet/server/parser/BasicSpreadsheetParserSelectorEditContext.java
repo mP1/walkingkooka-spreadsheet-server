@@ -30,6 +30,7 @@ import walkingkooka.spreadsheet.parser.SpreadsheetParserProvider;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserProviderDelegator;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -68,6 +69,21 @@ final class BasicSpreadsheetParserSelectorEditContext implements SpreadsheetPars
         this.spreadsheetFormatterContext = spreadsheetFormatterContext;
         this.spreadsheetFormatterProvider = spreadsheetFormatterProvider;
         this.providerContext = providerContext;
+    }
+
+    @Override
+    public SpreadsheetParserSelectorEditContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final SpreadsheetFormatterContext before = this.spreadsheetFormatterContext;
+        final SpreadsheetFormatterContext after = before.setPreProcessor(processor);
+        return before.equals(after) ?
+            this :
+            new BasicSpreadsheetParserSelectorEditContext(
+                this.spreadsheetParserProvider,
+                this.spreadsheetParserContext,
+                after,
+                this.spreadsheetFormatterProvider,
+                this.providerContext
+            );
     }
 
     // SpreadsheetParserProvider........................................................................................
