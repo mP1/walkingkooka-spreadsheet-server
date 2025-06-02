@@ -1339,7 +1339,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-text-node, text-to-text-style, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json, to-text-node, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5178,7 +5178,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-text-node, text-to-text-style, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json, to-text-node, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5643,7 +5643,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-text-node, text-to-text-style, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json, to-text-node, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5887,7 +5887,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, jsonTo, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-form-name, text-to-json, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-text-node, text-to-text-style, text-to-url, text-to-validation-error, text-to-validator-selector, text-to-value-type, to-json, to-text-node, url-to-hyperlink, url-to-image\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -8133,11 +8133,16 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-name text-to-spreadsheet-name\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-text text-to-spreadsheet-text\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text text-to-text\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-node text-to-text-node\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-text-style text-to-text-style\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-url text-to-url\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validation-error text-to-validation-error\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-validator-selector text-to-validator-selector\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-value-type text-to-value-type\",\n" +
-                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-json to-json\"\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-json to-json\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/to-text-node to-text-node\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-hyperlink url-to-hyperlink\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/url-to-image url-to-image\"\n" +
                     "]",
                 ConverterInfoSet.class.getSimpleName()
             )
