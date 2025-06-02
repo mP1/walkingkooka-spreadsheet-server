@@ -1339,7 +1339,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5178,7 +5178,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5643,7 +5643,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -5887,7 +5887,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"colorBlack\": 1,\n" +
                     "  \"colorWhite\": 2,\n" +
                     "  \"comparators\": \"date, date-time, day-of-month, day-of-week, hour-of-am-pm, hour-of-day, minute-of-hour, month-of-year, nano-of-second, number, seconds-of-minute, text, text-case-insensitive, time, year\",\n" +
-                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
+                    "  \"converters\": \"basic, collection, error-throwing, error-to-number, format-pattern-to-string, general, null-to-number, number-to-number, selection-to-selection, selection-to-text, spreadsheet-cell-to, text-to-error, text-to-expression, text-to-selection, text-to-spreadsheet-color-name, text-to-spreadsheet-id, text-to-spreadsheet-metadata, text-to-spreadsheet-metadata-color, text-to-spreadsheet-metadata-property-name, text-to-spreadsheet-name, text-to-spreadsheet-text, text-to-text, text-to-validation-error\",\n" +
                     "  \"dateFormatter\": \"date-format-pattern \\\"Date\\\" yyyy/mm/dd\",\n" +
                     "  \"dateParser\": \"date-parse-pattern yyyy/mm/dd\",\n" +
                     "  \"dateTimeFormatter\": \"date-time-format-pattern \\\"DateTime\\\" yyyy/mm/dd hh:mm\",\n" +
@@ -8124,6 +8124,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-selection text-to-selection\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-color-name text-to-spreadsheet-color-name\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-id text-to-spreadsheet-id\",\n" +
+                    "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata text-to-spreadsheet-metadata\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-color text-to-spreadsheet-metadata-color\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-metadata-property-name text-to-spreadsheet-metadata-property-name\",\n" +
                     "  \"https://github.com/mP1/walkingkooka-spreadsheet/Converter/text-to-spreadsheet-name text-to-spreadsheet-name\",\n" +
