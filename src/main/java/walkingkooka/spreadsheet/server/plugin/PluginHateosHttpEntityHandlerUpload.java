@@ -91,7 +91,15 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                 throw new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE);
             }
             // Content-type: Got text/plain, expected multipart/multipart2 or json/json2
-            throw new IllegalArgumentException(HttpHeaderName.CONTENT_TYPE + ": Got " + contentType + ", expected " + MediaType.MULTIPART_FORM_DATA + " or " + SpreadsheetServerMediaTypes.CONTENT_TYPE);
+            throw new IllegalArgumentException(
+                HttpHeaderName.CONTENT_TYPE +
+                    ": Got " +
+                    contentType.clearParameters() +
+                    ", expected " +
+                    MediaType.MULTIPART_FORM_DATA +
+                    " or " +
+                    SpreadsheetServerMediaTypes.CONTENT_TYPE.clearParameters()
+            );
         }
 
         return response;
