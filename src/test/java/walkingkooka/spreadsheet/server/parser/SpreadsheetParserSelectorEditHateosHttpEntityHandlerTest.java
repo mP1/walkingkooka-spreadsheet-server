@@ -239,7 +239,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
                             Optional.of(cell),
-                            (Optional<SpreadsheetCell> c) -> {
+                            (final Optional<Object> v) -> {
                                 throw new UnsupportedOperationException();
                             },
                             SpreadsheetLabelNameResolvers.fake(),
