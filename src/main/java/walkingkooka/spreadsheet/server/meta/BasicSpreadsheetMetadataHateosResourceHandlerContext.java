@@ -51,7 +51,7 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterName;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatterContext;
+import walkingkooka.spreadsheet.expression.SpreadsheetExpressionEvaluationContext;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfo;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterInfoSet;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
@@ -404,7 +404,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                         SpreadsheetMetadata.NO_CELL,
                         SpreadsheetExpressionReferenceLoaders.fake()
                     ).addLocalVariable(
-                        SpreadsheetFormatterContext.FORMATTER_VALUE,
+                        SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
                         v
                     ),
                     context, // SpreadsheetLabelNameResolver
