@@ -26,7 +26,6 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
@@ -82,8 +81,8 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             1, // cellCharacterWidth
             8, // default general-format-number-digit-count
             SpreadsheetFormatters.fake(), // should never be called
-            (Optional<SpreadsheetCell> c) -> {
-                Objects.requireNonNull(c, "cell");
+            (final Optional<Object> value) -> {
+                Objects.requireNonNull(value, "value");
                 throw new UnsupportedOperationException();
             },
             this.spreadsheetConverterContext()
