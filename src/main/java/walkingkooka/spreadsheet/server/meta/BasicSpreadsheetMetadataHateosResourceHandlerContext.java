@@ -68,6 +68,7 @@ import walkingkooka.spreadsheet.reference.AnchoredSpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetColumnReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReferenceLoaders;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelMapping;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
@@ -398,6 +399,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 context,
                 metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
+                    (Optional<SpreadsheetCell> c) -> context.spreadsheetExpressionEvaluationContext(
+                        c,
+                        SpreadsheetExpressionReferenceLoaders.fake()
+                    ),
                     context, // SpreadsheetLabelNameResolver
                     context, // ConverterProvider
                     context, // SpreadsheetFormatterProvider

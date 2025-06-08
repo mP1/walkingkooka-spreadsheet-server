@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextTesting;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContextTesting;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContextTesting;
@@ -24,6 +25,12 @@ import walkingkooka.spreadsheet.format.SpreadsheetFormatterProviderSamplesContex
 public interface SpreadsheetEngineHateosResourceHandlerContextTesting<C extends SpreadsheetEngineHateosResourceHandlerContext> extends HateosResourceHandlerContextTesting<C>,
     SpreadsheetEngineContextTesting<C>,
     SpreadsheetFormatterProviderSamplesContextTesting<C> {
+
+    @Test
+    @Override
+    default void testSpreadsheetExpressionEvaluationContextWithNullCellFails() {
+        SpreadsheetEngineContextTesting.super.testSpreadsheetExpressionEvaluationContextWithNullCellFails();
+    }
 
     @Override
     default C createSpreadsheetProvider() {
