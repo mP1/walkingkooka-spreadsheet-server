@@ -99,6 +99,7 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
                 context.spreadsheetMetadata()
                     .spreadsheetFormatterContext(
                         SpreadsheetMetadata.NO_CELL,
+                        context::spreadsheetExpressionEvaluationContext,
                         SpreadsheetLabelNameResolvers.fake(),
                         context, // ConverterProvider
                         context, // // SpreadsheetFormatterProvider

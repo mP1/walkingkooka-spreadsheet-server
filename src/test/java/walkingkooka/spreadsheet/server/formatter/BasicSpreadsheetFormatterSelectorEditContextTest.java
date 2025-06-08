@@ -26,6 +26,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContext;
 import walkingkooka.spreadsheet.convert.SpreadsheetConverterContexts;
 import walkingkooka.spreadsheet.format.SpreadsheetColorName;
@@ -45,6 +46,7 @@ import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 public final class BasicSpreadsheetFormatterSelectorEditContextTest implements SpreadsheetFormatterSelectorEditContextTesting<BasicSpreadsheetFormatterSelectorEditContext>,
@@ -80,6 +82,10 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
             1, // cellCharacterWidth
             8, // default general-format-number-digit-count
             SpreadsheetFormatters.fake(), // should never be called
+            (Optional<SpreadsheetCell> c) -> {
+                Objects.requireNonNull(c, "cell");
+                throw new UnsupportedOperationException();
+            },
             this.spreadsheetConverterContext()
         );
     }
