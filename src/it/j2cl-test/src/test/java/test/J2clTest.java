@@ -28,7 +28,6 @@ import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -75,7 +74,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
-import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
@@ -280,7 +279,7 @@ public class J2clTest {
             SpreadsheetFormStores.treeMap(),
             SpreadsheetGroupStores.fake(),
             SpreadsheetLabelStores.treeMap(),
-            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetLabelReferencesStores.treeMap(),
             metadataStore,
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetCellRangeStores.treeMap(),

@@ -60,7 +60,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellRangeStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStores;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
-import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
@@ -431,7 +431,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             SpreadsheetFormStores.treeMap(),
             SpreadsheetGroupStores.treeMap(),
             labelStore,
-            SpreadsheetExpressionReferenceStores.treeMap(),
+            SpreadsheetLabelReferencesStores.treeMap(),
             metadataStore,
             SpreadsheetCellRangeStores.treeMap(),
             SpreadsheetCellRangeStores.treeMap(),

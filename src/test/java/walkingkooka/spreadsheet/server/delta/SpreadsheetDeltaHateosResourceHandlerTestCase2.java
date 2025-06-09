@@ -63,8 +63,8 @@ import walkingkooka.spreadsheet.store.SpreadsheetCellReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetCellStore;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStore;
 import walkingkooka.spreadsheet.store.SpreadsheetColumnStores;
-import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStore;
-import walkingkooka.spreadsheet.store.SpreadsheetExpressionReferenceStores;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStore;
+import walkingkooka.spreadsheet.store.SpreadsheetLabelReferencesStores;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStore;
@@ -325,11 +325,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
                 private final SpreadsheetLabelStore labels = SpreadsheetLabelStores.treeMap();
 
                 @Override
-                public SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences() {
+                public SpreadsheetLabelReferencesStore labelReferences() {
                     return this.labelReferences;
                 }
 
-                private final SpreadsheetExpressionReferenceStore<SpreadsheetLabelName> labelReferences = SpreadsheetExpressionReferenceStores.treeMap();
+                private final SpreadsheetLabelReferencesStore labelReferences = SpreadsheetLabelReferencesStores.treeMap();
 
                 @Override
                 public SpreadsheetCellRangeStore<SpreadsheetCellReference> rangeToCells() {
