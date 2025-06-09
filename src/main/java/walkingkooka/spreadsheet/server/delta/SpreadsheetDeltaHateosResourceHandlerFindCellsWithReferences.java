@@ -105,7 +105,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            this.engine.findCellsWithReferences(
+            this.engine.findCellsWithReference(
                 reference,
                 SpreadsheetUrlQueryParameters.offset(parameters)
                     .orElse(0),

@@ -78,10 +78,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta findCellsWithReferences(final SpreadsheetExpressionReference reference,
-                                                                    final int offset,
-                                                                    final int count,
-                                                                    final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCellsWithReference(final SpreadsheetExpressionReference reference,
+                                                                   final int offset,
+                                                                   final int count,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(a1, reference);
                         checkEquals(OFFSET, offset);
                         checkEquals(COUNT, count);
@@ -117,10 +117,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta findCellsWithReferences(final SpreadsheetExpressionReference reference,
-                                                                    final int offset,
-                                                                    final int count,
-                                                                    final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCellsWithReference(final SpreadsheetExpressionReference reference,
+                                                                   final int offset,
+                                                                   final int count,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(a1, reference);
                         checkEquals(0, offset);
                         checkEquals(DEFAULT_COUNT, count);
@@ -153,10 +153,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta findCellsWithReferences(final SpreadsheetExpressionReference reference,
-                                                                    final int offset,
-                                                                    final int count,
-                                                                    final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCellsWithReference(final SpreadsheetExpressionReference reference,
+                                                                   final int offset,
+                                                                   final int count,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(b2c3, reference);
                         checkEquals(OFFSET, offset);
                         checkEquals(COUNT, count);
@@ -191,10 +191,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferencesT
                 new FakeSpreadsheetEngine() {
 
                     @Override
-                    public SpreadsheetDelta findCellsWithReferences(final SpreadsheetExpressionReference reference,
-                                                                    final int offset,
-                                                                    final int count,
-                                                                    final SpreadsheetEngineContext context) {
+                    public SpreadsheetDelta findCellsWithReference(final SpreadsheetExpressionReference reference,
+                                                                   final int offset,
+                                                                   final int count,
+                                                                   final SpreadsheetEngineContext context) {
                         checkEquals(SpreadsheetSelection.ALL_CELLS, reference);
                         checkEquals(OFFSET, offset);
                         checkEquals(COUNT, count);
