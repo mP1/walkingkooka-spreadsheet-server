@@ -1442,10 +1442,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"@\",\n" +
-                    "  \"validatorValidators\": \"\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"validationFormHandler\": \"non-null\",\n" +
+                    "  \"validationFunctions\": \"@\",\n" +
+                    "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
@@ -5282,10 +5282,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"@\",\n" +
-                    "  \"validatorValidators\": \"\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"validationFormHandler\": \"non-null\",\n" +
+                    "  \"validationFunctions\": \"@\",\n" +
+                    "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\",\n" +
                     "  \"viewport\": {\n" +
@@ -5748,10 +5748,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"@\",\n" +
-                    "  \"validatorValidators\": \"\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"validationFormHandler\": \"non-null\",\n" +
+                    "  \"validationFunctions\": \"@\",\n" +
+                    "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",
@@ -5993,10 +5993,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validatorConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"@\",\n" +
-                    "  \"validatorValidators\": \"\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"validationFormHandler\": \"non-null\",\n" +
+                    "  \"validationFunctions\": \"@\",\n" +
+                    "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}",

@@ -193,9 +193,9 @@ public class J2clTest {
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
-                    "  \"validatorFormHandler\": \"non-null\",\n" +
-                    "  \"validatorFunctions\": \"@\",\n" +
-                    "  \"validatorValidators\": \"\",\n" +
+                    "  \"validationFormHandler\": \"non-null\",\n" +
+                    "  \"validationFunctions\": \"@\",\n" +
+                    "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
                     "  \"valueSeparator\": \",\"\n" +
                     "}"
@@ -262,9 +262,9 @@ public class J2clTest {
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
             .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
-            .set(SpreadsheetMetadataPropertyName.VALIDATOR_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
-            .set(SpreadsheetMetadataPropertyName.VALIDATOR_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
-            .set(SpreadsheetMetadataPropertyName.VALIDATOR_VALIDATORS, ValidatorAliasSet.EMPTY)
+            .set(SpreadsheetMetadataPropertyName.VALIDATION_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
+            .set(SpreadsheetMetadataPropertyName.VALIDATION_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
+            .set(SpreadsheetMetadataPropertyName.VALIDATION_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
 
         final SpreadsheetMetadataStore metadataStore = SpreadsheetMetadataStores.treeMap(
