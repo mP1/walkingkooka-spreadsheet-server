@@ -270,7 +270,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
         .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
         .set(SpreadsheetMetadataPropertyName.FORMULA_CONVERTER, ConverterSelector.parse("general"))
         .set(SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
-        .set(SpreadsheetMetadataPropertyName.FORMAT_CONVERTER, ConverterSelector.parse("general"))
+        .set(SpreadsheetMetadataPropertyName.FORMATTING_CONVERTER, ConverterSelector.parse("general"))
         .set(SpreadsheetMetadataPropertyName.GENERAL_NUMBER_FORMAT_DIGIT_COUNT, 8)
         .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
         .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
