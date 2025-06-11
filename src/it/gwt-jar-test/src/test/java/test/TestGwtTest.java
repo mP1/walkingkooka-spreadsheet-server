@@ -164,6 +164,7 @@ public class TestGwtTest extends GWTTestCase {
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"^\"\n" +
                     "  },\n" +
+                    "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 1900,\n" +
                     "  \"expressionNumberKind\": \"DOUBLE\",\n" +
                     "  \"formHandlers\": \"basic\",\n" +
@@ -185,7 +186,6 @@ public class TestGwtTest extends GWTTestCase {
                     "  \"timeFormatter\": \"time-format-pattern hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mmhh:mm:ss.000\",\n" +
                     "  \"twoDigitYear\": 31,\n" +
-                    "  \"validationFormHandler\": \"non-null\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -231,6 +231,9 @@ public class TestGwtTest extends GWTTestCase {
                     '%',
                     '^'
                 )
+            ).set(
+                SpreadsheetMetadataPropertyName.DEFAULT_FORM_HANDLER,
+                FormHandlerSelector.parse("non-null")
             ).set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
             .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.DOUBLE)
             .set(SpreadsheetMetadataPropertyName.FORM_HANDLERS, FormHandlerAliasSet.parse("basic"))
@@ -254,7 +257,6 @@ public class TestGwtTest extends GWTTestCase {
             .set(SpreadsheetMetadataPropertyName.TIME_PARSER, SpreadsheetPattern.parseTimeParsePattern("hh:mmhh:mm:ss.000").spreadsheetParserSelector())
             .set(SpreadsheetMetadataPropertyName.TWO_DIGIT_YEAR, 31)
             .set(SpreadsheetMetadataPropertyName.VALIDATORS, ValidatorAliasSet.EMPTY)
-            .set(SpreadsheetMetadataPropertyName.VALIDATION_FORM_HANDLER, FormHandlerSelector.parse("non-null"))
             .set(SpreadsheetMetadataPropertyName.VALIDATION_FUNCTIONS, SpreadsheetExpressionFunctions.EMPTY_ALIAS_SET)
             .set(SpreadsheetMetadataPropertyName.VALIDATION_VALIDATORS, ValidatorAliasSet.EMPTY)
             .set(SpreadsheetMetadataPropertyName.VALUE_SEPARATOR, ',');
