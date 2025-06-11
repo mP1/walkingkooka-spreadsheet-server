@@ -1411,6 +1411,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
+                    "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -1443,7 +1444,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validationFormHandler\": \"non-null\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -5251,6 +5251,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
+                    "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5283,7 +5284,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validationFormHandler\": \"non-null\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -5717,6 +5717,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
+                    "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5749,7 +5750,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validationFormHandler\": \"non-null\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -5962,6 +5962,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
+                    "  \"defaultFormHandler\": \"non-null\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5994,7 +5995,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
                     "  \"validationConverter\": \"collection(null-to-number, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-validation-error, selection-to-selection, selection-to-text, general)\",\n" +
-                    "  \"validationFormHandler\": \"non-null\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
