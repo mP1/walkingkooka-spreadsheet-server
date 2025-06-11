@@ -1411,7 +1411,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
-                    "  \"defaultFormHandler\": \"non-null\",\n" +
+                    "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5251,7 +5251,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
-                    "  \"defaultFormHandler\": \"non-null\",\n" +
+                    "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5717,7 +5717,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
-                    "  \"defaultFormHandler\": \"non-null\",\n" +
+                    "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
@@ -5962,7 +5962,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "    \"percentSymbol\": \"%\",\n" +
                     "    \"permillSymbol\": \"‰\"\n" +
                     "  },\n" +
-                    "  \"defaultFormHandler\": \"non-null\",\n" +
+                    "  \"defaultFormHandler\": \"basic\",\n" +
                     "  \"defaultYear\": 2000,\n" +
                     "  \"exporters\": \"collection, empty, json\",\n" +
                     "  \"expressionNumberKind\": \"BIG_DECIMAL\",\n" +
