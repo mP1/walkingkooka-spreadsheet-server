@@ -225,15 +225,16 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         }
 
         @Override
-        public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+        public Optional<SpreadsheetSelection> resolveIfLabel(final SpreadsheetSelection selection) {
             SpreadsheetSelection resolved = selection;
             if (selection.isLabelName()) {
                 if (false == LABEL.equals(selection)) {
-                    throw new IllegalArgumentException("Unknown label " + selection);
+                    resolved = null;
+                } else {
+                    resolved = CELL;
                 }
-                resolved = CELL;
             }
-            return resolved;
+            return Optional.ofNullable(resolved);
         }
 
         @Override
