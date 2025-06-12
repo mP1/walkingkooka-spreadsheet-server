@@ -782,8 +782,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
-                    return selection;
+                public Optional<SpreadsheetSelection> resolveIfLabel(final SpreadsheetSelection selection) {
+                    return Optional.of(selection);
                 }
             },
             Optional.of(
@@ -1288,11 +1288,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                 }
 
                 @Override
-                public SpreadsheetSelection resolveIfLabel(final SpreadsheetSelection selection) {
+                public Optional<SpreadsheetSelection> resolveIfLabel(final SpreadsheetSelection selection) {
                     if (selection.isLabelName()) {
                         throw new UnsupportedOperationException("Labels like " + selection + " are not supported in this test");
                     }
-                    return selection;
+                    return Optional.of(selection);
                 }
             },
             Optional.of(
