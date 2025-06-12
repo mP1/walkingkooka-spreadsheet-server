@@ -78,7 +78,7 @@ public final class BasicPluginHateosResourceHandlerContextTest implements Plugin
     }
 
     @Override
-    public void testUser() {
+    public void testUserNotNull() {
         throw new UnsupportedOperationException();
     }
 
