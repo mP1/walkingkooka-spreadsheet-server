@@ -197,6 +197,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
 
             @Override
             public SpreadsheetDelta loadForm(final FormName name,
+                                             final Optional<SpreadsheetExpressionReference> formSelection,
                                              final SpreadsheetEngineContext context) {
                 return SpreadsheetDelta.EMPTY.setForms(
                     context.storeRepository()

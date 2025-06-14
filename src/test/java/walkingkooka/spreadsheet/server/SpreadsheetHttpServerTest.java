@@ -7897,18 +7897,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                             form2,
                             form3
                         )
-                    ).setDeletedCells(
-                        Sets.of(SpreadsheetSelection.A1)
-                    ).setColumnWidths(
-                        Maps.of(
-                            SpreadsheetSelection.parseColumn("A"),
-                            100.0
-                        )
-                    ).setRowHeights(
-                        Maps.of(
-                            SpreadsheetSelection.parseRow("1"),
-                            50.0
-                        )
                     ).setColumnCount(
                         OptionalInt.of(0)
                     ).setRowCount(
