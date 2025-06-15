@@ -1419,9 +1419,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5259,9 +5259,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5725,9 +5725,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction2\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
@@ -5970,9 +5970,9 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"findFunctions\": \"@\",\n" +
                     "  \"formHandlers\": \"\",\n" +
                     "  \"formatters\": \"automatic, collection, date-format-pattern, date-time-format-pattern, expression, general, number-format-pattern, spreadsheet-pattern-collection, text-format-pattern, time-format-pattern\",\n" +
-                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formattingConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formattingFunctions\": \"@\",\n" +
-                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, selection-to-selection, selection-to-text, general)\",\n" +
+                    "  \"formulaConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, error-throwing, text-to-error, text-to-expression, text-to-selection, text-to-template-value-name, selection-to-selection, selection-to-text, general)\",\n" +
                     "  \"formulaFunctions\": \"@ExpressionFunction1\",\n" +
                     "  \"functions\": \"@ExpressionFunction1, ExpressionFunction2\",\n" +
                     "  \"generalNumberFormatDigitCount\": 8,\n" +
