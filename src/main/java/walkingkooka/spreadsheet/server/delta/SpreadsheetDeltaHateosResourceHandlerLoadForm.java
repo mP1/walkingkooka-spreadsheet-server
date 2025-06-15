@@ -73,7 +73,6 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadForm extends SpreadsheetDel
         return Optional.of(
             this.engine.loadForm(
                 name,
-                SpreadsheetEngine.NO_FORM_SELECTION,
                 context
             )
         );
