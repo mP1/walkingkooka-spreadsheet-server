@@ -58,6 +58,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
+            Optional.empty(), // no label
             resource,
             parameters,
             context
@@ -71,16 +72,18 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkLabel(label);
-
         return this.saveOrUpdate(
+            Optional.of(
+                checkLabel(label)
+            ),
             resource,
             parameters,
             context
         );
     }
 
-    private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetDelta> resource,
+    private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetLabelName> labelName,
+                                                    final Optional<SpreadsheetDelta> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
@@ -101,6 +104,13 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
                 break;
             default:
                 throw new IllegalArgumentException("Got " + count + " labels expected 1");
+        }
+
+        if(labelName.isPresent()) {
+            if(false == labelName.get()
+                .equals(labelMapping.label())) {
+                throw new IllegalArgumentException("Label/mapping mismatch");
+            }
         }
 
         return Optional.of(
