@@ -60,6 +60,30 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
     }
 
     @Test
+    public void testUpdateWhereLabelNameAndDifferentLabelMapping() {
+        final IllegalArgumentException thrown = this.handleOneFails(
+            SpreadsheetSelection.labelName("Label123"),
+            Optional.of(
+                this.spreadsheetDelta(
+                    SpreadsheetSelection.labelName("Different")
+                        .setLabelMappingReference(SpreadsheetSelection.A1)
+                )
+            ),
+            HateosResourceHandler.NO_PARAMETERS,
+            this.context(
+                SpreadsheetLabelStores.treeMap()
+            ),
+            IllegalArgumentException.class
+        );
+
+        this.checkEquals(
+            "Label/mapping mismatch",
+            thrown.getMessage(),
+            "message"
+        );
+    }
+
+    @Test
     public void testUpdate() {
         final SpreadsheetLabelName labelName = this.id();
         final SpreadsheetLabelMapping mapping = mapping(labelName);
