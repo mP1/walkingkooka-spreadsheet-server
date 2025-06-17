@@ -51,12 +51,10 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkCell(cell);
-
         return deleteCells(
             resource,
             parameters,
-            cell,
+            checkCell(cell),
             context
         );
     }

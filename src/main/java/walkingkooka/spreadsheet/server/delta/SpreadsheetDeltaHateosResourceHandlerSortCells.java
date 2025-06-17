@@ -67,10 +67,9 @@ final class SpreadsheetDeltaHateosResourceHandlerSortCells extends SpreadsheetDe
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkCell(cell);
-
         return this.handleRange(
-            cell.range(cell),
+            checkCell(cell)
+                .range(cell),
             resource,
             parameters,
             context

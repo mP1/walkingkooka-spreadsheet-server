@@ -42,8 +42,8 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
     UnsupportedHateosResourceHandlerHandleMany<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext>,
     UnsupportedHateosResourceHandlerHandleNone<I, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetEngineHateosResourceHandlerContext> {
 
-    static void checkCell(final SpreadsheetCellReference cell) {
-        Objects.requireNonNull(cell, "cell");
+    static SpreadsheetCellReference checkCell(final SpreadsheetCellReference cell) {
+        return Objects.requireNonNull(cell, "cell");
     }
 
     static FormName checkFormName(final FormName formName) {
@@ -58,12 +58,15 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
      * Checks that the range bounds are not null and both are inclusive.
      * Complains if the resource is null.
      */
-    static void checkRangeBounded(final Range<?> range, final String label) {
+    static Range<?> checkRangeBounded(final Range<?> range,
+                                      final String label) {
         Objects.requireNonNull(range, label);
 
         if (!range.lowerBound().isInclusive() || !range.upperBound().isInclusive()) {
             throw new IllegalArgumentException("Range with both " + label + " required=" + range);
         }
+
+        return range;
     }
 
     /**
