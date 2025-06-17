@@ -71,10 +71,8 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCellsWithReferences extends
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
-        checkCell(cell);
-
         return this.findCellsWithReferences(
-            cell,
+            checkCell(cell),
             resource,
             parameters,
             context
