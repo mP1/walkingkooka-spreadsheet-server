@@ -84,7 +84,7 @@ clicking a context menu command.
 
 #### [Column](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetColumn.java)
 
-Many of these are very closed mapped to the context menu that appears when column/columns are selected.
+Many of these are very closely mapped to the context menu that appears when column/columns are selected.
 
 - **PATCH** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/column/A
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/column/A/clear  
@@ -175,7 +175,7 @@ These end points may be used to work with available [SpreadsheetParserInfoSet](h
 
 #### [Row](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetRow.java)
 
-Many of these are very closed mapped to the context menu that appears when row/rows are selected.
+Many of these are very closely mapped to the context menu that appears when row/rows are selected.
 
 - **PATCH** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/row/1
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/row/1
