@@ -364,14 +364,12 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
 
         return HateosResourceMapping.router(
-            serverUrl.setPath(
-                serverUrl.path()
-                    .append(
-                        UrlPathName.with(
-                            id.toString()
-                        )
+            serverUrl.path()
+                .append(
+                    UrlPathName.with(
+                        id.toString()
                     )
-            ),
+                ),
             Sets.of(
                 cell,
                 cellReference,
