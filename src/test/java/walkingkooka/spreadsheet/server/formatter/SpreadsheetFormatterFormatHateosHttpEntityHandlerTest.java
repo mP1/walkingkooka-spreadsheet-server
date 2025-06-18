@@ -134,7 +134,7 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
             IllegalArgumentException.class
         );
         this.checkEquals(
-            "Accept: Got image/* require application/json",
+            "Accept: Got application/json require image/*",
             thrown.getMessage()
         );
     }

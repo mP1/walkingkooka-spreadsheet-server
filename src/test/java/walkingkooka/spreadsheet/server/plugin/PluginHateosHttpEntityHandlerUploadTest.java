@@ -82,7 +82,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         );
 
         this.checkEquals(
-            "Accept: Got text/plain require application/octet-stream",
+            "Accept: Got application/octet-stream require text/plain",
             thrown.getMessage()
         );
     }

@@ -129,7 +129,7 @@ public final class SpreadsheetParserTokensHateosHttpEntityHandlerTest implements
             IllegalArgumentException.class
         );
         this.checkEquals(
-            "Accept: Got image/bmp require application/json",
+            "Accept: Got application/json require image/bmp",
             thrown.getMessage()
         );
     }
