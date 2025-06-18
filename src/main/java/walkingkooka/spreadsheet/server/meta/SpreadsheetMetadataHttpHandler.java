@@ -116,7 +116,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             ).router()
             .then(
                 SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                    serverUrl,
+                    serverUrl.path(),
                     indentation,
                     lineEnding,
                     context

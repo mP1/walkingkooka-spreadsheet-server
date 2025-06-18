@@ -902,7 +902,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
-            URL,
+            URL.path(),
             Sets.of(mapping),
             INDENTATION,
             LINE_ENDING,
@@ -939,7 +939,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String requestBody) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMapping.router(
-            URL,
+            URL.path(),
             Sets.of(mapping),
             INDENTATION,
             LINE_ENDING,

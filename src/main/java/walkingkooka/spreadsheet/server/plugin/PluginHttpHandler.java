@@ -104,7 +104,7 @@ public final class PluginHttpHandler implements HttpHandler {
             ).router()
             .then(
                 PluginHttpMappings.router(
-                    serverUrl,
+                    serverUrl.path(),
                     indentation,
                     lineEnding,
                     PluginHateosResourceHandlerContexts.basic(

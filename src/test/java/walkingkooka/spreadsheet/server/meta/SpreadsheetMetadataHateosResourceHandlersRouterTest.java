@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.AuditInfo;
-import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptCharset;
 import walkingkooka.net.header.HttpHeaderName;
@@ -73,6 +73,10 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
         NOW.now()
     );
 
+    private final static String URL = "https://example.com/api";
+
+    private final static UrlPath BASE_PATH = UrlPath.parse("/api");
+
     private final TestSpreadsheetMetadataHateosResourceHandlerContext CONTEXT = new TestSpreadsheetMetadataHateosResourceHandlerContext();
 
     static class TestSpreadsheetMetadataHateosResourceHandlerContext extends FakeSpreadsheetMetadataHateosResourceHandlerContext {
@@ -89,7 +93,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     }
 
     @Test
-    public void testWithNullBaseFails() {
+    public void testWithNullBasePathFails() {
         this.withFails(
             null,
             INDENTATION,
@@ -101,7 +105,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testWithNullIndentationFails() {
         this.withFails(
-            this.base(),
+            BASE_PATH,
             null,
             LINE_ENDING,
             CONTEXT
@@ -111,7 +115,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testWithNullLineEndingFails() {
         this.withFails(
-            this.base(),
+            BASE_PATH,
             INDENTATION,
             null,
             CONTEXT
@@ -121,21 +125,21 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
     @Test
     public void testWithNullLoadContextFails() {
         this.withFails(
-            this.base(),
+            BASE_PATH,
             INDENTATION,
             LINE_ENDING,
             null
         );
     }
 
-    private void withFails(final AbsoluteUrl base,
+    private void withFails(final UrlPath basePath,
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final SpreadsheetMetadataHateosResourceHandlerContext context) {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetMetadataHateosResourceHandlersRouter.with(
-                base,
+                basePath,
                 indentation,
                 lineEnding,
                 context
@@ -427,7 +431,7 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
 
     private Router<HttpRequestAttribute<?>, HttpHandler> router(final TestSpreadsheetMetadataHateosResourceHandlerContext context) {
         return SpreadsheetMetadataHateosResourceHandlersRouter.with(
-            this.base(),
+            BASE_PATH,
             INDENTATION,
             LINE_ENDING,
             context
@@ -548,12 +552,6 @@ public final class SpreadsheetMetadataHateosResourceHandlersRouterTest extends S
                 return this.method() + " " + this.url();
             }
         };
-    }
-
-    private final static String URL = "https://example.com/api";
-
-    private AbsoluteUrl base() {
-        return AbsoluteUrl.parseAbsolute(URL);
     }
 
     // ToString.........................................................................................................
