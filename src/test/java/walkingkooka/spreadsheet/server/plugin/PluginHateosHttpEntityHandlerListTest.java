@@ -125,7 +125,7 @@ public final class PluginHateosHttpEntityHandlerListTest
         );
 
         this.checkEquals(
-            "Accept: Got text/plain require application/json",
+            "Accept: Got application/json require text/plain",
             thrown.getMessage()
         );
     }

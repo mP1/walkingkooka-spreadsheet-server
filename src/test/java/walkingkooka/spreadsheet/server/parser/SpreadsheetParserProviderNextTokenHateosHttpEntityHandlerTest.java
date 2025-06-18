@@ -133,7 +133,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
             IllegalArgumentException.class
         );
         this.checkEquals(
-            "Accept: Got text/bad require application/json",
+            "Accept: Got application/json require text/bad",
             thrown.getMessage()
         );
     }

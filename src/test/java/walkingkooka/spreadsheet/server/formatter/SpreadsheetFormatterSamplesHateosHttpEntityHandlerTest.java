@@ -119,7 +119,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
         );
 
         this.checkEquals(
-            "Accept: Got image/bmp require application/json",
+            "Accept: Got application/json require image/bmp",
             thrown.getMessage()
         );
     }

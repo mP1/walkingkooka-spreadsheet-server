@@ -138,7 +138,7 @@ public final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandlerTest i
             IllegalArgumentException.class
         );
         this.checkEquals(
-            "Accept: Got text/plain require application/json",
+            "Accept: Got application/json require text/plain",
             thrown.getMessage()
         );
     }
