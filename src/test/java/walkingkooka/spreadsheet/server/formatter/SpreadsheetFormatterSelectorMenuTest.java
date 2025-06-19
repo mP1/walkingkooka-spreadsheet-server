@@ -108,6 +108,10 @@ public final class SpreadsheetFormatterSelectorMenuTest implements PluginSelecto
                     SpreadsheetFormatterName.DATE_TIME_FORMAT_PATTERN.setValueText("dddd, d mmmm yyyy \\a\\t h:mm:ss AM/PM")
                 ),
                 SpreadsheetFormatterSelectorMenu.with(
+                    "Default",
+                    SpreadsheetFormatterName.TEXT_FORMAT_PATTERN.setValueText("@")
+                ),
+                SpreadsheetFormatterSelectorMenu.with(
                     "General",
                     SpreadsheetFormatterName.GENERAL.setValueText("")
                 ),
