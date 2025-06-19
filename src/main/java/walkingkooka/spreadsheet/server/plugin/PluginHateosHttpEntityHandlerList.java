@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.HttpMethod;
@@ -56,10 +57,12 @@ final class PluginHateosHttpEntityHandlerList implements HateosHttpEntityHandler
     public HttpEntity handleOne(final PluginName pluginName,
                                 final HttpEntity entity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final UrlPath path,
                                 final PluginHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkId(pluginName);
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);
+        HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
         HttpHeaderName.ACCEPT.headerOrFail(entity)

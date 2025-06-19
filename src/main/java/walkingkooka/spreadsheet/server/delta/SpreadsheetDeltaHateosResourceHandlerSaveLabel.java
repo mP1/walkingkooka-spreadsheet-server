@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -56,11 +57,13 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     @Override
     public Optional<SpreadsheetDelta> handleNone(final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                 final UrlPath path,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
             Optional.empty(), // no label
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -71,6 +74,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetLabelName label,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
             Optional.of(
@@ -78,6 +82,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
             ),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -85,9 +90,11 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveLabel extends SpreadsheetDe
     private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetLabelName> labelName,
                                                     final Optional<SpreadsheetDelta> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                    final UrlPath path,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final Set<SpreadsheetLabelMapping> mappings = delta.labels();

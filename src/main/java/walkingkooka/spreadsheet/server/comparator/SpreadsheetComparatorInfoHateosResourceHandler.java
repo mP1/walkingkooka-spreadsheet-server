@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.comparator;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -48,9 +49,11 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
     @Override
     public Optional<SpreadsheetComparatorInfoSet> handleAll(final Optional<SpreadsheetComparatorInfoSet> infos,
                                                             final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                            final UrlPath path,
                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -65,10 +68,12 @@ final class SpreadsheetComparatorInfoHateosResourceHandler implements HateosReso
     public Optional<SpreadsheetComparatorInfo> handleOne(final SpreadsheetComparatorName name,
                                                          final Optional<SpreadsheetComparatorInfo> info,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                         final UrlPath path,
                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()

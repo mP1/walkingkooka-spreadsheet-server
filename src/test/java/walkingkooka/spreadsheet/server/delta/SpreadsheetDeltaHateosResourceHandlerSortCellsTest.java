@@ -22,7 +22,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.compare.SpreadsheetColumnOrRowSpreadsheetComparatorNames;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -74,7 +76,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
             ),
             cell, // reference
             Optional.empty(), // resource
-            Maps.empty(), // missing COMPARATORS parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
@@ -111,6 +114,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
             Maps.of(
                 SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
             ), // parameters
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 delta
@@ -158,8 +162,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
             cellRange.range(), // reference
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
+                Lists.of(comparators)
             ), // parameters
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 delta
@@ -205,8 +211,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
             ),
             Optional.empty(), // resource
             Maps.of(
-                SpreadsheetDeltaUrlQueryParameters.COMPARATORS, Lists.of(comparators)
+                SpreadsheetDeltaUrlQueryParameters.COMPARATORS,
+                Lists.of(comparators)
             ), // parameters
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 delta
@@ -260,6 +268,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSortCellsTest extends Sp
     @Override
     public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

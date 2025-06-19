@@ -20,10 +20,11 @@ package walkingkooka.spreadsheet.server.export;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
@@ -80,7 +81,8 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
         this.handleOneAndCheck(
             INFO1.name(),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(INFO1)
         );
@@ -91,7 +93,8 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
         this.handleOneAndCheck(
             SpreadsheetExporterName.with("Unknown"),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.empty()
         );
@@ -101,7 +104,8 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
     public void testHandleAll() {
         this.handleAllAndCheck(
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetExporterInfoSet.with(
@@ -151,7 +155,12 @@ public final class SpreadsheetExporterInfoHateosResourceHandlerTest implements H
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

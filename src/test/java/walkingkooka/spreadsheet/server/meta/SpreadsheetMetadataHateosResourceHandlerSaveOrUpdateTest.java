@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -50,6 +51,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         this.handleAllFails(
             this.collectionResource(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -69,6 +71,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 HttpHeaderName.ACCEPT_LANGUAGE,
                 AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
             ),
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
@@ -121,6 +124,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
                 HttpHeaderName.ACCEPT_LANGUAGE,
                 AcceptLanguage.parse("en;q=0.8, fr-CA;q=0.9")
             ),
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
@@ -169,6 +173,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
         this.handleNoneAndCheck(
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override
@@ -212,6 +217,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             this.id(),
             Optional.empty(),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -226,6 +232,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
             id,
             Optional.of(metadata),
             this.parameters(),
+            this.path(),
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
 
                 @Override

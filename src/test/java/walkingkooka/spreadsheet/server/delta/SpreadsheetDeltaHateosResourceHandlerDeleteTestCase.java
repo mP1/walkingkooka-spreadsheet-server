@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -45,6 +46,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
                 SpreadsheetDelta.EMPTY
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class);
     }
@@ -57,6 +59,7 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
                 SpreadsheetDelta.EMPTY
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -76,6 +79,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
 
     @Override final public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

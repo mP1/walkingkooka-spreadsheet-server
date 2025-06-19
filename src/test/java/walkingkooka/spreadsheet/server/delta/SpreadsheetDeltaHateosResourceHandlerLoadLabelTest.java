@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.UrlParameterName;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -55,6 +56,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
             labelName,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setLabels(
@@ -70,6 +72,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
             this.id(),
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(SpreadsheetLabelStores.treeMap()),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -101,6 +104,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
         this.handleAllAndCheck(
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setLabels(
@@ -141,6 +145,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
                 UrlParameterName.with("offset"), Lists.of("1"),
                 UrlParameterName.with("count"), Lists.of("2")
             ),
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setLabels(
@@ -223,6 +228,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadLabelTest extends Sp
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // ClassTesting......................................................................................................

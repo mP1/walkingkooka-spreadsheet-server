@@ -23,6 +23,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.ContentDispositionType;
@@ -31,6 +32,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.header.MediaTypeBoundary;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
@@ -75,8 +77,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     @Test
     public void testHandleAllIncompatibleAcceptFails() {
         final IllegalArgumentException thrown = this.handleAllFails(
-            HttpEntity.EMPTY.setAccept(MediaType.TEXT_PLAIN.accept()),
+            HttpEntity.EMPTY.setAccept(
+                MediaType.TEXT_PLAIN.accept()
+            ),
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             IllegalArgumentException.class
         );
@@ -92,6 +97,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         final IllegalArgumentException thrown = this.handleAllFails(
             HttpEntity.EMPTY,
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             IllegalArgumentException.class
         );
@@ -109,6 +115,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                 MediaType.TEXT_PLAIN
             ),
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             IllegalArgumentException.class
         );
@@ -135,6 +142,7 @@ public final class PluginHateosHttpEntityHandlerUploadTest
                     "--delimiter12345--"
             ),
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             IllegalArgumentException.class
         );
@@ -151,7 +159,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.multipart(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -185,7 +194,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.multipart(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -208,7 +218,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.binaryAsBase64(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -232,7 +243,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         this.handleAllAndCheck(
             this.binaryAsBase64()
                 .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -266,7 +278,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.binaryAsBase64(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -306,7 +319,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.binary(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -330,7 +344,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
         this.handleAllAndCheck(
             this.binary()
                 .setAccept(SpreadsheetServerMediaTypes.BINARY.accept()), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -364,7 +379,8 @@ public final class PluginHateosHttpEntityHandlerUploadTest
 
         this.handleAllAndCheck(
             this.binary(), // entity
-            Maps.empty(), // parameters
+            HateosHttpEntityHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                 SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -484,6 +500,11 @@ public final class PluginHateosHttpEntityHandlerUploadTest
     private static String toJson(final Plugin plugin) {
         return JSON_NODE_MARSHALL_CONTEXT.marshall(plugin)
             .toString();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

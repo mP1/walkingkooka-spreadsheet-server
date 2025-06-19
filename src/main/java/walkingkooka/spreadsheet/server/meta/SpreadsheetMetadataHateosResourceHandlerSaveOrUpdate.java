@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.AcceptLanguage;
 import walkingkooka.net.header.HttpHeaderName;
@@ -50,10 +51,12 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
     public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                   final UrlPath path,
                                                    final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -82,9 +85,11 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
     @Override
     public Optional<SpreadsheetMetadata> handleNone(final Optional<SpreadsheetMetadata> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                    final UrlPath path,
                                                     final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(

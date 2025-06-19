@@ -25,6 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -68,6 +69,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
         this.handleAllFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -79,6 +81,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
             this.manyIds(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -89,6 +92,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
         this.handleNoneFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -100,6 +104,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
             this.range(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -114,6 +119,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                     MediaType.IMAGE_BMP.accept()
                 ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -135,6 +141,7 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
@@ -360,6 +367,11 @@ public final class SpreadsheetFormatterSamplesHateosHttpEntityHandlerTest implem
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosHttpEntityHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.Binary;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.ContentDispositionFileName;
 import walkingkooka.net.header.HttpHeaderName;
@@ -25,6 +26,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
@@ -58,9 +60,11 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
     @Override
     public HttpEntity handleAll(final HttpEntity entity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final UrlPath path,
                                 final PluginHateosResourceHandlerContext context) {
         Objects.requireNonNull(entity, "entity");
         Objects.requireNonNull(parameters, "parameters");
+        HateosResourceHandler.checkPathEmpty(path);
         Objects.requireNonNull(context, "context");
 
         entity.accept()

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.formatter;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -66,10 +67,12 @@ final class SpreadsheetFormatterSamplesHateosHttpEntityHandler implements Hateos
     public HttpEntity handleOne(final SpreadsheetFormatterName formatterName,
                                 final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final UrlPath path,
                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkId(formatterName);
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
+        HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();

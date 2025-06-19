@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -53,6 +54,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
                 )
             ),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
@@ -69,6 +71,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
             labelName,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setDeletedLabels(
@@ -93,6 +96,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
             SpreadsheetSelection.labelName("UnknownLabel123"),
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(SpreadsheetLabelStores.treeMap()),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -156,6 +160,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteLabelTest extends 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // Class.............................................................................................................

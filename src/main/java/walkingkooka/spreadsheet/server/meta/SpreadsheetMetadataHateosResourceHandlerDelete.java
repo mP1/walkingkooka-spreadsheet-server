@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -48,10 +49,12 @@ final class SpreadsheetMetadataHateosResourceHandlerDelete extends SpreadsheetMe
     public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                   final UrlPath path,
                                                    final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         context.storeRepository(id)

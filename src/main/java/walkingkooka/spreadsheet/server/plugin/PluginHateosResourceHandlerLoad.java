@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.plugin;
 
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -54,9 +55,11 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     @Override
     public Optional<PluginSet> handleAll(final Optional<PluginSet> plugins,
                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                         final UrlPath path,
                                          final PluginHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(plugins);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
@@ -84,10 +87,12 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     public Optional<Plugin> handleOne(final PluginName name,
                                       final Optional<Plugin> plugin,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final UrlPath path,
                                       final PluginHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(plugin);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.pluginStore()
@@ -98,10 +103,12 @@ final class PluginHateosResourceHandlerLoad implements HateosResourceHandler<Plu
     public Optional<PluginSet> handleRange(final Range<PluginName> range,
                                            final Optional<PluginSet> resource,
                                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                                           final UrlPath path,
                                            final PluginHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(range);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return pluginSet(

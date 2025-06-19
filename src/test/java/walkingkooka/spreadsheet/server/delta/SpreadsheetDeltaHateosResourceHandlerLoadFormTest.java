@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.net.UrlParameterName;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -64,6 +65,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
             formName,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -98,6 +100,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
         this.handleAllAndCheck(
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -153,6 +156,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
         this.handleAllAndCheck(
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -171,6 +175,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
                 UrlParameterName.with("offset"), Lists.of("1"),
                 UrlParameterName.with("count"), Lists.of("2")
             ),
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -253,7 +258,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // ClassTesting......................................................................................................

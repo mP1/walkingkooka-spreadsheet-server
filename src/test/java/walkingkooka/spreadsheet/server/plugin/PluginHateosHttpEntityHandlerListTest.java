@@ -23,12 +23,14 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceMapping;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
@@ -102,6 +104,7 @@ public final class PluginHateosHttpEntityHandlerListTest
             PLUGIN1.name(),
             HttpEntity.EMPTY,
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             HeaderException.class
         );
@@ -120,6 +123,7 @@ public final class PluginHateosHttpEntityHandlerListTest
                 MediaType.TEXT_PLAIN.accept()
             ),
             this.parameters(),
+            this.path(),
             new TestPluginHateosResourceHandlerContext(),
             IllegalArgumentException.class
         );
@@ -137,7 +141,8 @@ public final class PluginHateosHttpEntityHandlerListTest
         this.handleOneAndCheck(
             PLUGIN2.name(),
             this.entity(), // entity
-            Maps.empty(), // parameters
+            this.parameters(),
+            this.path(),
             context,
             HttpEntity.EMPTY
         );
@@ -150,7 +155,8 @@ public final class PluginHateosHttpEntityHandlerListTest
         this.handleOneAndCheck(
             PLUGIN1.name(),
             this.entity(), // entity
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             HttpEntity.EMPTY.setContentType(
                     SpreadsheetServerMediaTypes.CONTENT_TYPE
@@ -218,6 +224,11 @@ public final class PluginHateosHttpEntityHandlerListTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

@@ -19,9 +19,10 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -63,6 +64,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
             this.id(),
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -95,6 +97,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
             range,
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -137,7 +140,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteCellTest extends S
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

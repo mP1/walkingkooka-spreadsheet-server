@@ -73,6 +73,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -116,6 +117,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -164,6 +166,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -225,6 +228,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -283,6 +287,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(
@@ -327,6 +332,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -375,6 +381,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -423,6 +430,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -484,6 +492,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setColumns(savedColumns) // save = patch
@@ -542,6 +551,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(
@@ -611,6 +621,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerColumnTest extend
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + outsideWindow // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(

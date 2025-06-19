@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -71,9 +72,11 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
     @Override
     public HttpEntity handleAll(final HttpEntity httpEntity,
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                final UrlPath path,
                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(httpEntity);
         HateosHttpEntityHandler.checkParameters(parameters);
+        HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();

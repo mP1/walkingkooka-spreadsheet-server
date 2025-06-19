@@ -25,6 +25,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.Accept;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
@@ -66,6 +67,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
         this.handleAllFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -77,6 +79,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
             this.manyIds(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -87,6 +90,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
         this.handleNoneFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -98,6 +102,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
             this.range(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -110,6 +115,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
             this.entity()
                 .setContentType(MediaType.TEXT_PLAIN),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -129,6 +135,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
                     Accept.parse("text/bad")
                 ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -151,6 +158,7 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
                 SpreadsheetServerMediaTypes.CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
@@ -264,6 +272,11 @@ public final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandlerTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosHttpEntityHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

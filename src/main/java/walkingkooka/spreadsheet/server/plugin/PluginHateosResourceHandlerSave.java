@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.plugin;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -54,10 +55,12 @@ final class PluginHateosResourceHandlerSave implements HateosResourceHandler<Plu
     public Optional<Plugin> handleOne(final PluginName name,
                                       final Optional<Plugin> plugin,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final UrlPath path,
                                       final PluginHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResourceNotEmpty(plugin);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(

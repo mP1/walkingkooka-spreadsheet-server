@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -50,6 +51,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
                 this.spreadsheetDelta(mapping)
             ),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 this.spreadsheetDelta(mapping)
@@ -70,6 +72,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
                 )
             ),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(
                 SpreadsheetLabelStores.treeMap()
             ),
@@ -96,6 +99,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
                 this.spreadsheetDelta(mapping)
             ),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 this.spreadsheetDelta(mapping)
@@ -174,6 +178,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveLabelTest extends Sp
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // ClassTesting......................................................................................................

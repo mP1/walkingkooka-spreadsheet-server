@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
@@ -49,6 +50,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
             this.manyIds(),
             this.collectionResource(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -60,6 +62,7 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
             this.range(),
             this.collectionResource(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -113,6 +116,11 @@ public abstract class SpreadsheetMetadataHateosResourceHandlersTestCase2<H exten
     @Override
     public final Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public final UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // TypeNameTesting..................................................................................................

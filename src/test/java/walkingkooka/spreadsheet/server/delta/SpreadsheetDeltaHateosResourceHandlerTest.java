@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -257,7 +258,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
 
             @Override
             public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> optional,
-                                                        final Map<HttpRequestAttribute<?>, Object> map,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
@@ -265,7 +267,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
             @Override
             public Optional<SpreadsheetDelta> handleOne(final Integer integer,
                                                         final Optional<SpreadsheetDelta> resource,
-                                                        final Map<HttpRequestAttribute<?>, Object> map,
+                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }
@@ -273,7 +276,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerTest extends Spreadsheet
             @Override
             public Optional<SpreadsheetDelta> handleRange(final Range<Integer> range,
                                                           final Optional<SpreadsheetDelta> resource,
-                                                          final Map<HttpRequestAttribute<?>, Object> map,
+                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                          final UrlPath path,
                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
                 throw new UnsupportedOperationException();
             }

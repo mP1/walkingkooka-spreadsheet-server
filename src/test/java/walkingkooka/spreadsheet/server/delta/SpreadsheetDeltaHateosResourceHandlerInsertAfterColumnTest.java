@@ -67,6 +67,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
             column,
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 returned
@@ -106,6 +107,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterColumnTest ex
             range.range(),
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 returned

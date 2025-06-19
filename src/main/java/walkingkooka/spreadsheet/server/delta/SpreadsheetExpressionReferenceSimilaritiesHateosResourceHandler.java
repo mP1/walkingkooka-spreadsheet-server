@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -62,10 +63,12 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
     public Optional<SpreadsheetExpressionReferenceSimilarities> handleOne(final String text,
                                                                           final Optional<SpreadsheetExpressionReferenceSimilarities> resource,
                                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                                          final UrlPath path,
                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         Objects.requireNonNull(text, "text");
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final SpreadsheetExpressionReference cellOrLabel = parseCellOrLabelOrNull(text);

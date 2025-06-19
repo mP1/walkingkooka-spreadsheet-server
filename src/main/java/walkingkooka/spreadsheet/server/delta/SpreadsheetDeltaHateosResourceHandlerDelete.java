@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -45,6 +46,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final UrlPath path,
                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
 
@@ -54,6 +56,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                 1,
                 resource,
                 parameters,
+                path,
                 context
             )
         );
@@ -66,6 +69,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
 
@@ -84,6 +88,7 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                 kind.value(upper) - kind.value(lower) + 1,
                 resource,
                 parameters,
+                path,
                 context
             )
         );
@@ -95,9 +100,11 @@ abstract class SpreadsheetDeltaHateosResourceHandlerDelete<R extends Spreadsheet
                                                        final int count,
                                                        final Optional<SpreadsheetDelta> in,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final UrlPath path,
                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(in);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return this.prepareResponse(

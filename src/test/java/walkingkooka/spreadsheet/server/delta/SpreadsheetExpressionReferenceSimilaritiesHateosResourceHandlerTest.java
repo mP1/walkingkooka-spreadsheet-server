@@ -23,7 +23,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -93,7 +95,8 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         this.handleOneFails(
             "Abc",
             Optional.empty(),
-            Maps.empty(),
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
@@ -104,7 +107,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         this.handleOneFails(
             "Abc",
             Optional.empty(),
-            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.empty()),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.empty()
+            ),
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
@@ -115,7 +122,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         this.handleOneFails(
             "Abc",
             Optional.empty(),
-            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("???")),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("???")
+            ),
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
@@ -213,7 +224,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
         this.handleOneAndCheck(
             text,
             Optional.empty(),
-            Maps.of(SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + count)),
+            Maps.of(
+                SpreadsheetUrlQueryParameters.COUNT,
+                Lists.of("" + count)
+            ),
+            UrlPath.EMPTY,
             this.context(),
             Optional.ofNullable(expected)
         );
@@ -252,6 +267,11 @@ public class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandlerTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.of(SpreadsheetUrlQueryParameters.COUNT, 3);
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

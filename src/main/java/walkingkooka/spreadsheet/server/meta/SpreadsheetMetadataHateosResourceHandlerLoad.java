@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResource;
@@ -50,10 +51,12 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     public Optional<SpreadsheetMetadata> handleOne(final SpreadsheetId id,
                                                    final Optional<SpreadsheetMetadata> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                   final UrlPath path,
                                                    final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final Optional<SpreadsheetMetadata> loaded = context.storeRepository(id)
@@ -68,9 +71,11 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     @Override
     public Optional<SpreadsheetMetadataSet> handleAll(final Optional<SpreadsheetMetadataSet> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final UrlPath path,
                                                       final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final int offset = SpreadsheetUrlQueryParameters.offset(parameters)
@@ -105,10 +110,12 @@ final class SpreadsheetMetadataHateosResourceHandlerLoad extends SpreadsheetMeta
     public Optional<SpreadsheetMetadataSet> handleMany(final Set<SpreadsheetId> ids,
                                                        final Optional<SpreadsheetMetadataSet> resource,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final UrlPath path,
                                                        final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkManyIds(ids);
         HateosResourceHandler.checkResource(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final Set<SpreadsheetMetadata> all = SortedSets.tree(HateosResource.comparator());

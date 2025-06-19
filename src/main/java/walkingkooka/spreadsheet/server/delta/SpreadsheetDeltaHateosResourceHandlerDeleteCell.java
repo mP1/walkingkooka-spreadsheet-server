@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -50,11 +51,13 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return deleteCells(
             resource,
             parameters,
             checkCell(cell),
+            path,
             context
         );
     }
@@ -63,11 +66,13 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> rangeOfCells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         return deleteCells(
             resource,
             parameters,
             SpreadsheetSelection.cellRange(rangeOfCells),
+            path,
             context
         );
     }
@@ -75,9 +80,11 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteCell extends SpreadsheetD
     private Optional<SpreadsheetDelta> deleteCells(final Optional<SpreadsheetDelta> resource,
                                                    final Map<HttpRequestAttribute<?>, Object> parameters,
                                                    final SpreadsheetSelection cells,
+                                                   final UrlPath path,
                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
