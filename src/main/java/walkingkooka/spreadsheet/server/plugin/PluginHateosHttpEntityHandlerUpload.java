@@ -26,7 +26,6 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
@@ -39,7 +38,6 @@ import walkingkooka.spreadsheet.server.SpreadsheetServerMediaTypes;
 
 import java.util.Base64;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Handles uploads of JAR files, supporting multi-part-forms and binary requests.
@@ -62,10 +60,10 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                                 final Map<HttpRequestAttribute<?>, Object> parameters,
                                 final UrlPath path,
                                 final PluginHateosResourceHandlerContext context) {
-        Objects.requireNonNull(entity, "entity");
-        Objects.requireNonNull(parameters, "parameters");
-        HateosResourceHandler.checkPathEmpty(path);
-        Objects.requireNonNull(context, "context");
+        HateosHttpEntityHandler.checkHttpEntity(entity);
+        HateosHttpEntityHandler.checkParameters(parameters);
+        HateosHttpEntityHandler.checkPathEmpty(path);
+        HateosHttpEntityHandler.checkContext(context);
 
         entity.accept()
             .orElse(Accept.DEFAULT)
