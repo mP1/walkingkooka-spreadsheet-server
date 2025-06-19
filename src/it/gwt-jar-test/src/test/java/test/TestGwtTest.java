@@ -296,7 +296,7 @@ public class TestGwtTest extends GWTTestCase {
             SpreadsheetUserStores.fake()
         );
 
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatters();
 
         return SpreadsheetHttpServer.with(
             UrlScheme.HTTPS.andHost(

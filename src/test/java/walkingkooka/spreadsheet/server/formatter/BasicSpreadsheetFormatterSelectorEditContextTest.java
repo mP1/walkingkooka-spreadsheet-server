@@ -69,7 +69,7 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
     public BasicSpreadsheetFormatterSelectorEditContext createContext() {
         return BasicSpreadsheetFormatterSelectorEditContext.with(
             this.spreadsheetFormatterContext(),
-            SpreadsheetFormatterProviders.spreadsheetFormatPattern(),
+            SpreadsheetFormatterProviders.spreadsheetFormatters(),
             PROVIDER_CONTEXT
         );
     }
