@@ -74,7 +74,7 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
         final HttpEntity response;
 
         final MediaType contentType = entity.contentType()
-            .orElse(null);
+            .orElseThrow(() -> new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE));
         if (MediaType.MULTIPART_FORM_DATA.test(contentType)) {
             response = this.multipartUpload(
                 entity,
@@ -91,9 +91,6 @@ final class PluginHateosHttpEntityHandlerUpload implements HateosHttpEntityHandl
                 context
             );
         } else {
-            if (null == contentType) {
-                throw new IllegalArgumentException("Missing " + HttpHeaderName.CONTENT_TYPE);
-            }
             // Content-type: Got text/plain, expected multipart/multipart2 or json/json2
             throw new IllegalArgumentException(
                 HttpHeaderName.CONTENT_TYPE +
