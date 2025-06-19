@@ -79,6 +79,6 @@ final class SpreadsheetDeltaHateosResourceHandlerDeleteLabel extends Spreadsheet
 
     @Override
     String operation() {
-        return "removeLabel";
+        return "deleteLabel";
     }
 }
