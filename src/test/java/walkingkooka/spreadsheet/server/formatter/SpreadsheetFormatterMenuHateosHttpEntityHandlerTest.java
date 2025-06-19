@@ -261,6 +261,10 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
                     "    \"selector\": \"date-time-format-pattern dddd, d mmmm yyyy \\\\a\\\\t h:mm:ss AM/PM\"\n" +
                     "  },\n" +
                     "  {\n" +
+                    "    \"label\": \"Default\",\n" +
+                    "    \"selector\": \"text-format-pattern @\"\n" +
+                    "  },\n" +
+                    "  {\n" +
                     "    \"label\": \"General\",\n" +
                     "    \"selector\": \"general\"\n" +
                     "  },\n" +
