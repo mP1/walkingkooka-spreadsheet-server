@@ -47,6 +47,51 @@ public final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdateTest exte
     // handle...........................................................................................................
 
     @Test
+    @Override
+    public void testHandleOneNullParametersFails() {
+        this.handleOneFails(
+            this.id(),
+            Optional.of(
+                SpreadsheetMetadata.EMPTY
+            ),
+            null,
+            this.path(),
+            this.context(),
+            NullPointerException.class
+        );
+    }
+
+    @Test
+    @Override
+    public void testHandleOneNullPathFails() {
+        this.handleOneFails(
+            this.id(),
+            Optional.of(
+                SpreadsheetMetadata.EMPTY
+            ),
+            this.parameters(),
+            null,
+            this.context(),
+            NullPointerException.class
+        );
+    }
+
+    @Test
+    @Override
+    public void testHandleOneNullContextFails() {
+        this.handleOneFails(
+            this.id(),
+            Optional.of(
+                SpreadsheetMetadata.EMPTY
+            ),
+            this.parameters(),
+            this.path(),
+            null,
+            NullPointerException.class
+        );
+    }
+
+    @Test
     public void testHandleAllFails() {
         this.handleAllFails(
             this.collectionResource(),

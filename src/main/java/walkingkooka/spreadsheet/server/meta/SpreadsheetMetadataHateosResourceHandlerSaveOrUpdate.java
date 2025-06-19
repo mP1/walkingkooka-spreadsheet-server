@@ -54,32 +54,19 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
                                                    final UrlPath path,
                                                    final SpreadsheetMetadataHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(id);
-        HateosResourceHandler.checkResource(resource);
+        final SpreadsheetMetadata metadata = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return Optional.of(
-            this.saveMetadata(
-                id,
-                HateosResourceHandler.checkResourceNotEmpty(resource),
-                context
-            )
-        );
-    }
-
-    /**
-     * The request included an {@link SpreadsheetId} and should also have a {@link SpreadsheetMetadata} this will update the store.
-     */
-    private SpreadsheetMetadata saveMetadata(final SpreadsheetId id,
-                                             final SpreadsheetMetadata metadata,
-                                             final SpreadsheetMetadataHateosResourceHandlerContext context) {
         final SpreadsheetId metadataId = metadata.getOrFail(SpreadsheetMetadataPropertyName.SPREADSHEET_ID);
         if (false == id.equals(metadataId)) {
             throw new IllegalArgumentException("Resource id " + id + " does not match metadata id" + metadataId);
         }
 
-        return context.saveMetadata(metadata);
+        return Optional.of(
+            context.saveMetadata(metadata)
+        );
     }
 
     @Override
@@ -87,28 +74,10 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
                                                     final UrlPath path,
                                                     final SpreadsheetMetadataHateosResourceHandlerContext context) {
-        HateosResourceHandler.checkResource(resource);
+        HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
-
-        return Optional.of(
-            this.createMetadata(
-                resource,
-                parameters,
-                context
-            )
-        );
-    }
-
-    /**
-     * Fetches the locale from the ACCEPT-LANGUAGE header/parameter and calls the context to create a metadata, apply defaults
-     * and also save the metadata to a store.
-     */
-    private SpreadsheetMetadata createMetadata(final Optional<SpreadsheetMetadata> metadata,
-                                               final Map<HttpRequestAttribute<?>, Object> parameters,
-                                               final SpreadsheetMetadataHateosResourceHandlerContext context) {
-        HateosResourceHandler.checkResourceEmpty(metadata);
 
         final SpreadsheetMetadata saved = context.metadataStore()
             .create(
@@ -119,11 +88,14 @@ final class SpreadsheetMetadataHateosResourceHandlerSaveOrUpdate extends Spreads
         saved.id()
             .orElseThrow(() -> new IllegalStateException(SpreadsheetMetadata.class.getSimpleName() + " missing id=" + saved));
 
-        return saved;
+        return Optional.of(saved);
     }
 
     private Optional<Locale> preferredLocale(final AcceptLanguage language) {
-        return language.value().get(0).value().locale();
+        return language.value()
+            .get(0)
+            .value()
+            .locale();
     }
 
     @Override
