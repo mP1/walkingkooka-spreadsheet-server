@@ -304,7 +304,7 @@ public class J2clTest {
             SpreadsheetUserStores.fake()
         );
 
-        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatPattern();
+        final SpreadsheetFormatterProvider spreadsheetFormatterProvider = SpreadsheetFormatterProviders.spreadsheetFormatters();
 
         return SpreadsheetHttpServer.with(
             UrlScheme.HTTPS.andHost(
