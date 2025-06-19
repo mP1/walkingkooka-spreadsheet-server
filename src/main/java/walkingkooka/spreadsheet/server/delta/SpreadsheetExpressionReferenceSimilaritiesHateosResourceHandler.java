@@ -72,16 +72,27 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
         HateosResourceHandler.checkContext(context);
 
         final SpreadsheetExpressionReference cellOrLabel = parseCellOrLabelOrNull(text);
-        final Set<SpreadsheetLabelMapping> mappings = this.findLabelMappings(
-            text,
-            SpreadsheetUrlQueryParameters.count(parameters)
-                .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT))
-        );
+        final Set<SpreadsheetLabelMapping> mappings = this.context.storeRepository()
+            .labels()
+            .findSimilar(
+                text,
+                SpreadsheetUrlQueryParameters.count(parameters)
+                    .orElseThrow(() -> new IllegalArgumentException("Missing parameter " + SpreadsheetUrlQueryParameters.COUNT)
+                    )
+            );
 
         return Optional.of(
             SpreadsheetExpressionReferenceSimilarities.with(
-                Optional.ofNullable(cellOrLabel instanceof SpreadsheetCellReference ? (SpreadsheetCellReference) cellOrLabel : null),
-                Optional.ofNullable(cellOrLabel instanceof SpreadsheetLabelName && mappings.isEmpty() ? (SpreadsheetLabelName) cellOrLabel : null),
+                Optional.ofNullable(
+                    null != cellOrLabel && cellOrLabel.isCell() ?
+                    cellOrLabel.toCell() :
+                    null
+                ),
+                Optional.ofNullable(
+                    null != cellOrLabel && cellOrLabel.isLabelName() && mappings.isEmpty() ?
+                        cellOrLabel.toLabelName() :
+                        null
+                ),
                 mappings
             )
         );
@@ -99,16 +110,6 @@ final class SpreadsheetExpressionReferenceSimilaritiesHateosResourceHandler impl
             cellOrLabel = null;
         }
         return cellOrLabel;
-    }
-
-    /**
-     * Finds the matching {@link SpreadsheetLabelMapping} for the given text and limit.
-     */
-    private Set<SpreadsheetLabelMapping> findLabelMappings(final String text,
-                                                           final int count) {
-        return this.context.storeRepository()
-            .labels()
-            .findSimilar(text, count);
     }
 
     private final SpreadsheetEngineContext context;
