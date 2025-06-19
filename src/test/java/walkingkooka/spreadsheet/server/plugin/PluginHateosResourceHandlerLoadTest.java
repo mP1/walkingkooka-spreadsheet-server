@@ -25,7 +25,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -89,7 +91,8 @@ public final class PluginHateosResourceHandlerLoadTest
         this.handleOneAndCheck(
             PLUGIN1.name(),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(PLUGIN1)
         );
@@ -100,7 +103,8 @@ public final class PluginHateosResourceHandlerLoadTest
         this.handleOneAndCheck(
             PluginName.with("Unknown"),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.empty()
         );
@@ -110,7 +114,8 @@ public final class PluginHateosResourceHandlerLoadTest
     public void testHandleAll() {
         this.handleAllAndCheck(
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 PluginSet.with(
@@ -133,6 +138,7 @@ public final class PluginHateosResourceHandlerLoadTest
                 SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
                 SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
             ), // parameters
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 PluginSet.with(
@@ -188,7 +194,12 @@ public final class PluginHateosResourceHandlerLoadTest
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

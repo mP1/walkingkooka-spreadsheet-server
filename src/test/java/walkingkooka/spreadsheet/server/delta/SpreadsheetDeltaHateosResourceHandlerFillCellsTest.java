@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -57,6 +58,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
             Maps.of(
                 SpreadsheetDeltaUrlQueryParameters.FROM, Lists.of("!INVALID")
             ),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -104,6 +106,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
             this.range(),
             this.collectionResource(),
             parameters,
+            this.path(),
             this.context(),
             Optional.of(
                 this.deltaWithCell()
@@ -157,6 +160,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
             range,
             Optional.of(resource.setWindow(window)),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -222,6 +226,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFillCellsTest extends Sp
     private SpreadsheetDelta deltaWithCell() {
         return SpreadsheetDelta.EMPTY
             .setCells(Sets.of(this.cell()));
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

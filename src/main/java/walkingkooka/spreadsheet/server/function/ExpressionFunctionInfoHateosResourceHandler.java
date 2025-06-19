@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.function;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -49,9 +50,11 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     @Override
     public Optional<ExpressionFunctionInfoSet> handleAll(final Optional<ExpressionFunctionInfoSet> infos,
                                                          final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                         final UrlPath path,
                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -66,10 +69,12 @@ final class ExpressionFunctionInfoHateosResourceHandler implements HateosResourc
     public Optional<ExpressionFunctionInfo> handleOne(final ExpressionFunctionName name,
                                                       final Optional<ExpressionFunctionInfo> info,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final UrlPath path,
                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()

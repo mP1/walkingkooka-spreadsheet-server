@@ -76,6 +76,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -112,6 +113,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -149,6 +151,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -186,6 +189,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -236,6 +240,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -283,6 +288,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(
@@ -328,6 +334,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -364,6 +371,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
                 CONTENT_TYPE.accept()
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -401,6 +409,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=" + CELL + "&width=" + WIDTH + "&height=" + HEIGHT + "&selectionType=cell&selection=" + CELL + "&includeFrozenColumnsRows=true" // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -451,6 +460,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + CELL // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY
@@ -496,6 +506,7 @@ public final class SpreadsheetDeltaPatchHateosHttpEntityHandlerCellTest extends 
             this.parameters(
                 "home=A1&width=" + WIDTH + "&height=" + HEIGHT + "&window=" + OUTSIDE_WINDOW // queryString
             ),
+            this.path(),
             this.context(),
             this.httpEntity(
                 SpreadsheetDelta.EMPTY.setViewport(

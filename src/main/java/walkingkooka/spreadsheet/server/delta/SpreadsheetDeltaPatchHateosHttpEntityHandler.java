@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HttpHeaderName;
 import walkingkooka.net.header.MediaType;
@@ -95,6 +96,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     public final HttpEntity handleOne(final S selection,
                                       final HttpEntity entity,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final UrlPath path,
                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkId(selection);
 
@@ -102,6 +104,7 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
             this.toSelectionRange(selection),
             entity,
             parameters,
+            path,
             context
         );
     }
@@ -112,11 +115,13 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     public final HttpEntity handleRange(final Range<S> selection,
                                         final HttpEntity entity,
                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                        final UrlPath path,
                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.loadPatchReply(
             this.toSelectionRange(selection),
             entity,
             parameters,
+            path,
             context
         );
     }
@@ -139,9 +144,11 @@ abstract class SpreadsheetDeltaPatchHateosHttpEntityHandler<S extends Spreadshee
     private HttpEntity loadPatchReply(final R selectionRange,
                                       final HttpEntity entity,
                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                      final UrlPath path,
                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosHttpEntityHandler.checkHttpEntity(entity);
         HateosHttpEntityHandler.checkParameters(parameters);
+        HateosHttpEntityHandler.checkPathEmpty(path);
         HateosHttpEntityHandler.checkContext(context);
 
         final MediaType requiredContentType = context.contentType();

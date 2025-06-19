@@ -22,7 +22,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngineContext;
@@ -130,6 +132,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of(valueType),
                 SpreadsheetCellFindQuery.QUERY, Lists.of(String.valueOf(expression))
             ), // parameters
+            UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
@@ -223,6 +226,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                 SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
             ), // parameters
+            UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
@@ -316,6 +320,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
                 SpreadsheetCellFindQuery.VALUE_TYPE, Lists.of("" + valueType),
                 SpreadsheetCellFindQuery.QUERY, Lists.of("" + expression)
             ), // parameters
+            UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
@@ -419,7 +424,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
             ),
             range.range(), // reference
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS, // parameters
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setCells(
@@ -478,6 +484,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindCellsTest extends Sp
     @Override
     public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

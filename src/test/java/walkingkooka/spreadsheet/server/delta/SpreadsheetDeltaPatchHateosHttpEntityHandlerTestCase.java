@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.net.Url;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
@@ -114,6 +115,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         this.handleAllFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -125,6 +127,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             this.manyIds(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -135,6 +138,7 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
         this.handleNoneFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -186,6 +190,11 @@ public abstract class SpreadsheetDeltaPatchHateosHttpEntityHandlerTestCase<H ext
             HttpProtocolVersion.VERSION_1_0,
             HttpEntity.EMPTY // is ignored
         ).routerParameters();
+    }
+
+    @Override
+    public final UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

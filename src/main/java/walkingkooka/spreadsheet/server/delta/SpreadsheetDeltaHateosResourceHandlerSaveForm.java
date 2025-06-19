@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.delta;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -51,10 +52,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
     @Override
     public Optional<SpreadsheetDelta> handleNone(final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                 final UrlPath path,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.saveOrUpdate(
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -65,21 +68,25 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveForm extends SpreadsheetDel
     public Optional<SpreadsheetDelta> handleOne(final FormName name,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkFormName(name);
 
         return this.saveOrUpdate(
             resource,
             parameters,
+            path,
             context
         );
     }
 
     private Optional<SpreadsheetDelta> saveOrUpdate(final Optional<SpreadsheetDelta> resource,
                                                     final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                    final UrlPath path,
                                                     final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final Set<Form<SpreadsheetExpressionReference>> forms = delta.forms();

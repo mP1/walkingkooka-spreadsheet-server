@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -52,6 +53,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkCell(cell);
 
@@ -61,6 +63,7 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
             throw new IllegalArgumentException("Expected 1 cell got " + cells.size());
         }
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -81,10 +84,12 @@ final class SpreadsheetDeltaHateosResourceHandlerSaveCell extends SpreadsheetDel
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> range,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         final SpreadsheetCellRangeReference spreadsheetCellRangeReference = SpreadsheetSelection.cellRange(range);
         final SpreadsheetDelta delta = HateosResourceHandler.checkResourceNotEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(

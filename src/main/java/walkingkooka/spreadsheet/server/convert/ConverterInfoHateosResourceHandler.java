@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.convert;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -48,9 +49,11 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
     @Override
     public Optional<ConverterInfoSet> handleAll(final Optional<ConverterInfoSet> infos,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -65,10 +68,12 @@ final class ConverterInfoHateosResourceHandler implements HateosResourceHandler<
     public Optional<ConverterInfo> handleOne(final ConverterName name,
                                              final Optional<ConverterInfo> info,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final UrlPath path,
                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()

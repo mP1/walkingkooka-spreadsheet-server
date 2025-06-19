@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -57,11 +58,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.findLabelsWithReference(
             SpreadsheetSelection.ALL_CELLS,
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -70,11 +73,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.findLabelsWithReference(
             checkCell(cell),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -83,6 +88,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
@@ -90,6 +96,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
             SpreadsheetSelection.cellRange(cells),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -97,9 +104,11 @@ final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReference extends
     private Optional<SpreadsheetDelta> findLabelsWithReference(final SpreadsheetExpressionReference reference,
                                                                final Optional<SpreadsheetDelta> resource,
                                                                final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                               final UrlPath path,
                                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(

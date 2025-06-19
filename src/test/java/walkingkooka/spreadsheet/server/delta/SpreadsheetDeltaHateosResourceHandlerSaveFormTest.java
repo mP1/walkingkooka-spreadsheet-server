@@ -20,8 +20,8 @@ package walkingkooka.spreadsheet.server.delta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
@@ -64,6 +64,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends Spr
                 )
             ),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(store),
             Optional.of(
                 SpreadsheetDelta.EMPTY.setForms(
@@ -131,7 +132,12 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends Spr
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     // Class............................................................................................................

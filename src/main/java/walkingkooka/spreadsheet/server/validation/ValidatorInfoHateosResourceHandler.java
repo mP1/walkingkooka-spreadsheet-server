@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.validation;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -51,9 +52,11 @@ final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<
     @Override
     public Optional<ValidatorInfoSet> handleAll(final Optional<ValidatorInfoSet> infos,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -66,10 +69,12 @@ final class ValidatorInfoHateosResourceHandler implements HateosResourceHandler<
     public Optional<ValidatorInfo> handleOne(final ValidatorName name,
                                              final Optional<ValidatorInfo> info,
                                              final Map<HttpRequestAttribute<?>, Object> parameters,
+                                             final UrlPath path,
                                              final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()

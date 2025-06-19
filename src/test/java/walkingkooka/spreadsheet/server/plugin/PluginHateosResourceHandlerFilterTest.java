@@ -25,6 +25,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.PluginName;
@@ -89,6 +90,7 @@ public final class PluginHateosResourceHandlerFilterTest
         this.handleAllAndCheck(
             Optional.empty(), // resource
             this.parameters(), // parameters
+            this.path(),
             this.context(),
             Optional.of(
                 PluginSet.with(
@@ -149,6 +151,11 @@ public final class PluginHateosResourceHandlerFilterTest
             SpreadsheetUrlQueryParameters.OFFSET, Lists.of("1"),
             SpreadsheetUrlQueryParameters.COUNT, Lists.of("2")
         );
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleAll;
@@ -47,10 +48,12 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleOne(final R columnOrRow,
                                                       final Optional<SpreadsheetDelta> resource,
                                                       final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                      final UrlPath path,
                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkReference(columnOrRow);
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -80,10 +83,12 @@ abstract class SpreadsheetDeltaHateosResourceHandlerInsert<R extends Spreadsheet
     public final Optional<SpreadsheetDelta> handleRange(final Range<R> columnOrRow,
                                                         final Optional<SpreadsheetDelta> resource,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         checkRangeBounded(columnOrRow, this.rangeLabel());
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(

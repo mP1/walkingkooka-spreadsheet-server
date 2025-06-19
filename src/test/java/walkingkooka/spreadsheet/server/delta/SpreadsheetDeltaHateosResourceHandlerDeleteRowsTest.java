@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
@@ -61,6 +62,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
             row,
             resource,
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -95,6 +97,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
             range, // 3 inclusive
             resource,
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(delta)
         );
@@ -129,6 +132,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
                     window.toString()
                 )
             ),
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -154,11 +158,13 @@ public final class SpreadsheetDeltaHateosResourceHandlerDeleteRowsTest extends S
     }
 
     private void handleRangeFails2(final Range<SpreadsheetRowReference> rows) {
-        this.checkEquals("Range with both rows required=" + rows,
+        this.checkEquals(
+            "Range with both rows required=" + rows,
             this.handleRangeFails(
                 rows,
                 this.collectionResource(),
                 HateosResourceHandler.NO_PARAMETERS,
+                UrlPath.EMPTY,
                 this.context(),
                 IllegalArgumentException.class).getMessage(),
             "message"

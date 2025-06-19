@@ -22,7 +22,9 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.FakeSpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetCellFindQuery;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -95,6 +97,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                 SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
                 SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
             ), // parameters
+            UrlPath.EMPTY,
             SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
@@ -130,7 +133,8 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
             ),
             a1, // reference
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
@@ -170,6 +174,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                 SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
                 SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
             ), // parameters
+            UrlPath.EMPTY,
             SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
@@ -207,6 +212,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
                 SpreadsheetCellFindQuery.OFFSET, Lists.of("" + OFFSET),
                 SpreadsheetCellFindQuery.COUNT, Lists.of("" + COUNT)
             ), // parameters
+            UrlPath.EMPTY,
             SpreadsheetEngineHateosResourceHandlerContexts.fake(),
             Optional.of(
                 expected
@@ -240,6 +246,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerFindLabelsWithReferenceT
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

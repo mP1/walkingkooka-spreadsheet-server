@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -106,6 +107,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             this.id(),
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(this.spreadsheetDelta())
         );
@@ -237,6 +239,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             id,
             Optional.empty(),
             parameters,
+            UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetFormulaParserToken parseFormula(final TextCursor formula,
@@ -316,10 +319,16 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             this.range(),
             this.collectionResource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
-                SpreadsheetDelta.EMPTY
-                    .setCells(Sets.of(b1, b2, b3))
+                SpreadsheetDelta.EMPTY.setCells(
+                    Sets.of(
+                        b1,
+                        b2,
+                        b3
+                    )
+                )
             )
         );
     }
@@ -390,6 +399,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     "query=true()"
                 )
             ),
+            UrlPath.EMPTY,
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
@@ -487,6 +497,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
                     window.toString()
                 )
             ),
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -525,14 +536,20 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
         );
     }
 
-    private void loadCellRangeFails(final Map<HttpRequestAttribute<?>, Object> parameters, final String message) {
+    private void loadCellRangeFails(final Map<HttpRequestAttribute<?>, Object> parameters,
+                                    final String message) {
         final IllegalArgumentException thrown = this.handleAllFails(
             Optional.empty(),
             parameters,
+            UrlPath.EMPTY,
             this.context(),
             IllegalArgumentException.class
         );
-        this.checkEquals(message, thrown.getMessage(), "message");
+        this.checkEquals(
+            message,
+            thrown.getMessage(),
+            "message"
+        );
     }
 
     @Test
@@ -760,6 +777,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             ),
             Optional.empty(),
             parameters,
+            UrlPath.EMPTY,
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
@@ -935,6 +953,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             ),
             Optional.empty(),
             parameters,
+            UrlPath.EMPTY,
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -1250,6 +1269,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
             ),
             Optional.empty(),
             parameters,
+            UrlPath.EMPTY,
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadata spreadsheetMetadata() {
@@ -1379,6 +1399,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadCellTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

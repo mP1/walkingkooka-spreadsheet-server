@@ -66,6 +66,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
             row,
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 returned
@@ -104,6 +105,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertAfterRowTest exten
             range.range(),
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 returned

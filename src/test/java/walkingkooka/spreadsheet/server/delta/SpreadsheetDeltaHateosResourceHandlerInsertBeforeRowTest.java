@@ -22,6 +22,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngines;
@@ -88,6 +89,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRowTest exte
                 SpreadsheetUrlQueryParameters.COUNT,
                 Lists.of("" + count)
             ),
+            UrlPath.EMPTY,
             this.context(cellStore),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -171,6 +173,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerInsertBeforeRowTest exte
                 SpreadsheetUrlQueryParameters.COUNT,
                 Lists.of("" + count)
             ),
+            UrlPath.EMPTY,
             this.context(cellStore),
             Optional.of(
                 SpreadsheetDelta.EMPTY

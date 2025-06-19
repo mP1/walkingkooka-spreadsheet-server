@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -45,6 +46,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
         this.handleAllFails(
             this.collectionResource(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -56,6 +58,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             this.id(),
             Optional.of(this.metadataWithDefaults()),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -69,6 +72,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             id,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
@@ -97,6 +101,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerDeleteTest extends Sp
             id,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {

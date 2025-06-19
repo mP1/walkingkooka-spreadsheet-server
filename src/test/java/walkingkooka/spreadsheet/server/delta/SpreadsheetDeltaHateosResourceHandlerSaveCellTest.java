@@ -23,6 +23,7 @@ import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.SpreadsheetCell;
 import walkingkooka.spreadsheet.SpreadsheetErrorKind;
@@ -64,6 +65,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
         this.handleOneFails(this.id(),
             Optional.empty(),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class);
     }
@@ -90,6 +92,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
             this.id(),
             this.resource(),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 this.saved()
@@ -115,6 +118,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     )
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -166,6 +170,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                 SpreadsheetCellFindQuery.QUERY,
                 Lists.of(query)
             ),
+            this.path(),
             new TestSpreadsheetEngineHateosResourceHandlerContext() {
 
                 @Override
@@ -242,6 +247,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     .setWindow(window)
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -292,6 +298,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     .setCells(Sets.of(b2, c3))
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 result
@@ -343,6 +350,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
                     .setWindow(window)
             ),
             this.parameters(),
+            this.path(),
             this.context(),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -399,6 +407,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveCellTest
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return Maps.empty();
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

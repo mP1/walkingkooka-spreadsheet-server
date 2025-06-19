@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
@@ -75,6 +76,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
             a,
             RESOURCE,
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(cellStore),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -131,6 +133,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
             b2.column().columnRange(c3.column()).range(),
             RESOURCE,
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(cellStore),
             Optional.of(
                 SpreadsheetDelta.EMPTY
@@ -199,6 +202,11 @@ public final class SpreadsheetDeltaHateosResourceHandlerClearColumnsTest extends
     @Override
     public Optional<SpreadsheetDelta> collectionResource() {
         return RESOURCE;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

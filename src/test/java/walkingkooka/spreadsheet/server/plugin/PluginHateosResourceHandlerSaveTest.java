@@ -21,10 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Binary;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -91,7 +92,8 @@ public final class PluginHateosResourceHandlerSaveTest
         this.handleOneAndCheck(
             PLUGIN2.name(),
             Optional.of(PLUGIN2), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             Optional.of(PLUGIN2)
         );
@@ -123,7 +125,8 @@ public final class PluginHateosResourceHandlerSaveTest
         this.handleOneAndCheck(
             updatePlugin1.name(),
             Optional.of(updatePlugin1), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             Optional.of(updatePlugin1)
         );
@@ -143,6 +146,7 @@ public final class PluginHateosResourceHandlerSaveTest
             ),
             Optional.empty(), // resource
             this.parameters(), // parameters
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -153,6 +157,7 @@ public final class PluginHateosResourceHandlerSaveTest
         this.handleAllFails(
             Optional.empty(), // resource
             this.parameters(), // parameters
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -201,7 +206,12 @@ public final class PluginHateosResourceHandlerSaveTest
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

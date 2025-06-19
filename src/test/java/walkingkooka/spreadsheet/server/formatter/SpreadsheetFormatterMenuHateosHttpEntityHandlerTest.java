@@ -25,6 +25,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterSelector;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.header.CharsetName;
 import walkingkooka.net.header.HeaderException;
 import walkingkooka.net.header.MediaType;
@@ -68,6 +69,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
             this.id(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -79,6 +81,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
             this.manyIds(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -89,6 +92,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
         this.handleNoneFails(
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -100,6 +104,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
             this.range(),
             this.entity(),
             this.parameters(),
+            this.path(),
             this.context(),
             UnsupportedOperationException.class
         );
@@ -110,6 +115,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
         final HeaderException thrown = this.handleAllFails(
             HttpEntity.EMPTY,
             this.parameters(),
+            this.path(),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
@@ -131,6 +137,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
                 MediaType.APPLICATION_JSON.accept()
             ),
             this.parameters(),
+            this.path(),
             new FakeSpreadsheetEngineHateosResourceHandlerContext() {
                 @Override
                 public MediaType contentType() {
@@ -323,6 +330,11 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosHttpEntityHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

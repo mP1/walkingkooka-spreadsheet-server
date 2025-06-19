@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.Range;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetValueType;
@@ -63,11 +64,13 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     @Override
     public Optional<SpreadsheetDelta> handleAll(final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
             SpreadsheetSelection.ALL_CELLS.range(),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -76,12 +79,14 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleOne(final SpreadsheetCellReference cell,
                                                 final Optional<SpreadsheetDelta> resource,
                                                 final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                final UrlPath path,
                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         return this.handleRange(
             checkCell(cell)
                 .range(cell),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -90,6 +95,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     public Optional<SpreadsheetDelta> handleRange(final Range<SpreadsheetCellReference> cells,
                                                   final Optional<SpreadsheetDelta> resource,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkIdRange(cells);
 
@@ -97,6 +103,7 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
             SpreadsheetSelection.cellRange(cells),
             resource,
             parameters,
+            path,
             context
         );
     }
@@ -104,9 +111,11 @@ final class SpreadsheetDeltaHateosResourceHandlerFindCells extends SpreadsheetDe
     private Optional<SpreadsheetDelta> findCells(final SpreadsheetCellRangeReference cells,
                                                  final Optional<SpreadsheetDelta> resource,
                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                 final UrlPath path,
                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(resource);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         final SpreadsheetCellFindQuery find = SpreadsheetCellFindQuery.extract(parameters);

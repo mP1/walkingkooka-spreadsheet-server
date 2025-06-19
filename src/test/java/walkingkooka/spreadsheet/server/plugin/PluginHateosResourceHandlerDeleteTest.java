@@ -22,9 +22,10 @@ import walkingkooka.Binary;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.Range;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
+import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -96,7 +97,8 @@ public final class PluginHateosResourceHandlerDeleteTest
         this.handleOneAndCheck(
             PLUGIN1.name(),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             Optional.empty()
         );
@@ -117,7 +119,8 @@ public final class PluginHateosResourceHandlerDeleteTest
         this.handleOneAndCheck(
             PluginName.with("Unknown"),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             this.context(),
             Optional.empty()
         );
@@ -129,7 +132,8 @@ public final class PluginHateosResourceHandlerDeleteTest
 
         this.handleAllAndCheck(
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             Optional.empty()
         );
@@ -151,7 +155,8 @@ public final class PluginHateosResourceHandlerDeleteTest
                     Range.lessThanEquals(PLUGIN3.name())
                 ),
             Optional.empty(), // resource
-            Maps.empty(), // parameters
+            HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             context,
             Optional.empty()
         );
@@ -209,7 +214,12 @@ public final class PluginHateosResourceHandlerDeleteTest
 
     @Override
     public Map<HttpRequestAttribute<?>, Object> parameters() {
-        return Maps.empty();
+        return HateosResourceHandler.NO_PARAMETERS;
+    }
+
+    @Override
+    public UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

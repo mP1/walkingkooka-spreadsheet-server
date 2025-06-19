@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
@@ -59,6 +60,11 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerInsertTestCase<H exte
         return Maps.of(
             SpreadsheetUrlQueryParameters.COUNT, Lists.of("" + COUNT)
         );
+    }
+
+    @Override
+    public final UrlPath path() {
+        return UrlPath.EMPTY;
     }
 
     @Override

@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.formatter;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -51,9 +52,11 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
     @Override
     public Optional<SpreadsheetFormatterInfoSet> handleAll(final Optional<SpreadsheetFormatterInfoSet> infos,
                                                            final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                           final UrlPath path,
                                                            final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -66,10 +69,12 @@ final class SpreadsheetFormatterInfoHateosResourceHandler implements HateosResou
     public Optional<SpreadsheetFormatterInfo> handleOne(final SpreadsheetFormatterName name,
                                                         final Optional<SpreadsheetFormatterInfo> info,
                                                         final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                        final UrlPath path,
                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()

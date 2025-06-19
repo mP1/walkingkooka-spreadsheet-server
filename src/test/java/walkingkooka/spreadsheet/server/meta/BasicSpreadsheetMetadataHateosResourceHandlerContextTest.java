@@ -753,7 +753,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
                 @Override
                 public RelativeUrl url() {
-                    return Url.parseRelative("/api987/123def/cell/B2/");
+                    return Url.parseRelative("/api987/123def/cell/B2");
                 }
 
                 @SuppressWarnings("UnnecessaryBoxing")

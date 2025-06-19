@@ -23,6 +23,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -53,6 +54,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             this.id(),
             Optional.of(this.metadataWithDefaults()),
             this.parameters(),
+            this.path(),
             this.context(),
             IllegalArgumentException.class
         );
@@ -66,6 +68,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             id,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
@@ -94,6 +97,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
             id,
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetStoreRepository storeRepository(final SpreadsheetId i) {
@@ -127,6 +131,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 SpreadsheetUrlQueryParameters.COUNT,
                 Lists.of("2")
             ),
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadataStore metadataStore() {
@@ -163,6 +168,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 SpreadsheetUrlQueryParameters.COUNT,
                 Lists.of("2")
             ),
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadataStore metadataStore() {
@@ -201,6 +207,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 SpreadsheetUrlQueryParameters.COUNT,
                 Lists.of("2")
             ),
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadataStore metadataStore() {
@@ -242,6 +249,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerLoadTest extends Spre
                 .collect(Collectors.toCollection(SortedSets::tree)),
             Optional.empty(),
             HateosResourceHandler.NO_PARAMETERS,
+            UrlPath.EMPTY,
             new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
                 @Override
                 public SpreadsheetMetadataStore metadataStore() {

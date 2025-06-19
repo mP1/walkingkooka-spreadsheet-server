@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.importer;
 
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
@@ -51,9 +52,11 @@ final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResour
     @Override
     public Optional<SpreadsheetImporterInfoSet> handleAll(final Optional<SpreadsheetImporterInfoSet> infos,
                                                           final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                          final UrlPath path,
                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
@@ -66,10 +69,12 @@ final class SpreadsheetImporterInfoHateosResourceHandler implements HateosResour
     public Optional<SpreadsheetImporterInfo> handleOne(final SpreadsheetImporterName name,
                                                        final Optional<SpreadsheetImporterInfo> info,
                                                        final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                       final UrlPath path,
                                                        final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
+        HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return context.systemSpreadsheetProvider()
