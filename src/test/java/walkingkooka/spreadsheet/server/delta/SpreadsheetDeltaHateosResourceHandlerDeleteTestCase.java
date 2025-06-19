@@ -65,19 +65,23 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerDeleteTestCase<H exte
         );
     }
 
-    @Override final SpreadsheetEngine engine() {
+    @Override
+    final SpreadsheetEngine engine() {
         return new FakeSpreadsheetEngine();
     }
 
-    @Override final public Optional<SpreadsheetDelta> resource() {
+    @Override
+    final public Optional<SpreadsheetDelta> resource() {
         return Optional.empty();
     }
 
-    @Override final public Optional<SpreadsheetDelta> collectionResource() {
+    @Override
+    final public Optional<SpreadsheetDelta> collectionResource() {
         return Optional.empty();
     }
 
-    @Override final public Map<HttpRequestAttribute<?>, Object> parameters() {
+    @Override
+    final public Map<HttpRequestAttribute<?>, Object> parameters() {
         return HateosResourceHandler.NO_PARAMETERS;
     }
 
