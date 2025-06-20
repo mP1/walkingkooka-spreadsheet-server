@@ -38,7 +38,7 @@ import walkingkooka.net.http.server.HttpRequest;
 import walkingkooka.net.http.server.HttpRequestParameterName;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -878,7 +878,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     // helpers..........................................................................................................
 
-    private void routeAndCheck(final HateosResourceMapping<?, ?, ?, ?, ?> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -893,7 +893,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         );
     }
 
-    private void routeAndCheck(final HateosResourceMapping<?, ?, ?, ?, ?> mapping,
+    private void routeAndCheck(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
@@ -901,7 +901,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final String message
     ) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler> possible = HateosResourceMapping.router(
+        final Optional<HttpHandler> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             INDENTATION,
@@ -933,12 +933,12 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
         }
     }
 
-    private HttpResponse route(final HateosResourceMapping<?, ?, ?, ?, ?> mapping,
+    private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
                                final HttpMethod method,
                                final String url,
                                final String requestBody) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
-        final Optional<HttpHandler> possible = HateosResourceMapping.router(
+        final Optional<HttpHandler> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             INDENTATION,

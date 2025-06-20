@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.function;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -34,7 +34,7 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
     // function.......................................................................................................
 
-    public static HateosResourceMapping<ExpressionFunctionName,
+    public static HateosResourceMappings<ExpressionFunctionName,
         ExpressionFunctionInfo,
         ExpressionFunctionInfoSet,
         ExpressionFunctionInfo,
@@ -42,11 +42,11 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
         // function GET...............................................................................................
 
-        HateosResourceMapping<ExpressionFunctionName,
+        HateosResourceMappings<ExpressionFunctionName,
             ExpressionFunctionInfo,
             ExpressionFunctionInfoSet,
             ExpressionFunctionInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMappings.with(
                 FUNCTION,
                 ExpressionFunctionHateosResourceMappings::parseFunctionSelection,
                 ExpressionFunctionInfo.class, // valueType

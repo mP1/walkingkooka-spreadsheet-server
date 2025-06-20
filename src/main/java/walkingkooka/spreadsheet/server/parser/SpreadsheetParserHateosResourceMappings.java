@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.parser;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.parser.SpreadsheetParserInfo;
@@ -32,7 +32,7 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
 
     // parser.......................................................................................................
 
-    public static HateosResourceMapping<SpreadsheetParserName,
+    public static HateosResourceMappings<SpreadsheetParserName,
         SpreadsheetParserInfo,
         SpreadsheetParserInfoSet,
         SpreadsheetParserInfo,
@@ -40,11 +40,11 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
 
         // parser GET...............................................................................................
 
-        HateosResourceMapping<SpreadsheetParserName,
+        HateosResourceMappings<SpreadsheetParserName,
             SpreadsheetParserInfo,
             SpreadsheetParserInfoSet,
             SpreadsheetParserInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMappings.with(
             SpreadsheetParserName.HATEOS_RESOURCE_NAME,
             SpreadsheetParserHateosResourceMappings::parseParserSelection,
             SpreadsheetParserInfo.class, // valueType

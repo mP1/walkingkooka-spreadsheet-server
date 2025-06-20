@@ -30,7 +30,7 @@ import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.HttpRequestAttributeRouting;
 import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.RouteMappings;
 import walkingkooka.route.Router;
@@ -167,7 +167,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
 
     private static HttpEntity patchPost(final HttpEntity response) {
         return response.addHeader(
-            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            HateosResourceMappings.X_CONTENT_TYPE_NAME,
             SpreadsheetMetadata.class.getSimpleName()
         );
     }

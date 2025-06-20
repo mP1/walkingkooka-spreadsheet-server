@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.comparator;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
@@ -32,7 +32,7 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
 
     // comparator.......................................................................................................
 
-    public static HateosResourceMapping<SpreadsheetComparatorName,
+    public static HateosResourceMappings<SpreadsheetComparatorName,
         SpreadsheetComparatorInfo,
         SpreadsheetComparatorInfoSet,
         SpreadsheetComparatorInfo,
@@ -40,11 +40,11 @@ public final class SpreadsheetComparatorHateosResourceMappings implements Public
 
         // comparator GET...............................................................................................
 
-        HateosResourceMapping<SpreadsheetComparatorName,
+        HateosResourceMappings<SpreadsheetComparatorName,
             SpreadsheetComparatorInfo,
             SpreadsheetComparatorInfoSet,
             SpreadsheetComparatorInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> comparator = HateosResourceMappings.with(
             SpreadsheetComparatorName.HATEOS_RESOURCE_NAME,
             SpreadsheetComparatorHateosResourceMappings::parseComparatorSelection,
             SpreadsheetComparatorInfo.class, // valueType

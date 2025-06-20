@@ -33,7 +33,7 @@ import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandlerTesting;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -298,7 +298,7 @@ public final class SpreadsheetFormatterMenuHateosHttpEntityHandlerTest implement
                     "  }\n" +
                     "]"
             ).addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 SpreadsheetFormatterSelectorMenuList.class.getSimpleName()
             )
         );

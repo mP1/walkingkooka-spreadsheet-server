@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.export;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
@@ -39,7 +39,7 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
         throw new UnsupportedOperationException();
     }
 
-    public static HateosResourceMapping<SpreadsheetExporterName,
+    public static HateosResourceMappings<SpreadsheetExporterName,
         SpreadsheetExporterInfo,
         SpreadsheetExporterInfoSet,
         SpreadsheetExporterInfo,
@@ -47,11 +47,11 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
 
         // exporter GET...............................................................................................
 
-        HateosResourceMapping<SpreadsheetExporterName,
+        HateosResourceMappings<SpreadsheetExporterName,
             SpreadsheetExporterInfo,
             SpreadsheetExporterInfoSet,
             SpreadsheetExporterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> exporter = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> exporter = HateosResourceMappings.with(
             SpreadsheetExporterName.HATEOS_RESOURCE_NAME,
             SpreadsheetExporterHateosResourceMappings::parseExporterSelection,
             SpreadsheetExporterInfo.class, // valueType

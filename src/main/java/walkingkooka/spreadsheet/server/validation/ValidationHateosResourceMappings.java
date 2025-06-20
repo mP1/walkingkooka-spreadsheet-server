@@ -19,7 +19,7 @@ package walkingkooka.spreadsheet.server.validation;
 
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
@@ -39,7 +39,7 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
         throw new UnsupportedOperationException();
     }
 
-    public static HateosResourceMapping<ValidatorName,
+    public static HateosResourceMappings<ValidatorName,
         ValidatorInfo,
         ValidatorInfoSet,
         ValidatorInfo,
@@ -47,11 +47,11 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
 
         // validator GET...............................................................................................
 
-        HateosResourceMapping<ValidatorName,
+        HateosResourceMappings<ValidatorName,
             ValidatorInfo,
             ValidatorInfoSet,
             ValidatorInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> validator = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> validator = HateosResourceMappings.with(
             ValidatorName.HATEOS_RESOURCE_NAME,
             ValidationHateosResourceMappings::parseValidatorSelection,
             ValidatorInfo.class, // valueType

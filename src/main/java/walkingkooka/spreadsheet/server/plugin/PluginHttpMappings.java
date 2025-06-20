@@ -24,7 +24,7 @@ import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.store.Plugin;
@@ -37,7 +37,7 @@ import walkingkooka.text.LineEnding;
 
 final class PluginHttpMappings implements StaticHelper {
 
-    static HateosResourceMapping<PluginName,
+    static HateosResourceMappings<PluginName,
         Plugin,
         PluginSet,
         Plugin,
@@ -45,11 +45,11 @@ final class PluginHttpMappings implements StaticHelper {
 
         // plugin GET...................................................................................................
 
-        HateosResourceMapping<PluginName,
+        HateosResourceMappings<PluginName,
             Plugin,
             PluginSet,
             Plugin,
-            PluginHateosResourceHandlerContext> plugin = HateosResourceMapping.with(
+            PluginHateosResourceHandlerContext> plugin = HateosResourceMappings.with(
             Plugin.HATEOS_RESOURCE_NAME,
             PluginHttpMappings::parsePluginName,
             Plugin.class,
@@ -131,7 +131,7 @@ final class PluginHttpMappings implements StaticHelper {
                                                                final Indentation indentation,
                                                                final LineEnding lineEnding,
                                                                final PluginHateosResourceHandlerContext context) {
-        return HateosResourceMapping.router(
+        return HateosResourceMappings.router(
             basePath,
             Sets.of(
                 PluginHttpMappings.plugin()
