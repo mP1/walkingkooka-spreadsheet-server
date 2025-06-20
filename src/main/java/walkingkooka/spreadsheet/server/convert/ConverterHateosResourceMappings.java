@@ -22,7 +22,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -33,7 +33,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
 
     // converter.......................................................................................................
 
-    public static HateosResourceMapping<ConverterName,
+    public static HateosResourceMappings<ConverterName,
         ConverterInfo,
         ConverterInfoSet,
         ConverterInfo,
@@ -41,11 +41,11 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
 
         // converter GET...............................................................................................
 
-        HateosResourceMapping<ConverterName,
+        HateosResourceMappings<ConverterName,
             ConverterInfo,
             ConverterInfoSet,
             ConverterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMapping.with(
+            SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMappings.with(
             CONVERTER,
             ConverterHateosResourceMappings::parseConverterSelection,
             ConverterInfo.class, // valueType

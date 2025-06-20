@@ -44,7 +44,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpResponses;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.FakeProviderContext;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.PluginStore;
@@ -847,7 +847,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             expected.setEntity(
                 HttpEntity.EMPTY
                     .setContentType(CONTENT_TYPE.setCharset(CharsetName.UTF_8))
-                    .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
+                    .addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, SpreadsheetDelta.class.getSimpleName())
                     .setBodyText(expectedBody)
                     .setContentLength()
             );

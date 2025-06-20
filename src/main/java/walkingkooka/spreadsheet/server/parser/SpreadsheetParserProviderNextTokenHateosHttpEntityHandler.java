@@ -25,7 +25,7 @@ import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.HttpEntity;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosHttpEntityHandler;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleAll;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
@@ -100,7 +100,7 @@ final class SpreadsheetParserProviderNextTokenHateosHttpEntityHandler implements
         return HttpEntity.EMPTY.setContentType(
             requiredContentType.setCharset(CharsetName.UTF_8)
         ).addHeader(
-            HateosResourceMapping.X_CONTENT_TYPE_NAME,
+            HateosResourceMappings.X_CONTENT_TYPE_NAME,
             SpreadsheetParserSelectorToken.class.getSimpleName()
         ).setBodyText(
             response.map(r -> context.marshall(r).toString())

@@ -66,7 +66,7 @@ import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
-import walkingkooka.net.http.server.hateos.HateosResourceMapping;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.JarFileTesting;
 import walkingkooka.plugin.PluginName;
 import walkingkooka.plugin.ProviderContext;
@@ -1056,7 +1056,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.OK.status(),
                 HttpEntity.EMPTY.setContentType(SpreadsheetServerMediaTypes.CONTENT_TYPE)
-                    .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
+                    .addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, JarEntryInfoList.class.getSimpleName())
                     .setBodyText(
                         "[\n" +
                             "  {\n" +
@@ -12707,7 +12707,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         final HttpResponse response = this.response(status);
         response.setEntity(
             HttpEntity.EMPTY.addHeader(
-                HateosResourceMapping.X_CONTENT_TYPE_NAME,
+                HateosResourceMappings.X_CONTENT_TYPE_NAME,
                 bodyTypeName
             )
         );
@@ -12754,7 +12754,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             HttpEntity.EMPTY
                 .setHeader(SpreadsheetHttpServer.TRANSACTION_ID, transactionId.map(Lists::of).orElse(Lists.empty()))
                 .setContentType(CONTENT_TYPE_UTF8)
-                .addHeader(HateosResourceMapping.X_CONTENT_TYPE_NAME, bodyTypeName)
+                .addHeader(HateosResourceMappings.X_CONTENT_TYPE_NAME, bodyTypeName)
                 .addHeader(HttpHeaderName.CONTENT_LENGTH, (long) body.value().length)
                 .setBody(body));
     }
