@@ -260,7 +260,9 @@ public final class JarEntryInfoName implements Name,
     }
 
     private final static Predicate<UrlPath> DOWNLOAD_URL = SpreadsheetHttpServer.API_PLUGIN.append(UrlPathName.WILDCARD)
-        .append(SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName())
-        .append(UrlPathName.with("**"))
+        .append(
+            SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
+            .get()
+        ).append(UrlPathName.with("**"))
         .predicate();
 }
