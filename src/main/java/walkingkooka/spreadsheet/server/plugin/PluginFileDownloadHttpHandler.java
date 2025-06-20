@@ -95,6 +95,7 @@ final class PluginFileDownloadHttpHandler implements HttpHandler {
         download = download.append(pathName)
             .append(
                 SpreadsheetServerLinkRelations.DOWNLOAD.toUrlPathName()
+                    .get()
             );
 
         final Optional<Plugin> maybePlugin = this.pluginStore.load(pluginName);
