@@ -33,10 +33,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.validation.form.Form;
-import walkingkooka.validation.form.FormField;
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
@@ -51,10 +51,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     @Test
     public void testHandleOneLoad() {
         final FormName formName = this.id();
-        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(formName)
+        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(formName)
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
@@ -79,19 +79,19 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     public void testHandleAll() {
         final SpreadsheetFormStore store = SpreadsheetFormStores.treeMap();
 
-        final Form<SpreadsheetExpressionReference> form1 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
         store.save(form1);
 
-        final Form<SpreadsheetExpressionReference> form2 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form2"))
+        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.parseCell("B2").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2").toExpressionReference())
                         .setLabel("FieldLabel2")
                 )
             );
@@ -117,37 +117,37 @@ public final class SpreadsheetDeltaHateosResourceHandlerLoadFormTest extends Spr
     public void testHandleAllWithOffsetAndCount() {
         final SpreadsheetFormStore store = SpreadsheetFormStores.treeMap();
 
-        final Form<SpreadsheetExpressionReference> form1 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
         store.save(form1);
 
-        final Form<SpreadsheetExpressionReference> form2 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form2"))
+        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.parseCell("B2").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("B2").toExpressionReference())
                         .setLabel("FieldLabel2")
                 )
             );
         store.save(form2);
 
-        final Form<SpreadsheetExpressionReference> form3 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form3"))
+        final Form<SpreadsheetExpressionReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.parseCell("C3").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("C3").toExpressionReference())
                         .setLabel("FieldLabel3")
                 )
             );
         store.save(form3);
 
-        final Form<SpreadsheetExpressionReference> form4 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form4"))
+        final Form<SpreadsheetExpressionReference> form4 = SpreadsheetForms.form(FormName.with("Form4"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.parseCell("D4").toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.parseCell("D4").toExpressionReference())
                         .setLabel("FieldLabel4")
                 )
             );

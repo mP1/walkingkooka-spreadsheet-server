@@ -30,10 +30,10 @@ import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
+import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStore;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.validation.form.Form;
-import walkingkooka.validation.form.FormField;
 import walkingkooka.validation.form.FormName;
 
 import java.util.Map;
@@ -47,10 +47,10 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends Spr
     @Test
     public void testHandleOneSave() {
         final FormName formName = this.id();
-        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(formName)
+        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(formName)
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
@@ -117,7 +117,7 @@ public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends Spr
         return Optional.of(
             SpreadsheetDelta.EMPTY.setForms(
                 Sets.of(
-                    Form.with(
+                    SpreadsheetForms.form(
                         FormName.with("Form123")
                     )
                 )
