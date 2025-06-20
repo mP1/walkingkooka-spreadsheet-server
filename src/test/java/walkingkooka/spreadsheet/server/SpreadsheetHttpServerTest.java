@@ -127,6 +127,7 @@ import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.SpreadsheetRowStores;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepositories;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
+import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.spreadsheet.validation.form.store.SpreadsheetFormStores;
 import walkingkooka.storage.StorageStores;
 import walkingkooka.text.CaseSensitivity;
@@ -147,7 +148,6 @@ import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 import walkingkooka.validation.form.Form;
-import walkingkooka.validation.form.FormField;
 import walkingkooka.validation.form.FormName;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
@@ -7752,10 +7752,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormLoadsWithOffsetAndCount() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form1 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+        final Form<SpreadsheetExpressionReference> form1 = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
@@ -7796,10 +7796,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
 
-        final Form<SpreadsheetExpressionReference> form2 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form2"))
+        final Form<SpreadsheetExpressionReference> form2 = SpreadsheetForms.form(FormName.with("Form2"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel2")
                 )
             );
@@ -7840,10 +7840,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
 
-        final Form<SpreadsheetExpressionReference> form3 = Form.<SpreadsheetExpressionReference>with(FormName.with("Form3"))
+        final Form<SpreadsheetExpressionReference> form3 = SpreadsheetForms.form(FormName.with("Form3"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel3")
                 )
             );
@@ -7912,10 +7912,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormSave() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
@@ -7965,10 +7965,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     public void testFormUpdate() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
-        final Form<SpreadsheetExpressionReference> form = Form.<SpreadsheetExpressionReference>with(FormName.with("Form1"))
+        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form1"))
             .setFields(
                 Lists.of(
-                    FormField.with(SpreadsheetSelection.A1.toExpressionReference())
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
                         .setLabel("FieldLabel1")
                 )
             );
