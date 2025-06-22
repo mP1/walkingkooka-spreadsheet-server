@@ -74,6 +74,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.FakeSpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContexts;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStore;
 import walkingkooka.spreadsheet.store.SpreadsheetLabelStores;
 import walkingkooka.spreadsheet.store.repo.FakeSpreadsheetStoreRepository;
@@ -109,13 +110,24 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
 
     // cell.............................................................................................................
 
+//    SpreadsheetDeltaHttpMappings.cell(
+//    engine,
+//    DEFAULT_MAX,
+//    INDENTATION,
+//    LINE_ENDING,
+//    context
+//            )
+
     @Test
     public void testCellWithNullEngineFails() {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetDeltaHttpMappings.cell(
                 null,
-                DEFAULT_MAX
+                DEFAULT_MAX,
+                INDENTATION,
+                LINE_ENDING,
+                SpreadsheetEngineHateosResourceHandlerContexts.fake()
             )
         );
     }
@@ -126,7 +138,10 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             IllegalArgumentException.class,
             () -> SpreadsheetDeltaHttpMappings.cell(
                 SpreadsheetEngines.fake(),
-                -1 // defaultMax
+                -1, // defaultMax
+                INDENTATION,
+                LINE_ENDING,
+                SpreadsheetEngineHateosResourceHandlerContexts.fake()
             )
         );
     }
@@ -363,15 +378,20 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                    final HttpStatusCode statusCode,
                                    final String message) {
         final SpreadsheetEngine engine = this.engine();
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
 
         this.routeAndCheck(
             SpreadsheetDeltaHttpMappings.cell(
                 engine,
-                DEFAULT_MAX
+                DEFAULT_MAX,
+                INDENTATION,
+                LINE_ENDING,
+                context
             ),
             method,
             url,
             body,
+            context,
             statusCode,
             message
         );
@@ -380,14 +400,20 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     private HttpResponse routeCell(final HttpMethod method,
                                    final String url,
                                    final String body) {
+        final SpreadsheetEngineHateosResourceHandlerContext context = this.context();
+
         return this.route(
             SpreadsheetDeltaHttpMappings.cell(
                 this.engine(),
-                DEFAULT_MAX
+                DEFAULT_MAX,
+                INDENTATION,
+                LINE_ENDING,
+                context
             ),
             method,
             url,
-            body
+            body,
+            context
         );
     }
 
@@ -732,7 +758,8 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                 ),
                 method,
                 url,
-                ""
+                "",
+                this.context()
             )
         );
     }
@@ -871,7 +898,8 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                 ),
                 method,
                 url,
-                ""
+                "",
+                this.context()
             )
         );
     }
@@ -888,6 +916,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             method,
             url,
             requestBody,
+            this.context(),
             statusCode,
             null
         );
@@ -897,6 +926,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
                                final HttpMethod method,
                                final String url,
                                final String requestBody,
+                               final SpreadsheetEngineHateosResourceHandlerContext context,
                                final HttpStatusCode statusCode,
                                final String message
     ) {
@@ -906,7 +936,7 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
             Sets.of(mapping),
             INDENTATION,
             LINE_ENDING,
-            this.context()
+            context
         ).route(request.routerParameters());
 
         this.checkNotEquals(
@@ -936,14 +966,15 @@ public final class SpreadsheetDeltaHttpMappingsTest implements ClassTesting2<Spr
     private HttpResponse route(final HateosResourceMappings<?, ?, ?, ?, ?> mapping,
                                final HttpMethod method,
                                final String url,
-                               final String requestBody) {
+                               final String requestBody,
+                               final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HttpRequest request = this.request(method, URL + url, requestBody);
         final Optional<HttpHandler> possible = HateosResourceMappings.router(
             URL.path(),
             Sets.of(mapping),
             INDENTATION,
             LINE_ENDING,
-            this.context()
+            context
         ).route(request.routerParameters());
         this.checkNotEquals(Optional.empty(),
             possible,
