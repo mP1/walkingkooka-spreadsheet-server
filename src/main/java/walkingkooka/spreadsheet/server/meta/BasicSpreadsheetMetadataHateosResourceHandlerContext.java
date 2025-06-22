@@ -25,6 +25,7 @@ import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.net.AbsoluteUrl;
+import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.net.http.server.HttpHandler;
@@ -319,9 +320,51 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                                                                                               final SpreadsheetEngine engine,
                                                                                               final SpreadsheetEngineContext context,
                                                                                               final SpreadsheetProvider systemSpreadsheetProvider) {
+        final AbsoluteUrl serverUrl = this.serverUrl;
+        final UrlPath deltaUrlPath = serverUrl.path()
+            .append(
+                UrlPathName.with(
+                    id.toString()
+                )
+            );
+        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
+
+        final SpreadsheetEngineHateosResourceHandlerContext handlerContext = SpreadsheetEngineHateosResourceHandlerContexts.basic(
+            HateosResourceHandlerContexts.basic(
+                JsonNodeMarshallUnmarshallContexts.basic(
+                    metadata.jsonNodeMarshallContext(),
+                    metadata.jsonNodeUnmarshallContext()
+                )
+            ),
+            context,
+            metadata.spreadsheetFormatterContext(
+                SpreadsheetMetadata.NO_CELL,
+                (final Optional<Object> v) -> context.spreadsheetExpressionEvaluationContext(
+                    SpreadsheetMetadata.NO_CELL,
+                    SpreadsheetExpressionReferenceLoaders.fake()
+                ).addLocalVariable(
+                    SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
+                    v
+                ),
+                context, // SpreadsheetLabelNameResolver
+                context, // ConverterProvider
+                context, // SpreadsheetFormatterProvider
+                context // ProviderContext
+            ),
+            systemSpreadsheetProvider
+        ).setPreProcessor(
+            SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
+                context.storeRepository()
+                    .labels()
+            )
+        );
+
         final HateosResourceMappings<SpreadsheetCellReference, SpreadsheetDelta, SpreadsheetDelta, SpreadsheetCell, SpreadsheetEngineHateosResourceHandlerContext> cell = SpreadsheetDeltaHttpMappings.cell(
             engine,
-            defaultMax
+            defaultMax,
+            this.indentation,
+            this.lineEnding,
+            handlerContext
         );
 
         final HateosResourceMappings<String, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetExpressionReferenceSimilarities, SpreadsheetEngineHateosResourceHandlerContext> cellReference = SpreadsheetDeltaHttpMappings.cellReference(context);
@@ -360,16 +403,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
         final HateosResourceMappings<ValidatorName, ValidatorInfo, ValidatorInfoSet, ValidatorInfo, SpreadsheetEngineHateosResourceHandlerContext> validator = ValidationHateosResourceMappings.validator();
 
-        final AbsoluteUrl serverUrl = this.serverUrl;
-        final SpreadsheetMetadata metadata = context.spreadsheetMetadata();
-
         return HateosResourceMappings.router(
-            serverUrl.path()
-                .append(
-                    UrlPathName.with(
-                        id.toString()
-                    )
-                ),
+            deltaUrlPath,
             Sets.of(
                 cell,
                 cellReference,
@@ -388,35 +423,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             ),
             this.indentation,
             this.lineEnding,
-            SpreadsheetEngineHateosResourceHandlerContexts.basic(
-                HateosResourceHandlerContexts.basic(
-                    JsonNodeMarshallUnmarshallContexts.basic(
-                        metadata.jsonNodeMarshallContext(),
-                        metadata.jsonNodeUnmarshallContext()
-                    )
-                ),
-                context,
-                metadata.spreadsheetFormatterContext(
-                    SpreadsheetMetadata.NO_CELL,
-                    (final Optional<Object> v) -> context.spreadsheetExpressionEvaluationContext(
-                        SpreadsheetMetadata.NO_CELL,
-                        SpreadsheetExpressionReferenceLoaders.fake()
-                    ).addLocalVariable(
-                        SpreadsheetExpressionEvaluationContext.FORMAT_VALUE,
-                        v
-                    ),
-                    context, // SpreadsheetLabelNameResolver
-                    context, // ConverterProvider
-                    context, // SpreadsheetFormatterProvider
-                    context // ProviderContext
-                ),
-                systemSpreadsheetProvider
-            ).setPreProcessor(
-                SpreadsheetMetadataHateosResourceHandlerContexts.spreadsheetDeltaJsonCellLabelResolver(
-                    context.storeRepository()
-                        .labels()
-                )
-            )
+            handlerContext
         );
     }
 

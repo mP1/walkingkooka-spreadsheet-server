@@ -26,7 +26,9 @@ import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngine;
 import walkingkooka.spreadsheet.engine.SpreadsheetEngineContext;
 import walkingkooka.spreadsheet.reference.SpreadsheetCellReference;
+import walkingkooka.spreadsheet.reference.SpreadsheetExpressionReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
+import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.reference.SpreadsheetViewport;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.validation.form.FormName;
@@ -46,6 +48,10 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
         return Objects.requireNonNull(cell, "cell");
     }
 
+    static SpreadsheetExpressionReference checkExpressionReference(final SpreadsheetExpressionReference reference) {
+        return Objects.requireNonNull(reference, "reference");
+    }
+
     static FormName checkFormName(final FormName formName) {
         return Objects.requireNonNull(formName, "formName");
     }
@@ -58,8 +64,8 @@ abstract class SpreadsheetDeltaHateosResourceHandler<I extends Comparable<I>> im
      * Checks that the range bounds are not null and both are inclusive.
      * Complains if the resource is null.
      */
-    static Range<?> checkRangeBounded(final Range<?> range,
-                                      final String label) {
+    static <T extends SpreadsheetSelection & Comparable<T>> Range<T> checkRangeBounded(final Range<T> range,
+                                                                                       final String label) {
         Objects.requireNonNull(range, label);
 
         if (!range.lowerBound().isInclusive() || !range.upperBound().isInclusive()) {

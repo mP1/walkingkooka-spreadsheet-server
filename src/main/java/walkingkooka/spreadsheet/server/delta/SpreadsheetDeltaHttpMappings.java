@@ -18,6 +18,7 @@ package walkingkooka.spreadsheet.server.delta;
 
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.net.UrlPathName;
 import walkingkooka.net.header.LinkRelation;
 import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.HttpRequestAttribute;
@@ -51,6 +52,8 @@ import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerCon
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
 import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
@@ -72,7 +75,10 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         SpreadsheetDelta,
         SpreadsheetCell,
         SpreadsheetEngineHateosResourceHandlerContext> cell(final SpreadsheetEngine engine,
-                                                            final int defaultMax) {
+                                                            final int defaultMax,
+                                                            final Indentation indentation,
+                                                            final LineEnding lineEnding,
+                                                            final SpreadsheetEngineHateosResourceHandlerContext handlerContext) {
         Objects.requireNonNull(engine, "engine");
         // cell GET, POST...............................................................................................
 
@@ -142,6 +148,16 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
             SpreadsheetDeltaHateosResourceHandlerFindCells.with(
                 defaultMax,
                 engine
+            )
+        );
+
+        cell = cell.setHttpHandler(
+            FORM,
+            SpreadsheetDeltaHttpMappingsFormHttpHandler.with(
+                engine,
+                indentation,
+                lineEnding,
+                handlerContext
             )
         );
 
@@ -243,6 +259,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
         return HateosResourceSelection.one(text);
     }
+
+    private static final UrlPathName FORM = UrlPathName.with("form");
 
     // column...........................................................................................................
 
@@ -391,8 +409,8 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
         );
     }
 
-    private static HateosResourceSelection<FormName> parseForm(final String text,
-                                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
+    static HateosResourceSelection<FormName> parseForm(final String text,
+                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
         try {
             HateosResourceSelection<FormName> selection;
 
