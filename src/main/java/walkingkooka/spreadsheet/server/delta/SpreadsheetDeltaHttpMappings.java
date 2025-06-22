@@ -16,7 +16,6 @@
  */
 package walkingkooka.spreadsheet.server.delta;
 
-import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.net.header.LinkRelation;
@@ -50,6 +49,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetRowReference;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.SpreadsheetServerLinkRelations;
+import walkingkooka.spreadsheet.validation.form.SpreadsheetForms;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.validation.form.Form;
@@ -370,14 +370,12 @@ public final class SpreadsheetDeltaHttpMappings implements PublicStaticHelper {
      */
     public static HateosResourceMappings<FormName, SpreadsheetDelta, SpreadsheetDelta, Form<SpreadsheetExpressionReference>, SpreadsheetEngineHateosResourceHandlerContext> form(final int defaultCount,
                                                                                                                                                                                  final SpreadsheetEngine engine) {
-        final Class<Form<SpreadsheetExpressionReference>> formSpreadsheetExpressionReference = Cast.to(Form.class);
-
         return HateosResourceMappings.with(
             Form.HATEOS_RESOURCE_NAME,
             SpreadsheetDeltaHttpMappings::parseForm,
             SpreadsheetDelta.class,
             SpreadsheetDelta.class,
-            formSpreadsheetExpressionReference,
+            SpreadsheetForms.FORM_CLASS,
             SpreadsheetEngineHateosResourceHandlerContext.class
         ).setHateosResourceHandler(
             FORM_LINK_RELATION,
