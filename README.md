@@ -45,7 +45,7 @@ A collection of end points to help manage plugins.
 A collection of end points that support CRUD operations on [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java). Note all payloads are in `JSON` form.
 
 - **GET** /api/spreadsheet/*
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)1,spreadsheet-id2?offset=0&count=10
+- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)?offset=0&count=10
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)
 - **POST** /api/spreadsheet/ 
  expects no BODY, creates a Spreadsheet with [SpreadsheetMetadata](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/meta/SpreadsheetMetadata.java) with defaults using any provided `Locale`.
