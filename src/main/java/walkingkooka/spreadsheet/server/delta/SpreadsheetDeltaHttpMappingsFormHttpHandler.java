@@ -89,6 +89,8 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
             switch (i) {
                 // /api/spreadsheet/SpreadsheetId/cell/SpreadsheetExpressionReference/form
                 case 5:
+                    final SpreadsheetExpressionReference reference = SpreadsheetSelection.parseExpressionReference(name.value());
+
                     final HateosResourceMappings<FormName,
                         SpreadsheetDelta,
                         SpreadsheetDelta,
@@ -104,7 +106,14 @@ final class SpreadsheetDeltaHttpMappingsFormHttpHandler implements HttpHandler {
                         LinkRelation.SELF,
                         HttpMethod.GET,
                         SpreadsheetDeltaHateosResourceHandlerPrepareForm.with(
-                            SpreadsheetSelection.parseExpressionReference(name.value()),
+                            reference,
+                            this.engine
+                        )
+                    ).setHateosResourceHandler(
+                        LinkRelation.SELF,
+                        HttpMethod.POST,
+                        SpreadsheetDeltaHateosResourceHandlerSubmitForm.with(
+                            reference,
                             this.engine
                         )
                     );
