@@ -149,6 +149,8 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.text.TextNodeList;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
+import walkingkooka.validation.form.provider.FormHandlerInfo;
+import walkingkooka.validation.form.provider.FormHandlerInfoSet;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 
@@ -8996,6 +8998,63 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         );
     }
 
+    // formHandlers.....................................................................................................
+
+    @Test
+    public void testFormHandlers() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formHandler",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "[\n" +
+                    "  \"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"\n" +
+                    "]",
+                FormHandlerInfoSet.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormHandlersWithName() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formHandler/basic",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"https://github.com/mP1/walkingkooka-validation/FormHandler/basic basic\"",
+                FormHandlerInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testFormHandlersWithNameUnknown() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/formHandler/unknown",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.NO_CONTENT.status(),
+                FormHandlerInfo.class.getSimpleName()
+            )
+        );
+    }
+    
     // expression-function.............................................................................................
 
     @Test

@@ -141,6 +141,13 @@ These end points may be used to work with available [SpreadsheetFormatterInfoSet
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formatter/[SpreadsheetFormatterName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/spreadsheetFormatterName.java)/samples
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formatter/[SpreadsheetFormatterName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/spreadsheetFormatterName.java)/tokens
 
+#### [FormHandler](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/FormHandler.java)
+
+These end points may be used to work with available [SpreadsheetFormHandlerInfoSet](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/provider/FormHandlerInfoSet.java)
+
+- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formHandler
+- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formHandler/[FormHandlerName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/provider/FormHandlerName.java)
+
 #### [Expression function](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
 These end points may be used to work with available [ExpressionFunctionInfoSet](https://github.com/mP1/walkingkooka-tree-expression-function-provider/blob/master/src/main/java/walkingkooka/tree/expression/function/provider/ExpressionFunctionInfoSet.java)
