@@ -84,6 +84,7 @@ import walkingkooka.spreadsheet.server.convert.ConverterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetDeltaHttpMappings;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.export.SpreadsheetExporterHateosResourceMappings;
+import walkingkooka.spreadsheet.server.form.FormHandlerHateosResourceMappings;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterHateosResourceMappings;
 import walkingkooka.spreadsheet.server.function.ExpressionFunctionHateosResourceMappings;
 import walkingkooka.spreadsheet.server.importer.SpreadsheetImporterHateosResourceMappings;
@@ -100,6 +101,9 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.validation.form.Form;
 import walkingkooka.validation.form.FormName;
+import walkingkooka.validation.form.provider.FormHandlerInfo;
+import walkingkooka.validation.form.provider.FormHandlerInfoSet;
+import walkingkooka.validation.form.provider.FormHandlerName;
 import walkingkooka.validation.provider.ValidatorInfo;
 import walkingkooka.validation.provider.ValidatorInfoSet;
 import walkingkooka.validation.provider.ValidatorName;
@@ -384,6 +388,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             engine
         );
 
+        final HateosResourceMappings<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, FormHandlerInfo, SpreadsheetEngineHateosResourceHandlerContext> formHandler = FormHandlerHateosResourceMappings.formHandler();
+        
         final HateosResourceMappings<SpreadsheetFormatterName, SpreadsheetFormatterInfo, SpreadsheetFormatterInfoSet, SpreadsheetFormatterInfo, SpreadsheetEngineHateosResourceHandlerContext> formatter = SpreadsheetFormatterHateosResourceMappings.formatter(context);
 
         final HateosResourceMappings<ExpressionFunctionName, ExpressionFunctionInfo, ExpressionFunctionInfoSet, ExpressionFunctionInfo, SpreadsheetEngineHateosResourceHandlerContext> expressionFunction = ExpressionFunctionHateosResourceMappings.function();
@@ -413,6 +419,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 converter,
                 exporter,
                 form,
+                formHandler,
                 formatter, // formatter
                 expressionFunction, // function
                 importer,

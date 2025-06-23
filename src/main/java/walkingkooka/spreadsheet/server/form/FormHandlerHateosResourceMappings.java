@@ -17,12 +17,61 @@
 
 package walkingkooka.spreadsheet.server.form;
 
+import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
+import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.text.CharSequences;
+import walkingkooka.validation.form.provider.FormHandlerInfo;
+import walkingkooka.validation.form.provider.FormHandlerInfoSet;
+import walkingkooka.validation.form.provider.FormHandlerName;
 
 public final class FormHandlerHateosResourceMappings implements PublicStaticHelper {
 
-    // validator.......................................................................................................
+    public static HateosResourceMappings<FormHandlerName,
+        FormHandlerInfo,
+        FormHandlerInfoSet,
+        FormHandlerInfo,
+        SpreadsheetEngineHateosResourceHandlerContext> formHandler() {
 
+        // formHandler GET...............................................................................................
+
+        return HateosResourceMappings.with(
+            FormHandlerName.HATEOS_RESOURCE_NAME,
+            FormHandlerHateosResourceMappings::parseFormHandlerSelection,
+            FormHandlerInfo.class, // valueType
+            FormHandlerInfoSet.class, // collectionType
+            FormHandlerInfo.class,// resourceType
+            SpreadsheetEngineHateosResourceHandlerContext.class // context
+        ).setHateosResourceHandler(
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            FormHandlerInfoHateosResourceHandler.INSTANCE
+        );
+    }
+
+    private static HateosResourceSelection<FormHandlerName> parseFormHandlerSelection(final String text,
+                                                                                      final SpreadsheetEngineHateosResourceHandlerContext context) {
+        final HateosResourceSelection<FormHandlerName> selection;
+
+        switch (text) {
+            case HateosResourceSelection.NONE:
+                selection = HateosResourceSelection.all();
+                break;
+            case HateosResourceSelection.ALL:
+                throw new IllegalArgumentException("Invalid formHandler selection " + CharSequences.quoteAndEscape(text));
+            default:
+                selection = HateosResourceSelection.one(
+                    FormHandlerName.with(text)
+                );
+                break;
+        }
+
+        return selection;
+    }
+    
     /**
      * Stop creation
      */
