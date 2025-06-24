@@ -403,10 +403,13 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
         final EmailAddress user = USER;
         final LocalDateTime now = NOW.now();
 
+        final Locale locale = Locale.forLanguageTag("EN-AU");
+
         final SpreadsheetMetadata metadata = SpreadsheetMetadata.NON_LOCALE_DEFAULTS
-            .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-            .loadFromLocale()
-            .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
+            .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+            .loadFromLocale(
+                LocaleContexts.jre(locale)
+            ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
             .set(
                 SpreadsheetMetadataPropertyName.AUDIT_INFO,
                 AuditInfo.with(

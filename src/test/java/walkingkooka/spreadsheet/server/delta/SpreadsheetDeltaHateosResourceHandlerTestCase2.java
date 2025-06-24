@@ -253,10 +253,13 @@ public abstract class SpreadsheetDeltaHateosResourceHandlerTestCase2<H extends S
 
     final static MediaType CONTENT_TYPE = MediaType.APPLICATION_JSON;
 
+    final static Locale LOCALE = Locale.ENGLISH;
+
     final static SpreadsheetMetadata METADATA = SpreadsheetMetadata.EMPTY
-        .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-AU"))
-        .loadFromLocale()
-        .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
+        .set(SpreadsheetMetadataPropertyName.LOCALE, LOCALE)
+        .loadFromLocale(
+            LocaleContexts.jre(LOCALE)
+        ).set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, SpreadsheetId.with(1))
         .set(
             SpreadsheetMetadataPropertyName.AUDIT_INFO,
             AuditInfo.with(

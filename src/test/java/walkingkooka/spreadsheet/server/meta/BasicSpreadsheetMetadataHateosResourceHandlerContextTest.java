@@ -1237,6 +1237,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             final EmailAddress creator = EmailAddress.parse("user123@exaple.com");
             final LocalDateTime now = NOW.now();
 
+            final Locale locale = Locale.ENGLISH;
+
             METADATA_STORE.save(
                 SpreadsheetMetadataTesting.METADATA_EN_AU
                     .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, id)
@@ -1249,9 +1251,10 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                             now
                         )
                     ).set(SpreadsheetMetadataPropertyName.DATE_TIME_OFFSET, Converters.JAVA_EPOCH_OFFSET)
-                    .set(SpreadsheetMetadataPropertyName.LOCALE, Locale.ENGLISH)
-                    .loadFromLocale()
-                    .set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
+                    .set(SpreadsheetMetadataPropertyName.LOCALE, locale)
+                    .loadFromLocale(
+                        LocaleContexts.jre(locale)
+                    ).set(SpreadsheetMetadataPropertyName.CELL_CHARACTER_WIDTH, 1)
                     .set(SpreadsheetMetadataPropertyName.DECIMAL_NUMBER_SYMBOLS, DECIMAL_NUMBER_SYMBOLS)
                     .set(SpreadsheetMetadataPropertyName.DEFAULT_YEAR, 1900)
                     .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, EXPRESSION_NUMBER_KIND)
