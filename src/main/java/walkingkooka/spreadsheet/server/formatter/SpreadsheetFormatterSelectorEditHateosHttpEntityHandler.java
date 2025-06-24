@@ -106,6 +106,7 @@ final class SpreadsheetFormatterSelectorEditHateosHttpEntityHandler implements H
                         SpreadsheetLabelNameResolvers.fake(),
                         context, // ConverterProvider
                         context, // // SpreadsheetFormatterProvider
+                        context, // LocaleContext
                         context // ProviderContext
                     ),
                 context, // SpreadsheetLabelNameResolver

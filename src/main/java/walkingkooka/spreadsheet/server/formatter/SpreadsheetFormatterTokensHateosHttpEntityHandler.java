@@ -124,6 +124,7 @@ final class SpreadsheetFormatterTokensHateosHttpEntityHandler implements HateosH
                     context, // SpreadsheetLabelNameResolver
                     context, // ConverterProvider
                     context, // SpreadsheetFormatterProvider
+                    context, // LocaleContext
                     context // ProviderContext
                 )
         );

@@ -253,6 +253,7 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                             SpreadsheetLabelNameResolvers.fake(),
                             CONVERTER_PROVIDER,
                             SPREADSHEET_FORMATTER_PROVIDER,
+                            LOCALE_CONTEXT,
                             PROVIDER_CONTEXT
                         )
                     );

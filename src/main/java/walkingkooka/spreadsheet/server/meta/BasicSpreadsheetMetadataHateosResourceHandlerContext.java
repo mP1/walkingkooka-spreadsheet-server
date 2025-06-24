@@ -362,6 +362,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 context, // SpreadsheetLabelNameResolver
                 context, // ConverterProvider
                 context, // SpreadsheetFormatterProvider
+                context, // LocaleContext
                 context // ProviderContext
             ),
             systemSpreadsheetProvider
