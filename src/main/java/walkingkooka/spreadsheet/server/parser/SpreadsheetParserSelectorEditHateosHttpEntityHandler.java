@@ -104,7 +104,8 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                 context, // SpreadsheetParserProvider
                 metadata.spreadsheetParserContext(
                     SpreadsheetMetadata.NO_CELL,
-                    context
+                    context, // LocaleContext
+                    context // HasNow
                 ), // SpreadsheetParserContext,
                 metadata.spreadsheetFormatterContext(
                     SpreadsheetMetadata.NO_CELL,
@@ -112,6 +113,7 @@ final class SpreadsheetParserSelectorEditHateosHttpEntityHandler implements Hate
                     SpreadsheetLabelNameResolvers.fake(),
                     context, // ConverterProvider
                     context, // // SpreadsheetFormatterProvider
+                    context, // LocaleContext
                     context // ProviderContext
                 ),
                 context, // SpreadsheetFormatterProvider

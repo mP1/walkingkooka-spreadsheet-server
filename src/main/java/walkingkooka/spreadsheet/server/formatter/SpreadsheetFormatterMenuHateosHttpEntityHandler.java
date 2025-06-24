@@ -94,6 +94,7 @@ final class SpreadsheetFormatterMenuHateosHttpEntityHandler implements HateosHtt
                             context, // SpreadsheetLabelNameResolver
                             context, // ConverterProvider
                             context, // SpreadsheetFormatterProvider
+                            context, // LocaleContext
                             context // ProviderContext
                         )
                 )

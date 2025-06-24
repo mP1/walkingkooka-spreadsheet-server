@@ -52,7 +52,10 @@ public final class SpreadsheetFormatterSelectorMenuContextTestingTest implements
         return DECIMAL_NUMBER_CONTEXT;
     }
 
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext(SpreadsheetMetadata.NO_CELL);
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = METADATA_EN_AU.decimalNumberContext(
+        SpreadsheetMetadata.NO_CELL,
+        LOCALE_CONTEXT
+    );
 
     // class............................................................................................................
 

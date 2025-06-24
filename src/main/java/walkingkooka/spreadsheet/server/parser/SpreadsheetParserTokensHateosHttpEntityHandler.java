@@ -119,6 +119,7 @@ final class SpreadsheetParserTokensHateosHttpEntityHandler implements HateosHttp
             context.spreadsheetMetadata()
                 .spreadsheetParserContext(
                     SpreadsheetMetadata.NO_CELL,
+                    context, // LocaleContext
                     context::now // now provider
                 )
         );
