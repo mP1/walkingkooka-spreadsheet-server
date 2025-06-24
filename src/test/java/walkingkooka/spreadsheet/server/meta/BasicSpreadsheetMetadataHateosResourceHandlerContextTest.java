@@ -97,7 +97,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -123,189 +122,201 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
 
     @Test
     public void testWithNullServerUrlFails() {
-        this.withFails(
-            null,
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullIndentationFails() {
-        this.withFails(
-            this.base(),
-            null,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                null,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            null,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                null,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
 
     @Test
     public void testWithNullLocaleContextFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            null,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                null,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            null,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                null,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSystemProviderContextFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            null,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                null,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
 
     @Test
     public void testWithNullMetadataStoreFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            null,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                null,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            null,
-            this::spreadsheetIdToRepository,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                null,
+                this::spreadsheetIdToRepository,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdRepositoryFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            null,
-            HATEOS_RESOURCE_HANDLER_CONTEXT
+        final AbsoluteUrl serverUrl = this.base();
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
+                serverUrl,
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullHateosResourceHandlerContextFails() {
-        this.withFails(
-            this.base(),
-            INDENTATION,
-            LINE_ENDING,
-            LOCALE_CONTEXT,
-            SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            this::spreadsheetIdToSpreadsheetProvider,
-            this::spreadsheetIdToRepository,
-            null
-        );
-    }
-
-    private void withFails(final AbsoluteUrl serverUrl,
-                           final Indentation indentation,
-                           final LineEnding lineEnding,
-                           final LocaleContext localeContext,
-                           final SpreadsheetProvider systemSpreadsheetProvider,
-                           final ProviderContext providerContext,
-                           final SpreadsheetMetadataStore metadataStore,
-                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToRepository,
-                           final HateosResourceHandlerContext hateosResourceHandlerContext) {
+        final AbsoluteUrl serverUrl = this.base();
         assertThrows(
             NullPointerException.class,
             () -> BasicSpreadsheetMetadataHateosResourceHandlerContext.with(
                 serverUrl,
-                indentation,
-                lineEnding,
-                localeContext,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToRepository,
-                hateosResourceHandlerContext
+                INDENTATION,
+                LINE_ENDING,
+                LOCALE_CONTEXT,
+                SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                this::spreadsheetIdToSpreadsheetProvider,
+                this::spreadsheetIdToRepository,
+                null
             )
         );
     }
