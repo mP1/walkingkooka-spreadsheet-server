@@ -10,6 +10,7 @@ import walkingkooka.convert.provider.ConverterProviders;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.Url;
@@ -305,6 +306,7 @@ public class TestGwtTest extends GWTTestCase {
             Indentation.SPACES2,
             LineEnding.NL,
             MediaTypeDetectors.fake(),
+            LocaleContexts.fake(),
             SpreadsheetProviders.fake(),
             ProviderContexts.basic(
                 ConverterContexts.fake(), // CanConvert

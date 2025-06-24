@@ -19,6 +19,7 @@ package walkingkooka.spreadsheet.server;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlFragment;
 import walkingkooka.net.UrlPath;
@@ -84,6 +85,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                              final Indentation indentation,
                                              final LineEnding lineEnding,
                                              final MediaTypeDetector mediaTypeDetector,
+                                             final LocaleContext localeContext,
                                              final SpreadsheetProvider systemSpreadsheetProvider,
                                              final ProviderContext providerContext,
                                              final SpreadsheetMetadataStore metadataStore,
@@ -97,6 +99,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             Objects.requireNonNull(indentation, "indentation"),
             Objects.requireNonNull(lineEnding, "lineEnding"),
             Objects.requireNonNull(mediaTypeDetector, "mediaTypeDetector"),
+            Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
@@ -151,6 +154,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
                                   final Indentation indentation,
                                   final LineEnding lineEnding,
                                   final MediaTypeDetector mediaTypeDetector,
+                                  final LocaleContext localeContext,
                                   final SpreadsheetProvider systemSpreadsheetProvider,
                                   final ProviderContext providerContext,
                                   final SpreadsheetMetadataStore metadataStore,
@@ -165,6 +169,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
         this.lineEnding = lineEnding;
 
         this.mediaTypeDetector = mediaTypeDetector;
+
+        this.localeContext = localeContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -243,6 +249,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             api,
             this.indentation,
             this.lineEnding,
+            this.localeContext,
             this.systemSpreadsheetProvider,
             this.providerContext,
             this.metadataStore,
@@ -268,6 +275,7 @@ public final class SpreadsheetHttpServer implements HttpServer {
             url,
             this.indentation,
             this.lineEnding,
+            this.localeContext,
             this.systemSpreadsheetProvider,
             this.providerContext,
             this.metadataStore,
@@ -293,6 +301,8 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private final LineEnding lineEnding;
 
     private final MediaTypeDetector mediaTypeDetector;
+
+    private final LocaleContext localeContext;
 
     private final SpreadsheetProvider systemSpreadsheetProvider;
 

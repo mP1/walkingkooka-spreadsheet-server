@@ -30,6 +30,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
@@ -277,6 +279,8 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             MediaType.parse("text/java") :
             MediaType.BINARY;
 
+    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
+
     private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataStores.fake();
@@ -306,6 +310,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -324,6 +329,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -343,6 +349,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -362,6 +369,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -378,6 +386,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final MediaTypeDetector mediaTypeDetector,
+                           final LocaleContext localeContext,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
@@ -394,6 +403,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 indentation,
                 lineEnding,
                 mediaTypeDetector,
+                localeContext,
                 systemSpreadsheetProvider,
                 providerContext,
                 metadataStore,
@@ -419,6 +429,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             null,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -437,6 +448,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             null,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -454,6 +466,26 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             SERVER_URL,
             INDENTATION,
             LINE_ENDING,
+            null,
+            LOCALE_CONTEXT,
+            SYSTEM_SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            HATEOS_RESOURCE_HANDLER_CONTEXT,
+            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+            FILE_SERVER,
+            SERVER
+        );
+    }
+
+    @Test
+    public void testWithNullLocaleContextFails() {
+        this.withFails(
+            SERVER_URL,
+            INDENTATION,
+            LINE_ENDING,
+            MEDIA_TYPE_DETECTOR,
             null,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
@@ -473,6 +505,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             null,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -491,6 +524,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             null,
             METADATA_STORE,
@@ -509,6 +543,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             null,
@@ -527,6 +562,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -545,6 +581,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -563,6 +600,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -581,6 +619,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -599,6 +638,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             INDENTATION,
             LINE_ENDING,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SYSTEM_SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -614,6 +654,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                            final Indentation indentation,
                            final LineEnding lineEnding,
                            final MediaTypeDetector mediaTypeDetector,
+                           final LocaleContext localeContext,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
@@ -629,6 +670,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                 indentation,
                 lineEnding,
                 mediaTypeDetector,
+                localeContext,
                 systemSpreadsheetProvider,
                 providerContext,
                 metadataStore,
@@ -12513,6 +12555,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             Indentation.SPACES2,
             LineEnding.NL,
             MEDIA_TYPE_DETECTOR,
+            LOCALE_CONTEXT,
             SpreadsheetProviders.basic(
                 CONVERTER_PROVIDER,
                 EXPRESSION_FUNCTION_PROVIDER, // not SpreadsheetMetadataTesting see constant above

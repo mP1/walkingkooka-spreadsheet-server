@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.Url;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.net.header.HttpHeaderName;
@@ -345,6 +346,7 @@ public final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandlerTest impl
             Url.parseAbsolute(SERVER_URL + "/api"),
             Indentation.SPACES2,
             LineEnding.NL,
+            LocaleContexts.fake(),
             systemSpreadsheetProvider(),
             PROVIDER_CONTEXT,
             this.metadataStore,

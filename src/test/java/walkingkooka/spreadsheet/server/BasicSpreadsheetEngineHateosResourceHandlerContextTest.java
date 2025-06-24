@@ -18,6 +18,7 @@
 package walkingkooka.spreadsheet.server;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.Url;
@@ -58,6 +59,7 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
             }
         },
         SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+        LocaleContexts.fake(),
         SPREADSHEET_PROVIDER,
         PROVIDER_CONTEXT
     );
@@ -117,6 +119,16 @@ public final class BasicSpreadsheetEngineHateosResourceHandlerContextTest implem
     }
 
     // SpreadsheetEngineHateosResourceHandlerContextTesting...................................................................
+
+    @Override
+    public void testDateTimeSymbolsForLocaleWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testDecimalNumberSymbolsForLocaleWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public void testResolveLabelWithNullFails() {

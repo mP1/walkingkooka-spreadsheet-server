@@ -378,6 +378,28 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
         throw new UnsupportedOperationException();
     }
 
+    // LocaleContext....................................................................................................
+
+    @Override
+    public Set<Locale> availableLocales() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
+        throw new UnsupportedOperationException();
+    }
+
     @Override
     public int cellCharacterWidth() {
         throw new UnsupportedOperationException();
@@ -487,11 +509,6 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
 
     @Override
     public DateTimeSymbols dateTimeSymbols() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 

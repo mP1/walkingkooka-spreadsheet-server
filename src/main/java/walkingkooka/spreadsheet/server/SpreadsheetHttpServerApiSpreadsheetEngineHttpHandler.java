@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server;
 
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequest;
@@ -46,6 +47,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     static SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler with(final AbsoluteUrl serverUrl,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
+                                                                     final LocaleContext localeContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
@@ -56,6 +58,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             serverUrl,
             indentation,
             lineEnding,
+            localeContext,
             systemSpreadsheetProvider,
             providerContext,
             metadataStore,
@@ -71,6 +74,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler(final AbsoluteUrl serverUrl,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
+                                                                 final LocaleContext localeContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
@@ -82,6 +86,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
         this.serverUrl = serverUrl;
         this.indentation = indentation;
         this.lineEnding = lineEnding;
+
+        this.localeContext = localeContext;
 
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
 
@@ -123,6 +129,7 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
             this.serverUrl,
             this.indentation,
             this.lineEnding,
+            this.localeContext,
             this.systemSpreadsheetProvider,
             this.providerContext,
             this.metadataStore,
@@ -135,6 +142,8 @@ final class SpreadsheetHttpServerApiSpreadsheetEngineHttpHandler implements Http
     private final Indentation indentation;
 
     private final LineEnding lineEnding;
+
+    private final LocaleContext localeContext;
 
     private final ProviderContext providerContext;
 
