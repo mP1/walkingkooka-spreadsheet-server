@@ -20,6 +20,7 @@ package walkingkooka.spreadsheet.server.meta;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.spreadsheet.SpreadsheetId;
@@ -106,6 +107,8 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
     public void testApply() {
         final SpreadsheetMetadataStore store = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
+        final Locale locale = Locale.forLanguageTag("EN-AU");
+
         final SpreadsheetMetadata metadata = store.save(
             SpreadsheetMetadata.EMPTY
                 .set(
@@ -116,12 +119,14 @@ public final class SpreadsheetMetadataPatchFunctionTest implements FunctionTesti
                         USER,
                         LocalDateTime.of(2021, 10, 10, 17, 3, 0)
                     )
-                ).set(SpreadsheetMetadataPropertyName.LOCALE, Locale.forLanguageTag("EN-Au"))
+                ).set(SpreadsheetMetadataPropertyName.LOCALE, locale)
                 .set(SpreadsheetMetadataPropertyName.SPREADSHEET_ID, ID)
                 .set(SpreadsheetMetadataPropertyName.EXPRESSION_NUMBER_KIND, ExpressionNumberKind.BIG_DECIMAL)
                 .set(SpreadsheetMetadataPropertyName.PRECISION, 0)
                 .set(SpreadsheetMetadataPropertyName.ROUNDING_MODE, RoundingMode.HALF_UP)
-                .loadFromLocale()
+                .loadFromLocale(
+                    LocaleContexts.jre(locale)
+                )
         );
 
         final SpreadsheetMetadataHateosResourceHandlerContext context = new FakeSpreadsheetMetadataHateosResourceHandlerContext() {
