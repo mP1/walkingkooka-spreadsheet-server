@@ -24,6 +24,8 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.environment.AuditInfo;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.RelativeUrl;
 import walkingkooka.net.Url;
@@ -108,6 +110,8 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private final static Indentation INDENTATION = Indentation.SPACES2;
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
+    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
+
     private final static SpreadsheetMetadataStore METADATA_STORE = SpreadsheetMetadataTesting.spreadsheetMetadataStore();
 
     private final static HateosResourceHandlerContext HATEOS_RESOURCE_HANDLER_CONTEXT = HateosResourceHandlerContexts.basic(
@@ -123,6 +127,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             null,
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -138,6 +143,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             null,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -152,6 +158,24 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
         this.withFails(
             this.base(),
             INDENTATION,
+            null,
+            LOCALE_CONTEXT,
+            SPREADSHEET_PROVIDER,
+            PROVIDER_CONTEXT,
+            METADATA_STORE,
+            this::spreadsheetIdToSpreadsheetProvider,
+            this::spreadsheetIdToRepository,
+            HATEOS_RESOURCE_HANDLER_CONTEXT
+        );
+    }
+
+
+    @Test
+    public void testWithNullLocaleContextFails() {
+        this.withFails(
+            this.base(),
+            INDENTATION,
+            LINE_ENDING,
             null,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
@@ -168,6 +192,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             null,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -183,6 +208,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             null,
             METADATA_STORE,
@@ -199,6 +225,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             null,
@@ -214,6 +241,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -229,6 +257,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -244,6 +273,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             PROVIDER_CONTEXT,
             METADATA_STORE,
@@ -256,6 +286,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
     private void withFails(final AbsoluteUrl serverUrl,
                            final Indentation indentation,
                            final LineEnding lineEnding,
+                           final LocaleContext localeContext,
                            final SpreadsheetProvider systemSpreadsheetProvider,
                            final ProviderContext providerContext,
                            final SpreadsheetMetadataStore metadataStore,
@@ -268,6 +299,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
                 serverUrl,
                 indentation,
                 lineEnding,
+                localeContext,
                 systemSpreadsheetProvider,
                 providerContext,
                 metadataStore,
@@ -1120,6 +1152,7 @@ public final class BasicSpreadsheetMetadataHateosResourceHandlerContextTest impl
             this.base(),
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SPREADSHEET_PROVIDER,
             providerContext,
             METADATA_STORE,

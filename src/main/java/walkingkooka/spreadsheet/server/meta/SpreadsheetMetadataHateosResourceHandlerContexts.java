@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.plugin.ProviderContext;
@@ -40,6 +41,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
     public static SpreadsheetMetadataHateosResourceHandlerContext basic(final AbsoluteUrl serverUrl,
                                                                         final Indentation indentation,
                                                                         final LineEnding lineEnding,
+                                                                        final LocaleContext localeContext,
                                                                         final SpreadsheetProvider systemSpreadsheetProvider,
                                                                         final ProviderContext providerContext,
                                                                         final SpreadsheetMetadataStore metadataStore,
@@ -50,6 +52,7 @@ public final class SpreadsheetMetadataHateosResourceHandlerContexts implements P
             serverUrl,
             indentation,
             lineEnding,
+            localeContext,
             systemSpreadsheetProvider,
             providerContext,
             metadataStore,

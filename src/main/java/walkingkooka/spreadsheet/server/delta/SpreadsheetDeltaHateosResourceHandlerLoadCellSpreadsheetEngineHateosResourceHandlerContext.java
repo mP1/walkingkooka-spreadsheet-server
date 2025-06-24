@@ -35,6 +35,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -114,6 +115,11 @@ final class SpreadsheetDeltaHateosResourceHandlerLoadCellSpreadsheetEngineHateos
     }
 
     // SpreadsheetEngineContext.........................................................................................
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
+    }
 
     @Override
     public SpreadsheetEngineContext spreadsheetEngineContext() {

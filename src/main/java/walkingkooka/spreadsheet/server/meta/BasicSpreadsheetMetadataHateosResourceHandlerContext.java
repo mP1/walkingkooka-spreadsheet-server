@@ -24,6 +24,7 @@ import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -127,6 +128,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     static BasicSpreadsheetMetadataHateosResourceHandlerContext with(final AbsoluteUrl serverUrl,
                                                                      final Indentation indentation,
                                                                      final LineEnding lineEnding,
+                                                                     final LocaleContext localeContext,
                                                                      final SpreadsheetProvider systemSpreadsheetProvider,
                                                                      final ProviderContext providerContext,
                                                                      final SpreadsheetMetadataStore metadataStore,
@@ -136,6 +138,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         Objects.requireNonNull(serverUrl, "serverUrl");
         Objects.requireNonNull(indentation, "indentation");
         Objects.requireNonNull(lineEnding, "lineEnding");
+        Objects.requireNonNull(localeContext, "localeContext");
         Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider");
         Objects.requireNonNull(providerContext, "providerContext");
         Objects.requireNonNull(metadataStore, "metadataStore");
@@ -147,6 +150,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             serverUrl,
             indentation,
             lineEnding,
+            localeContext,
             systemSpreadsheetProvider,
             providerContext,
             metadataStore,
@@ -159,6 +163,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
     private BasicSpreadsheetMetadataHateosResourceHandlerContext(final AbsoluteUrl serverUrl,
                                                                  final Indentation indentation,
                                                                  final LineEnding lineEnding,
+                                                                 final LocaleContext localeContext,
                                                                  final SpreadsheetProvider systemSpreadsheetProvider,
                                                                  final ProviderContext providerContext,
                                                                  final SpreadsheetMetadataStore metadataStore,
@@ -172,6 +177,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
         this.indentation = indentation;
         this.lineEnding = lineEnding;
 
+        this.localeContext = localeContext;
         this.systemSpreadsheetProvider = systemSpreadsheetProvider;
         this.providerContext = providerContext;
 
@@ -289,6 +295,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             metadata,
             repository,
             SpreadsheetMetadataPropertyName.FORMULA_FUNCTIONS,
+            this.localeContext,
             metadata.spreadsheetProvider(spreadsheetProvider),
             ProviderContexts.basic(
                 providerContext,
@@ -307,6 +314,8 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
             this.systemSpreadsheetProvider
         );
     }
+
+    private final LocaleContext localeContext;
 
     private SpreadsheetMetadata stamp(final SpreadsheetMetadata metadata) {
         return metadata.set(
@@ -465,6 +474,7 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
                 this.serverUrl,
                 this.indentation,
                 this.lineEnding,
+                this.localeContext,
                 this.systemSpreadsheetProvider,
                 this.providerContext,
                 this.metadataStore,

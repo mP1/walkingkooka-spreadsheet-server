@@ -17,6 +17,7 @@
 
 package walkingkooka.spreadsheet.server.meta;
 
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
 import walkingkooka.net.UrlPathName;
@@ -60,6 +61,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     public static SpreadsheetMetadataHttpHandler with(final AbsoluteUrl serverUrl,
                                                       final Indentation indentation,
                                                       final LineEnding lineEnding,
+                                                      final LocaleContext localeContext,
                                                       final SpreadsheetProvider systemSpreadsheetProvider,
                                                       final ProviderContext providerContext,
                                                       final SpreadsheetMetadataStore metadataStore,
@@ -70,6 +72,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             Objects.requireNonNull(serverUrl, "serverUrl"),
             Objects.requireNonNull(indentation, "indentation"),
             Objects.requireNonNull(lineEnding, "lineEnding"),
+            Objects.requireNonNull(localeContext, "localeContext"),
             Objects.requireNonNull(systemSpreadsheetProvider, "systemSpreadsheetProvider"),
             Objects.requireNonNull(providerContext, "providerContext"),
             Objects.requireNonNull(metadataStore, "metadataStore"),
@@ -85,6 +88,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
     private SpreadsheetMetadataHttpHandler(final AbsoluteUrl serverUrl,
                                            final Indentation indentation,
                                            final LineEnding lineEnding,
+                                           final LocaleContext localeContext,
                                            final SpreadsheetProvider systemSpreadsheetProvider,
                                            final ProviderContext providerContext,
                                            final SpreadsheetMetadataStore metadataStore,
@@ -99,6 +103,7 @@ public final class SpreadsheetMetadataHttpHandler implements HttpHandler {
             serverUrl,
             indentation,
             lineEnding,
+            localeContext,
             systemSpreadsheetProvider,
             providerContext,
             metadataStore,

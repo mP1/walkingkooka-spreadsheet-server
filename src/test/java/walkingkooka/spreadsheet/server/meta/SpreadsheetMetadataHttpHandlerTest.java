@@ -18,6 +18,8 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.Url;
 import walkingkooka.net.http.server.HttpHandlerTesting;
@@ -47,6 +49,8 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
 
     private final static LineEnding LINE_ENDING = LineEnding.NL;
 
+    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
+
     private final static SpreadsheetProvider SYSTEM_PROVIDER_CONTEXT = SpreadsheetProviders.fake();
 
     private final static ProviderContext PROVIDER_CONTEXT = ProviderContexts.fake();
@@ -71,6 +75,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 null,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -89,6 +94,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 null,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -106,6 +112,26 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             () -> SpreadsheetMetadataHttpHandler.with(
                 SERVER_URL,
                 INDENTATION,
+                null,
+                LOCALE_CONTEXT,
+                SYSTEM_PROVIDER_CONTEXT,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                HATEOS_RESOURCE_HANDLER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullLocaleContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetMetadataHttpHandler.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
                 null,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
@@ -125,6 +151,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 null,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -143,6 +170,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 null,
                 METADATA_STORE,
@@ -161,6 +189,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 null,
@@ -179,6 +208,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -198,6 +228,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -216,6 +247,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
                 SERVER_URL,
                 INDENTATION,
                 LINE_ENDING,
+                LOCALE_CONTEXT,
                 SYSTEM_PROVIDER_CONTEXT,
                 PROVIDER_CONTEXT,
                 METADATA_STORE,
@@ -239,6 +271,7 @@ public final class SpreadsheetMetadataHttpHandlerTest implements HttpHandlerTest
             SERVER_URL,
             INDENTATION,
             LINE_ENDING,
+            LOCALE_CONTEXT,
             SYSTEM_PROVIDER_CONTEXT,
             PROVIDER_CONTEXT,
             METADATA_STORE,
