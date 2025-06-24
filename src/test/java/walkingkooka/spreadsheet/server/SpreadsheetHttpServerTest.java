@@ -305,118 +305,105 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testWithNullServerUrlFails() {
-        this.withFails(
-            null,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                null,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithServerUrlNonEmptyPathFails() {
-        this.withFails(
-            "http://example.com/path123",
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER,
-            "Url must not have path got \"http://example.com/path123\""
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> SpreadsheetHttpServer.with(
+                Url.parseAbsolute("http://example.com/path123"),
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have path got \"http://example.com/path123\"",
+            thrown.getMessage(),
+            "message"
         );
     }
 
     @Test
     public void testWithServerUrlNonQueryStringFails() {
-        this.withFails(
-            "http://example.com?path123",
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER,
-            "Url must not have query string got \"http://example.com?path123\""
+        final IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> SpreadsheetHttpServer.with(
+                Url.parseAbsolute("http://example.com?path123"),
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
+        );
+
+        this.checkEquals(
+            "Url must not have query string got \"http://example.com?path123\"",
+            thrown.getMessage(),
+            "message"
         );
     }
 
     @Test
     public void testWithServerUrlNonFragmentFails() {
-        this.withFails(
-            "http://example.com#fragment456",
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER,
-            "Url must not have fragment got \"http://example.com#fragment456\""
-        );
-    }
-
-    private void withFails(final String serverUrl,
-                           final Indentation indentation,
-                           final LineEnding lineEnding,
-                           final MediaTypeDetector mediaTypeDetector,
-                           final LocaleContext localeContext,
-                           final SpreadsheetProvider systemSpreadsheetProvider,
-                           final ProviderContext providerContext,
-                           final SpreadsheetMetadataStore metadataStore,
-                           final HateosResourceHandlerContext hateosResourceHandlerContext,
-                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                           final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                           final Function<HttpHandler, HttpServer> server,
-                           final String message) {
         final IllegalArgumentException thrown = assertThrows(
             IllegalArgumentException.class,
             () -> SpreadsheetHttpServer.with(
-                Url.parseAbsolute(serverUrl),
-                indentation,
-                lineEnding,
-                mediaTypeDetector,
-                localeContext,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                hateosResourceHandlerContext,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                fileServer,
-                server
+                Url.parseAbsolute("http://example.com#fragment456"),
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
             )
         );
 
         this.checkEquals(
-            message,
+            "Url must not have fragment got \"http://example.com#fragment456\"",
             thrown.getMessage(),
             "message"
         );
@@ -424,261 +411,264 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
 
     @Test
     public void testWithNullIndentationFails() {
-        this.withFails(
-            SERVER_URL,
-            null,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                null,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullLineEndingFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            null,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                null,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullMediaTypeDetectorFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            null,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                null,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullLocaleContextFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            null,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                null,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullSystemSpreadsheetProviderFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            null,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                null,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullProviderContextFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            null,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                null,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullMetadataStoreFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            null,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                null,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullMarshallUnmarshallContextFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            null,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetProviderFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            null,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                null,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullSpreadsheetIdToSpreadsheetStoreRepositoryFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            null,
-            FILE_SERVER,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                null,
+                FILE_SERVER,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullFileServerFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            null,
-            SERVER
+        assertThrows(
+            NullPointerException.class,
+            () -> SpreadsheetHttpServer.with(
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                null,
+                SERVER
+            )
         );
     }
 
     @Test
     public void testWithNullServerFails() {
-        this.withFails(
-            SERVER_URL,
-            INDENTATION,
-            LINE_ENDING,
-            MEDIA_TYPE_DETECTOR,
-            LOCALE_CONTEXT,
-            SYSTEM_SPREADSHEET_PROVIDER,
-            PROVIDER_CONTEXT,
-            METADATA_STORE,
-            HATEOS_RESOURCE_HANDLER_CONTEXT,
-            SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
-            SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
-            FILE_SERVER,
-            null
-        );
-    }
-
-    private void withFails(final AbsoluteUrl serverUrl,
-                           final Indentation indentation,
-                           final LineEnding lineEnding,
-                           final MediaTypeDetector mediaTypeDetector,
-                           final LocaleContext localeContext,
-                           final SpreadsheetProvider systemSpreadsheetProvider,
-                           final ProviderContext providerContext,
-                           final SpreadsheetMetadataStore metadataStore,
-                           final HateosResourceHandlerContext hateosResourceHandlerContext,
-                           final Function<SpreadsheetId, SpreadsheetProvider> spreadsheetIdToSpreadsheetProvider,
-                           final Function<SpreadsheetId, SpreadsheetStoreRepository> spreadsheetIdToStoreRepository,
-                           final Function<UrlPath, Either<WebFile, HttpStatus>> fileServer,
-                           final Function<HttpHandler, HttpServer> server) {
         assertThrows(
             NullPointerException.class,
             () -> SpreadsheetHttpServer.with(
-                serverUrl,
-                indentation,
-                lineEnding,
-                mediaTypeDetector,
-                localeContext,
-                systemSpreadsheetProvider,
-                providerContext,
-                metadataStore,
-                hateosResourceHandlerContext,
-                spreadsheetIdToSpreadsheetProvider,
-                spreadsheetIdToStoreRepository,
-                fileServer,
-                server
+                SERVER_URL,
+                INDENTATION,
+                LINE_ENDING,
+                MEDIA_TYPE_DETECTOR,
+                LOCALE_CONTEXT,
+                SYSTEM_SPREADSHEET_PROVIDER,
+                PROVIDER_CONTEXT,
+                METADATA_STORE,
+                HATEOS_RESOURCE_HANDLER_CONTEXT,
+                SPREADSHEET_ID_SPREADSHEET_PROVIDER_FUNCTION,
+                SPREADSHEET_ID_SPREADSHEET_STORE_REPOSITORY_FUNCTION,
+                FILE_SERVER,
+                null
             )
         );
     }
