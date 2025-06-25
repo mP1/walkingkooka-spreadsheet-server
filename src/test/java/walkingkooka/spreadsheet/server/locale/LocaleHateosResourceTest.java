@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -35,7 +36,8 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     HasTextTesting,
     TreePrintableTesting,
     JsonNodeMarshallingTesting<LocaleHateosResource>,
-    ClassTesting2<LocaleHateosResource> {
+    ClassTesting2<LocaleHateosResource>,
+    ParseStringTesting<LocaleHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
@@ -59,6 +61,36 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
             "en-AU",
                 resource.hateosLinkId()
         );
+    }
+
+    // parse............................................................................................................
+
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testParse() {
+        this.parseStringAndCheck(
+            "EN-AU",
+            LocaleHateosResource.with(LOCALE)
+        );
+    }
+
+    @Override
+    public LocaleHateosResource parseString(final String text) {
+        return LocaleHateosResource.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     // HasText..........................................................................................................

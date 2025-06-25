@@ -43,6 +43,12 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("locale");
 
+    public static LocaleHateosResource parse(final String text) {
+        return with(
+            Locale.forLanguageTag(text)
+        );
+    }
+
     public static LocaleHateosResource with(final Locale locale) {
         return new LocaleHateosResource(
             Objects.requireNonNull(locale, "locale")
