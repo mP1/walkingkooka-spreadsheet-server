@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.test.ParseStringTesting;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -31,7 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     JsonNodeMarshallingTesting<LocaleTag>,
-    ClassTesting2<LocaleTag> {
+    ClassTesting2<LocaleTag>,
+    ParseStringTesting<LocaleTag> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
@@ -46,6 +48,36 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
     @Test
     public void testWith() {
 
+    }
+
+    // parse............................................................................................................
+
+    @Override
+    public void testParseStringEmptyFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testParse() {
+        this.parseStringAndCheck(
+            "en-AU",
+            LocaleTag.with(LOCALE)
+        );
+    }
+
+    @Override
+    public LocaleTag parseString(final String text) {
+        return LocaleTag.parse(text);
+    }
+
+    @Override
+    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
+        return thrown;
+    }
+
+    @Override
+    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
+        return thrown;
     }
 
     // comparable.......................................................................................................
