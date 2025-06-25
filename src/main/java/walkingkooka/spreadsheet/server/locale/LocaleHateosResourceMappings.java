@@ -17,49 +17,36 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
-import walkingkooka.text.CharSequences;
 
 public final class LocaleHateosResourceMappings implements PublicStaticHelper {
-
-    // importer.......................................................................................................
-
-    /**
-     * Stop creation
-     */
-    private LocaleHateosResourceMappings() {
-        throw new UnsupportedOperationException();
-    }
 
     public static HateosResourceMappings<LocaleTag,
         LocaleHateosResource,
         LocaleHateosResourceSet,
         LocaleHateosResource,
-        SpreadsheetEngineHateosResourceHandlerContext> locale() {
+        LocaleHateosResourceHandlerContext> mappings() {
 
-        // importer GET...............................................................................................
-
-        HateosResourceMappings<LocaleTag,
-            LocaleHateosResource,
-            LocaleHateosResourceSet,
-            LocaleHateosResource,
-            SpreadsheetEngineHateosResourceHandlerContext> locales = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             LocaleTag.HATEOS_RESOURCE_NAME,
-            LocaleHateosResourceMappings::parseLocaleHateosResourceSelection,
+            LocaleHateosResourceMappings::parseSelection,
             LocaleHateosResource.class, // valueType
             LocaleHateosResourceSet.class, // collectionType
             LocaleHateosResource.class,// resourceType
-            SpreadsheetEngineHateosResourceHandlerContext.class // context
+            LocaleHateosResourceHandlerContext.class // context
+        ).setHateosResourceHandler(
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            LocaleHateosResourceHandlerLoad.INSTANCE
         );
-
-        return locales;
     }
 
-    private static HateosResourceSelection<LocaleTag> parseLocaleHateosResourceSelection(final String text,
-                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<LocaleTag> parseSelection(final String text,
+                                                                     final LocaleHateosResourceHandlerContext context) {
         final HateosResourceSelection<LocaleTag> selection;
 
         switch (text) {
@@ -67,7 +54,8 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
                 selection = HateosResourceSelection.all();
                 break;
             case HateosResourceSelection.ALL:
-                throw new IllegalArgumentException("Invalid locale selection " + CharSequences.quoteAndEscape(text));
+                selection = HateosResourceSelection.all();
+                break;
             default:
                 selection = HateosResourceSelection.one(
                     LocaleTag.parse(text)
@@ -76,5 +64,12 @@ public final class LocaleHateosResourceMappings implements PublicStaticHelper {
         }
 
         return selection;
+    }
+
+    /**
+     * Stop creation
+     */
+    private LocaleHateosResourceMappings() {
+        throw new UnsupportedOperationException();
     }
 }

@@ -39,6 +39,7 @@ import walkingkooka.net.http.server.HttpResponse;
 import walkingkooka.net.http.server.HttpServer;
 import walkingkooka.net.http.server.WebFile;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
 import walkingkooka.plugin.store.Plugin;
 import walkingkooka.route.RouteMappings;
@@ -47,6 +48,10 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceMappings;
 import walkingkooka.spreadsheet.server.meta.SpreadsheetMetadataHttpHandler;
 import walkingkooka.spreadsheet.server.plugin.PluginHttpHandler;
 import walkingkooka.spreadsheet.store.repo.SpreadsheetStoreRepository;
@@ -69,6 +74,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
         .stringValues();
 
     public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
+
+    public final static UrlPath API_LOCALE = API.append(
+        LocaleHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
 
     public final static UrlPath API_SPREADSHEET = API.append(
         SpreadsheetMetadata.HATEOS_RESOURCE_NAME.toUrlPathName()
@@ -184,6 +193,11 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.spreadsheetIdToStoreRepository = spreadsheetIdToStoreRepository;
 
+        this.localeHateosResourceHandlerContext = LocaleHateosResourceHandlerContexts.basic(
+            localeContext,
+            hateosResourceHandlerContext
+        );
+
         this.server = server.apply(
             HttpHandlers.stacktraceDumping(
                 HttpHandlers.headerCopy(
@@ -196,6 +210,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
+                this.routing(API_LOCALE)
+                    .build(),
+                (HttpRequest request, HttpResponse response) ->
+                this.localeRouter()
+                    .route(request.routerParameters())
+                    .orElse(SpreadsheetHttpServer::notFound)
+                    .handle(
+                        request,
+                        response
+                    )
+            ).add(
                 this.routing(API_PLUGIN)
                     .build(),
                 this.pluginHttpHandler(
@@ -243,6 +268,20 @@ public final class SpreadsheetHttpServer implements HttpServer {
         return HttpRequestAttributeRouting.empty()
             .path(path);
     }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(
+                LocaleHateosResourceMappings.mappings()
+            ),
+            this.indentation,
+            this.lineEnding,
+            this.localeHateosResourceHandlerContext
+        );
+    }
+
+    private final LocaleHateosResourceHandlerContext localeHateosResourceHandlerContext;
 
     private HttpHandler spreadsheetMetadataHttpHandler(final AbsoluteUrl api) {
         return SpreadsheetMetadataHttpHandler.with(

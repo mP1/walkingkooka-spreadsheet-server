@@ -172,6 +172,13 @@ These end points are mostly used by the label management dialog.
   Used by the UI to create a new label to cell or cell-range
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/label/[spreadsheetLabelName](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/reference/spreadsheetLabelName.java)
 
+#### [Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+
+End points to query available Locales.
+
+- **GET** /api/locale/[Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/locale/*?offset=0&count=1
+
 #### [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java)
 
 These end points may be used to work with available [SpreadsheetParserInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetParserInfoSet.java)
