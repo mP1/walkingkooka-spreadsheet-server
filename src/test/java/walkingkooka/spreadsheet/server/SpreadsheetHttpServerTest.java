@@ -30,8 +30,6 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.HostAddress;
 import walkingkooka.net.RelativeUrl;
@@ -117,6 +115,8 @@ import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
+import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceSet;
 import walkingkooka.spreadsheet.server.parser.SpreadsheetParserSelectorEdit;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoList;
 import walkingkooka.spreadsheet.server.plugin.JarEntryInfoName;
@@ -278,8 +278,6 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         filename.endsWith(".java") ?
             MediaType.parse("text/java") :
             MediaType.BINARY;
-
-    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
     private final static SpreadsheetProvider SYSTEM_SPREADSHEET_PROVIDER = SpreadsheetProviders.fake();
 
@@ -12498,7 +12496,43 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             )
         );
     }
-    
+
+    // Locale...........................................................................................................
+
+    @Test
+    public void testLocaleOne() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/locale/EN-AU",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"en-AU\"",
+                LocaleHateosResource.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testLocaleList() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/locale/*?offset=130&count=3",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "\"el-GR,en,en-001\"",
+                LocaleHateosResourceSet.class.getSimpleName()
+            )
+        );
+    }
+
     // file server......................................................................................................
 
     @Test
