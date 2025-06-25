@@ -21,6 +21,8 @@ import walkingkooka.Value;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.text.HasText;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -36,7 +38,8 @@ import java.util.Optional;
 public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     Value<Locale>,
     HasText,
-    Comparable<LocaleHateosResource> {
+    Comparable<LocaleHateosResource>,
+    TreePrintable {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("locale");
 
@@ -105,6 +108,13 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     @Override
     public int compareTo(final LocaleHateosResource other) {
         return this.localeTag.compareTo(other.localeTag);
+    }
+
+    // TreePrintable.....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.text());
     }
 
     // json.............................................................................................................
