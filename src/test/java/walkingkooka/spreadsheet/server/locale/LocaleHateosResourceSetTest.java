@@ -1,7 +1,6 @@
 package walkingkooka.spreadsheet.server.locale;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.ImmutableSortedSetTesting;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.test.ParseStringTesting;
@@ -11,65 +10,75 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallingTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.SortedSet;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet, Locale>,
+public final class LocaleHateosResourceSetTest implements ImmutableSortedSetTesting<LocaleHateosResourceSet, LocaleHateosResource>,
     HasTextTesting,
-    ParseStringTesting<LocaleSet>,
+    ParseStringTesting<LocaleHateosResourceSet>,
     TreePrintableTesting,
-    JsonNodeMarshallingTesting<LocaleSet> {
+    JsonNodeMarshallingTesting<LocaleHateosResourceSet> {
 
-    private final static Locale EN_AU = Locale.forLanguageTag("EN-AU");
+    private final static LocaleHateosResource EN_AU = LocaleHateosResource.parse("EN-AU");
 
-    private final static Locale EN_NZ = Locale.forLanguageTag("EN-NZ");
+    private final static LocaleHateosResource EN_NZ = LocaleHateosResource.parse("EN-NZ");
 
     @Test
     public void testWithNullFails() {
         assertThrows(
             NullPointerException.class,
-            () -> LocaleSet.with(null)
+            () -> LocaleHateosResourceSet.with(null)
         );
     }
 
     @Test
     public void testDeleteBecomesEmpty() {
         assertSame(
-            LocaleSet.EMPTY,
-            LocaleSet.EMPTY.concat(EN_AU)
+            LocaleHateosResourceSet.EMPTY,
+            LocaleHateosResourceSet.EMPTY.concat(EN_AU)
                 .delete(EN_AU)
         );
     }
 
     @Test
-    public void testSetElementsWithLocaleSet() {
+    public void testSetElementsWithLocaleHateosResourceSet() {
         final String text = "EN,EN-AU,EN-NZ";
-        final LocaleSet set = LocaleSet.parse(text);
+        final LocaleHateosResourceSet set = LocaleHateosResourceSet.parse(text);
 
         assertSame(
             set,
-            LocaleSet.parse(text)
+            LocaleHateosResourceSet.parse(text)
                 .setElements(set)
         );
     }
 
     @Override
-    public LocaleSet createSet() {
-        final SortedSet<Locale> sortedSet = SortedSets.tree(LocaleSet.COMPARATOR);
+    public LocaleHateosResourceSet createSet() {
+        final SortedSet<LocaleHateosResource> sortedSet = SortedSets.tree();
 
-        sortedSet.add(Locale.ENGLISH);
+        sortedSet.add(
+            LocaleHateosResource.with(Locale.ENGLISH)
+        );
         sortedSet.add(EN_AU);
         sortedSet.add(EN_NZ);
 
-        return LocaleSet.with(sortedSet);
+        return LocaleHateosResourceSet.with(
+            SortedSets.of(
+                LocaleHateosResource.with(Locale.ENGLISH),
+                EN_AU,
+                EN_NZ
+            )
+        );
     }
 
     // parseString......................................................................................................
 
-    // JRE Locale seems to simply ignore invalid characters, unable to really call Locale.forLanguageTag(String) and fail
+    // JRE Locale seems to simply ignore invalid characters, unable to really call Locale.parse(String) and fail
 
     @Override
     public void testParseStringEmptyFails() {
@@ -79,10 +88,10 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
     @Test
     public void testParseEmpty() {
         assertSame(
-            LocaleSet.EMPTY,
+            LocaleHateosResourceSet.EMPTY,
             this.parseStringAndCheck(
                 "",
-                LocaleSet.EMPTY
+                LocaleHateosResourceSet.EMPTY
             )
         );
     }
@@ -90,10 +99,10 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
     @Test
     public void testParseOnlySpaces() {
         assertSame(
-            LocaleSet.EMPTY,
+            LocaleHateosResourceSet.EMPTY,
             this.parseStringAndCheck(
                 "   ",
-                LocaleSet.EMPTY
+                LocaleHateosResourceSet.EMPTY
             )
         );
     }
@@ -102,7 +111,11 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
     public void testParseOne() {
         this.parseStringAndCheck(
             "EN",
-            LocaleSet.EMPTY.concat(Locale.ENGLISH)
+            LocaleHateosResourceSet.EMPTY.concat(
+                LocaleHateosResource.with(
+                    (Locale.ENGLISH)
+                )
+            )
         );
     }
 
@@ -115,8 +128,8 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
     }
 
     @Override
-    public LocaleSet parseString(final String text) {
-        return LocaleSet.parse(text);
+    public LocaleHateosResourceSet parseString(final String text) {
+        return LocaleHateosResourceSet.parse(text);
     }
 
     @Override
@@ -178,12 +191,13 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
     }
 
     @Test
-    public void testMarshallUnmarshallAllAvailableLocales() {
-        final SortedSet<Locale> locales = SortedSets.tree(LocaleSet.COMPARATOR);
+    public void testMarshallUnmarshallAllAvailableLocaleHateosResources() {
+        final SortedSet<LocaleHateosResource> locales = SortedSets.tree();
         locales.addAll(
-            Lists.of(
+            Arrays.stream(
                 Locale.getAvailableLocales()
-            )
+            ).map(LocaleHateosResource::with)
+                .collect(Collectors.toList())
         );
 
         this.checkNotEquals(
@@ -192,28 +206,28 @@ public final class LocaleSetTest implements ImmutableSortedSetTesting<LocaleSet,
         );
 
         this.marshallRoundTripTwiceAndCheck(
-            LocaleSet.with(locales)
+            LocaleHateosResourceSet.with(locales)
         );
     }
 
     @Override
-    public LocaleSet unmarshall(final JsonNode jsonNode,
-                                final JsonNodeUnmarshallContext context) {
-        return LocaleSet.unmarshall(
+    public LocaleHateosResourceSet unmarshall(final JsonNode jsonNode,
+                                              final JsonNodeUnmarshallContext context) {
+        return LocaleHateosResourceSet.unmarshall(
             jsonNode,
             context
         );
     }
 
     @Override
-    public LocaleSet createJsonNodeMarshallingValue() {
+    public LocaleHateosResourceSet createJsonNodeMarshallingValue() {
         return this.createSet();
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<LocaleSet> type() {
-        return LocaleSet.class;
+    public Class<LocaleHateosResourceSet> type() {
+        return LocaleHateosResourceSet.class;
     }
 }
