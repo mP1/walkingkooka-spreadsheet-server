@@ -35,6 +35,12 @@ public final class LocaleTag implements Comparable<LocaleTag> {
 
     public static final HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with(HATEOS_RESOURCE_NAME_STRING);
 
+    public static LocaleTag parse(final String text) {
+        return with(
+            Locale.forLanguageTag(text)
+        );
+    }
+
     public static LocaleTag with(final Locale locale) {
         return new LocaleTag(
             Objects.requireNonNull(locale)
