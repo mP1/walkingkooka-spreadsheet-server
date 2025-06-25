@@ -17,9 +17,22 @@
 
 package walkingkooka.spreadsheet.server.locale;
 
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
 import walkingkooka.reflect.PublicStaticHelper;
 
 public final class LocaleHateosResourceHandlerContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicLocaleHateosResourceHandlerContext}
+     */
+    public static LocaleHateosResourceHandlerContext basic(final LocaleContext localeContext,
+                                                           final HateosResourceHandlerContext hateosResourceHandlerContext) {
+        return BasicLocaleHateosResourceHandlerContext.with(
+            localeContext,
+            hateosResourceHandlerContext
+        );
+    }
 
     /**
      * Stop creation
