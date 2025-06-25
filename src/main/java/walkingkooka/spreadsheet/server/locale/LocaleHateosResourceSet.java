@@ -15,24 +15,23 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import java.util.AbstractSet;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * An immutable {@link Set} containing unique {@link Locale locales}.
+ * An immutable {@link Set} containing unique {@link LocaleHateosResource locales}.
  */
-public final class LocaleSet extends AbstractSet<Locale>
-    implements ImmutableSortedSetDefaults<LocaleSet, Locale>,
+public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResource>
+    implements ImmutableSortedSetDefaults<LocaleHateosResourceSet, LocaleHateosResource>,
     HasText,
     TreePrintable {
 
     /**
-     * An empty {@link LocaleSet}.
+     * An empty {@link LocaleHateosResourceSet}.
      */
-    public static final LocaleSet EMPTY = new LocaleSet(SortedSets.empty());
+    public static final LocaleHateosResourceSet EMPTY = new LocaleHateosResourceSet(SortedSets.empty());
 
     /**
      * The comma which separates the CSV text representation.
@@ -40,30 +39,25 @@ public final class LocaleSet extends AbstractSet<Locale>
     public static final CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     /**
-     * Compare Locales using {@link Locale#toLanguageTag()}.
+     * Factory that creates {@link LocaleHateosResourceSet} with the given locales.
      */
-    public static final Comparator<Locale> COMPARATOR = Comparator.comparing(Locale::toLanguageTag);
-
-    /**
-     * Factory that creates {@link LocaleSet} with the given locales.
-     */
-    public static LocaleSet with(final SortedSet<Locale> locales) {
+    public static LocaleHateosResourceSet with(final SortedSet<LocaleHateosResource> locales) {
         return EMPTY.setElements(locales);
     }
 
-    private static LocaleSet withCopy(final SortedSet<Locale> locales) {
+    private static LocaleHateosResourceSet withCopy(final SortedSet<LocaleHateosResource> locales) {
         return locales.isEmpty() ?
             EMPTY :
-            new LocaleSet(locales);
+            new LocaleHateosResourceSet(locales);
     }
 
     /**
-     * Accepts a string of csv {@link Locale} with optional whitespace around locales ignored.
+     * Accepts a string of csv {@link LocaleHateosResource} with optional whitespace around locales ignored.
      */
-    public static LocaleSet parse(final String text) {
+    public static LocaleHateosResourceSet parse(final String text) {
         Objects.requireNonNull(text, "text");
 
-        final SortedSet<Locale> locales = SortedSets.tree(COMPARATOR);
+        final SortedSet<LocaleHateosResource> locales = SortedSets.tree();
 
         final int length = text.length();
         final StringBuilder locale = new StringBuilder();
@@ -93,17 +87,17 @@ public final class LocaleSet extends AbstractSet<Locale>
     }
 
     private static void append(final StringBuilder b,
-                               final SortedSet<Locale> locales) {
+                               final SortedSet<LocaleHateosResource> locales) {
         final String text = b.toString()
             .trim();
         if (false == text.isEmpty()) {
             locales.add(
-                Locale.forLanguageTag(text)
+                LocaleHateosResource.parse(text)
             );
         }
     }
 
-    private LocaleSet(final SortedSet<Locale> locales) {
+    private LocaleHateosResourceSet(final SortedSet<LocaleHateosResource> locales) {
         super();
         this.locales = locales;
     }
@@ -111,7 +105,7 @@ public final class LocaleSet extends AbstractSet<Locale>
     // ImmutableSortedSet...............................................................................................
 
     @Override
-    public Iterator<Locale> iterator() {
+    public Iterator<LocaleHateosResource> iterator() {
         return Iterators.readOnly(
             this.locales.iterator()
         );
@@ -123,13 +117,13 @@ public final class LocaleSet extends AbstractSet<Locale>
     }
 
     @Override
-    public Comparator<Locale> comparator() {
-        return COMPARATOR;
+    public Comparator<LocaleHateosResource> comparator() {
+        return null;
     }
 
     @Override
-    public LocaleSet subSet(Locale from,
-                            Locale to) {
+    public LocaleHateosResourceSet subSet(LocaleHateosResource from,
+                                          LocaleHateosResource to) {
         return withCopy(
             this.locales.subSet(
                 from,
@@ -139,59 +133,56 @@ public final class LocaleSet extends AbstractSet<Locale>
     }
 
     @Override
-    public LocaleSet headSet(Locale locale) {
+    public LocaleHateosResourceSet headSet(LocaleHateosResource locale) {
         return withCopy(
             this.locales.headSet(locale)
         );
     }
 
     @Override
-    public LocaleSet tailSet(Locale locale) {
+    public LocaleHateosResourceSet tailSet(LocaleHateosResource locale) {
         return withCopy(
             this.locales.tailSet(locale)
         );
     }
 
     @Override
-    public Locale first() {
+    public LocaleHateosResource first() {
         return this.locales.first();
     }
 
     @Override
-    public Locale last() {
+    public LocaleHateosResource last() {
         return this.locales.last();
     }
 
     @Override
-    public SortedSet<Locale> toSet() {
-        final TreeSet<Locale> treeSet = new TreeSet<>(COMPARATOR);
-        treeSet.addAll(this.locales);
-        return treeSet;
+    public SortedSet<LocaleHateosResource> toSet() {
+        return new TreeSet<>(this.locales);
     }
 
     @Override
-    public LocaleSet setElements(final SortedSet<Locale> locales) {
-        final LocaleSet LocaleSet;
+    public LocaleHateosResourceSet setElements(final SortedSet<LocaleHateosResource> locales) {
+        final LocaleHateosResourceSet LocaleHateosResourceSet;
 
-        if (locales instanceof LocaleSet) {
-            LocaleSet = (LocaleSet) locales;
+        if (locales instanceof LocaleHateosResourceSet) {
+            LocaleHateosResourceSet = (LocaleHateosResourceSet) locales;
         } else {
-            final TreeSet<Locale> copy = new TreeSet<>(COMPARATOR);
-            copy.addAll(
+            final TreeSet<LocaleHateosResource> copy = new TreeSet<>(
                 Objects.requireNonNull(locales, "locales")
             );
-            LocaleSet = this.locales.equals(copy) ?
+            LocaleHateosResourceSet = this.locales.equals(copy) ?
                 this :
                 withCopy(copy);
         }
 
-        return LocaleSet;
+        return LocaleHateosResourceSet;
     }
 
-    private SortedSet<Locale> locales;
+    private SortedSet<LocaleHateosResource> locales;
 
     @Override
-    public void elementCheck(final Locale locale) {
+    public void elementCheck(final LocaleHateosResource locale) {
         Objects.requireNonNull(locale, "locale");
     }
 
@@ -201,7 +192,7 @@ public final class LocaleSet extends AbstractSet<Locale>
     public String text() {
         return SEPARATOR.toSeparatedString(
             this,
-            Locale::toLanguageTag
+            LocaleHateosResource::text
         );
     }
 
@@ -209,10 +200,8 @@ public final class LocaleSet extends AbstractSet<Locale>
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final Locale locale : this) {
-            printer.println(
-                locale.toLanguageTag()
-            );
+        for (final LocaleHateosResource locale : this) {
+            locale.printTree(printer);
         }
     }
 
@@ -231,8 +220,8 @@ public final class LocaleSet extends AbstractSet<Locale>
         // helps force registry of json marshaller
     }
 
-    static LocaleSet unmarshall(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
+    static LocaleHateosResourceSet unmarshall(final JsonNode node,
+                                              final JsonNodeUnmarshallContext context) {
         return parse(
             node.stringOrFail()
         );
@@ -240,10 +229,10 @@ public final class LocaleSet extends AbstractSet<Locale>
 
     static {
         JsonNodeContext.register(
-            JsonNodeContext.computeTypeName(LocaleSet.class),
-            LocaleSet::unmarshall,
-            LocaleSet::marshall,
-            LocaleSet.class
+            JsonNodeContext.computeTypeName(LocaleHateosResourceSet.class),
+            LocaleHateosResourceSet::unmarshall,
+            LocaleHateosResourceSet::marshall,
+            LocaleHateosResourceSet.class
         );
     }
 }
