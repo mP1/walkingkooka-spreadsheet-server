@@ -35,6 +35,13 @@ public final class LocaleHateosResourceHandlerContexts implements PublicStaticHe
     }
 
     /**
+     * {@see FakeLocaleHateosResourceHandlerContext}
+     */
+    public static LocaleHateosResourceHandlerContext fake() {
+        return new FakeLocaleHateosResourceHandlerContext();
+    }
+
+    /**
      * Stop creation
      */
     private LocaleHateosResourceHandlerContexts() {
