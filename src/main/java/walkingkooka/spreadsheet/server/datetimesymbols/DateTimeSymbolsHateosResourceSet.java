@@ -3,7 +3,6 @@ package walkingkooka.spreadsheet.server.datetimesymbols;
 import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.ImmutableSortedSetDefaults;
 import walkingkooka.collect.set.SortedSets;
-import walkingkooka.text.CharacterConstant;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -30,11 +29,6 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
      * An empty {@link DateTimeSymbolsHateosResourceSet}.
      */
     public static final DateTimeSymbolsHateosResourceSet EMPTY = new DateTimeSymbolsHateosResourceSet(SortedSets.empty());
-
-    /**
-     * The comma which separates the CSV text representation.
-     */
-    public static final CharacterConstant SEPARATOR = CharacterConstant.COMMA;
 
     /**
      * Factory that creates {@link DateTimeSymbolsHateosResourceSet} with the given resources.
