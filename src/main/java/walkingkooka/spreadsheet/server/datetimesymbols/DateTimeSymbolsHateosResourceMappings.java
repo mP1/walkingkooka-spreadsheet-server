@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.datetimesymbols;
 
+import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -38,6 +40,10 @@ public final class DateTimeSymbolsHateosResourceMappings implements PublicStatic
             DateTimeSymbolsHateosResourceSet.class, // collectionType
             DateTimeSymbolsHateosResource.class,// resourceType
             LocaleHateosResourceHandlerContext.class // context
+        ).setHateosResourceHandler(
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            DateTimeSymbolsHateosResourceHandlerLoad.INSTANCE
         );
     }
 

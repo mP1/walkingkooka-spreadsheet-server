@@ -112,6 +112,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetLabelName;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
+import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
@@ -12493,6 +12494,79 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.NO_CONTENT.status(),
                 ValidatorInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    // DateTimeSymbols..................................................................................................
+
+    @Test
+    public void testDateTimeSymbolsOne() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/dateTimeSymbols/EN-AU",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"dateTimeSymbols\": {\n" +
+                    "    \"ampms\": [\n" +
+                    "      \"am\",\n" +
+                    "      \"pm\"\n" +
+                    "    ],\n" +
+                    "    \"monthNames\": [\n" +
+                    "      \"January\",\n" +
+                    "      \"February\",\n" +
+                    "      \"March\",\n" +
+                    "      \"April\",\n" +
+                    "      \"May\",\n" +
+                    "      \"June\",\n" +
+                    "      \"July\",\n" +
+                    "      \"August\",\n" +
+                    "      \"September\",\n" +
+                    "      \"October\",\n" +
+                    "      \"November\",\n" +
+                    "      \"December\"\n" +
+                    "    ],\n" +
+                    "    \"monthNameAbbreviations\": [\n" +
+                    "      \"Jan.\",\n" +
+                    "      \"Feb.\",\n" +
+                    "      \"Mar.\",\n" +
+                    "      \"Apr.\",\n" +
+                    "      \"May\",\n" +
+                    "      \"Jun.\",\n" +
+                    "      \"Jul.\",\n" +
+                    "      \"Aug.\",\n" +
+                    "      \"Sep.\",\n" +
+                    "      \"Oct.\",\n" +
+                    "      \"Nov.\",\n" +
+                    "      \"Dec.\"\n" +
+                    "    ],\n" +
+                    "    \"weekDayNames\": [\n" +
+                    "      \"Sunday\",\n" +
+                    "      \"Monday\",\n" +
+                    "      \"Tuesday\",\n" +
+                    "      \"Wednesday\",\n" +
+                    "      \"Thursday\",\n" +
+                    "      \"Friday\",\n" +
+                    "      \"Saturday\"\n" +
+                    "    ],\n" +
+                    "    \"weekDayNameAbbreviations\": [\n" +
+                    "      \"Sun.\",\n" +
+                    "      \"Mon.\",\n" +
+                    "      \"Tue.\",\n" +
+                    "      \"Wed.\",\n" +
+                    "      \"Thu.\",\n" +
+                    "      \"Fri.\",\n" +
+                    "      \"Sat.\"\n" +
+                    "    ]\n" +
+                    "  }\n" +
+                    "}",
+                DateTimeSymbolsHateosResource.class.getSimpleName()
             )
         );
     }

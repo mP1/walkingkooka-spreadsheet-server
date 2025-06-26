@@ -48,6 +48,8 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
 import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
+import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
+import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
@@ -74,6 +76,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
         .stringValues();
 
     public final static UrlPath API = walkingkooka.net.UrlPath.parse("/api");
+
+    public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(
+        DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
 
     public final static UrlPath API_LOCALE = API.append(
         LocaleHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
@@ -210,6 +216,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
         this.router = RouteMappings.<HttpRequestAttribute<?>, HttpHandler>empty()
             .add(
+                this.routing(API_DATE_TIME_SYMBOLS)
+                    .build(),
+                (HttpRequest request, HttpResponse response) ->
+                    this.dateTimeSymbolsRouter()
+                        .route(request.routerParameters())
+                        .orElse(SpreadsheetHttpServer::notFound)
+                        .handle(
+                            request,
+                            response
+                        )
+            ).add(
                 this.routing(API_LOCALE)
                     .build(),
                 (HttpRequest request, HttpResponse response) ->
@@ -267,6 +284,18 @@ public final class SpreadsheetHttpServer implements HttpServer {
     private HttpRequestAttributeRouting routing(final UrlPath path) {
         return HttpRequestAttributeRouting.empty()
             .path(path);
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> dateTimeSymbolsRouter() {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(
+                DateTimeSymbolsHateosResourceMappings.mappings()
+            ),
+            this.indentation,
+            this.lineEnding,
+            this.localeHateosResourceHandlerContext
+        );
     }
 
     private Router<HttpRequestAttribute<?>, HttpHandler> localeRouter() {
