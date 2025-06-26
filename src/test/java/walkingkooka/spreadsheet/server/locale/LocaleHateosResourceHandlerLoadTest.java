@@ -52,7 +52,9 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             UrlPath.EMPTY,
             this.context(),
             Optional.of(
-                LocaleHateosResource.parse("en-AU")
+                LocaleHateosResource.fromLocale(
+                    EN_AU.value()
+                )
             )
         );
     }
@@ -69,9 +71,13 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             this.context(),
             Optional.of(
                 LocaleHateosResourceSet.EMPTY.concat(
-                    LocaleHateosResource.parse("el-GR")
+                        LocaleHateosResource.fromLocale(
+                            Locale.forLanguageTag("el-GR")
+                        )
                 ).concat(
-                    LocaleHateosResource.parse("en")
+                    LocaleHateosResource.fromLocale(
+                        Locale.forLanguageTag("en")
+                    )
                 )
             )
         );
@@ -90,9 +96,13 @@ public final class LocaleHateosResourceHandlerLoadTest implements HateosResource
             this.context(),
             Optional.of(
                 LocaleHateosResourceSet.EMPTY.concat(
-                    LocaleHateosResource.parse("en-AU")
+                    LocaleHateosResource.fromLocale(
+                        EN_AU.value()
+                    )
                 ).concat(
-                    LocaleHateosResource.parse("en-NZ")
+                    LocaleHateosResource.fromLocale(
+                        EN_NZ.value()
+                    )
                 )
             )
         );

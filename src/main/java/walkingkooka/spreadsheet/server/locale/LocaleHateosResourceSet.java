@@ -4,7 +4,6 @@ import walkingkooka.collect.iterator.Iterators;
 import walkingkooka.collect.set.ImmutableSortedSetDefaults;
 import walkingkooka.collect.set.SortedSets;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
@@ -25,7 +24,6 @@ import java.util.TreeSet;
  */
 public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResource>
     implements ImmutableSortedSetDefaults<LocaleHateosResourceSet, LocaleHateosResource>,
-    HasText,
     TreePrintable {
 
     /**
@@ -49,52 +47,6 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
         return locales.isEmpty() ?
             EMPTY :
             new LocaleHateosResourceSet(locales);
-    }
-
-    /**
-     * Accepts a string of csv {@link LocaleHateosResource} with optional whitespace around locales ignored.
-     */
-    public static LocaleHateosResourceSet parse(final String text) {
-        Objects.requireNonNull(text, "text");
-
-        final SortedSet<LocaleHateosResource> locales = SortedSets.tree();
-
-        final int length = text.length();
-        final StringBuilder locale = new StringBuilder();
-
-        for (int i = 0; i < length; i++) {
-            final char c = text.charAt(i);
-            switch (c) {
-                case ',':
-                    append(
-                        locale,
-                        locales
-                    );
-                    locale.setLength(0);
-                    break;
-                default:
-                    locale.append(c);
-                    break;
-            }
-        }
-
-        append(
-            locale,
-            locales
-        );
-
-        return withCopy(locales);
-    }
-
-    private static void append(final StringBuilder b,
-                               final SortedSet<LocaleHateosResource> locales) {
-        final String text = b.toString()
-            .trim();
-        if (false == text.isEmpty()) {
-            locales.add(
-                LocaleHateosResource.parse(text)
-            );
-        }
     }
 
     private LocaleHateosResourceSet(final SortedSet<LocaleHateosResource> locales) {
@@ -163,20 +115,20 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
 
     @Override
     public LocaleHateosResourceSet setElements(final SortedSet<LocaleHateosResource> locales) {
-        final LocaleHateosResourceSet LocaleHateosResourceSet;
+        final LocaleHateosResourceSet localeHateosResourceSet;
 
         if (locales instanceof LocaleHateosResourceSet) {
-            LocaleHateosResourceSet = (LocaleHateosResourceSet) locales;
+            localeHateosResourceSet = (LocaleHateosResourceSet) locales;
         } else {
             final TreeSet<LocaleHateosResource> copy = new TreeSet<>(
                 Objects.requireNonNull(locales, "locales")
             );
-            LocaleHateosResourceSet = this.locales.equals(copy) ?
+            localeHateosResourceSet = this.locales.equals(copy) ?
                 this :
                 withCopy(copy);
         }
 
-        return LocaleHateosResourceSet;
+        return localeHateosResourceSet;
     }
 
     private SortedSet<LocaleHateosResource> locales;
@@ -186,44 +138,30 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
         Objects.requireNonNull(locale, "locale");
     }
 
-    // HasText..........................................................................................................
-
-    @Override
-    public String text() {
-        return SEPARATOR.toSeparatedString(
-            this,
-            LocaleHateosResource::text
-        );
-    }
-
     // TreePrintable....................................................................................................
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        for (final LocaleHateosResource locale : this) {
-            locale.printTree(printer);
+        for (final LocaleHateosResource resource : this) {
+            resource.printTree(printer);
         }
     }
 
     // Json.............................................................................................................
 
-    /**
-     * Returns a CSV string with locale tags separated by commas.
-     */
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return JsonNode.string(
-            this.text()
-        );
-    }
-
-    static void register() {
-        // helps force registry of json marshaller
+        return context.marshallCollection(this);
     }
 
     static LocaleHateosResourceSet unmarshall(final JsonNode node,
                                               final JsonNodeUnmarshallContext context) {
-        return parse(
-            node.stringOrFail()
+        return with(
+            new TreeSet<>(
+                context.unmarshallSet(
+                    node,
+                    LocaleHateosResource.class
+                )
+            )
         );
     }
 

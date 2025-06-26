@@ -20,10 +20,12 @@ package walkingkooka.spreadsheet.server.locale;
 import walkingkooka.Value;
 import walkingkooka.net.http.server.hateos.HateosResource;
 import walkingkooka.net.http.server.hateos.HateosResourceName;
+import walkingkooka.text.CharSequences;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.json.JsonNode;
+import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -33,31 +35,41 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Wrapper that holds a {@link Locale}.
+ * A proxy for a {@link Locale} holding the unique locale tag and label or text for display
  */
 public final class LocaleHateosResource implements HateosResource<LocaleTag>,
-    Value<Locale>,
+    Value<LocaleTag>,
     HasText,
     Comparable<LocaleHateosResource>,
     TreePrintable {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("locale");
 
-    public static LocaleHateosResource parse(final String text) {
+    public static LocaleHateosResource fromLocale(final Locale locale) {
+        Objects.requireNonNull(locale, "locale");
+
+        final String displayName = locale.getDisplayName();
+
         return with(
-            Locale.forLanguageTag(text)
+            LocaleTag.with(locale),
+            displayName.isEmpty() ?
+                locale.toLanguageTag() :
+                displayName
         );
     }
 
-    public static LocaleHateosResource with(final Locale locale) {
+    public static LocaleHateosResource with(final LocaleTag localeTag,
+                                            final String text) {
         return new LocaleHateosResource(
-            Objects.requireNonNull(locale, "locale")
+            Objects.requireNonNull(localeTag, "localeTag"),
+            CharSequences.failIfNullOrEmpty(text, "text")
         );
     }
 
-    private LocaleHateosResource(final Locale locale) {
-        this.localeTag = LocaleTag.with(locale);
-        this.locale = locale;
+    private LocaleHateosResource(final LocaleTag localeTag,
+                                 final String text) {
+        this.localeTag = localeTag;
+        this.text = text;
     }
 
     @Override
@@ -73,24 +85,27 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     private final LocaleTag localeTag;
 
     @Override
-    public Locale value() {
-        return this.locale;
+    public LocaleTag value() {
+        return this.localeTag;
     }
-
-    private final Locale locale;
 
     // HasText..........................................................................................................
 
     @Override
     public String text() {
-        return this.localeTag.toString();
+        return this.text;
     }
+
+    private final String text;
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return this.locale.hashCode();
+        return Objects.hash(
+            this.localeTag,
+            this.text
+        );
     }
 
     @Override
@@ -101,12 +116,13 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     }
 
     private boolean equals0(final LocaleHateosResource other) {
-        return this.locale.equals(other.locale);
+        return this.localeTag.equals(other.localeTag) &&
+            this.text.equals(other.text);
     }
 
     @Override
     public String toString() {
-        return this.locale.toLanguageTag();
+        return this.localeTag + " " + CharSequences.quoteIfChars(this.text);
     }
 
     // Comparable.......................................................................................................
@@ -120,26 +136,72 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
 
     @Override
     public void printTree(final IndentingPrinter printer) {
-        printer.println(this.text());
+        printer.println(this.localeTag.toString());
+        printer.indent();
+        {
+            printer.println(this.text());
+        }
+        printer.outdent();
     }
 
     // json.............................................................................................................
 
+    /**
+     * Factory that creates a {@link LocaleHateosResource} parse a {@link JsonNode}.
+     */
     static LocaleHateosResource unmarshall(final JsonNode node,
                                            final JsonNodeUnmarshallContext context) {
-        return with(
-            context.unmarshall(
-                node,
-                Locale.class
-            )
+        Objects.requireNonNull(node, "node");
+
+        LocaleTag localeTag = null;
+        String text = null;
+
+        for (JsonNode child : node.objectOrFail().children()) {
+            final JsonPropertyName name = child.name();
+            switch (name.value()) {
+                case LOCALE_TAG_PROPERTY_STRING:
+                    localeTag = context.unmarshall(
+                        child,
+                        LocaleTag.class
+                    );
+                    break;
+                case TEXT_PROPERTY_STRING:
+                    text = context.unmarshall(
+                        child,
+                        String.class
+                    );
+                    break;
+                default:
+                    JsonNodeUnmarshallContext.unknownPropertyPresent(name, node);
+                    break;
+            }
+        }
+
+        if (null == localeTag) {
+            JsonNodeUnmarshallContext.missingProperty(LOCALE_TAG_PROPERTY, node);
+        }
+        if (null == text) {
+            JsonNodeUnmarshallContext.missingProperty(TEXT_PROPERTY, node);
+        }
+
+        return new LocaleHateosResource(
+            localeTag,
+            text
         );
     }
 
     private JsonNode marshall(final JsonNodeMarshallContext context) {
-        return context.marshall(
-            this.locale
-        );
+        return JsonNode.object()
+            .set(LOCALE_TAG_PROPERTY, context.marshall(this.localeTag))
+            .set(TEXT_PROPERTY, context.marshall(this.text));
     }
+
+    private final static String LOCALE_TAG_PROPERTY_STRING = "localeTag";
+    private final static String TEXT_PROPERTY_STRING = "text";
+
+    private final static JsonPropertyName LOCALE_TAG_PROPERTY = JsonPropertyName.with(LOCALE_TAG_PROPERTY_STRING);
+    private final static JsonPropertyName TEXT_PROPERTY = JsonPropertyName.with(TEXT_PROPERTY_STRING);
+
 
     static {
         Locale.getDefault();

@@ -12510,7 +12510,10 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                "\"en-AU\"",
+                "{\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"text\": \"English (Australia)\"\n" +
+                    "}",
                 LocaleHateosResource.class.getSimpleName()
             )
         );
@@ -12527,7 +12530,20 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             "",
             this.response(
                 HttpStatusCode.OK.status(),
-                "\"el-GR,en,en-001\"",
+                "[\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"el-GR\",\n" +
+                    "    \"text\": \"Greek (Greece)\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"en\",\n" +
+                    "    \"text\": \"English\"\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"localeTag\": \"en-001\",\n" +
+                    "    \"text\": \"English (World)\"\n" +
+                    "  }\n" +
+                    "]",
                 LocaleHateosResourceSet.class.getSimpleName()
             )
         );
