@@ -125,7 +125,7 @@ public final class DecimalNumberSymbolsHateosResourceSet extends AbstractSet<Dec
         return decimalNumberSymbolsHateosResourceSet;
     }
 
-    private SortedSet<DecimalNumberSymbolsHateosResource> resources;
+    private final SortedSet<DecimalNumberSymbolsHateosResource> resources;
 
     @Override
     public void elementCheck(final DecimalNumberSymbolsHateosResource resource) {
