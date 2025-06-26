@@ -47,7 +47,13 @@ public final class LocaleTagTest implements ComparableTesting2<LocaleTag>,
 
     @Test
     public void testWith() {
+        final Locale locale = Locale.forLanguageTag("en-AU");
 
+        final LocaleTag localeTag = LocaleTag.with(locale);
+        this.checkEquals(
+            locale,
+            localeTag.value()
+        );
     }
 
     // parse............................................................................................................
