@@ -30,6 +30,8 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -40,6 +42,18 @@ public final class DecimalNumberSymbolsHateosResource implements HateosResource<
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("decimalNumberSymbols");
 
+    public static DecimalNumberSymbolsHateosResource fromLocale(final Locale locale) {
+        Objects.requireNonNull(locale, "locale");
+
+        return new DecimalNumberSymbolsHateosResource(
+            LocaleTag.with(locale),
+            DecimalNumberSymbols.fromDecimalFormatSymbols(
+                '+',
+                new DecimalFormatSymbols(locale)
+            )
+        );
+    }
+    
     public static DecimalNumberSymbolsHateosResource with(final LocaleTag localeTag,
                                                           final DecimalNumberSymbols decimalNumberSymbols) {
         return new DecimalNumberSymbolsHateosResource(
