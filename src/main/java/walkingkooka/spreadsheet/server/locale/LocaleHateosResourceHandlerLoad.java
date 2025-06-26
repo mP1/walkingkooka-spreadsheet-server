@@ -68,7 +68,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .stream()
             .filter((final Locale l) -> l.toLanguageTag().equals(id.toString()))
             .findFirst()
-            .map(LocaleHateosResource::with);
+            .map(LocaleHateosResource::fromLocale);
     }
 
     @Override
@@ -91,7 +91,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
             .stream()
             .skip(offset)
             .limit(count)
-            .map(LocaleHateosResource::with)
+            .map(LocaleHateosResource::fromLocale)
             .forEach(all::add);
 
         return Optional.of(
@@ -116,7 +116,7 @@ final class LocaleHateosResourceHandlerLoad implements HateosResourceHandler<Loc
                 context.availableLocales()
                     .stream()
                     .filter((Locale l) -> ids.contains(LocaleTag.with(l)))
-                    .map(LocaleHateosResource::with)
+                    .map(LocaleHateosResource::fromLocale)
                     .collect(Collectors.toCollection(SortedSets::tree))
             )
         );

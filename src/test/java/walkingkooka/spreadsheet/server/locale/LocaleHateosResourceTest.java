@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.json.JsonNode;
@@ -36,24 +35,56 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     HasTextTesting,
     TreePrintableTesting,
     JsonNodeMarshallingTesting<LocaleHateosResource>,
-    ClassTesting2<LocaleHateosResource>,
-    ParseStringTesting<LocaleHateosResource> {
+    ClassTesting2<LocaleHateosResource> {
 
     private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
 
+    private final static LocaleTag LOCALE_TAG = LocaleTag.with(LOCALE);
+
+    private final static String TEXT = "Australian English";
+
     @Test
-    public void testWithNullLocaleFails() {
+    public void testWithNullLocaleTagFails() {
         assertThrows(
             NullPointerException.class,
-            () -> LocaleHateosResource.with(null)
+            () -> LocaleHateosResource.with(
+                null,
+                TEXT
+            )
         );
     }
 
     @Test
+    public void testWithNullTextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> LocaleHateosResource.with(
+                LOCALE_TAG,
+                null
+            )
+        );
+    }
+
+    @Test
+    public void testWithEmptyTextFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> LocaleHateosResource.with(
+                LOCALE_TAG,
+                ""
+            )
+        );
+    }
+
+
+    @Test
     public void testWith() {
-        final LocaleHateosResource resource = LocaleHateosResource.with(LOCALE);
+        final LocaleHateosResource resource = LocaleHateosResource.with(
+            LOCALE_TAG,
+            TEXT
+        );
         this.checkEquals(
-            LOCALE,
+            LOCALE_TAG,
             resource.value()
         );
 
@@ -61,36 +92,11 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
             "en-AU",
                 resource.hateosLinkId()
         );
-    }
 
-    // parse............................................................................................................
-
-    @Override
-    public void testParseStringEmptyFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Test
-    public void testParse() {
-        this.parseStringAndCheck(
-            "EN-AU",
-            LocaleHateosResource.with(LOCALE)
+        this.textAndCheck(
+            resource,
+            TEXT
         );
-    }
-
-    @Override
-    public LocaleHateosResource parseString(final String text) {
-        return LocaleHateosResource.parse(text);
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> thrown) {
-        return thrown;
-    }
-
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException thrown) {
-        return thrown;
     }
 
     // HasText..........................................................................................................
@@ -98,8 +104,11 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     @Test
     public void testText() {
         this.textAndCheck(
-            LocaleHateosResource.with(LOCALE),
-            "en-AU"
+            LocaleHateosResource.with(
+                LOCALE_TAG,
+                TEXT
+            ),
+            TEXT
         );
     }
 
@@ -108,8 +117,12 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     @Test
     public void testTreePrintable() {
         this.treePrintAndCheck(
-            LocaleHateosResource.with(LOCALE),
-            "en-AU\n"
+            LocaleHateosResource.with(
+                LOCALE_TAG,
+                TEXT
+            ),
+            "en-AU\n" +
+                "  Australian English\n"
         );
     }
 
@@ -119,21 +132,38 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
     public void testComparableLess() {
         this.compareToAndCheckLess(
             LocaleHateosResource.with(
-                Locale.FRANCE
+                LocaleTag.with(
+                    Locale.FRANCE
+                ),
+                "France ...."
             )
         );
     }
 
     @Override
     public LocaleHateosResource createComparable() {
-        return LocaleHateosResource.with(LOCALE);
+        return LocaleHateosResource.with(
+            LOCALE_TAG,
+            TEXT
+        );
     }
 
     // json.............................................................................................................
 
+    @Test
+    public void testMarshall() {
+        this.marshallAndCheck(
+            this.createJsonNodeMarshallingValue(),
+            "{\n" +
+                "  \"localeTag\": \"en-AU\",\n" +
+                "  \"text\": \"Australian English\"\n" +
+                "}"
+        );
+    }
+
     @Override
     public LocaleHateosResource unmarshall(final JsonNode node,
-                                final JsonNodeUnmarshallContext context) {
+                                           final JsonNodeUnmarshallContext context) {
         return LocaleHateosResource.unmarshall(
             node,
             context
@@ -142,7 +172,10 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
 
     @Override
     public LocaleHateosResource createJsonNodeMarshallingValue() {
-        return LocaleHateosResource.with(LOCALE);
+        return LocaleHateosResource.with(
+            LOCALE_TAG,
+            TEXT
+        );
     }
 
     // class............................................................................................................
