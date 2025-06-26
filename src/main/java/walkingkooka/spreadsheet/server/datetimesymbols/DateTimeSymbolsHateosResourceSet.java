@@ -125,7 +125,7 @@ public final class DateTimeSymbolsHateosResourceSet extends AbstractSet<DateTime
         return dateTimeSymbolsHateosResourceSet;
     }
 
-    private SortedSet<DateTimeSymbolsHateosResource> resources;
+    private final SortedSet<DateTimeSymbolsHateosResource> resources;
 
     @Override
     public void elementCheck(final DateTimeSymbolsHateosResource resource) {

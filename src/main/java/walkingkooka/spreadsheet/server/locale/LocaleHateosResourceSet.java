@@ -131,7 +131,7 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
         return localeHateosResourceSet;
     }
 
-    private SortedSet<LocaleHateosResource> locales;
+    private final SortedSet<LocaleHateosResource> locales;
 
     @Override
     public void elementCheck(final LocaleHateosResource locale) {
