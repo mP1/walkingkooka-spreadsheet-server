@@ -30,6 +30,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.text.DateFormatSymbols;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -82,6 +83,32 @@ public final class DateTimeSymbolsHateosResourceTest implements ComparableTestin
         this.checkEquals(
             "en-AU",
             resource.hateosLinkId()
+        );
+    }
+
+    // fromLocale.......................................................................................................
+
+    @Test
+    public void testFromLocaleWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DateTimeSymbolsHateosResource.fromLocale(null)
+        );
+    }
+
+    @Test
+    public void testFromLocale() {
+        final DateTimeSymbolsHateosResource resource = DateTimeSymbolsHateosResource.fromLocale(LOCALE);
+        this.checkEquals(
+            resource.id(),
+            Optional.of(LOCALE_TAG)
+        );
+
+        this.checkEquals(
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(LOCALE)
+            ),
+            resource.value()
         );
     }
 

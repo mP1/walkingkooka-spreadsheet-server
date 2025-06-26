@@ -30,6 +30,8 @@ import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
+import java.text.DateFormatSymbols;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,6 +41,17 @@ public final class DateTimeSymbolsHateosResource implements HateosResource<Local
     TreePrintable {
 
     public final static HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with("dateTimeSymbols");
+
+    public static DateTimeSymbolsHateosResource fromLocale(final Locale locale) {
+        Objects.requireNonNull(locale, "locale");
+
+        return new DateTimeSymbolsHateosResource(
+            LocaleTag.with(locale),
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(locale)
+            )
+        );
+    }
 
     public static DateTimeSymbolsHateosResource with(final LocaleTag localeTag,
                                                      final DateTimeSymbols dateTimeSymbols) {
