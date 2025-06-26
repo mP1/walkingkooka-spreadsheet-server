@@ -118,7 +118,7 @@ These end points may be used to work with available [ConverterInfoSet](https://g
 
 End points to fetch `DateTimeSymbols` for a given `Locale`.
 
-- **GET** /api/dateTimeSymbols/[Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/dateTimeSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
 
 #### [Exporter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/export/SpreadsheetExporter.java)
 
@@ -182,7 +182,7 @@ These end points are mostly used by the label management dialog.
 
 End points to query available Locales.
 
-- **GET** /api/locale/[Locale](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+- **GET** /api/locale/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
 - **GET** /api/locale/*?offset=0&count=1
 
 #### [Parser](https://github.com/mP1/walkingkooka-text-cursor-parser/blob/master/src/main/java/walkingkooka/text/cursor/parser/Parser.java)
