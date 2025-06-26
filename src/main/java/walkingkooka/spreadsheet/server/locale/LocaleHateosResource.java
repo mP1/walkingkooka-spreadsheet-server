@@ -38,7 +38,7 @@ import java.util.Optional;
  * A proxy for a {@link Locale} holding the unique locale tag and label or text for display
  */
 public final class LocaleHateosResource implements HateosResource<LocaleTag>,
-    Value<LocaleTag>,
+    Value<String>,
     HasText,
     Comparable<LocaleHateosResource>,
     TreePrintable {
@@ -85,8 +85,8 @@ public final class LocaleHateosResource implements HateosResource<LocaleTag>,
     private final LocaleTag localeTag;
 
     @Override
-    public LocaleTag value() {
-        return this.localeTag;
+    public String value() {
+        return this.text;
     }
 
     // HasText..........................................................................................................

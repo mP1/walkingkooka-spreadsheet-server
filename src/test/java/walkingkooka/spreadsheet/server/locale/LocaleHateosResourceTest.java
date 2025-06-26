@@ -84,7 +84,7 @@ public final class LocaleHateosResourceTest implements ComparableTesting2<Locale
             TEXT
         );
         this.checkEquals(
-            LOCALE_TAG,
+            TEXT,
             resource.value()
         );
 
