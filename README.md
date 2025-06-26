@@ -120,6 +120,12 @@ End points to fetch `DateTimeSymbols` for a given `Locale`.
 
 - **GET** /api/dateTimeSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
 
+#### [DecimalNumberSymbols](https://github.com/mP1/walkingkooka-math/blob/master/src/main/java/walkingkooka/math/DecimalNumberSymbols.java)
+
+End points to fetch `DecimalNumberSymbols` for a given `Locale`.
+
+- **GET** /api/decimalNumberSymbols/[LocaleTag](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/main/java/walkingkooka/spreadsheet/server/locale/LocaleTag.java)
+
 #### [Exporter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/export/SpreadsheetExporter.java)
 
 These end points may be used to work with available [SpreadsheetExporterInfoSet](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/export/SpreadsheetExporterInfoSet.java)

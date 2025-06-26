@@ -50,6 +50,8 @@ import walkingkooka.spreadsheet.meta.store.SpreadsheetMetadataStore;
 import walkingkooka.spreadsheet.provider.SpreadsheetProvider;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResourceMappings;
+import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
+import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResourceMappings;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResource;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContext;
 import walkingkooka.spreadsheet.server.locale.LocaleHateosResourceHandlerContexts;
@@ -79,6 +81,10 @@ public final class SpreadsheetHttpServer implements HttpServer {
 
     public final static UrlPath API_DATE_TIME_SYMBOLS = API.append(
         DateTimeSymbolsHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
+    );
+
+    public final static UrlPath API_DECIMAL_NUMBER_SYMBOLS = API.append(
+        DecimalNumberSymbolsHateosResource.HATEOS_RESOURCE_NAME.toUrlPathName()
     );
 
     public final static UrlPath API_LOCALE = API.append(
@@ -227,6 +233,17 @@ public final class SpreadsheetHttpServer implements HttpServer {
                             response
                         )
             ).add(
+                this.routing(API_DECIMAL_NUMBER_SYMBOLS)
+                    .build(),
+                (HttpRequest request, HttpResponse response) ->
+                    this.decimalNumberSymbolsRouter()
+                        .route(request.routerParameters())
+                        .orElse(SpreadsheetHttpServer::notFound)
+                        .handle(
+                            request,
+                            response
+                        )
+            ).add(
                 this.routing(API_LOCALE)
                     .build(),
                 (HttpRequest request, HttpResponse response) ->
@@ -291,6 +308,18 @@ public final class SpreadsheetHttpServer implements HttpServer {
             API,
             Sets.of(
                 DateTimeSymbolsHateosResourceMappings.mappings()
+            ),
+            this.indentation,
+            this.lineEnding,
+            this.localeHateosResourceHandlerContext
+        );
+    }
+
+    private Router<HttpRequestAttribute<?>, HttpHandler> decimalNumberSymbolsRouter() {
+        return HateosResourceMappings.router(
+            API,
+            Sets.of(
+                DecimalNumberSymbolsHateosResourceMappings.mappings()
             ),
             this.indentation,
             this.lineEnding,

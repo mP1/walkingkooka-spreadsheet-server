@@ -113,6 +113,7 @@ import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
 import walkingkooka.spreadsheet.security.store.SpreadsheetGroupStores;
 import walkingkooka.spreadsheet.security.store.SpreadsheetUserStores;
 import walkingkooka.spreadsheet.server.datetimesymbols.DateTimeSymbolsHateosResource;
+import walkingkooka.spreadsheet.server.decimalnumbersymbols.DecimalNumberSymbolsHateosResource;
 import walkingkooka.spreadsheet.server.delta.SpreadsheetExpressionReferenceSimilarities;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorEdit;
 import walkingkooka.spreadsheet.server.formatter.SpreadsheetFormatterSelectorMenuList;
@@ -12567,6 +12568,41 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  }\n" +
                     "}",
                 DateTimeSymbolsHateosResource.class.getSimpleName()
+            )
+        );
+    }
+
+    // DateTimeSymbols..................................................................................................
+
+    @Test
+    public void testDecimalNumberSymbolsOne() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/decimalNumberSymbols/EN-AU",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                "{\n" +
+                    "  \"localeTag\": \"en-AU\",\n" +
+                    "  \"decimalNumberSymbols\": {\n" +
+                    "    \"negativeSign\": \"-\",\n" +
+                    "    \"positiveSign\": \"+\",\n" +
+                    "    \"zeroDigit\": \"0\",\n" +
+                    "    \"currencySymbol\": \"$\",\n" +
+                    "    \"decimalSeparator\": \".\",\n" +
+                    "    \"exponentSymbol\": \"e\",\n" +
+                    "    \"groupSeparator\": \",\",\n" +
+                    "    \"infinitySymbol\": \"∞\",\n" +
+                    "    \"monetaryDecimalSeparator\": \".\",\n" +
+                    "    \"nanSymbol\": \"NaN\",\n" +
+                    "    \"percentSymbol\": \"%\",\n" +
+                    "    \"permillSymbol\": \"‰\"\n" +
+                    "  }\n" +
+                    "}",
+                DecimalNumberSymbolsHateosResource.class.getSimpleName()
             )
         );
     }
