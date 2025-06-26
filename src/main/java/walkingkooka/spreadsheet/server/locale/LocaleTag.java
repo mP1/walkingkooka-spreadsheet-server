@@ -18,7 +18,6 @@
 package walkingkooka.spreadsheet.server.locale;
 
 import walkingkooka.Value;
-import walkingkooka.net.http.server.hateos.HateosResourceName;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
@@ -31,10 +30,6 @@ import java.util.Objects;
  * An id that uniquely identifies a {@link Locale} for a {@link walkingkooka.net.http.server.hateos.HateosResourceHandler}.
  */
 public final class LocaleTag implements Comparable<LocaleTag>, Value<Locale> {
-
-    public static final String HATEOS_RESOURCE_NAME_STRING = "locale";
-
-    public static final HateosResourceName HATEOS_RESOURCE_NAME = HateosResourceName.with(HATEOS_RESOURCE_NAME_STRING);
 
     public static LocaleTag parse(final String text) {
         return with(
