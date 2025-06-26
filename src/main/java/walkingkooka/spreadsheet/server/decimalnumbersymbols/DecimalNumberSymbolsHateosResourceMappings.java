@@ -17,6 +17,8 @@
 
 package walkingkooka.spreadsheet.server.decimalnumbersymbols;
 
+import walkingkooka.net.header.LinkRelation;
+import walkingkooka.net.http.HttpMethod;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.net.http.server.hateos.HateosResourceSelection;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -38,6 +40,10 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
             DecimalNumberSymbolsHateosResourceSet.class, // collectionType
             DecimalNumberSymbolsHateosResource.class,// resourceType
             LocaleHateosResourceHandlerContext.class // context
+        ).setHateosResourceHandler(
+            LinkRelation.SELF,
+            HttpMethod.GET,
+            DecimalNumberSymbolsHateosResourceHandlerLoad.INSTANCE
         );
     }
 
@@ -47,7 +53,7 @@ public final class DecimalNumberSymbolsHateosResourceMappings implements PublicS
 
         switch (text) {
             case HateosResourceSelection.NONE:
-                selection = HateosResourceSelection.all();
+                selection = HateosResourceSelection.none();
                 break;
             case HateosResourceSelection.ALL:
                 selection = HateosResourceSelection.all();
