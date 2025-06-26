@@ -74,8 +74,8 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
     }
 
     @Override
-    public LocaleHateosResourceSet subSet(LocaleHateosResource from,
-                                          LocaleHateosResource to) {
+    public LocaleHateosResourceSet subSet(final LocaleHateosResource from,
+                                          final LocaleHateosResource to) {
         return withCopy(
             this.locales.subSet(
                 from,
@@ -85,14 +85,14 @@ public final class LocaleHateosResourceSet extends AbstractSet<LocaleHateosResou
     }
 
     @Override
-    public LocaleHateosResourceSet headSet(LocaleHateosResource locale) {
+    public LocaleHateosResourceSet headSet(final LocaleHateosResource locale) {
         return withCopy(
             this.locales.headSet(locale)
         );
     }
 
     @Override
-    public LocaleHateosResourceSet tailSet(LocaleHateosResource locale) {
+    public LocaleHateosResourceSet tailSet(final LocaleHateosResource locale) {
         return withCopy(
             this.locales.tailSet(locale)
         );
