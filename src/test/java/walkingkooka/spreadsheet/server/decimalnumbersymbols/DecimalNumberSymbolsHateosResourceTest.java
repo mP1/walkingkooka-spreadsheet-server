@@ -30,6 +30,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -86,6 +87,33 @@ public final class DecimalNumberSymbolsHateosResourceTest implements ComparableT
         );
     }
 
+    // fromLocale.......................................................................................................
+
+    @Test
+    public void testFromLocaleWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> DecimalNumberSymbolsHateosResource.fromLocale(null)
+        );
+    }
+
+    @Test
+    public void testFromLocale() {
+        final DecimalNumberSymbolsHateosResource resource = DecimalNumberSymbolsHateosResource.fromLocale(LOCALE);
+        this.checkEquals(
+            resource.id(),
+            Optional.of(LOCALE_TAG)
+        );
+
+        this.checkEquals(
+            DecimalNumberSymbols.fromDecimalFormatSymbols(
+                '+',
+                new DecimalFormatSymbols(LOCALE)
+            ),
+            resource.value()
+        );
+    }
+    
     // TreePrintable....................................................................................................
 
     @Test
