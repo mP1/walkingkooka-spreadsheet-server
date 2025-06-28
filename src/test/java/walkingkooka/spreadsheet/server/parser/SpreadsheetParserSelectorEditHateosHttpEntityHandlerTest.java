@@ -242,8 +242,11 @@ public final class SpreadsheetParserSelectorEditHateosHttpEntityHandlerTest impl
                 @Override
                 public Optional<TextNode> formatValue(final SpreadsheetCell cell,
                                                       final Optional<Object> value,
-                                                      final SpreadsheetFormatter formatter) {
-                    return formatter.format(
+                                                      final Optional<SpreadsheetFormatterSelector> formatter) {
+                    return SPREADSHEET_PROVIDER.spreadsheetFormatter(
+                        formatter.get(),
+                        PROVIDER_CONTEXT
+                    ).format(
                         value,
                         SpreadsheetMetadataTesting.METADATA_EN_AU.spreadsheetFormatterContext(
                             Optional.of(cell),
