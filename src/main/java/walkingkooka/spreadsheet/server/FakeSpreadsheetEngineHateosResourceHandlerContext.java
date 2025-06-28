@@ -147,6 +147,11 @@ public class FakeSpreadsheetEngineHateosResourceHandlerContext extends FakeHateo
     }
 
     @Override
+    public SpreadsheetFormatter spreadsheetFormatter(final SpreadsheetFormatterSelector selector) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public SpreadsheetStoreRepository storeRepository() {
         throw new UnsupportedOperationException();
     }
