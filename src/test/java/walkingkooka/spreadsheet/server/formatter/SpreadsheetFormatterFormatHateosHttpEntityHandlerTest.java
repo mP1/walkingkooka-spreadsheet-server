@@ -208,8 +208,11 @@ public final class SpreadsheetFormatterFormatHateosHttpEntityHandlerTest impleme
                 @Override
                 public Optional<TextNode> formatValue(final SpreadsheetCell cell,
                                                       final Optional<Object> value,
-                                                      final SpreadsheetFormatter formatter) {
-                    return formatter.format(
+                                                      final Optional<SpreadsheetFormatterSelector> formatter) {
+                    return SPREADSHEET_PROVIDER.spreadsheetFormatter(
+                        formatter.get(),
+                        PROVIDER_CONTEXT
+                    ).format(
                         value,
                         SPREADSHEET_FORMATTER_CONTEXT
                     );

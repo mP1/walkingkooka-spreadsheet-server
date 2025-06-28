@@ -30,7 +30,6 @@ import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHan
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleOne;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosHttpEntityHandlerHandleRange;
-import walkingkooka.spreadsheet.format.SpreadsheetFormatter;
 import walkingkooka.spreadsheet.format.SpreadsheetFormatterName;
 import walkingkooka.spreadsheet.formula.SpreadsheetFormula;
 import walkingkooka.spreadsheet.reference.SpreadsheetSelection;
@@ -112,16 +111,14 @@ final class SpreadsheetFormatterFormatHateosHttpEntityHandler implements HateosH
 
     private TextNode format(final SpreadsheetFormatterFormatRequest<?> request,
                             final SpreadsheetEngineHateosResourceHandlerContext context) {
-        final SpreadsheetFormatter formatter = context.spreadsheetFormatter(
-            request.selector(),
-            context
-        );
         return context.formatValue(
             SpreadsheetSelection.A1.setFormula(SpreadsheetFormula.EMPTY),
             Optional.ofNullable(
                 request.value()
             ),
-            formatter
+            Optional.of(
+                request.selector()
+            )
         ).orElse(TextNode.EMPTY_TEXT);
     }
 
