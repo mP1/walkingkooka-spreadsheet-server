@@ -85,7 +85,9 @@ public final class BasicSpreadsheetFormatterSelectorEditContextTest implements S
                 Objects.requireNonNull(value, "value");
                 throw new UnsupportedOperationException();
             },
-            this.spreadsheetConverterContext()
+            this.spreadsheetConverterContext(),
+            SPREADSHEET_FORMATTER_PROVIDER,
+            PROVIDER_CONTEXT
         );
     }
 
