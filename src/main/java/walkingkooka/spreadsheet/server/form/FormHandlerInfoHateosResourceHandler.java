@@ -51,9 +51,9 @@ final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandle
 
     @Override
     public Optional<FormHandlerInfoSet> handleAll(final Optional<FormHandlerInfoSet> infos,
-                                                final Map<HttpRequestAttribute<?>, Object> parameters,
-                                                final UrlPath path,
-                                                final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final Map<HttpRequestAttribute<?>, Object> parameters,
+                                                  final UrlPath path,
+                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
@@ -67,10 +67,10 @@ final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandle
 
     @Override
     public Optional<FormHandlerInfo> handleOne(final FormHandlerName name,
-                                             final Optional<FormHandlerInfo> info,
-                                             final Map<HttpRequestAttribute<?>, Object> parameters,
-                                             final UrlPath path,
-                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                               final Optional<FormHandlerInfo> info,
+                                               final Map<HttpRequestAttribute<?>, Object> parameters,
+                                               final UrlPath path,
+                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
