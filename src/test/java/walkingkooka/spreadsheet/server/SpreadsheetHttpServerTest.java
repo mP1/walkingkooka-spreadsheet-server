@@ -1477,7 +1477,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, to-json, text-to-form-name, text-to-validation-error, text-to-value-type, general)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-error, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, text-to-form-name, text-to-validation-error, text-to-validator-selector, text-to-value-type, general)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -5317,7 +5317,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, to-json, text-to-form-name, text-to-validation-error, text-to-value-type, general)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-error, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, text-to-form-name, text-to-validation-error, text-to-validator-selector, text-to-value-type, general)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -5783,7 +5783,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, to-json, text-to-form-name, text-to-validation-error, text-to-value-type, general)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-error, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, text-to-form-name, text-to-validation-error, text-to-validator-selector, text-to-value-type, general)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
@@ -6028,7 +6028,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
                     "  \"timeFormatter\": \"time-format-pattern \\\"Time\\\" hh:mm\",\n" +
                     "  \"timeParser\": \"time-parse-pattern hh:mm\",\n" +
                     "  \"twoDigitYear\": 50,\n" +
-                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, to-json, text-to-form-name, text-to-validation-error, text-to-value-type, general)\",\n" +
+                    "  \"validationConverter\": \"collection(null-to-number, simple, number-to-number, text-to-text, error-to-number, text-to-error, text-to-expression, text-to-locale, text-to-selection, selection-to-selection, selection-to-text, text-to-form-name, text-to-validation-error, text-to-validator-selector, text-to-value-type, general)\",\n" +
                     "  \"validationFunctions\": \"@\",\n" +
                     "  \"validationValidators\": \"\",\n" +
                     "  \"validators\": \"\",\n" +
