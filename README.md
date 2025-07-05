@@ -19,7 +19,6 @@ A swagger-ui is available at:
 > http://server/api-doc/index.html
 
 - Simple payloads are present.
-- The definitions of some JSON types are not present [TODO](https://github.com/mP1/walkingkooka-spreadsheet-server/issues/480)
 - To examine the JSON form examining tests will be required.
 
 ### Plugin
