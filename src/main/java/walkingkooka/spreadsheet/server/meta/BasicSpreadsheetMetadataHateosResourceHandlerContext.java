@@ -22,8 +22,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.net.AbsoluteUrl;
 import walkingkooka.net.UrlPath;
@@ -36,6 +34,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandlerContextDelegator
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContexts;
 import walkingkooka.net.http.server.hateos.HateosResourceMappings;
 import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContextDelegator;
 import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetCell;
@@ -120,7 +119,7 @@ import java.util.function.Function;
  */
 final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements SpreadsheetMetadataHateosResourceHandlerContext,
     HateosResourceHandlerContextDelegator,
-    EnvironmentContextDelegator {
+    ProviderContextDelegator {
 
     /**
      * Creates a new empty {@link BasicSpreadsheetMetadataHateosResourceHandlerContext}
@@ -492,10 +491,10 @@ final class BasicSpreadsheetMetadataHateosResourceHandlerContext implements Spre
 
     private final HateosResourceHandlerContext hateosResourceHandlerContext;
 
-    // EnvironmentContextDelegator......................................................................................
+    // ProviderContextDelegator.........................................................................................
 
     @Override
-    public EnvironmentContext environmentContext() {
+    public ProviderContext providerContext() {
         return this.providerContext;
     }
 
