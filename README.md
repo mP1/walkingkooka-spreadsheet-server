@@ -140,6 +140,7 @@ These end points may be used to work with available [SpreadsheetExporterInfoSet]
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/form/*?offset=0&count=1
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/form
 - **POST** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/form/[FormName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/FormName.java)
+- **DELETE** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/form/[FormName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/FormName.java)
 
 #### [Formatter](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/format/SpreadsheetFormatter.java)
 
