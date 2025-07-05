@@ -18,10 +18,10 @@
 package walkingkooka.spreadsheet.server.meta;
 
 import walkingkooka.Context;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.net.http.server.HttpHandler;
 import walkingkooka.net.http.server.HttpRequestAttribute;
 import walkingkooka.net.http.server.hateos.HateosResourceHandlerContext;
+import walkingkooka.plugin.ProviderContext;
 import walkingkooka.route.Router;
 import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.meta.SpreadsheetMetadata;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  * A {@link Context} for spreadsheets.
  */
 public interface SpreadsheetMetadataHateosResourceHandlerContext extends HateosResourceHandlerContext,
-    EnvironmentContext {
+    ProviderContext {
 
     @Override
     SpreadsheetMetadataHateosResourceHandlerContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
