@@ -42,8 +42,6 @@ import java.util.Set;
 
 public final class SpreadsheetDeltaHateosResourceHandlerSaveFormTest extends SpreadsheetDeltaHateosResourceHandlerFormTestCase<SpreadsheetDeltaHateosResourceHandlerSaveForm> {
 
-    private final static int DEFAULT_COUNT = 3;
-
     @Test
     public void testHandleOneSave() {
         final FormName formName = this.id();
