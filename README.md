@@ -19,7 +19,7 @@ A swagger-ui is available at:
 > http://server/api-doc/index.html
 
 - Simple payloads are present.
-- To examine the JSON form examining tests will be required.
+- The following tests contain many examples [SpreadsheetHttpServerTest](https://github.com/mP1/walkingkooka-spreadsheet-server/blob/master/src/test/java/walkingkooka/spreadsheet/server/SpreadsheetHttpServerTest.java)
 
 ### Plugin
 
