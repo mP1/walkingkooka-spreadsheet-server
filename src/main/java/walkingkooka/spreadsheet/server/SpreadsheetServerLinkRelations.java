@@ -80,6 +80,8 @@ public final class SpreadsheetServerLinkRelations implements PublicStaticHelper 
 
     public final static LinkRelation<?> UPLOAD = LinkRelation.with("upload");
 
+    public final static LinkRelation<?> VERIFY = LinkRelation.with("verify");
+
     /**
      * Stop creation
      */
