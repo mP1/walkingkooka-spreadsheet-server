@@ -8125,6 +8125,95 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
     }
 
     @Test
+    public void testFormDelete() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        final Form<SpreadsheetExpressionReference> form = SpreadsheetForms.form(FormName.with("Form123"))
+            .setFields(
+                Lists.of(
+                    SpreadsheetForms.field(SpreadsheetSelection.A1.toExpressionReference())
+                        .setLabel("FieldLabel1")
+                )
+            );
+
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/form",
+            NO_HEADERS_TRANSACTION_ID,
+            toJson(
+                SpreadsheetDelta.EMPTY.setForms(
+                    Sets.of(
+                        form
+                    )
+                )
+            ),
+            this.response(
+                HttpStatusCode.CREATED.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setForms(
+                        Sets.of(
+                            form
+                        )
+                    ).setDeletedCells(
+                        Sets.of(SpreadsheetSelection.A1)
+                    ).setColumnWidths(
+                        Maps.of(
+                            SpreadsheetSelection.parseColumn("A"),
+                            100.0
+                        )
+                    ).setRowHeights(
+                        Maps.of(
+                            SpreadsheetSelection.parseRow("1"),
+                            50.0
+                        )
+                    ).setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.DELETE,
+            "/api/spreadsheet/1/form/Form123",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+
+        server.handleAndCheck(
+            HttpMethod.GET,
+            "/api/spreadsheet/1/form/Form123",
+            NO_HEADERS_TRANSACTION_ID,
+            "",
+            this.response(
+                HttpStatusCode.OK.status(),
+                this.toJson(
+                    SpreadsheetDelta.EMPTY.setColumnCount(
+                        OptionalInt.of(0)
+                    ).setRowCount(
+                        OptionalInt.of(0)
+                    )
+                ),
+                SpreadsheetDelta.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
     public void testFormPrepare() {
         final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
 
