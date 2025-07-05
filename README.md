@@ -62,7 +62,7 @@ in JSON form, where necessary.
 Most of these end points are used to fill the viewport or from actions such as selecting a cell or cell-range and then
 clicking a context menu command.
 
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/cell/*/clear-value-error-skip-evaluate?home=A1&&width=2&height=3&includeFrozenColumnsRows=true&selectionType=cell-range&selection=A1:B2&selectionNavigation=extend-left&properties="*"  
+- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/cell/&ast;/clear-value-error-skip-evaluate?home=A1&&width=2&height=3&includeFrozenColumnsRows=true&selectionType=cell-range&selection=A1:B2&selectionNavigation=extend-left&properties="*"  
   Used by the UI to load just enough cells to fill the viewport.
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/cell/A1/clear-value-error-skip-evaluate
 - **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/cell/A1/skip-evaluate
