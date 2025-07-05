@@ -80,6 +80,7 @@ import walkingkooka.spreadsheet.SpreadsheetId;
 import walkingkooka.spreadsheet.SpreadsheetViewportWindows;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfo;
 import walkingkooka.spreadsheet.compare.SpreadsheetComparatorInfoSet;
+import walkingkooka.spreadsheet.convert.MissingConverterSet;
 import walkingkooka.spreadsheet.engine.SpreadsheetDelta;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfo;
 import walkingkooka.spreadsheet.export.SpreadsheetExporterInfoSet;
@@ -8452,6 +8453,35 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
             this.response(
                 HttpStatusCode.NO_CONTENT.status(),
                 ConverterInfo.class.getSimpleName()
+            )
+        );
+    }
+
+    @Test
+    public void testConverterVerify() {
+        final TestHttpServer server = this.startServerAndCreateEmptySpreadsheet();
+
+        // save cell B2
+        server.handleAndCheck(
+            HttpMethod.POST,
+            "/api/spreadsheet/1/converter/*/verify/formulaConverter",
+            NO_HEADERS_TRANSACTION_ID,
+            JSON_NODE_MARSHALL_CONTEXT.marshall(
+                METADATA_EN_AU.getOrFail(
+                    SpreadsheetMetadataPropertyName.FORMULA_CONVERTER
+                )
+            ).toString(),
+            this.response(
+                HttpStatusCode.OK.status(),
+                HttpEntity.EMPTY.setContentType(
+                        SpreadsheetServerMediaTypes.CONTENT_TYPE
+                    ).setHeader(
+                        HateosResourceMappings.X_CONTENT_TYPE_NAME,
+                        Lists.of(
+                            MissingConverterSet.class.getSimpleName()
+                        )
+                    ).setBodyText("[]")
+                    .setContentLength()
             )
         );
     }
