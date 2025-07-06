@@ -40,13 +40,9 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
 
         // validator GET...............................................................................................
 
-        HateosResourceMappings<ValidatorName,
-            ValidatorInfo,
-            ValidatorInfoSet,
-            ValidatorInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> validator = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             ValidatorName.HATEOS_RESOURCE_NAME,
-            ValidationHateosResourceMappings::parseValidatorSelection,
+            ValidationHateosResourceMappings::parseSelection,
             ValidatorInfo.class, // valueType
             ValidatorInfoSet.class, // collectionType
             ValidatorInfo.class,// resourceType
@@ -56,12 +52,10 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
             HttpMethod.GET,
             ValidatorInfoHateosResourceHandler.INSTANCE
         );
-
-        return validator;
     }
 
-    private static HateosResourceSelection<ValidatorName> parseValidatorSelection(final String text,
-                                                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<ValidatorName> parseSelection(final String text,
+                                                                         final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<ValidatorName> selection;
 
         switch (text) {
