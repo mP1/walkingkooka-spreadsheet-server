@@ -40,13 +40,9 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
 
         // exporter GET...............................................................................................
 
-        HateosResourceMappings<SpreadsheetExporterName,
-            SpreadsheetExporterInfo,
-            SpreadsheetExporterInfoSet,
-            SpreadsheetExporterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> exporter = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             SpreadsheetExporterName.HATEOS_RESOURCE_NAME,
-            SpreadsheetExporterHateosResourceMappings::parseExporterSelection,
+            SpreadsheetExporterHateosResourceMappings::parseSelection,
             SpreadsheetExporterInfo.class, // valueType
             SpreadsheetExporterInfoSet.class, // collectionType
             SpreadsheetExporterInfo.class,// resourceType
@@ -56,12 +52,10 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
             HttpMethod.GET,
             SpreadsheetExporterInfoHateosResourceHandler.INSTANCE
         );
-
-        return exporter;
     }
 
-    private static HateosResourceSelection<SpreadsheetExporterName> parseExporterSelection(final String text,
-                                                                                           final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<SpreadsheetExporterName> parseSelection(final String text,
+                                                                                   final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetExporterName> selection;
 
         switch (text) {
