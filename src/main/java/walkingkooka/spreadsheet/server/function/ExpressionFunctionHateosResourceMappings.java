@@ -42,13 +42,9 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
 
         // function GET...............................................................................................
 
-        HateosResourceMappings<ExpressionFunctionName,
-            ExpressionFunctionInfo,
-            ExpressionFunctionInfoSet,
-            ExpressionFunctionInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> function = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
                 FUNCTION,
-                ExpressionFunctionHateosResourceMappings::parseFunctionSelection,
+                ExpressionFunctionHateosResourceMappings::parseSelection,
                 ExpressionFunctionInfo.class, // valueType
                 ExpressionFunctionInfoSet.class, // collectionType
                 ExpressionFunctionInfo.class,// resourceType
@@ -59,12 +55,10 @@ public final class ExpressionFunctionHateosResourceMappings implements PublicSta
                 HttpMethod.GET,
                 ExpressionFunctionInfoHateosResourceHandler.INSTANCE
             );
-
-        return function;
     }
 
-    private static HateosResourceSelection<ExpressionFunctionName> parseFunctionSelection(final String text,
-                                                                                          final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<ExpressionFunctionName> parseSelection(final String text,
+                                                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<ExpressionFunctionName> selection;
 
         switch (text) {
