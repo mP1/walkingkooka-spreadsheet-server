@@ -42,15 +42,11 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
         SpreadsheetEngineHateosResourceHandlerContext> formatter(final SpreadsheetEngineContext context) {
         Objects.requireNonNull(context, "context");
 
-        // formatter GET...............................................................................................
+        // formatter....................................................................................................
 
-        HateosResourceMappings<SpreadsheetFormatterName,
-            SpreadsheetFormatterInfo,
-            SpreadsheetFormatterInfoSet,
-            SpreadsheetFormatterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> formatter = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             SpreadsheetFormatterName.HATEOS_RESOURCE_NAME,
-            SpreadsheetFormatterHateosResourceMappings::parseFormatterSelection,
+            SpreadsheetFormatterHateosResourceMappings::parseSelection,
             SpreadsheetFormatterInfo.class, // valueType
             SpreadsheetFormatterInfoSet.class, // collectionType
             SpreadsheetFormatterInfo.class,// resourceType
@@ -84,12 +80,10 @@ public final class SpreadsheetFormatterHateosResourceMappings implements PublicS
             HttpMethod.GET,
             SpreadsheetFormatterSamplesHateosHttpEntityHandler.instance()
         );
-
-        return formatter;
     }
 
-    private static HateosResourceSelection<SpreadsheetFormatterName> parseFormatterSelection(final String text,
-                                                                                             final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<SpreadsheetFormatterName> parseSelection(final String text,
+                                                                                    final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetFormatterName> selection;
 
         switch (text) {
