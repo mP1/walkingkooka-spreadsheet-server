@@ -40,13 +40,9 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
 
         // parser GET...............................................................................................
 
-        HateosResourceMappings<SpreadsheetParserName,
-            SpreadsheetParserInfo,
-            SpreadsheetParserInfoSet,
-            SpreadsheetParserInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> parser = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             SpreadsheetParserName.HATEOS_RESOURCE_NAME,
-            SpreadsheetParserHateosResourceMappings::parseParserSelection,
+            SpreadsheetParserHateosResourceMappings::parseSelection,
             SpreadsheetParserInfo.class, // valueType
             SpreadsheetParserInfoSet.class, // collectionType
             SpreadsheetParserInfo.class, // resourceType
@@ -68,12 +64,10 @@ public final class SpreadsheetParserHateosResourceMappings implements PublicStat
             HttpMethod.POST,
             SpreadsheetParserProviderNextTokenHateosHttpEntityHandler.instance()
         );
-
-        return parser;
     }
 
-    private static HateosResourceSelection<SpreadsheetParserName> parseParserSelection(final String text,
-                                                                                       final SpreadsheetEngineHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<SpreadsheetParserName> parseSelection(final String text,
+                                                                                 final SpreadsheetEngineHateosResourceHandlerContext context) {
         final HateosResourceSelection<SpreadsheetParserName> selection;
 
         switch (text) {
