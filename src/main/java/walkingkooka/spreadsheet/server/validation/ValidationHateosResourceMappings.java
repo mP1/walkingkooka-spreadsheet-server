@@ -32,13 +32,6 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
 
     // validator.......................................................................................................
 
-    /**
-     * Stop creation
-     */
-    private ValidationHateosResourceMappings() {
-        throw new UnsupportedOperationException();
-    }
-
     public static HateosResourceMappings<ValidatorName,
         ValidatorInfo,
         ValidatorInfoSet,
@@ -85,5 +78,12 @@ public final class ValidationHateosResourceMappings implements PublicStaticHelpe
         }
 
         return selection;
+    }
+
+    /**
+     * Stop creation
+     */
+    private ValidationHateosResourceMappings() {
+        throw new UnsupportedOperationException();
     }
 }
