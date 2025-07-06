@@ -41,11 +41,7 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
 
         // converter GET...............................................................................................
 
-        HateosResourceMappings<ConverterName,
-            ConverterInfo,
-            ConverterInfoSet,
-            ConverterInfo,
-            SpreadsheetEngineHateosResourceHandlerContext> converter = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             CONVERTER,
             ConverterHateosResourceMappings::parseConverterSelection,
             ConverterInfo.class, // valueType
@@ -61,8 +57,6 @@ public final class ConverterHateosResourceMappings implements PublicStaticHelper
             HttpMethod.POST,
             ConverterSelectorVerifyHateosHttpEntityHandler.INSTANCE
         );
-
-        return converter;
     }
 
     private static HateosResourceSelection<ConverterName> parseConverterSelection(final String text,
