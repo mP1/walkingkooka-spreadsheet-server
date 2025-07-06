@@ -43,15 +43,11 @@ final class PluginHttpMappings implements StaticHelper {
         Plugin,
         PluginHateosResourceHandlerContext> plugin() {
 
-        // plugin GET...................................................................................................
+        // plugin ......................................................................................................
 
-        HateosResourceMappings<PluginName,
-            Plugin,
-            PluginSet,
-            Plugin,
-            PluginHateosResourceHandlerContext> plugin = HateosResourceMappings.with(
+        return HateosResourceMappings.with(
             Plugin.HATEOS_RESOURCE_NAME,
-            PluginHttpMappings::parsePluginName,
+            PluginHttpMappings::parseSelector,
             Plugin.class,
             PluginSet.class,
             Plugin.class,
@@ -81,15 +77,13 @@ final class PluginHttpMappings implements StaticHelper {
             HttpMethod.GET,
             PluginHateosHttpEntityHandlerList.INSTANCE
         );
-
-        return plugin;
     }
 
     /**
      * Handles parsing the text into a {@link HateosResourceSelection}.
      */
-    private static HateosResourceSelection<PluginName> parsePluginName(final String text,
-                                                                       final PluginHateosResourceHandlerContext context) {
+    private static HateosResourceSelection<PluginName> parseSelector(final String text,
+                                                                     final PluginHateosResourceHandlerContext context) {
         final HateosResourceSelection<PluginName> result;
 
         switch (text) {
