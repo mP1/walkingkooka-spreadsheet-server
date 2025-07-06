@@ -32,13 +32,6 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
 
     // exporter........................................................................................................
 
-    /**
-     * Stop creation
-     */
-    private SpreadsheetExporterHateosResourceMappings() {
-        throw new UnsupportedOperationException();
-    }
-
     public static HateosResourceMappings<SpreadsheetExporterName,
         SpreadsheetExporterInfo,
         SpreadsheetExporterInfoSet,
@@ -85,5 +78,12 @@ public final class SpreadsheetExporterHateosResourceMappings implements PublicSt
         }
 
         return selection;
+    }
+
+    /**
+     * Stop creation
+     */
+    private SpreadsheetExporterHateosResourceMappings() {
+        throw new UnsupportedOperationException();
     }
 }
