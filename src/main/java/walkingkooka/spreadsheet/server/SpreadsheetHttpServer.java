@@ -256,11 +256,6 @@ public final class SpreadsheetHttpServer implements HttpServer {
                 this.routing(API_LOCALE),
                 httpHandler(this.localeRouter())
             ).add(
-                this.routing(API_COMPARATOR),
-                this.pluginHttpHandler(
-                    serverUrl.setPath(API)
-                )
-            ).add(
                 this.routing(API_PLUGIN),
                 this.pluginHttpHandler(
                     serverUrl.setPath(API)
