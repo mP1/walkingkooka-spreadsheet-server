@@ -159,8 +159,8 @@ These end points may be used to work with available [SpreadsheetFormatterInfoSet
 
 These end points may be used to work with available [SpreadsheetFormHandlerInfoSet](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/provider/FormHandlerInfoSet.java)
 
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formHandler
-- **GET** /api/spreadsheet/[SpreadsheetId](https://github.com/mP1/walkingkooka-spreadsheet/blob/master/src/main/java/walkingkooka/spreadsheet/SpreadsheetId.java)/formHandler/[FormHandlerName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/provider/FormHandlerName.java)
+- **GET** /api/formHandler
+- **GET** /api/formHandler/[FormHandlerName](https://github.com/mP1/walkingkooka-validation/blob/master/src/main/java/walkingkooka/validation/form/provider/FormHandlerName.java)
 
 #### [Expression function](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 

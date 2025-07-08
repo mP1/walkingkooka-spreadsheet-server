@@ -23,7 +23,7 @@ import walkingkooka.net.http.server.hateos.HateosResourceHandler;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleMany;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleNone;
 import walkingkooka.net.http.server.hateos.UnsupportedHateosResourceHandlerHandleRange;
-import walkingkooka.spreadsheet.server.SpreadsheetEngineHateosResourceHandlerContext;
+import walkingkooka.spreadsheet.server.SpreadsheetProviderHateosResourceHandlerContext;
 import walkingkooka.validation.form.provider.FormHandlerInfo;
 import walkingkooka.validation.form.provider.FormHandlerInfoSet;
 import walkingkooka.validation.form.provider.FormHandlerName;
@@ -35,10 +35,10 @@ import java.util.Optional;
  * Provides a single end point to retrieve ALL the {@link FormHandlerInfo} available to this spreadsheet.
  * GETS for individual or a range are not supported and throw {@link UnsupportedOperationException}.
  */
-final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandler<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleMany<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleNone<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetEngineHateosResourceHandlerContext>,
-    UnsupportedHateosResourceHandlerHandleRange<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetEngineHateosResourceHandlerContext> {
+final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandler<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleMany<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleNone<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetProviderHateosResourceHandlerContext>,
+    UnsupportedHateosResourceHandlerHandleRange<FormHandlerName, FormHandlerInfo, FormHandlerInfoSet, SpreadsheetProviderHateosResourceHandlerContext> {
 
     /**
      * Singleton
@@ -53,14 +53,14 @@ final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandle
     public Optional<FormHandlerInfoSet> handleAll(final Optional<FormHandlerInfoSet> infos,
                                                   final Map<HttpRequestAttribute<?>, Object> parameters,
                                                   final UrlPath path,
-                                                  final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                                  final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkResourceEmpty(infos);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
         return Optional.of(
-            context.systemSpreadsheetProvider()
+            context.spreadsheetProvider()
                 .formHandlerInfos()
         );
     }
@@ -70,14 +70,14 @@ final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandle
                                                final Optional<FormHandlerInfo> info,
                                                final Map<HttpRequestAttribute<?>, Object> parameters,
                                                final UrlPath path,
-                                               final SpreadsheetEngineHateosResourceHandlerContext context) {
+                                               final SpreadsheetProviderHateosResourceHandlerContext context) {
         HateosResourceHandler.checkId(name);
         HateosResourceHandler.checkResource(info);
         HateosResourceHandler.checkParameters(parameters);
         HateosResourceHandler.checkPathEmpty(path);
         HateosResourceHandler.checkContext(context);
 
-        return context.systemSpreadsheetProvider()
+        return context.spreadsheetProvider()
             .formHandlerInfos()
             .stream()
             .filter(i -> i.name().equals(name))
@@ -86,6 +86,6 @@ final class FormHandlerInfoHateosResourceHandler implements HateosResourceHandle
 
     @Override
     public String toString() {
-        return "systemSpreadsheetProvider.formHandlerInfos";
+        return "SpreadsheetProvider.formHandlerInfos";
     }
 }
