@@ -8386,7 +8386,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/comparator",
+            "/api/comparator",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8420,7 +8420,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/comparator/day-of-month",
+            "/api/comparator/day-of-month",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
@@ -8438,7 +8438,7 @@ public final class SpreadsheetHttpServerTest extends SpreadsheetHttpServerTestCa
         // save cell B2
         server.handleAndCheck(
             HttpMethod.GET,
-            "/api/spreadsheet/1/comparator/unknown",
+            "/api/comparator/unknown",
             NO_HEADERS_TRANSACTION_ID,
             "",
             this.response(
